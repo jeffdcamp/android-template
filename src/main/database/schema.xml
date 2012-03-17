@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Created by Jeff Campbell on September 9, 2010 -->
+
+<dbSchema xmlns='http://www.soupbowl.net/schema/dbtools/dbschema-1.0.xsd'
+          xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+          xsi:schemaLocation='http://www.soupbowl.net/schema/dbtools/dbschema-1.0.xsd dbschema.xsd'>
+
+    <!--<table name="INDIVIDUAL_TYPE" className="IndividualType" enumerations="HEAD,SPOUSE,CHILD">-->
+        <!--<field name="_id" jdbcDataType="BIGINT" increment="true" primaryKey="true" notNull="true"/>-->
+        <!--<field name="NAME" jdbcDataType="VARCHAR" size="255" notNull="true" unique="true"/>-->
+    <!--</table>-->
+
+    <!--<table name="INDIVIDUAL">-->
+        <!--<field name="_id" jdbcDataType="BIGINT" primaryKey="true" notNull="true"/> &lt;!&ndash; LDS INDIVIDUAL ID &ndash;&gt;-->
+        <!--<field name="HOUSEHOLD_ID" jdbcDataType="BIGINT" foreignKeyTable="HOUSEHOLD" foreignKeyField="_id" notNull="true"/>-->
+        <!--<field name="INDIVIDUAL_TYPE_ID" jdbcDataType="INTEGER" varName="individualType" foreignKeyTable="INDIVIDUAL_TYPE" foreignKeyField="_id" foreignKeyType="ENUM" enumerationDefault="HEAD"/>-->
+        <!--<field name="HOUSEHOLD_ORDER" jdbcDataType="INTEGER" notNull="true"/>-->
+        <!--<field name="DIRECTORY_NAME" jdbcDataType="VARCHAR" size="255" notNull="true"/>-->
+        <!--<field name="BIRTH_DATE" jdbcDataType="DATE"/>-->
+        <!--<field name="PHONE" jdbcDataType="VARCHAR" size="255"/>-->
+        <!--<field name="EMAIL" jdbcDataType="VARCHAR" size="255"/>-->
+        <!--<field name="INDIVIDUAL_IMAGE_ID" jdbcDataType="VARCHAR" size="255"/>-->
+    <!--</table>-->
+</dbSchema>

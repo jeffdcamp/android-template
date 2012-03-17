@@ -1,0 +1,555 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>test</groupId>
+    <artifactId>android-template</artifactId>
+    <version>1.0.0.0-SNAPSHOT</version>
+    <name>Android Template</name>
+    <packaging>apk</packaging>
+
+    <!-- mvn -batch-mode clean release:clean release:prepare release:perform -D releaseVersion=1.1.0-Beta1 -->
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.build.timestamp.format>yyyyMMdd-HHmm</maven.build.timestamp.format>
+        <build.number>${maven.build.timestamp}</build.number>
+        <target.jdk>1.6</target.jdk>
+        <android.version>4.0.1.2</android.version>
+        <!-- for use Maven dependency -->
+        <android.sdk>11</android.sdk>
+        <!-- for android-maven-plugin -->
+        <compatibility.version>r6</compatibility.version>
+        <roboguice.version>2.0b4</roboguice.version>
+    </properties>
+
+    <prerequisites>
+        <maven>3.0.4</maven>
+    </prerequisites>
+
+    <scm>
+        <connection>scm:git:file://${basedir}</connection>
+        <developerConnection>scm:git:file://${basedir}</developerConnection>
+    </scm>
+
+    <dependencies>
+        <!-- NOTE: Roboguice DOES produce the following exception and is a non-issue (http://code.google.com/p/roboguice/issues/detail?id=161): -->
+        <!-- -->
+        <!-- java.io.FileNotFoundException: com/google/inject/internal/util/$Finalizer.class -->
+        <!-- -->
+        <dependency>
+            <groupId>org.roboguice</groupId>
+            <artifactId>roboguice</artifactId>
+            <version>${roboguice.version}</version>
+        </dependency>
+
+        <!-- This dependency is not located in any Central Maven Repo. -->
+        <!-- This project is setup to add this dependency to the Maven local cache when running "mvn clean" -->
+        <!-- prior to "mvn install" (note: "mvn clean install" will NOT work) -->
+        <dependency>
+            <groupId>com.google.android</groupId>
+            <artifactId>support-v4</artifactId>
+            <version>${compatibility.version}</version>
+        </dependency>
+
+
+        <!-- Provided Dependencies -->
+        <dependency>
+            <groupId>com.google.android</groupId>
+            <artifactId>android</artifactId>
+            <version>${android.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>xerces</groupId>
+                    <artifactId>xmlParserAPIs</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- Test Dependencies -->
+        <dependency>
+            <groupId>com.google.android</groupId>
+            <artifactId>android-test</artifactId>
+            <version>${android.version}</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>junit</artifactId>
+                    <groupId>junit</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.10</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.9.0</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <!-- Add support to filter build.properties -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <!-- Make sure we don't try and filter binary files -->
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+        </resources>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+                    <artifactId>android-maven-plugin</artifactId>
+                    <version>3.1.1</version>
+                    <extensions>true</extensions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jxr-plugin</artifactId>
+                    <version>2.3</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>findbugs-maven-plugin</artifactId>
+                    <version>2.4.0</version>
+                    <configuration>
+                        <excludeFilterFile>findbugs-exclude.xml</excludeFilterFile>
+                        <includeFilterFile>rules-findbugs.xml</includeFilterFile>
+                        <!--<includeFilterFile><![CDATA[http://fhmetrics.fsglobal.net:9000/profiles/export?format=findbugs&language=java&name=SonarWayWithFindbugsForNFS]]></includeFilterFile>-->
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-pmd-plugin</artifactId>
+                    <version>2.7.1</version>
+                    <configuration>
+                        <rulesets>
+                            <ruleset>rules-pmd.xml</ruleset>
+                            <!--<ruleset><![CDATA[http://fhmetrics.fsglobal.net:9000/profiles/export?format=pmd&language=java&name=EAT]]></ruleset>-->
+                        </rulesets>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>2.9</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>taglist-maven-plugin</artifactId>
+                    <version>2.4</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>0.5.6.201201232323</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>prepare-agent</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>report</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+                <artifactId>android-maven-plugin</artifactId>
+                <configuration>
+                    <nativeLibrariesDirectory>libs</nativeLibrariesDirectory>
+                    <sdk>
+                        <platform>${android.sdk}</platform>
+                    </sdk>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>update-manifest</id>
+                        <goals>
+                            <goal>manifest-update</goal>
+                        </goals>
+                        <configuration>
+                            <manifest>
+                                <!--<manifestVersionName>${project.version}</manifestVersionName>-->
+                                <!--<versionCodeAutoIncrement>true</versionCodeAutoIncrement>-->
+
+                                <!-- Do not do this because there could be a chance that it will create a lower number.  2.10.603 (version 210,603) vs 3.1.603 (version 31,603) -->
+                                <!--<versionCodeUpdateFromVersion>true</versionCodeUpdateFromVersion>-->
+                                <debuggable>true</debuggable>
+                            </manifest>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>${target.jdk}</source>
+                    <target>${target.jdk}</target>
+                </configuration>
+            </plugin>
+
+            <!-- Helper to show res directory in the IDE -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <!-- make the parse-version visible -->
+                    <execution>
+                        <id>parse-version</id>
+                        <goals>
+                            <goal>parse-version</goal>
+                        </goals>
+                    </execution>
+
+                    <!-- show res dir in the IDE -->
+                    <execution>
+                        <id>add-source</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>res</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.2.2</version>
+                <configuration>
+                    <goals>install</goals>
+                    <releaseProfiles>install-jars,release-apk</releaseProfiles>
+                </configuration>
+            </plugin>
+
+            <!-- show code coverage of unit tests -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.0</version>
+                <configuration>
+                    <reportPlugins>
+                        <!-- Cross-reference plug-in to allow other plugins show source -->
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-jxr-plugin</artifactId>
+                        </plugin>
+
+                        <!-- FindBugs Support -->
+                        <plugin>
+                            <groupId>org.codehaus.mojo</groupId>
+                            <artifactId>findbugs-maven-plugin</artifactId>
+                            <configuration>
+                                <findbugsXmlOutput>true</findbugsXmlOutput>
+                                <findbugsXmlWithMessages>true</findbugsXmlWithMessages>
+                                <xmlOutput>true</xmlOutput>
+                                <excludeFilterFile>findbugs-exclude.xml</excludeFilterFile>
+                                <includeFilterFile>rules-findbugs.xml</includeFilterFile>
+                                <!--<includeFilterFile><![CDATA[http://fhmetrics.fsglobal.net:9000/profiles/export?format=findbugs&language=java&name=SonarWayWithFindbugsForNFS]]></includeFilterFile>-->
+                            </configuration>
+                        </plugin>
+
+                        <!-- PMD Support -->
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-pmd-plugin</artifactId>
+                            <reportSets>
+                                <reportSet>
+                                    <reports>
+                                        <report>pmd</report>
+                                        <report>cpd</report>
+                                    </reports>
+                                </reportSet>
+                            </reportSets>
+                            <configuration>
+                                <format>xml</format>
+                                <linkXref>true</linkXref>
+                                <targetJdk>${target.jdk}</targetJdk>
+                            </configuration>
+                        </plugin>
+
+                        <!-- Checkstyle -->
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-checkstyle-plugin</artifactId>
+                            <configuration>
+                                <configLocation>rules-checkstyle.xml</configLocation>
+                                <!--<![CDATA[http://fhmetrics.fsglobal.net:9000/profiles/export?format=checkstyle&language=java&name=EAT]]>-->
+                            </configuration>
+                        </plugin>
+
+                        <!-- Code Coverage -->
+                        <plugin>
+                            <groupId>org.jacoco</groupId>
+                            <artifactId>jacoco-maven-plugin</artifactId>
+                        </plugin>
+
+                        <!-- Taglist (list of TODOs and FIXMEs) -->
+                        <plugin>
+                            <groupId>org.codehaus.mojo</groupId>
+                            <artifactId>taglist-maven-plugin</artifactId>
+                            <configuration>
+                                <tags>
+                                    <tag>TODO</tag>
+                                    <tag>FIXME</tag>
+                                    <tag>@todo</tag>
+                                    <tag>@deprecated</tag>
+                                </tags>
+                            </configuration>
+                        </plugin>
+                    </reportPlugins>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>http://repo1.maven.org/maven2</url>
+            <name>override of central to include snapshots</name>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>central</id>
+            <url>http://repo1.maven.org/maven2</url>
+            <name>override of central to include snapshots</name>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <profiles>
+        <!-- Sign jars support -->
+        <profile>
+            <id>release-apk</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jarsigner-plugin</artifactId>
+                        <version>1.2</version>
+                        <executions>
+                            <execution>
+                                <id>signing</id>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                                <phase>package</phase>
+                                <inherited>true</inherited>
+                                <configuration>
+                                    <includes>
+                                        <include>target/*.apk</include>
+                                    </includes>
+                                    <keystore>${keystore.path}</keystore>
+                                    <storepass>${keystore.store.password}</storepass>
+                                    <keypass>${keystore.key.password}</keypass>
+                                    <alias>${keystore.alias}</alias>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.2.1</version>
+                        <executions>
+                            <execution>
+                                <id>zipalign</id>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <phase>install</phase>
+                                <configuration>
+                                    <executable>${env.ANDROID_HOME}/tools/zipalign</executable>
+                                    <arguments>
+                                        <argument>-f</argument>
+                                        <argument>4</argument>
+                                        <argument>target/${project.build.finalName}.apk</argument>
+                                        <argument>target/lt-${build.number}-${project.version}-z.apk</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+                        <artifactId>android-maven-plugin</artifactId>
+                        <inherited>true</inherited>
+                        <configuration>
+                            <sign>
+                                <debug>false</debug>
+                            </sign>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- Skip Tests -->
+        <profile>
+            <id>skip-tests</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- DBTools Support -->
+        <profile>
+            <id>dbtools</id>
+            <repositories>
+                <repository>
+                    <id>soupbowl</id>
+                    <name>Soupbowl Nexus Mirror</name>
+                    <url>http://www.soupbowl.net/nexus/content/groups/public</url>
+                </repository>
+            </repositories>
+            <build>
+                <plugins>
+                    <!-- DBTools Generator -->
+                    <!-- commented out because the plugin is NOT YET available in the lds repo -->
+                    <!-- useage: mvn jdc.plugins:maven-dbtools-plugin:genclasses -->
+                    <!-- Uncomment out the soupbowl repo to use this plugin
+                    -->
+                    <plugin>
+                        <groupId>jdc.plugins</groupId>
+                        <artifactId>maven-dbtools-plugin</artifactId>
+                        <version>2.3.1</version>
+                        <configuration>
+                            <basePackageName>org.lds.ldstools.domain</basePackageName>
+                            <rendererClasspath>com.jdc.db.objects.android.AndroidInjectionDBObjectBuilder
+                            </rendererClasspath>
+                            <schemaDir>${basedir}/src/main/database</schemaDir>
+                            <dbVendor>sqlite</dbVendor>
+                            <includeXMLSupport>false</includeXMLSupport>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- support pulling latest roboguice from snapshot -->
+        <profile>
+            <id>roboguice.from.snapshot</id>
+            <repositories>
+                <repository>
+                    <id>central</id>
+                    <url>http://repo1.maven.org/maven2</url>
+                    <name>override of central to include snapshots</name>
+                </repository>
+
+                <!-- to support roboguice SNAPSHOTS -->
+                <repository>
+                    <id>oss-sonatype</id>
+                    <name>oss-sonatype</name>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+        </profile>
+
+
+        <!-- Install jars into local cache that DO NOT exist in Maven central -->
+        <profile>
+            <id>install-jars</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+
+            <!-- by using the specific robo guice jar inserted into the cache, it does NOT come with the pom.xml
+                 and its pom.xml dependencies.... so manually put them in here -->
+            <!--<dependencies>-->
+                <!--<dependency>-->
+                    <!--<groupId>com.google.inject</groupId>-->
+                    <!--<artifactId>guice</artifactId>-->
+                    <!--<version>3.0</version>-->
+                    <!--<classifier>no_aop</classifier>-->
+                <!--</dependency>-->
+            <!--</dependencies>-->
+
+            <build>
+                <plugins>
+                    <!-- Work around for missing dependency in central repo and no community nexus repo -->
+                    <!-- The following command must be run prior to running any other mvn command -->
+                    <!-- mvn clean -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-install-plugin</artifactId>
+                        <version>2.3.1</version>
+                        <executions>
+                            <!--<execution>-->
+                                <!--<id>install-roboguice</id>-->
+                                <!--<phase>clean</phase>-->
+                                <!--<goals>-->
+                                    <!--<goal>install-file</goal>-->
+                                <!--</goals>-->
+                                <!--<configuration>-->
+                                    <!--<file>${project.basedir}/libs/roboguice-${roboguice.version}.jar</file>-->
+                                    <!--<groupId>org.roboguice</groupId>-->
+                                    <!--<artifactId>roboguice</artifactId>-->
+                                    <!--<version>${roboguice.version}</version>-->
+                                    <!--<packaging>jar</packaging>-->
+                                    <!--<createChecksum>true</createChecksum>-->
+                                    <!--<generatePom>true</generatePom>-->
+                                <!--</configuration>-->
+                            <!--</execution>-->
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+    </profiles>
+
+
+</project>

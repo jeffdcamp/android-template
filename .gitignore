@@ -1,0 +1,26 @@
+# Temp files
+*~
+
+# NetBeans
+nb-configuration.xml
+# nbactions.xml
+
+# Eclipse
+.settings
+.classpath
+.project
+.mymetadata
+
+# IDEA
+.idea/
+*.ipr
+*.iml
+*.iws
+
+# Maven
+target/
+
+# Android
+classes/
+bin/
+gen/
