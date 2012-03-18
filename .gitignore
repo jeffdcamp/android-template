@@ -24,3 +24,4 @@ target/
 classes/
 bin/
 gen/
+gen-external-apklibs/

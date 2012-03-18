@@ -1,13 +1,13 @@
 package org.company.project.activity;
 
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 import org.company.project.R;
+import roboguice.activity.RoboPreferenceActivity;
 
 /**
  * @author jcampbell
  */
-public class SettingsActivity extends PreferenceActivity {
+public class SettingsActivity extends RoboPreferenceActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
