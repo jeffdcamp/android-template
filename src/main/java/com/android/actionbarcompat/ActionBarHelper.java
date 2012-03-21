@@ -54,19 +54,19 @@ public abstract class ActionBarHelper {
     }
 
     /**
-     * Action bar helper code to be run in {@link android.app.Activity#onCreate(android.os.Bundle)}.
+     * Action bar helper code to be run in {@link Activity#onCreate(android.os.Bundle)}.
      */
     public void onCreate(Bundle savedInstanceState) {
     }
 
     /**
-     * Action bar helper code to be run in {@link android.app.Activity#onPostCreate(android.os.Bundle)}.
+     * Action bar helper code to be run in {@link Activity#onPostCreate(android.os.Bundle)}.
      */
     public void onPostCreate(Bundle savedInstanceState) {
     }
 
     /**
-     * Action bar helper code to be run in {@link android.app.Activity#onCreateOptionsMenu(android.view.Menu)}.
+     * Action bar helper code to be run in {@link Activity#onCreateOptionsMenu(android.view.Menu)}.
      *
      * NOTE: Setting the visibility of menu items in <em>menu</em> is not currently supported.
      */
@@ -75,17 +75,19 @@ public abstract class ActionBarHelper {
     }
 
     /**
-     * Action bar helper code to be run in {@link android.app.Activity#onTitleChanged(CharSequence, int)}.
+     * Action bar helper code to be run in {@link Activity#onTitleChanged(CharSequence, int)}.
      */
-    public void onTitleChanged(CharSequence title, int color) {
-
-    }
-
-    public void disableHomeIcon() {
+    protected void onTitleChanged(CharSequence title, int color) {
     }
 
     /**
-     * Returns a {@link android.view.MenuInflater} for use when inflating menus. The implementation of this
+     * Sets the indeterminate loading state of the item with ID.
+     * (where the item ID was menu_refresh).
+     */
+    public abstract void setRefreshActionItemState(boolean refreshing);
+
+    /**
+     * Returns a {@link MenuInflater} for use when inflating menus. The implementation of this
      * method in {@link ActionBarHelperBase} returns a wrapped menu inflater that can read
      * action bar metadata from a menu resource pre-Honeycomb.
      */

@@ -1,7 +1,10 @@
 package org.company.project;
 
+import android.app.Activity;
 import android.app.Application;
+import android.content.Intent;
 import android.util.Log;
+import org.company.project.activity.MainActivity;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -18,6 +21,13 @@ public class MyApplication extends Application {
     public static String createTag(String name) {
         String fullName = DEFAULT_TAG_PREFIX + name;
         return fullName.length() > MAX_TAG_LENGTH ? fullName.substring(0, MAX_TAG_LENGTH) : fullName;
+    }
+
+    public static void navigateHome(Activity activity) {
+        Intent mainIntent = new Intent(activity, MainActivity.class);
+        mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // remove all open activities
+        activity.startActivity(mainIntent);
+        activity.finish();
     }
 
     public static String createTag(Class clazz) {

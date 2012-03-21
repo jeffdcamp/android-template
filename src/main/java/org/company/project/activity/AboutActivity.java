@@ -5,6 +5,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.TextView;
 import com.android.actionbarcompat.RoboActionBarActivity;
 import org.company.project.MyApplication;
@@ -51,5 +52,16 @@ public class AboutActivity extends RoboActionBarActivity {
             Log.d(TAG, "Cannon find version name");
         }
         return versionString;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                MyApplication.navigateHome(this);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

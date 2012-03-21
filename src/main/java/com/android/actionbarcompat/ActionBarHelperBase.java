@@ -21,10 +21,7 @@ import android.content.Context;
 import android.content.res.XmlResourceParser;
 import android.os.Bundle;
 import android.view.*;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.*;
 import org.company.project.R;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -56,7 +53,8 @@ public class ActionBarHelperBase extends ActionBarHelper {
     /**{@inheritDoc}*/
     @Override
     public void onPostCreate(Bundle savedInstanceState) {
-        mActivity.getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.actionbar_compat);
+        mActivity.getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,
+                R.layout.actionbar_compat);
         setupActionBar();
 
         SimpleMenu menu = new SimpleMenu(mActivity);
@@ -87,7 +85,7 @@ public class ActionBarHelperBase extends ActionBarHelper {
         SimpleMenu tempMenu = new SimpleMenu(mActivity);
         SimpleMenuItem homeItem = new SimpleMenuItem(
                 tempMenu, android.R.id.home, 0, mActivity.getString(R.string.app_name));
-        homeItem.setIcon(R.drawable.app_icon);
+        homeItem.setIcon(R.drawable.ic_home);
         addActionItemCompatFromMenuItem(homeItem);
 
         // Add title text
@@ -96,24 +94,24 @@ public class ActionBarHelperBase extends ActionBarHelper {
         titleText.setText(mActivity.getTitle());
         actionBarCompat.addView(titleText);
     }
-    
+
+    /**{@inheritDoc}*/
     @Override
-    public void disableHomeIcon() {
-    	final ViewGroup actionBar = getActionBarCompat();
-        if (actionBar == null) {
-            return;
+    public void setRefreshActionItemState(boolean refreshing) {
+        View refreshButton = mActivity.findViewById(R.id.actionbar_compat_item_refresh);
+        View refreshIndicator = mActivity.findViewById(
+                R.id.actionbar_compat_item_refresh_progress);
+
+        if (refreshButton != null) {
+            refreshButton.setVisibility(refreshing ? View.GONE : View.VISIBLE);
         }
-        
-        View homeIcon = actionBar.findViewById(android.R.id.home);
-        if (homeIcon == null) {
-        	return;
+        if (refreshIndicator != null) {
+            refreshIndicator.setVisibility(refreshing ? View.VISIBLE : View.GONE);
         }
-        
-        actionBar.removeView(homeIcon);
     }
 
     /**
-     * Action bar helper code to be run in {@link android.app.Activity#onCreateOptionsMenu(android.view.Menu)}.
+     * Action bar helper code to be run in {@link Activity#onCreateOptionsMenu(android.view.Menu)}.
      *
      * NOTE: This code will mark on-screen menu items as invisible.
      */
@@ -128,7 +126,7 @@ public class ActionBarHelperBase extends ActionBarHelper {
 
     /**{@inheritDoc}*/
     @Override
-	public void onTitleChanged(CharSequence title, int color) {
+    protected void onTitleChanged(CharSequence title, int color) {
         TextView titleView = (TextView) mActivity.findViewById(R.id.actionbar_compat_title);
         if (titleView != null) {
             titleView.setText(title);
@@ -155,7 +153,7 @@ public class ActionBarHelperBase extends ActionBarHelper {
      * Adds an action button to the compatibility action bar, using menu information from a {@link
      * android.view.MenuItem}. If the menu item ID is <code>menu_refresh</code>, the menu item's
      * state can be changed to show a loading spinner using
-     * com.example.android.actionbarcompat.ActionBarHelperBase#setRefreshActionItemState(boolean)
+     * {@link com.example.android.actionbarcompat.ActionBarHelperBase#setRefreshActionItemState(boolean)}.
      */
     private View addActionItemCompatFromMenuItem(final MenuItem item) {
         final int itemId = item.getItemId();
@@ -176,6 +174,9 @@ public class ActionBarHelperBase extends ActionBarHelper {
                                 ? R.dimen.actionbar_compat_button_home_width
                                 : R.dimen.actionbar_compat_button_width),
                 ViewGroup.LayoutParams.FILL_PARENT));
+        if (itemId == R.id.menu_refresh) {
+            actionButton.setId(R.id.actionbar_compat_item_refresh);
+        }
         actionButton.setImageDrawable(item.getIcon());
         actionButton.setScaleType(ImageView.ScaleType.CENTER);
         actionButton.setContentDescription(item.getTitle());
@@ -186,6 +187,29 @@ public class ActionBarHelperBase extends ActionBarHelper {
         });
 
         actionBar.addView(actionButton);
+
+        if (item.getItemId() == R.id.menu_refresh) {
+            // Refresh buttons should be stateful, and allow for indeterminate progress indicators,
+            // so add those.
+            ProgressBar indicator = new ProgressBar(mActivity, null,
+                    R.attr.actionbarCompatProgressIndicatorStyle);
+
+            final int buttonWidth = mActivity.getResources().getDimensionPixelSize(R.dimen.actionbar_compat_button_width);
+            final int buttonHeight = mActivity.getResources().getDimensionPixelSize(R.dimen.actionbar_compat_height);
+            final int progressIndicatorWidth = buttonWidth / 2;
+
+            LinearLayout.LayoutParams indicatorLayoutParams = new LinearLayout.LayoutParams(
+                    progressIndicatorWidth, progressIndicatorWidth);
+            indicatorLayoutParams.setMargins(
+                    (buttonWidth - progressIndicatorWidth) / 2,
+                    (buttonHeight - progressIndicatorWidth) / 2,
+                    (buttonWidth - progressIndicatorWidth) / 2,
+                    0);
+            indicator.setLayoutParams(indicatorLayoutParams);
+            indicator.setVisibility(View.GONE);
+            indicator.setId(R.id.actionbar_compat_item_refresh_progress);
+            actionBar.addView(indicator);
+        }
 
         return actionButton;
     }

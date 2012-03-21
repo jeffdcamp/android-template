@@ -16,12 +16,12 @@
 
 package com.android.actionbarcompat;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 
 /**
- * An extension of {@link com.example.android.actionbarcompat.ActionBarHelper} that provides Android
+ * An extension of ActionBarHelper that provides Android
  * 4.0-specific functionality for IceCreamSandwich devices. It thus requires API level 14.
  */
 public class ActionBarHelperICS extends ActionBarHelperHoneycomb {
@@ -30,12 +30,17 @@ public class ActionBarHelperICS extends ActionBarHelperHoneycomb {
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Enable the home button on ICS (disabled by default)
+        if (mActivity != null && mActivity.getActionBar() != null) {
+            mActivity.getActionBar().setHomeButtonEnabled(true);
+        }
+    }
+
+    @Override
     protected Context getActionBarThemedContext() {
         return mActivity.getActionBar().getThemedContext();
-    }
-    
-    @Override
-    public void disableHomeIcon() {
-    	mActivity.getActionBar().setDisplayOptions(0, ActionBar.DISPLAY_SHOW_HOME);
     }
 }

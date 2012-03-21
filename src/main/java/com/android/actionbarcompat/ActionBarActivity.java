@@ -16,6 +16,7 @@
 
 package com.android.actionbarcompat;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,7 +29,7 @@ import roboguice.activity.RoboFragmentActivity;
  * NOTE: dynamically marking menu items as invisible/visible is not currently supported.
  *
  * NOTE: this may used with the Android Compatibility Package by extending
- * android.support.v4.app.FragmentActivity instead of {@link android.app.Activity}.
+ * android.support.v4.app.FragmentActivity instead of {@link Activity}.
  */
 public abstract class ActionBarActivity extends RoboFragmentActivity {
     final ActionBarHelper mActionBarHelper = ActionBarHelper.createInstance(this);
@@ -62,7 +63,7 @@ public abstract class ActionBarActivity extends RoboFragmentActivity {
 
     /**
      * Base action bar-aware implementation for
-     * {@link android.app.Activity#onCreateOptionsMenu(android.view.Menu)}.
+     * {@link Activity#onCreateOptionsMenu(android.view.Menu)}.
      *
      * Note: marking menu items as invisible/visible is not currently supported.
      */

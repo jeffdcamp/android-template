@@ -16,18 +16,21 @@
 
 package com.android.actionbarcompat;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import org.company.project.R;
 
 /**
  * An extension of {@link ActionBarHelper} that provides Android 3.0-specific functionality for
  * Honeycomb tablets. It thus requires API level 11.
  */
 public class ActionBarHelperHoneycomb extends ActionBarHelper {
-    @SuppressWarnings("unused")
-	private Menu mOptionsMenu;
+    private Menu mOptionsMenu;
+    private View mRefreshIndeterminateProgressView = null;
 
     protected ActionBarHelperHoneycomb(Activity activity) {
         super(activity);
@@ -39,17 +42,38 @@ public class ActionBarHelperHoneycomb extends ActionBarHelper {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public void setRefreshActionItemState(boolean refreshing) {
+        // On Honeycomb, we can set the state of the refresh button by giving it a custom
+        // action view.
+        if (mOptionsMenu == null) {
+            return;
+        }
+
+        final MenuItem refreshItem = mOptionsMenu.findItem(R.id.menu_refresh);
+        if (refreshItem != null) {
+            if (refreshing) {
+                if (mRefreshIndeterminateProgressView == null) {
+                    LayoutInflater inflater = (LayoutInflater)
+                            getActionBarThemedContext().getSystemService(
+                                    Context.LAYOUT_INFLATER_SERVICE);
+                    mRefreshIndeterminateProgressView = inflater.inflate(
+                            R.layout.actionbar_indeterminate_progress, null);
+                }
+
+                refreshItem.setActionView(mRefreshIndeterminateProgressView);
+            } else {
+                refreshItem.setActionView(null);
+            }
+        }
+    }
+
     /**
-     * Returns a {@link android.content.Context} suitable for inflating layouts for the action bar. The
+     * Returns a {@link Context} suitable for inflating layouts for the action bar. The
      * implementation for this method in {@link ActionBarHelperICS} asks the action bar for a
      * themed context.
      */
     protected Context getActionBarThemedContext() {
         return mActivity;
-    }
-    
-    @Override
-    public void disableHomeIcon() {
-    	mActivity.getActionBar().setDisplayOptions(0, ActionBar.DISPLAY_SHOW_HOME);
     }
 }

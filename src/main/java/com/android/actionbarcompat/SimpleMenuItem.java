@@ -18,7 +18,11 @@ package com.android.actionbarcompat;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.view.*;
+import android.view.ActionProvider;
+import android.view.ContextMenu;
+import android.view.MenuItem;
+import android.view.SubMenu;
+import android.view.View;
 
 /**
  * A <em>really</em> dumb implementation of the {@link android.view.MenuItem} interface, that's only
