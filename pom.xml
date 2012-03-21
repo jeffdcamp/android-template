@@ -19,7 +19,7 @@
         <android.sdk>15</android.sdk>
         <!-- for android-maven-plugin -->
         <compatibility.version>r6</compatibility.version>
-        <roboguice.version>2.0b4</roboguice.version>
+        <roboguice.version>2.0-RC1</roboguice.version>
     </properties>
 
     <prerequisites>
