@@ -6,10 +6,9 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
+import com.android.actionbarcompat.RoboActionBarActivity;
 import org.company.project.MyApplication;
 import org.company.project.R;
-import roboguice.activity.RoboActivity;
-import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 
 import javax.inject.Inject;
@@ -18,8 +17,8 @@ import javax.inject.Inject;
  * 
  * @author jcampbell
  */
-@ContentView(R.layout.about)
-public class AboutActivity extends RoboActivity {
+
+public class AboutActivity extends RoboActionBarActivity {
     public static final String TAG = MyApplication.createTag(Activity.class);
 
     @Inject
@@ -38,6 +37,7 @@ public class AboutActivity extends RoboActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.about);
 
         versionTextView.setText(getVersionName());
     }

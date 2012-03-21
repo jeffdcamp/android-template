@@ -6,18 +6,18 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import com.android.actionbarcompat.RoboActionBarActivity;
 import org.company.project.MyApplication;
 import org.company.project.R;
-import roboguice.activity.RoboActivity;
-import roboguice.inject.ContentView;
 
-@ContentView(R.layout.main)
-public class MainActivity extends RoboActivity {
+//@ContentView(R.layout.main) // cannot call this because of a compatibility issue with the ActionBar (use setContentView instead)
+public class MainActivity extends RoboActionBarActivity {
     public static final String TAG = MyApplication.createTag(MainActivity.class);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
     }
 
