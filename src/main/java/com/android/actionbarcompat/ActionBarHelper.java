@@ -81,7 +81,7 @@ public abstract class ActionBarHelper {
     }
 
     /**
-     * Sets the indeterminate loading state of the item with ID.
+     * Sets the indeterminate loading state of the item with ID {@link R.id.menu_refresh}.
      * (where the item ID was menu_refresh).
      */
     public abstract void setRefreshActionItemState(boolean refreshing);

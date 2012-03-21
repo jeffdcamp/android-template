@@ -194,8 +194,10 @@ public class ActionBarHelperBase extends ActionBarHelper {
             ProgressBar indicator = new ProgressBar(mActivity, null,
                     R.attr.actionbarCompatProgressIndicatorStyle);
 
-            final int buttonWidth = mActivity.getResources().getDimensionPixelSize(R.dimen.actionbar_compat_button_width);
-            final int buttonHeight = mActivity.getResources().getDimensionPixelSize(R.dimen.actionbar_compat_height);
+            final int buttonWidth = mActivity.getResources().getDimensionPixelSize(
+                    R.dimen.actionbar_compat_button_width);
+            final int buttonHeight = mActivity.getResources().getDimensionPixelSize(
+                    R.dimen.actionbar_compat_height);
             final int progressIndicatorWidth = buttonWidth / 2;
 
             LinearLayout.LayoutParams indicatorLayoutParams = new LinearLayout.LayoutParams(
