@@ -5,26 +5,26 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.TextView;
+import com.android.actionbarcompat.RoboActionBarActivity;
 import org.company.project.MyApplication;
 import org.company.project.R;
-import roboguice.activity.RoboActivity;
-import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 
 import javax.inject.Inject;
 
 /**
- * 
+ *
  * @author jcampbell
  */
-@ContentView(R.layout.about)
-public class AboutActivity extends RoboActivity {
+
+public class AboutActivity extends RoboActionBarActivity {
     public static final String TAG = MyApplication.createTag(Activity.class);
 
     @Inject
     private MyApplication myApplication;
-    
+
     @InjectView(R.id.version_info)
     private TextView versionTextView;
 
@@ -38,6 +38,7 @@ public class AboutActivity extends RoboActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.about);
 
         versionTextView.setText(getVersionName());
     }
@@ -51,5 +52,16 @@ public class AboutActivity extends RoboActivity {
             Log.d(TAG, "Cannon find version name");
         }
         return versionString;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                MyApplication.navigateHome(this);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

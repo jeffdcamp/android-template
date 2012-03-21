@@ -1,7 +1,10 @@
 package org.company.project;
 
+import android.app.Activity;
 import android.app.Application;
+import android.content.Intent;
 import android.util.Log;
+import org.company.project.activity.MainActivity;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -15,9 +18,22 @@ public class MyApplication extends Application {
     public static final String DEFAULT_TAG_PREFIX = "myApp.";  // TODO change this for your app
     public static final int MAX_TAG_LENGTH = 23; // if over: IllegalArgumentException: Log tag "xxx" exceeds limit of 23 characters
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        enableStrictMode();
+    }
+
     public static String createTag(String name) {
         String fullName = DEFAULT_TAG_PREFIX + name;
         return fullName.length() > MAX_TAG_LENGTH ? fullName.substring(0, MAX_TAG_LENGTH) : fullName;
+    }
+
+    public static void navigateHome(Activity activity) {
+        Intent mainIntent = new Intent(activity, MainActivity.class);
+        mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // remove all open activities
+        activity.startActivity(mainIntent);
+        activity.finish();
     }
 
     public static String createTag(Class clazz) {
@@ -40,4 +56,27 @@ public class MyApplication extends Application {
             return "Not available";
         }
     }
+
+    /**
+     * Enable strict mode
+     * This only works if compiling against android 2.3 or greater
+     * also, this will crash on devices running on less than 2.3
+     */
+    private void enableStrictMode() {
+//		boolean strict = true;
+//		if (strict) {
+//			android.os.StrictMode.setThreadPolicy(new android.os.StrictMode.ThreadPolicy.Builder()
+//			//.detectDiskReads()
+//			.detectDiskWrites()
+//			.detectNetwork()   // or .detectAll() for all detectable problems
+//			.penaltyLog()
+//			.build());
+//			android.os.StrictMode.setVmPolicy(new android.os.StrictMode.VmPolicy.Builder()
+//			.detectLeakedSqlLiteObjects()
+//			.penaltyLog()
+//			.penaltyDeath()
+//			.build());
+//		}
+    }
+
 }

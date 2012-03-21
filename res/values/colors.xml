@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- ActionBar Support -->
+    <color name="actionbar_title_color">#000000</color>
+
+    <!-- Application -->
     <color name="blue_background">#ff44536c</color>
     <color name="white_background">#ffffffff</color>
 </resources>
