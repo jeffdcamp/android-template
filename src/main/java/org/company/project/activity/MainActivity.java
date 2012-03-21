@@ -3,16 +3,16 @@ package org.company.project.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import org.company.project.MyApplication;
 import org.company.project.R;
-import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
 
 @ContentView(R.layout.main)
-public class MainActivity extends RoboActivity {
+public class MainActivity extends SherlockActivity {
     public static final String TAG = MyApplication.createTag(MainActivity.class);
 
     @Override
@@ -26,14 +26,14 @@ public class MainActivity extends RoboActivity {
         super.onResume();
     }
 
-    @Override
+//    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
+        MenuInflater inflater = getSupportMenuInflater();
         inflater.inflate(R.menu.common, menu);
         return true;
     }
 
-    @Override
+//    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_search:
