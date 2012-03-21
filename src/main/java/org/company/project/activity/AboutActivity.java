@@ -14,7 +14,7 @@ import roboguice.inject.InjectView;
 import javax.inject.Inject;
 
 /**
- * 
+ *
  * @author jcampbell
  */
 
@@ -23,7 +23,7 @@ public class AboutActivity extends RoboActionBarActivity {
 
     @Inject
     private MyApplication myApplication;
-    
+
     @InjectView(R.id.version_info)
     private TextView versionTextView;
 

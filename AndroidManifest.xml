@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         
-        <activity android:name=".activity.AboutActivity"/>
+        <activity android:name=".activity.AboutActivity" android:theme="@style/AppTheme"/>
 
         <activity android:label="@string/pref_title" android:name=".activity.SettingsActivity"/>
     </application>
