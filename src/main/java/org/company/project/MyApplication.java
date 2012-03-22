@@ -63,20 +63,18 @@ public class MyApplication extends Application {
      * also, this will crash on devices running on less than 2.3
      */
     private void enableStrictMode() {
-//		boolean strict = true;
-//		if (strict) {
-//			android.os.StrictMode.setThreadPolicy(new android.os.StrictMode.ThreadPolicy.Builder()
-//			//.detectDiskReads()
-//			.detectDiskWrites()
-//			.detectNetwork()   // or .detectAll() for all detectable problems
-//			.penaltyLog()
-//			.build());
-//			android.os.StrictMode.setVmPolicy(new android.os.StrictMode.VmPolicy.Builder()
-//			.detectLeakedSqlLiteObjects()
-//			.penaltyLog()
-//			.penaltyDeath()
-//			.build());
-//		}
+        android.os.StrictMode.setThreadPolicy(new android.os.StrictMode.ThreadPolicy.Builder()
+                //.detectDiskReads()
+                .detectDiskWrites()
+                .detectNetwork()   // or .detectAll() for all detectable problems
+                .penaltyLog()
+                .build());
+
+        android.os.StrictMode.setVmPolicy(new android.os.StrictMode.VmPolicy.Builder()
+                .detectLeakedSqlLiteObjects()
+                .penaltyLog()
+                .penaltyDeath()
+                .build());
     }
 
 }

@@ -4,6 +4,8 @@
     <color name="actionbar_title_color">#000000</color>
 
     <!-- Application -->
+    <color name="startup_background_start">#cfe1edFF</color>
+    <color name="startup_background_end">#7faacaFF</color>
     <color name="blue_background">#ff44536c</color>
     <color name="white_background">#ffffffff</color>
 </resources>
