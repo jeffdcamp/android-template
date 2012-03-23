@@ -2,7 +2,7 @@ package org.company.project.activity;
 
 import android.os.Bundle;
 import org.company.project.R;
-import org.company.project.widget.activity.RoboSherlockPreferenceActivity;
+import org.company.project.widget.robosherlock.activity.RoboSherlockPreferenceActivity;
 
 /**
  * @author jcampbell

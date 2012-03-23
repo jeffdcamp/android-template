@@ -8,7 +8,7 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import org.company.project.MyApplication;
 import org.company.project.R;
-import org.company.project.widget.activity.RoboSherlockActivity;
+import org.company.project.widget.robosherlock.activity.RoboSherlockActivity;
 import roboguice.inject.ContentView;
 
 @ContentView(R.layout.main)

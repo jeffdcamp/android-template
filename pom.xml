@@ -47,10 +47,6 @@
             <version>4.0.0</version>
             <type>apklib</type>
         </dependency>
-
-        <!-- This dependency is not located in any Central Maven Repo. -->
-        <!-- This project is setup to add this dependency to the Maven local cache when running "mvn clean" -->
-        <!-- prior to "mvn install" (note: "mvn clean install" will NOT work) -->
         <dependency>
             <groupId>com.google.android</groupId>
             <artifactId>support-v4</artifactId>

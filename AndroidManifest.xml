@@ -24,6 +24,6 @@
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.AboutActivity"/>
 
-        <activity android:label="@string/pref_title" android:name=".activity.SettingsActivity" android:theme="@style/Theme.Sherlock"/>
+        <activity android:label="@string/pref_title" android:name=".activity.SettingsActivity" android:theme="@style/SettingsTheme"/>
     </application>
 </manifest>

@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.actionbarsherlock.view.MenuItem;
 import org.company.project.MyApplication;
 import org.company.project.R;
-import org.company.project.widget.activity.RoboSherlockActivity;
+import org.company.project.widget.robosherlock.activity.RoboSherlockActivity;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 
