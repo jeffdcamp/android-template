@@ -1,3 +1,16 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- BE SURE TO MATCH KEYS WITH VALUES IN Prefs.java -->
+
+    <PreferenceCategory
+            android:key="general_category"
+            android:title="@string/pref_category_general">
+
+        <CheckBoxPreference
+                android:title="@string/pref_enable_something"
+                android:key="pref_enable_something_id"
+                android:defaultValue="false"
+                android:summary="@string/pref_enable_something_summary">
+        </CheckBoxPreference>
+    </PreferenceCategory>
+
 </PreferenceScreen>
