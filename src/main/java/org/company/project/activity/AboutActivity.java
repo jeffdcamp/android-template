@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
-import com.android.actionbarcompat.RoboActionBarActivity;
 import org.company.project.MyApplication;
 import org.company.project.R;
 import roboguice.inject.InjectView;
@@ -19,7 +18,7 @@ import javax.inject.Inject;
  * @author jcampbell
  */
 
-public class AboutActivity extends RoboActionBarActivity {
+public class AboutActivity extends Activity {
     public static final String TAG = MyApplication.createTag(Activity.class);
 
     @Inject

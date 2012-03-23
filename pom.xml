@@ -41,6 +41,17 @@
             <artifactId>roboguice</artifactId>
             <version>${roboguice.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.actionbarsherlock</groupId>
+            <artifactId>library</artifactId>
+            <version>4.0.0</version>
+            <type>apklib</type>
+        </dependency>
+        <dependency>
+            <groupId>com.github.rtyley</groupId>
+            <artifactId>roboguice-sherlock</artifactId>
+            <version>1.2-SNAPSHOT</version>
+        </dependency>
 
         <!-- This dependency is not located in any Central Maven Repo. -->
         <!-- This project is setup to add this dependency to the Maven local cache when running "mvn clean" -->
@@ -341,6 +352,10 @@
             <id>central</id>
             <url>http://repo1.maven.org/maven2</url>
             <name>override of central to include snapshots</name>
+        </repository>
+        <repository>
+            <id>jakewharton</id>
+            <url>http://r.jakewharton.com/maven/release/</url>
         </repository>
     </repositories>
 
