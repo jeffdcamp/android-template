@@ -2,12 +2,12 @@ package org.company.project.activity;
 
 import android.os.Bundle;
 import org.company.project.R;
-import roboguice.activity.RoboPreferenceActivity;
+import org.company.project.widget.activity.RoboSherlockPreferenceActivity;
 
 /**
  * @author jcampbell
  */
-public class SettingsActivity extends RoboPreferenceActivity {
+public class SettingsActivity extends RoboSherlockPreferenceActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

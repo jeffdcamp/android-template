@@ -4,13 +4,14 @@ import android.os.Bundle;
 import org.company.project.R;
 import org.company.project.task.StartupTask;
 import roboguice.activity.RoboActivity;
+import roboguice.inject.ContentView;
 
+@ContentView(R.layout.startup)
 public class StartupActivity extends RoboActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.startup);
         startup();
     }
 

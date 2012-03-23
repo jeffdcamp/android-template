@@ -5,10 +5,12 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.widget.TextView;
+import com.actionbarsherlock.view.MenuItem;
 import org.company.project.MyApplication;
 import org.company.project.R;
+import org.company.project.widget.activity.RoboSherlockActivity;
+import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 
 import javax.inject.Inject;
@@ -17,8 +19,8 @@ import javax.inject.Inject;
  *
  * @author jcampbell
  */
-
-public class AboutActivity extends Activity {
+@ContentView(R.layout.about)
+public class AboutActivity extends RoboSherlockActivity {
     public static final String TAG = MyApplication.createTag(Activity.class);
 
     @Inject
@@ -37,7 +39,6 @@ public class AboutActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.about);
 
         versionTextView.setText(getVersionName());
     }

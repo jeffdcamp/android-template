@@ -3,21 +3,21 @@ package org.company.project.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import org.company.project.MyApplication;
-import org.company.project.R;
-import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import org.company.project.MyApplication;
+import org.company.project.R;
+import org.company.project.widget.activity.RoboSherlockActivity;
+import roboguice.inject.ContentView;
 
-//@ContentView(R.layout.main) // cannot call this because of a compatibility issue with the ActionBar (use setContentView instead)
-public class MainActivity extends SherlockActivity {
+@ContentView(R.layout.main)
+public class MainActivity extends RoboSherlockActivity {
     public static final String TAG = MyApplication.createTag(MainActivity.class);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
     }
 
@@ -26,14 +26,14 @@ public class MainActivity extends SherlockActivity {
         super.onResume();
     }
 
-//    @Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getSupportMenuInflater();
         inflater.inflate(R.menu.common, menu);
         return true;
     }
 
-//    @Override
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_search:
