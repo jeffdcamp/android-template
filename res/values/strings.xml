@@ -2,7 +2,6 @@
 <resources>
     <!-- MyApplication -->
     <string name="app_name">My Application</string>
-    <string name="label">My Application</string>
 
     <!-- General -->
     <string name="back">Back</string>
