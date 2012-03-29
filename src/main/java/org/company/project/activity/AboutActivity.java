@@ -39,6 +39,7 @@ public class AboutActivity extends RoboSherlockActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         versionTextView.setText(getVersionName());
     }
