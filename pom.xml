@@ -248,7 +248,7 @@
                 <version>2.2.2</version>
                 <configuration>
                     <goals>install</goals>
-                    <releaseProfiles>install-jars,release-apk</releaseProfiles>
+                    <releaseProfiles>release-apk</releaseProfiles>
                 </configuration>
             </plugin>
 
@@ -481,81 +481,5 @@
                 </plugins>
             </build>
         </profile>
-
-        <!-- support pulling latest roboguice from snapshot -->
-        <profile>
-            <id>roboguice.from.snapshot</id>
-            <repositories>
-                <repository>
-                    <id>central</id>
-                    <url>http://repo1.maven.org/maven2</url>
-                    <name>override of central to include snapshots</name>
-                </repository>
-
-                <!-- to support roboguice SNAPSHOTS -->
-                <repository>
-                    <id>oss-sonatype</id>
-                    <name>oss-sonatype</name>
-                    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                </repository>
-            </repositories>
-        </profile>
-
-
-        <!-- Install jars into local cache that DO NOT exist in Maven central -->
-        <profile>
-            <id>install-jars</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-
-            <!-- by using the specific robo guice jar inserted into the cache, it does NOT come with the pom.xml
-                 and its pom.xml dependencies.... so manually put them in here -->
-            <!--<dependencies>-->
-                <!--<dependency>-->
-                    <!--<groupId>com.google.inject</groupId>-->
-                    <!--<artifactId>guice</artifactId>-->
-                    <!--<version>3.0</version>-->
-                    <!--<classifier>no_aop</classifier>-->
-                <!--</dependency>-->
-            <!--</dependencies>-->
-
-            <build>
-                <plugins>
-                    <!-- Work around for missing dependency in central repo and no community nexus repo -->
-                    <!-- The following command must be run prior to running any other mvn command -->
-                    <!-- mvn clean -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-install-plugin</artifactId>
-                        <version>2.3.1</version>
-                        <executions>
-                            <!--<execution>-->
-                                <!--<id>install-roboguice</id>-->
-                                <!--<phase>clean</phase>-->
-                                <!--<goals>-->
-                                    <!--<goal>install-file</goal>-->
-                                <!--</goals>-->
-                                <!--<configuration>-->
-                                    <!--<file>${project.basedir}/libs/roboguice-${roboguice.version}.jar</file>-->
-                                    <!--<groupId>org.roboguice</groupId>-->
-                                    <!--<artifactId>roboguice</artifactId>-->
-                                    <!--<version>${roboguice.version}</version>-->
-                                    <!--<packaging>jar</packaging>-->
-                                    <!--<createChecksum>true</createChecksum>-->
-                                    <!--<generatePom>true</generatePom>-->
-                                <!--</configuration>-->
-                            <!--</execution>-->
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
     </profiles>
-
-
 </project>
