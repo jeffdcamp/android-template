@@ -11,6 +11,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.prefix>template</project.prefix>
         <maven.build.timestamp.format>yyyyMMdd-HHmm</maven.build.timestamp.format>
         <build.number>${maven.build.timestamp}</build.number>
         <target.jdk>1.6</target.jdk>
@@ -18,8 +19,7 @@
         <!-- for use Maven dependency -->
         <android.sdk>15</android.sdk>
         <!-- for android-maven-plugin -->
-        <compatibility.version>r6</compatibility.version>
-        <roboguice.version>2.0-RC1</roboguice.version>
+        <roboguice.version>2.0-RC2b</roboguice.version>
     </properties>
 
     <prerequisites>
@@ -44,13 +44,13 @@
         <dependency>
             <groupId>com.actionbarsherlock</groupId>
             <artifactId>library</artifactId>
-            <version>4.0.1</version>
+            <version>4.0.2</version>
             <type>apklib</type>
         </dependency>
         <dependency>
             <groupId>com.google.android</groupId>
             <artifactId>support-v4</artifactId>
-            <version>${compatibility.version}</version>
+            <version>r7</version>
         </dependency>
 
 
@@ -405,7 +405,7 @@
                                         <argument>-f</argument>
                                         <argument>4</argument>
                                         <argument>target/${project.build.finalName}.apk</argument>
-                                        <argument>target/lt-${build.number}-${project.version}-z.apk</argument>
+                                        <argument>target/${project.prefix}-${build.number}-${project.version}-z.apk</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
