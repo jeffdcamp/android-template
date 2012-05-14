@@ -19,7 +19,7 @@
         <!-- for use Maven dependency -->
         <android.sdk>15</android.sdk>
         <!-- for android-maven-plugin -->
-        <roboguice.version>2.0-RC2b</roboguice.version>
+        <roboguice.version>2.0</roboguice.version>
     </properties>
 
     <prerequisites>
@@ -458,13 +458,17 @@
                     <url>http://www.soupbowl.net/nexus/content/groups/public</url>
                 </repository>
             </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>soupbowl-plugins</id>
+                    <name>Soupbowl Nexus Mirror</name>
+                    <url>http://www.soupbowl.net/nexus/content/groups/public</url>
+                </pluginRepository>
+            </pluginRepositories>
             <build>
                 <plugins>
                     <!-- DBTools Generator -->
-                    <!-- commented out because the plugin is NOT YET available in the lds repo -->
                     <!-- useage: mvn jdc.plugins:maven-dbtools-plugin:genclasses -->
-                    <!-- Uncomment out the soupbowl repo to use this plugin
-                    -->
                     <plugin>
                         <groupId>jdc.plugins</groupId>
                         <artifactId>maven-dbtools-plugin</artifactId>
