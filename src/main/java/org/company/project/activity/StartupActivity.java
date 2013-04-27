@@ -6,8 +6,13 @@ import org.company.project.task.StartupTask;
 import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
 
+import javax.inject.Inject;
+
 @ContentView(R.layout.startup)
 public class StartupActivity extends RoboActivity {
+
+    @Inject
+    private StartupTask startupTask;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -16,15 +21,7 @@ public class StartupActivity extends RoboActivity {
     }
 
     private void startup() {
-        new StartupTask(this, MainActivity.class).execute();
-
-//        Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//
-//            public void run() {
-//                Void[] args = null;
-//                new StartupTask(this, MainActivity.class).execute(args);
-//            }}, 300);
+        startupTask.init(this).execute("");
     }
 
 }

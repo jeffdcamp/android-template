@@ -7,23 +7,21 @@
     <name>Android Template</name>
     <packaging>apk</packaging>
 
-    <!-- mvn -batch-mode clean release:clean release:prepare release:perform -D releaseVersion=1.1.0-Beta1 -->
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.prefix>template</project.prefix>
         <maven.build.timestamp.format>yyyyMMdd-HHmm</maven.build.timestamp.format>
         <build.number>${maven.build.timestamp}</build.number>
         <target.jdk>1.6</target.jdk>
-        <android.version>4.0.1.2</android.version>
+        <android.version>4.1.1.4</android.version>
         <!-- for use Maven dependency -->
-        <android.sdk>15</android.sdk>
+        <android.sdk>17</android.sdk>
         <!-- for android-maven-plugin -->
         <roboguice.version>2.0</roboguice.version>
     </properties>
 
     <prerequisites>
-        <maven>3.0.4</maven>
+        <maven>3.0.5</maven>
     </prerequisites>
 
     <scm>
@@ -32,6 +30,12 @@
     </scm>
 
     <dependencies>
+        <dependency>
+            <groupId>org.dbtools</groupId>
+            <artifactId>dbtools-android</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
         <!-- NOTE: Roboguice DOES produce the following exception and is a non-issue (http://code.google.com/p/roboguice/issues/detail?id=161): -->
         <!-- -->
         <!-- java.io.FileNotFoundException: com/google/inject/internal/util/$Finalizer.class -->
@@ -43,8 +47,8 @@
         </dependency>
         <dependency>
             <groupId>com.actionbarsherlock</groupId>
-            <artifactId>library</artifactId>
-            <version>4.1.0</version>
+            <artifactId>actionbarsherlock</artifactId>
+            <version>4.3.0</version>
             <type>apklib</type>
         </dependency>
         <dependency>
@@ -90,7 +94,7 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
-            <version>1.9.0</version>
+            <version>1.9.5</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -113,7 +117,7 @@
                 <plugin>
                     <groupId>com.jayway.maven.plugins.android.generation2</groupId>
                     <artifactId>android-maven-plugin</artifactId>
-                    <version>3.2.0</version>
+                    <version>3.5.3</version>
                     <extensions>true</extensions>
                 </plugin>
                 <plugin>
@@ -124,7 +128,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>findbugs-maven-plugin</artifactId>
-                    <version>2.4.0</version>
+                    <version>2.5.2</version>
                     <configuration>
                         <excludeFilterFile>findbugs-exclude.xml</excludeFilterFile>
                         <includeFilterFile>rules-findbugs.xml</includeFilterFile>
@@ -134,7 +138,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-pmd-plugin</artifactId>
-                    <version>2.7.1</version>
+                    <version>3.0.1</version>
                     <configuration>
                         <rulesets>
                             <ruleset>rules-pmd.xml</ruleset>
@@ -145,7 +149,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
-                    <version>2.9.1</version>
+                    <version>2.10</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -155,7 +159,7 @@
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>0.5.7.201204190339</version>
+                    <version>0.6.2.201302030002</version>
                     <executions>
                         <execution>
                             <goals>
@@ -205,7 +209,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.5</version>
+                <version>3.1</version>
                 <configuration>
                     <source>${target.jdk}</source>
                     <target>${target.jdk}</target>
@@ -245,7 +249,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
-                <version>2.2.2</version>
+                <version>2.4.1</version>
                 <configuration>
                     <goals>install</goals>
                     <releaseProfiles>release-apk</releaseProfiles>
@@ -261,7 +265,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
-                <version>3.1</version>
+                <version>3.2</version>
                 <configuration>
                     <reportPlugins>
                         <!-- Cross-reference plug-in to allow other plugins show source -->
@@ -468,9 +472,9 @@
                     <plugin>
                         <groupId>jdc.plugins</groupId>
                         <artifactId>maven-dbtools-plugin</artifactId>
-                        <version>2.3.1</version>
+                        <version>2.6.0</version>
                         <configuration>
-                            <basePackageName>org.lds.ldstools.domain</basePackageName>
+                            <basePackageName>org.company.project.domain</basePackageName>
                             <rendererClasspath>com.jdc.db.objects.android.AndroidInjectionDBObjectBuilder
                             </rendererClasspath>
                             <schemaDir>${basedir}/src/main/database</schemaDir>

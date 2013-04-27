@@ -1,235 +1,241 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
            targetNamespace="http://www.soupbowl.net/schema/dbtools/dbschema-1.0.xsd"
-           xmlns:tns="http://xml.netbeans.org/schema/dbschema.xsd"
            elementFormDefault="qualified">
     <xsd:element name="dbSchema">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element name="comment" minOccurs="0">
-                    <xsd:complexType>
-                        <xsd:attribute name="type" type="xsd:string" use="optional" />
-                    </xsd:complexType>
-                </xsd:element>
-                <xsd:element name="references" minOccurs="0" maxOccurs="unbounded">
+                <xsd:element name="database">
                     <xsd:complexType>
                         <xsd:sequence>
-                            <xsd:element name="schema">
+                            <xsd:element name="comment" minOccurs="0">
                                 <xsd:complexType>
-                                    <xsd:attribute name="path" type="xsd:string"/>
-                                    <xsd:attribute name="baseJavaPackage" type="xsd:string"/>
-                                    <xsd:attribute name="readFromClasspath" type="xsd:string"/>
+                                    <xsd:attribute name="type" type="xsd:string" use="optional" />
                                 </xsd:complexType>
                             </xsd:element>
-                        </xsd:sequence>
-                    </xsd:complexType>
-                </xsd:element>
-                <xsd:element name="table" maxOccurs="unbounded">
-                    <xsd:complexType>
-                        <xsd:sequence>
-                            <xsd:element name="tableParameter" minOccurs="0" maxOccurs="unbounded">
-                                <xsd:complexType>
-                                    <xsd:attribute name="db" type="xsd:string" use="required" />
-                                    <xsd:attribute name="name" type="xsd:string" use="required" />
-                                    <xsd:attribute name="value" type="xsd:string" use="required" />
-                                </xsd:complexType>
-                            </xsd:element>
-                            <xsd:element name="field" maxOccurs="unbounded">
-                                <xsd:complexType>
-                                    <xsd:attribute name="name" type="xsd:string" use="required" >
-                                        <xsd:annotation>
-                                            <xsd:documentation>Name of field/column in the database table.  Should not contain spaces and can be named many ways (myField, MY_FIELD, MyField, etc)</xsd:documentation>
-                                        </xsd:annotation>
-                                    </xsd:attribute>
-                                    <xsd:attribute name="decimals" type="xsd:NMTOKEN" use="optional" default="0" >
-                                        <xsd:annotation>
-                                            <xsd:documentation>Number of decimal spaces to be used by the database (below the . in a number).  This is also refered to as scale or precision in some databases.</xsd:documentation>
-                                        </xsd:annotation>
-                                    </xsd:attribute>
-                                    <xsd:attribute name="foreignKeyOrderByColumn" type="xsd:string" use="optional" >
-                                        <xsd:annotation>
-                                            <xsd:documentation>Name of column in Foreign Key table that this field maps to.</xsd:documentation>
-                                        </xsd:annotation>
-                                    </xsd:attribute>
-                                    <xsd:attribute name="foreignKeyType" use="optional" default="IGNORE">
-                                        <xsd:simpleType>
-                                            <xsd:restriction base="xsd:string">
-                                                <xsd:enumeration value="IGNORE" />
-                                                <xsd:enumeration value="ONETOONE" />
-                                                <xsd:enumeration value="ONETOMANY" />
-                                                <xsd:enumeration value="MANYTOONE" />
-                                                <xsd:enumeration value="ENUM">
-                                                    <xsd:annotation>
-                                                        <xsd:documentation>Enumerations should be comma separated ("HOME,OFFICE,OTHER").
-                                                            Enumeration usage (Use 1. OR 2. (not both)):
-                                                            1. For foreign key enum: foreignKeyType="ENUM" then be sure the table for this has the enumerations attribute
-                                                            Then set the default by using the field attribute enumerationDefault="MYDEFAULT"
-                                                        2. For local enum: enumerations="UNKNOWN,YES,NO" enumerationDefault="UNKNOWN"
-                                                        </xsd:documentation>
-                                                    </xsd:annotation>
-                                                </xsd:enumeration>
-                                            </xsd:restriction>
-                                        </xsd:simpleType>
-                                    </xsd:attribute>
-                                    <xsd:attribute name="foreignKeyFetchType" use="optional" default="LAZY">
-                                        <xsd:simpleType>
-                                            <xsd:restriction base="xsd:string">
-                                                <xsd:enumeration value="LAZY" />
-                                                <xsd:enumeration value="EAGER" />
-                                            </xsd:restriction>
-                                        </xsd:simpleType>
-                                    </xsd:attribute>
-                                    <xsd:attribute name="notNull" use="optional" default="false">
-                                        <xsd:simpleType>
-                                            <xsd:restriction base="xsd:string">
-                                                <xsd:enumeration value="true" />
-                                                <xsd:enumeration value="false" />
-                                            </xsd:restriction>
-                                        </xsd:simpleType>
-                                    </xsd:attribute>
-                                    <xsd:attribute name="unique" use="optional" default="false">
-                                        <xsd:simpleType>
-                                            <xsd:restriction base="xsd:NMTOKEN">
-                                                <xsd:enumeration value="true" />
-                                                <xsd:enumeration value="false" />
-                                            </xsd:restriction>
-                                        </xsd:simpleType>
-                                    </xsd:attribute>
-                                    <xsd:attribute name="jdbcDataType" use="required">
-                                        <xsd:simpleType>
-                                            <xsd:restriction base="xsd:string">
-                                                <xsd:enumeration value="BOOLEAN" />
-                                                <xsd:enumeration value="BIT" />
-                                                <xsd:enumeration value="TINYINT" />
-                                                <xsd:enumeration value="SMALLINT" />
-                                                <xsd:enumeration value="INTEGER" />
-                                                <xsd:enumeration value="BIGINT" />
-                                                <xsd:enumeration value="REAL" />
-                                                <xsd:enumeration value="FLOAT" />
-                                                <xsd:enumeration value="DOUBLE" />
-                                                <xsd:enumeration value="DECIMAL" />
-                                                <xsd:enumeration value="CHAR" />
-                                                <xsd:enumeration value="VARCHAR" />
-                                                <xsd:enumeration value="LONGVARCHAR" />
-                                                <xsd:enumeration value="DATE" />
-                                                <xsd:enumeration value="TIME" />
-                                                <xsd:enumeration value="TIMESTAMP" />
-                                                <xsd:enumeration value="JAVA_OBJECT" />
-                                                <xsd:enumeration value="BLOB" />
-                                                <xsd:enumeration value="CLOB" />
-                                            </xsd:restriction>
-                                        </xsd:simpleType>
-                                    </xsd:attribute>
-                                    <xsd:attribute name="index" use="optional" default="false">
-                                        <xsd:simpleType>
-                                            <xsd:restriction base="xsd:NMTOKEN">
-                                                <xsd:enumeration value="true" />
-                                                <xsd:enumeration value="false" />
-                                            </xsd:restriction>
-                                        </xsd:simpleType>
-                                    </xsd:attribute>
-                                    <xsd:attribute name="defaultValue" type="xsd:string" use="optional" />
-                                    <xsd:attribute name="foreignKeyField" type="xsd:string" use="optional" />
-                                    <xsd:attribute name="increment" use="optional" default="false">
-                                        <xsd:simpleType>
-                                            <xsd:restriction base="xsd:NMTOKEN">
-                                                <xsd:enumeration value="true" />
-                                                <xsd:enumeration value="false" />
-                                            </xsd:restriction>
-                                        </xsd:simpleType>
-                                    </xsd:attribute>
-                                    <xsd:attribute name="incrementInitialValue" type="xsd:string" use="optional" />
-                                    <xsd:attribute name="primaryKey" use="optional" default="false">
-                                        <xsd:simpleType>
-                                            <xsd:restriction base="xsd:NMTOKEN">
-                                                <xsd:enumeration value="true" />
-                                                <xsd:enumeration value="false" />
-                                            </xsd:restriction>
-                                        </xsd:simpleType>
-                                    </xsd:attribute>
-                                    <xsd:attribute name="lastModifiedField" use="optional" default="false">
-                                        <xsd:simpleType>
-                                            <xsd:annotation>
-                                                <xsd:documentation>Used by Java generator to auto-update time-stamp of this field.  This field should be a TIMESTAMP jdbcType.  (Currently NOT supported by JPA generator)</xsd:documentation>
-                                            </xsd:annotation>
-                                            <xsd:restriction base="xsd:NMTOKEN">
-                                                <xsd:enumeration value="true" />
-                                                <xsd:enumeration value="false" />
-                                            </xsd:restriction>
-                                        </xsd:simpleType>
-                                    </xsd:attribute>
-                                    <xsd:attribute name="foreignKeyTable" type="xsd:string" use="optional" />
-                                    <xsd:attribute name="size" type="xsd:NMTOKEN" use="optional" default="0" >
-                                        <xsd:annotation>
-                                            <xsd:documentation>Used by database generation. Size of VARCHAR or Size specifies the number of digits above the decimal in float types (FLOAT, DECIMAL, etc).  Use "decimals" to specify the number of digits below the decimal point.</xsd:documentation>
-                                        </xsd:annotation>
-                                    </xsd:attribute>
-                                    <xsd:attribute name="enumerations" type="xsd:string">
-                                        <xsd:annotation>
-                                            <xsd:documentation>Enumerations should be comma separated with no spaces (Example "HOME,OFFICE,OTHER").  In the Java code, the datatype for this field/variable is replaced with an internal enum that will be created using the name of this field/variable.</xsd:documentation>
-                                        </xsd:annotation>
-                                    </xsd:attribute>
-                                    <xsd:attribute name="enumerationDefault" type="xsd:string">
-                                        <xsd:annotation>
-                                            <xsd:documentation>Default value for Enumeration.  Only use the name of the enumeration value. (Example: "HOME"  (Do NOT put "LocationType.HOME")).  If this is NOT specified, then the first enumeration value is used.</xsd:documentation>
-                                        </xsd:annotation>
-                                    </xsd:attribute>
-                                    <xsd:attribute name="sequencerName" type="xsd:string"/>
-                                    <xsd:attribute name="varName" type="xsd:string"/>
-                                </xsd:complexType>
-                            </xsd:element>
-                            <xsd:element name="unique" minOccurs="0" maxOccurs="unbounded">
+                            <xsd:element name="references" minOccurs="0" maxOccurs="unbounded">
                                 <xsd:complexType>
                                     <xsd:sequence>
-                                        <xsd:element name="uniqueField" maxOccurs="unbounded">
+                                        <xsd:element name="schema">
                                             <xsd:complexType>
-                                                <xsd:attribute name="name" type="xsd:string" use="required" />
+                                                <xsd:attribute name="path" type="xsd:string"/>
+                                                <xsd:attribute name="baseJavaPackage" type="xsd:string"/>
+                                                <xsd:attribute name="readFromClasspath" type="xsd:string"/>
                                             </xsd:complexType>
                                         </xsd:element>
                                     </xsd:sequence>
                                 </xsd:complexType>
                             </xsd:element>
-                        </xsd:sequence>
-                        <xsd:attribute name="name" type="xsd:string" use="required" >
-                            <xsd:annotation>
-                                <xsd:documentation>Name of table.  Should not contain spaces and can be named many ways (myTable, MY_TABLE, MyTable, etc)</xsd:documentation>
-                            </xsd:annotation>
-                        </xsd:attribute>
-                        <xsd:attribute name="enumerations" type="xsd:string">
-                            <xsd:annotation>
-                                <xsd:documentation>Table enumerations should be comma separated example:("HOME,OFFICE,OTHER"). Be sure to set the field attribute foreignKeyType="ENUM"</xsd:documentation>
-                            </xsd:annotation>
-                        </xsd:attribute>
-                        <xsd:attribute name="className" type="xsd:string"/>
-                    </xsd:complexType>
-                </xsd:element>
-                <xsd:element name="view" minOccurs="0" maxOccurs="unbounded">
-                    <xsd:complexType>
-                        <xsd:sequence>
-                            <xsd:element name="viewField" maxOccurs="unbounded">
+                            <xsd:element name="table" maxOccurs="unbounded">
                                 <xsd:complexType>
-                                    <xsd:attribute name="name" type="xsd:string" use="required" />
-                                    <xsd:attribute name="expression" type="xsd:string" use="required" />
+                                    <xsd:sequence>
+                                        <xsd:element name="tableParameter" minOccurs="0" maxOccurs="unbounded">
+                                            <xsd:complexType>
+                                                <xsd:attribute name="db" type="xsd:string" use="required" />
+                                                <xsd:attribute name="name" type="xsd:string" use="required" />
+                                                <xsd:attribute name="value" type="xsd:string" use="required" />
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                        <xsd:element name="field" maxOccurs="unbounded">
+                                            <xsd:complexType>
+                                                <xsd:attribute name="name" type="xsd:string" use="required" >
+                                                    <xsd:annotation>
+                                                        <xsd:documentation>Name of field/column in the database table.  Should not contain spaces and can be named many ways (myField, MY_FIELD, MyField, etc)</xsd:documentation>
+                                                    </xsd:annotation>
+                                                </xsd:attribute>
+                                                <xsd:attribute name="decimals" type="xsd:NMTOKEN" use="optional" default="0" >
+                                                    <xsd:annotation>
+                                                        <xsd:documentation>Number of decimal spaces to be used by the database (below the . in a number).  This is also refered to as scale or precision in some databases.</xsd:documentation>
+                                                    </xsd:annotation>
+                                                </xsd:attribute>
+                                                <xsd:attribute name="foreignKeyOrderByColumn" type="xsd:string" use="optional" >
+                                                    <xsd:annotation>
+                                                        <xsd:documentation>Name of column in Foreign Key table that this field maps to.</xsd:documentation>
+                                                    </xsd:annotation>
+                                                </xsd:attribute>
+                                                <xsd:attribute name="foreignKeyType" use="optional" default="IGNORE">
+                                                    <xsd:simpleType>
+                                                        <xsd:restriction base="xsd:string">
+                                                            <xsd:enumeration value="IGNORE" />
+                                                            <xsd:enumeration value="ONETOONE" />
+                                                            <xsd:enumeration value="ONETOMANY" />
+                                                            <xsd:enumeration value="MANYTOONE" />
+                                                            <xsd:enumeration value="ENUM">
+                                                                <xsd:annotation>
+                                                                    <xsd:documentation>Enumerations should be comma separated ("HOME,OFFICE,OTHER").
+                                                                        Enumeration usage (Use 1. OR 2. (not both)):
+                                                                        1. For foreign key enum: foreignKeyType="ENUM" then be sure the table for this has the enumerations attribute
+                                                                        Then set the default by using the field attribute enumerationDefault="MYDEFAULT"
+                                                                        2. For local enum: enumerations="UNKNOWN,YES,NO" enumerationDefault="UNKNOWN"
+                                                                    </xsd:documentation>
+                                                                </xsd:annotation>
+                                                            </xsd:enumeration>
+                                                        </xsd:restriction>
+                                                    </xsd:simpleType>
+                                                </xsd:attribute>
+                                                <xsd:attribute name="foreignKeyFetchType" use="optional" default="LAZY">
+                                                    <xsd:simpleType>
+                                                        <xsd:restriction base="xsd:string">
+                                                            <xsd:enumeration value="LAZY" />
+                                                            <xsd:enumeration value="EAGER" />
+                                                        </xsd:restriction>
+                                                    </xsd:simpleType>
+                                                </xsd:attribute>
+                                                <xsd:attribute name="notNull" use="optional" default="false">
+                                                    <xsd:simpleType>
+                                                        <xsd:restriction base="xsd:string">
+                                                            <xsd:enumeration value="true" />
+                                                            <xsd:enumeration value="false" />
+                                                        </xsd:restriction>
+                                                    </xsd:simpleType>
+                                                </xsd:attribute>
+                                                <xsd:attribute name="unique" use="optional" default="false">
+                                                    <xsd:simpleType>
+                                                        <xsd:restriction base="xsd:NMTOKEN">
+                                                            <xsd:enumeration value="true" />
+                                                            <xsd:enumeration value="false" />
+                                                        </xsd:restriction>
+                                                    </xsd:simpleType>
+                                                </xsd:attribute>
+                                                <xsd:attribute name="jdbcDataType" use="required">
+                                                    <xsd:simpleType>
+                                                        <xsd:restriction base="xsd:string">
+                                                            <xsd:enumeration value="BOOLEAN" />
+                                                            <xsd:enumeration value="BIT" />
+                                                            <xsd:enumeration value="TINYINT" />
+                                                            <xsd:enumeration value="SMALLINT" />
+                                                            <xsd:enumeration value="INTEGER" />
+                                                            <xsd:enumeration value="BIGINT" />
+                                                            <xsd:enumeration value="REAL" />
+                                                            <xsd:enumeration value="FLOAT" />
+                                                            <xsd:enumeration value="DOUBLE" />
+                                                            <xsd:enumeration value="DECIMAL" />
+                                                            <xsd:enumeration value="CHAR" />
+                                                            <xsd:enumeration value="VARCHAR" />
+                                                            <xsd:enumeration value="LONGVARCHAR" />
+                                                            <xsd:enumeration value="DATE" />
+                                                            <xsd:enumeration value="TIME" />
+                                                            <xsd:enumeration value="TIMESTAMP" />
+                                                            <xsd:enumeration value="JAVA_OBJECT" />
+                                                            <xsd:enumeration value="BLOB" />
+                                                            <xsd:enumeration value="CLOB" />
+                                                        </xsd:restriction>
+                                                    </xsd:simpleType>
+                                                </xsd:attribute>
+                                                <xsd:attribute name="index" use="optional" default="false">
+                                                    <xsd:simpleType>
+                                                        <xsd:restriction base="xsd:NMTOKEN">
+                                                            <xsd:enumeration value="true" />
+                                                            <xsd:enumeration value="false" />
+                                                        </xsd:restriction>
+                                                    </xsd:simpleType>
+                                                </xsd:attribute>
+                                                <xsd:attribute name="defaultValue" type="xsd:string" use="optional" />
+                                                <xsd:attribute name="foreignKeyField" type="xsd:string" use="optional" />
+                                                <xsd:attribute name="increment" use="optional" default="false">
+                                                    <xsd:simpleType>
+                                                        <xsd:restriction base="xsd:NMTOKEN">
+                                                            <xsd:enumeration value="true" />
+                                                            <xsd:enumeration value="false" />
+                                                        </xsd:restriction>
+                                                    </xsd:simpleType>
+                                                </xsd:attribute>
+                                                <xsd:attribute name="incrementInitialValue" type="xsd:string" use="optional" />
+                                                <xsd:attribute name="primaryKey" use="optional" default="false">
+                                                    <xsd:simpleType>
+                                                        <xsd:restriction base="xsd:NMTOKEN">
+                                                            <xsd:enumeration value="true" />
+                                                            <xsd:enumeration value="false" />
+                                                        </xsd:restriction>
+                                                    </xsd:simpleType>
+                                                </xsd:attribute>
+                                                <xsd:attribute name="lastModifiedField" use="optional" default="false">
+                                                    <xsd:simpleType>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation>Used by Java generator to auto-update time-stamp of this field.  This field should be a TIMESTAMP jdbcType.  (Currently NOT supported by JPA generator)</xsd:documentation>
+                                                        </xsd:annotation>
+                                                        <xsd:restriction base="xsd:NMTOKEN">
+                                                            <xsd:enumeration value="true" />
+                                                            <xsd:enumeration value="false" />
+                                                        </xsd:restriction>
+                                                    </xsd:simpleType>
+                                                </xsd:attribute>
+                                                <xsd:attribute name="foreignKeyTable" type="xsd:string" use="optional" />
+                                                <xsd:attribute name="size" type="xsd:NMTOKEN" use="optional" default="0" >
+                                                    <xsd:annotation>
+                                                        <xsd:documentation>Used by database generation. Size of VARCHAR or Size specifies the number of digits above the decimal in float types (FLOAT, DECIMAL, etc).  Use "decimals" to specify the number of digits below the decimal point.</xsd:documentation>
+                                                    </xsd:annotation>
+                                                </xsd:attribute>
+                                                <xsd:attribute name="enumerations" type="xsd:string">
+                                                    <xsd:annotation>
+                                                        <xsd:documentation>Enumerations should be comma separated with no spaces (Example "HOME,OFFICE,OTHER").  In the Java code, the datatype for this field/variable is replaced with an internal enum that will be created using the name of this field/variable.</xsd:documentation>
+                                                    </xsd:annotation>
+                                                </xsd:attribute>
+                                                <xsd:attribute name="enumerationDefault" type="xsd:string">
+                                                    <xsd:annotation>
+                                                        <xsd:documentation>Default value for Enumeration.  Only use the name of the enumeration value. (Example: "HOME"  (Do NOT put "LocationType.HOME")).  If this is NOT specified, then the first enumeration value is used.</xsd:documentation>
+                                                    </xsd:annotation>
+                                                </xsd:attribute>
+                                                <xsd:attribute name="sequencerName" type="xsd:string"/>
+                                                <xsd:attribute name="varName" type="xsd:string"/>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                        <xsd:element name="unique" minOccurs="0" maxOccurs="unbounded">
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+                                                    <xsd:element name="uniqueField" maxOccurs="unbounded">
+                                                        <xsd:complexType>
+                                                            <xsd:attribute name="name" type="xsd:string" use="required" />
+                                                        </xsd:complexType>
+                                                    </xsd:element>
+                                                </xsd:sequence>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                    </xsd:sequence>
+                                    <xsd:attribute name="name" type="xsd:string" use="required" >
+                                        <xsd:annotation>
+                                            <xsd:documentation>Name of table.  Should not contain spaces and can be named many ways (myTable, MY_TABLE, MyTable, etc)</xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:attribute>
+                                    <xsd:attribute name="enumerations" type="xsd:string">
+                                        <xsd:annotation>
+                                            <xsd:documentation>Table enumerations should be comma separated example:("HOME,OFFICE,OTHER"). Be sure to set the field attribute foreignKeyType="ENUM"</xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:attribute>
+                                    <xsd:attribute name="className" type="xsd:string"/>
                                 </xsd:complexType>
                             </xsd:element>
-                            <xsd:element name="viewPostSelectClause">
-                                <xsd:complexType mixed="true" />
+                            <xsd:element name="view" minOccurs="0" maxOccurs="unbounded">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="viewField" maxOccurs="unbounded">
+                                            <xsd:complexType>
+                                                <xsd:attribute name="name" type="xsd:string" use="required" />
+                                                <xsd:attribute name="expression" type="xsd:string" use="required" />
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                        <xsd:element name="viewPostSelectClause">
+                                            <xsd:complexType mixed="true" />
+                                        </xsd:element>
+                                    </xsd:sequence>
+                                    <xsd:attribute name="name" type="xsd:string" use="required" />
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element name="postSQLScriptFile" minOccurs="0" maxOccurs="unbounded">
+                                <xsd:complexType>
+                                    <xsd:attribute name="relativePath" use="optional" default="true">
+                                        <xsd:simpleType>
+                                            <xsd:restriction base="xsd:NMTOKEN">
+                                                <xsd:enumeration value="true" />
+                                                <xsd:enumeration value="false" />
+                                            </xsd:restriction>
+                                        </xsd:simpleType>
+                                    </xsd:attribute>
+                                    <xsd:attribute name="pathname" type="xsd:string" use="required" />
+                                </xsd:complexType>
                             </xsd:element>
                         </xsd:sequence>
-                        <xsd:attribute name="name" type="xsd:string" use="required" />
-                    </xsd:complexType>
-                </xsd:element>
-                <xsd:element name="postSQLScriptFile" minOccurs="0" maxOccurs="unbounded">
-                    <xsd:complexType>
-                        <xsd:attribute name="relativePath" use="optional" default="true">
-                            <xsd:simpleType>
-                                <xsd:restriction base="xsd:NMTOKEN">
-                                    <xsd:enumeration value="true" />
-                                    <xsd:enumeration value="false" />
-                                </xsd:restriction>
-                            </xsd:simpleType>
-                        </xsd:attribute>
-                        <xsd:attribute name="pathname" type="xsd:string" use="required" />
+                        <xsd:attribute name="name" type="xsd:string" use="required"/>
                     </xsd:complexType>
                 </xsd:element>
             </xsd:sequence>

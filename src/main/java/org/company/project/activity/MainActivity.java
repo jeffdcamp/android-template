@@ -8,11 +8,11 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import org.company.project.MyApplication;
 import org.company.project.R;
-import org.company.project.widget.robosherlock.activity.RoboSherlockActivity;
+import org.company.project.widget.robosherlock.activity.RoboSherlockFragmentActivity;
 import roboguice.inject.ContentView;
 
 @ContentView(R.layout.main)
-public class MainActivity extends RoboSherlockActivity {
+public class MainActivity extends RoboSherlockFragmentActivity {
     public static final String TAG = MyApplication.createTag(MainActivity.class);
 
     @Override

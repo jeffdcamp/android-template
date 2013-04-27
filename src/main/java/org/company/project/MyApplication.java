@@ -15,7 +15,7 @@ import java.util.Properties;
 public class MyApplication extends Application {
     public static final String TAG = MyApplication.createTag(MyApplication.class);
 
-    public static final String DEFAULT_TAG_PREFIX = "myApp.";  // TODO change this for your app
+    public static final String DEFAULT_TAG_PREFIX = "company.";  // TODO change this for your app (pick a name similar to package name... get both raw log AND tag logs)
     public static final int MAX_TAG_LENGTH = 23; // if over: IllegalArgumentException: Log tag "xxx" exceeds limit of 23 characters
 
     @Override

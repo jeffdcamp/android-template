@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.actionbarsherlock.view.MenuItem;
 import org.company.project.MyApplication;
 import org.company.project.R;
-import org.company.project.widget.robosherlock.activity.RoboSherlockActivity;
+import org.company.project.widget.robosherlock.activity.RoboSherlockFragmentActivity;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 
@@ -20,7 +20,7 @@ import javax.inject.Inject;
  * @author jcampbell
  */
 @ContentView(R.layout.about)
-public class AboutActivity extends RoboSherlockActivity {
+public class AboutActivity extends RoboSherlockFragmentActivity {
     public static final String TAG = MyApplication.createTag(Activity.class);
 
     @Inject
@@ -28,13 +28,6 @@ public class AboutActivity extends RoboSherlockActivity {
 
     @InjectView(R.id.version_info)
     private TextView versionTextView;
-
-    public static enum LinkTypes {
-
-        PRIVACY_POLICY,
-        TERMS_OF_USE,
-        LICENSE_AGREEMENT
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

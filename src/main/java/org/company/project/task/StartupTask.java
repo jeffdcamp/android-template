@@ -6,23 +6,26 @@ import android.os.AsyncTask;
 import android.util.Log;
 import org.company.project.MyApplication;
 import org.company.project.R;
-import roboguice.RoboGuice;
+import org.company.project.activity.MainActivity;
+import org.company.project.domain.DatabaseManager;
 
-import java.lang.reflect.Method;
+import javax.inject.Inject;
 
-public class StartupTask extends AsyncTask<Void, Void, Boolean> {
+public class StartupTask extends AsyncTask<String, Void, Boolean> {
 
     private static final String TAG = MyApplication.createTag(StartupTask.class);
 
     private long perfTime = 0;
 
-    private Activity contextActivity;
-    private Class startupActivityClass;
+    @Inject
+    private DatabaseManager databaseManager;
 
-    public StartupTask(Activity contextActivity, Class startupActivityClass) {
-        RoboGuice.getInjector(contextActivity).injectMembers(this);
+    private Activity contextActivity;
+    private Class startupActivityClass = MainActivity.class;
+
+    public StartupTask init(Activity contextActivity) {
         this.contextActivity = contextActivity;
-        this.startupActivityClass = startupActivityClass;
+        return this;
     }
 
     @Override
@@ -31,27 +34,22 @@ public class StartupTask extends AsyncTask<Void, Void, Boolean> {
     }
 
     @Override
-    protected Boolean doInBackground(Void... params) {
+    protected Boolean doInBackground(String... params) {
 
-
+        databaseManager.getWritableDatabase(DatabaseManager.MAIN_DATABASE_NAME);
 
         return true;
     }
 
     @Override
     public void onPostExecute(Boolean result) {
+        Log.d(TAG, "Startup Elapsed Time:" + (System.currentTimeMillis() - perfTime) + "ms");
+
         Intent i = new Intent(contextActivity, startupActivityClass);
         i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 
         contextActivity.startActivity(i);
-        Log.d(TAG, "Startup Elapsed Time:" + (System.currentTimeMillis() - perfTime) + "ms");
-
         contextActivity.finish();
-        try {
-            Method override = Activity.class.getMethod("overridePendingTransition", new Class[] {Integer.TYPE, Integer.TYPE});
-            override.invoke(contextActivity, R.anim.fade_in, R.anim.nothing);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        contextActivity.overridePendingTransition(R.anim.fade_in, R.anim.nothing); // no animation
     }
 }
