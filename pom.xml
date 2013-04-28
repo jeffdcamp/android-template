@@ -18,6 +18,8 @@
         <android.sdk>17</android.sdk>
         <!-- for android-maven-plugin -->
         <roboguice.version>2.0</roboguice.version>
+        <!-- DBTools domain object package -->
+        <dbtools.basePackageName>org.company.project.domain</dbtools.basePackageName>
     </properties>
 
     <prerequisites>
@@ -109,6 +111,9 @@
                     <!-- Make sure we don't try and filter binary files -->
                     <include>**/*.properties</include>
                 </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
             </resource>
         </resources>
 
@@ -474,9 +479,8 @@
                         <artifactId>maven-dbtools-plugin</artifactId>
                         <version>2.6.0</version>
                         <configuration>
-                            <basePackageName>org.company.project.domain</basePackageName>
-                            <rendererClasspath>com.jdc.db.objects.android.AndroidInjectionDBObjectBuilder
-                            </rendererClasspath>
+                            <basePackageName>${dbtools.basePackageName}</basePackageName>
+                            <rendererClasspath>com.jdc.db.objects.android.AndroidInjectionDBObjectBuilder</rendererClasspath>
                             <schemaDir>${basedir}/src/main/database</schemaDir>
                             <dbVendor>sqlite</dbVendor>
                             <includeXMLSupport>false</includeXMLSupport>
