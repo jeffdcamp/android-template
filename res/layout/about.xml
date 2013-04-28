@@ -4,7 +4,6 @@
     android:id="@+id/widget54"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/white_background"
     >
     <LinearLayout
         android:orientation="vertical"
@@ -20,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:textColor="@color/blue_background" />
+            />
         <TextView
             android:text="@string/about_for"
             android:typeface="serif"
@@ -29,12 +28,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:textColor="@color/blue_background" />
+            />
         <TextView
             android:id="@+id/version_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:textColor="@color/blue_background" />
+            />
     </LinearLayout>
 </ScrollView>
