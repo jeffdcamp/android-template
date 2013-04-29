@@ -4,10 +4,8 @@
     <string name="app_name">My Application</string>
 
     <!-- General -->
-    <string name="back">Back</string>
-    <string name="next">Next</string>
-    <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
     <string name="error">Error</string>
 
     <!-- The description that will show up in the search settings for this source. -->

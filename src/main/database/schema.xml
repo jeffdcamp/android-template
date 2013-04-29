@@ -9,10 +9,8 @@
         </table>
 
         <table name="INDIVIDUAL">
-            <field name="_id" jdbcDataType="BIGINT" primaryKey="true" notNull="true"/>
-            <field name="INDIVIDUAL_TYPE_ID" jdbcDataType="INTEGER" varName="individualType"
-                   foreignKeyTable="INDIVIDUAL_TYPE" foreignKeyField="_id" foreignKeyType="ENUM"
-                   enumerationDefault="HEAD"/>
+            <field name="_id" jdbcDataType="BIGINT" increment="true" primaryKey="true" notNull="true"/>
+            <field name="INDIVIDUAL_TYPE_ID" jdbcDataType="INTEGER" varName="individualType" foreignKeyTable="INDIVIDUAL_TYPE" foreignKeyField="_id" foreignKeyType="ENUM" enumerationDefault="HEAD"/>
             <field name="NAME" jdbcDataType="VARCHAR" size="255" notNull="true"/>
             <field name="BIRTH_DATE" jdbcDataType="DATE"/>
             <field name="PHONE" jdbcDataType="VARCHAR" size="255"/>
