@@ -5,6 +5,7 @@
 
     <!-- General -->
     <string name="ok">OK</string>
+    <string name="done">Done</string>
     <string name="cancel">Cancel</string>
     <string name="error">Error</string>
 

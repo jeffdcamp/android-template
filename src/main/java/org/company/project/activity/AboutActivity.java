@@ -1,7 +1,5 @@
 package org.company.project.activity;
 
-import android.app.Activity;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,7 +19,7 @@ import javax.inject.Inject;
  */
 @ContentView(R.layout.about)
 public class AboutActivity extends RoboSherlockFragmentActivity {
-    public static final String TAG = MyApplication.createTag(Activity.class);
+    public static final String TAG = MyApplication.createTag(AboutActivity.class);
 
     @Inject
     private MyApplication myApplication;
@@ -33,6 +31,7 @@ public class AboutActivity extends RoboSherlockFragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         versionTextView.setText(getVersionName());
     }
@@ -40,8 +39,7 @@ public class AboutActivity extends RoboSherlockFragmentActivity {
     private String getVersionName() {
         String versionString = "--not found--";
         try {
-            PackageInfo pInfo = getPackageManager().getPackageInfo("org.company.project", PackageManager.GET_META_DATA);
-            versionString = pInfo.versionName + " (" + myApplication.readBuildNumber() + ")";
+            versionString = myApplication.getVersionText(this);
         } catch (PackageManager.NameNotFoundException e) {
             Log.d(TAG, "Cannon find version name");
         }
@@ -52,7 +50,7 @@ public class AboutActivity extends RoboSherlockFragmentActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                MyApplication.navigateHome(this);
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

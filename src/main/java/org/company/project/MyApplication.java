@@ -1,10 +1,10 @@
 package org.company.project;
 
-import android.app.Activity;
 import android.app.Application;
-import android.content.Intent;
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.util.Log;
-import org.company.project.activity.MainActivity;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -29,13 +29,6 @@ public class MyApplication extends Application {
         return fullName.length() > MAX_TAG_LENGTH ? fullName.substring(0, MAX_TAG_LENGTH) : fullName;
     }
 
-    public static void navigateHome(Activity activity) {
-        Intent mainIntent = new Intent(activity, MainActivity.class);
-        mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // remove all open activities
-        activity.startActivity(mainIntent);
-        activity.finish();
-    }
-
     public static String createTag(Class clazz) {
         return createTag(clazz.getSimpleName());
     }
@@ -55,6 +48,11 @@ public class MyApplication extends Application {
         } else {
             return "Not available";
         }
+    }
+
+    public String getVersionText(Context context) throws PackageManager.NameNotFoundException {
+        PackageInfo pInfo = context.getPackageManager().getPackageInfo("org.company.project", PackageManager.GET_META_DATA);
+        return pInfo.versionName + " (" + readBuildNumber() + ")";
     }
 
     /**
