@@ -29,7 +29,7 @@
     <string name="pref_enable_something_summary">Some summary</string>
 
     <!-- About -->
-    <string name="about_title">My Application</string>
+    <string name="about_title">@string/app_name</string>
     <string name="about_for">for Android</string>
 
 

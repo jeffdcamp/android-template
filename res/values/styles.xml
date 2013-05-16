@@ -6,4 +6,42 @@
     </style>
     <style name="SettingsTheme" parent="Theme.Sherlock">
     </style>
+
+    <!-- Lists -->
+    <style name="list_view_header">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/list_header_text</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingTop">10dp</item>
+    </style>
+    <style name="list_view_header_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/list_header_line</item>
+        <item name="android:paddingBottom">10dp</item>
+    </style>
+    <style name="list_text_item_layout">
+        <item name="android:padding">5dp</item>
+    </style>
+    <style name="list_item" parent="@android:style/TextAppearance.Large">
+        <item name="android:textColor">@color/default_text</item>
+    </style>
+    <style name="list_item_title" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/list_item_title</item>
+    </style>
+    <style name="list_item_subtitle" parent="@android:style/TextAppearance.Small">
+        <item name="android:textColor">@color/list_item_subtitle</item>
+    </style>
+    <style name="list_view">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <!--<item name="android:background">@color/white_background</item>--> <!-- this was moved to "list_view" style, because scroll bars would not be visible with StickyHeaderListView -->
+        <item name="android:cacheColorHint">@android:color/transparent</item>
+        <item name="android:fastScrollEnabled">true</item>
+    </style>
+
 </resources>
