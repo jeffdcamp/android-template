@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/> <!-- cache to sdcard -->
     <uses-permission android:name="android.permission.READ_LOGS"/>
-    
+
     <!-- MyApplication -->
     <application android:debuggable="true" android:icon="@drawable/ic_launcher" android:label="@string/app_name" android:name=".MyApplication" android:theme="@style/AppTheme">
         <!-- Activities -->
@@ -21,7 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.MainActivity">
+            <meta-data android:name="android.support.UI_OPTIONS" android:value="splitActionBarWhenNarrow"/> <!-- Split support for ActionBarCompat -->
+        </activity>
         <activity android:name=".activity.AboutActivity"/>
 
         <activity android:label="@string/pref_title" android:name=".activity.SettingsActivity" android:theme="@style/SettingsTheme"/>
