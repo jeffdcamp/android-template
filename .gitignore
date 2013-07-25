@@ -20,6 +20,10 @@ nb-configuration.xml
 # Maven
 target/
 
+#Gradle
+.gradle/
+build/
+
 # Android
 classes/
 bin/

@@ -1,0 +1,83 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "http://www.soupbowl.net/nexus/content/groups/public" } // DB Tools
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.5.+'
+        classpath 'jdc:dbtools:2.6.3'
+    }
+}
+
+apply plugin: 'android'
+
+group = 'test'
+archivesBaseName = 'android-template'
+version = '1.0.0-SNAPSHOT'
+
+repositories {
+    mavenLocal()
+    maven { url "http://www.ldsmobile.org/nexus/content/groups/public/" } // LDS Mobile Repo
+    maven { url "http://www.ldsmobile.org/nexus/content/repositories/snapshots" } // LDS Mobile SNAPSHOTS
+    maven { url "http://code.lds.org/nexus/content/groups/main-repo" } // ICS Repo
+    maven { url 'http://download.crashlytics.com/maven' }
+    mavenCentral()
+}
+
+dependencies {
+    // Android
+    compile "com.android.support:support-v4:18.0.+"
+    compile "com.android.support:appcompat-v7:18.0.+"
+//    compile 'com.google.android.gms:play-services:3.1.36'
+
+    // UI
+//    compile('com.astuetz:pagesliding-tabstrip:1.0a') { exclude module: 'support-v4' }
+    compile 'com.emilsjolander:stickylistheaders:1.0.0-20130723'
+
+    // Code
+    compile 'com.squareup.dagger:dagger:1.0.1'
+    compile 'com.squareup.dagger:dagger-compiler:1.0.1'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.2.2'
+    compile 'joda-time:joda-time:2.2'
+    compile 'org.dbtools:dbtools-android:1.0.0'
+
+    // Statistics
+//    compile 'flurry.sdk:flurry-agent-android:3.2.1'
+//    compile 'com.crashlytics.android:crashlytics:[1.0.1,)'
+}
+
+android {
+    compileSdkVersion 18
+    buildToolsVersion "18.0.0"
+
+    defaultConfig {
+        minSdkVersion 9
+        targetSdkVersion 18
+    }
+}
+
+task dbtools {
+    description = 'Generate DBTools domain classes'
+    doLast {
+        // NOTE: BE Sure to add the following above:
+        //    buildscript {
+        //        repositories {
+        //            maven{url "http://www.soupbowl.net/nexus/content/groups/public"}
+        //        }
+        //        deependencies {
+        //            classpath 'jdc:dbtools:2.6.3'
+        //        }
+        //    }
+
+        System.out.println("Generating DBTools Classes...")
+
+        // properties
+        String schemaFilename = "src/main/database/schema.xml";
+        boolean injectionSupport = true; // support for CDI (Guice)
+        boolean dateTimeSupport = true; // support for jsr DateTime (Joda Time)
+        String baseOutputDir = "src/main/java/org/lds/ldstools/domain";
+        String basePackageName = "org.lds.ldstools.domain";
+        com.jdc.db.objects.android.AndroidDBObjectBuilder.buildAll(schemaFilename, baseOutputDir, basePackageName, injectionSupport, dateTimeSupport);
+    }
+}

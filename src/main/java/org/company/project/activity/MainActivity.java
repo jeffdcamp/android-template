@@ -1,27 +1,29 @@
 package org.company.project.activity;
 
 import android.os.Bundle;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+
 import org.company.project.MyApplication;
 import org.company.project.R;
 import org.company.project.menu.CommonMenu;
-import org.company.project.widget.robosherlock.activity.RoboSherlockFragmentActivity;
-import roboguice.inject.ContentView;
 
 import javax.inject.Inject;
 
-@ContentView(R.layout.main)
-public class MainActivity extends RoboSherlockFragmentActivity {
+public class MainActivity extends ActionBarActivity {
     public static final String TAG = MyApplication.createTag(MainActivity.class);
 
     @Inject
-    private CommonMenu commonMenu;
+    public CommonMenu commonMenu;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+        MyApplication.injectActivity(this);
+
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
     }
 
@@ -32,13 +34,13 @@ public class MainActivity extends RoboSherlockFragmentActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getSupportMenuInflater();
+        MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.common, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return commonMenu.onOptionsItemSelected(item);
+        return commonMenu.onOptionsItemSelected(this, item);
     }
 }

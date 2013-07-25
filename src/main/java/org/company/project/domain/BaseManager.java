@@ -8,7 +8,7 @@ import javax.inject.Inject;
 public abstract class BaseManager<T extends BaseRecord> extends AndroidBaseManager<T> {
 
     @Inject
-    private DatabaseManager databaseManager;
+    public DatabaseManager databaseManager;
 
     public SQLiteDatabase getReadableDatabase() {
         return databaseManager.getReadableDatabase(getDatabaseName());

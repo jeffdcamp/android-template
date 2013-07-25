@@ -1,5 +1,6 @@
 package org.company.project;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -7,7 +8,13 @@ import android.content.pm.PackageManager;
 import android.util.Log;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
+
+import javax.inject.Inject;
+
+import dagger.ObjectGraph;
 
 /**
  * @author jcampbell
@@ -18,10 +25,44 @@ public class MyApplication extends Application {
     public static final String DEFAULT_TAG_PREFIX = "company.";  // TODO change this for your app (pick a name similar to package name... get both raw log AND tag logs)
     public static final int MAX_TAG_LENGTH = 23; // if over: IllegalArgumentException: Log tag "xxx" exceeds limit of 23 characters
 
+    private ObjectGraph injectionObjectGraph;
+
+    @Inject
+    public MyApplication() {
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
+        injectionObjectGraph = ObjectGraph.create(getModules().toArray());
         enableStrictMode();
+    }
+
+    protected List<Object> getModules() {
+        return Arrays.asList(
+                new AndroidModules(this),
+                new MyApplicationModule(this)
+        );
+    }
+
+    public void inject(Object object) {
+        injectionObjectGraph.inject(object);
+    }
+
+    public static void injectActivity(Activity activity) {
+        ((MyApplication)activity.getApplication()).inject(activity);
+    }
+
+    public static void injectFragment(android.support.v4.app.Fragment fragment) {
+        getApplication(fragment).inject(fragment);
+    }
+
+    public static MyApplication getApplication(android.support.v4.app.Fragment fragment) {
+        return (MyApplication) fragment.getActivity().getApplication();
+    }
+
+    public static MyApplication getApplication(Activity activity) {
+        return (MyApplication) activity.getApplication();
     }
 
     public static String createTag(String name) {

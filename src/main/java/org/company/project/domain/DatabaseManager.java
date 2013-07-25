@@ -1,18 +1,18 @@
 package org.company.project.domain;
 
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+
 import org.company.project.MyApplication;
-import org.company.project.domain.individual.IndividualManager;
+import org.company.project.domain.individual.Individual;
 import org.company.project.domain.individualtype.IndividualType;
 import org.dbtools.android.domain.AndroidDatabase;
 import org.dbtools.android.domain.AndroidDatabaseManager;
 
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.inject.Singleton;
 import java.io.File;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 
 /**
@@ -23,17 +23,11 @@ import java.io.File;
 public class DatabaseManager extends AndroidDatabaseManager {
     private static final String TAG = MyApplication.createTag(DatabaseManager.class);
 
-    private static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 1;
     public static final String MAIN_DATABASE_NAME = "main"; // !!!! WARNING be SURE this matches the value in the schema.xml !!!!
 
     @Inject
-    private static Provider<Context> contextProvider;
-
-    @Inject
-    private IndividualManager individualManager;
-
     public DatabaseManager() {
-        addDatabase(contextProvider.get(), MAIN_DATABASE_NAME, DATABASE_VERSION);
     }
 
     @Override
@@ -42,16 +36,17 @@ public class DatabaseManager extends AndroidDatabaseManager {
         SQLiteDatabase database = androidDatabase.getSqLiteDatabase();
 
         // use any record manager to begin/end transaction
-        individualManager.beginTransaction(androidDatabase.getName());
+        database.beginTransaction();
 
         // Enum Tables
         BaseManager.createTable(database, IndividualType.CREATE_TABLE);
 
         // Regular Tables
-        individualManager.createTable(database);
+        BaseManager.createTable(database, Individual.CREATE_TABLE);
 
         // end transaction
-        individualManager.endTransaction(androidDatabase.getName());
+        database.setTransactionSuccessful();
+        database.endTransaction();
     }
 
     @Override

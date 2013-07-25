@@ -3,23 +3,25 @@ package org.company.project.menu;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import com.actionbarsherlock.view.MenuItem;
-import com.google.inject.Singleton;
+import android.view.MenuItem;
+
 import org.company.project.MyApplication;
 import org.company.project.R;
 import org.company.project.activity.AboutActivity;
 import org.company.project.activity.SettingsActivity;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 @Singleton
 public class CommonMenu {
     public static final String TAG = MyApplication.createTag(CommonMenu.class);
 
     @Inject
-    private Context context;
+    public CommonMenu() {
+    }
 
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(Context context, MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_search:
 //                this.onSearchRequested();

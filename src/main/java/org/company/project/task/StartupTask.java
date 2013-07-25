@@ -1,9 +1,12 @@
 package org.company.project.task;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import org.company.project.ForApplication;
 import org.company.project.MyApplication;
 import org.company.project.R;
 import org.company.project.activity.MainActivity;
@@ -18,7 +21,11 @@ public class StartupTask extends AsyncTask<String, Void, Boolean> {
     private long perfTime = 0;
 
     @Inject
-    private DatabaseManager databaseManager;
+    @ForApplication
+    public Context context;
+
+    @Inject
+    public DatabaseManager databaseManager;
 
     private Activity contextActivity;
     private Class startupActivityClass = MainActivity.class;
@@ -35,6 +42,10 @@ public class StartupTask extends AsyncTask<String, Void, Boolean> {
 
     @Override
     protected Boolean doInBackground(String... params) {
+        if (databaseManager.getDatabase(DatabaseManager.MAIN_DATABASE_NAME) == null) {
+            databaseManager.addDatabase(context, DatabaseManager.MAIN_DATABASE_NAME, DatabaseManager.DATABASE_VERSION);
+        }
+
 
         databaseManager.getWritableDatabase(DatabaseManager.MAIN_DATABASE_NAME);
 

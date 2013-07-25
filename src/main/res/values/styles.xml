@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="AppTheme" parent="Theme.Sherlock.Light.DarkActionBar">
+    <style name="AppTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <item name="android:windowBackground">@color/default_background</item>
         <item name="android:colorBackground">@color/default_background</item>
     </style>
-    <style name="SettingsTheme" parent="Theme.Sherlock">
+    <style name="SettingsTheme" parent="@style/Theme.AppCompat">
     </style>
 
     <!-- Lists -->
