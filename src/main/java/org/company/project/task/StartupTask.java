@@ -42,11 +42,6 @@ public class StartupTask extends AsyncTask<String, Void, Boolean> {
 
     @Override
     protected Boolean doInBackground(String... params) {
-        if (databaseManager.getDatabase(DatabaseManager.MAIN_DATABASE_NAME) == null) {
-            databaseManager.addDatabase(context, DatabaseManager.MAIN_DATABASE_NAME, DatabaseManager.DATABASE_VERSION);
-        }
-
-
         databaseManager.getWritableDatabase(DatabaseManager.MAIN_DATABASE_NAME);
 
         return true;

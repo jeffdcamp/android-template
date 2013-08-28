@@ -1,9 +1,7 @@
 package org.company.project.activity;
 
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -20,7 +18,8 @@ public class AboutActivity extends ActionBarActivity {
     public static final String TAG = MyApplication.createTag(AboutActivity.class);
 
     @Inject
-    public MyApplication myApplication;
+    public AboutActivity() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,17 +30,7 @@ public class AboutActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         TextView versionTextView = (TextView) findViewById(R.id.version_info);
-        versionTextView.setText(getVersionName());
-    }
-
-    private String getVersionName() {
-        String versionString = "--not found--";
-        try {
-            versionString = myApplication.getVersionText(this);
-        } catch (PackageManager.NameNotFoundException e) {
-            Log.d(TAG, "Cannon find version name");
-        }
-        return versionString;
+        versionTextView.setText(getString(R.string.build_number));
     }
 
     @Override

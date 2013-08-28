@@ -12,9 +12,8 @@ buildscript {
 
 apply plugin: 'android'
 
-group = 'test'
 archivesBaseName = 'android-template'
-version = '1.0.0-SNAPSHOT'
+def version = '1.0.0.0'
 
 repositories {
     mavenLocal()
@@ -32,15 +31,15 @@ dependencies {
 //    compile 'com.google.android.gms:play-services:3.1.36'
 
     // UI
-//    compile('com.astuetz:pagesliding-tabstrip:1.0a') { exclude module: 'support-v4' }
+    compile('com.astuetz:pagesliding-tabstrip:1.0-20130727') { exclude module: 'support-v4' exclude module: 'support-v7' }
     compile 'com.emilsjolander:stickylistheaders:1.0.0-20130723'
 
     // Code
-    compile 'com.squareup.dagger:dagger:1.0.1'
-    compile 'com.squareup.dagger:dagger-compiler:1.0.1'
+    compile 'com.squareup.dagger:dagger:1.1.0'
+    compile 'com.squareup.dagger:dagger-compiler:1.1.0'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.2.2'
-    compile 'joda-time:joda-time:2.2'
-    compile 'org.dbtools:dbtools-android:1.0.0'
+    compile 'joda-time:joda-time:2.3'
+    compile 'org.dbtools:dbtools-android:1.1.0'
 
     // Statistics
 //    compile 'flurry.sdk:flurry-agent-android:3.2.1'
@@ -54,6 +53,48 @@ android {
     defaultConfig {
         minSdkVersion 9
         targetSdkVersion 18
+    }
+
+    // defined values my* in ~/.gradle/gradle.properties
+//    signingConfigs {
+//        prodConfig {
+//            storeFile file(myKeystore)
+//            storePassword myKeystorePassword
+//            keyAlias myKeyAlias
+//            keyPassword myKeyPassword
+//        }
+//    }
+
+    buildTypes {
+        debug {
+            versionNameSuffix '-DEV'
+        }
+        release {
+//            signingConfig signingConfigs.prodConfig;
+            versionNameSuffix ''
+        }
+    }
+
+    //set the build number
+    android.applicationVariants.all { variant ->
+
+        // set the build timestamp on the file and in the app
+        def timestamp = new Date().format("yyyyMMdd-HHmm", TimeZone.getTimeZone("GMT"));
+
+        // name the file with the version and timestamp (does not work well with the IDE... do not do on debug build)
+        if (variant.buildType.name != "debug") {
+            def apk = variant.packageApplication.outputFile;
+            def newName = apk.name.replace(".apk", "-" + version + "-" + timestamp + ".apk");
+            variant.packageApplication.outputFile = new File(apk.parentFile, newName);
+        }
+
+        variant.mergeResources.doLast {
+            def buildNumber = variant.buildType.name != "release" ? version + variant.buildType.versionNameSuffix + " (" + timestamp + ")" : version + " (" + timestamp + ")";
+            File valuesFile = file("${buildDir}/res/all/${variant.dirName}/values/values.xml")
+            String content = valuesFile.getText('UTF-8')
+            content = content.replaceAll(/devBuild/, buildNumber)
+            valuesFile.write(content, 'UTF-8')
+        }
     }
 }
 

@@ -1,8 +1,10 @@
 package org.company.project.domain;
 
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import org.company.project.ForApplication;
 import org.company.project.MyApplication;
 import org.company.project.domain.individual.Individual;
 import org.company.project.domain.individualtype.IndividualType;
@@ -26,8 +28,14 @@ public class DatabaseManager extends AndroidDatabaseManager {
     public static final int DATABASE_VERSION = 1;
     public static final String MAIN_DATABASE_NAME = "main"; // !!!! WARNING be SURE this matches the value in the schema.xml !!!!
 
+    @ForApplication
     @Inject
-    public DatabaseManager() {
+    public Context context;
+
+
+    @Override
+    public void identifyDatabases() {
+        addDatabase(context, DatabaseManager.MAIN_DATABASE_NAME, DatabaseManager.DATABASE_VERSION);
     }
 
     @Override
