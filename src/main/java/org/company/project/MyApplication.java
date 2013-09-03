@@ -41,7 +41,7 @@ public class MyApplication extends Application {
     protected List<Object> getModules() {
         return Arrays.asList(
                 new AndroidModules(this),
-                new MyApplicationModule(this)
+                new ApplicationModules(this)
         );
     }
 

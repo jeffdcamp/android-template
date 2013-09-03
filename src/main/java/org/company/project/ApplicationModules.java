@@ -23,10 +23,10 @@ import dagger.Module;
         },
         complete = false // complete=true will fail the build if any dependency is missing. Use this to make sure you haven't forgotten any @Provides methods.
 )
-public class MyApplicationModule {
+public class ApplicationModules {
     private final MyApplication application;
 
-    public MyApplicationModule(MyApplication application) {
+    public ApplicationModules(MyApplication application) {
         this.application = application;
     }
 

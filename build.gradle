@@ -14,6 +14,7 @@ apply plugin: 'android'
 
 archivesBaseName = 'android-template'
 def version = '1.0.0.0'
+def androidVersionCode = 2220
 
 repositories {
     mavenLocal()
@@ -53,6 +54,9 @@ android {
     defaultConfig {
         minSdkVersion 9
         targetSdkVersion 18
+
+        versionCode androidVersionCode
+        versionName version // use the gradle version
     }
 
     // defined values my* in ~/.gradle/gradle.properties
