@@ -10,15 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/hello_world"
+        <fragment
+            android:name="org.company.project.activity.MainFragment"
+            android:id="@+id/main_fragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:padding="10dp"
-            android:textSize="20sp"
-            android:text="Hello World"
-            />
+            android:layout_height="match_parent"/>
     </FrameLayout>
 
     <!-- drawer -->
