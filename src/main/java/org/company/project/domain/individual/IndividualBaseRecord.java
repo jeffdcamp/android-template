@@ -38,7 +38,9 @@ public class IndividualBaseRecord extends BaseRecord {
     public static final String KEY_BIRTH_DATE = "BIRTH_DATE";
     public static final String C_BIRTH_DATE = "BIRTH_DATE";
     public static final String FULL_C_BIRTH_DATE = "INDIVIDUAL.BIRTH_DATE";
-    private java.util.Date birthDate = null;
+    private org.joda.time.DateTime birthDate = null;
+    public static final String DB_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss.sss";
+    public static final org.joda.time.format.DateTimeFormatter DB_DATE_FORMATTER = org.joda.time.format.DateTimeFormat.forPattern(DB_DATE_FORMAT);
     public static final String KEY_PHONE = "PHONE";
     public static final String C_PHONE = "PHONE";
     public static final String FULL_C_PHONE = "INDIVIDUAL.PHONE";
@@ -48,7 +50,7 @@ public class IndividualBaseRecord extends BaseRecord {
     public static final String FULL_C_EMAIL = "INDIVIDUAL.EMAIL";
     private String email = "";
     public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS INDIVIDUAL (" + 
-        "_id INTEGER NOT NULL PRIMARY KEY," + 
+        "_id INTEGER PRIMARY KEY  AUTOINCREMENT," + 
         "INDIVIDUAL_TYPE_ID INTEGER NOT NULL," + 
         "NAME TEXT NOT NULL," + 
         "BIRTH_DATE TEXT," + 
@@ -95,6 +97,26 @@ public class IndividualBaseRecord extends BaseRecord {
         Id = id;
     }
 
+    public String dateTimeToDBString(org.joda.time.DateTime d) {
+        if (d != null) {
+            return d.toString(DB_DATE_FORMAT);
+        } else {
+            return null;
+        }
+    }
+
+    public org.joda.time.DateTime dbStringToDateTime(String text) {
+        if (text != null && text.length() > 0 && !text.equals("null")) {
+            try {
+                return DB_DATE_FORMATTER.parseDateTime(text);
+            } catch (Exception ex) {
+                throw new IllegalArgumentException("Cannot parse date text: " + text, ex);
+            }
+        } else {
+            return null;
+        }
+    }
+
     @Override
     public String[] getAllKeys() {
         return ALL_KEYS.clone();
@@ -103,20 +125,18 @@ public class IndividualBaseRecord extends BaseRecord {
     @Override
     public ContentValues getContentValues() {
         ContentValues values = new ContentValues();
-        values.put(KEY_ID, Id);
         values.put(KEY_INDIVIDUAL_TYPE, individualType.ordinal());
         values.put(KEY_NAME, name);
-        values.put(KEY_BIRTH_DATE, dateToDBString(birthDate));
+        values.put(KEY_BIRTH_DATE, dateTimeToDBString(birthDate));
         values.put(KEY_PHONE, phone);
         values.put(KEY_EMAIL, email);
         return values;
     }
 
     public void setContent(ContentValues values) {
-        Id = values.getAsLong(KEY_ID);
         individualType = IndividualType.values()[values.getAsInteger(KEY_INDIVIDUAL_TYPE)];
         name = values.getAsString(KEY_NAME);
-        birthDate = dbStringToDate(values.getAsString(KEY_BIRTH_DATE));
+        birthDate = dbStringToDateTime(values.getAsString(KEY_BIRTH_DATE));
         phone = values.getAsString(KEY_PHONE);
         email = values.getAsString(KEY_EMAIL);
     }
@@ -126,7 +146,7 @@ public class IndividualBaseRecord extends BaseRecord {
         Id = cursor.getLong(cursor.getColumnIndex(KEY_ID));
         individualType = IndividualType.values()[cursor.getInt(cursor.getColumnIndex(KEY_INDIVIDUAL_TYPE))];
         name = cursor.getString(cursor.getColumnIndex(KEY_NAME));
-        birthDate = dbStringToDate(cursor.getString(cursor.getColumnIndex(KEY_BIRTH_DATE)));
+        birthDate = dbStringToDateTime(cursor.getString(cursor.getColumnIndex(KEY_BIRTH_DATE)));
         phone = cursor.getString(cursor.getColumnIndex(KEY_PHONE));
         email = cursor.getString(cursor.getColumnIndex(KEY_EMAIL));
     }
@@ -174,20 +194,12 @@ public class IndividualBaseRecord extends BaseRecord {
         this.name = name;
     }
 
-    public java.util.Date getBirthDate() {
-        if (birthDate != null) {
-            return (java.util.Date)birthDate.clone();
-        } else {
-            return null;
-        }
+    public org.joda.time.DateTime getBirthDate() {
+        return birthDate;
     }
 
-    public void setBirthDate(java.util.Date birthDate) {
-        if (birthDate != null) {
-            this.birthDate = (java.util.Date) birthDate.clone();
-        } else {
-            this.birthDate = null;
-        }
+    public void setBirthDate(org.joda.time.DateTime birthDate) {
+        this.birthDate = birthDate;
     }
 
     public String getPhone() {

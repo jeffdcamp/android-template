@@ -2,7 +2,7 @@ package org.company.project.activity;
 
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBar;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
@@ -18,7 +18,7 @@ import org.company.project.menu.CommonMenu;
 
 import javax.inject.Inject;
 
-public class MainActivity extends ActionBarActivity implements ActionMode.Callback, SearchView.OnQueryTextListener {
+public class MainActivity extends DrawerActivity implements ActionMode.Callback, SearchView.OnQueryTextListener {
     public static final String TAG = MyApplication.createTag(MainActivity.class);
 
     @Inject
@@ -41,6 +41,12 @@ public class MainActivity extends ActionBarActivity implements ActionMode.Callba
             }
         });
 
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle(R.string.nav_main);
+
+        setupDrawer(true, R.string.nav_main, false);
     }
 
     @Override
@@ -56,7 +62,7 @@ public class MainActivity extends ActionBarActivity implements ActionMode.Callba
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return commonMenu.onOptionsItemSelected(this, item);
+        return commonMenu.onOptionsItemSelected(this, item) || super.onOptionsItemSelected(item);
     }
 
     @Override

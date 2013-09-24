@@ -10,6 +10,10 @@
     <color name="default_text">#000000</color>
     <color name="default_text_light">#ffffffff</color>
 
+    <!-- Drawer -->
+    <color name="nav_list_background">#ff303030</color>
+    <color name="nav_list_line">#ff000000</color>
+
     <!-- Lists -->
     <color name="list_header_text">@color/app_theme_color</color>
     <color name="list_header_line">@color/app_theme_color</color>

@@ -10,6 +10,11 @@
     <string name="cancel">Cancel</string>
     <string name="error">Error</string>
 
+    <!-- Navigation Drawer -->
+    <string name="nav_main">Main</string>
+    <string name="nav_my_library">My Library</string>
+    <string name="nav_store">Store</string>
+
     <!-- The description that will show up in the search settings for this source. -->
     <string name="search_no_results">No Results</string>
     <plurals name="search_results">

@@ -2,11 +2,10 @@ buildscript {
     repositories {
         mavenLocal()
         mavenCentral()
-        maven { url "http://www.soupbowl.net/nexus/content/groups/public" } // DB Tools
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:0.5.+'
-        classpath 'jdc:dbtools:2.6.3'
+        classpath 'org.dbtools:dbtools-gen:1.+'
     }
 }
 
@@ -14,7 +13,7 @@ apply plugin: 'android'
 
 archivesBaseName = 'android-template'
 def version = '1.0.0.0'
-def androidVersionCode = 2220
+def androidVersionCode = 1000
 
 repositories {
     mavenLocal()
@@ -40,7 +39,7 @@ dependencies {
     compile 'com.squareup.dagger:dagger-compiler:1.1.0'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.2.2'
     compile 'joda-time:joda-time:2.3'
-    compile 'org.dbtools:dbtools-android:1.1.0'
+    compile 'org.dbtools:dbtools-android:1.2.0'
 
     // Statistics
 //    compile 'flurry.sdk:flurry-agent-android:3.2.1'
@@ -49,7 +48,7 @@ dependencies {
 
 android {
     compileSdkVersion 18
-    buildToolsVersion "18.0.0"
+    buildToolsVersion "18.1"
 
     defaultConfig {
         minSdkVersion 9
@@ -108,10 +107,10 @@ task dbtools {
         // NOTE: BE Sure to add the following above:
         //    buildscript {
         //        repositories {
-        //            maven{url "http://www.soupbowl.net/nexus/content/groups/public"}
+        //            mavenCentral()
         //        }
         //        deependencies {
-        //            classpath 'jdc:dbtools:2.6.3'
+        //            classpath 'org.dbtools:dbtools-gen:1.+'
         //        }
         //    }
 
@@ -119,10 +118,10 @@ task dbtools {
 
         // properties
         String schemaFilename = "src/main/database/schema.xml";
-        boolean injectionSupport = true; // support for CDI (Guice)
+        boolean injectionSupport = true; // support for CDI
         boolean dateTimeSupport = true; // support for jsr DateTime (Joda Time)
-        String baseOutputDir = "src/main/java/org/lds/ldstools/domain";
-        String basePackageName = "org.lds.ldstools.domain";
-        com.jdc.db.objects.android.AndroidDBObjectBuilder.buildAll(schemaFilename, baseOutputDir, basePackageName, injectionSupport, dateTimeSupport);
+        String baseOutputDir = "src/main/java/org/company/project/domain";
+        String basePackageName = "org.company.project.domain";
+        org.dbtools.gen.android.AndroidDBObjectBuilder.buildAll(schemaFilename, baseOutputDir, basePackageName, injectionSupport, dateTimeSupport);
     }
 }
