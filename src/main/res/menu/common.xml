@@ -10,14 +10,16 @@
         actionBarCompat:showAsAction="ifRoom|collapseActionView"
         actionBarCompat:actionViewClass="android.support.v7.widget.SearchView"
     />
-    <item
-        android:id="@+id/menu_item_settings"
-        android:title="@string/menu_settings"
-        android:icon="@drawable/ic_action_settings"
-        />
-    <item
-        android:id="@+id/menu_item_about"
-        android:title="@string/menu_about"
-        android:icon="@drawable/ic_action_about"
-        />
+    <group android:id="@+id/menu_group_core"> <!-- don't let these items disappear when the drawer is open -->
+        <item
+            android:id="@+id/menu_item_settings"
+            android:title="@string/menu_settings"
+            android:icon="@drawable/ic_action_settings"
+            />
+        <item
+            android:id="@+id/menu_item_about"
+            android:title="@string/menu_about"
+            android:icon="@drawable/ic_action_about"
+            />
+    </group>
 </menu>
