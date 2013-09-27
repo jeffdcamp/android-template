@@ -39,7 +39,7 @@ dependencies {
     compile 'com.squareup.dagger:dagger-compiler:1.1.0'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.2.2'
     compile 'joda-time:joda-time:2.3'
-    compile 'org.dbtools:dbtools-android:1.2.0'
+    compile 'org.dbtools:dbtools-android:1.2.1'
 
     // Statistics
 //    compile 'flurry.sdk:flurry-agent-android:3.2.1'
@@ -48,7 +48,7 @@ dependencies {
 
 android {
     compileSdkVersion 18
-    buildToolsVersion "18.1"
+    buildToolsVersion '18.1'
 
     defaultConfig {
         minSdkVersion 9
@@ -109,7 +109,7 @@ task dbtools {
         //        repositories {
         //            mavenCentral()
         //        }
-        //        deependencies {
+        //        dependencies {
         //            classpath 'org.dbtools:dbtools-gen:1.+'
         //        }
         //    }
