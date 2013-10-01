@@ -23,6 +23,7 @@ target/
 #Gradle
 .gradle/
 build/
+local.properties
 
 # Android
 classes/
