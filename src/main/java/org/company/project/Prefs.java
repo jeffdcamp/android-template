@@ -13,6 +13,20 @@ public final class Prefs {
     @Inject
     public SharedPreferences preferences;
 
-    private Prefs() {
+    public void reset() {
+        // clear ALL preferences
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.clear();
+        editor.commit();
+    }
+
+    public String getPrefSomething() {
+        return preferences.getString(PREF_SOMETHING, "");
+    }
+
+    public void savePromptDatabaseUpdated(String value) {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(PREF_SOMETHING, value);
+        editor.commit();
     }
 }
