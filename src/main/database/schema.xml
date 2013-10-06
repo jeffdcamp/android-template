@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dbSchema xmlns='http://www.soupbowl.net/schema/dbtools/dbschema-1.0.xsd'
+<dbSchema xmlns='https://github.com/jeffdcamp/dbtools-gen'
           xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-          xsi:schemaLocation='http://www.soupbowl.net/schema/dbtools/dbschema-1.0.xsd dbschema.xsd'>
+          xsi:schemaLocation='https://github.com/jeffdcamp/dbtools-gen dbschema.xsd'>
     <database name="main">
         <table name="INDIVIDUAL_TYPE" className="IndividualType" enumerations="HEAD,SPOUSE,CHILD">
             <field name="_id" jdbcDataType="BIGINT" increment="true" primaryKey="true" notNull="true"/>

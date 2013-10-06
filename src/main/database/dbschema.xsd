@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-           targetNamespace="http://www.soupbowl.net/schema/dbtools/dbschema-1.0.xsd"
+           targetNamespace="https://github.com/jeffdcamp/dbtools-gen"
            elementFormDefault="qualified">
     <xsd:element name="dbSchema">
         <xsd:complexType>
