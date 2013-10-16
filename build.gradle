@@ -17,10 +17,6 @@ def androidVersionCode = 1000
 
 repositories {
     mavenLocal()
-    maven { url "http://www.ldsmobile.org/nexus/content/groups/public/" } // LDS Mobile Repo
-    maven { url "http://www.ldsmobile.org/nexus/content/repositories/snapshots" } // LDS Mobile SNAPSHOTS
-    maven { url "http://code.lds.org/nexus/content/groups/main-repo" } // ICS Repo
-    maven { url 'http://download.crashlytics.com/maven' }
     mavenCentral()
 }
 
@@ -30,14 +26,10 @@ dependencies {
     compile "com.android.support:appcompat-v7:18.0.+"
 //    compile 'com.google.android.gms:play-services:3.1.36'
 
-    // UI
-    compile('com.astuetz:pagesliding-tabstrip:1.0-20130727') { exclude module: 'support-v4' exclude module: 'support-v7' }
-    compile 'com.emilsjolander:stickylistheaders:1.0.0-20130723'
-
     // Code
     compile 'com.squareup.dagger:dagger:1.1.0'
     compile 'com.squareup.dagger:dagger-compiler:1.1.0'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.2.2'
+//    compile 'com.fasterxml.jackson.core:jackson-databind:2.2.2'
     compile 'joda-time:joda-time:2.3'
     compile 'org.dbtools:dbtools-android:1.4.0'
 
