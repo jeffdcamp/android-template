@@ -3,6 +3,11 @@
           xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
           xsi:schemaLocation='https://github.com/jeffdcamp/dbtools-gen dbschema.xsd'>
     <database name="main">
+        <table name="HOUSEHOLD">
+            <field name="_id" jdbcDataType="BIGINT" increment="true" primaryKey="true" notNull="true"/>
+            <field name="NAME" jdbcDataType="VARCHAR" size="255" notNull="true"/>
+        </table>
+
         <table name="INDIVIDUAL_TYPE" className="IndividualType" enumerations="HEAD,SPOUSE,CHILD">
             <field name="_id" jdbcDataType="BIGINT" increment="true" primaryKey="true" notNull="true"/>
             <field name="NAME" jdbcDataType="VARCHAR" size="255" notNull="true" unique="true"/>
@@ -10,9 +15,11 @@
 
         <table name="INDIVIDUAL">
             <field name="_id" jdbcDataType="BIGINT" increment="true" primaryKey="true" notNull="true"/>
+            <field name="HOUSEHOLD_ID" jdbcDataType="BIGINT" foreignKeyTable="HOUSEHOLD" foreignKeyField="_id" notNull="true"/>
             <field name="INDIVIDUAL_TYPE_ID" jdbcDataType="INTEGER" varName="individualType" foreignKeyTable="INDIVIDUAL_TYPE" foreignKeyField="_id" foreignKeyType="ENUM" enumerationDefault="HEAD"/>
-            <field name="NAME" jdbcDataType="VARCHAR" size="255" notNull="true"/>
-            <field name="BIRTH_DATE" jdbcDataType="DATE"/>
+            <field name="FIRST_NAME" jdbcDataType="VARCHAR" size="255" notNull="true"/>
+            <field name="LAST_NAME" jdbcDataType="VARCHAR" size="255" notNull="true"/>
+            <field name="BIRTH_DATE" jdbcDataType="TIMESTAMP"/>
             <field name="PHONE" jdbcDataType="VARCHAR" size="255"/>
             <field name="EMAIL" jdbcDataType="VARCHAR" size="255"/>
         </table>

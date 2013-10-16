@@ -39,7 +39,7 @@ dependencies {
     compile 'com.squareup.dagger:dagger-compiler:1.1.0'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.2.2'
     compile 'joda-time:joda-time:2.3'
-    compile 'org.dbtools:dbtools-android:1.2.1'
+    compile 'org.dbtools:dbtools-android:1.4.0'
 
     // Statistics
 //    compile 'flurry.sdk:flurry-agent-android:3.2.1'

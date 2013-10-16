@@ -15,7 +15,6 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
-import android.provider.BaseColumns;
 
 
 @SuppressWarnings("PMD")
@@ -27,10 +26,9 @@ HEAD, SPOUSE, CHILD;
     public static final String DATABASE = "main";
     public static final String TABLE = "INDIVIDUAL_TYPE";
     public static final String FULL_TABLE = "main.INDIVIDUAL_TYPE";
-    public static final String KEY_ID = BaseColumns._ID;
+    public static final String PRIMARY_KEY_COLUMN = "_id";
     public static final String C_ID = "_id";
     public static final String FULL_C_ID = "INDIVIDUAL_TYPE._id";
-    public static final String KEY_NAME = "NAME";
     public static final String C_NAME = "NAME";
     public static final String FULL_C_NAME = "INDIVIDUAL_TYPE.NAME";
     public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS INDIVIDUAL_TYPE (" + 

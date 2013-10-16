@@ -31,7 +31,7 @@ public class IndividualBaseManager extends BaseManager<Individual> {
     }
 
     public String getPrimaryKey() {
-        return Individual.KEY_ID;
+        return Individual.PRIMARY_KEY_COLUMN;
     }
 
     public String[] getAllKeys() {

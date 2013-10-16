@@ -11,7 +11,6 @@
 package org.company.project.domain.individual;
 
 import org.company.project.domain.BaseRecord;
-import android.provider.BaseColumns;
 import org.company.project.domain.individualtype.IndividualType;
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -23,51 +22,55 @@ public class IndividualBaseRecord extends BaseRecord {
     public static final String DATABASE = "main";
     public static final String TABLE = "INDIVIDUAL";
     public static final String FULL_TABLE = "main.INDIVIDUAL";
-    public static final String KEY_ID = BaseColumns._ID;
+    public static final String PRIMARY_KEY_COLUMN = "_id";
     public static final String C_ID = "_id";
     public static final String FULL_C_ID = "INDIVIDUAL._id";
     private long Id = 0;
-    public static final String KEY_INDIVIDUAL_TYPE = "INDIVIDUAL_TYPE_ID";
+    public static final String C_HOUSEHOLD_ID = "HOUSEHOLD_ID";
+    public static final String FULL_C_HOUSEHOLD_ID = "INDIVIDUAL.HOUSEHOLD_ID";
+    private long householdId = 0;
     public static final String C_INDIVIDUAL_TYPE = "INDIVIDUAL_TYPE_ID";
     public static final String FULL_C_INDIVIDUAL_TYPE = "INDIVIDUAL.INDIVIDUAL_TYPE_ID";
     private IndividualType individualType = IndividualType.HEAD;
-    public static final String KEY_NAME = "NAME";
-    public static final String C_NAME = "NAME";
-    public static final String FULL_C_NAME = "INDIVIDUAL.NAME";
-    private String name = "";
-    public static final String KEY_BIRTH_DATE = "BIRTH_DATE";
+    public static final String C_FIRST_NAME = "FIRST_NAME";
+    public static final String FULL_C_FIRST_NAME = "INDIVIDUAL.FIRST_NAME";
+    private String firstName = "";
+    public static final String C_LAST_NAME = "LAST_NAME";
+    public static final String FULL_C_LAST_NAME = "INDIVIDUAL.LAST_NAME";
+    private String lastName = "";
     public static final String C_BIRTH_DATE = "BIRTH_DATE";
     public static final String FULL_C_BIRTH_DATE = "INDIVIDUAL.BIRTH_DATE";
     private org.joda.time.DateTime birthDate = null;
-    public static final String DB_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss.sss";
-    public static final org.joda.time.format.DateTimeFormatter DB_DATE_FORMATTER = org.joda.time.format.DateTimeFormat.forPattern(DB_DATE_FORMAT);
-    public static final String KEY_PHONE = "PHONE";
     public static final String C_PHONE = "PHONE";
     public static final String FULL_C_PHONE = "INDIVIDUAL.PHONE";
     private String phone = "";
-    public static final String KEY_EMAIL = "EMAIL";
     public static final String C_EMAIL = "EMAIL";
     public static final String FULL_C_EMAIL = "INDIVIDUAL.EMAIL";
     private String email = "";
     public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS INDIVIDUAL (" + 
         "_id INTEGER PRIMARY KEY  AUTOINCREMENT," + 
+        "HOUSEHOLD_ID INTEGER NOT NULL," + 
         "INDIVIDUAL_TYPE_ID INTEGER NOT NULL," + 
-        "NAME TEXT NOT NULL," + 
-        "BIRTH_DATE TEXT," + 
+        "FIRST_NAME TEXT NOT NULL," + 
+        "LAST_NAME TEXT NOT NULL," + 
+        "BIRTH_DATE INTEGER," + 
         "PHONE TEXT," + 
         "EMAIL TEXT," + 
+        "FOREIGN KEY (HOUSEHOLD_ID) REFERENCES HOUSEHOLD (_id)," + 
         "FOREIGN KEY (INDIVIDUAL_TYPE_ID) REFERENCES INDIVIDUAL_TYPE (_id)" + 
         ");" + 
         "" + 
         "";
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS INDIVIDUAL;";
      static final String[] ALL_KEYS = new String[] {
-        KEY_ID,
-        KEY_INDIVIDUAL_TYPE,
-        KEY_NAME,
-        KEY_BIRTH_DATE,
-        KEY_PHONE,
-        KEY_EMAIL};
+        C_ID,
+        C_HOUSEHOLD_ID,
+        C_INDIVIDUAL_TYPE,
+        C_FIRST_NAME,
+        C_LAST_NAME,
+        C_BIRTH_DATE,
+        C_PHONE,
+        C_EMAIL};
 
     public IndividualBaseRecord() {
     }
@@ -84,37 +87,17 @@ public class IndividualBaseRecord extends BaseRecord {
 
     @Override
     public String getRowIDKey() {
-        return KEY_ID;
+        return C_ID;
     }
 
     @Override
-    public long getID() {
+    public long getPrimaryKeyID() {
         return Id;
     }
 
     @Override
-    public void setID(long id) {
-        Id = id;
-    }
-
-    public String dateTimeToDBString(org.joda.time.DateTime d) {
-        if (d != null) {
-            return d.toString(DB_DATE_FORMAT);
-        } else {
-            return null;
-        }
-    }
-
-    public org.joda.time.DateTime dbStringToDateTime(String text) {
-        if (text != null && text.length() > 0 && !text.equals("null")) {
-            try {
-                return DB_DATE_FORMATTER.parseDateTime(text);
-            } catch (Exception ex) {
-                throw new IllegalArgumentException("Cannot parse date text: " + text, ex);
-            }
-        } else {
-            return null;
-        }
+    public void setPrimaryKeyID(long id) {
+        this.Id = id;
     }
 
     @Override
@@ -125,30 +108,36 @@ public class IndividualBaseRecord extends BaseRecord {
     @Override
     public ContentValues getContentValues() {
         ContentValues values = new ContentValues();
-        values.put(KEY_INDIVIDUAL_TYPE, individualType.ordinal());
-        values.put(KEY_NAME, name);
-        values.put(KEY_BIRTH_DATE, dateTimeToDBString(birthDate));
-        values.put(KEY_PHONE, phone);
-        values.put(KEY_EMAIL, email);
+        values.put(C_HOUSEHOLD_ID, householdId);
+        values.put(C_INDIVIDUAL_TYPE, individualType.ordinal());
+        values.put(C_FIRST_NAME, firstName);
+        values.put(C_LAST_NAME, lastName);
+        values.put(C_BIRTH_DATE, birthDate != null ? birthDate.getMillis() : null);
+        values.put(C_PHONE, phone);
+        values.put(C_EMAIL, email);
         return values;
     }
 
     public void setContent(ContentValues values) {
-        individualType = IndividualType.values()[values.getAsInteger(KEY_INDIVIDUAL_TYPE)];
-        name = values.getAsString(KEY_NAME);
-        birthDate = dbStringToDateTime(values.getAsString(KEY_BIRTH_DATE));
-        phone = values.getAsString(KEY_PHONE);
-        email = values.getAsString(KEY_EMAIL);
+        householdId = values.getAsLong(C_HOUSEHOLD_ID);
+        individualType = IndividualType.values()[values.getAsInteger(C_INDIVIDUAL_TYPE)];
+        firstName = values.getAsString(C_FIRST_NAME);
+        lastName = values.getAsString(C_LAST_NAME);
+        birthDate = new org.joda.time.DateTime(values.getAsLong(C_BIRTH_DATE));
+        phone = values.getAsString(C_PHONE);
+        email = values.getAsString(C_EMAIL);
     }
 
     @Override
     public void setContent(Cursor cursor) {
-        Id = cursor.getLong(cursor.getColumnIndex(KEY_ID));
-        individualType = IndividualType.values()[cursor.getInt(cursor.getColumnIndex(KEY_INDIVIDUAL_TYPE))];
-        name = cursor.getString(cursor.getColumnIndex(KEY_NAME));
-        birthDate = dbStringToDateTime(cursor.getString(cursor.getColumnIndex(KEY_BIRTH_DATE)));
-        phone = cursor.getString(cursor.getColumnIndex(KEY_PHONE));
-        email = cursor.getString(cursor.getColumnIndex(KEY_EMAIL));
+        Id = cursor.getLong(cursor.getColumnIndex(C_ID));
+        householdId = cursor.getLong(cursor.getColumnIndex(C_HOUSEHOLD_ID));
+        individualType = IndividualType.values()[cursor.getInt(cursor.getColumnIndex(C_INDIVIDUAL_TYPE))];
+        firstName = cursor.getString(cursor.getColumnIndex(C_FIRST_NAME));
+        lastName = cursor.getString(cursor.getColumnIndex(C_LAST_NAME));
+        birthDate = !cursor.isNull(cursor.getColumnIndex(C_BIRTH_DATE)) ? new org.joda.time.DateTime(cursor.getLong(cursor.getColumnIndex(C_BIRTH_DATE))) : null;
+        phone = cursor.getString(cursor.getColumnIndex(C_PHONE));
+        email = cursor.getString(cursor.getColumnIndex(C_EMAIL));
     }
 
     protected void cleanupOrphans() {
@@ -158,8 +147,10 @@ public class IndividualBaseRecord extends BaseRecord {
     public String toString() {
         String text = "\n";
         text += "Id = "+ Id +"\n";
+        text += "householdId = "+ householdId +"\n";
         text += "individualType = "+ individualType +"\n";
-        text += "name = "+ name +"\n";
+        text += "firstName = "+ firstName +"\n";
+        text += "lastName = "+ lastName +"\n";
         text += "birthDate = "+ birthDate +"\n";
         text += "phone = "+ phone +"\n";
         text += "email = "+ email +"\n";
@@ -167,7 +158,7 @@ public class IndividualBaseRecord extends BaseRecord {
     }
 
     public boolean isNewRecord() {
-        return getID() <= 0;
+        return getPrimaryKeyID() <= 0;
     }
 
     public long getId() {
@@ -178,6 +169,14 @@ public class IndividualBaseRecord extends BaseRecord {
         this.Id = Id;
     }
 
+    public long getHouseholdId() {
+        return householdId;
+    }
+
+    public void setHouseholdId(long householdId) {
+        this.householdId = householdId;
+    }
+
     public IndividualType getIndividualType() {
         return individualType;
     }
@@ -186,12 +185,20 @@ public class IndividualBaseRecord extends BaseRecord {
         this.individualType = individualType;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public org.joda.time.DateTime getBirthDate() {

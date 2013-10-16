@@ -6,6 +6,7 @@ import android.util.Log;
 
 import org.company.project.ForApplication;
 import org.company.project.MyApplication;
+import org.company.project.domain.household.Household;
 import org.company.project.domain.individual.Individual;
 import org.company.project.domain.individualtype.IndividualType;
 import org.dbtools.android.domain.AndroidDatabase;
@@ -32,7 +33,6 @@ public class DatabaseManager extends AndroidDatabaseManager {
     @Inject
     public Context context;
 
-
     @Override
     public void identifyDatabases() {
         addDatabase(context, DatabaseManager.MAIN_DATABASE_NAME, DatabaseManager.DATABASE_VERSION);
@@ -50,6 +50,7 @@ public class DatabaseManager extends AndroidDatabaseManager {
         BaseManager.createTable(database, IndividualType.CREATE_TABLE);
 
         // Regular Tables
+        BaseManager.createTable(database, Household.CREATE_TABLE);
         BaseManager.createTable(database, Individual.CREATE_TABLE);
 
         // end transaction
@@ -83,5 +84,10 @@ public class DatabaseManager extends AndroidDatabaseManager {
         }
 
         connectDatabase(androidDatabase.getName(), false);  // do not update here, because it will cause a recursive call
+    }
+
+    // ONLY needed if NOT using injection
+    public void setContext(Context context) {
+        this.context = context;
     }
 }
