@@ -32,7 +32,7 @@ public class DrawerMenu {
 
     @Inject
     @ForApplication
-    public Context context;
+    Context context;
 
     private List<DrawerMenuListItem> navigationMenuItems;
 

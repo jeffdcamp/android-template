@@ -12,7 +12,7 @@ import javax.inject.Inject;
 public class StartupActivity extends Activity {
 
     @Inject
-    public StartupTask startupTask;
+    StartupTask startupTask;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

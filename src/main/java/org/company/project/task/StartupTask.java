@@ -22,10 +22,10 @@ public class StartupTask extends AsyncTask<String, Void, Boolean> {
 
     @Inject
     @ForApplication
-    public Context context;
+    Context context;
 
     @Inject
-    public DatabaseManager databaseManager;
+    DatabaseManager databaseManager;
 
     private Activity contextActivity;
     private Class startupActivityClass = MainActivity.class;

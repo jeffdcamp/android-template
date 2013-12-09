@@ -57,10 +57,10 @@ public class AboutActivity extends ActionBarActivity {
     }
 
     @Inject
-    public IndividualManager individualManager;
+    IndividualManager individualManager;
 
     @Inject
-    public HouseholdManager householdManager;
+    HouseholdManager householdManager;
 
     private void createSampleDataWithInjection() {
         householdManager.beginTransaction();

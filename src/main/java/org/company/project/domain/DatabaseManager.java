@@ -31,7 +31,7 @@ public class DatabaseManager extends AndroidDatabaseManager {
 
     @ForApplication
     @Inject
-    public Context context;
+    Context context;
 
     @Override
     public void identifyDatabases() {

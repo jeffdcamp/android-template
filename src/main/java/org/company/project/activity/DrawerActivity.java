@@ -21,7 +21,7 @@ import javax.inject.Inject;
 public class DrawerActivity extends ActionBarActivity implements DrawerMenuListener {
 
     @Inject
-    public DrawerMenu drawerMenu;
+    DrawerMenu drawerMenu;
 
     private boolean showDrawerIcon = false;
 
