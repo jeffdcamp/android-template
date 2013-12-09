@@ -5,15 +5,16 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:0.6.+'
-        classpath 'org.dbtools:dbtools-gen:1.+'
+        classpath 'org.dbtools:dbtools-gen:1.4.+'
     }
 }
 
 apply plugin: 'android'
+apply plugin: 'sonar-runner'
 
 archivesBaseName = 'android-template'
 def version = '1.0.0.0'
-def androidVersionCode = 1000
+def androidVersionCode = 1
 
 repositories {
     mavenLocal()
@@ -24,18 +25,19 @@ dependencies {
     // Android
     compile "com.android.support:support-v4:19+"
     compile "com.android.support:appcompat-v7:19+"
-//    compile 'com.google.android.gms:play-services:3.1.36'
 
     // Code
     compile 'com.squareup.dagger:dagger:1.1.0'
     compile 'com.squareup.dagger:dagger-compiler:1.1.0'
-//    compile 'com.fasterxml.jackson.core:jackson-databind:2.2.2'
     compile 'joda-time:joda-time:2.3'
     compile 'org.dbtools:dbtools-android:1.4.0'
 
-    // Statistics
-//    compile 'flurry.sdk:flurry-agent-android:3.2.1'
-//    compile 'com.crashlytics.android:crashlytics:[1.0.1,)'
+    // Test
+//    instrumentTestCompile 'com.google.android.apps.common.testing:espresso:1.0-SNAPSHOT:bundled'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.8'
 }
 
 android {
@@ -48,6 +50,8 @@ android {
 
         versionCode androidVersionCode
         versionName version // use the gradle version
+
+//        testInstrumentationRunner "com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner"
     }
 
     compileOptions {
@@ -75,26 +79,56 @@ android {
         }
     }
 
-    //set the build number
+    // set the build timestamp on the file and in the app
     android.applicationVariants.all { variant ->
 
-        // set the build timestamp on the file and in the app
+        // set the build timestamp
         def timestamp = new Date().format("yyyyMMdd-HHmm", TimeZone.getTimeZone("GMT"));
 
         // name the file with the version and timestamp (does not work well with the IDE... do not do on debug build)
-        if (variant.buildType.name != "debug") {
-            def apk = variant.packageApplication.outputFile;
+        if (variant.buildType.name != "debug" && variant.zipAlign) {
+            def apk = variant.outputFile;
             def newName = apk.name.replace(".apk", "-" + version + "-" + timestamp + ".apk");
-            variant.packageApplication.outputFile = new File(apk.parentFile, newName);
+            variant.outputFile = new File(apk.parentFile, newName);
         }
 
         variant.mergeResources.doLast {
             def buildNumber = variant.buildType.name != "release" ? version + variant.buildType.versionNameSuffix + " (" + timestamp + ")" : version + " (" + timestamp + ")";
             File valuesFile = file("${buildDir}/res/all/${variant.dirName}/values/values.xml")
             String content = valuesFile.getText('UTF-8')
-            content = content.replaceAll(/devBuild/, buildNumber)
+            content = content.replace("devBuild", buildNumber)
             valuesFile.write(content, 'UTF-8')
         }
+    }
+}
+
+sonarRunner {
+    sonarProperties {
+        if (!project.hasProperty('mySonarHostUrl')) {
+            println '!!!! Sonar properties must be set in your gradle.properties !!!!'
+            return
+        }
+
+        // Project Information
+        property 'sonar.projectKey', 'AndroidTemplate'
+        property 'sonar.projectName', 'Android Template'
+        property 'sonar.projectVersion', version
+
+        property 'sonar.links.homepage', 'https://github.com/jeffdcamp/android-template'
+        property 'sonar.links.issue', 'https://github.com/jeffdcamp/android-template/issues'
+        property 'sonar.links.scm', 'https://github.com/jeffdcamp/android-template.git'
+
+        // Sonar Information (defined in gradle.properties)
+        property "sonar.host.url", mySonarHostUrl
+        property "sonar.jdbc.url", mySonarJdbcUrl
+        property "sonar.jdbc.driverClassName", mySonarJdbcDriver
+        property "sonar.jdbc.username", mySonarUsername
+        property "sonar.jdbc.password", mySonarPassword
+
+
+        properties["sonar.sources"] = android.sourceSets.main.java.srcDirs
+        properties["sonar.tests"] = android.sourceSets.instrumentTest.java.srcDirs
+        properties["sonar.binaries"] = [file("build/classes/debug"), file("build/classes/alpha")]
     }
 }
 
