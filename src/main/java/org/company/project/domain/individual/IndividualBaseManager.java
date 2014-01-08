@@ -10,12 +10,10 @@
 
 package org.company.project.domain.individual;
 
-import android.content.ContentValues;
-import android.database.Cursor;
 import org.company.project.domain.BaseManager;
 
 
-@SuppressWarnings({"unused","PMD"})
+@SuppressWarnings("all")
 public class IndividualBaseManager extends BaseManager<Individual> {
 
 

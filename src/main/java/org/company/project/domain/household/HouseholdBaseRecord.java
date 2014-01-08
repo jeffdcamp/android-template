@@ -15,7 +15,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 
 
-@SuppressWarnings("PMD")
+@SuppressWarnings("all")
 public class HouseholdBaseRecord extends BaseRecord {
 
     public static final String DATABASE = "main";
@@ -24,7 +24,7 @@ public class HouseholdBaseRecord extends BaseRecord {
     public static final String PRIMARY_KEY_COLUMN = "_id";
     public static final String C_ID = "_id";
     public static final String FULL_C_ID = "HOUSEHOLD._id";
-    private long Id = 0;
+    private long id = 0;
     public static final String C_NAME = "NAME";
     public static final String FULL_C_NAME = "HOUSEHOLD.NAME";
     private String name = "";
@@ -59,12 +59,12 @@ public class HouseholdBaseRecord extends BaseRecord {
 
     @Override
     public long getPrimaryKeyID() {
-        return Id;
+        return id;
     }
 
     @Override
     public void setPrimaryKeyID(long id) {
-        this.Id = id;
+        this.id = id;
     }
 
     @Override
@@ -85,17 +85,14 @@ public class HouseholdBaseRecord extends BaseRecord {
 
     @Override
     public void setContent(Cursor cursor) {
-        Id = cursor.getLong(cursor.getColumnIndex(C_ID));
+        id = cursor.getLong(cursor.getColumnIndex(C_ID));
         name = cursor.getString(cursor.getColumnIndex(C_NAME));
-    }
-
-    protected void cleanupOrphans() {
     }
 
     @Override
     public String toString() {
         String text = "\n";
-        text += "Id = "+ Id +"\n";
+        text += "id = "+ id +"\n";
         text += "name = "+ name +"\n";
         return text;
     }
@@ -105,11 +102,11 @@ public class HouseholdBaseRecord extends BaseRecord {
     }
 
     public long getId() {
-        return Id;
+        return id;
     }
 
-    public void setId(long Id) {
-        this.Id = Id;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {

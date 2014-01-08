@@ -16,7 +16,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 
 
-@SuppressWarnings("PMD")
+@SuppressWarnings("all")
 public class IndividualBaseRecord extends BaseRecord {
 
     public static final String DATABASE = "main";
@@ -25,7 +25,7 @@ public class IndividualBaseRecord extends BaseRecord {
     public static final String PRIMARY_KEY_COLUMN = "_id";
     public static final String C_ID = "_id";
     public static final String FULL_C_ID = "INDIVIDUAL._id";
-    private long Id = 0;
+    private long id = 0;
     public static final String C_HOUSEHOLD_ID = "HOUSEHOLD_ID";
     public static final String FULL_C_HOUSEHOLD_ID = "INDIVIDUAL.HOUSEHOLD_ID";
     private long householdId = 0;
@@ -92,12 +92,12 @@ public class IndividualBaseRecord extends BaseRecord {
 
     @Override
     public long getPrimaryKeyID() {
-        return Id;
+        return id;
     }
 
     @Override
     public void setPrimaryKeyID(long id) {
-        this.Id = id;
+        this.id = id;
     }
 
     @Override
@@ -130,7 +130,7 @@ public class IndividualBaseRecord extends BaseRecord {
 
     @Override
     public void setContent(Cursor cursor) {
-        Id = cursor.getLong(cursor.getColumnIndex(C_ID));
+        id = cursor.getLong(cursor.getColumnIndex(C_ID));
         householdId = cursor.getLong(cursor.getColumnIndex(C_HOUSEHOLD_ID));
         individualType = IndividualType.values()[cursor.getInt(cursor.getColumnIndex(C_INDIVIDUAL_TYPE))];
         firstName = cursor.getString(cursor.getColumnIndex(C_FIRST_NAME));
@@ -140,13 +140,10 @@ public class IndividualBaseRecord extends BaseRecord {
         email = cursor.getString(cursor.getColumnIndex(C_EMAIL));
     }
 
-    protected void cleanupOrphans() {
-    }
-
     @Override
     public String toString() {
         String text = "\n";
-        text += "Id = "+ Id +"\n";
+        text += "id = "+ id +"\n";
         text += "householdId = "+ householdId +"\n";
         text += "individualType = "+ individualType +"\n";
         text += "firstName = "+ firstName +"\n";
@@ -162,11 +159,11 @@ public class IndividualBaseRecord extends BaseRecord {
     }
 
     public long getId() {
-        return Id;
+        return id;
     }
 
-    public void setId(long Id) {
-        this.Id = Id;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public long getHouseholdId() {

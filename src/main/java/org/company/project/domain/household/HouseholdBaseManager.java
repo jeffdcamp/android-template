@@ -10,12 +10,10 @@
 
 package org.company.project.domain.household;
 
-import android.content.ContentValues;
-import android.database.Cursor;
 import org.company.project.domain.BaseManager;
 
 
-@SuppressWarnings({"unused","PMD"})
+@SuppressWarnings("all")
 public class HouseholdBaseManager extends BaseManager<Household> {
 
 

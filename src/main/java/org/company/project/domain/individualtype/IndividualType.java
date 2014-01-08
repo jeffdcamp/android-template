@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 
-@SuppressWarnings("PMD")
+@SuppressWarnings("all")
 public enum IndividualType {
 HEAD, SPOUSE, CHILD;
 
