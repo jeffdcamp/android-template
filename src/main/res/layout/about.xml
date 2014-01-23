@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:text="Create Database"
             android:id="@+id/button"
-            android:onClick="onCreateDatabaseButtonClick"/>
+            />
 
     </LinearLayout>
 </ScrollView>

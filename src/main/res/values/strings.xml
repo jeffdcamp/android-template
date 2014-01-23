@@ -2,7 +2,6 @@
 <resources xmlns:its="http://www.w3.org/2005/11/its" its:version="1.0">
     <!-- MyApplication -->
     <string name="app_name">My Application</string>
-    <string name="build_number" its:translate="no">devBuild</string>
 
     <!-- General -->
     <string name="ok">OK</string>

@@ -4,9 +4,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
+import org.company.project.BuildConfig;
 import org.company.project.MyApplication;
 import org.company.project.R;
 import org.company.project.domain.DatabaseManager;
@@ -18,12 +18,18 @@ import org.company.project.domain.individualtype.IndividualType;
 
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
+
 /**
- *
  * @author jcampbell
  */
 public class AboutActivity extends ActionBarActivity {
     public static final String TAG = MyApplication.createTag(AboutActivity.class);
+
+    @InjectView(R.id.version_info)
+    TextView versionTextView;
 
     @Inject
     public AboutActivity() {
@@ -33,12 +39,12 @@ public class AboutActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about);
+        ButterKnife.inject(this);
         MyApplication.injectActivity(this);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        TextView versionTextView = (TextView) findViewById(R.id.version_info);
-        versionTextView.setText(getString(R.string.build_number));
+        versionTextView.setText(BuildConfig.VERSION_NAME);
     }
 
     @Override
@@ -52,7 +58,8 @@ public class AboutActivity extends ActionBarActivity {
         }
     }
 
-    public void onCreateDatabaseButtonClick(View view) {
+    @OnClick(R.id.button)
+    public void onCreateDatabaseButtonClick() {
         createSampleDataNoInjection();
     }
 
