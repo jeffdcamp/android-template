@@ -4,7 +4,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.8.+'
+        classpath 'com.android.tools.build:gradle:0.9.+'
         classpath 'org.dbtools:dbtools-gen:1.4.+'
     }
 }
@@ -29,11 +29,11 @@ dependencies {
     compile "com.android.support:appcompat-v7:19+" // includes support-v4
 
     // Code
-    compile 'com.squareup.dagger:dagger:1.2.0'
-    provided 'com.squareup.dagger:dagger-compiler:1.2.0'
+    compile 'com.squareup.dagger:dagger:1.2.1'
+    provided 'com.squareup.dagger:dagger-compiler:1.2.1'
     compile 'com.jakewharton:butterknife:4.0.1'
     compile 'joda-time:joda-time:2.3'
-    compile 'org.dbtools:dbtools-android:1.4.0'
+    compile 'org.dbtools:dbtools-android:1.4.3'
 
     // Test (http://stackoverflow.com/questions/19646529/using-android-gradle-dagger-to-run-instrumenttests)
 //    instrumentTestCompile 'com.google.android.apps.common.testing:espresso:1.1:bundled'
@@ -49,7 +49,7 @@ def buildTime = new Date().format("yyyy-MM-dd'T'HH:mm'Z'", TimeZone.getTimeZone(
 
 android {
     compileSdkVersion 19
-    buildToolsVersion '19.0.1'
+    buildToolsVersion '19.0.3'
 
     defaultConfig {
         minSdkVersion 9
@@ -108,7 +108,7 @@ android {
         // name the file with the version and timestamp (does not work well with the IDE... do not do on debug build)
         if (variant.buildType.name != "debug" && variant.zipAlign) {
             def apk = variant.outputFile;
-            def newName = apk.name.replace(".apk", "-" + version + "-" + timestamp + ".apk");
+            def newName = apk.name.replace(".apk", "-" + versionCode + "-" + timestamp + ".apk");
             variant.outputFile = new File(apk.parentFile, newName);
         }
     }
