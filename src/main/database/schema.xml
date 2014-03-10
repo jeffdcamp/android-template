@@ -24,4 +24,16 @@
             <field name="EMAIL" jdbcDataType="VARCHAR" size="255"/>
         </table>
     </database>
+    <database name="other">
+        <table name="INDIVIDUAL_LIST">
+            <field name="_id" jdbcDataType="BIGINT" increment="true" primaryKey="true" notNull="true"/>
+            <field name="NAME" jdbcDataType="VARCHAR" size="255" notNull="true"/>
+        </table>
+        <table name="INDIVIDUAL_LIST_ITEM">
+            <field name="_id" jdbcDataType="BIGINT" increment="true" primaryKey="true" notNull="true"/>
+            <field name="LIST_ID" jdbcDataType="BIGINT" foreignKeyTable="INDIVIDUAL_LIST" foreignKeyField="_id" notNull="true"/>
+            <field name="INDIVIDUAL_ID" jdbcDataType="BIGINT"/>
+        </table>
+    </database>
+    
 </dbSchema>

@@ -1,8 +1,10 @@
 package org.company.project.activity;
 
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -14,7 +16,14 @@ import org.company.project.domain.household.Household;
 import org.company.project.domain.household.HouseholdManager;
 import org.company.project.domain.individual.Individual;
 import org.company.project.domain.individual.IndividualManager;
+import org.company.project.domain.individuallist.IndividualList;
+import org.company.project.domain.individuallist.IndividualListManager;
+import org.company.project.domain.individuallistitem.IndividualListItem;
+import org.company.project.domain.individuallistitem.IndividualListItemManager;
 import org.company.project.domain.individualtype.IndividualType;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -58,10 +67,20 @@ public class AboutActivity extends ActionBarActivity {
         }
     }
 
-    @OnClick(R.id.button)
+    boolean useInjection = true;
+
+    @OnClick(R.id.button1)
     public void onCreateDatabaseButtonClick() {
-        createSampleDataNoInjection();
+        createSampleDataWithInjection();
     }
+
+    @OnClick(R.id.button2)
+    public void onTestDatabaseButtonClick() {
+        testDatabase();
+    }
+
+    @Inject
+    DatabaseManager databaseManager;
 
     @Inject
     IndividualManager individualManager;
@@ -69,7 +88,30 @@ public class AboutActivity extends ActionBarActivity {
     @Inject
     HouseholdManager householdManager;
 
+    @Inject
+    IndividualListManager individualListManager;
+
+    @Inject
+    IndividualListItemManager individualListItemManager;
+
+    private void createSameleData() {
+        if (useInjection) {
+            createSampleDataWithInjection();
+        } else {
+            createSampleDataNoInjection();
+        }
+    }
+
+    private void testDatabase() {
+        if (useInjection) {
+            testDatabaseWithInjection();
+        } else {
+            testDatabaseNoInjection();
+        }
+    }
+
     private void createSampleDataWithInjection() {
+        // MAIN Database
         householdManager.beginTransaction();
 
         Household household = new Household();
@@ -92,14 +134,27 @@ public class AboutActivity extends ActionBarActivity {
 
         householdManager.endTransaction(true);
 
+        // OTHER Database
+        individualListManager.beginTransaction();
+        IndividualList newList = new IndividualList();
+        newList.setName("My List");
+        individualListManager.save(newList);
+
+        IndividualListItem newListItem = new IndividualListItem();
+        newListItem.setListId(newList.getId());
+        newListItem.setIndividualId(individual1.getId());
+        individualListItemManager.save(newListItem);
+
+        individualListManager.endTransaction(true);
     }
 
+    DatabaseManager noInjectionDatabaseManager = new DatabaseManager();
     private void createSampleDataNoInjection() {
-        DatabaseManager databaseManager = new DatabaseManager();
-        databaseManager.setContext(this);
+        noInjectionDatabaseManager.setContext(this);
 
-        SQLiteDatabase db = databaseManager.getWritableDatabase(DatabaseManager.MAIN_DATABASE_NAME);
-        databaseManager.beginTransaction(DatabaseManager.MAIN_DATABASE_NAME);
+        // Main Database
+        SQLiteDatabase db = noInjectionDatabaseManager.getWritableDatabase(DatabaseManager.MAIN_DATABASE_NAME);
+        noInjectionDatabaseManager.beginTransaction(DatabaseManager.MAIN_DATABASE_NAME);
 
         Household household = new Household();
         household.setName("Campbell");
@@ -118,7 +173,70 @@ public class AboutActivity extends ActionBarActivity {
         individual2.setIndividualType(IndividualType.CHILD);
         individual2.setHouseholdId(household.getId());
         IndividualManager.save(db, individual2);
+        noInjectionDatabaseManager.endTransaction(DatabaseManager.MAIN_DATABASE_NAME, true);
 
-        databaseManager.endTransaction(DatabaseManager.MAIN_DATABASE_NAME, true);
+
+        // Other Database
+        noInjectionDatabaseManager.beginTransaction(DatabaseManager.OTHER_DATABASE_NAME);
+
+        SQLiteDatabase otherDb = noInjectionDatabaseManager.getWritableDatabase(DatabaseManager.MAIN_DATABASE_NAME);
+        IndividualList newList = new IndividualList();
+        newList.setName("My List");
+        IndividualListManager.save(otherDb, newList);
+
+        IndividualListItem newListItem = new IndividualListItem();
+        newListItem.setListId(newList.getId());
+        newListItem.setIndividualId(individual1.getId());
+        IndividualListItemManager.save(otherDb, newListItem);
+
+        noInjectionDatabaseManager.endTransaction(DatabaseManager.OTHER_DATABASE_NAME, true);
+    }
+
+    public static final String ATTACH_DATABASE_QUERY = "SELECT " + Individual.C_FIRST_NAME +
+            " FROM " + Individual.TABLE +
+            " JOIN " + IndividualListItem.TABLE + " ON " + Individual.FULL_C_ID + " = " + IndividualListItem.FULL_C_INDIVIDUAL_ID;
+
+    private void testDatabaseWithInjection() {
+        // attach database test
+        String attachedDatabaseName = "test";
+        databaseManager.addAttachedDatabase(attachedDatabaseName, DatabaseManager.MAIN_DATABASE_NAME, DatabaseManager.OTHER_DATABASE_NAME);
+
+        List<String> names = findAllStringByRawQuery(databaseManager, attachedDatabaseName, ATTACH_DATABASE_QUERY, null);
+        for (String name : names) {
+            Log.i(TAG, "Attached Database Item Name: " + name);
+        }
+    }
+
+    private void testDatabaseNoInjection() {
+        noInjectionDatabaseManager.setContext(this);
+        noInjectionDatabaseManager.identifyDatabases();
+
+        // attach database test
+        String attachedDatabaseName = "test";
+        noInjectionDatabaseManager.addAttachedDatabase(attachedDatabaseName, DatabaseManager.MAIN_DATABASE_NAME, DatabaseManager.OTHER_DATABASE_NAME);
+
+        List<String> names = findAllStringByRawQuery(noInjectionDatabaseManager, attachedDatabaseName, ATTACH_DATABASE_QUERY, null);
+        for (String name : names) {
+            Log.i(TAG, "Attached Database Item Name: " + name);
+        }
+    }
+
+    public List<String> findAllStringByRawQuery(DatabaseManager dbManager, String databaseName, String rawQuery, String[] selectionArgs) {
+        List<String> foundItems;
+
+        Cursor cursor = dbManager.getWritableDatabase(databaseName).rawQuery(rawQuery, selectionArgs);
+        if (cursor != null) {
+            foundItems = new ArrayList<>(cursor.getCount());
+            if (cursor.moveToFirst()) {
+                do {
+                    foundItems.add(cursor.getString(0));
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+        } else {
+            foundItems = new ArrayList<>();
+        }
+
+        return foundItems;
     }
 }

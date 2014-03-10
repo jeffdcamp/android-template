@@ -33,7 +33,7 @@ dependencies {
     provided 'com.squareup.dagger:dagger-compiler:1.2.1'
     compile 'com.jakewharton:butterknife:4.0.1'
     compile 'joda-time:joda-time:2.3'
-    compile 'org.dbtools:dbtools-android:1.4.3'
+    compile 'org.dbtools:dbtools-android:1.5.0'
 
     // Test (http://stackoverflow.com/questions/19646529/using-android-gradle-dagger-to-run-instrumenttests)
 //    instrumentTestCompile 'com.google.android.apps.common.testing:espresso:1.1:bundled'
@@ -52,7 +52,7 @@ android {
     buildToolsVersion '19.0.3'
 
     defaultConfig {
-        minSdkVersion 9
+        minSdkVersion 10
         targetSdkVersion 19
 
         versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
