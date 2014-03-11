@@ -1,16 +1,13 @@
 package org.company.project.task;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import org.company.project.ForApplication;
 import org.company.project.MyApplication;
 import org.company.project.R;
 import org.company.project.activity.MainActivity;
-import org.company.project.domain.DatabaseManager;
 
 import javax.inject.Inject;
 
@@ -20,15 +17,12 @@ public class StartupTask extends AsyncTask<String, Void, Boolean> {
 
     private long perfTime = 0;
 
-    @Inject
-    @ForApplication
-    Context context;
-
-    @Inject
-    DatabaseManager databaseManager;
-
     private Activity contextActivity;
     private Class startupActivityClass = MainActivity.class;
+
+    @Inject
+    public StartupTask() {
+    }
 
     public StartupTask init(Activity contextActivity) {
         this.contextActivity = contextActivity;
@@ -42,7 +36,7 @@ public class StartupTask extends AsyncTask<String, Void, Boolean> {
 
     @Override
     protected Boolean doInBackground(String... params) {
-        databaseManager.getWritableDatabase(DatabaseManager.MAIN_DATABASE_NAME);
+        // do stuff
 
         return true;
     }

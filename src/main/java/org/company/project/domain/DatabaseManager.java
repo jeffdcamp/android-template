@@ -7,6 +7,8 @@ import org.company.project.ForApplication;
 import org.company.project.MyApplication;
 import org.dbtools.android.domain.AndroidDatabase;
 
+import java.util.Arrays;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -25,6 +27,8 @@ public class DatabaseManager extends DatabaseBaseManager {
     public static final int OTHER_DATABASE_VERSION = 1;
     public static final String OTHER_DATABASE_NAME = "other"; // !!!! WARNING be SURE this matches the value in the schema.xml !!!!
 
+    public static final String ATTACH_DATABASE_NAME = "attach"; // !!!! WARNING be SURE this matches the value in the schema.xml !!!!
+
     @ForApplication
     @Inject
     Context context;
@@ -38,6 +42,7 @@ public class DatabaseManager extends DatabaseBaseManager {
     public void identifyDatabases() {
         addDatabase(context, DatabaseManager.MAIN_DATABASE_NAME, DatabaseManager.MAIN_DATABASE_VERSION);
         addDatabase(context, DatabaseManager.OTHER_DATABASE_NAME, DatabaseManager.MAIN_DATABASE_VERSION);
+        addAttachedDatabase(ATTACH_DATABASE_NAME, DatabaseManager.MAIN_DATABASE_NAME, Arrays.asList(DatabaseManager.OTHER_DATABASE_NAME));
     }
 
     @Override

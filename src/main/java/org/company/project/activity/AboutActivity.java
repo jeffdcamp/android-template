@@ -197,11 +197,11 @@ public class AboutActivity extends ActionBarActivity {
             " JOIN " + IndividualListItem.TABLE + " ON " + Individual.FULL_C_ID + " = " + IndividualListItem.FULL_C_INDIVIDUAL_ID;
 
     private void testDatabaseWithInjection() {
-        // attach database test
-        String attachedDatabaseName = "test";
-        databaseManager.addAttachedDatabase(attachedDatabaseName, DatabaseManager.MAIN_DATABASE_NAME, DatabaseManager.OTHER_DATABASE_NAME);
+        // (Optional) attach databases on demand (instead of in the DatabaseManager)
+//        databaseManager.identifyDatabases();
+//        databaseManager.addAttachedDatabase(DatabaseManager.ATTACH_DATABASE_NAME, DatabaseManager.MAIN_DATABASE_NAME, Arrays.asList(DatabaseManager.OTHER_DATABASE_NAME));
 
-        List<String> names = findAllStringByRawQuery(databaseManager, attachedDatabaseName, ATTACH_DATABASE_QUERY, null);
+        List<String> names = findAllStringByRawQuery(databaseManager, DatabaseManager.ATTACH_DATABASE_NAME, ATTACH_DATABASE_QUERY, null);
         for (String name : names) {
             Log.i(TAG, "Attached Database Item Name: " + name);
         }
@@ -209,13 +209,12 @@ public class AboutActivity extends ActionBarActivity {
 
     private void testDatabaseNoInjection() {
         noInjectionDatabaseManager.setContext(this);
-        noInjectionDatabaseManager.identifyDatabases();
 
-        // attach database test
-        String attachedDatabaseName = "test";
-        noInjectionDatabaseManager.addAttachedDatabase(attachedDatabaseName, DatabaseManager.MAIN_DATABASE_NAME, DatabaseManager.OTHER_DATABASE_NAME);
+        // (Optional) attach databases on demand (instead of in the DatabaseManager)
+//        noInjectionDatabaseManager.identifyDatabases();
+//        noInjectionDatabaseManager.addAttachedDatabase(DatabaseManager.ATTACH_DATABASE_NAME, DatabaseManager.MAIN_DATABASE_NAME, Arrays.asList(DatabaseManager.OTHER_DATABASE_NAME));
 
-        List<String> names = findAllStringByRawQuery(noInjectionDatabaseManager, attachedDatabaseName, ATTACH_DATABASE_QUERY, null);
+        List<String> names = findAllStringByRawQuery(noInjectionDatabaseManager, DatabaseManager.ATTACH_DATABASE_NAME, ATTACH_DATABASE_QUERY, null);
         for (String name : names) {
             Log.i(TAG, "Attached Database Item Name: " + name);
         }
