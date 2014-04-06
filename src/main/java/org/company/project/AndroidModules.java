@@ -1,14 +1,6 @@
 package org.company.project;
 
-import android.app.NotificationManager;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-
-import javax.inject.Singleton;
-
 import dagger.Module;
-import dagger.Provides;
 
 
 @Module(
@@ -21,20 +13,4 @@ public class AndroidModules {
         this.application = application;
     }
 
-    @Provides
-    @Singleton
-    @ForApplication
-    public Context provideApplicationContext() {
-        return application;
-    }
-
-    @Provides
-    public SharedPreferences provideSharedPreferences() {
-        return PreferenceManager.getDefaultSharedPreferences(application);
-    }
-
-    @Provides
-    public NotificationManager provideNotificationManager() {
-        return (NotificationManager) application.getSystemService(Context.NOTIFICATION_SERVICE);
-    }
 }

@@ -1,7 +1,7 @@
 package org.company.project.menu;
 
 import android.app.Activity;
-import android.content.Context;
+import android.app.Application;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import org.company.project.ForApplication;
 import org.company.project.R;
 import org.company.project.activity.MainActivity;
 import org.company.project.widget.DrawerMenuListAdapter;
@@ -31,8 +30,7 @@ public class DrawerMenu {
     public static final int DEFAULT_DRAWER_OPEN_GRAVITY = GravityCompat.START;
 
     @Inject
-    @ForApplication
-    Context context;
+    Application application;
 
     private List<DrawerMenuListItem> navigationMenuItems;
 
@@ -41,7 +39,7 @@ public class DrawerMenu {
 
     public void createDrawerView(final DrawerLayout drawerLayout, ListView drawerMenuListView, final DrawerMenuListener drawerMenuItemListener) {
         final List<DrawerMenuListItem> menuItems = getNavMenuItems(false);
-        drawerMenuListView.setAdapter(new DrawerMenuListAdapter(context, menuItems));
+        drawerMenuListView.setAdapter(new DrawerMenuListAdapter(application, menuItems));
 
         drawerMenuListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -91,7 +89,7 @@ public class DrawerMenu {
         }
 
         if (navigationMenuItems == null || forceRefresh || localeChanged) {
-            navigationMenuItems = new ArrayList<DrawerMenuListItem>();
+            navigationMenuItems = new ArrayList<>();
             navigationMenuItems.add(createNavigationMenuItem(DrawerMenuItem.MAIN));
             navigationMenuItems.add(createNavigationMenuItem(DrawerMenuItem.MY_LIBRARY));
             navigationMenuItems.add(createNavigationMenuItem(DrawerMenuItem.STORE));
@@ -104,7 +102,7 @@ public class DrawerMenu {
         DrawerMenuListItem item = new DrawerMenuListItem();
 
         item.setId(type.ordinal());
-        item.setText(context.getString(type.getTextResID()));
+        item.setText(application.getString(type.getTextResID()));
         item.setIconResID(type.getIconResID());
 
         return item;

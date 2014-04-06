@@ -8,8 +8,6 @@ import android.content.pm.PackageManager;
 import android.util.Log;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Properties;
 
 import javax.inject.Inject;
@@ -34,15 +32,19 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        injectionObjectGraph = ObjectGraph.create(getModules().toArray());
+        buildObjectGraphAndInject();
         enableStrictMode();
     }
 
-    protected List<Object> getModules() {
-        return Arrays.asList(
-                new AndroidModules(this),
-                new ApplicationModules(this)
-        );
+    protected Object[] getModules() {
+        return new Object[] {
+                new ApplicationModule(this)
+        };
+    }
+
+    public void buildObjectGraphAndInject() {
+        injectionObjectGraph = ObjectGraph.create(getModules());
+//        injectionObjectGraph.inject(this);
     }
 
     public void inject(Object object) {

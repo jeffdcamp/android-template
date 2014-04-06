@@ -150,7 +150,7 @@ public class AboutActivity extends ActionBarActivity {
 
     DatabaseManager noInjectionDatabaseManager = new DatabaseManager();
     private void createSampleDataNoInjection() {
-        noInjectionDatabaseManager.setContext(this);
+        noInjectionDatabaseManager.setContext(getApplication());
 
         // Main Database
         SQLiteDatabase db = noInjectionDatabaseManager.getWritableDatabase(DatabaseManager.MAIN_DATABASE_NAME);
@@ -163,6 +163,7 @@ public class AboutActivity extends ActionBarActivity {
         Individual individual1 = new Individual();
         individual1.setFirstName("Jeff");
         individual1.setLastName("Campbell");
+        individual1.setPhone("000-555-1234");
         individual1.setIndividualType(IndividualType.HEAD);
         individual1.setHouseholdId(household.getId());
         IndividualManager.save(db, individual1);
@@ -208,7 +209,7 @@ public class AboutActivity extends ActionBarActivity {
     }
 
     private void testDatabaseNoInjection() {
-        noInjectionDatabaseManager.setContext(this);
+        noInjectionDatabaseManager.setContext(getApplication());
 
         // (Optional) attach databases on demand (instead of in the DatabaseManager)
 //        noInjectionDatabaseManager.identifyDatabases();
