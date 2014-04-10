@@ -1,72 +1,107 @@
+/*
+ * DatabaseBaseManager.java
+ *
+ * GENERATED FILE - DO NOT EDIT
+ *
+ */
+
+
+
 package org.company.project.domain;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-
+import org.dbtools.android.domain.AndroidDatabase;
+import org.dbtools.android.domain.AndroidDatabaseManager;
+import android.database.sqlite.SQLiteDatabase;
+import org.dbtools.android.domain.AndroidBaseManager;
+import org.company.project.domain.individualtype.IndividualType;
 import org.company.project.domain.household.Household;
 import org.company.project.domain.individual.Individual;
 import org.company.project.domain.individuallist.IndividualList;
 import org.company.project.domain.individuallistitem.IndividualListItem;
-import org.company.project.domain.individualtype.IndividualType;
-import org.dbtools.android.domain.AndroidDatabase;
-import org.dbtools.android.domain.AndroidDatabaseManager;
+import org.company.project.domain.phonelistview.PhoneListView;
 
 
-/**
- * This class helps open, create, and upgrade the database file.
- */
-
+@SuppressWarnings("all")
 public abstract class DatabaseBaseManager extends AndroidDatabaseManager {
-    @Override
-    public abstract void identifyDatabases();
-    @Override
-    public abstract void onUpgrade(AndroidDatabase androidDatabase, int oldVersion, int newVersion);
 
-    @Override
+    public static final String MAIN_DATABASE_NAME = "main";
+    public static final String OTHER_DATABASE_NAME = "other";
+
+    public void createMainTables(AndroidDatabase androidDatabase) {
+        SQLiteDatabase database = androidDatabase.getSqLiteDatabase();
+        database.beginTransaction();
+        
+        // Enum Tables
+        AndroidBaseManager.createTable(database, IndividualType.CREATE_TABLE);
+        
+        // Tables
+        AndroidBaseManager.createTable(database, Household.CREATE_TABLE);
+        AndroidBaseManager.createTable(database, Individual.CREATE_TABLE);
+        
+        database.setTransactionSuccessful();
+        database.endTransaction();
+    }
+
+    public void createOtherTables(AndroidDatabase androidDatabase) {
+        SQLiteDatabase database = androidDatabase.getSqLiteDatabase();
+        database.beginTransaction();
+        
+        // Enum Tables
+        
+        // Tables
+        AndroidBaseManager.createTable(database, IndividualList.CREATE_TABLE);
+        AndroidBaseManager.createTable(database, IndividualListItem.CREATE_TABLE);
+        
+        database.setTransactionSuccessful();
+        database.endTransaction();
+    }
+
     public void onCreate(AndroidDatabase androidDatabase) {
         Log.i(TAG, "Creating database: " + androidDatabase.getName());
-        switch (androidDatabase.getName()) {
-            case DatabaseManager.MAIN_DATABASE_NAME:
-                createMainDatabase(androidDatabase);
-                break;
-            case DatabaseManager.OTHER_DATABASE_NAME:
-                createOtherDatabase(androidDatabase);
-                break;
+        if (androidDatabase.getName().equals(MAIN_DATABASE_NAME)) {
+            createMainTables(androidDatabase);
+        }
+        if (androidDatabase.getName().equals(OTHER_DATABASE_NAME)) {
+            createOtherTables(androidDatabase);
         }
     }
 
-    private void createMainDatabase(AndroidDatabase androidDatabase) {
+    public void createMainViews(AndroidDatabase androidDatabase) {
         SQLiteDatabase database = androidDatabase.getSqLiteDatabase();
-
-        // use any record manager to begin/end transaction
         database.beginTransaction();
-
-        // Enum Tables
-        BaseManager.createTable(database, IndividualType.CREATE_TABLE);
-
-        // Regular Tables
-        BaseManager.createTable(database, Household.CREATE_TABLE);
-        BaseManager.createTable(database, Individual.CREATE_TABLE);
-
-        // end transaction
+        
+        // Views
+        AndroidBaseManager.createTable(database, PhoneListView.CREATE_VIEW);
+        
         database.setTransactionSuccessful();
         database.endTransaction();
     }
 
-    private void createOtherDatabase(AndroidDatabase androidDatabase) {
+    public void dropMainViews(AndroidDatabase androidDatabase) {
         SQLiteDatabase database = androidDatabase.getSqLiteDatabase();
-
-        // use any record manager to begin/end transaction
         database.beginTransaction();
-
-        // Enum Tables
-
-        // Regular Tables
-        BaseManager.createTable(database, IndividualList.CREATE_TABLE);
-        BaseManager.createTable(database, IndividualListItem.CREATE_TABLE);
-
-        // end transaction
+        
+        // Views
+        AndroidBaseManager.dropTable(database, PhoneListView.DROP_VIEW);
+        
         database.setTransactionSuccessful();
         database.endTransaction();
     }
+
+    public void onCreateViews(AndroidDatabase androidDatabase) {
+        Log.i(TAG, "Creating database views: " + androidDatabase.getName());
+        if (androidDatabase.getName().equals(MAIN_DATABASE_NAME)) {
+            createMainViews(androidDatabase);
+        }
+    }
+
+    public void onDropViews(AndroidDatabase androidDatabase) {
+        Log.i(TAG, "Dropping database views: " + androidDatabase.getName());
+        if (androidDatabase.getName().equals(MAIN_DATABASE_NAME)) {
+            dropMainViews(androidDatabase);
+        }
+    }
+
+
 }

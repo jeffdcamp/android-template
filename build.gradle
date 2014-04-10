@@ -5,7 +5,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:0.9.+'
-        classpath 'org.dbtools:dbtools-gen:1.4.+'
+        classpath 'org.dbtools:dbtools-gen:2.0.0-SNAPSHOT'
     }
 }
 
@@ -33,7 +33,7 @@ dependencies {
     provided 'com.squareup.dagger:dagger-compiler:1.2.1'
     compile 'com.jakewharton:butterknife:4.0.1'
     compile 'joda-time:joda-time:2.3'
-    compile 'org.dbtools:dbtools-android:1.5.1'
+    compile 'org.dbtools:dbtools-android:2.0.0-SNAPSHOT'
 
     // Test (http://stackoverflow.com/questions/19646529/using-android-gradle-dagger-to-run-instrumenttests)
 //    instrumentTestCompile 'com.google.android.apps.common.testing:espresso:1.1:bundled'
@@ -160,10 +160,13 @@ task dbtools {
 
         // properties
         String schemaFilename = "src/main/database/schema.xml";
-        boolean injectionSupport = true; // support for CDI
+        boolean injectionSupport = true; // support for CDI (Dagger/Guice)
         boolean dateTimeSupport = true; // support for jsr DateTime (Joda Time)
+        boolean encryptionSupport = false; // support for SQLCipher
         String baseOutputDir = "src/main/java/org/company/project/domain";
         String basePackageName = "org.company.project.domain";
-        org.dbtools.gen.android.AndroidDBObjectBuilder.buildAll(schemaFilename, baseOutputDir, basePackageName, injectionSupport, dateTimeSupport);
+//        org.dbtools.gen.android.AndroidDBObjectBuilder.buildAll(schemaFilename, baseOutputDir, basePackageName, injectionSupport, dateTimeSupport);
+        org.dbtools.gen.android.AndroidObjectsBuilder.buildAll(schemaFilename, baseOutputDir, basePackageName, injectionSupport, dateTimeSupport, encryptionSupport);
+
     }
 }

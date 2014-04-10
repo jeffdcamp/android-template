@@ -1,5 +1,5 @@
 /*
- * IndividualListBaseRecord.java
+ * PhoneListViewBaseRecord.java
  *
  * GENERATED FILE - DO NOT EDIT
  * CHECKSTYLE:OFF
@@ -8,7 +8,7 @@
 
 
 
-package org.company.project.domain.individuallist;
+package org.company.project.domain.phonelistview;
 
 import org.dbtools.android.domain.AndroidBaseRecord;
 import android.content.ContentValues;
@@ -16,30 +16,22 @@ import android.database.Cursor;
 
 
 @SuppressWarnings("all")
-public abstract class IndividualListBaseRecord extends AndroidBaseRecord {
+public abstract class PhoneListViewBaseRecord extends AndroidBaseRecord {
 
-    public static final String DATABASE = "other";
-    public static final String TABLE = "INDIVIDUAL_LIST";
-    public static final String FULL_TABLE = "other.INDIVIDUAL_LIST";
-    public static final String PRIMARY_KEY_COLUMN = "_id";
+    public static final String DATABASE = "main";
+    public static final String TABLE = "PHONE_LIST_VIEW";
+    public static final String FULL_TABLE = "main.PHONE_LIST_VIEW";
     public static final String C_ID = "_id";
-    public static final String FULL_C_ID = "INDIVIDUAL_LIST._id";
-    private long id = 0;
+    public static final String FULL_C_ID = "PHONE_LIST_VIEW._id";
+    private Long id = null;
     public static final String C_NAME = "NAME";
-    public static final String FULL_C_NAME = "INDIVIDUAL_LIST.NAME";
+    public static final String FULL_C_NAME = "PHONE_LIST_VIEW.NAME";
     private String name = "";
-    public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS INDIVIDUAL_LIST (" + 
-        "_id INTEGER PRIMARY KEY  AUTOINCREMENT," + 
-        "NAME TEXT NOT NULL" + 
-        ");" + 
-        "" + 
-        "";
-    public static final String DROP_TABLE = "DROP TABLE IF EXISTS INDIVIDUAL_LIST;";
      static final String[] ALL_KEYS = new String[] {
         C_ID,
         C_NAME};
 
-    public IndividualListBaseRecord() {
+    public PhoneListViewBaseRecord() {
     }
 
     @Override
@@ -54,17 +46,16 @@ public abstract class IndividualListBaseRecord extends AndroidBaseRecord {
 
     @Override
     public String getIdColumnName() {
-        return C_ID;
+        return null;
     }
 
     @Override
     public long getPrimaryKeyId() {
-        return id;
+        return 0;
     }
 
     @Override
     public void setPrimaryKeyId(long id) {
-        this.id = id;
     }
 
     @Override
@@ -75,11 +66,13 @@ public abstract class IndividualListBaseRecord extends AndroidBaseRecord {
     @Override
     public ContentValues getContentValues() {
         ContentValues values = new ContentValues();
+        values.put(C_ID, id);
         values.put(C_NAME, name);
         return values;
     }
 
     public void setContent(ContentValues values) {
+        id = values.getAsLong(C_ID);
         name = values.getAsString(C_NAME);
     }
 
@@ -101,11 +94,11 @@ public abstract class IndividualListBaseRecord extends AndroidBaseRecord {
         return getPrimaryKeyId() <= 0;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

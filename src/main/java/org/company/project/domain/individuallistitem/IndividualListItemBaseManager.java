@@ -2,7 +2,6 @@
  * IndividualListItemBaseManager.java
  *
  * GENERATED FILE - DO NOT EDIT
- * CHECKSTYLE:OFF
  * 
  */
 
@@ -10,12 +9,16 @@
 
 package org.company.project.domain.individuallistitem;
 
-import org.company.project.domain.BaseManager;
+import org.dbtools.android.domain.AndroidBaseManager;
+import org.company.project.domain.DatabaseManager;
+import android.database.sqlite.SQLiteDatabase;
 
 
 @SuppressWarnings("all")
-public class IndividualListItemBaseManager extends BaseManager<IndividualListItem> {
+public abstract class IndividualListItemBaseManager extends AndroidBaseManager<IndividualListItem> {
 
+    @javax.inject.Inject
+     DatabaseManager databaseManager;
 
     public IndividualListItemBaseManager() {
     }
@@ -24,28 +27,44 @@ public class IndividualListItemBaseManager extends BaseManager<IndividualListIte
         return IndividualListItem.DATABASE;
     }
 
-    public String getTableName() {
-        return IndividualListItem.TABLE;
+    public IndividualListItem newRecord() {
+        return new IndividualListItem();
     }
 
-    public String getPrimaryKey() {
-        return IndividualListItem.PRIMARY_KEY_COLUMN;
+    public String getTableName() {
+        return IndividualListItem.TABLE;
     }
 
     public String[] getAllKeys() {
         return IndividualListItem.ALL_KEYS;
     }
 
-    public String getDropTableSQL() {
+    public SQLiteDatabase getReadableDatabase(String databaseName) {
+        return databaseManager.getReadableDatabase(databaseName);
+    }
+
+    public SQLiteDatabase getReadableDatabase() {
+        return databaseManager.getReadableDatabase(getDatabaseName());
+    }
+
+    public SQLiteDatabase getWritableDatabase(String databaseName) {
+        return databaseManager.getWritableDatabase(databaseName);
+    }
+
+    public SQLiteDatabase getWritableDatabase() {
+        return databaseManager.getWritableDatabase(getDatabaseName());
+    }
+
+    public String getPrimaryKey() {
+        return IndividualListItem.PRIMARY_KEY_COLUMN;
+    }
+
+    public String getDropSql() {
         return IndividualListItem.DROP_TABLE;
     }
 
-    public String getCreateTableSQL() {
+    public String getCreateSql() {
         return IndividualListItem.CREATE_TABLE;
-    }
-
-    public IndividualListItem newRecord() {
-        return new IndividualListItem();
     }
 
 

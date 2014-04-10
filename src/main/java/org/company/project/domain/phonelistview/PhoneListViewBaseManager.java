@@ -1,5 +1,5 @@
 /*
- * IndividualListBaseManager.java
+ * PhoneListViewBaseManager.java
  *
  * GENERATED FILE - DO NOT EDIT
  * 
@@ -7,7 +7,7 @@
 
 
 
-package org.company.project.domain.individuallist;
+package org.company.project.domain.phonelistview;
 
 import org.dbtools.android.domain.AndroidBaseManager;
 import org.company.project.domain.DatabaseManager;
@@ -15,28 +15,28 @@ import android.database.sqlite.SQLiteDatabase;
 
 
 @SuppressWarnings("all")
-public abstract class IndividualListBaseManager extends AndroidBaseManager<IndividualList> {
+public abstract class PhoneListViewBaseManager extends AndroidBaseManager<PhoneListView> {
 
     @javax.inject.Inject
      DatabaseManager databaseManager;
 
-    public IndividualListBaseManager() {
+    public PhoneListViewBaseManager() {
     }
 
     public String getDatabaseName() {
-        return IndividualList.DATABASE;
+        return PhoneListView.DATABASE;
     }
 
-    public IndividualList newRecord() {
-        return new IndividualList();
+    public PhoneListView newRecord() {
+        return new PhoneListView();
     }
 
     public String getTableName() {
-        return IndividualList.TABLE;
+        return PhoneListView.TABLE;
     }
 
     public String[] getAllKeys() {
-        return IndividualList.ALL_KEYS;
+        return PhoneListView.ALL_KEYS;
     }
 
     public SQLiteDatabase getReadableDatabase(String databaseName) {
@@ -56,15 +56,20 @@ public abstract class IndividualListBaseManager extends AndroidBaseManager<Indiv
     }
 
     public String getPrimaryKey() {
-        return IndividualList.PRIMARY_KEY_COLUMN;
+        return null;
     }
 
     public String getDropSql() {
-        return IndividualList.DROP_TABLE;
+        return PhoneListView.DROP_VIEW;
     }
 
     public String getCreateSql() {
-        return IndividualList.CREATE_TABLE;
+        return PhoneListView.CREATE_VIEW;
+    }
+
+    @Override
+    public boolean save(String databaseName, PhoneListView e) {
+        throw new IllegalStateException("Cannot call SAVE on PhoneListView View");
     }
 
 

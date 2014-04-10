@@ -10,13 +10,13 @@
 
 package org.company.project.domain.household;
 
-import org.company.project.domain.BaseRecord;
+import org.dbtools.android.domain.AndroidBaseRecord;
 import android.content.ContentValues;
 import android.database.Cursor;
 
 
 @SuppressWarnings("all")
-public class HouseholdBaseRecord extends BaseRecord {
+public abstract class HouseholdBaseRecord extends AndroidBaseRecord {
 
     public static final String DATABASE = "main";
     public static final String TABLE = "HOUSEHOLD";
@@ -53,17 +53,17 @@ public class HouseholdBaseRecord extends BaseRecord {
     }
 
     @Override
-    public String getRowIDKey() {
+    public String getIdColumnName() {
         return C_ID;
     }
 
     @Override
-    public long getPrimaryKeyID() {
+    public long getPrimaryKeyId() {
         return id;
     }
 
     @Override
-    public void setPrimaryKeyID(long id) {
+    public void setPrimaryKeyId(long id) {
         this.id = id;
     }
 
@@ -98,7 +98,7 @@ public class HouseholdBaseRecord extends BaseRecord {
     }
 
     public boolean isNewRecord() {
-        return getPrimaryKeyID() <= 0;
+        return getPrimaryKeyId() <= 0;
     }
 
     public long getId() {

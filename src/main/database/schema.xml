@@ -23,6 +23,10 @@
             <field name="PHONE" jdbcDataType="VARCHAR" size="255"/>
             <field name="EMAIL" jdbcDataType="VARCHAR" size="255"/>
         </table>
+        <view name="PHONE_LIST_VIEW">
+            <field name="_id" jdbcDataType="BIGINT"/>
+            <field name="NAME" jdbcDataType="VARCHAR" size="255"/>
+        </view>
     </database>
     <database name="other">
         <table name="INDIVIDUAL_LIST">
