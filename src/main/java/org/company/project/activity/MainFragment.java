@@ -13,26 +13,25 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import org.company.project.MyApplication;
 import org.company.project.R;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnLongClick;
+
 public class MainFragment extends Fragment implements SearchView.OnQueryTextListener, ActionMode.Callback {
     public static final String TAG = MyApplication.createTag(MainFragment.class);
-
-    private TextView helloTextView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.main_fragment, container, false);
-        findViewItems(view);
-        return view;
-    }
+        ButterKnife.inject(this, view);
 
-    private void findViewItems(View view) {
-        helloTextView = (TextView) view.findViewById(R.id.hello_world);
+        return view;
     }
 
     @Override
@@ -40,13 +39,6 @@ public class MainFragment extends Fragment implements SearchView.OnQueryTextList
         super.onCreate(savedInstanceState);
         MyApplication.injectFragment(this);
         setHasOptionsMenu(true);
-
-        helloTextView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                return onHelloLongPress();
-            }
-        });
     }
 
     @Override
@@ -64,11 +56,6 @@ public class MainFragment extends Fragment implements SearchView.OnQueryTextList
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
-    }
-
-    private boolean onHelloLongPress() {
-        ((ActionBarActivity) getActivity()).startSupportActionMode(this);
-        return true;
     }
 
     @Override
@@ -103,5 +90,16 @@ public class MainFragment extends Fragment implements SearchView.OnQueryTextList
     @Override
     public void onDestroyActionMode(ActionMode actionMode) {
 
+    }
+
+    @OnClick(R.id.test_button)
+    public void onClick() {
+        Toast.makeText(getActivity(), "TEST", Toast.LENGTH_LONG).show();
+    }
+
+    @OnLongClick(R.id.hello_world)
+    public boolean onHelloLongPress() {
+        ((ActionBarActivity) getActivity()).startSupportActionMode(this);
+        return true;
     }
 }

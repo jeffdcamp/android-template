@@ -17,8 +17,7 @@ import android.database.sqlite.SQLiteDatabase;
 @SuppressWarnings("all")
 public abstract class IndividualListItemBaseManager extends AndroidBaseManager<IndividualListItem> {
 
-    @javax.inject.Inject
-     DatabaseManager databaseManager;
+    @javax.inject.Inject      DatabaseManager databaseManager;
 
     public IndividualListItemBaseManager() {
     }

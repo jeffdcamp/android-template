@@ -85,8 +85,8 @@ public abstract class HouseholdBaseRecord extends AndroidBaseRecord {
 
     @Override
     public void setContent(Cursor cursor) {
-        id = cursor.getLong(cursor.getColumnIndex(C_ID));
-        name = cursor.getString(cursor.getColumnIndex(C_NAME));
+        id = cursor.getLong(cursor.getColumnIndexOrThrow(C_ID));
+        name = cursor.getString(cursor.getColumnIndexOrThrow(C_NAME));
     }
 
     @Override

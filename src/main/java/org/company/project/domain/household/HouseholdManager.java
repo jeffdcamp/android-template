@@ -10,6 +10,8 @@
 package org.company.project.domain.household;
 
 
+import javax.annotation.Nullable;
+
 @javax.inject.Singleton
 public class HouseholdManager extends HouseholdBaseManager {
 
@@ -17,5 +19,7 @@ public class HouseholdManager extends HouseholdBaseManager {
     public HouseholdManager() {
     }
 
-
+    public @Nullable Household findByBlah(int i) {
+        return null;
+    }
 }

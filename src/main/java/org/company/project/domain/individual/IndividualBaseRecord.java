@@ -130,14 +130,14 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
 
     @Override
     public void setContent(Cursor cursor) {
-        id = cursor.getLong(cursor.getColumnIndex(C_ID));
-        householdId = cursor.getLong(cursor.getColumnIndex(C_HOUSEHOLD_ID));
-        individualType = IndividualType.values()[cursor.getInt(cursor.getColumnIndex(C_INDIVIDUAL_TYPE))];
-        firstName = cursor.getString(cursor.getColumnIndex(C_FIRST_NAME));
-        lastName = cursor.getString(cursor.getColumnIndex(C_LAST_NAME));
-        birthDate = !cursor.isNull(cursor.getColumnIndex(C_BIRTH_DATE)) ? new org.joda.time.DateTime(cursor.getLong(cursor.getColumnIndex(C_BIRTH_DATE))) : null;
-        phone = cursor.getString(cursor.getColumnIndex(C_PHONE));
-        email = cursor.getString(cursor.getColumnIndex(C_EMAIL));
+        id = cursor.getLong(cursor.getColumnIndexOrThrow(C_ID));
+        householdId = cursor.getLong(cursor.getColumnIndexOrThrow(C_HOUSEHOLD_ID));
+        individualType = IndividualType.values()[cursor.getInt(cursor.getColumnIndexOrThrow(C_INDIVIDUAL_TYPE))];
+        firstName = cursor.getString(cursor.getColumnIndexOrThrow(C_FIRST_NAME));
+        lastName = cursor.getString(cursor.getColumnIndexOrThrow(C_LAST_NAME));
+        birthDate = !cursor.isNull(cursor.getColumnIndexOrThrow(C_BIRTH_DATE)) ? new org.joda.time.DateTime(cursor.getLong(cursor.getColumnIndexOrThrow(C_BIRTH_DATE))) : null;
+        phone = cursor.getString(cursor.getColumnIndexOrThrow(C_PHONE));
+        email = cursor.getString(cursor.getColumnIndexOrThrow(C_EMAIL));
     }
 
     @Override

@@ -28,7 +28,7 @@ public abstract class DatabaseBaseManager extends AndroidDatabaseManager {
     public static final String MAIN_DATABASE_NAME = "main";
     public static final String OTHER_DATABASE_NAME = "other";
 
-    public void createMainTables(AndroidDatabase androidDatabase) {
+    public void createMainTables(@javax.annotation.Nonnull AndroidDatabase androidDatabase) {
         SQLiteDatabase database = androidDatabase.getSqLiteDatabase();
         database.beginTransaction();
         
@@ -43,7 +43,7 @@ public abstract class DatabaseBaseManager extends AndroidDatabaseManager {
         database.endTransaction();
     }
 
-    public void createOtherTables(AndroidDatabase androidDatabase) {
+    public void createOtherTables(@javax.annotation.Nonnull AndroidDatabase androidDatabase) {
         SQLiteDatabase database = androidDatabase.getSqLiteDatabase();
         database.beginTransaction();
         
@@ -57,7 +57,7 @@ public abstract class DatabaseBaseManager extends AndroidDatabaseManager {
         database.endTransaction();
     }
 
-    public void onCreate(AndroidDatabase androidDatabase) {
+    public void onCreate(@javax.annotation.Nonnull AndroidDatabase androidDatabase) {
         Log.i(TAG, "Creating database: " + androidDatabase.getName());
         if (androidDatabase.getName().equals(MAIN_DATABASE_NAME)) {
             createMainTables(androidDatabase);
@@ -67,7 +67,7 @@ public abstract class DatabaseBaseManager extends AndroidDatabaseManager {
         }
     }
 
-    public void createMainViews(AndroidDatabase androidDatabase) {
+    public void createMainViews(@javax.annotation.Nonnull AndroidDatabase androidDatabase) {
         SQLiteDatabase database = androidDatabase.getSqLiteDatabase();
         database.beginTransaction();
         
@@ -78,7 +78,7 @@ public abstract class DatabaseBaseManager extends AndroidDatabaseManager {
         database.endTransaction();
     }
 
-    public void dropMainViews(AndroidDatabase androidDatabase) {
+    public void dropMainViews(@javax.annotation.Nonnull AndroidDatabase androidDatabase) {
         SQLiteDatabase database = androidDatabase.getSqLiteDatabase();
         database.beginTransaction();
         
@@ -89,14 +89,14 @@ public abstract class DatabaseBaseManager extends AndroidDatabaseManager {
         database.endTransaction();
     }
 
-    public void onCreateViews(AndroidDatabase androidDatabase) {
+    public void onCreateViews(@javax.annotation.Nonnull AndroidDatabase androidDatabase) {
         Log.i(TAG, "Creating database views: " + androidDatabase.getName());
         if (androidDatabase.getName().equals(MAIN_DATABASE_NAME)) {
             createMainViews(androidDatabase);
         }
     }
 
-    public void onDropViews(AndroidDatabase androidDatabase) {
+    public void onDropViews(@javax.annotation.Nonnull AndroidDatabase androidDatabase) {
         Log.i(TAG, "Dropping database views: " + androidDatabase.getName());
         if (androidDatabase.getName().equals(MAIN_DATABASE_NAME)) {
             dropMainViews(androidDatabase);

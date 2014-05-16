@@ -93,9 +93,9 @@ public abstract class IndividualListItemBaseRecord extends AndroidBaseRecord {
 
     @Override
     public void setContent(Cursor cursor) {
-        id = cursor.getLong(cursor.getColumnIndex(C_ID));
-        listId = cursor.getLong(cursor.getColumnIndex(C_LIST_ID));
-        individualId = cursor.getLong(cursor.getColumnIndex(C_INDIVIDUAL_ID));
+        id = cursor.getLong(cursor.getColumnIndexOrThrow(C_ID));
+        listId = cursor.getLong(cursor.getColumnIndexOrThrow(C_LIST_ID));
+        individualId = cursor.getLong(cursor.getColumnIndexOrThrow(C_INDIVIDUAL_ID));
     }
 
     @Override

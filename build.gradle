@@ -4,13 +4,14 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.9.+'
-        classpath 'org.dbtools:dbtools-gen:2.0+'
+        classpath 'com.android.tools.build:gradle:0.10.1'
+        classpath 'org.dbtools:dbtools-gen:2.1.0'
     }
 }
 
 apply plugin: 'android'
 apply plugin: 'sonar-runner'
+apply plugin: 'findbugs'
 
 archivesBaseName = 'android-template'
 // Manifest version information
@@ -29,18 +30,21 @@ dependencies {
     compile "com.android.support:appcompat-v7:19+" // includes support-v4
 
     // Code
+    provided 'com.google.code.findbugs:annotations:2.0.3' // includes "com.google.code.findbugs:jsr305"
+//    provided 'org.checkerframework:checker:1.8.1' // when Android support java8 and jsr 308
     compile 'com.squareup.dagger:dagger:1.2.1'
     provided 'com.squareup.dagger:dagger-compiler:1.2.1'
     compile 'com.jakewharton:butterknife:4.0.1'
     compile 'joda-time:joda-time:2.3'
-    compile 'org.dbtools:dbtools-android:2.0+'
+    compile 'org.dbtools:dbtools-android:2.1.0'
 
-    // Test (http://stackoverflow.com/questions/19646529/using-android-gradle-dagger-to-run-instrumenttests)
-//    instrumentTestCompile 'com.google.android.apps.common.testing:espresso:1.1:bundled'
+    androidTestCompile('com.jakewharton.espresso:espresso:1.1-r2') {
+        exclude group: 'com.squareup.dagger'
+    }
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.11'
+    gradleVersion = '1.12'
 }
 
 
@@ -49,7 +53,7 @@ def buildTime = new Date().format("yyyy-MM-dd'T'HH:mm'Z'", TimeZone.getTimeZone(
 
 android {
     compileSdkVersion 19
-    buildToolsVersion '19.0.3'
+    buildToolsVersion '19.1.0'
 
     defaultConfig {
         minSdkVersion 10
@@ -59,8 +63,12 @@ android {
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
         buildConfigField "String", "BUILD_TIME", "\"${buildTime}\""
 
-//        testInstrumentationRunner "com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner"
+        testInstrumentationRunner "com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner"
     }
+
+//    jacoco {
+//        version '0.6.2.201302030002'
+//    }
 
     lintOptions {
         abortOnError false
@@ -77,6 +85,7 @@ android {
         exclude 'META-INF/NOTICE'
         exclude 'META-INF/NOTICE.txt'
         exclude 'META-INF/services/javax.annotation.processing.Processor'
+        exclude 'LICENSE.txt'
     }
 
     // defined values my* in ~/.gradle/gradle.properties
@@ -92,6 +101,8 @@ android {
     buildTypes {
         debug {
             versionNameSuffix '-DEV'
+            // does not work with dagger (https://code.google.com/p/android/issues/detail?id=69174&thanks=69174&ts=1398894143)
+//            testCoverageEnabled true
         }
         release {
 //            signingConfig signingConfigs.prodConfig;
@@ -138,7 +149,7 @@ sonarRunner {
 
 
         properties["sonar.sources"] = android.sourceSets.main.java.srcDirs
-        properties["sonar.tests"] = android.sourceSets.instrumentTest.java.srcDirs
+        properties["sonar.tests"] = android.sourceSets.androidTest.java.srcDirs
         properties["sonar.binaries"] = [file("build/classes/debug"), file("build/classes/alpha")]
     }
 }
@@ -152,21 +163,20 @@ task dbtools {
         //            mavenCentral()
         //        }
         //        dependencies {
-        //            classpath 'org.dbtools:dbtools-gen:1.+'
+        //            classpath 'org.dbtools:dbtools-gen:2.+'
         //        }
         //    }
 
         System.out.println("Generating DBTools Classes...")
 
-        // properties
-        String schemaFilename = "src/main/database/schema.xml";
-        boolean injectionSupport = true; // support for CDI (Dagger/Guice)
-        boolean dateTimeSupport = true; // support for jsr DateTime (Joda Time)
-        boolean encryptionSupport = false; // support for SQLCipher
-        String baseOutputDir = "src/main/java/org/company/project/domain";
-        String basePackageName = "org.company.project.domain";
-//        org.dbtools.gen.android.AndroidDBObjectBuilder.buildAll(schemaFilename, baseOutputDir, basePackageName, injectionSupport, dateTimeSupport);
-        org.dbtools.gen.android.AndroidObjectsBuilder.buildAll(schemaFilename, baseOutputDir, basePackageName, injectionSupport, dateTimeSupport, encryptionSupport);
-
+        org.dbtools.gen.android.AndroidObjectsBuilder builder = new org.dbtools.gen.android.AndroidObjectsBuilder();
+        builder.setXmlFilename("src/main/database/schema.xml");
+        builder.setOutputBaseDir("src/main/java/org/company/project/domain");
+        builder.setPackageBase("org.company.project.domain");
+        builder.setInjectionSupport(true);
+        builder.setJsr305Support(true);
+        builder.setDateTimeSupport(true);
+        builder.setEncryptionSupport(false);
+        builder.build();
     }
 }

@@ -15,7 +15,7 @@ public class MainActivity extends DrawerActivity {
 //    public static final String TAG = MyApplication.createTag(MainActivity.class);
 
     @Inject
-    public CommonMenu commonMenu;
+    CommonMenu commonMenu;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
