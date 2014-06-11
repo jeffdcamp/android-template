@@ -2,16 +2,19 @@ buildscript {
     repositories {
         mavenLocal()
         mavenCentral()
+        maven { url "https://github.com/ben-manes/gradle-versions-plugin/raw/mvnrepo" } // version plugin support
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.10.1'
+        classpath 'com.android.tools.build:gradle:0.11.+'
         classpath 'org.dbtools:dbtools-gen:2.1.0'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.5-beta-5' // version plugin support
     }
 }
 
 apply plugin: 'android'
 apply plugin: 'sonar-runner'
 apply plugin: 'findbugs'
+apply plugin: 'versions' // ./gradlew dependencyUpdates -Drevision=release
 
 archivesBaseName = 'android-template'
 // Manifest version information
@@ -30,15 +33,15 @@ dependencies {
     compile "com.android.support:appcompat-v7:19+" // includes support-v4
 
     // Code
-    provided 'com.google.code.findbugs:annotations:2.0.3' // includes "com.google.code.findbugs:jsr305"
+    provided 'com.google.code.findbugs:jsr305'
 //    provided 'org.checkerframework:checker:1.8.1' // when Android support java8 and jsr 308
     compile 'com.squareup.dagger:dagger:1.2.1'
     provided 'com.squareup.dagger:dagger-compiler:1.2.1'
-    compile 'com.jakewharton:butterknife:4.0.1'
+    compile 'com.jakewharton:butterknife:5.1.0'
     compile 'joda-time:joda-time:2.3'
     compile 'org.dbtools:dbtools-android:2.1.0'
 
-    androidTestCompile('com.jakewharton.espresso:espresso:1.1-r2') {
+    androidTestCompile('com.jakewharton.espresso:espresso:1.1-r3') {
         exclude group: 'com.squareup.dagger'
     }
 }
@@ -150,7 +153,7 @@ sonarRunner {
 
         properties["sonar.sources"] = android.sourceSets.main.java.srcDirs
         properties["sonar.tests"] = android.sourceSets.androidTest.java.srcDirs
-        properties["sonar.binaries"] = [file("build/classes/debug"), file("build/classes/alpha")]
+        properties["sonar.binaries"] = [file("build/intermediates/classes/debug"), file("build/intermediates/classes/alpha")]
     }
 }
 
