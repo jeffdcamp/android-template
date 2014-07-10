@@ -24,7 +24,6 @@ public class CommonMenu {
     public boolean onOptionsItemSelected(Context context, MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_search:
-//                this.onSearchRequested();
                 return true;
             case R.id.menu_item_settings:
                 Intent settingIntent = new Intent(context, SettingsActivity.class);
@@ -35,9 +34,7 @@ public class CommonMenu {
                 context.startActivity(aboutIntent);
                 return true;
             default:
-                //Force Closing is not exactly a graceful way to handle this...
                 Log.i(TAG, "Unknown common menu item id: " + item.getItemId() + ", ignoring");
-                //throw new IllegalArgumentException("Unknown common menu item id: " + item.getItemId());
                 return false;
         }
     }

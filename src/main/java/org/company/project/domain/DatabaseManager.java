@@ -35,11 +35,6 @@ public class DatabaseManager extends DatabaseBaseManager {
         Log.i(TAG, "Upgrading database [" + databaseName + "] from version " + oldVersion + " to " + newVersion);
     }
 
-    @Override
-    public void onUpgradeViews(AndroidDatabase androidDatabase, int oldVersion, int newVersion) {
-        super.onUpgradeViews(androidDatabase, oldVersion, newVersion);
-    }
-
     public void setContext(Application app) {
         this.application = app;
     }

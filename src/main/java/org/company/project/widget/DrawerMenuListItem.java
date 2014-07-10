@@ -3,29 +3,29 @@ package org.company.project.widget;
 public class DrawerMenuListItem {
     private int id;
     private String text;
-    private int iconResID;
+    private int iconResId;
+    private DrawerMenuItemType type;
+
+    public DrawerMenuListItem(int id, String text, int iconResId, DrawerMenuItemType type) {
+        this.id = id;
+        this.text = text;
+        this.iconResId = iconResId;
+        this.type = type;
+    }
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getText() {
         return text;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public int getIconResId() {
+        return iconResId;
     }
 
-    public int getIconResID() {
-        return iconResID;
-    }
-
-    public void setIconResID(int iconResID) {
-        this.iconResID = iconResID;
+    public DrawerMenuItemType getType() {
+        return type;
     }
 }

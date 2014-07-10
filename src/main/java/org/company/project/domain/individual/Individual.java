@@ -27,4 +27,7 @@ public class Individual extends IndividualBaseRecord {
     }
 
 
+    public String getFullName() {
+        return getFirstName() + " " + getLastName();
+    }
 }

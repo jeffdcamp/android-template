@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<org.company.project.widget.CheckableLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <include layout="@layout/list_item" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/listview_sidebar_bg"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true">
+
+        <ImageView
+            android:id="@+id/listview_sidebar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="right|top|bottom"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/listview_sidebar_selected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/list_item_edge_selected"
+            android:gravity="right|center_vertical"
+            android:visibility="gone" />
+    </RelativeLayout>
+</org.company.project.widget.CheckableLinearLayout>

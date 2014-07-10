@@ -20,7 +20,8 @@ import dagger.ObjectGraph;
 public class MyApplication extends Application {
     public static final String TAG = MyApplication.createTag(MyApplication.class);
 
-    public static final String DEFAULT_TAG_PREFIX = "company.";  // TODO change this for your app (pick a name similar to package name... get both raw log AND tag logs)
+    // TODO change this for your app (pick a name similar to package name... get both raw log AND tag logs)
+    public static final String DEFAULT_TAG_PREFIX = "company.";
     public static final int MAX_TAG_LENGTH = 23; // if over: IllegalArgumentException: Log tag "xxx" exceeds limit of 23 characters
 
     private ObjectGraph injectionObjectGraph;
@@ -44,7 +45,7 @@ public class MyApplication extends Application {
 
     public void buildObjectGraphAndInject() {
         injectionObjectGraph = ObjectGraph.create(getModules());
-//        injectionObjectGraph.inject(this);
+//        injectionObjectGraph.inject(this); // support for injection in this class
     }
 
     public void inject(Object object) {
@@ -87,7 +88,7 @@ public class MyApplication extends Application {
         }
 
         if (versionText != null) {
-            return versionText.equals("${build.number}") ? "Developer Build" : versionText;
+            return "${build.number}".equals(versionText) ? "Developer Build" : versionText;
         } else {
             return "Not available";
         }

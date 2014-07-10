@@ -7,8 +7,10 @@ import dagger.Module;
                 // Activities & Fragments
                 StartupActivity.class,
                 AboutActivity.class,
-                MainActivity.class,
-                MainFragment.class,
+                DirectoryActivity.class,
+                DirectoryFragment.class,
+                IndividualActivity.class,
+                IndividualFragment.class,
                 SettingsActivity.class,
         },
         complete = false

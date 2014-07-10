@@ -2,6 +2,7 @@ package org.company.project.menu;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Intent;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
@@ -9,8 +10,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import org.company.project.Prefs;
 import org.company.project.R;
-import org.company.project.activity.MainActivity;
+import org.company.project.activity.AboutActivity;
+import org.company.project.activity.DirectoryActivity;
+import org.company.project.activity.SettingsActivity;
 import org.company.project.widget.DrawerMenuListAdapter;
 import org.company.project.widget.DrawerMenuListItem;
 
@@ -18,19 +22,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-/**
- * User: jcampbell
- * Date: 5/17/13
- */
 @Singleton
 public class DrawerMenu {
     public static final int DEFAULT_DRAWER_OPEN_GRAVITY = GravityCompat.START;
 
     @Inject
-    Application application;
+    Application context;
+
+    @Inject
+    Prefs prefs;
 
     private List<DrawerMenuListItem> navigationMenuItems;
 
@@ -39,7 +43,8 @@ public class DrawerMenu {
 
     public void createDrawerView(final DrawerLayout drawerLayout, ListView drawerMenuListView, final DrawerMenuListener drawerMenuItemListener) {
         final List<DrawerMenuListItem> menuItems = getNavMenuItems(false);
-        drawerMenuListView.setAdapter(new DrawerMenuListAdapter(application, menuItems));
+        drawerMenuListView.setDividerHeight(0); // remove lines by default
+        drawerMenuListView.setAdapter(new DrawerMenuListAdapter(context, menuItems, getDrawerMenuItem()));
 
         drawerMenuListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -78,7 +83,8 @@ public class DrawerMenu {
     }
 
     public void setAllMenuItemsVisible(Menu menu, boolean visible) {
-        menu.setGroupVisible(0, visible);  // any menu group that is NOT 0 will be excluded (if a item is not assigned to a group, it will be hidden on drawer-open)
+        // any menu group that is NOT 0 will be excluded (if a item is not assigned to a group, it will be hidden on drawer-open)
+        menu.setGroupVisible(0, visible);
     }
 
     public List<DrawerMenuListItem> getNavMenuItems(boolean forceRefresh) {
@@ -90,38 +96,41 @@ public class DrawerMenu {
 
         if (navigationMenuItems == null || forceRefresh || localeChanged) {
             navigationMenuItems = new ArrayList<>();
+            // primary items
             navigationMenuItems.add(createNavigationMenuItem(DrawerMenuItem.MAIN));
-            navigationMenuItems.add(createNavigationMenuItem(DrawerMenuItem.MY_LIBRARY));
+            navigationMenuItems.add(createNavigationMenuItem(DrawerMenuItem.LIBRARY));
             navigationMenuItems.add(createNavigationMenuItem(DrawerMenuItem.STORE));
+
+            // secondary items
+            navigationMenuItems.add(createNavigationMenuItem(DrawerMenuItem.SETTINGS));
+            navigationMenuItems.add(createNavigationMenuItem(DrawerMenuItem.HELP));
         }
 
         return navigationMenuItems;
     }
 
-    private DrawerMenuListItem createNavigationMenuItem(DrawerMenuItem type) {
-        DrawerMenuListItem item = new DrawerMenuListItem();
-
-        item.setId(type.ordinal());
-        item.setText(application.getString(type.getTextResID()));
-        item.setIconResID(type.getIconResID());
-
-        return item;
+    private DrawerMenuListItem createNavigationMenuItem(DrawerMenuItem menuItem) {
+        return new DrawerMenuListItem(menuItem.ordinal(), menuItem.getText(context), menuItem.getIconResId(), menuItem.getMenuType());
     }
 
-    private boolean isSameActivity(Activity context, DrawerMenuItem item) {
+    private boolean isSameActivity(@Nonnull Activity activity, DrawerMenuItem item) {
         switch (item) {
             case MAIN:
-                return context instanceof MainActivity;
-            case MY_LIBRARY:
-                return context instanceof MainActivity;
+                return activity instanceof DirectoryActivity;
+            case LIBRARY:
+                return activity instanceof DirectoryActivity;
             case STORE:
-                return context instanceof MainActivity;
+                return activity instanceof DirectoryActivity;
+            default:
+                return false;
         }
-
-        return false;
     }
 
-    public void onMenuItemClick(Activity context, int itemId) {
+    private DrawerMenuItem getDrawerMenuItem() {
+        return DrawerMenuItem.MAIN; // todo change to show selected drawer item (from prefs, etc)
+    }
+
+    public void onMenuItemClick(@Nonnull Activity context, int itemId) {
         DrawerMenuItem item = DrawerMenuItem.values()[itemId];
 
         if (isSameActivity(context, item)) {
@@ -129,17 +138,31 @@ public class DrawerMenu {
         }
 
         switch (item) {
+            // Primary
             case MAIN:
-                // do stuff
+                // show main activity
+                context.finish();
                 break;
-            case MY_LIBRARY:
-                // do stuff
+            case LIBRARY:
+                // show library activity
+                context.finish();
                 break;
             case STORE:
-                // do stuff
+                // show store activity
+                context.finish();
                 break;
-        }
 
-        context.finish();
+            // Secondary
+            case SETTINGS:
+                Intent settingIntent = new Intent(context, SettingsActivity.class);
+                context.startActivity(settingIntent);
+                break;
+            case HELP:
+                Intent aboutIntent = new Intent(context, AboutActivity.class);
+                context.startActivity(aboutIntent);
+                break;
+            default:
+                // do nothing
+        }
     }
 }

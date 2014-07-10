@@ -7,7 +7,7 @@ import android.util.Log;
 
 import org.company.project.MyApplication;
 import org.company.project.R;
-import org.company.project.activity.MainActivity;
+import org.company.project.activity.DirectoryActivity;
 
 import javax.inject.Inject;
 
@@ -18,7 +18,7 @@ public class StartupTask extends AsyncTask<String, Void, Boolean> {
     private long perfTime = 0;
 
     private Activity contextActivity;
-    private Class startupActivityClass = MainActivity.class;
+    private Class startupActivityClass = DirectoryActivity.class;
 
     @Inject
     public StartupTask() {

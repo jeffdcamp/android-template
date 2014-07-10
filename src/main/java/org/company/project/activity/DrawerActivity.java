@@ -25,7 +25,6 @@ public class DrawerActivity extends ActionBarActivity implements DrawerMenuListe
 
     private boolean showDrawerIcon = false;
 
-    private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
 
     public void setupDrawer(boolean showDrawerIcon, final int titleResID, final boolean hasListNavigationMode) {
@@ -35,7 +34,7 @@ public class DrawerActivity extends ActionBarActivity implements DrawerMenuListe
     public void setupDrawer(boolean showDrawerIcon, final String title, final boolean hasListNavigationMode) {
         this.showDrawerIcon = showDrawerIcon;
 
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         drawerMenu.createDrawerView(drawerLayout, (ListView) findViewById(R.id.drawer_menu_items), this);
 

@@ -94,7 +94,7 @@ public class AboutActivity extends ActionBarActivity {
     @Inject
     IndividualListItemManager individualListItemManager;
 
-    private void createSameleData() {
+    private void createSampleData() {
         if (useInjection) {
             createSampleDataWithInjection();
         } else {
@@ -121,13 +121,15 @@ public class AboutActivity extends ActionBarActivity {
         Individual individual1 = new Individual();
         individual1.setFirstName("Jeff");
         individual1.setLastName("Campbell");
+        individual1.setPhone("801-555-0000");
         individual1.setIndividualType(IndividualType.HEAD);
         individual1.setHouseholdId(household.getId());
         individualManager.save(individual1);
 
         Individual individual2 = new Individual();
-        individual2.setFirstName("Tanner");
-        individual2.setLastName("Campbell");
+        individual2.setFirstName("John");
+        individual2.setLastName("Miller");
+        individual2.setPhone("303-555-1111");
         individual2.setIndividualType(IndividualType.CHILD);
         individual2.setHouseholdId(household.getId());
         individualManager.save(individual2);
@@ -199,8 +201,8 @@ public class AboutActivity extends ActionBarActivity {
 
     private void testDatabaseWithInjection() {
         // (Optional) attach databases on demand (instead of in the DatabaseManager)
-//        databaseManager.identifyDatabases();
-//        databaseManager.addAttachedDatabase(DatabaseManager.ATTACH_DATABASE_NAME, DatabaseManager.MAIN_DATABASE_NAME, Arrays.asList(DatabaseManager.OTHER_DATABASE_NAME));
+//        databaseManager.identifyDatabases(); // NOSONAR
+//        databaseManager.addAttachedDatabase(DatabaseManager.ATTACH_DATABASE_NAME, DatabaseManager.MAIN_DATABASE_NAME, Arrays.asList(DatabaseManager.OTHER_DATABASE_NAME)); // NOSONAR
 
         List<String> names = findAllStringByRawQuery(databaseManager, DatabaseManager.ATTACH_DATABASE_NAME, ATTACH_DATABASE_QUERY, null);
         for (String name : names) {
@@ -212,8 +214,8 @@ public class AboutActivity extends ActionBarActivity {
         noInjectionDatabaseManager.setContext(getApplication());
 
         // (Optional) attach databases on demand (instead of in the DatabaseManager)
-//        noInjectionDatabaseManager.identifyDatabases();
-//        noInjectionDatabaseManager.addAttachedDatabase(DatabaseManager.ATTACH_DATABASE_NAME, DatabaseManager.MAIN_DATABASE_NAME, Arrays.asList(DatabaseManager.OTHER_DATABASE_NAME));
+//        noInjectionDatabaseManager.identifyDatabases(); // NOSONAR
+//        noInjectionDatabaseManager.addAttachedDatabase(DatabaseManager.ATTACH_DATABASE_NAME, DatabaseManager.MAIN_DATABASE_NAME, Arrays.asList(DatabaseManager.OTHER_DATABASE_NAME)); // NOSONAR
 
         List<String> names = findAllStringByRawQuery(noInjectionDatabaseManager, DatabaseManager.ATTACH_DATABASE_NAME, ATTACH_DATABASE_QUERY, null);
         for (String name : names) {

@@ -7,12 +7,22 @@
     <style name="SettingsTheme" parent="@style/Theme.AppCompat">
     </style>
 
+    <!-- General -->
+    <style name="divider_line_horizontal">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/divider_line</item>
+    </style>
+    <style name="divider_line_horizontal_light" parent="divider_line_horizontal">
+        <item name="android:background">@color/divider_line_light</item>
+    </style>
+
     <!-- Drawer -->
     <style name="navigation_drawer_list">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:background">@color/nav_list_background</item>
-        <item name="android:divider">@color/nav_list_line</item>
+        <item name="android:background">@color/drawer_background</item>
+        <item name="android:divider">@color/drawer_list_line</item>
         <item name="android:dividerHeight">1dp</item>
     </style>
 
@@ -21,7 +31,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/list_header_text</item>
-        <item name="android:textSize">14dp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:paddingLeft">5dp</item>
         <item name="android:paddingBottom">5dp</item>
@@ -36,7 +46,7 @@
     <style name="list_text_item_layout">
         <item name="android:padding">5dp</item>
     </style>
-    <style name="list_item" parent="@android:style/TextAppearance.Large">
+    <style name="list_item" parent="@android:style/TextAppearance.Medium">
         <item name="android:textColor">@color/default_text</item>
     </style>
     <style name="list_item_title" parent="@android:style/TextAppearance.Medium">

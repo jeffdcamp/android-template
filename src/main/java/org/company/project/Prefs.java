@@ -17,7 +17,7 @@ public final class Prefs {
         // clear ALL preferences
         SharedPreferences.Editor editor = preferences.edit();
         editor.clear();
-        editor.commit();
+        editor.apply();
     }
 
     public String getPrefSomething() {
@@ -27,6 +27,6 @@ public final class Prefs {
     public void savePromptDatabaseUpdated(String value) {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(PREF_SOMETHING, value);
-        editor.commit();
+        editor.apply();
     }
 }

@@ -6,7 +6,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.squareup.otto.Bus;
+
 import org.company.project.activity.ActivityModule;
+import org.company.project.adapter.AdapterModule;
+import org.company.project.event.AndroidBus;
+import org.company.project.loader.LoaderModule;
 
 import javax.inject.Singleton;
 
@@ -15,7 +20,9 @@ import dagger.Provides;
 
 @Module(
         includes = {
-                ActivityModule.class
+                ActivityModule.class,
+                AdapterModule.class,
+                LoaderModule.class,
         },
         library = true,
         complete = false
@@ -43,5 +50,10 @@ public class ApplicationModule {
         return (NotificationManager) application.getSystemService(Context.NOTIFICATION_SERVICE);
     }
 
-
+    @Provides
+    @Singleton
+    Bus provideBus() {
+        // AndroidBus is a version of the Bus that is safe to call from any thread to the main thread
+        return new AndroidBus();
+    }
 }
