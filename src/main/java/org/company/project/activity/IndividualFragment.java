@@ -22,7 +22,7 @@ import butterknife.InjectView;
 public class IndividualFragment extends Fragment {
     public static final String TAG = MyApplication.createTag(IndividualFragment.class);
 
-    private static final String ARG_INDIVIDUAL_ID = "individualId";
+    private static final String ARG_ID = "ID";
 
     @InjectView(R.id.individual_name)
     TextView nameTextView;
@@ -38,7 +38,7 @@ public class IndividualFragment extends Fragment {
     public static IndividualFragment newInstance(long individualId) {
         IndividualFragment fragment = new IndividualFragment();
         Bundle args = new Bundle();
-        args.putLong(ARG_INDIVIDUAL_ID, individualId);
+        args.putLong(ARG_ID, individualId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -48,7 +48,7 @@ public class IndividualFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            individualId = getArguments().getLong(ARG_INDIVIDUAL_ID, -1);
+            individualId = getArguments().getLong(ARG_ID, -1);
         }
     }
 

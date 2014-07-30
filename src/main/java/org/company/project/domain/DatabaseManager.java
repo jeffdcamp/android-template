@@ -39,5 +39,14 @@ public class DatabaseManager extends DatabaseBaseManager {
         this.application = app;
     }
 
-
+    public void initDatabaseConnection() {
+        Log.i(TAG, "Initializing Database connection: ");
+        try {
+            getWritableDatabase(DatabaseManager.MAIN_DATABASE_NAME);
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to open database... attempting to recreate database", e);
+            cleanAllDatabases();
+            getWritableDatabase(DatabaseManager.MAIN_DATABASE_NAME);
+        }
+    }
 }

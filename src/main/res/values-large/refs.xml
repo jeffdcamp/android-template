@@ -1,0 +1,3 @@
+<resources>
+    <item type="layout" name="directory_list">@layout/drawer_dual_fragement</item>
+</resources>

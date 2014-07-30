@@ -79,14 +79,14 @@ public class DirectoryActivity extends DrawerActivity {
     }
 
     @Subscribe
-    public void onDirectoryItemClicked(DirectoryItemSelectedEvent event) {
+    public void onListItemClicked(DirectoryItemSelectedEvent event) {
         if (dualPane) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_pos2, IndividualFragment.newInstance(event.getId()))
                     .commit();
         } else {
             Intent intent = new Intent(this, IndividualActivity.class);
-            intent.putExtra(IndividualActivity.EXTRA_INDIVIDUAL_ID, event.getId());
+            intent.putExtra(IndividualActivity.EXTRA_ID, event.getId());
             startActivity(intent);
         }
     }

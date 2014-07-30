@@ -9,7 +9,7 @@ import org.company.project.R;
 
 public class IndividualActivity extends DrawerActivity {
 
-    public static final String EXTRA_INDIVIDUAL_ID = "INDIVIDUAL_ID";
+    public static final String EXTRA_ID = "INDIVIDUAL_ID";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,7 @@ public class IndividualActivity extends DrawerActivity {
 
         setupDrawer(false, R.string.individual, false);
 
-        long individualId = getIntent().getLongExtra(EXTRA_INDIVIDUAL_ID, -1);
+        long individualId = getIntent().getLongExtra(EXTRA_ID, -1);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()

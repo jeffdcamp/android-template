@@ -8,6 +8,7 @@ import android.util.Log;
 import org.company.project.MyApplication;
 import org.company.project.R;
 import org.company.project.activity.DirectoryActivity;
+import org.company.project.domain.DatabaseManager;
 
 import javax.inject.Inject;
 
@@ -21,8 +22,7 @@ public class StartupTask extends AsyncTask<String, Void, Boolean> {
     private Class startupActivityClass = DirectoryActivity.class;
 
     @Inject
-    public StartupTask() {
-    }
+    DatabaseManager databaseManager;
 
     public StartupTask init(Activity contextActivity) {
         this.contextActivity = contextActivity;
@@ -36,8 +36,7 @@ public class StartupTask extends AsyncTask<String, Void, Boolean> {
 
     @Override
     protected Boolean doInBackground(String... params) {
-        // do stuff
-
+        databaseManager.initDatabaseConnection();
         return true;
     }
 

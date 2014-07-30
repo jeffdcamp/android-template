@@ -9,11 +9,11 @@ import org.company.project.domain.individual.IndividualManager;
 
 import javax.inject.Inject;
 
-public class PeopleListLoader extends CursorLoader {
+public class DirectoryListLoader extends CursorLoader {
     @Inject
     IndividualManager individualManager;
 
-    public PeopleListLoader(Activity activity) {
+    public DirectoryListLoader(Activity activity) {
         super(activity);
         MyApplication.getApplication(activity).inject(this);
     }

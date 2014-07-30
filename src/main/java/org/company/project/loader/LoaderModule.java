@@ -4,7 +4,7 @@ import dagger.Module;
 
 @Module(
         injects = {
-                PeopleListLoader.class,
+                DirectoryListLoader.class,
         },
         complete = false
 )

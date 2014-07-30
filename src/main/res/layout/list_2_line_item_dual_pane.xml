@@ -23,7 +23,6 @@
             android:id="@+id/listview_sidebar"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@drawable/list_item_edge"
             android:gravity="right|top|bottom"
             android:visibility="gone" />
 

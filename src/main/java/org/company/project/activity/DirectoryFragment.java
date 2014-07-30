@@ -26,7 +26,7 @@ import org.company.project.MyApplication;
 import org.company.project.R;
 import org.company.project.adapter.DirectoryAdapter;
 import org.company.project.event.DirectoryItemSelectedEvent;
-import org.company.project.loader.PeopleListLoader;
+import org.company.project.loader.DirectoryListLoader;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -164,7 +164,7 @@ public class DirectoryFragment extends Fragment implements LoaderManager.LoaderC
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new PeopleListLoader(getActivity());
+        return new DirectoryListLoader(getActivity());
     }
 
     @Override

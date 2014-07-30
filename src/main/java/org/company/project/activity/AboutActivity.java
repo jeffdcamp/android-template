@@ -22,8 +22,13 @@ import org.company.project.domain.individuallistitem.IndividualListItem;
 import org.company.project.domain.individuallistitem.IndividualListItemManager;
 import org.company.project.domain.individualtype.IndividualType;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.inject.Inject;
 
@@ -53,7 +58,7 @@ public class AboutActivity extends ActionBarActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        versionTextView.setText(BuildConfig.VERSION_NAME);
+        versionTextView.setText(getVersionName());
     }
 
     @Override
@@ -66,6 +71,26 @@ public class AboutActivity extends ActionBarActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    private String getVersionName() {
+        String buildTimeText;
+        try {
+            // Parse ISO8601-format time into local time.
+            DateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
+            DateFormat outFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
+            inFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            Date buildTime = inFormat.parse(BuildConfig.BUILD_TIME);
+            buildTimeText = outFormat.format(buildTime);
+        } catch (ParseException e) {
+            throw new IllegalStateException("Unable to decode build time: " + BuildConfig.BUILD_TIME, e);
+        }
+
+        String versionString = BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")";
+        versionString += "\n" + buildTimeText;
+
+        return versionString;
+    }
+
 
     boolean useInjection = true;
 
