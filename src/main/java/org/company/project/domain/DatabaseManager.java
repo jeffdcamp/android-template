@@ -33,6 +33,11 @@ public class DatabaseManager extends DatabaseBaseManager {
     public void onUpgrade(AndroidDatabase androidDatabase, int oldVersion, int newVersion) {
         String databaseName = androidDatabase.getName();
         Log.i(TAG, "Upgrading database [" + databaseName + "] from version " + oldVersion + " to " + newVersion);
+        if (oldVersion < newVersion) {
+            // todo implement database migration??
+            deleteDatabase(androidDatabase);
+            onCleanDatabase(androidDatabase);
+        }
     }
 
     public void setContext(Application app) {
