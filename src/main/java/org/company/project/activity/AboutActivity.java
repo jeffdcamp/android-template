@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.company.project.BuildConfig;
 import org.company.project.MyApplication;
@@ -44,10 +45,6 @@ public class AboutActivity extends ActionBarActivity {
 
     @InjectView(R.id.version_info)
     TextView versionTextView;
-
-    @Inject
-    public AboutActivity() {
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,17 +88,19 @@ public class AboutActivity extends ActionBarActivity {
         return versionString;
     }
 
-
-    boolean useInjection = true;
-
     @OnClick(R.id.button1)
     public void onCreateDatabaseButtonClick() {
-        createSampleDataWithInjection();
+        createSampleData();
     }
 
-    @OnClick(R.id.button2)
-    public void onTestDatabaseButtonClick() {
-        testDatabase();
+    private boolean useInjection = true;
+
+    private void createSampleData() {
+        if (useInjection) {
+            createSampleDataWithInjection();
+        } else {
+            createSampleDataNoInjection();
+        }
     }
 
     @Inject
@@ -118,22 +117,6 @@ public class AboutActivity extends ActionBarActivity {
 
     @Inject
     IndividualListItemManager individualListItemManager;
-
-    private void createSampleData() {
-        if (useInjection) {
-            createSampleDataWithInjection();
-        } else {
-            createSampleDataNoInjection();
-        }
-    }
-
-    private void testDatabase() {
-        if (useInjection) {
-            testDatabaseWithInjection();
-        } else {
-            testDatabaseNoInjection();
-        }
-    }
 
     private void createSampleDataWithInjection() {
         // MAIN Database
@@ -218,6 +201,8 @@ public class AboutActivity extends ActionBarActivity {
         IndividualListItemManager.save(otherDb, newListItem);
 
         noInjectionDatabaseManager.endTransaction(DatabaseManager.OTHER_DATABASE_NAME, true);
+
+        Toast.makeText(this, "Database created", Toast.LENGTH_SHORT).show();
     }
 
     public static final String ATTACH_DATABASE_QUERY = "SELECT " + Individual.C_FIRST_NAME +
