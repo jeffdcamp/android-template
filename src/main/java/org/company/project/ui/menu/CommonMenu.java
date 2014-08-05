@@ -1,4 +1,4 @@
-package org.company.project.menu;
+package org.company.project.ui.menu;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,8 +7,8 @@ import android.view.MenuItem;
 
 import org.company.project.MyApplication;
 import org.company.project.R;
-import org.company.project.activity.AboutActivity;
-import org.company.project.activity.SettingsActivity;
+import org.company.project.ui.AboutActivity;
+import org.company.project.ui.SettingsActivity;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

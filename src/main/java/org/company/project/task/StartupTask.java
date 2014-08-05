@@ -7,7 +7,7 @@ import android.util.Log;
 
 import org.company.project.MyApplication;
 import org.company.project.R;
-import org.company.project.activity.DirectoryActivity;
+import org.company.project.ui.DirectoryActivity;
 import org.company.project.domain.DatabaseManager;
 
 import javax.inject.Inject;

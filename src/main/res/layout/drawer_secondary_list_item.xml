@@ -32,7 +32,7 @@
                 tools:src="@drawable/ic_action_settings"
                 />
 
-            <org.company.project.widget.CapitalizedTextView
+            <org.company.project.ui.widget.CapitalizedTextView
                 android:id="@+id/drawer_item_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

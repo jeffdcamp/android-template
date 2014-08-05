@@ -1,4 +1,4 @@
-package org.company.project.activity;
+package org.company.project.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +12,7 @@ import com.squareup.otto.Subscribe;
 import org.company.project.MyApplication;
 import org.company.project.R;
 import org.company.project.event.DirectoryItemSelectedEvent;
-import org.company.project.menu.CommonMenu;
+import org.company.project.ui.menu.CommonMenu;
 
 import javax.inject.Inject;
 

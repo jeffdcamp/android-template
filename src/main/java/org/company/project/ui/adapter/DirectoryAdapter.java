@@ -1,4 +1,4 @@
-package org.company.project.adapter;
+package org.company.project.ui.adapter;
 
 import android.content.Context;
 import android.database.Cursor;

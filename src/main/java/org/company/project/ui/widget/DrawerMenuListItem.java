@@ -1,4 +1,4 @@
-package org.company.project.widget;
+package org.company.project.ui.widget;
 
 public class DrawerMenuListItem {
     private int id;

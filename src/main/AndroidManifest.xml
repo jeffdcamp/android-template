@@ -18,7 +18,7 @@
         android:theme="@style/AppTheme">
         <!-- Activities -->
         <activity
-            android:name=".activity.StartupActivity"
+            android:name=".ui.StartupActivity"
             android:icon="@drawable/ic_launcher"
             android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
@@ -26,15 +26,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.DirectoryActivity">
+        <activity android:name=".ui.DirectoryActivity">
             <!-- Split support for ActionBarCompat -->
             <!--<meta-data android:name="android.support.UI_OPTIONS" android:value="splitActionBarWhenNarrow"/> -->
         </activity>
-        <activity android:name=".activity.IndividualActivity" />
-        <activity android:name=".activity.AboutActivity" />
+        <activity android:name=".ui.IndividualActivity" />
+        <activity android:name=".ui.AboutActivity" />
 
         <activity
-            android:name=".activity.SettingsActivity"
+            android:name=".ui.SettingsActivity"
             android:label="@string/pref_title"
             android:theme="@style/SettingsTheme" />
     </application>

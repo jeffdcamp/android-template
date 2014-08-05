@@ -1,4 +1,4 @@
-package org.company.project.widget;
+package org.company.project.ui.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;

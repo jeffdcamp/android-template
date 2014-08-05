@@ -1,4 +1,4 @@
-package org.company.project.activity;
+package org.company.project.ui;
 
 import dagger.Module;
 
@@ -15,5 +15,5 @@ import dagger.Module;
         },
         complete = false
 )
-public class ActivityModule {
+public class UiModule {
 }

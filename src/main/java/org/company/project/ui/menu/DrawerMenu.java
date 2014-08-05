@@ -1,4 +1,4 @@
-package org.company.project.menu;
+package org.company.project.ui.menu;
 
 import android.app.Activity;
 import android.app.Application;
@@ -12,11 +12,11 @@ import android.widget.ListView;
 
 import org.company.project.Prefs;
 import org.company.project.R;
-import org.company.project.activity.AboutActivity;
-import org.company.project.activity.DirectoryActivity;
-import org.company.project.activity.SettingsActivity;
-import org.company.project.widget.DrawerMenuListAdapter;
-import org.company.project.widget.DrawerMenuListItem;
+import org.company.project.ui.AboutActivity;
+import org.company.project.ui.DirectoryActivity;
+import org.company.project.ui.SettingsActivity;
+import org.company.project.ui.widget.DrawerMenuListAdapter;
+import org.company.project.ui.widget.DrawerMenuListItem;
 
 import java.util.ArrayList;
 import java.util.List;

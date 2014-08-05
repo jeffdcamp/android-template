@@ -1,4 +1,4 @@
-package org.company.project.loader;
+package org.company.project.ui.loader;
 
 import dagger.Module;
 

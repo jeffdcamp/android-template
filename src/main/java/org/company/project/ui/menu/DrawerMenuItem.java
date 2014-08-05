@@ -1,9 +1,9 @@
-package org.company.project.menu;
+package org.company.project.ui.menu;
 
 import android.content.Context;
 
 import org.company.project.R;
-import org.company.project.widget.DrawerMenuItemType;
+import org.company.project.ui.widget.DrawerMenuItemType;
 
 import javax.annotation.Nonnull;
 

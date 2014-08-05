@@ -1,4 +1,4 @@
-package org.company.project.activity;
+package org.company.project.ui;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -24,9 +24,9 @@ import com.squareup.otto.Bus;
 
 import org.company.project.MyApplication;
 import org.company.project.R;
-import org.company.project.adapter.DirectoryAdapter;
+import org.company.project.ui.adapter.DirectoryAdapter;
 import org.company.project.event.DirectoryItemSelectedEvent;
-import org.company.project.loader.DirectoryListLoader;
+import org.company.project.ui.loader.DirectoryListLoader;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

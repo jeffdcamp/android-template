@@ -1,4 +1,4 @@
-package org.company.project.activity;
+package org.company.project.ui;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -13,8 +13,8 @@ import android.view.View;
 import android.widget.ListView;
 
 import org.company.project.R;
-import org.company.project.menu.DrawerMenu;
-import org.company.project.menu.DrawerMenuListener;
+import org.company.project.ui.menu.DrawerMenu;
+import org.company.project.ui.menu.DrawerMenuListener;
 
 import javax.inject.Inject;
 

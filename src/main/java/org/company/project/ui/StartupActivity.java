@@ -1,4 +1,4 @@
-package org.company.project.activity;
+package org.company.project.ui;
 
 import android.app.Activity;
 import android.os.Bundle;

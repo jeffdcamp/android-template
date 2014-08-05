@@ -1,4 +1,4 @@
-package org.company.project.widget;
+package org.company.project.ui.widget;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.company.project.R;
-import org.company.project.menu.DrawerMenuItem;
+import org.company.project.ui.menu.DrawerMenuItem;
 
 import java.util.List;
 

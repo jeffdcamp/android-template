@@ -1,4 +1,4 @@
-package org.company.project.activity;
+package org.company.project.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

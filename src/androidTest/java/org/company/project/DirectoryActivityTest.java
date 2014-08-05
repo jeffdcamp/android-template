@@ -3,7 +3,7 @@ package org.company.project;
 
 import android.test.ActivityInstrumentationTestCase2;
 
-import org.company.project.activity.DirectoryActivity;
+import org.company.project.ui.DirectoryActivity;
 
 //import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
 //import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
