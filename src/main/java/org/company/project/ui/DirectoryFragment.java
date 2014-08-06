@@ -209,12 +209,7 @@ public class DirectoryFragment extends Fragment implements LoaderManager.LoaderC
             lastSelectedPosition = position;
         }
 
-        Message msg = new Message();
-        msg.what = MSG_SELECTED_ITEM;
-        Bundle bundle = new Bundle();
-        bundle.putLong("ID", id);
-        msg.setData(bundle);
-        handler.sendMessage(msg);
+        postListItemSelected(id);
     }
 
     private long getCheckedItemId(long defaultId) {
@@ -224,6 +219,15 @@ public class DirectoryFragment extends Fragment implements LoaderManager.LoaderC
         }
 
         return defaultId;
+    }
+
+    private void postListItemSelected(long id) {
+        Message msg = new Message();
+        msg.what = MSG_SELECTED_ITEM;
+        Bundle bundle = new Bundle();
+        bundle.putLong("ID", id);
+        msg.setData(bundle);
+        handler.sendMessage(msg);
     }
 
     private static final int MSG_SELECTED_ITEM = 1;
