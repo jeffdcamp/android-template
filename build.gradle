@@ -2,19 +2,20 @@ buildscript {
     repositories {
         mavenLocal()
         mavenCentral()
-        maven { url "https://github.com/ben-manes/gradle-versions-plugin/raw/mvnrepo" } // version plugin support
+        jcenter() // version plugin support
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:0.12.+'
         classpath 'org.dbtools:dbtools-gen:2.1.0'
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.5-beta-5' // version plugin support
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.5-beta-6' // version plugin support
+        classpath 'org.codehaus.groovy:groovy-backports-compat23:2.3.5' // version plugin support.... keep if you're using Gradle 1.x
     }
 }
 
 apply plugin: 'com.android.application'
 apply plugin: 'sonar-runner'
 apply plugin: 'findbugs'
-apply plugin: 'versions' // ./gradlew dependencyUpdates -Drevision=release
+apply plugin: 'com.github.ben-manes.versions' // ./gradlew dependencyUpdates -Drevision=release
 
 archivesBaseName = 'android-template'
 // Manifest version information
