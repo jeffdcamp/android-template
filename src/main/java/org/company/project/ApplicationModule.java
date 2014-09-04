@@ -8,10 +8,8 @@ import android.preference.PreferenceManager;
 
 import com.squareup.otto.Bus;
 
-import org.company.project.ui.UiModule;
-import org.company.project.ui.adapter.AdapterModule;
 import org.company.project.event.AndroidBus;
-import org.company.project.ui.loader.LoaderModule;
+import org.company.project.ui.UiModule;
 
 import javax.inject.Singleton;
 
@@ -20,9 +18,7 @@ import dagger.Provides;
 
 @Module(
         includes = {
-                UiModule.class,
-                AdapterModule.class,
-                LoaderModule.class,
+                UiModule.class
         },
         library = true,
         complete = false

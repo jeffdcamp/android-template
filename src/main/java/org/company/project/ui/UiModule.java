@@ -1,8 +1,17 @@
 package org.company.project.ui;
 
+import org.company.project.ui.adapter.AdapterModule;
+import org.company.project.ui.loader.LoaderModule;
+
 import dagger.Module;
 
 @Module(
+        includes = {
+                UiModule.class,
+                AdapterModule.class,
+                LoaderModule.class,
+        },
+
         injects = {
                 // Activities & Fragments
                 StartupActivity.class,
