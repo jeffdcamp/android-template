@@ -20,6 +20,9 @@ import dagger.Provides;
         includes = {
                 UiModule.class
         },
+        injects = {
+                MyApplication.class
+        },
         library = true,
         complete = false
 )
