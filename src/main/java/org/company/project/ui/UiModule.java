@@ -7,7 +7,6 @@ import dagger.Module;
 
 @Module(
         includes = {
-                UiModule.class,
                 AdapterModule.class,
                 LoaderModule.class,
         },
