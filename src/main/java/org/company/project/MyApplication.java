@@ -33,7 +33,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        buildObjectGraphAndInject();
+        inject(this);
         enableStrictMode();
     }
 
@@ -43,12 +43,11 @@ public class MyApplication extends Application {
         };
     }
 
-    public void buildObjectGraphAndInject() {
-        injectionObjectGraph = ObjectGraph.create(getModules());
-//        injectionObjectGraph.inject(this); // support for injection in this class
-    }
-
     public void inject(Object object) {
+        if (injectionObjectGraph == null) {
+            injectionObjectGraph = ObjectGraph.create(getModules());
+        }
+
         injectionObjectGraph.inject(object);
     }
 
@@ -60,12 +59,20 @@ public class MyApplication extends Application {
         getApplication(fragment).inject(fragment);
     }
 
+    public static void injectObject(Context context, Object object) {
+        getApplication(context).inject(object);
+    }
+
     public static MyApplication getApplication(android.support.v4.app.Fragment fragment) {
         return (MyApplication) fragment.getActivity().getApplication();
     }
 
     public static MyApplication getApplication(Activity activity) {
         return (MyApplication) activity.getApplication();
+    }
+
+    public static MyApplication getApplication(Context context) {
+        return (MyApplication) context.getApplicationContext();
     }
 
     public static String createTag(String name) {
