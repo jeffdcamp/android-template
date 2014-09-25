@@ -13,15 +13,19 @@ import org.company.project.BuildConfig;
 import org.company.project.MyApplication;
 import org.company.project.R;
 import org.company.project.domain.DatabaseManager;
-import org.company.project.domain.household.Household;
-import org.company.project.domain.household.HouseholdManager;
-import org.company.project.domain.individual.Individual;
-import org.company.project.domain.individual.IndividualManager;
-import org.company.project.domain.individuallist.IndividualList;
-import org.company.project.domain.individuallist.IndividualListManager;
-import org.company.project.domain.individuallistitem.IndividualListItem;
-import org.company.project.domain.individuallistitem.IndividualListItemManager;
-import org.company.project.domain.individualtype.IndividualType;
+import org.company.project.domain.attached.crossdatabasequery.CrossDatabaseQuery;
+import org.company.project.domain.attached.crossdatabasequery.CrossDatabaseQueryManager;
+import org.company.project.domain.main.household.Household;
+import org.company.project.domain.main.household.HouseholdManager;
+import org.company.project.domain.main.individual.Individual;
+import org.company.project.domain.main.individual.IndividualManager;
+import org.company.project.domain.main.individualquery.IndividualQuery;
+import org.company.project.domain.main.individualquery.IndividualQueryManager;
+import org.company.project.domain.main.individualtype.IndividualType;
+import org.company.project.domain.other.individuallist.IndividualList;
+import org.company.project.domain.other.individuallist.IndividualListManager;
+import org.company.project.domain.other.individuallistitem.IndividualListItem;
+import org.company.project.domain.other.individuallistitem.IndividualListItemManager;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -214,7 +218,7 @@ public class AboutActivity extends ActionBarActivity {
 //        databaseManager.identifyDatabases(); // NOSONAR
 //        databaseManager.addAttachedDatabase(DatabaseManager.ATTACH_DATABASE_NAME, DatabaseManager.MAIN_DATABASE_NAME, Arrays.asList(DatabaseManager.OTHER_DATABASE_NAME)); // NOSONAR
 
-        List<String> names = findAllStringByRawQuery(databaseManager, DatabaseManager.ATTACH_DATABASE_NAME, ATTACH_DATABASE_QUERY, null);
+        List<String> names = findAllStringByRawQuery(databaseManager, DatabaseManager.ATTACHED_DATABASE_NAME, ATTACH_DATABASE_QUERY, null);
         for (String name : names) {
             Log.i(TAG, "Attached Database Item Name: " + name);
         }
@@ -227,7 +231,7 @@ public class AboutActivity extends ActionBarActivity {
 //        noInjectionDatabaseManager.identifyDatabases(); // NOSONAR
 //        noInjectionDatabaseManager.addAttachedDatabase(DatabaseManager.ATTACH_DATABASE_NAME, DatabaseManager.MAIN_DATABASE_NAME, Arrays.asList(DatabaseManager.OTHER_DATABASE_NAME)); // NOSONAR
 
-        List<String> names = findAllStringByRawQuery(noInjectionDatabaseManager, DatabaseManager.ATTACH_DATABASE_NAME, ATTACH_DATABASE_QUERY, null);
+        List<String> names = findAllStringByRawQuery(noInjectionDatabaseManager, DatabaseManager.ATTACHED_DATABASE_NAME, ATTACH_DATABASE_QUERY, null);
         for (String name : names) {
             Log.i(TAG, "Attached Database Item Name: " + name);
         }
@@ -250,5 +254,66 @@ public class AboutActivity extends ActionBarActivity {
         }
 
         return foundItems;
+    }
+
+    @Inject
+    IndividualQueryManager individualQueryManager;
+
+    @Inject
+    CrossDatabaseQueryManager crossDatabaseQueryManager;
+
+    @OnClick(R.id.test)
+    public void testQuery() {
+
+        // OBJECTS
+//        List<IndividualQuery> items = individualQueryManager.findAllByRawQuery(IndividualQuery.QUERY_RAW, new String[]{"Buddy"});
+        List<IndividualQuery> items = individualQueryManager.findAll();
+        Log.e(TAG, "List Count: " + items.size());
+
+        // show results
+        for (IndividualQuery item : items) {
+            Log.e(TAG, "Item Name: " + item.getName());
+        }
+
+        // CURSORS
+        Cursor cursor = individualQueryManager.findCursorAll();
+
+        // create new item
+        IndividualQuery newInd = new IndividualQuery();
+        newInd.setName("bubba");
+
+        // add item to cursor
+        Cursor newCursor = individualQueryManager.addAllToCursorTop(cursor, newInd, newInd);
+        Log.e(TAG, "Count: " + newCursor.getCount());
+
+        // show results
+        if (newCursor.moveToFirst()) {
+            do {
+                IndividualQuery cursorIndividual = new IndividualQuery(newCursor);
+                Log.e(TAG, "Cursor Individual: " + cursorIndividual.getName());
+            } while (newCursor.moveToNext());
+        }
+        newCursor.close();
+
+    }
+
+//    @OnClick(R.id.test)
+    public void test2() {
+        Log.e(TAG, "Cross database");
+        long s = System.currentTimeMillis();
+        Cursor allCrossCursor = crossDatabaseQueryManager.findCursorAll();
+        Log.e(TAG, "Cross db query time: " + (System.currentTimeMillis() - s));
+        if (allCrossCursor != null) {
+//            Log.e(TAG, "Cross Count: " + allCrossCursor.getCount());
+            if (allCrossCursor.moveToFirst()) {
+                do {
+                    CrossDatabaseQuery obj = new CrossDatabaseQuery(allCrossCursor);
+                    Log.e(TAG, "Cursor Individual: " + obj.getName());
+                } while (allCrossCursor.moveToNext());
+            }
+            allCrossCursor.close();
+        }
+
+        Log.e(TAG, "Cross db query time FINISH: " + (System.currentTimeMillis() - s));
     }
 }
