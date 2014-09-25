@@ -9,8 +9,8 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.company.project.App;
 import org.company.project.BuildConfig;
-import org.company.project.MyApplication;
 import org.company.project.R;
 import org.company.project.domain.DatabaseManager;
 import org.company.project.domain.attached.crossdatabasequery.CrossDatabaseQuery;
@@ -45,7 +45,7 @@ import butterknife.OnClick;
  * @author jcampbell
  */
 public class AboutActivity extends ActionBarActivity {
-    public static final String TAG = MyApplication.createTag(AboutActivity.class);
+    public static final String TAG = App.createTag(AboutActivity.class);
 
     @InjectView(R.id.version_info)
     TextView versionTextView;
@@ -55,7 +55,7 @@ public class AboutActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about);
         ButterKnife.inject(this);
-        MyApplication.injectActivity(this);
+        App.injectActivity(this);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

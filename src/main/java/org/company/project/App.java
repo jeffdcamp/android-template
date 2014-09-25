@@ -17,8 +17,8 @@ import dagger.ObjectGraph;
 /**
  * @author jcampbell
  */
-public class MyApplication extends Application {
-    public static final String TAG = MyApplication.createTag(MyApplication.class);
+public class App extends Application {
+    public static final String TAG = App.createTag(App.class);
 
     // TODO change this for your app (pick a name similar to package name... get both raw log AND tag logs)
     public static final String DEFAULT_TAG_PREFIX = "company.";
@@ -27,7 +27,7 @@ public class MyApplication extends Application {
     private ObjectGraph injectionObjectGraph;
 
     @Inject
-    public MyApplication() {
+    public App() {
     }
 
     @Override
@@ -52,7 +52,7 @@ public class MyApplication extends Application {
     }
 
     public static void injectActivity(Activity activity) {
-        ((MyApplication)activity.getApplication()).inject(activity);
+        ((App)activity.getApplication()).inject(activity);
     }
 
     public static void injectFragment(android.support.v4.app.Fragment fragment) {
@@ -63,16 +63,16 @@ public class MyApplication extends Application {
         getApplication(context).inject(object);
     }
 
-    public static MyApplication getApplication(android.support.v4.app.Fragment fragment) {
-        return (MyApplication) fragment.getActivity().getApplication();
+    public static App getApplication(android.support.v4.app.Fragment fragment) {
+        return (App) fragment.getActivity().getApplication();
     }
 
-    public static MyApplication getApplication(Activity activity) {
-        return (MyApplication) activity.getApplication();
+    public static App getApplication(Activity activity) {
+        return (App) activity.getApplication();
     }
 
-    public static MyApplication getApplication(Context context) {
-        return (MyApplication) context.getApplicationContext();
+    public static App getApplication(Context context) {
+        return (App) context.getApplicationContext();
     }
 
     public static String createTag(String name) {
@@ -88,7 +88,7 @@ public class MyApplication extends Application {
         String versionText = null;
         Properties properties = new Properties() ;
         try {
-            properties.load(MyApplication.class.getResourceAsStream("/build.properties"));
+            properties.load(App.class.getResourceAsStream("/build.properties"));
             versionText = properties.getProperty("build.number");
         } catch (IOException e) {
             Log.e(TAG, "Failed to read build.properties", e);

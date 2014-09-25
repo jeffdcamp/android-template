@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.company.project.MyApplication;
+import org.company.project.App;
 import org.company.project.R;
 import org.company.project.domain.main.individual.Individual;
 import org.company.project.domain.main.individual.IndividualManager;
@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class IndividualFragment extends Fragment {
-    public static final String TAG = MyApplication.createTag(IndividualFragment.class);
+    public static final String TAG = App.createTag(IndividualFragment.class);
 
     private static final String ARG_ID = "ID";
 
@@ -64,7 +64,7 @@ public class IndividualFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MyApplication.injectFragment(this);
+        App.injectFragment(this);
 
         showIndividual();
     }

@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.MenuItem;
 
-import org.company.project.MyApplication;
+import org.company.project.App;
 import org.company.project.R;
 import org.company.project.ui.AboutActivity;
 import org.company.project.ui.SettingsActivity;
@@ -15,7 +15,7 @@ import javax.inject.Singleton;
 
 @Singleton
 public class CommonMenu {
-    public static final String TAG = MyApplication.createTag(CommonMenu.class);
+    public static final String TAG = App.createTag(CommonMenu.class);
 
     @Inject
     public CommonMenu() {

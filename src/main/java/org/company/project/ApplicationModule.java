@@ -21,15 +21,15 @@ import dagger.Provides;
                 UiModule.class
         },
         injects = {
-                MyApplication.class
+                App.class
         },
         library = true,
         complete = false
 )
 public class ApplicationModule {
-    private final MyApplication app;
+    private final App app;
 
-    public ApplicationModule(MyApplication application) {
+    public ApplicationModule(App application) {
         this.app = application;
     }
 

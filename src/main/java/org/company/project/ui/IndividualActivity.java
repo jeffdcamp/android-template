@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
-import org.company.project.MyApplication;
+import org.company.project.App;
 import org.company.project.R;
 
 public class IndividualActivity extends DrawerActivity {
@@ -15,7 +15,7 @@ public class IndividualActivity extends DrawerActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drawer_single_fragement);
-        MyApplication.injectActivity(this);
+        App.injectActivity(this);
 
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 

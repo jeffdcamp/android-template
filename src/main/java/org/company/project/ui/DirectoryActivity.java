@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
-import org.company.project.MyApplication;
+import org.company.project.App;
 import org.company.project.R;
 import org.company.project.event.DirectoryItemSelectedEvent;
 import org.company.project.ui.menu.CommonMenu;
@@ -32,7 +32,7 @@ public class DirectoryActivity extends DrawerActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.directory_list);
-        MyApplication.injectActivity(this);
+        App.injectActivity(this);
 
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 

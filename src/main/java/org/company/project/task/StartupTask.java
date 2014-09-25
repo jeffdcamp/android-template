@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import org.company.project.MyApplication;
+import org.company.project.App;
 import org.company.project.R;
 import org.company.project.ui.DirectoryActivity;
 import org.company.project.domain.DatabaseManager;
@@ -14,7 +14,7 @@ import javax.inject.Inject;
 
 public class StartupTask extends AsyncTask<String, Void, Boolean> {
 
-    private static final String TAG = MyApplication.createTag(StartupTask.class);
+    private static final String TAG = App.createTag(StartupTask.class);
 
     private long perfTime = 0;
 

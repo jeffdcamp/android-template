@@ -22,7 +22,7 @@ import android.widget.ListView;
 
 import com.squareup.otto.Bus;
 
-import org.company.project.MyApplication;
+import org.company.project.App;
 import org.company.project.R;
 import org.company.project.ui.adapter.DirectoryAdapter;
 import org.company.project.event.DirectoryItemSelectedEvent;
@@ -37,7 +37,7 @@ import butterknife.InjectView;
 import butterknife.OnItemClick;
 
 public class DirectoryFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, SearchView.OnQueryTextListener, ActionMode.Callback {
-    public static final String TAG = MyApplication.createTag(DirectoryFragment.class);
+    public static final String TAG = App.createTag(DirectoryFragment.class);
 
     private static final String ARGS_DUAL_PANE = "DUAL_PANE";
 
@@ -87,7 +87,7 @@ public class DirectoryFragment extends Fragment implements LoaderManager.LoaderC
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MyApplication.injectFragment(this);
+        App.injectFragment(this);
         setHasOptionsMenu(true);
 
         if (savedInstanceState != null) {
