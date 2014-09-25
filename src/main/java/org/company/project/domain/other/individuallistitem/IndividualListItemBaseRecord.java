@@ -8,11 +8,11 @@
 
 
 
-package org.company.project.domain.individuallistitem;
+package org.company.project.domain.other.individuallistitem;
 
 import org.dbtools.android.domain.AndroidBaseRecord;
-import android.content.ContentValues;
 import android.database.Cursor;
+import android.content.ContentValues;
 
 
 @SuppressWarnings("all")
@@ -30,11 +30,11 @@ public abstract class IndividualListItemBaseRecord extends AndroidBaseRecord {
     private long listId = 0;
     public static final String C_INDIVIDUAL_ID = "INDIVIDUAL_ID";
     public static final String FULL_C_INDIVIDUAL_ID = "INDIVIDUAL_LIST_ITEM.INDIVIDUAL_ID";
-    private Long individualId = null;
+    private long individualId = 0;
     public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS INDIVIDUAL_LIST_ITEM (" + 
         "_id INTEGER PRIMARY KEY  AUTOINCREMENT," + 
         "LIST_ID INTEGER NOT NULL," + 
-        "INDIVIDUAL_ID INTEGER," + 
+        "INDIVIDUAL_ID INTEGER NOT NULL," + 
         "FOREIGN KEY (LIST_ID) REFERENCES INDIVIDUAL_LIST (_id)" + 
         ");" + 
         "" + 
@@ -73,6 +73,18 @@ public abstract class IndividualListItemBaseRecord extends AndroidBaseRecord {
         this.id = id;
     }
 
+    public static long getId(Cursor cursor) {
+        return cursor.getLong(cursor.getColumnIndexOrThrow(C_ID));
+    }
+
+    public static long getListId(Cursor cursor) {
+        return cursor.getLong(cursor.getColumnIndexOrThrow(C_LIST_ID));
+    }
+
+    public static long getIndividualId(Cursor cursor) {
+        return cursor.getLong(cursor.getColumnIndexOrThrow(C_INDIVIDUAL_ID));
+    }
+
     @Override
     public String[] getAllKeys() {
         return ALL_KEYS.clone();
@@ -83,6 +95,15 @@ public abstract class IndividualListItemBaseRecord extends AndroidBaseRecord {
         ContentValues values = new ContentValues();
         values.put(C_LIST_ID, listId);
         values.put(C_INDIVIDUAL_ID, individualId);
+        return values;
+    }
+
+    @Override
+    public Object[] getValues() {
+        Object[] values = new Object[]{
+            listId,
+            individualId,
+        };
         return values;
     }
 
@@ -127,11 +148,11 @@ public abstract class IndividualListItemBaseRecord extends AndroidBaseRecord {
         this.listId = listId;
     }
 
-    public Long getIndividualId() {
+    public long getIndividualId() {
         return individualId;
     }
 
-    public void setIndividualId(Long individualId) {
+    public void setIndividualId(long individualId) {
         this.individualId = individualId;
     }
 

@@ -1,5 +1,5 @@
 /*
- * HouseholdBaseManager.java
+ * PhoneListViewBaseManager.java
  *
  * GENERATED FILE - DO NOT EDIT
  * 
@@ -7,7 +7,7 @@
 
 
 
-package org.company.project.domain.household;
+package org.company.project.domain.main.phonelistview;
 
 import org.dbtools.android.domain.AndroidBaseManager;
 import org.company.project.domain.DatabaseManager;
@@ -15,27 +15,28 @@ import android.database.sqlite.SQLiteDatabase;
 
 
 @SuppressWarnings("all")
-public abstract class HouseholdBaseManager extends AndroidBaseManager<Household> {
+public abstract class PhoneListViewBaseManager extends AndroidBaseManager<PhoneListView> {
 
-    @javax.inject.Inject      DatabaseManager databaseManager;
+    @javax.inject.Inject
+     DatabaseManager databaseManager;
 
-    public HouseholdBaseManager() {
+    public PhoneListViewBaseManager() {
     }
 
     public String getDatabaseName() {
-        return Household.DATABASE;
+        return PhoneListView.DATABASE;
     }
 
-    public Household newRecord() {
-        return new Household();
+    public PhoneListView newRecord() {
+        return new PhoneListView();
     }
 
     public String getTableName() {
-        return Household.TABLE;
+        return PhoneListView.TABLE;
     }
 
     public String[] getAllKeys() {
-        return Household.ALL_KEYS;
+        return PhoneListView.ALL_KEYS;
     }
 
     public SQLiteDatabase getReadableDatabase(String databaseName) {
@@ -55,15 +56,20 @@ public abstract class HouseholdBaseManager extends AndroidBaseManager<Household>
     }
 
     public String getPrimaryKey() {
-        return Household.PRIMARY_KEY_COLUMN;
+        return null;
     }
 
     public String getDropSql() {
-        return Household.DROP_TABLE;
+        return PhoneListView.DROP_VIEW;
     }
 
     public String getCreateSql() {
-        return Household.CREATE_TABLE;
+        return PhoneListView.CREATE_VIEW;
+    }
+
+    @Override
+    public boolean save(String databaseName, PhoneListView e) {
+        throw new IllegalStateException("Cannot call SAVE on a PhoneListView View or Query");
     }
 
 

@@ -8,11 +8,11 @@
 
 
 
-package org.company.project.domain.household;
+package org.company.project.domain.main.household;
 
 import org.dbtools.android.domain.AndroidBaseRecord;
-import android.content.ContentValues;
 import android.database.Cursor;
+import android.content.ContentValues;
 
 
 @SuppressWarnings("all")
@@ -67,6 +67,14 @@ public abstract class HouseholdBaseRecord extends AndroidBaseRecord {
         this.id = id;
     }
 
+    public static long getId(Cursor cursor) {
+        return cursor.getLong(cursor.getColumnIndexOrThrow(C_ID));
+    }
+
+    public static String getName(Cursor cursor) {
+        return cursor.getString(cursor.getColumnIndexOrThrow(C_NAME));
+    }
+
     @Override
     public String[] getAllKeys() {
         return ALL_KEYS.clone();
@@ -76,6 +84,14 @@ public abstract class HouseholdBaseRecord extends AndroidBaseRecord {
     public ContentValues getContentValues() {
         ContentValues values = new ContentValues();
         values.put(C_NAME, name);
+        return values;
+    }
+
+    @Override
+    public Object[] getValues() {
+        Object[] values = new Object[]{
+            name,
+        };
         return values;
     }
 

@@ -5,7 +5,7 @@ import android.database.Cursor;
 import android.support.v4.content.CursorLoader;
 
 import org.company.project.MyApplication;
-import org.company.project.domain.individual.IndividualManager;
+import org.company.project.domain.main.individual.IndividualManager;
 
 import javax.inject.Inject;
 

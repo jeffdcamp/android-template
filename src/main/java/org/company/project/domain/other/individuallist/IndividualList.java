@@ -6,7 +6,7 @@
 
 
 
-package org.company.project.domain.individuallist;
+package org.company.project.domain.other.individuallist;
 
 import android.database.Cursor;
 import android.content.ContentValues;

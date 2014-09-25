@@ -7,7 +7,7 @@
 
 
 
-package org.company.project.domain.household;
+package org.company.project.domain.main.household;
 
 
 @javax.inject.Singleton

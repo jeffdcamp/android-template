@@ -8,12 +8,12 @@
 
 
 
-package org.company.project.domain.individual;
+package org.company.project.domain.main.individual;
 
 import org.dbtools.android.domain.AndroidBaseRecord;
-import org.company.project.domain.individualtype.IndividualType;
-import android.content.ContentValues;
 import android.database.Cursor;
+import org.company.project.domain.main.individualtype.IndividualType;
+import android.content.ContentValues;
 
 
 @SuppressWarnings("all")
@@ -54,8 +54,8 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         "FIRST_NAME TEXT NOT NULL," + 
         "LAST_NAME TEXT NOT NULL," + 
         "BIRTH_DATE INTEGER," + 
-        "PHONE TEXT," + 
-        "EMAIL TEXT," + 
+        "PHONE TEXT NOT NULL," + 
+        "EMAIL TEXT NOT NULL," + 
         "FOREIGN KEY (HOUSEHOLD_ID) REFERENCES HOUSEHOLD (_id)," + 
         "FOREIGN KEY (INDIVIDUAL_TYPE_ID) REFERENCES INDIVIDUAL_TYPE (_id)" + 
         ");" + 
@@ -100,6 +100,38 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         this.id = id;
     }
 
+    public static long getId(Cursor cursor) {
+        return cursor.getLong(cursor.getColumnIndexOrThrow(C_ID));
+    }
+
+    public static long getHouseholdId(Cursor cursor) {
+        return cursor.getLong(cursor.getColumnIndexOrThrow(C_HOUSEHOLD_ID));
+    }
+
+    public static IndividualType getIndividualType(Cursor cursor) {
+        return IndividualType.values()[cursor.getInt(cursor.getColumnIndexOrThrow(C_INDIVIDUAL_TYPE))];
+    }
+
+    public static String getFirstName(Cursor cursor) {
+        return cursor.getString(cursor.getColumnIndexOrThrow(C_FIRST_NAME));
+    }
+
+    public static String getLastName(Cursor cursor) {
+        return cursor.getString(cursor.getColumnIndexOrThrow(C_LAST_NAME));
+    }
+
+    public static org.joda.time.DateTime getBirthDate(Cursor cursor) {
+        return !cursor.isNull(cursor.getColumnIndexOrThrow(C_BIRTH_DATE)) ? new org.joda.time.DateTime(cursor.getLong(cursor.getColumnIndexOrThrow(C_BIRTH_DATE))) : null;
+    }
+
+    public static String getPhone(Cursor cursor) {
+        return cursor.getString(cursor.getColumnIndexOrThrow(C_PHONE));
+    }
+
+    public static String getEmail(Cursor cursor) {
+        return cursor.getString(cursor.getColumnIndexOrThrow(C_EMAIL));
+    }
+
     @Override
     public String[] getAllKeys() {
         return ALL_KEYS.clone();
@@ -115,6 +147,20 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         values.put(C_BIRTH_DATE, birthDate != null ? birthDate.getMillis() : null);
         values.put(C_PHONE, phone);
         values.put(C_EMAIL, email);
+        return values;
+    }
+
+    @Override
+    public Object[] getValues() {
+        Object[] values = new Object[]{
+            householdId,
+            individualType.ordinal(),
+            firstName,
+            lastName,
+            birthDate != null ? birthDate.getMillis() : null,
+            phone,
+            email,
+        };
         return values;
     }
 

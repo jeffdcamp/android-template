@@ -8,11 +8,11 @@
 
 
 
-package org.company.project.domain.phonelistview;
+package org.company.project.domain.main.phonelistview;
 
 import org.dbtools.android.domain.AndroidBaseRecord;
-import android.content.ContentValues;
 import android.database.Cursor;
+import android.content.ContentValues;
 
 
 @SuppressWarnings("all")
@@ -23,7 +23,7 @@ public abstract class PhoneListViewBaseRecord extends AndroidBaseRecord {
     public static final String FULL_TABLE = "main.PHONE_LIST_VIEW";
     public static final String C_ID = "_id";
     public static final String FULL_C_ID = "PHONE_LIST_VIEW._id";
-    private Long id = null;
+    private long id = 0;
     public static final String C_NAME = "NAME";
     public static final String FULL_C_NAME = "PHONE_LIST_VIEW.NAME";
     private String name = "";
@@ -42,6 +42,14 @@ public abstract class PhoneListViewBaseRecord extends AndroidBaseRecord {
     @Override
     public String getTableName() {
         return TABLE;
+    }
+
+    public static long getId(Cursor cursor) {
+        return cursor.getLong(cursor.getColumnIndexOrThrow(C_ID));
+    }
+
+    public static String getName(Cursor cursor) {
+        return cursor.getString(cursor.getColumnIndexOrThrow(C_NAME));
     }
 
     @Override
@@ -71,6 +79,15 @@ public abstract class PhoneListViewBaseRecord extends AndroidBaseRecord {
         return values;
     }
 
+    @Override
+    public Object[] getValues() {
+        Object[] values = new Object[]{
+            id,
+            name,
+        };
+        return values;
+    }
+
     public void setContent(ContentValues values) {
         id = values.getAsLong(C_ID);
         name = values.getAsString(C_NAME);
@@ -94,11 +111,11 @@ public abstract class PhoneListViewBaseRecord extends AndroidBaseRecord {
         return getPrimaryKeyId() <= 0;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

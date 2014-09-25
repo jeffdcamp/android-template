@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:0.13.0'
-        classpath 'org.dbtools:dbtools-gen:2.1.0'
+        classpath ('org.dbtools:dbtools-gen:2.2.1') { /*changing=true*/ }
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.5' // version plugin support
     }
 }
@@ -42,7 +42,8 @@ dependencies {
     compile 'com.jakewharton:butterknife:5.1.2'
     compile 'com.squareup:otto:1.3.5'
     compile 'joda-time:joda-time:2.4'
-    compile 'org.dbtools:dbtools-android:2.1.0'
+    compile ('org.dbtools:dbtools-android:2.2.1') { /*changing=true*/ }
+//    compile ('org.dbtools:dbtools-query:2.0.0-SNAPSHOT') { changing=true }
 
     androidTestCompile('com.jakewharton.espresso:espresso:1.1-r3') {
         exclude group: 'com.squareup.dagger'
@@ -185,7 +186,7 @@ task dbtools {
         builder.setJsr305Support(true);
         builder.setDateTimeSupport(true);
         builder.setEncryptionSupport(false);
-//        builder.setIncludeDatabaseNameInPackage(true);
+        builder.setIncludeDatabaseNameInPackage(true);
         builder.build();
     }
 }

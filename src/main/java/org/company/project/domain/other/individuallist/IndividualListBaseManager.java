@@ -1,5 +1,5 @@
 /*
- * IndividualListItemBaseManager.java
+ * IndividualListBaseManager.java
  *
  * GENERATED FILE - DO NOT EDIT
  * 
@@ -7,7 +7,7 @@
 
 
 
-package org.company.project.domain.individuallistitem;
+package org.company.project.domain.other.individuallist;
 
 import org.dbtools.android.domain.AndroidBaseManager;
 import org.company.project.domain.DatabaseManager;
@@ -15,27 +15,28 @@ import android.database.sqlite.SQLiteDatabase;
 
 
 @SuppressWarnings("all")
-public abstract class IndividualListItemBaseManager extends AndroidBaseManager<IndividualListItem> {
+public abstract class IndividualListBaseManager extends AndroidBaseManager<IndividualList> {
 
-    @javax.inject.Inject      DatabaseManager databaseManager;
+    @javax.inject.Inject
+     DatabaseManager databaseManager;
 
-    public IndividualListItemBaseManager() {
+    public IndividualListBaseManager() {
     }
 
     public String getDatabaseName() {
-        return IndividualListItem.DATABASE;
+        return IndividualList.DATABASE;
     }
 
-    public IndividualListItem newRecord() {
-        return new IndividualListItem();
+    public IndividualList newRecord() {
+        return new IndividualList();
     }
 
     public String getTableName() {
-        return IndividualListItem.TABLE;
+        return IndividualList.TABLE;
     }
 
     public String[] getAllKeys() {
-        return IndividualListItem.ALL_KEYS;
+        return IndividualList.ALL_KEYS;
     }
 
     public SQLiteDatabase getReadableDatabase(String databaseName) {
@@ -55,15 +56,15 @@ public abstract class IndividualListItemBaseManager extends AndroidBaseManager<I
     }
 
     public String getPrimaryKey() {
-        return IndividualListItem.PRIMARY_KEY_COLUMN;
+        return IndividualList.PRIMARY_KEY_COLUMN;
     }
 
     public String getDropSql() {
-        return IndividualListItem.DROP_TABLE;
+        return IndividualList.DROP_TABLE;
     }
 
     public String getCreateSql() {
-        return IndividualListItem.CREATE_TABLE;
+        return IndividualList.CREATE_TABLE;
     }
 
 

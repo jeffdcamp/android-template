@@ -1,5 +1,5 @@
 /*
- * PhoneListViewBaseManager.java
+ * HouseholdBaseManager.java
  *
  * GENERATED FILE - DO NOT EDIT
  * 
@@ -7,7 +7,7 @@
 
 
 
-package org.company.project.domain.phonelistview;
+package org.company.project.domain.main.household;
 
 import org.dbtools.android.domain.AndroidBaseManager;
 import org.company.project.domain.DatabaseManager;
@@ -15,27 +15,28 @@ import android.database.sqlite.SQLiteDatabase;
 
 
 @SuppressWarnings("all")
-public abstract class PhoneListViewBaseManager extends AndroidBaseManager<PhoneListView> {
+public abstract class HouseholdBaseManager extends AndroidBaseManager<Household> {
 
-    @javax.inject.Inject      DatabaseManager databaseManager;
+    @javax.inject.Inject
+     DatabaseManager databaseManager;
 
-    public PhoneListViewBaseManager() {
+    public HouseholdBaseManager() {
     }
 
     public String getDatabaseName() {
-        return PhoneListView.DATABASE;
+        return Household.DATABASE;
     }
 
-    public PhoneListView newRecord() {
-        return new PhoneListView();
+    public Household newRecord() {
+        return new Household();
     }
 
     public String getTableName() {
-        return PhoneListView.TABLE;
+        return Household.TABLE;
     }
 
     public String[] getAllKeys() {
-        return PhoneListView.ALL_KEYS;
+        return Household.ALL_KEYS;
     }
 
     public SQLiteDatabase getReadableDatabase(String databaseName) {
@@ -55,20 +56,15 @@ public abstract class PhoneListViewBaseManager extends AndroidBaseManager<PhoneL
     }
 
     public String getPrimaryKey() {
-        return null;
+        return Household.PRIMARY_KEY_COLUMN;
     }
 
     public String getDropSql() {
-        return PhoneListView.DROP_VIEW;
+        return Household.DROP_TABLE;
     }
 
     public String getCreateSql() {
-        return PhoneListView.CREATE_VIEW;
-    }
-
-    @Override
-    public boolean save(String databaseName, PhoneListView e) {
-        throw new IllegalStateException("Cannot call SAVE on PhoneListView View");
+        return Household.CREATE_TABLE;
     }
 
 

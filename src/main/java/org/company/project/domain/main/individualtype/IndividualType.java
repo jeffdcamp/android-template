@@ -8,13 +8,14 @@
 
 
 
-package org.company.project.domain.individualtype;
+package org.company.project.domain.main.individualtype;
 
 import java.util.Map;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
+import android.database.Cursor;
 
 
 @SuppressWarnings("all")
@@ -64,6 +65,14 @@ HEAD, SPOUSE, CHILD;
 
     public static List<String> getList() {
         return Collections.unmodifiableList(stringList);
+    }
+
+    public static long getId(Cursor cursor) {
+        return cursor.getLong(cursor.getColumnIndexOrThrow(C_ID));
+    }
+
+    public static String getName(Cursor cursor) {
+        return cursor.getString(cursor.getColumnIndexOrThrow(C_NAME));
     }
 
 

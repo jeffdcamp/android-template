@@ -6,7 +6,7 @@
 
 
 
-package org.company.project.domain.household;
+package org.company.project.domain.main.household;
 
 import android.database.Cursor;
 import android.content.ContentValues;

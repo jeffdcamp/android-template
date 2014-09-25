@@ -14,8 +14,6 @@ import javax.inject.Singleton;
 @Singleton
 public class DatabaseManager extends DatabaseBaseManager {
 
-    public static final String ATTACH_DATABASE_NAME = "attach"; // !!!! WARNING be SURE this matches the value in the schema.xml !!!!
-
     @Inject
     Application application;
     public static final int MAIN_VERSION = 1;
@@ -27,7 +25,8 @@ public class DatabaseManager extends DatabaseBaseManager {
     public void identifyDatabases() {
         addDatabase(application, MAIN_DATABASE_NAME, MAIN_VERSION, MAIN_VIEWS_VERSION);
         addDatabase(application, OTHER_DATABASE_NAME, OTHER_VERSION, OTHER_VIEWS_VERSION);
-        addAttachedDatabase(ATTACH_DATABASE_NAME, DatabaseManager.MAIN_DATABASE_NAME, Arrays.asList(DatabaseManager.OTHER_DATABASE_NAME));
+
+        addAttachedDatabase(ATTACHED_DATABASE_NAME, DatabaseManager.MAIN_DATABASE_NAME, Arrays.asList(DatabaseManager.OTHER_DATABASE_NAME));
     }
 
     public void onUpgrade(AndroidDatabase androidDatabase, int oldVersion, int newVersion) {

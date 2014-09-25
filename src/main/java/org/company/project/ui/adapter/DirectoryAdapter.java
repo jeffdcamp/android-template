@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.company.project.R;
-import org.company.project.domain.individual.Individual;
+import org.company.project.domain.main.individual.Individual;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;

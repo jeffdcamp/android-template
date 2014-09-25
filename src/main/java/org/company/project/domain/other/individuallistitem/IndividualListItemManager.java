@@ -7,7 +7,7 @@
 
 
 
-package org.company.project.domain.individuallistitem;
+package org.company.project.domain.other.individuallistitem;
 
 
 @javax.inject.Singleton

@@ -6,12 +6,12 @@
 
 
 
-package org.company.project.domain.phonelistview;
+package org.company.project.domain.main.phonelistview;
 
 import android.database.Cursor;
 import android.content.ContentValues;
 
-import org.company.project.domain.individual.Individual;
+import org.company.project.domain.main.individual.Individual;
 
 public class PhoneListView extends PhoneListViewBaseRecord {
 

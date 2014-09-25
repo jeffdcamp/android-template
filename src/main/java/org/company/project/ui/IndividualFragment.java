@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import org.company.project.MyApplication;
 import org.company.project.R;
-import org.company.project.domain.individual.Individual;
-import org.company.project.domain.individual.IndividualManager;
+import org.company.project.domain.main.individual.Individual;
+import org.company.project.domain.main.individual.IndividualManager;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

@@ -7,7 +7,7 @@
 
 
 
-package org.company.project.domain.phonelistview;
+package org.company.project.domain.main.phonelistview;
 
 
 @javax.inject.Singleton

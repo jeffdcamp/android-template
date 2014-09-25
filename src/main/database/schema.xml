@@ -2,24 +2,24 @@
 <dbSchema xmlns='https://github.com/jeffdcamp/dbtools-gen'
           xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
           xsi:schemaLocation='https://github.com/jeffdcamp/dbtools-gen dbschema.xsd'>
-    <database name="main">
+    <database name="main" fieldsDefaultNotNull="true">
         <table name="HOUSEHOLD">
-            <field name="_id" jdbcDataType="BIGINT" increment="true" primaryKey="true" notNull="true"/>
-            <field name="NAME" jdbcDataType="VARCHAR" size="255" notNull="true"/>
+            <field name="_id" jdbcDataType="BIGINT" increment="true" primaryKey="true"/>
+            <field name="NAME" jdbcDataType="VARCHAR" size="255"/>
         </table>
 
         <table name="INDIVIDUAL_TYPE" className="IndividualType" enumerations="HEAD,SPOUSE,CHILD">
-            <field name="_id" jdbcDataType="BIGINT" increment="true" primaryKey="true" notNull="true"/>
-            <field name="NAME" jdbcDataType="VARCHAR" size="255" notNull="true" unique="true"/>
+            <field name="_id" jdbcDataType="BIGINT" increment="true" primaryKey="true"/>
+            <field name="NAME" jdbcDataType="VARCHAR" size="255" unique="true"/>
         </table>
 
         <table name="INDIVIDUAL">
-            <field name="_id" jdbcDataType="BIGINT" increment="true" primaryKey="true" notNull="true"/>
-            <field name="HOUSEHOLD_ID" jdbcDataType="BIGINT" foreignKeyTable="HOUSEHOLD" foreignKeyField="_id" notNull="true"/>
+            <field name="_id" jdbcDataType="BIGINT" increment="true" primaryKey="true"/>
+            <field name="HOUSEHOLD_ID" jdbcDataType="BIGINT" foreignKeyTable="HOUSEHOLD" foreignKeyField="_id"/>
             <field name="INDIVIDUAL_TYPE_ID" jdbcDataType="INTEGER" varName="individualType" foreignKeyTable="INDIVIDUAL_TYPE" foreignKeyField="_id" foreignKeyType="ENUM" enumerationDefault="HEAD"/>
-            <field name="FIRST_NAME" jdbcDataType="VARCHAR" size="255" notNull="true"/>
-            <field name="LAST_NAME" jdbcDataType="VARCHAR" size="255" notNull="true"/>
-            <field name="BIRTH_DATE" jdbcDataType="TIMESTAMP"/>
+            <field name="FIRST_NAME" jdbcDataType="VARCHAR" size="255"/>
+            <field name="LAST_NAME" jdbcDataType="VARCHAR" size="255"/>
+            <field name="BIRTH_DATE" jdbcDataType="TIMESTAMP" notNull="false"/>
             <field name="PHONE" jdbcDataType="VARCHAR" size="255"/>
             <field name="EMAIL" jdbcDataType="VARCHAR" size="255"/>
         </table>
@@ -27,17 +27,28 @@
             <field name="_id" jdbcDataType="BIGINT"/>
             <field name="NAME" jdbcDataType="VARCHAR" size="255"/>
         </view>
+        <query name="INDIVIDUAL_QUERY">
+            <field name="ID" jdbcDataType="BIGINT"/>
+            <field name="NAME" jdbcDataType="VARCHAR" size="255"/>
+        </query>
     </database>
-    <database name="other">
+    <database name="other" fieldsDefaultNotNull="true">
         <table name="INDIVIDUAL_LIST">
-            <field name="_id" jdbcDataType="BIGINT" increment="true" primaryKey="true" notNull="true"/>
-            <field name="NAME" jdbcDataType="VARCHAR" size="255" notNull="true"/>
+            <field name="_id" jdbcDataType="BIGINT" increment="true" primaryKey="true"/>
+            <field name="NAME" jdbcDataType="VARCHAR" size="255"/>
         </table>
         <table name="INDIVIDUAL_LIST_ITEM">
-            <field name="_id" jdbcDataType="BIGINT" increment="true" primaryKey="true" notNull="true"/>
-            <field name="LIST_ID" jdbcDataType="BIGINT" foreignKeyTable="INDIVIDUAL_LIST" foreignKeyField="_id" notNull="true"/>
+            <field name="_id" jdbcDataType="BIGINT" increment="true" primaryKey="true"/>
+            <field name="LIST_ID" jdbcDataType="BIGINT" foreignKeyTable="INDIVIDUAL_LIST" foreignKeyField="_id"/>
             <field name="INDIVIDUAL_ID" jdbcDataType="BIGINT"/>
         </table>
+    </database>
+    <database name="attached" fieldsDefaultNotNull="true">
+        <query name="CROSS_DATABASE_QUERY" >
+            <field name="_id" jdbcDataType="BIGINT"/>
+            <field name="NAME" jdbcDataType="VARCHAR" size="255"/>
+            <field name="TYPE" jdbcDataType="INTEGER" enumerationClass="LocationType" enumerationDefault="HOME"/>
+        </query>
     </database>
     
 </dbSchema>
