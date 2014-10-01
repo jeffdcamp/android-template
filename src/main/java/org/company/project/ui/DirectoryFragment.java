@@ -4,7 +4,6 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v4.view.MenuItemCompat;
@@ -12,31 +11,27 @@ import android.support.v4.widget.CursorAdapter;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.squareup.otto.Bus;
 
 import org.company.project.App;
 import org.company.project.R;
-import org.company.project.ui.adapter.DirectoryAdapter;
 import org.company.project.event.DirectoryItemSelectedEvent;
+import org.company.project.ui.adapter.DirectoryAdapter;
 import org.company.project.ui.loader.DirectoryListLoader;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.inject.Inject;
 
-import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnItemClick;
 
-public class DirectoryFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, SearchView.OnQueryTextListener, ActionMode.Callback {
+public class DirectoryFragment extends BaseFragment implements LoaderManager.LoaderCallbacks<Cursor>, SearchView.OnQueryTextListener, ActionMode.Callback {
     public static final String TAG = App.createTag(DirectoryFragment.class);
 
     private static final String ARGS_DUAL_PANE = "DUAL_PANE";
@@ -76,12 +71,8 @@ public class DirectoryFragment extends Fragment implements LoaderManager.LoaderC
     }
 
     @Override
-    public View onCreateView(@Nonnull LayoutInflater inflater, ViewGroup container, @Nullable Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.directory_fragment, container, false);
-        ButterKnife.inject(this, view);
-
-        return view;
+    protected int getLayoutResourceId() {
+        return R.layout.directory_fragment;
     }
 
     @Override

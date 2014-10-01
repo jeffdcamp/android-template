@@ -26,10 +26,10 @@ import dagger.Provides;
         library = true,
         complete = false
 )
-public class ApplicationModule {
+public class AppModule {
     private final App app;
 
-    public ApplicationModule(App application) {
+    public AppModule(App application) {
         this.app = application;
     }
 

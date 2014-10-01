@@ -39,7 +39,7 @@ public class App extends Application {
 
     protected Object[] getModules() {
         return new Object[] {
-                new ApplicationModule(this)
+                new AppModule(this)
         };
     }
 
