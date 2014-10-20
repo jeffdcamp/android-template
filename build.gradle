@@ -32,8 +32,8 @@ repositories {
 
 dependencies {
     // Android
-    compile "com.android.support:appcompat-v7:20.0.0" // includes support-v4
-    compile "com.android.support:support-annotations:20.0.0"
+    compile "com.android.support:appcompat-v7:21.0.0" // includes support-v4
+    compile "com.android.support:support-annotations:21.0.0"
 
     // Code
     compile 'com.google.code.findbugs:jsr305:3.0.0'
@@ -59,12 +59,12 @@ def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim
 def buildTime = new Date().format("yyyy-MM-dd'T'HH:mm'Z'", TimeZone.getTimeZone("UTC"))
 
 android {
-    compileSdkVersion 20
-    buildToolsVersion '20'
+    compileSdkVersion 21
+    buildToolsVersion '21.0.1'
 
     defaultConfig {
         minSdkVersion 10
-        targetSdkVersion 20
+        targetSdkVersion 21
 
         versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
         versionName versionMajorMinorPatch
