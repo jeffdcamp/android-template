@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -50,12 +51,17 @@ public class AboutActivity extends ActionBarActivity {
     @InjectView(R.id.version_info)
     TextView versionTextView;
 
+    @InjectView(R.id.ab_toolbar)
+    Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about);
         ButterKnife.inject(this);
         App.injectActivity(this);
+
+        setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -264,7 +270,6 @@ public class AboutActivity extends ActionBarActivity {
 
     @OnClick(R.id.test)
     public void testQuery() {
-
         // OBJECTS
 //        List<IndividualQuery> items = individualQueryManager.findAllByRawQuery(IndividualQuery.QUERY_RAW, new String[]{"Buddy"});
         List<IndividualQuery> items = individualQueryManager.findAll();

@@ -3,6 +3,7 @@ package org.company.project.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -17,6 +18,7 @@ import org.company.project.ui.menu.CommonMenu;
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 public class DirectoryActivity extends DrawerActivity {
 
@@ -26,6 +28,9 @@ public class DirectoryActivity extends DrawerActivity {
     @Inject
     Bus bus;
 
+    @InjectView(R.id.ab_toolbar)
+    Toolbar toolBar;
+
     private boolean dualPane = false;
 
     @Override
@@ -33,6 +38,9 @@ public class DirectoryActivity extends DrawerActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.directory_list);
         App.injectActivity(this);
+        ButterKnife.inject(this);
+
+        setSupportActionBar(toolBar);
 
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 

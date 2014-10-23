@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="AppTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@color/default_background</item>
         <item name="android:colorBackground">@color/default_background</item>
+        <item name="actionBarColor">@color/ab_toolbar_color</item>
     </style>
-    <style name="SettingsTheme" parent="@style/Theme.AppCompat">
+
+    <!-- ActionBar / ToolBar -->
+    <style name="ToolBar.ActionBar" parent="ToolBar.Light.DarkActionBar"/>
+
+    <style name="ToolBar.Light.DarkActionBar" parent="ToolBar.DarkActionBar">
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+    </style>
+    <style name="ToolBar.DarkActionBar" parent="ToolBar.ActionBar.Base">
+        <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+    </style>
+    <style name="ToolBar.ActionBar.Base">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">?attr/actionBarColor</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
     </style>
 
     <!-- General -->
@@ -15,6 +30,8 @@
     </style>
     <style name="divider_line_horizontal_light" parent="divider_line_horizontal">
         <item name="android:background">@color/divider_line_light</item>
+    </style>
+    <style name="SettingsTheme" parent="@style/Theme.AppCompat">
     </style>
 
     <!-- Drawer -->

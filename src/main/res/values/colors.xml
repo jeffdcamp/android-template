@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Primary App Colors -->
+    <color name="red">#ffcc0000</color>
+
     <!-- Splash -->
     <color name="startup_background_start">#cfe1edFF</color>
     <color name="startup_background_end">#7faacaFF</color>
@@ -9,6 +12,7 @@
     <color name="default_background">#ffffffff</color>
     <color name="default_text">#000000</color>
     <color name="default_text_light">#ffffffff</color>
+    <color name="ab_toolbar_color">@color/red</color>
 
     <!-- General -->
     <color name="divider_line">#32000000</color>
