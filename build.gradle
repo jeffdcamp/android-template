@@ -50,17 +50,12 @@ dependencies {
     }
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '1.12'
-}
-
-
 def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
 def buildTime = new Date().format("yyyy-MM-dd'T'HH:mm'Z'", TimeZone.getTimeZone("UTC"))
 
 android {
     compileSdkVersion 21
-    buildToolsVersion '21.0.1'
+    buildToolsVersion '21.0.2'
 
     defaultConfig {
         minSdkVersion 10
