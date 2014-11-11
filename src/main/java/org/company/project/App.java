@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.support.multidex.MultiDex;
 import android.util.Log;
 
 import java.io.IOException;
@@ -35,6 +36,19 @@ public class App extends Application {
         super.onCreate();
         inject(this);
         enableStrictMode();
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        if (getFilesDir() != null) {
+            MultiDex.install(this);
+        } else {
+            // During app install it might have experienced "INSTALL_FAILED_DEXOPT" (reinstall is the only known work-around)
+            // https://code.google.com/p/android/issues/detail?id=8886
+            String message = getString(R.string.app_name) + " is in a bad state, please uninstall/reinstall";
+            Log.e(TAG, message);
+        }
     }
 
     protected Object[] getModules() {
