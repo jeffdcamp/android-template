@@ -162,7 +162,12 @@ sonarRunner {
 
         properties["sonar.sources"] = android.sourceSets.main.java.srcDirs
         properties["sonar.tests"] = android.sourceSets.androidTest.java.srcDirs
-        properties["sonar.binaries"] = [file("build/intermediates/classes/debug"), file("build/intermediates/classes/alpha")]
+        if (file("build/intermediates/classes/debug").exists()) {
+            properties["sonar.binaries"] = [file("build/intermediates/classes/debug")]
+        }
+        if (file("build/intermediates/classes/alpha").exists()) {
+            properties["sonar.binaries"] = [file("build/intermediates/classes/alpha")]
+        }
     }
 }
 
