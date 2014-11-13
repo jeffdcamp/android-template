@@ -10,6 +10,9 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.otto.Bus;
+import com.squareup.otto.Subscribe;
+
 import org.company.project.App;
 import org.company.project.BuildConfig;
 import org.company.project.R;
@@ -27,6 +30,9 @@ import org.company.project.domain.other.individuallist.IndividualList;
 import org.company.project.domain.other.individuallist.IndividualListManager;
 import org.company.project.domain.other.individuallistitem.IndividualListItem;
 import org.company.project.domain.other.individuallistitem.IndividualListItemManager;
+import org.dbtools.android.domain.event.DatabaseChangeEvent;
+import org.dbtools.android.domain.event.DatabaseEndTransactionEvent;
+import org.dbtools.android.domain.event.DatabaseInsertEvent;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -54,6 +60,9 @@ public class AboutActivity extends ActionBarActivity {
     @InjectView(R.id.ab_toolbar)
     Toolbar toolbar;
 
+    @Inject
+    Bus bus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +75,18 @@ public class AboutActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         versionTextView.setText(getVersionName());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        bus.register(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bus.unregister(this);
     }
 
     @Override
@@ -170,6 +191,17 @@ public class AboutActivity extends ActionBarActivity {
 
     DatabaseManager noInjectionDatabaseManager = new DatabaseManager();
     private void createSampleDataNoInjection() {
+        HouseholdManager householdManager = new HouseholdManager();
+        IndividualManager individualManager = new IndividualManager();
+        IndividualListManager individualListManager = new IndividualListManager();
+        IndividualListItemManager individualListItemManager = new IndividualListItemManager();
+
+        Bus bus = new Bus();
+        householdManager.setBus(bus);
+        individualManager.setBus(bus);
+        individualListManager.setBus(bus);
+        individualListItemManager.setBus(bus);
+
         noInjectionDatabaseManager.setContext(getApplication());
 
         // Main Database
@@ -178,7 +210,7 @@ public class AboutActivity extends ActionBarActivity {
 
         Household household = new Household();
         household.setName("Campbell");
-        HouseholdManager.save(db, household);
+        householdManager.save(db, household);
 
         Individual individual1 = new Individual();
         individual1.setFirstName("Jeff");
@@ -186,14 +218,14 @@ public class AboutActivity extends ActionBarActivity {
         individual1.setPhone("000-555-1234");
         individual1.setIndividualType(IndividualType.HEAD);
         individual1.setHouseholdId(household.getId());
-        IndividualManager.save(db, individual1);
+        individualManager.save(db, individual1);
 
         Individual individual2 = new Individual();
         individual2.setFirstName("Tanner");
         individual2.setLastName("Campbell");
         individual2.setIndividualType(IndividualType.CHILD);
         individual2.setHouseholdId(household.getId());
-        IndividualManager.save(db, individual2);
+        individualManager.save(db, individual2);
         noInjectionDatabaseManager.endTransaction(DatabaseManager.MAIN_DATABASE_NAME, true);
 
 
@@ -203,12 +235,12 @@ public class AboutActivity extends ActionBarActivity {
         SQLiteDatabase otherDb = noInjectionDatabaseManager.getWritableDatabase(DatabaseManager.MAIN_DATABASE_NAME);
         IndividualList newList = new IndividualList();
         newList.setName("My List");
-        IndividualListManager.save(otherDb, newList);
+        individualListManager.save(otherDb, newList);
 
         IndividualListItem newListItem = new IndividualListItem();
         newListItem.setListId(newList.getId());
         newListItem.setIndividualId(individual1.getId());
-        IndividualListItemManager.save(otherDb, newListItem);
+        individualListItemManager.save(otherDb, newListItem);
 
         noInjectionDatabaseManager.endTransaction(DatabaseManager.OTHER_DATABASE_NAME, true);
 
@@ -320,5 +352,23 @@ public class AboutActivity extends ActionBarActivity {
         }
 
         Log.e(TAG, "Cross db query time FINISH: " + (System.currentTimeMillis() - s));
+    }
+
+    @Subscribe
+    public void onInsert(DatabaseInsertEvent event) {
+        Log.e(TAG, "Item inserted on table " + event.getTableName());
+        Log.e(TAG, "NewId " + event.getNewId());
+    }
+
+    @Subscribe
+    public void onDatabaseChanged(DatabaseChangeEvent event) {
+        Log.e(TAG, "Database changed on table " + event.getTableName());
+    }
+
+    @Subscribe
+    public void onDatabaseChangedTransaction(DatabaseEndTransactionEvent event) {
+        Log.e(TAG, "Database changed transaction end.  Tables changed: " + event.getAllTableName());
+        boolean myTableUpdated = event.containsTable(Individual.TABLE);
+
     }
 }
