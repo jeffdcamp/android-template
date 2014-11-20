@@ -66,6 +66,11 @@ public abstract class IndividualBaseManager extends AndroidBaseManager<Individua
     }
 
     @javax.annotation.Nonnull
+    public org.dbtools.android.domain.AndroidDatabase getAndroidDatabase(@javax.annotation.Nonnull String databaseName) {
+        return databaseManager.getDatabase(databaseName);
+    }
+
+    @javax.annotation.Nonnull
     public String getPrimaryKey() {
         return Individual.PRIMARY_KEY_COLUMN;
     }

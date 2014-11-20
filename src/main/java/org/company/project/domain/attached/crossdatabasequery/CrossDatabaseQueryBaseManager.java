@@ -60,6 +60,11 @@ public abstract class CrossDatabaseQueryBaseManager extends AndroidBaseManager<C
         return databaseManager.getWritableDatabase(getDatabaseName());
     }
 
+    @javax.annotation.Nonnull
+    public org.dbtools.android.domain.AndroidDatabase getAndroidDatabase(@javax.annotation.Nonnull String databaseName) {
+        return databaseManager.getDatabase(databaseName);
+    }
+
     public abstract String getQuery();
 
     @javax.annotation.Nonnull

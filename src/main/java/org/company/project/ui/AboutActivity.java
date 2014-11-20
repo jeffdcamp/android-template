@@ -150,6 +150,11 @@ public class AboutActivity extends ActionBarActivity {
     IndividualListItemManager individualListItemManager;
 
     private void createSampleDataWithInjection() {
+        // clear any existing items
+        individualManager.deleteAll();
+        householdManager.deleteAll();
+        individualListManager.deleteAll();
+
         // MAIN Database
         householdManager.beginTransaction();
 
