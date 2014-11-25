@@ -5,9 +5,9 @@ buildscript {
         jcenter() // version plugin support
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.14.4'
+        classpath 'com.android.tools.build:gradle:1.0.0-rc1'
         classpath ('org.dbtools:dbtools-gen:2.5.0') { /*changing=true*/ }
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.5' // version plugin support
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.6' // version plugin support
     }
 }
 
@@ -119,6 +119,8 @@ android {
 //            signingConfig signingConfigs.prodConfig;
             buildConfigField "String", "VERSION_NAME_FULL", "\"${versionMajorMinorPatchBuild}\""
             versionNameSuffix ''
+            minifyEnabled true
+            shrinkResources true
         }
     }
 
