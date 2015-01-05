@@ -1,7 +1,5 @@
 package org.company.project.ui;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,7 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.EditText;
 
 import com.squareup.otto.Bus;
 
@@ -18,8 +16,7 @@ import org.company.project.App;
 import org.company.project.R;
 import org.company.project.domain.main.individual.Individual;
 import org.company.project.domain.main.individual.IndividualManager;
-import org.company.project.event.EditIndividualEvent;
-import org.company.project.event.IndividualDeletedEvent;
+import org.company.project.event.IndividualSavedEvent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -28,19 +25,22 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class IndividualFragment extends Fragment {
-    public static final String TAG = App.createTag(IndividualFragment.class);
+public class IndividualEditFragment extends Fragment {
+    public static final String TAG = App.createTag(IndividualEditFragment.class);
 
     private static final String ARG_ID = "ID";
 
-    @InjectView(R.id.individual_name)
-    TextView nameTextView;
+    @InjectView(R.id.first_name)
+    EditText firstNameEditText;
 
-    @InjectView(R.id.individual_phone)
-    TextView phoneTextView;
+    @InjectView(R.id.last_name)
+    EditText lastNameEditText;
 
-    @InjectView(R.id.individual_email)
-    TextView emailTextView;
+    @InjectView(R.id.phone)
+    EditText phoneEditText;
+
+    @InjectView(R.id.email)
+    EditText emailEditText;
 
     @Inject
     IndividualManager individualManager;
@@ -50,8 +50,8 @@ public class IndividualFragment extends Fragment {
 
     private long individualId;
 
-    public static IndividualFragment newInstance(long individualId) {
-        IndividualFragment fragment = new IndividualFragment();
+    public static IndividualEditFragment newInstance(long individualId) {
+        IndividualEditFragment fragment = new IndividualEditFragment();
         Bundle args = new Bundle();
         args.putLong(ARG_ID, individualId);
         fragment.setArguments(args);
@@ -70,7 +70,7 @@ public class IndividualFragment extends Fragment {
     @Override
     public View onCreateView(@Nonnull LayoutInflater inflater, ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.individual_fragment, container, false);
+        View view = inflater.inflate(R.layout.individual_edit_fragment, container, false);
         ButterKnife.inject(this, view);
 
         return view;
@@ -86,28 +86,19 @@ public class IndividualFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.individual_menu, menu);
+        inflater.inflate(R.menu.individual_edit_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_item_edit:
-                bus.post(new EditIndividualEvent(individualId));
-                return true;
-            case R.id.menu_item_delete:
-                deleteIndividual();
+            case R.id.menu_item_save:
+                saveIndividual();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        showIndividual();
     }
 
     private void showIndividual() {
@@ -117,23 +108,29 @@ public class IndividualFragment extends Fragment {
 
         Individual individual = individualManager.findByRowId(individualId);
         if (individual != null) {
-            nameTextView.setText(individual.getFullName());
-            phoneTextView.setText(individual.getPhone());
-            emailTextView.setText(individual.getEmail());
+            firstNameEditText.setText(individual.getFirstName());
+            lastNameEditText.setText(individual.getLastName());
+            emailEditText.setText(individual.getEmail());
+            phoneEditText.setText(individual.getPhone());
         }
     }
 
-    private void deleteIndividual() {
-        new AlertDialog.Builder(getActivity())
-                .setMessage(R.string.delete_individual_confirm)
-                .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        individualManager.delete(individualId);
-                        bus.post(new IndividualDeletedEvent(individualId));
-                    }
-                })
-                .setNegativeButton(R.string.cancel, null)
-                .show();
+    private void saveIndividual() {
+        Individual individual = individualId > 0 ? individualManager.findByRowId(individualId) : new Individual();
+        if (individual != null) {
+            if (firstNameEditText.getText().length() == 0) {
+                firstNameEditText.setError(getString(R.string.required));
+                return;
+            }
+
+            individual.setFirstName(firstNameEditText.getText().toString());
+            individual.setLastName(lastNameEditText.getText().toString());
+            individual.setPhone(phoneEditText.getText().toString());
+            individual.setEmail(emailEditText.getText().toString());
+
+            individualManager.save(individual);
+
+            bus.post(new IndividualSavedEvent(individual.getId()));
+        }
     }
 }

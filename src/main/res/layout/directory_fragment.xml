@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
-          android:id="@+id/list"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:fab="http://schemas.android.com/apk/res-auto"
              android:layout_width="match_parent"
-             android:layout_height="match_parent"
-    />
+             android:layout_height="match_parent">
+
+    <ListView
+        android:id="@+id/list"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <com.melnykov.fab.FloatingActionButton
+        android:id="@+id/fab_new_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_action_new"
+        fab:fab_colorNormal="@color/fab_normal"
+        fab:fab_colorPressed="@color/fab_pressed"
+        />
+</FrameLayout>

@@ -1,6 +1,5 @@
 package org.company.project.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -11,8 +10,10 @@ import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
 import org.company.project.App;
+import org.company.project.InternalIntents;
 import org.company.project.R;
 import org.company.project.event.DirectoryItemSelectedEvent;
+import org.company.project.event.EditIndividualEvent;
 import org.company.project.ui.menu.CommonMenu;
 
 import javax.inject.Inject;
@@ -27,6 +28,9 @@ public class DirectoryActivity extends DrawerActivity {
 
     @Inject
     Bus bus;
+
+    @Inject
+    InternalIntents internalIntents;
 
     @InjectView(R.id.ab_toolbar)
     Toolbar toolBar;
@@ -93,9 +97,18 @@ public class DirectoryActivity extends DrawerActivity {
                     .replace(R.id.fragment_pos2, IndividualFragment.newInstance(event.getId()))
                     .commit();
         } else {
-            Intent intent = new Intent(this, IndividualActivity.class);
-            intent.putExtra(IndividualActivity.EXTRA_ID, event.getId());
-            startActivity(intent);
+            internalIntents.showIndividual(this, event.getId());
+        }
+    }
+
+    @Subscribe
+    public void onEditItemClicked(EditIndividualEvent event) {
+        if (dualPane) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_pos2, IndividualEditFragment.newInstance(event.getId()))
+                    .commit();
+        } else {
+            internalIntents.editIndividual(this, event.getId());
         }
     }
 }

@@ -2,16 +2,16 @@ package org.company.project;
 
 
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.suitebuilder.annotation.LargeTest;
 
 import org.company.project.ui.DirectoryActivity;
 
-//import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
-//import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
-//import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.typeText;
-//import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
-
-//@LargeTest
+@LargeTest
 public class DirectoryActivityTest extends ActivityInstrumentationTestCase2<DirectoryActivity> {
     public DirectoryActivityTest() {
         super(DirectoryActivity.class);
@@ -25,8 +25,11 @@ public class DirectoryActivityTest extends ActivityInstrumentationTestCase2<Dire
 
 //    @MediumTest
     public void testHello(){
-//        onView(withId(R.id.test_stuff)).perform(typeText("Have a cup of Espresso."));
-//        onView(withId(R.id.test_button)).perform(click());
+        // Open the overflow menu OR open the options menu,
+        // depending on if the device has a hardware or software overflow menu button.
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+
+        onView(withId(R.id.menu_item_about)).perform(click());
 //        fail("nil");
     }
 

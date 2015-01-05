@@ -17,11 +17,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
+import com.melnykov.fab.FloatingActionButton;
 import com.squareup.otto.Bus;
 
 import org.company.project.App;
 import org.company.project.R;
 import org.company.project.event.DirectoryItemSelectedEvent;
+import org.company.project.event.EditIndividualEvent;
 import org.company.project.ui.adapter.DirectoryAdapter;
 import org.company.project.ui.loader.DirectoryListLoader;
 
@@ -29,6 +31,7 @@ import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import butterknife.InjectView;
+import butterknife.OnClick;
 import butterknife.OnItemClick;
 
 public class DirectoryFragment extends BaseFragment implements LoaderManager.LoaderCallbacks<Cursor>, SearchView.OnQueryTextListener, ActionMode.Callback {
@@ -45,6 +48,9 @@ public class DirectoryFragment extends BaseFragment implements LoaderManager.Loa
 
     @InjectView(R.id.list)
     ListView listView;
+
+    @InjectView(R.id.fab_new_item)
+    FloatingActionButton newItemButton;
 
     private boolean dualPane = false;
 
@@ -92,6 +98,7 @@ public class DirectoryFragment extends BaseFragment implements LoaderManager.Loa
         // setup the right edge border
         listView.setBackgroundResource(dualPane ? R.drawable.listview_dual_background : 0);
 
+        newItemButton.attachToListView(listView);
 
         getLoaderManager().restartLoader(0, null, this);
     }
@@ -109,7 +116,7 @@ public class DirectoryFragment extends BaseFragment implements LoaderManager.Loa
 
     @Override
     public void onCreateOptionsMenu(@Nonnull Menu menu, @Nonnull MenuInflater inflater) {
-        inflater.inflate(R.menu.people_menu, menu);
+        inflater.inflate(R.menu.directory_menu, menu);
 
         MenuItem searchMenuItem = menu.findItem(R.id.menu_item_search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchMenuItem);
@@ -117,6 +124,12 @@ public class DirectoryFragment extends BaseFragment implements LoaderManager.Loa
         searchView.setOnQueryTextListener(this);
 
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getLoaderManager().restartLoader(0, null, this);
     }
 
     @Override
@@ -134,7 +147,7 @@ public class DirectoryFragment extends BaseFragment implements LoaderManager.Loa
     @Override
     public boolean onCreateActionMode(@Nonnull ActionMode actionMode, Menu menu) {
         MenuInflater inflater = actionMode.getMenuInflater();
-        inflater.inflate(R.menu.people_menu, menu);
+        inflater.inflate(R.menu.directory_menu, menu);
         return true;
     }
 
@@ -232,4 +245,8 @@ public class DirectoryFragment extends BaseFragment implements LoaderManager.Loa
         }
     };
 
+    @OnClick(R.id.fab_new_item)
+    public void onNewItemClick() {
+        bus.post(new EditIndividualEvent());
+    }
 }

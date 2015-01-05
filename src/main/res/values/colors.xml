@@ -29,4 +29,8 @@
     <color name="list_item_title">@color/default_text</color>
     <color name="list_item_subtitle">#ff6a6b6d</color>
     <color name="list_selected_item_background">#7faacaFF</color>
+
+    <!-- FAB (floating action button) -->
+    <color name="fab_normal">#ffcc0000</color>
+    <color name="fab_pressed">#ffff4444</color>
 </resources>

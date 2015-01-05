@@ -9,25 +9,20 @@ import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
 import org.company.project.App;
-import org.company.project.InternalIntents;
 import org.company.project.R;
-import org.company.project.event.EditIndividualEvent;
-import org.company.project.event.IndividualDeletedEvent;
+import org.company.project.event.IndividualSavedEvent;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class IndividualActivity extends DrawerActivity {
+public class IndividualEditActivity extends DrawerActivity {
 
     public static final String EXTRA_ID = "INDIVIDUAL_ID";
 
     @InjectView(R.id.ab_toolbar)
     Toolbar toolbar;
-
-    @Inject
-    InternalIntents internalIntents;
 
     @Inject
     Bus bus;
@@ -53,7 +48,7 @@ public class IndividualActivity extends DrawerActivity {
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_pos1, IndividualFragment.newInstance(individualId))
+                    .add(R.id.fragment_pos1, IndividualEditFragment.newInstance(individualId))
                     .commit();
         }
     }
@@ -86,12 +81,7 @@ public class IndividualActivity extends DrawerActivity {
     }
 
     @Subscribe
-    public void onEditItemClicked(EditIndividualEvent event) {
-        internalIntents.editIndividual(this, event.getId());
-    }
-
-    @Subscribe
-    public void onIndividualDeleted(IndividualDeletedEvent event) {
+    public void onIndividualSaved(IndividualSavedEvent event) {
         finish();
     }
 }

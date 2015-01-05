@@ -19,6 +19,8 @@ import dagger.Module;
                 DirectoryFragment.class,
                 IndividualActivity.class,
                 IndividualFragment.class,
+                IndividualEditActivity.class,
+                IndividualEditFragment.class,
                 SettingsActivity.class,
         },
         complete = false
