@@ -33,15 +33,14 @@ import javax.inject.Inject;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
+import pocketknife.InjectArgument;
+import pocketknife.PocketKnife;
+import pocketknife.SaveState;
 
 public class DirectoryFragment extends BaseFragment implements LoaderManager.LoaderCallbacks<Cursor>, SearchView.OnQueryTextListener, ActionMode.Callback {
     public static final String TAG = App.createTag(DirectoryFragment.class);
 
     private static final String ARGS_DUAL_PANE = "DUAL_PANE";
-
-    private static final String SAVE_STATE_LIST_POS = "LIST_POS";
-    private static final String SAVE_STATE_LIST_POS_OFFSET = "LIST_POS_OFFSET";
-    private static final String SAVE_STATE_LAST_SELECTED_POS = "LIST_LAST_SELECTED_POS";
 
     @Inject
     Bus bus;
@@ -52,12 +51,19 @@ public class DirectoryFragment extends BaseFragment implements LoaderManager.Loa
     @InjectView(R.id.fab_new_item)
     FloatingActionButton newItemButton;
 
-    private boolean dualPane = false;
+    @InjectArgument(ARGS_DUAL_PANE)
+    boolean dualPane = false;
+
+    @SaveState
+    int lastSelectedPosition = 0;
+
+    @SaveState
+    int currentPositionInList = 0;
+
+    @SaveState
+    int currentPositionInListOffset = 0;
 
     private CursorAdapter listAdapter;
-    private int lastSelectedPosition = 0;
-    private int currentPositionInList = 0;
-    private int currentPositionInListOffset = 0;
 
     public static DirectoryFragment newInstance(boolean dualPane) {
         DirectoryFragment fragment = new DirectoryFragment();
@@ -70,10 +76,7 @@ public class DirectoryFragment extends BaseFragment implements LoaderManager.Loa
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            dualPane = getArguments().getBoolean(ARGS_DUAL_PANE, false);
-        }
+        PocketKnife.injectArguments(this);
     }
 
     @Override
@@ -85,13 +88,8 @@ public class DirectoryFragment extends BaseFragment implements LoaderManager.Loa
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         App.injectFragment(this);
+        PocketKnife.restoreInstanceState(this, savedInstanceState);
         setHasOptionsMenu(true);
-
-        if (savedInstanceState != null) {
-            currentPositionInList = savedInstanceState.getInt(SAVE_STATE_LIST_POS);
-            currentPositionInListOffset = savedInstanceState.getInt(SAVE_STATE_LIST_POS_OFFSET);
-            lastSelectedPosition = savedInstanceState.getInt(SAVE_STATE_LAST_SELECTED_POS);
-        }
 
         listView.setChoiceMode(dualPane ? ListView.CHOICE_MODE_SINGLE : ListView.CHOICE_MODE_NONE);
 
@@ -107,11 +105,11 @@ public class DirectoryFragment extends BaseFragment implements LoaderManager.Loa
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putInt(SAVE_STATE_LIST_POS, listView.getFirstVisiblePosition());
         View v = listView.getChildAt(0);
-        int top = v == null ? 0 : v.getTop();
-        outState.putInt(SAVE_STATE_LIST_POS_OFFSET, top);
-        outState.putInt(SAVE_STATE_LAST_SELECTED_POS, lastSelectedPosition);
+        currentPositionInListOffset = v == null ? 0 : v.getTop();
+        currentPositionInList = listView.getFirstVisiblePosition();
+
+        PocketKnife.saveInstanceState(this, outState);
     }
 
     @Override

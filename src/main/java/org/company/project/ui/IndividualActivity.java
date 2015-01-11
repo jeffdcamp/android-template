@@ -18,6 +18,8 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import pocketknife.InjectExtra;
+import pocketknife.PocketKnife;
 
 public class IndividualActivity extends DrawerActivity {
 
@@ -32,12 +34,16 @@ public class IndividualActivity extends DrawerActivity {
     @Inject
     Bus bus;
 
+    @InjectExtra(EXTRA_ID)
+    long individualId;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drawer_single_fragement);
         App.injectActivity(this);
         ButterKnife.inject(this);
+        PocketKnife.injectExtras(this);
         setSupportActionBar(toolbar);
 
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
@@ -48,8 +54,6 @@ public class IndividualActivity extends DrawerActivity {
         actionBar.setTitle(R.string.individual);
 
         setupDrawer(false, R.string.individual, false);
-
-        long individualId = getIntent().getLongExtra(EXTRA_ID, -1);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
