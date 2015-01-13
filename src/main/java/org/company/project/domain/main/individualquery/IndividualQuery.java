@@ -8,20 +8,27 @@
 
 package org.company.project.domain.main.individualquery;
 
-import android.database.Cursor;
 import android.content.ContentValues;
+import android.database.Cursor;
+import android.util.Log;
 
 import org.company.project.domain.main.individual.Individual;
+import org.dbtools.query.sql.SQLQueryBuilder;
 
 public class IndividualQuery extends IndividualQueryBaseRecord {
 
-    public static final String QUERY = "(" +
-            "SELECT " +
-            Individual.FULL_C_ID + " AS " + IndividualQuery.C_ID + ", " +
-            Individual.FULL_C_FIRST_NAME + " AS " + IndividualQuery.C_NAME +
-            " FROM " + Individual.TABLE +
-            ")";
-    public static final String QUERY_RAW = "SELECT * FROM " + QUERY;
+    public static final String QUERY;
+
+    static {
+
+        QUERY = new SQLQueryBuilder()
+                .field(Individual.FULL_C_ID, IndividualQuery.C_ID)
+                .field(Individual.FULL_C_FIRST_NAME, IndividualQuery.C_NAME)
+                .table(Individual.TABLE)
+                .toString();
+
+        Log.e("ldst", "QUERY: " + QUERY);
+    }
 
     public IndividualQuery(Cursor cursor) {
         setContent(cursor);
