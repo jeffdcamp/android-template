@@ -75,12 +75,13 @@ android {
         versionName versionMajorMinorPatch
         buildConfigField "String", "BUILD_TIME", "\"${buildTime}\""
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
         multiDexEnabled true
 
         // Enable the experimental Jack build tools. (note... may not work with shrinking enabled)
         // useJack = true
+
+        // Espresso
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
 //    jacoco {

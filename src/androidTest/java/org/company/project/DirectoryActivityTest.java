@@ -9,7 +9,9 @@ import org.company.project.ui.DirectoryActivity;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 @LargeTest
 public class DirectoryActivityTest extends ActivityInstrumentationTestCase2<DirectoryActivity> {
@@ -24,14 +26,18 @@ public class DirectoryActivityTest extends ActivityInstrumentationTestCase2<Dire
     }
 
 //    @MediumTest
-    public void testHello(){
+    public void testAbout(){
         // Open the overflow menu OR open the options menu,
         // depending on if the device has a hardware or software overflow menu button.
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
 
-        onView(withId(R.id.menu_item_about)).perform(click());
-//        fail("nil");
+//        onView(withId(R.id.menu_item_about)).perform(click());
+        onView(withText("About")).perform(click());
+
+        onView(withText("My Application")).check(matches(isDisplayed()));
     }
+
+
 
 
 }
