@@ -10,6 +10,7 @@ import com.squareup.otto.Bus;
 
 import org.company.project.event.AndroidBus;
 import org.company.project.ui.UiModule;
+import org.company.project.webservice.ServiceModule;
 
 import javax.inject.Singleton;
 
@@ -18,7 +19,8 @@ import dagger.Provides;
 
 @Module(
         includes = {
-                UiModule.class
+                UiModule.class,
+                ServiceModule.class
         },
         injects = {
                 App.class

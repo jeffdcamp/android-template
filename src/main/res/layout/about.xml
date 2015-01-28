@@ -51,14 +51,14 @@
                 />
 
             <Button
-                android:id="@+id/button1"
+                android:id="@+id/create_database_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Create Database"
                 />
 
             <Button
-                android:id="@+id/test"
+                android:id="@+id/test_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Test"

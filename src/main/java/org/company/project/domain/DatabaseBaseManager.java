@@ -11,9 +11,9 @@ package org.company.project.domain;
 
 import android.util.Log;
 import org.dbtools.android.domain.AndroidDatabase;
-import org.dbtools.android.domain.AndroidDatabaseManager;
-import android.database.sqlite.SQLiteDatabase;
 import org.dbtools.android.domain.AndroidBaseManager;
+import org.dbtools.android.domain.AndroidDatabaseManager;
+import org.dbtools.android.domain.database.DatabaseWrapper;
 
 
 @SuppressWarnings("all")
@@ -24,7 +24,7 @@ public abstract class DatabaseBaseManager extends AndroidDatabaseManager {
     public static final String ATTACHED_DATABASE_NAME = "attached";
 
     public void createMainTables(@javax.annotation.Nonnull AndroidDatabase androidDatabase) {
-        SQLiteDatabase database = androidDatabase.getSqLiteDatabase();
+        DatabaseWrapper database = androidDatabase.getDatabaseWrapper();
         database.beginTransaction();
         
         // Enum Tables
@@ -39,7 +39,7 @@ public abstract class DatabaseBaseManager extends AndroidDatabaseManager {
     }
 
     public void createOtherTables(@javax.annotation.Nonnull AndroidDatabase androidDatabase) {
-        SQLiteDatabase database = androidDatabase.getSqLiteDatabase();
+        DatabaseWrapper database = androidDatabase.getDatabaseWrapper();
         database.beginTransaction();
         
         // Enum Tables
@@ -53,7 +53,7 @@ public abstract class DatabaseBaseManager extends AndroidDatabaseManager {
     }
 
     public void createAttachedTables(@javax.annotation.Nonnull AndroidDatabase androidDatabase) {
-        SQLiteDatabase database = androidDatabase.getSqLiteDatabase();
+        DatabaseWrapper database = androidDatabase.getDatabaseWrapper();
         database.beginTransaction();
         
         // Enum Tables
@@ -78,7 +78,7 @@ public abstract class DatabaseBaseManager extends AndroidDatabaseManager {
     }
 
     public void createMainViews(@javax.annotation.Nonnull AndroidDatabase androidDatabase) {
-        SQLiteDatabase database = androidDatabase.getSqLiteDatabase();
+        DatabaseWrapper database = androidDatabase.getDatabaseWrapper();
         database.beginTransaction();
         
         // Views
@@ -89,7 +89,7 @@ public abstract class DatabaseBaseManager extends AndroidDatabaseManager {
     }
 
     public void dropMainViews(@javax.annotation.Nonnull AndroidDatabase androidDatabase) {
-        SQLiteDatabase database = androidDatabase.getSqLiteDatabase();
+        DatabaseWrapper database = androidDatabase.getDatabaseWrapper();
         database.beginTransaction();
         
         // Views

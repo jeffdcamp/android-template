@@ -1,7 +1,6 @@
 package org.company.project.ui;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -30,6 +29,10 @@ import org.company.project.domain.other.individuallist.IndividualList;
 import org.company.project.domain.other.individuallist.IndividualListManager;
 import org.company.project.domain.other.individuallistitem.IndividualListItem;
 import org.company.project.domain.other.individuallistitem.IndividualListItemManager;
+import org.company.project.webservice.websearch.DtoResult;
+import org.company.project.webservice.websearch.DtoSearchResponse;
+import org.company.project.webservice.websearch.WebSearchService;
+import org.dbtools.android.domain.database.DatabaseWrapper;
 import org.dbtools.android.domain.event.DatabaseChangeEvent;
 import org.dbtools.android.domain.event.DatabaseEndTransactionEvent;
 import org.dbtools.android.domain.event.DatabaseInsertEvent;
@@ -47,6 +50,9 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * @author jcampbell
@@ -119,7 +125,7 @@ public class AboutActivity extends ActionBarActivity {
         return versionString;
     }
 
-    @OnClick(R.id.button1)
+    @OnClick(R.id.create_database_button)
     public void onCreateDatabaseButtonClick() {
         createSampleData();
     }
@@ -210,7 +216,7 @@ public class AboutActivity extends ActionBarActivity {
         noInjectionDatabaseManager.setContext(getApplication());
 
         // Main Database
-        SQLiteDatabase db = noInjectionDatabaseManager.getWritableDatabase(DatabaseManager.MAIN_DATABASE_NAME);
+        DatabaseWrapper db = noInjectionDatabaseManager.getWritableDatabase(DatabaseManager.MAIN_DATABASE_NAME);
         noInjectionDatabaseManager.beginTransaction(DatabaseManager.MAIN_DATABASE_NAME);
 
         Household household = new Household();
@@ -237,7 +243,7 @@ public class AboutActivity extends ActionBarActivity {
         // Other Database
         noInjectionDatabaseManager.beginTransaction(DatabaseManager.OTHER_DATABASE_NAME);
 
-        SQLiteDatabase otherDb = noInjectionDatabaseManager.getWritableDatabase(DatabaseManager.MAIN_DATABASE_NAME);
+        DatabaseWrapper otherDb = noInjectionDatabaseManager.getWritableDatabase(DatabaseManager.MAIN_DATABASE_NAME);
         IndividualList newList = new IndividualList();
         newList.setName("My List");
         individualListManager.save(otherDb, newList);
@@ -305,7 +311,7 @@ public class AboutActivity extends ActionBarActivity {
     @Inject
     CrossDatabaseQueryManager crossDatabaseQueryManager;
 
-    @OnClick(R.id.test)
+//    @OnClick(R.id.test_button)
     public void testQuery() {
         // OBJECTS
 //        List<IndividualQuery> items = individualQueryManager.findAllByRawQuery(IndividualQuery.QUERY_RAW, new String[]{"Buddy"});
@@ -357,6 +363,27 @@ public class AboutActivity extends ActionBarActivity {
         }
 
         Log.e(TAG, "Cross db query time FINISH: " + (System.currentTimeMillis() - s));
+    }
+
+    @Inject
+    WebSearchService webSearchService;
+
+    @OnClick(R.id.test_button)
+    public void testQueryWebServiceCall() {
+        webSearchService.search("Cat", new Callback<DtoSearchResponse>() {
+            @Override
+            public void success(DtoSearchResponse dtoSearchResponse, Response response) {
+                Log.e(TAG, "Search SUCCESS");
+                for (DtoResult dtoResult : dtoSearchResponse.getResponseData().getResults()) {
+                    Log.i(TAG, "Result: " + dtoResult.getTitle());
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e(TAG, "Search FAILED");
+            }
+        });
     }
 
     @Subscribe

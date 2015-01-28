@@ -4,6 +4,8 @@ import android.app.Application;
 import android.util.Log;
 
 import org.dbtools.android.domain.AndroidDatabase;
+import org.dbtools.android.domain.database.AndroidDatabaseWrapper;
+import org.dbtools.android.domain.database.DatabaseWrapper;
 
 import java.util.Arrays;
 
@@ -27,6 +29,11 @@ public class DatabaseManager extends DatabaseBaseManager {
         addDatabase(application, OTHER_DATABASE_NAME, OTHER_VERSION, OTHER_VIEWS_VERSION);
 
         addAttachedDatabase(ATTACHED_DATABASE_NAME, DatabaseManager.MAIN_DATABASE_NAME, Arrays.asList(DatabaseManager.OTHER_DATABASE_NAME));
+    }
+
+    @Override
+    public DatabaseWrapper createNewDatabaseWrapper(AndroidDatabase androidDatabase) {
+        return new AndroidDatabaseWrapper(androidDatabase.getPath());
     }
 
     public void onUpgrade(AndroidDatabase androidDatabase, int oldVersion, int newVersion) {

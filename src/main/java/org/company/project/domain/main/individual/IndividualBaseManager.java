@@ -11,7 +11,7 @@ package org.company.project.domain.main.individual;
 
 import org.dbtools.android.domain.AndroidBaseManager;
 import org.company.project.domain.DatabaseManager;
-import android.database.sqlite.SQLiteDatabase;
+import org.dbtools.android.domain.database.DatabaseWrapper;
 
 
 @SuppressWarnings("all")
@@ -46,22 +46,22 @@ public abstract class IndividualBaseManager extends AndroidBaseManager<Individua
     }
 
     @javax.annotation.Nonnull
-    public SQLiteDatabase getReadableDatabase(@javax.annotation.Nonnull String databaseName) {
+    public DatabaseWrapper getReadableDatabase(@javax.annotation.Nonnull String databaseName) {
         return databaseManager.getReadableDatabase(databaseName);
     }
 
     @javax.annotation.Nonnull
-    public SQLiteDatabase getReadableDatabase() {
+    public DatabaseWrapper getReadableDatabase() {
         return databaseManager.getReadableDatabase(getDatabaseName());
     }
 
     @javax.annotation.Nonnull
-    public SQLiteDatabase getWritableDatabase(@javax.annotation.Nonnull String databaseName) {
+    public DatabaseWrapper getWritableDatabase(@javax.annotation.Nonnull String databaseName) {
         return databaseManager.getWritableDatabase(databaseName);
     }
 
     @javax.annotation.Nonnull
-    public SQLiteDatabase getWritableDatabase() {
+    public DatabaseWrapper getWritableDatabase() {
         return databaseManager.getWritableDatabase(getDatabaseName());
     }
 
