@@ -41,7 +41,7 @@ public class DirectoryActivity extends DrawerActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.directory_list);
-        App.injectActivity(this);
+        App.inject(this);
         ButterKnife.inject(this);
 
         setSupportActionBar(toolBar);

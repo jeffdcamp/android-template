@@ -36,7 +36,7 @@ public class IndividualEditActivity extends DrawerActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drawer_single_fragement);
-        App.injectActivity(this);
+        App.inject(this);
         ButterKnife.inject(this);
         PocketKnife.injectExtras(this);
         setSupportActionBar(toolbar);

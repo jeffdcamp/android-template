@@ -87,7 +87,7 @@ public class DirectoryFragment extends BaseFragment implements LoaderManager.Loa
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        App.injectFragment(this);
+        App.inject(this);
         PocketKnife.restoreInstanceState(this, savedInstanceState);
         setHasOptionsMenu(true);
 

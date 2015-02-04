@@ -1,6 +1,6 @@
 package org.company.project.ui.loader;
 
-import android.app.Activity;
+import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.content.CursorLoader;
 
@@ -13,9 +13,9 @@ public class DirectoryListLoader extends CursorLoader {
     @Inject
     IndividualManager individualManager;
 
-    public DirectoryListLoader(Activity activity) {
-        super(activity);
-        App.getApplication(activity).inject(this);
+    public DirectoryListLoader(Context context) {
+        super(context);
+        App.inject(context, this);
     }
 
     @Override

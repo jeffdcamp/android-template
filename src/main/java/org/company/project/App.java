@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.support.multidex.MultiDex;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 
 import java.io.IOException;
@@ -34,7 +35,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        inject(this);
+        injectObject(this);
         enableStrictMode();
     }
 
@@ -52,12 +53,12 @@ public class App extends Application {
     }
 
     protected Object[] getModules() {
-        return new Object[] {
+        return new Object[]{
                 new AppModule(this)
         };
     }
 
-    public void inject(Object object) {
+    private void injectObject(Object object) {
         if (injectionObjectGraph == null) {
             injectionObjectGraph = ObjectGraph.create(getModules());
         }
@@ -65,19 +66,19 @@ public class App extends Application {
         injectionObjectGraph.inject(object);
     }
 
-    public static void injectActivity(Activity activity) {
-        ((App)activity.getApplication()).inject(activity);
+    public static void inject(Activity target) {
+        ((App) target.getApplication()).injectObject(target);
     }
 
-    public static void injectFragment(android.support.v4.app.Fragment fragment) {
-        getApplication(fragment).inject(fragment);
+    public static void inject(Fragment target) {
+        getApplication(target).injectObject(target);
     }
 
-    public static void injectObject(Context context, Object object) {
-        getApplication(context).inject(object);
+    public static void inject(Context context, Object target) {
+        getApplication(context).injectObject(target);
     }
 
-    public static App getApplication(android.support.v4.app.Fragment fragment) {
+    public static App getApplication(Fragment fragment) {
         return (App) fragment.getActivity().getApplication();
     }
 
@@ -100,7 +101,7 @@ public class App extends Application {
 
     public String readBuildNumber() {
         String versionText = null;
-        Properties properties = new Properties() ;
+        Properties properties = new Properties();
         try {
             properties.load(App.class.getResourceAsStream("/build.properties"));
             versionText = properties.getProperty("build.number");

@@ -79,7 +79,7 @@ public class IndividualEditFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        App.injectFragment(this);
+        App.inject(this);
         setHasOptionsMenu(true);
         showIndividual();
     }
