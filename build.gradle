@@ -5,7 +5,7 @@ buildscript {
         jcenter() // version plugin support
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.0.1'
+        classpath 'com.android.tools.build:gradle:1.1.0-rc1'
         classpath ('org.dbtools:dbtools-gen:3.0.0') { /*changing=true*/ }
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.7' // version plugin support
     }
@@ -13,6 +13,7 @@ buildscript {
 
 apply plugin: 'com.android.application'
 apply plugin: 'sonar-runner'
+apply plugin: 'jacoco'
 apply plugin: 'com.github.ben-manes.versions' // ./gradlew dependencyUpdates -Drevision=release
 
 archivesBaseName = 'android-template'
@@ -56,9 +57,15 @@ dependencies {
 //    compile 'org.sqlite:sqlite-android:3.8.8.1-20150126'
 //    compile 'net.sqlcipher:sqlcipher-aar:3.1.0.20140823'
 
-    // Test
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.0'
+    // Test (Integration)
+    androidTestCompile ('com.android.support.test.espresso:espresso-core:2.0') {exclude module: 'jsr305'}
     androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
+//    androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.2'
+
+    // Test (Unit)
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:2.0.3-beta'
+
 }
 
 def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
@@ -216,5 +223,47 @@ task dbtools {
 
         builder.setGenConfig(genConfig);
         builder.build();
+    }
+}
+
+// ===== TEST TASKS =====
+
+// show JUnit failure reason in console (the following may fail tests run from IDE)
+tasks.withType(Test) {
+    testLogging {
+        exceptionFormat "full"
+    }
+}
+
+// Define coverage source.
+// If you have rs/aidl etc... add them here.
+def coverageSourceDirs = [
+        'src/main/java',
+]
+
+task testDebugJacoco(type: JacocoReport, dependsOn: "testDebug") {
+    group = "Reporting"
+    description = "Generate Jacoco coverage reports after running tests."
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+    classDirectories = fileTree(
+            dir: './build/intermediates/classes/debug',
+            excludes: ['**/R*.class',
+                       '**/*$InjectAdapter.class',
+                       '**/*$ModuleAdapter.class',
+                       '**/*$ViewInjector*.class'
+            ])
+    sourceDirectories = files(coverageSourceDirs)
+    executionData = files("$buildDir/jacoco/testDebug.exec")
+    // Bit hacky but fixes https://code.google.com/p/android/issues/detail?id=69174.
+    // We iterate through the compiled .class tree and rename $$ to $.
+    doFirst {
+        new File("$buildDir/intermediates/classes/").eachFileRecurse { file ->
+            if (file.name.contains('$$')) {
+                file.renameTo(file.path.replace('$$', '$'))
+            }
+        }
     }
 }
