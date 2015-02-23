@@ -32,16 +32,6 @@ public abstract class IndividualQueryBaseRecord extends AndroidBaseRecord {
     public IndividualQueryBaseRecord() {
     }
 
-    @Override
-    public String getDatabaseName() {
-        return DATABASE;
-    }
-
-    @Override
-    public String getTableName() {
-        return "";
-    }
-
     public static long getId(Cursor cursor) {
         return cursor.getLong(cursor.getColumnIndexOrThrow(C_ID));
     }

@@ -34,16 +34,6 @@ public abstract class PhoneListViewBaseRecord extends AndroidBaseRecord {
     public PhoneListViewBaseRecord() {
     }
 
-    @Override
-    public String getDatabaseName() {
-        return DATABASE;
-    }
-
-    @Override
-    public String getTableName() {
-        return TABLE;
-    }
-
     public static long getId(Cursor cursor) {
         return cursor.getLong(cursor.getColumnIndexOrThrow(C_ID));
     }

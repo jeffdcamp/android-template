@@ -76,16 +76,6 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
     }
 
     @Override
-    public String getDatabaseName() {
-        return DATABASE;
-    }
-
-    @Override
-    public String getTableName() {
-        return TABLE;
-    }
-
-    @Override
     public String getIdColumnName() {
         return C_ID;
     }
@@ -153,6 +143,7 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
     @Override
     public Object[] getValues() {
         Object[] values = new Object[]{
+            id,
             householdId,
             individualType.ordinal(),
             firstName,

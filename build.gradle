@@ -5,13 +5,14 @@ buildscript {
         jcenter() // version plugin support
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.1.0-rc3'
-        classpath ('org.dbtools:dbtools-gen:3.0.0') { /*changing=true*/ }
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.7' // version plugin support
+        classpath 'com.android.tools.build:gradle:1.1.0'
+        classpath 'org.dbtools:gradle-dbtools-plugin:3.1.1'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.8' // version plugin support
     }
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'dbtools'
 apply plugin: 'sonar-runner'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.ben-manes.versions' // ./gradlew dependencyUpdates -Drevision=release
@@ -49,7 +50,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:6.1.0'
     compile 'com.squareup:otto:1.3.6'
     compile 'joda-time:joda-time:2.7'
-    compile 'org.dbtools:dbtools-android:3.0.0'
+    compile 'org.dbtools:dbtools-android:3.1.0'
     compile 'org.dbtools:dbtools-query:2.1.1'
     compile 'com.melnykov:floatingactionbutton:1.2.0'
 
@@ -64,7 +65,7 @@ dependencies {
 
     // Test (Unit)
     testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.0.3-beta'
+    testCompile 'org.mockito:mockito-core:2.0.4-beta'
 
 }
 
@@ -193,37 +194,17 @@ sonarRunner {
     }
 }
 
-task dbtools {
-    description = 'Generate DBTools domain classes'
-    doLast {
-        // NOTE: BE Sure to add the following above:
-        //    buildscript {
-        //        repositories {
-        //            mavenCentral()
-        //        }
-        //        dependencies {
-        //            classpath 'org.dbtools:dbtools-gen:2.+'
-        //        }
-        //    }
+dbtools {
+    type 'ANDROID'
 
-        System.out.println("Generating DBTools Classes...")
+    basePackageName 'org.company.project.domain'
+    outputSrcDir 'src/main/java/org/company/project/domain'
 
-        org.dbtools.gen.android.AndroidObjectsBuilder builder = new org.dbtools.gen.android.AndroidObjectsBuilder();
-
-        builder.setXmlFilename("src/main/database/schema.xml");
-        builder.setOutputBaseDir("src/main/java/org/company/project/domain");
-        builder.setPackageBase("org.company.project.domain");
-
-        org.dbtools.gen.GenConfig genConfig = new org.dbtools.gen.GenConfig();
-        genConfig.setInjectionSupport(true);
-        genConfig.setJsr305Support(true);
-        genConfig.setDateTimeSupport(true);
-        genConfig.setIncludeDatabaseNameInPackage(true);
-        genConfig.setOttoSupport(true);
-
-        builder.setGenConfig(genConfig);
-        builder.build();
-    }
+    injectionSupport true
+    jsr305Support true
+    includeDatabaseNameInPackage true
+    ottoSupport true
+    dateTimeSupport true
 }
 
 // ===== TEST TASKS =====

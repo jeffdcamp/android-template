@@ -36,16 +36,6 @@ public abstract class CrossDatabaseQueryBaseRecord extends AndroidBaseRecord {
     public CrossDatabaseQueryBaseRecord() {
     }
 
-    @Override
-    public String getDatabaseName() {
-        return DATABASE;
-    }
-
-    @Override
-    public String getTableName() {
-        return "";
-    }
-
     public static long getId(Cursor cursor) {
         return cursor.getLong(cursor.getColumnIndexOrThrow(C_ID));
     }
