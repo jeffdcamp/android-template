@@ -39,6 +39,10 @@ dependencies {
     compile 'com.android.support:appcompat-v7:21.0.3'
     compile 'com.android.support:support-annotations:21.0.3' // includes support-v4
     compile 'com.android.support:multidex:1.0.1'
+    compile 'com.android.support:leanback-v17:21.0.3' // Support for AndroidTV
+
+    // UI
+    compile 'se.emilsjolander:stickylistheaders:2.5.2'
 
     // Code
     compile 'com.google.code.findbugs:jsr305:3.0.0'

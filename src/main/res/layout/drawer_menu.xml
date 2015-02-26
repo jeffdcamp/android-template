@@ -5,6 +5,6 @@
         android:layout_gravity="start"
         android:layout_width="260dp"
         android:layout_height="match_parent"
-        style="@style/NavigationDrawerList"
+        style="@style/navigation_drawer_list"
         >
 </ListView>

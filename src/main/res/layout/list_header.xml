@@ -16,14 +16,14 @@
 
         <TextView
             android:id="@+id/list_view_header_name"
-            style="@style/ListViewHeader"
+            style="@style/list_view_header"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             tools:text="HEADER" />
 
         <View
             android:id="@+id/list_view_header_line"
-            style="@style/ListViewHeaderLine"
+            style="@style/list_view_header_line"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp" />
     </LinearLayout>

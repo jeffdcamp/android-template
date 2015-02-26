@@ -1,10 +1,12 @@
 package org.company.project;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.support.multidex.MultiDex;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -73,6 +75,14 @@ public class App extends Application {
     public static void inject(Fragment target) {
         getApplication(target).injectObject(target);
     }
+
+    // support for leanback fragments
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static void inject(android.app.Fragment target) {
+        App app = (App) (target.getActivity().getApplication());
+        app.injectObject(target);
+    }
+
 
     public static void inject(Context context, Object target) {
         getApplication(context).injectObject(target);

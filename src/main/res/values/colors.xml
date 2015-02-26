@@ -33,4 +33,7 @@
     <!-- FAB (floating action button) -->
     <color name="fab_normal">#ffcc0000</color>
     <color name="fab_pressed">#ffff4444</color>
+
+    <!-- TV -->
+    <color name="tv_default_background">#ff3d3d3d</color>
 </resources>
