@@ -28,7 +28,7 @@
         <item name="android:layout_height">1dp</item>
         <item name="android:background">@color/divider_line</item>
     </style>
-    <style name="DividerLineHorizontalLight" parent="divider_line_horizontal">
+    <style name="divider_line_horizontal_light" parent="divider_line_horizontal">
         <item name="android:background">@color/divider_line_light</item>
     </style>
     <style name="SettingsTheme" parent="@style/Theme.AppCompat">
@@ -47,6 +47,7 @@
     <style name="list_view_header">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/list_header_text</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">bold</item>
