@@ -3,7 +3,7 @@
     <style name="AppTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@color/default_background</item>
         <item name="android:colorBackground">@color/default_background</item>
-        <item name="actionBarColor">@color/ab_toolbar_color</item>
+        <item name="colorPrimary">@color/ab_toolbar_color</item>
     </style>
 
     <!-- ActionBar / ToolBar -->
@@ -12,15 +12,17 @@
     <style name="ToolBar.Light.DarkActionBar" parent="ToolBar.DarkActionBar">
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
     </style>
-    <style name="ToolBar.DarkActionBar" parent="ToolBar.ActionBar.Base">
+    <style name="ToolBar.DarkActionBar" parent="ToolBar.Base.ActionBar">
         <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
     </style>
-    <style name="ToolBar.ActionBar.Base">
+    <style name="ToolBar.Base.ActionBar">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">?attr/actionBarColor</item>
+        <item name="android:background">?attr/colorPrimary</item>
         <item name="android:minHeight">?attr/actionBarSize</item>
     </style>
+    <style name="ToolBar.Base"/>
+    <style name="ToolBar"/>
 
     <!-- General -->
     <style name="divider_line_horizontal">
