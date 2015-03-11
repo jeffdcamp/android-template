@@ -75,7 +75,7 @@ dependencies {
 }
 
 def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
-def buildTime = new Date().format("yyyy-MM-dd'T'HH:mm'Z'", TimeZone.getTimeZone("UTC"))
+def buildTime = new Date().getTime()
 
 android {
     compileSdkVersion 21
@@ -91,7 +91,7 @@ android {
 
         versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
         versionName versionMajorMinorPatch
-        buildConfigField "String", "BUILD_TIME", "\"${buildTime}\""
+        buildConfigField "long", "BUILD_TIME", "${buildTime}l"
 
         multiDexEnabled true
 
@@ -157,19 +157,6 @@ android {
             minifyEnabled true
             shrinkResources true
 //            signingConfig signingConfigs.prodConfig
-        }
-    }
-
-    // set the build timestamp on the file and in the app
-    android.applicationVariants.all { variant ->
-        // set the build timestamp
-        def timestamp = new Date().format("yyyyMMdd-HHmm", TimeZone.getTimeZone("GMT"));
-
-        // name the file with the version and timestamp (does not work well with the IDE... do not do on debug build)
-        if (variant.buildType.name != "debug" && variant.outputs.zipAlign) {
-            def apk = variant.outputs.get(0).outputFile;
-            def newName = apk.name.replace(".apk", "-" + versionCode + "-" + timestamp + ".apk");
-            variant.outputs.get(0).outputFile = new File(apk.parentFile, newName);
         }
     }
 }

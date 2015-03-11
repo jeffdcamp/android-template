@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -36,6 +37,7 @@ import org.dbtools.android.domain.database.DatabaseWrapper;
 import org.dbtools.android.domain.event.DatabaseChangeEvent;
 import org.dbtools.android.domain.event.DatabaseEndTransactionEvent;
 import org.dbtools.android.domain.event.DatabaseInsertEvent;
+import org.joda.time.DateTime;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -107,20 +109,8 @@ public class AboutActivity extends ActionBarActivity {
     }
 
     private String getVersionName() {
-        String buildTimeText;
-        try {
-            // Parse ISO8601-format time into local time.
-            DateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
-            DateFormat outFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
-            inFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-            Date buildTime = inFormat.parse(BuildConfig.BUILD_TIME);
-            buildTimeText = outFormat.format(buildTime);
-        } catch (ParseException e) {
-            throw new IllegalStateException("Unable to decode build time: " + BuildConfig.BUILD_TIME, e);
-        }
-
         String versionString = BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")";
-        versionString += "\n" + buildTimeText;
+        versionString += "\n" + DateUtils.formatDateTime(this, BuildConfig.BUILD_TIME, DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_YEAR);
 
         return versionString;
     }
