@@ -17,12 +17,12 @@ import org.company.project.R;
 
 import javax.inject.Inject;
 
-public class DrawerActivity extends ActionBarActivity {
+public abstract class DrawerActivity extends ActionBarActivity {
 
     @Inject
     InternalIntents internalIntents;
 
-    private enum Item {
+    public enum Item {
         MAIN, LIBRARY, STORE, SETTINGS, HELP;
 
         public static Item getItem(IDrawerItem drawerItem) {
@@ -30,16 +30,18 @@ public class DrawerActivity extends ActionBarActivity {
         }
     }
 
-    public void setupDrawerWithBackButton(ActionBar actionBar) {
-        setupDrawerWithDrawerButton(null);
+    public Drawer.Result setupDrawerWithBackButton(ActionBar actionBar) {
+        Drawer.Result result = setupDrawerWithDrawerButton(null);
 
         // set the back arrow in the toolbar
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        return result;
     }
 
-    public void setupDrawerWithDrawerButton(Toolbar toolbar) {
-        Drawer.Result result = new Drawer()
+    public Drawer.Result setupDrawerWithDrawerButton(Toolbar toolbar) {
+        return new Drawer()
                 .withActivity(this)
                 .withToolbar(toolbar)
                 .addDrawerItems(
