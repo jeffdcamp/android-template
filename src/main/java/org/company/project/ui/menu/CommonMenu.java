@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import org.company.project.App;
+import org.company.project.InternalIntents;
 import org.company.project.R;
 import org.company.project.ui.AboutActivity;
 import org.company.project.ui.SettingsActivity;
@@ -18,6 +19,9 @@ public class CommonMenu {
     public static final String TAG = App.createTag(CommonMenu.class);
 
     @Inject
+    InternalIntents internalIntents;
+
+    @Inject
     public CommonMenu() {
     }
 
@@ -26,12 +30,10 @@ public class CommonMenu {
             case R.id.menu_item_search:
                 return true;
             case R.id.menu_item_settings:
-                Intent settingIntent = new Intent(context, SettingsActivity.class);
-                context.startActivity(settingIntent);
+                internalIntents.showSettings(context);
                 return true;
             case R.id.menu_item_about:
-                Intent aboutIntent = new Intent(context, AboutActivity.class);
-                context.startActivity(aboutIntent);
+                internalIntents.showHelp(context);
                 return true;
             default:
                 Log.i(TAG, "Unknown common menu item id: " + item.getItemId() + ", ignoring");

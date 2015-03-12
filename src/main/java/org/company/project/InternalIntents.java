@@ -1,10 +1,13 @@
 package org.company.project;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 
+import org.company.project.ui.AboutActivity;
 import org.company.project.ui.IndividualActivity;
 import org.company.project.ui.IndividualEditActivity;
+import org.company.project.ui.SettingsActivity;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
@@ -33,5 +36,15 @@ public class InternalIntents {
         Intent intent = new Intent(activity, IndividualEditActivity.class);
         intent.putExtra(IndividualEditActivity.EXTRA_ID, individualId);
         activity.startActivity(intent);
+    }
+
+    public void showSettings(@Nonnull Context context) {
+        Intent settingIntent = new Intent(context, SettingsActivity.class);
+        context.startActivity(settingIntent);
+    }
+
+    public void showHelp(Context context) {
+        Intent aboutIntent = new Intent(context, AboutActivity.class);
+        context.startActivity(aboutIntent);
     }
 }

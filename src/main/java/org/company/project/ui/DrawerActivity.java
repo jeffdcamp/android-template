@@ -1,103 +1,79 @@
 package org.company.project.ui;
 
-import android.content.res.Configuration;
-import android.os.Bundle;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ListView;
+import android.widget.AdapterView;
 
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.model.DividerDrawerItem;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+
+import org.company.project.InternalIntents;
 import org.company.project.R;
-import org.company.project.ui.menu.DrawerMenu;
-import org.company.project.ui.menu.DrawerMenuListener;
 
 import javax.inject.Inject;
 
-public class DrawerActivity extends ActionBarActivity implements DrawerMenuListener {
+public class DrawerActivity extends ActionBarActivity {
 
     @Inject
-    DrawerMenu drawerMenu;
+    InternalIntents internalIntents;
 
-    private boolean showDrawerIcon = false;
+    private enum Item {
+        MAIN, LIBRARY, STORE, SETTINGS, HELP;
 
-    private ActionBarDrawerToggle drawerToggle;
-
-    public void setupDrawer(boolean showDrawerIcon, final int titleResID, final boolean hasListNavigationMode) {
-        setupDrawer(showDrawerIcon, getString(titleResID), hasListNavigationMode);
-    }
-
-    public void setupDrawer(boolean showDrawerIcon, final String title, final boolean hasListNavigationMode) {
-        this.showDrawerIcon = showDrawerIcon;
-
-        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-        drawerMenu.createDrawerView(drawerLayout, (ListView) findViewById(R.id.drawer_menu_items), this);
-
-        drawerToggle = new ActionBarDrawerToggle(
-                this,                  /* host Activity */
-                drawerLayout,         /* DrawerLayout object */
-                R.string.app_name,  /* "open drawer" description for accessibility */
-                R.string.app_name  /* "close drawer" description for accessibility */
-        ) {
-            public void onDrawerClosed(View view) {
-                toggleDrawer(false, getSupportActionBar(), title, hasListNavigationMode);
-                supportInvalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-
-            public void onDrawerOpened(View drawerView) {
-                toggleDrawer(true, getSupportActionBar(), getString(R.string.app_name), hasListNavigationMode);
-                supportInvalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-        };
-        drawerLayout.setDrawerListener(drawerToggle);
-    }
-
-    @Override
-    public void onDrawerItemClick(int itemId) {
-        drawerMenu.onMenuItemClick(this, itemId);
-    }
-
-    // Called whenever we call invalidateOptionsMenu()
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        drawerMenu.hideShowAllMenuItems(this, menu);
-        return super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return drawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
-    }
-
-    public void toggleDrawer(boolean drawerOpen, ActionBar actionBar, String title, boolean hasListNavigationMode) {
-        if (hasListNavigationMode) {
-            actionBar.setNavigationMode(drawerOpen ? ActionBar.NAVIGATION_MODE_STANDARD : ActionBar.NAVIGATION_MODE_LIST);
-            actionBar.setDisplayShowTitleEnabled(drawerOpen);
-        }
-
-        actionBar.setTitle(title != null ? title : getString(R.string.app_name));
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-
-        if (showDrawerIcon) {
-            // Sync the toggle state after onRestoreInstanceState has occurred.
-            drawerToggle.syncState();
+        public static Item getItem(IDrawerItem drawerItem) {
+            return values()[drawerItem.getIdentifier()];
         }
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
+    public void setupDrawerWithBackButton(ActionBar actionBar) {
+        setupDrawerWithDrawerButton(null);
 
-        // Pass any configuration change to the drawer toggles
-        drawerToggle.onConfigurationChanged(newConfig);
+        // set the back arrow in the toolbar
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+    }
+
+    public void setupDrawerWithDrawerButton(Toolbar toolbar) {
+        Drawer.Result result = new Drawer()
+                .withActivity(this)
+                .withToolbar(toolbar)
+                .addDrawerItems(
+                        new PrimaryDrawerItem().withName(R.string.drawer_main).withIdentifier(Item.MAIN.ordinal()),
+                        new PrimaryDrawerItem().withName(R.string.drawer_my_library).withIdentifier(Item.LIBRARY.ordinal()),
+                        new PrimaryDrawerItem().withName(R.string.drawer_store).withIdentifier(Item.STORE.ordinal()),
+                        new DividerDrawerItem(),
+                        new SecondaryDrawerItem().withName(R.string.drawer_settings).withCheckable(false).withIdentifier(Item.SETTINGS.ordinal()),
+                        new SecondaryDrawerItem().withName(R.string.drawer_help).withIdentifier(Item.HELP.ordinal())
+                )
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
+                        onDrawerItemClicked(parent, view, position, id, drawerItem);
+                    }
+                })
+                .build();
+    }
+
+    public void onDrawerItemClicked(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
+        Item selectedItem = Item.getItem(drawerItem);
+        switch (selectedItem) {
+            case MAIN:
+                break;
+            case LIBRARY:
+                break;
+            case STORE:
+                break;
+            case SETTINGS:
+                internalIntents.showSettings(this);
+                break;
+            case HELP:
+                internalIntents.showHelp(this);
+                break;
+        }
     }
 }

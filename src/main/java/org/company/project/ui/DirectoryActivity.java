@@ -33,7 +33,7 @@ public class DirectoryActivity extends DrawerActivity {
     InternalIntents internalIntents;
 
     @InjectView(R.id.ab_toolbar)
-    Toolbar toolBar;
+    Toolbar toolbar;
 
     private boolean dualPane = false;
 
@@ -44,16 +44,9 @@ public class DirectoryActivity extends DrawerActivity {
         App.inject(this);
         ButterKnife.inject(this);
 
-        setSupportActionBar(toolBar);
-
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle(R.string.nav_main);
-
-        setupDrawer(true, R.string.nav_main, false);
+        setupActionBar();
 
         dualPane = ButterKnife.findById(this, R.id.fragment_pos2) != null;
 
@@ -62,7 +55,14 @@ public class DirectoryActivity extends DrawerActivity {
                     .add(R.id.fragment_pos1, DirectoryFragment.newInstance(dualPane))
                     .commit();
         }
+    }
 
+    private void setupActionBar() {
+        setSupportActionBar(toolbar);
+        setupDrawerWithDrawerButton(toolbar);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(R.string.drawer_main);
     }
 
     @Override

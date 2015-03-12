@@ -35,7 +35,7 @@ public class IndividualEditActivity extends DrawerActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.drawer_single_fragement);
+        setContentView(R.layout.single_fragement);
         App.inject(this);
         ButterKnife.inject(this);
         PocketKnife.injectExtras(this);
@@ -43,18 +43,21 @@ public class IndividualEditActivity extends DrawerActivity {
 
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle(R.string.individual);
-
-        setupDrawer(false, R.string.individual, false);
+        setupActionBar();
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_pos1, IndividualEditFragment.newInstance(individualId))
                     .commit();
         }
+    }
+
+    private void setupActionBar() {
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+
+        setupDrawerWithBackButton(actionBar);
+        actionBar.setTitle(R.string.individual);
     }
 
     @Override

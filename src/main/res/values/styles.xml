@@ -1,28 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="AppTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@color/default_background</item>
-        <item name="android:colorBackground">@color/default_background</item>
-        <item name="colorPrimary">@color/ab_toolbar_color</item>
+    <style name="AppTheme" parent="MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus">
+        <!-- ...and here we setting appcompat’s color theme attrs -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
     </style>
 
     <!-- ActionBar / ToolBar -->
-    <style name="ToolBar.ActionBar" parent="ToolBar.Light.DarkActionBar"/>
-
-    <style name="ToolBar.Light.DarkActionBar" parent="ToolBar.DarkActionBar">
-        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
-    </style>
-    <style name="ToolBar.DarkActionBar" parent="ToolBar.Base.ActionBar">
-        <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
-    </style>
-    <style name="ToolBar.Base.ActionBar">
+    <style name="toolbar">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
         <item name="android:background">?attr/colorPrimary</item>
-        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="android:elevation">4dp</item>
+        <item name="android:transitionName">actionBar</item>
     </style>
-    <style name="ToolBar.Base"/>
-    <style name="ToolBar"/>
 
     <!-- General -->
     <style name="divider_line_horizontal">
@@ -34,15 +26,6 @@
         <item name="android:background">@color/divider_line_light</item>
     </style>
     <style name="SettingsTheme" parent="@style/Theme.AppCompat">
-    </style>
-
-    <!-- Drawer -->
-    <style name="navigation_drawer_list">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:background">@color/drawer_background</item>
-        <item name="android:divider">@color/drawer_list_line</item>
-        <item name="android:dividerHeight">1dp</item>
     </style>
 
     <!-- Lists -->
@@ -68,6 +51,23 @@
     </style>
     <style name="list_item" parent="@android:style/TextAppearance.Medium">
         <item name="android:textColor">@color/default_text</item>
+        <item name="android:gravity">center_vertical</item>
+
+        <!-- Deprecated -->
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingBottom">6dp</item>
+
+        <!-- Better implementation for SDK 14+ -->
+        <!--<item name="android:layout_width">wrap_content</item>-->
+        <!--<item name="android:layout_height">wrap_content</item>-->
+        <!--<item name="android:paddingStart">?android:attr/listPreferredItemPaddingStart</item>-->
+        <!--<item name="android:paddingEnd">?android:attr/listPreferredItemPaddingEnd</item>-->
+        <!--<item name="android:background">?android:attr/activatedBackgroundIndicator</item>-->
+        <!--<item name="android:minHeight">?android:attr/listPreferredItemHeightSmall</item>-->
     </style>
     <style name="list_item_title" parent="@android:style/TextAppearance.Medium">
         <item name="android:textColor">@color/list_item_title</item>
