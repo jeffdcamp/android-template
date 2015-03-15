@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="AppTheme" parent="MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus">
+    <style name="AppTheme" parent="MaterialDrawerTheme.Light.DarkToolbar">
         <!-- ...and here we setting appcompat’s color theme attrs -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>

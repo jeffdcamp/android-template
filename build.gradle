@@ -36,18 +36,18 @@ repositories {
 
 dependencies {
     // Android
-    compile 'com.android.support:appcompat-v7:21.0.3'
-    compile 'com.android.support:support-annotations:21.0.3' // includes support-v4
+    compile 'com.android.support:appcompat-v7:22.0.0'
+    compile 'com.android.support:support-annotations:22.0.0' // includes support-v4
     compile 'com.android.support:multidex:1.0.1'
-    compile 'com.android.support:leanback-v17:21.0.3' // Support for AndroidTV
+    compile 'com.android.support:leanback-v17:22.0.0' // Support for AndroidTV
 
     // UI
     compile 'se.emilsjolander:stickylistheaders:2.5.2'
     compile 'com.melnykov:floatingactionbutton:1.2.0'
-    compile 'com.vikingsen:pocketknife-core:1.1.1'
-    provided 'com.vikingsen:pocketknife-compiler:1.1.1'
+    compile 'com.vikingsen:pocketknife-core:1.1.2'
+    provided 'com.vikingsen:pocketknife-compiler:1.1.2'
     compile 'com.jakewharton:butterknife:6.1.0'
-    compile 'com.mikepenz.materialdrawer:library:2.0.5'
+    compile 'com.mikepenz.materialdrawer:library:2.5.0'
 
     // Code
     compile 'com.google.code.findbugs:jsr305:3.0.0'
@@ -79,12 +79,12 @@ def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim
 def buildTime = new Date().getTime()
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion '21.1.2'
+    compileSdkVersion 22
+    buildToolsVersion '22.0.0'
 
     defaultConfig {
         minSdkVersion 10
-        targetSdkVersion 21
+        targetSdkVersion 22
 
         if (artOnly) {
             minSdkVersion 21 // temp enable to perform faster builds
