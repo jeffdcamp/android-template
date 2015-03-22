@@ -37,15 +37,9 @@ import org.dbtools.android.domain.database.DatabaseWrapper;
 import org.dbtools.android.domain.event.DatabaseChangeEvent;
 import org.dbtools.android.domain.event.DatabaseEndTransactionEvent;
 import org.dbtools.android.domain.event.DatabaseInsertEvent;
-import org.joda.time.DateTime;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 import javax.inject.Inject;
 
@@ -92,8 +86,8 @@ public class AboutActivity extends ActionBarActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onPause() {
+        super.onPause();
         bus.unregister(this);
     }
 
