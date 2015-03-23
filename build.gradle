@@ -62,7 +62,7 @@ dependencies {
     // Dagger 2 SNAPSHOT
     compile 'com.google.dagger:dagger:2.0-SNAPSHOT'
     provided 'com.google.dagger:dagger-compiler:2.0-SNAPSHOT'
-    provided 'org.glassfish:javax.annotation:3.1.1' // Dagger 2 dependency which is not available in Java 6
+    provided 'javax.annotation:javax.annotation-api:1.2' // Dagger 2 dependency which is not available in Java 6
 
     // Dagger 2 self
 //    compile 'com.google.dagger:dagger:2.0-20150318'
