@@ -9,7 +9,6 @@ import android.preference.PreferenceManager;
 import com.squareup.otto.Bus;
 
 import org.company.project.event.AndroidBus;
-import org.company.project.ui.UiModule;
 import org.company.project.webservice.ServiceModule;
 
 import javax.inject.Singleton;
@@ -17,17 +16,9 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(
-        includes = {
-                UiModule.class,
-                ServiceModule.class
-        },
-        injects = {
-                App.class
-        },
-        library = true,
-        complete = false
-)
+@Module(includes = {
+        ServiceModule.class
+})
 public class AppModule {
     private final App app;
 

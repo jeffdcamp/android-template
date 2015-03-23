@@ -21,10 +21,7 @@ import retrofit.RestAdapter;
 import retrofit.converter.Converter;
 import retrofit.converter.JacksonConverter;
 
-@Module(
-        complete = false,
-        library = true
-)
+@Module
 public class ServiceModule {
     private static final String USER_AGENT_FORMAT = "%s %s / Android %s / %s";
 

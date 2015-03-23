@@ -10,10 +10,12 @@
 package org.company.project.domain.attached.crossdatabasequery;
 
 
+import javax.inject.Inject;
+
 @javax.inject.Singleton
 public class CrossDatabaseQueryManager extends CrossDatabaseQueryBaseManager {
 
-
+    @Inject
     public CrossDatabaseQueryManager() {
     }
 

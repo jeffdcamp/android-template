@@ -10,10 +10,12 @@
 package org.company.project.domain.other.individuallist;
 
 
+import javax.inject.Inject;
+
 @javax.inject.Singleton
 public class IndividualListManager extends IndividualListBaseManager {
 
-
+    @Inject
     public IndividualListManager() {
     }
 

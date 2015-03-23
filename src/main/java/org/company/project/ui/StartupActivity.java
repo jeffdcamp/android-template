@@ -18,7 +18,7 @@ public class StartupActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.startup);
-        App.inject(this);
+        App.getInjectComponent(this).inject(this);
 
         startup();
     }

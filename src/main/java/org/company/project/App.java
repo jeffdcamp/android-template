@@ -1,12 +1,10 @@
 package org.company.project;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.support.multidex.MultiDex;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -14,13 +12,6 @@ import android.util.Log;
 import java.io.IOException;
 import java.util.Properties;
 
-import javax.inject.Inject;
-
-import dagger.ObjectGraph;
-
-/**
- * @author jcampbell
- */
 public class App extends Application {
     public static final String TAG = App.createTag(App.class);
 
@@ -28,16 +19,21 @@ public class App extends Application {
     public static final String DEFAULT_TAG_PREFIX = "company.";
     public static final int MAX_TAG_LENGTH = 23; // if over: IllegalArgumentException: Log tag "xxx" exceeds limit of 23 characters
 
-    private ObjectGraph injectionObjectGraph;
+    private AppComponent appComponent;
 
-    @Inject
     public App() {
+        appComponent = Dagger_AppComponent.builder()
+                .appModule(new AppModule(this))
+                .build();
+    }
+
+    AppComponent getComponent() {
+        return appComponent;
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        injectObject(this);
         enableStrictMode();
     }
 
@@ -54,41 +50,34 @@ public class App extends Application {
         }
     }
 
-    protected Object[] getModules() {
-        return new Object[]{
-                new AppModule(this)
-        };
+
+    public static AppComponent getInjectComponent(Activity activity) {
+        return getApplication(activity).getComponent();
     }
 
-    private void injectObject(Object object) {
-        if (injectionObjectGraph == null) {
-            injectionObjectGraph = ObjectGraph.create(getModules());
-        }
-
-        injectionObjectGraph.inject(object);
+    public static AppComponent getInjectComponent(Fragment fragment) {
+        return getApplication(fragment).getComponent();
     }
 
-    public static void inject(Activity target) {
-        ((App) target.getApplication()).injectObject(target);
+    /**
+     * support for leanback fragments
+     */
+    public static AppComponent getInjectComponent(android.app.Fragment fragment) {
+        return getApplication(fragment).getComponent();
     }
 
-    public static void inject(Fragment target) {
-        getApplication(target).injectObject(target);
-    }
-
-    // support for leanback fragments
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public static void inject(android.app.Fragment target) {
-        App app = (App) (target.getActivity().getApplication());
-        app.injectObject(target);
-    }
-
-
-    public static void inject(Context context, Object target) {
-        getApplication(context).injectObject(target);
+    public static AppComponent getInjectComponent(Context context) {
+        return getApplication(context).getComponent();
     }
 
     public static App getApplication(Fragment fragment) {
+        return (App) fragment.getActivity().getApplication();
+    }
+
+    /**
+     * support for leanback fragments
+     */
+    public static App getApplication(android.app.Fragment fragment) {
         return (App) fragment.getActivity().getApplication();
     }
 
