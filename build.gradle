@@ -71,6 +71,7 @@ dependencies {
 
     // Dagger 2 self (transitives)
 //    compile 'javax.inject:javax.inject:1'
+//    provided 'com.google.dagger:dagger-producers:2.0-20150318'
 //    provided 'com.google.auto:auto-common:1.0-20150318' // SNAPSHOT
 //    provided 'com.google.guava:guava:18.0'
 
