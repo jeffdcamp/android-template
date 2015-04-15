@@ -5,8 +5,8 @@ buildscript {
         jcenter() // version plugin support
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.2.0-beta1'
-        classpath 'org.dbtools:gradle-dbtools-plugin:3.1.2'
+        classpath 'com.android.tools.build:gradle:1.2.0-beta2'
+        classpath 'org.dbtools:gradle-dbtools-plugin:3.1.3'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.8' // version plugin support
     }
 }
@@ -43,37 +43,26 @@ dependencies {
     compile 'com.android.support:leanback-v17:22.0.0' // Support for AndroidTV
 
     // UI
-    compile 'se.emilsjolander:stickylistheaders:2.5.2'
-    compile 'com.melnykov:floatingactionbutton:1.2.0'
-    compile 'com.vikingsen:pocketknife-core:1.1.3'
-    provided 'com.vikingsen:pocketknife-compiler:1.1.3'
+    compile 'se.emilsjolander:stickylistheaders:2.6.0'
+    compile 'com.melnykov:floatingactionbutton:1.3.0'
+    compile 'com.vikingsen:pocketknife-core:2.0.0'
+    provided 'com.vikingsen:pocketknife-compiler:2.0.0'
     compile 'com.jakewharton:butterknife:6.1.0'
-    compile 'com.mikepenz.materialdrawer:library:2.5.7'
+    compile 'com.mikepenz.materialdrawer:library:2.7.9'
 
     // Code
     compile 'com.google.code.findbugs:jsr305:3.0.0'
     compile 'com.squareup.retrofit:converter-jackson:1.9.0'
     compile 'com.squareup:otto:1.3.6'
     compile 'joda-time:joda-time:2.7'
-    compile 'org.dbtools:dbtools-android:3.1.2'
+    compile 'org.dbtools:dbtools-android:3.1.3'
     compile 'org.dbtools:dbtools-query:2.5.2'
-    compile 'org.apache.commons:commons-lang3:3.3.2'
+    compile 'org.apache.commons:commons-lang3:3.4'
 
-    // Dagger 2 SNAPSHOT
-    compile 'com.google.dagger:dagger:2.0-SNAPSHOT'
-    provided 'com.google.dagger:dagger-compiler:2.0-SNAPSHOT'
+    // Dagger 2
+    compile 'com.google.dagger:dagger:2.0'
+    provided 'com.google.dagger:dagger-compiler:2.0'
     provided 'javax.annotation:javax.annotation-api:1.2' // Dagger 2 dependency which is not available in Java 6
-
-    // Dagger 2 self
-//    compile 'com.google.dagger:dagger:2.0-20150318'
-//    provided 'com.google.dagger:dagger-compiler:2.0-20150318'
-//    provided 'javax.annotation:javax.annotation-api:1.2' // Dagger 2 dependency which is not available in Java 6
-
-    // Dagger 2 self (transitives)
-//    compile 'javax.inject:javax.inject:1'
-//    provided 'com.google.dagger:dagger-producers:2.0-20150318'
-//    provided 'com.google.auto:auto-common:1.0-20150318' // SNAPSHOT
-//    provided 'com.google.guava:guava:18.0'
 
     // Custom SQLite database
 //    compile 'org.sqlite:sqlite-android:3.8.8.1-20150126'
@@ -95,7 +84,7 @@ def buildTime = new Date().getTime()
 
 android {
     compileSdkVersion 22
-    buildToolsVersion '22.0.0'
+    buildToolsVersion '22.0.1'
 
     defaultConfig {
         minSdkVersion 10

@@ -22,7 +22,7 @@ public class App extends Application {
     private AppComponent appComponent;
 
     public App() {
-        appComponent = Dagger_AppComponent.builder()
+        appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
                 .build();
     }
