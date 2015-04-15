@@ -10,10 +10,12 @@
 package org.company.project.domain.main.household;
 
 
+import javax.inject.Inject;
+
 @javax.inject.Singleton
 public class HouseholdManager extends HouseholdBaseManager {
 
-
+    @Inject
     public HouseholdManager() {
     }
 

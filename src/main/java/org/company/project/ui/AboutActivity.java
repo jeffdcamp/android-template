@@ -70,7 +70,7 @@ public class AboutActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about);
         ButterKnife.inject(this);
-        App.inject(this);
+        App.getInjectComponent(this).inject(this);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);

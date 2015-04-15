@@ -24,6 +24,10 @@ public class StartupTask extends AsyncTask<String, Void, Boolean> {
     @Inject
     DatabaseManager databaseManager;
 
+    @Inject
+    public StartupTask() {
+    }
+
     public StartupTask init(Activity contextActivity) {
         this.contextActivity = contextActivity;
         return this;

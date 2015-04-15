@@ -15,7 +15,7 @@ public class DirectoryListLoader extends CursorLoader {
 
     public DirectoryListLoader(Context context) {
         super(context);
-        App.inject(context, this);
+        App.getInjectComponent(context).inject(this);
     }
 
     @Override

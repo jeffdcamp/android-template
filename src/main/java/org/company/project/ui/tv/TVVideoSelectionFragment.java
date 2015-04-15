@@ -64,7 +64,7 @@ public class TVVideoSelectionFragment extends BrowseFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        App.inject(this);
+        App.getInjectComponent(this).inject(this);
 
         initializeBackgroundManager();
         setupUIElements();

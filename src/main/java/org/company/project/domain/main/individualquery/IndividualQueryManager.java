@@ -10,10 +10,12 @@
 package org.company.project.domain.main.individualquery;
 
 
+import javax.inject.Inject;
+
 @javax.inject.Singleton
 public class IndividualQueryManager extends IndividualQueryBaseManager {
 
-
+    @Inject
     public IndividualQueryManager() {
     }
 

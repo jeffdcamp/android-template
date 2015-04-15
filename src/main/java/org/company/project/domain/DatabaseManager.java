@@ -24,6 +24,10 @@ public class DatabaseManager extends DatabaseBaseManager {
     public static final int OTHER_VERSION = 1;
     public static final int OTHER_VIEWS_VERSION = 1;
 
+    @Inject
+    public DatabaseManager() {
+    }
+
     public void identifyDatabases() {
         addDatabase(application, MAIN_DATABASE_NAME, MAIN_VERSION, MAIN_VIEWS_VERSION);
         addDatabase(application, OTHER_DATABASE_NAME, OTHER_VERSION, OTHER_VIEWS_VERSION);

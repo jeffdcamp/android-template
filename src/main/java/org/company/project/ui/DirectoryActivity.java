@@ -41,7 +41,7 @@ public class DirectoryActivity extends DrawerActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.directory_list);
-        App.inject(this);
+        App.getInjectComponent(this).inject(this);
         ButterKnife.inject(this);
 
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
