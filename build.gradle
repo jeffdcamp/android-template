@@ -211,7 +211,6 @@ dbtools {
     includeDatabaseNameInPackage true
     ottoSupport true
     dateTimeSupport true
-    sqlQueryBuilderSupport true
 }
 
 // ===== TEST TASKS =====
