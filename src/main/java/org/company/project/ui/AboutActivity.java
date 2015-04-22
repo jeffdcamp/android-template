@@ -2,7 +2,7 @@ package org.company.project.ui;
 
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -53,7 +53,7 @@ import retrofit.client.Response;
 /**
  * @author jcampbell
  */
-public class AboutActivity extends ActionBarActivity {
+public class AboutActivity extends AppCompatActivity {
     public static final String TAG = App.createTag(AboutActivity.class);
 
     @InjectView(R.id.version_info)

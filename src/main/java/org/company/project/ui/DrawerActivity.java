@@ -1,7 +1,7 @@
 package org.company.project.ui;
 
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,7 +17,7 @@ import org.company.project.R;
 
 import javax.inject.Inject;
 
-public abstract class DrawerActivity extends ActionBarActivity {
+public abstract class DrawerActivity extends AppCompatActivity {
 
     @Inject
     InternalIntents internalIntents;

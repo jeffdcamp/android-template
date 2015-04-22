@@ -7,7 +7,7 @@ import org.dbtools.android.domain.AndroidDatabase;
 import org.dbtools.android.domain.database.AndroidDatabaseWrapper;
 import org.dbtools.android.domain.database.DatabaseWrapper;
 
-import java.util.Arrays;
+import java.util.Collections;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -32,12 +32,13 @@ public class DatabaseManager extends DatabaseBaseManager {
         addDatabase(application, MAIN_DATABASE_NAME, MAIN_VERSION, MAIN_VIEWS_VERSION);
         addDatabase(application, OTHER_DATABASE_NAME, OTHER_VERSION, OTHER_VIEWS_VERSION);
 
-        addAttachedDatabase(ATTACHED_DATABASE_NAME, DatabaseManager.MAIN_DATABASE_NAME, Arrays.asList(DatabaseManager.OTHER_DATABASE_NAME));
+        addAttachedDatabase(ATTACHED_DATABASE_NAME, DatabaseManager.MAIN_DATABASE_NAME, Collections.singletonList(DatabaseManager.OTHER_DATABASE_NAME));
     }
 
     @Override
     public DatabaseWrapper createNewDatabaseWrapper(AndroidDatabase androidDatabase) {
-        return new AndroidDatabaseWrapper(androidDatabase.getPath());
+        return new AndroidDatabaseWrapper(androidDatabase.getPath()); // default built in Android
+//        return new SQLiteDatabaseWrapper(androidDatabase.getPath()); // built version from sqlite.org
     }
 
     public void onUpgrade(AndroidDatabase androidDatabase, int oldVersion, int newVersion) {
