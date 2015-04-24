@@ -68,8 +68,9 @@ dependencies {
 //    compile 'net.sqlcipher:sqlcipher-aar:3.1.0.20140823'
 
     // Test (Integration)
-//    androidTestCompile ('com.android.support.test.espresso:espresso-core:2.1') {exclude module: 'jsr305'}
-//    androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
+    androidTestCompile ('com.android.support.test.espresso:espresso-core:2.1') {exclude module: 'jsr305'}
+    androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
+    androidTestCompile 'com.android.support:support-annotations:22.1.0' // fix dependency conflict warning
 //    androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.2'
 
     // Test (Unit)
