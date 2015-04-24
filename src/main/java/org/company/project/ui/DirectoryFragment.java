@@ -19,11 +19,14 @@ import android.widget.ListView;
 
 import com.melnykov.fab.FloatingActionButton;
 import com.squareup.otto.Bus;
+import com.squareup.otto.Subscribe;
 
 import org.company.project.App;
 import org.company.project.R;
 import org.company.project.event.DirectoryItemSelectedEvent;
 import org.company.project.event.EditIndividualEvent;
+import org.company.project.event.IndividualDeletedEvent;
+import org.company.project.event.IndividualSavedEvent;
 import org.company.project.ui.adapter.DirectoryAdapter;
 import org.company.project.ui.loader.DirectoryListLoader;
 
@@ -127,6 +130,17 @@ public class DirectoryFragment extends BaseFragment implements LoaderManager.Loa
     @Override
     public void onResume() {
         super.onResume();
+        getLoaderManager().restartLoader(0, null, this);
+    }
+
+    @Subscribe
+    public void onIndividualSaved(IndividualSavedEvent event) {
+        getLoaderManager().restartLoader(0, null, this);
+        postListItemSelected(event.getId());
+    }
+
+    @Subscribe
+    public void onIndividualDeleted(IndividualDeletedEvent event) {
         getLoaderManager().restartLoader(0, null, this);
     }
 
