@@ -5,7 +5,7 @@ buildscript {
         jcenter() // version plugin support
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.2.0'
+        classpath 'com.android.tools.build:gradle:1.2.1'
         classpath 'org.dbtools:gradle-dbtools-plugin:3.2.0'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.9' // version plugin support
     }
@@ -36,10 +36,10 @@ repositories {
 
 dependencies {
     // Android
-    compile 'com.android.support:appcompat-v7:22.1.0'
-    compile 'com.android.support:support-annotations:22.1.0' // includes support-v4
+    compile 'com.android.support:appcompat-v7:22.1.1'
+    compile 'com.android.support:support-annotations:22.1.1' // includes support-v4
     compile 'com.android.support:multidex:1.0.1'
-    compile 'com.android.support:leanback-v17:22.1.0' // Support for AndroidTV
+    compile 'com.android.support:leanback-v17:22.1.1' // Support for AndroidTV
 
     // UI
     compile 'se.emilsjolander:stickylistheaders:2.6.0'
@@ -47,7 +47,7 @@ dependencies {
     compile 'com.vikingsen:pocketknife-core:2.0.0'
     provided 'com.vikingsen:pocketknife-compiler:2.0.0'
     compile 'com.jakewharton:butterknife:6.1.0'
-    compile 'com.mikepenz.materialdrawer:library:2.8.2'
+    compile 'com.mikepenz.materialdrawer:library:2.9.1'
 
     // Code
     compile 'com.google.code.findbugs:jsr305:3.0.0'
@@ -70,7 +70,7 @@ dependencies {
     // Test (Integration)
     androidTestCompile ('com.android.support.test.espresso:espresso-core:2.1') {exclude module: 'jsr305'}
     androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
-    androidTestCompile 'com.android.support:support-annotations:22.1.0' // fix dependency conflict warning
+    androidTestCompile 'com.android.support:support-annotations:22.1.1' // fix dependency conflict warning
 //    androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.2'
 
     // Test (Unit)
