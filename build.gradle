@@ -5,7 +5,7 @@ buildscript {
         jcenter() // version plugin support
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.2.1'
+        classpath 'com.android.tools.build:gradle:1.2.3'
         classpath 'org.dbtools:gradle-dbtools-plugin:3.2.0'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.9' // version plugin support
     }
