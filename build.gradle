@@ -37,6 +37,7 @@ repositories {
 dependencies {
     // Android
     compile 'com.android.support:appcompat-v7:22.2.0'
+    compile 'com.android.support:design:22.2.0'
     compile 'com.android.support:support-annotations:22.2.0' // includes support-v4
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.android.support:leanback-v17:22.2.0' // Support for AndroidTV

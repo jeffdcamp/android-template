@@ -1,39 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingLeft="10dp"
-    android:paddingTop="10dp">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:paddingLeft="10dp"
+              android:paddingTop="10dp">
 
-    <EditText
-        android:id="@+id/first_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:hint="@string/first_name" />
+    <android.support.design.widget.TextInputLayout style="@style/text_input_layout">
 
-    <EditText
-        android:id="@+id/last_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:hint="@string/last_name" />
+        <EditText
+            android:id="@+id/first_name"
+            style="@style/edit_text"
+            android:hint="@string/first_name"
+            />
+    </android.support.design.widget.TextInputLayout>
 
-    <EditText
-        android:id="@+id/phone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:hint="@string/phone"
-        android:inputType="phone"/>
+    <android.support.design.widget.TextInputLayout style="@style/text_input_layout">
 
-    <EditText
-        android:id="@+id/email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress"/>
+        <EditText
+            android:id="@+id/last_name"
+            style="@style/edit_text"
+            android:hint="@string/last_name"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout style="@style/text_input_layout">
+
+        <EditText
+            android:id="@+id/phone"
+            style="@style/edit_text"
+            android:hint="@string/phone"
+            android:inputType="phone"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout style="@style/text_input_layout">
+
+        <EditText
+            android:id="@+id/email"
+            style="@style/edit_text"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            />
+    </android.support.design.widget.TextInputLayout>
 </LinearLayout>
