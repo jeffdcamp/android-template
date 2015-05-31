@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v4.view.MenuItemCompat;
@@ -17,7 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
-import com.melnykov.fab.FloatingActionButton;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
@@ -98,8 +98,6 @@ public class DirectoryFragment extends BaseFragment implements LoaderManager.Loa
 
         // setup the right edge border
         listView.setBackgroundResource(dualPane ? R.drawable.listview_dual_background : 0);
-
-        newItemButton.attachToListView(listView);
 
         getLoaderManager().restartLoader(0, null, this);
     }

@@ -44,7 +44,6 @@ dependencies {
 
     // UI
     compile 'se.emilsjolander:stickylistheaders:2.7.0'
-    compile 'com.melnykov:floatingactionbutton:1.3.0'
     compile 'com.vikingsen:pocketknife-core:2.5.1'
     provided 'com.vikingsen:pocketknife-compiler:2.5.1'
     compile 'com.jakewharton:butterknife:6.1.0'
