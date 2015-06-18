@@ -2,6 +2,7 @@ package org.company.project.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
@@ -19,7 +20,7 @@ import butterknife.InjectView;
 import pocketknife.InjectExtra;
 import pocketknife.PocketKnife;
 
-public class IndividualEditActivity extends DrawerActivity {
+public class IndividualEditActivity extends AppCompatActivity {
 
     public static final String EXTRA_ID = "INDIVIDUAL_ID";
 
@@ -35,7 +36,7 @@ public class IndividualEditActivity extends DrawerActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.single_fragement);
+        setContentView(R.layout.single_fragment);
         App.getInjectComponent(this).inject(this);
         ButterKnife.inject(this);
         PocketKnife.injectExtras(this);
@@ -56,7 +57,6 @@ public class IndividualEditActivity extends DrawerActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
 
-        setupDrawerWithBackButton(actionBar);
         actionBar.setTitle(R.string.individual);
     }
 

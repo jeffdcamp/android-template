@@ -13,6 +13,7 @@
     <string name="individual">Individual</string>
     <string name="edit">Edit</string>
     <string name="required">Required</string>
+    <string name="no_content">No Content</string>
 
     <!-- Navigation Drawer -->
     <string name="drawer_main">Main</string>

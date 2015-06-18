@@ -1,9 +1,7 @@
 package org.company.project.ui;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
@@ -40,42 +38,19 @@ public class IndividualActivity extends DrawerActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.single_fragement);
+        setContentView(R.layout.drawer_single_fragment);
         App.getInjectComponent(this).inject(this);
         ButterKnife.inject(this);
         PocketKnife.injectExtras(this);
 
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 
-        setupActionBar();
+        setupDrawerWithBackButton(toolbar, R.string.individual);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_pos1, IndividualFragment.newInstance(individualId))
                     .commit();
-        }
-    }
-
-    private void setupActionBar() {
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-
-        setupDrawerWithBackButton(actionBar);
-        actionBar.setTitle(R.string.individual);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item == null) {
-            return false;
-        }
-
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
         }
     }
 

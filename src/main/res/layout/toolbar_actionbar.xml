@@ -4,6 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
     android:id="@+id/ab_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+
     style="@style/toolbar"
     app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"

@@ -1,7 +1,6 @@
 package org.company.project.ui;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,7 +45,7 @@ public class DirectoryActivity extends DrawerActivity {
 
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 
-        setupActionBar();
+        super.setupDrawerWithDrawerButton(toolbar, R.string.drawer_main);
 
         dualPane = ButterKnife.findById(this, R.id.fragment_pos2) != null;
 
@@ -55,14 +54,6 @@ public class DirectoryActivity extends DrawerActivity {
                     .add(R.id.fragment_pos1, DirectoryFragment.newInstance(dualPane))
                     .commit();
         }
-    }
-
-    private void setupActionBar() {
-        setSupportActionBar(toolbar);
-        setupDrawerWithDrawerButton(toolbar);
-
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(R.string.drawer_main);
     }
 
     @Override

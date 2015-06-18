@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/drawer_main"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_drawer_item_main"
+            android:checked="true"
+            android:title="@string/drawer_main"/>
+        <item
+            android:id="@+id/menu_drawer_item_library"
+            android:title="@string/drawer_my_library"/>
+        <item
+            android:id="@+id/menu_drawer_item_store"
+            android:title="@string/drawer_store"/>
+    </group>
+
+    <group android:id="@+id/drawer_secondary">
+        <item
+            android:id="@+id/menu_drawer_item_settings"
+            android:title="@string/drawer_settings"/>
+        <item
+            android:id="@+id/menu_drawer_item_help"
+            android:title="@string/drawer_help"/>
+    </group>
+</menu>
