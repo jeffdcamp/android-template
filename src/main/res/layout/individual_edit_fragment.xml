@@ -7,7 +7,9 @@
               android:paddingLeft="10dp"
               android:paddingTop="10dp">
 
-    <android.support.design.widget.TextInputLayout style="@style/text_input_layout">
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/first_name_layout"
+        style="@style/text_input_layout">
 
         <EditText
             android:id="@+id/first_name"

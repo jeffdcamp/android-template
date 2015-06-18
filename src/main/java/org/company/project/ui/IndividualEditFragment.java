@@ -1,6 +1,7 @@
 package org.company.project.ui;
 
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 
 import com.squareup.otto.Bus;
 
+import org.apache.commons.lang3.StringUtils;
 import org.company.project.App;
 import org.company.project.R;
 import org.company.project.domain.main.individual.Individual;
@@ -31,6 +33,9 @@ public class IndividualEditFragment extends Fragment {
     public static final String TAG = App.createTag(IndividualEditFragment.class);
 
     private static final String ARG_ID = "ID";
+
+    @InjectView(R.id.first_name_layout)
+    TextInputLayout firstNameLayout;
 
     @InjectView(R.id.first_name)
     EditText firstNameEditText;
@@ -118,8 +123,8 @@ public class IndividualEditFragment extends Fragment {
     private void saveIndividual() {
         Individual individual = individualId > 0 ? individualManager.findByRowId(individualId) : new Individual();
         if (individual != null) {
-            if (firstNameEditText.getText().length() == 0) {
-                firstNameEditText.setError(getString(R.string.required));
+            if (StringUtils.isBlank(firstNameEditText.getText())) {
+                firstNameLayout.setError(getString(R.string.required));
                 return;
             }
 
