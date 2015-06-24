@@ -17,8 +17,6 @@ apply plugin: 'sonar-runner'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.ben-manes.versions' // ./gradlew dependencyUpdates -Drevision=release
 
-archivesBaseName = 'android-template'
-
 def artOnly = false; // enable a fast build supported ONLY by Android 5.0+
 
 // Manifest version information
@@ -44,8 +42,8 @@ dependencies {
 
     // UI
     compile 'se.emilsjolander:stickylistheaders:2.7.0'
-    compile 'com.vikingsen:pocketknife-core:2.5.1'
-    provided 'com.vikingsen:pocketknife-compiler:2.5.1'
+    compile 'com.vikingsen:pocketknife-core:2.6.0'
+    provided 'com.vikingsen:pocketknife-compiler:2.6.0'
     compile 'com.jakewharton:butterknife:6.1.0'
 
     // Code
@@ -74,7 +72,7 @@ dependencies {
 
     // Test (Unit)
     testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.0.15-beta'
+    testCompile 'org.mockito:mockito-core:2.0.21-beta'
 
 }
 
