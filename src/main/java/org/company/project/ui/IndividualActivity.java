@@ -14,8 +14,8 @@ import org.company.project.event.IndividualDeletedEvent;
 
 import javax.inject.Inject;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import pocketknife.InjectExtra;
 import pocketknife.PocketKnife;
 
@@ -23,7 +23,7 @@ public class IndividualActivity extends DrawerActivity {
 
     public static final String EXTRA_ID = "INDIVIDUAL_ID";
 
-    @InjectView(R.id.ab_toolbar)
+    @Bind(R.id.ab_toolbar)
     Toolbar toolbar;
 
     @Inject
@@ -40,7 +40,7 @@ public class IndividualActivity extends DrawerActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drawer_single_fragment);
         App.getInjectComponent(this).inject(this);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
         PocketKnife.injectExtras(this);
 
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);

@@ -22,7 +22,7 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         final View view = inflater.inflate(getLayoutResourceId(), container, false);
-        ButterKnife.inject(this, view);
+        ButterKnife.bind(this, view);
         onPostCreateView();
         return view;
     }
@@ -36,7 +36,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ButterKnife.reset(this);
+        ButterKnife.unbind(this);
     }
 
     @Override

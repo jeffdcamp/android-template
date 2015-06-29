@@ -15,24 +15,24 @@ import org.company.project.ui.menu.DrawerMenu;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 public abstract class DrawerActivity extends AppCompatActivity {
 
     @Inject
     DrawerMenu drawerMenu;
 
-    @InjectView(R.id.drawer_layout)
+    @Bind(R.id.drawer_layout)
     DrawerLayout drawerLayout;
 
-    @InjectView(R.id.nav_view)
+    @Bind(R.id.nav_view)
     NavigationView navigationView;
 
     private boolean homeIsBackButton;
 
     private void init(@Nonnull Toolbar toolbar , @StringRes int titleResId) {
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         toolbar.setTitle(titleResId);
         drawerMenu.setupDrawerMenu(this, drawerLayout, navigationView);

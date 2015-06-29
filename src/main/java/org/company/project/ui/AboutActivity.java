@@ -43,8 +43,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import butterknife.OnClick;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -56,10 +56,10 @@ import retrofit.client.Response;
 public class AboutActivity extends AppCompatActivity {
     public static final String TAG = App.createTag(AboutActivity.class);
 
-    @InjectView(R.id.version_info)
+    @Bind(R.id.version_info)
     TextView versionTextView;
 
-    @InjectView(R.id.ab_toolbar)
+    @Bind(R.id.ab_toolbar)
     Toolbar toolbar;
 
     @Inject
@@ -69,7 +69,7 @@ public class AboutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
         App.getInjectComponent(this).inject(this);
 
         setSupportActionBar(toolbar);

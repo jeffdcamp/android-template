@@ -33,7 +33,7 @@ import org.company.project.ui.loader.DirectoryListLoader;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-import butterknife.InjectView;
+import butterknife.Bind;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
 import pocketknife.InjectArgument;
@@ -48,10 +48,10 @@ public class DirectoryFragment extends BaseFragment implements LoaderManager.Loa
     @Inject
     Bus bus;
 
-    @InjectView(R.id.list)
+    @Bind(R.id.list)
     ListView listView;
 
-    @InjectView(R.id.fab_new_item)
+    @Bind(R.id.fab_new_item)
     FloatingActionButton newItemButton;
 
     @InjectArgument(ARGS_DUAL_PANE)

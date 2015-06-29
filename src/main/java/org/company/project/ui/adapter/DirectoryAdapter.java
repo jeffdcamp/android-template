@@ -11,19 +11,19 @@ import android.widget.TextView;
 import org.company.project.R;
 import org.company.project.domain.main.individual.Individual;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 public class DirectoryAdapter extends CursorAdapter {
 
     private LayoutInflater inflater;
 
     static class ViewHolder {
-        @InjectView(R.id.text1)
+        @Bind(R.id.text1)
         TextView text1;
 
         ViewHolder(View view) {
-            ButterKnife.inject(this, view);
+            ButterKnife.bind(this, view);
         }
     }
 

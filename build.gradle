@@ -44,7 +44,7 @@ dependencies {
     compile 'se.emilsjolander:stickylistheaders:2.7.0'
     compile 'com.vikingsen:pocketknife-core:2.6.0'
     provided 'com.vikingsen:pocketknife-compiler:2.6.0'
-    compile 'com.jakewharton:butterknife:6.1.0'
+    compile 'com.jakewharton:butterknife:7.0.0'
 
     // Code
     compile 'com.google.code.findbugs:jsr305:3.0.0'

@@ -25,8 +25,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import pocketknife.InjectArgument;
 import pocketknife.PocketKnife;
 
@@ -35,13 +35,13 @@ public class IndividualFragment extends Fragment {
 
     private static final String ARG_ID = "ID";
 
-    @InjectView(R.id.individual_name)
+    @Bind(R.id.individual_name)
     TextView nameTextView;
 
-    @InjectView(R.id.individual_phone)
+    @Bind(R.id.individual_phone)
     TextView phoneTextView;
 
-    @InjectView(R.id.individual_email)
+    @Bind(R.id.individual_email)
     TextView emailTextView;
 
     @Inject
@@ -71,7 +71,7 @@ public class IndividualFragment extends Fragment {
     public View onCreateView(@Nonnull LayoutInflater inflater, ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.individual_fragment, container, false);
-        ButterKnife.inject(this, view);
+        ButterKnife.bind(this, view);
 
         return view;
     }

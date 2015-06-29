@@ -17,8 +17,8 @@ import org.company.project.ui.menu.CommonMenu;
 
 import javax.inject.Inject;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 public class DirectoryActivity extends DrawerActivity {
 
@@ -31,7 +31,7 @@ public class DirectoryActivity extends DrawerActivity {
     @Inject
     InternalIntents internalIntents;
 
-    @InjectView(R.id.ab_toolbar)
+    @Bind(R.id.ab_toolbar)
     Toolbar toolbar;
 
     private boolean dualPane = false;
@@ -41,7 +41,7 @@ public class DirectoryActivity extends DrawerActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.directory_list);
         App.getInjectComponent(this).inject(this);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 
