@@ -120,19 +120,21 @@ public abstract class CrossDatabaseQueryBaseRecord extends AndroidBaseRecord {
         this.id = id;
     }
 
+    @javax.annotation.Nonnull
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(@javax.annotation.Nonnull String name) {
         this.name = name;
     }
 
+    @javax.annotation.Nonnull
     public LocationType getType() {
         return type;
     }
 
-    public void setType(LocationType type) {
+    public void setType(@javax.annotation.Nonnull LocationType type) {
         this.type = type;
     }
 

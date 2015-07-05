@@ -107,11 +107,12 @@ public abstract class IndividualQueryBaseRecord extends AndroidBaseRecord {
         this.id = id;
     }
 
+    @javax.annotation.Nonnull
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(@javax.annotation.Nonnull String name) {
         this.name = name;
     }
 

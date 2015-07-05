@@ -211,51 +211,57 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         this.householdId = householdId;
     }
 
+    @javax.annotation.Nonnull
     public IndividualType getIndividualType() {
         return individualType;
     }
 
-    public void setIndividualType(IndividualType individualType) {
+    public void setIndividualType(@javax.annotation.Nonnull IndividualType individualType) {
         this.individualType = individualType;
     }
 
+    @javax.annotation.Nonnull
     public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public void setFirstName(@javax.annotation.Nonnull String firstName) {
         this.firstName = firstName;
     }
 
+    @javax.annotation.Nonnull
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    public void setLastName(@javax.annotation.Nonnull String lastName) {
         this.lastName = lastName;
     }
 
+    @javax.annotation.Nullable
     public org.joda.time.DateTime getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(org.joda.time.DateTime birthDate) {
+    public void setBirthDate(@javax.annotation.Nullable org.joda.time.DateTime birthDate) {
         this.birthDate = birthDate;
     }
 
+    @javax.annotation.Nonnull
     public String getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(@javax.annotation.Nonnull String phone) {
         this.phone = phone;
     }
 
+    @javax.annotation.Nonnull
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(@javax.annotation.Nonnull String email) {
         this.email = email;
     }
 
