@@ -36,7 +36,7 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
-import pocketknife.InjectArgument;
+import pocketknife.BindArgument;
 import pocketknife.PocketKnife;
 import pocketknife.SaveState;
 
@@ -54,7 +54,7 @@ public class DirectoryFragment extends BaseFragment implements LoaderManager.Loa
     @Bind(R.id.fab_new_item)
     FloatingActionButton newItemButton;
 
-    @InjectArgument(ARGS_DUAL_PANE)
+    @BindArgument(ARGS_DUAL_PANE)
     boolean dualPane = false;
 
     @SaveState
@@ -79,7 +79,7 @@ public class DirectoryFragment extends BaseFragment implements LoaderManager.Loa
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        PocketKnife.injectArguments(this);
+        PocketKnife.bindArguments(this);
     }
 
     @Override

@@ -17,7 +17,7 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import pocketknife.InjectExtra;
+import pocketknife.BindExtra;
 import pocketknife.PocketKnife;
 
 public class IndividualEditActivity extends AppCompatActivity {
@@ -30,7 +30,7 @@ public class IndividualEditActivity extends AppCompatActivity {
     @Inject
     Bus bus;
 
-    @InjectExtra(EXTRA_ID)
+    @BindExtra(EXTRA_ID)
     long individualId;
 
     @Override
@@ -39,7 +39,7 @@ public class IndividualEditActivity extends AppCompatActivity {
         setContentView(R.layout.single_fragment);
         App.getInjectComponent(this).inject(this);
         ButterKnife.bind(this);
-        PocketKnife.injectExtras(this);
+        PocketKnife.bindExtras(this);
         setSupportActionBar(toolbar);
 
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
@@ -57,7 +57,9 @@ public class IndividualEditActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
 
-        actionBar.setTitle(R.string.individual);
+        if (actionBar != null) {
+            actionBar.setTitle(R.string.individual);
+        }
     }
 
     @Override

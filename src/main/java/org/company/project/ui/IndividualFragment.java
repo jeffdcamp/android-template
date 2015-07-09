@@ -27,7 +27,7 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import pocketknife.InjectArgument;
+import pocketknife.BindArgument;
 import pocketknife.PocketKnife;
 
 public class IndividualFragment extends Fragment {
@@ -50,7 +50,7 @@ public class IndividualFragment extends Fragment {
     @Inject
     Bus bus;
 
-    @InjectArgument(ARG_ID)
+    @BindArgument(ARG_ID)
     long individualId;
 
     public static IndividualFragment newInstance(long individualId) {
@@ -64,7 +64,7 @@ public class IndividualFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        PocketKnife.injectArguments(this);
+        PocketKnife.bindArguments(this);
     }
 
     @Override

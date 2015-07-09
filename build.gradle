@@ -43,8 +43,8 @@ dependencies {
 
     // UI
     compile 'se.emilsjolander:stickylistheaders:2.7.0'
-    compile 'com.vikingsen:pocketknife-core:2.6.1'
-    provided 'com.vikingsen:pocketknife-compiler:2.6.1'
+    compile 'com.vikingsen:pocketknife-core:3.0.0'
+    provided 'com.vikingsen:pocketknife-compiler:3.0.0'
     compile 'com.jakewharton:butterknife:7.0.1'
 
     // Code
@@ -73,7 +73,7 @@ dependencies {
 
     // Test (Unit)
     testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.0.29-beta'
+    testCompile 'org.mockito:mockito-core:2.0.26-beta'
 
 }
 

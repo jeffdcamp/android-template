@@ -16,7 +16,7 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import pocketknife.InjectExtra;
+import pocketknife.BindExtra;
 import pocketknife.PocketKnife;
 
 public class IndividualActivity extends DrawerActivity {
@@ -32,7 +32,7 @@ public class IndividualActivity extends DrawerActivity {
     @Inject
     Bus bus;
 
-    @InjectExtra(EXTRA_ID)
+    @BindExtra(EXTRA_ID)
     long individualId;
 
     @Override
@@ -41,7 +41,7 @@ public class IndividualActivity extends DrawerActivity {
         setContentView(R.layout.drawer_single_fragment);
         App.getInjectComponent(this).inject(this);
         ButterKnife.bind(this);
-        PocketKnife.injectExtras(this);
+        PocketKnife.bindExtras(this);
 
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 
