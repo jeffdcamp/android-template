@@ -10,10 +10,11 @@
 
 package org.company.project.domain.main.individual;
 
-import org.dbtools.android.domain.AndroidBaseRecord;
-import android.database.Cursor;
-import org.company.project.domain.main.individualtype.IndividualType;
 import android.content.ContentValues;
+import android.database.Cursor;
+
+import org.company.project.domain.main.individualtype.IndividualType;
+import org.dbtools.android.domain.AndroidBaseRecord;
 
 
 @SuppressWarnings("all")
@@ -47,6 +48,9 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
     public static final String C_EMAIL = "EMAIL";
     public static final String FULL_C_EMAIL = "INDIVIDUAL.EMAIL";
     private String email = "";
+    public static final String C_AVAILABLE = "AVAILABLE";
+    public static final String FULL_C_AVAILABLE = "INDIVIDUAL.AVAILABLE";
+    private boolean available = false;
     public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS INDIVIDUAL (" + 
         "_id INTEGER PRIMARY KEY  AUTOINCREMENT," + 
         "HOUSEHOLD_ID INTEGER NOT NULL," + 
@@ -56,6 +60,7 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         "BIRTH_DATE INTEGER," + 
         "PHONE TEXT NOT NULL," + 
         "EMAIL TEXT NOT NULL," + 
+        "AVAILABLE INTEGER NOT NULL," + 
         "FOREIGN KEY (HOUSEHOLD_ID) REFERENCES HOUSEHOLD (_id)," + 
         "FOREIGN KEY (INDIVIDUAL_TYPE_ID) REFERENCES INDIVIDUAL_TYPE (_id)" + 
         ");" + 
@@ -70,7 +75,8 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         C_LAST_NAME,
         C_BIRTH_DATE,
         C_PHONE,
-        C_EMAIL};
+        C_EMAIL,
+        C_AVAILABLE};
 
     public IndividualBaseRecord() {
     }
@@ -122,6 +128,10 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         return cursor.getString(cursor.getColumnIndexOrThrow(C_EMAIL));
     }
 
+    public static boolean isAvailable(Cursor cursor) {
+        return cursor.getInt(cursor.getColumnIndexOrThrow(C_AVAILABLE)) != 0 ? true : false;
+    }
+
     @Override
     public String[] getAllKeys() {
         return ALL_KEYS.clone();
@@ -137,6 +147,7 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         values.put(C_BIRTH_DATE, birthDate != null ? birthDate.getMillis() : null);
         values.put(C_PHONE, phone);
         values.put(C_EMAIL, email);
+        values.put(C_AVAILABLE, available ? 1 : 0);
         return values;
     }
 
@@ -151,6 +162,7 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
             birthDate != null ? birthDate.getMillis() : null,
             phone,
             email,
+            available ? 1 : 0,
         };
         return values;
     }
@@ -163,6 +175,7 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         birthDate = new org.joda.time.DateTime(values.getAsLong(C_BIRTH_DATE));
         phone = values.getAsString(C_PHONE);
         email = values.getAsString(C_EMAIL);
+        available = values.getAsBoolean(C_AVAILABLE);
     }
 
     @Override
@@ -175,6 +188,7 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         birthDate = !cursor.isNull(cursor.getColumnIndexOrThrow(C_BIRTH_DATE)) ? new org.joda.time.DateTime(cursor.getLong(cursor.getColumnIndexOrThrow(C_BIRTH_DATE))) : null;
         phone = cursor.getString(cursor.getColumnIndexOrThrow(C_PHONE));
         email = cursor.getString(cursor.getColumnIndexOrThrow(C_EMAIL));
+        available = cursor.getInt(cursor.getColumnIndexOrThrow(C_AVAILABLE)) != 0 ? true : false;
     }
 
     @Override
@@ -188,6 +202,7 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         text += "birthDate = "+ birthDate +"\n";
         text += "phone = "+ phone +"\n";
         text += "email = "+ email +"\n";
+        text += "available = "+ available +"\n";
         return text;
     }
 
@@ -263,6 +278,14 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
 
     public void setEmail(@javax.annotation.Nonnull String email) {
         this.email = email;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 
 

@@ -22,6 +22,7 @@
             <field name="BIRTH_DATE" jdbcDataType="TIMESTAMP" notNull="false"/>
             <field name="PHONE" jdbcDataType="VARCHAR" size="255"/>
             <field name="EMAIL" jdbcDataType="VARCHAR" size="255"/>
+            <field name="AVAILABLE" jdbcDataType="BOOLEAN"/>
         </table>
         <view name="PHONE_LIST_VIEW">
             <field name="_id" jdbcDataType="BIGINT"/>
