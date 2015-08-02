@@ -5,7 +5,7 @@ buildscript {
         jcenter() // version plugin support
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.3.0-beta4'
+        classpath 'com.android.tools.build:gradle:1.3.0'
         classpath 'org.dbtools:gradle-dbtools-plugin:3.3.1'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.11.3' // version plugin support
     }
@@ -40,6 +40,7 @@ dependencies {
     compile 'com.android.support:support-annotations:22.2.1' // includes support-v4
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.android.support:leanback-v17:22.2.1' // Support for AndroidTV
+    compile 'com.google.android.gms:play-services-analytics:7.5.0'
 
     // UI
     compile 'se.emilsjolander:stickylistheaders:2.7.0'
@@ -92,6 +93,7 @@ android {
         versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
         versionName versionMajorMinorPatch
         buildConfigField "long", "BUILD_TIME", "${buildTime}l"
+        buildConfigField "String", "ANALYTICS_KEY", "\"${getAnalyticsKey()}\""
 
         multiDexEnabled true
 
@@ -120,15 +122,24 @@ android {
         abortOnError false
     }
 
+    // set dummy signing values if not defined in ~/.gradle/gradle.properties
+    if (!project.hasProperty('myKeystore')) {
+        println "Using dummy signing values"
+        project.ext.setProperty('myKeystore', 'dummy')
+        project.ext.setProperty('myKeystorePassword', 'dummy')
+        project.ext.setProperty('myKeyAlias', 'dummy')
+        project.ext.setProperty('myKeyPassword', 'dummy')
+    }
+
     // defined values my* in ~/.gradle/gradle.properties
-//    signingConfigs {
-//        prodConfig {
-//            storeFile file(myKeystore)
-//            storePassword myKeystorePassword
-//            keyAlias myKeyAlias
-//            keyPassword myKeyPassword
-//        }
-//    }
+    signingConfigs {
+        prodConfig {
+            storeFile file(myKeystore)
+            storePassword myKeystorePassword
+            keyAlias myKeyAlias
+            keyPassword myKeyPassword
+        }
+    }
 
     buildTypes {
         debug {
@@ -143,20 +154,20 @@ android {
             applicationIdSuffix '.dev'
             buildConfigField "String", "VERSION_NAME_FULL", "\"${versionMajorMinorPatchBuild}-ALPHA\""
             debuggable true
-//            signingConfig signingConfigs.prodConfig
+            signingConfig signingConfigs.prodConfig
         }
         beta {
             initWith(buildTypes.release)
             versionNameSuffix '-BETA'
             buildConfigField "String", "VERSION_NAME_FULL", "\"${versionMajorMinorPatchBuild}-BETA\""
-//            signingConfig signingConfigs.prodConfig
+            signingConfig signingConfigs.prodConfig
         }
         release {
             buildConfigField "String", "VERSION_NAME_FULL", "\"${versionMajorMinorPatchBuild}\""
             versionNameSuffix ''
             minifyEnabled true
             shrinkResources true
-//            signingConfig signingConfigs.prodConfig
+            signingConfig signingConfigs.prodConfig
         }
     }
 }
@@ -250,4 +261,9 @@ task testDebugJacoco(type: JacocoReport, dependsOn: "testDebug") {
             }
         }
     }
+}
+
+// Rename and place "myAnalyticsKey" in global gradle.properties
+def getAnalyticsKey() {
+    return hasProperty('myAnalyticsKey') ? myAnalyticsKey : ''
 }

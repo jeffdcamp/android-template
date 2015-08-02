@@ -11,9 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.google.android.gms.analytics.HitBuilders;
 import com.squareup.otto.Bus;
 
 import org.apache.commons.lang3.StringUtils;
+import org.company.project.Analytics;
 import org.company.project.App;
 import org.company.project.R;
 import org.company.project.domain.main.individual.Individual;
@@ -54,6 +56,9 @@ public class IndividualEditFragment extends Fragment {
 
     @Inject
     Bus bus;
+
+    @Inject
+    Analytics analytics;
 
     @BindArgument(ARG_ID)
     long individualId;
@@ -113,6 +118,11 @@ public class IndividualEditFragment extends Fragment {
 
         Individual individual = individualManager.findByRowId(individualId);
         if (individual != null) {
+            analytics.send(new HitBuilders.EventBuilder()
+                    .setCategory(Analytics.CATEGORY_INDIVIDUAL)
+                    .setAction(Analytics.ACTION_EDIT)
+                    .build());
+
             firstNameEditText.setText(individual.getFirstName());
             lastNameEditText.setText(individual.getLastName());
             emailEditText.setText(individual.getEmail());

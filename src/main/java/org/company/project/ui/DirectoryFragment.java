@@ -18,9 +18,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
+import com.google.android.gms.analytics.HitBuilders;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
+import org.company.project.Analytics;
 import org.company.project.App;
 import org.company.project.R;
 import org.company.project.event.DirectoryItemSelectedEvent;
@@ -47,6 +49,9 @@ public class DirectoryFragment extends BaseFragment implements LoaderManager.Loa
 
     @Inject
     Bus bus;
+
+    @Inject
+    Analytics analytics;
 
     @Bind(R.id.list)
     ListView listView;
@@ -257,6 +262,11 @@ public class DirectoryFragment extends BaseFragment implements LoaderManager.Loa
 
     @OnClick(R.id.fab_new_item)
     public void onNewItemClick() {
+        analytics.send(new HitBuilders.EventBuilder()
+                .setCategory(Analytics.CATEGORY_INDIVIDUAL)
+                .setAction(Analytics.ACTION_NEW)
+                .build());
+
         bus.post(new EditIndividualEvent());
     }
 }

@@ -12,8 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
 import com.squareup.otto.Bus;
 
+import org.company.project.Analytics;
 import org.company.project.App;
 import org.company.project.R;
 import org.company.project.domain.main.individual.Individual;
@@ -49,6 +51,9 @@ public class IndividualFragment extends Fragment {
 
     @Inject
     Bus bus;
+
+    @Inject
+    Analytics analytics;
 
     @BindArgument(ARG_ID)
     long individualId;
@@ -117,6 +122,11 @@ public class IndividualFragment extends Fragment {
 
         Individual individual = individualManager.findByRowId(individualId);
         if (individual != null) {
+            analytics.send(new HitBuilders.EventBuilder()
+                    .setCategory(Analytics.CATEGORY_INDIVIDUAL)
+                    .setAction(Analytics.ACTION_VIEW)
+                    .build());
+
             nameTextView.setText(individual.getFullName());
             phoneTextView.setText(individual.getPhone());
             emailTextView.setText(individual.getEmail());
@@ -130,6 +140,12 @@ public class IndividualFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         individualManager.delete(individualId);
+
+                        analytics.send(new HitBuilders.EventBuilder()
+                                .setCategory(Analytics.CATEGORY_INDIVIDUAL)
+                                .setAction(Analytics.ACTION_DELETE)
+                                .build());
+
                         bus.post(new IndividualDeletedEvent(individualId));
                     }
                 })

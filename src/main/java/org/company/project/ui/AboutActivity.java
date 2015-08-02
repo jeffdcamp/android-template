@@ -10,9 +10,11 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
+import org.company.project.Analytics;
 import org.company.project.App;
 import org.company.project.BuildConfig;
 import org.company.project.R;
@@ -65,12 +67,19 @@ public class AboutActivity extends AppCompatActivity {
     @Inject
     Bus bus;
 
+    @Inject
+    Analytics analytics;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about);
         ButterKnife.bind(this);
         App.getInjectComponent(this).inject(this);
+
+        analytics.send(new HitBuilders.EventBuilder()
+                .setCategory(Analytics.CATEGORY_ABOUT)
+                .build());
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
