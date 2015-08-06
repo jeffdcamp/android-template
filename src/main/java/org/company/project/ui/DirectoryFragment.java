@@ -93,6 +93,11 @@ public class DirectoryFragment extends BaseFragment implements LoaderManager.Loa
     }
 
     @Override
+    public boolean registerEventBus() {
+        return true;
+    }
+
+    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         App.getInjectComponent(this).inject(this);
@@ -137,13 +142,13 @@ public class DirectoryFragment extends BaseFragment implements LoaderManager.Loa
     }
 
     @Subscribe
-    public void onIndividualSaved(IndividualSavedEvent event) {
+    public void handle(IndividualSavedEvent event) {
         getLoaderManager().restartLoader(0, null, this);
         postListItemSelected(event.getId());
     }
 
     @Subscribe
-    public void onIndividualDeleted(IndividualDeletedEvent event) {
+    public void handle(IndividualDeletedEvent event) {
         getLoaderManager().restartLoader(0, null, this);
     }
 

@@ -56,7 +56,7 @@ import retrofit.client.Response;
 /**
  * @author jcampbell
  */
-public class AboutActivity extends AppCompatActivity {
+public class AboutActivity extends BaseActivity {
     public static final String TAG = App.createTag(AboutActivity.class);
 
     @Bind(R.id.version_info)
@@ -90,15 +90,8 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        bus.register(this);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        bus.unregister(this);
+    public boolean registerEventBus() {
+        return true;
     }
 
     @Override
@@ -381,18 +374,18 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     @Subscribe
-    public void onInsert(DatabaseInsertEvent event) {
+    public void handle(DatabaseInsertEvent event) {
         Log.e(TAG, "Item inserted on table " + event.getTableName());
         Log.e(TAG, "NewId " + event.getNewId());
     }
 
     @Subscribe
-    public void onDatabaseChanged(DatabaseChangeEvent event) {
+    public void handle(DatabaseChangeEvent event) {
         Log.e(TAG, "Database changed on table " + event.getTableName());
     }
 
     @Subscribe
-    public void onDatabaseChangedTransaction(DatabaseEndTransactionEvent event) {
+    public void handle(DatabaseEndTransactionEvent event) {
         Log.e(TAG, "Database changed transaction end.  Tables changed: " + event.getAllTableName());
         boolean myTableUpdated = event.containsTable(Individual.TABLE);
 

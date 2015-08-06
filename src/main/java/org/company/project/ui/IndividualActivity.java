@@ -13,7 +13,6 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
 import pocketknife.BindExtra;
 import pocketknife.PocketKnife;
@@ -27,9 +26,6 @@ public class IndividualActivity extends DrawerActivity {
 
     @Inject
     InternalIntents internalIntents;
-
-    @Inject
-    EventBus bus;
 
     @BindExtra(EXTRA_ID)
     long individualId;
@@ -54,24 +50,17 @@ public class IndividualActivity extends DrawerActivity {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        bus.register(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        bus.unregister(this);
+    public boolean registerEventBus() {
+        return true;
     }
 
     @Subscribe
-    public void onEditItemClicked(EditIndividualEvent event) {
+    public void handle(EditIndividualEvent event) {
         internalIntents.editIndividual(this, event.getId());
     }
 
     @Subscribe
-    public void onIndividualDeleted(IndividualDeletedEvent event) {
+    public void handle(IndividualDeletedEvent event) {
         finish();
     }
 }

@@ -39,14 +39,23 @@ public abstract class BaseFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        bus.register(this);
+    public void onStart() {
+        super.onStart();
+
+        if (registerEventBus()) {
+            bus.register(this);
+        }
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        bus.unregister(this);
+    public void onStop() {
+        if (registerEventBus()) {
+            bus.unregister(this);
+        }
+        super.onStop();
+    }
+
+    public boolean registerEventBus() {
+        return false;
     }
 }

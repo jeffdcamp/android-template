@@ -2,7 +2,6 @@ package org.company.project.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
@@ -19,7 +18,7 @@ import de.greenrobot.event.Subscribe;
 import pocketknife.BindExtra;
 import pocketknife.PocketKnife;
 
-public class IndividualEditActivity extends AppCompatActivity {
+public class IndividualEditActivity extends BaseActivity {
 
     public static final String EXTRA_ID = "INDIVIDUAL_ID";
 
@@ -52,6 +51,11 @@ public class IndividualEditActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean registerEventBus() {
+        return true;
+    }
+
     private void setupActionBar() {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -76,20 +80,8 @@ public class IndividualEditActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        bus.register(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        bus.unregister(this);
-    }
-
     @Subscribe
-    public void onIndividualSaved(IndividualSavedEvent event) {
+    public void handle(IndividualSavedEvent event) {
         finish();
     }
 }

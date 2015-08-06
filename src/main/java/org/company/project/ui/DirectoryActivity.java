@@ -16,16 +16,12 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
 
 public class DirectoryActivity extends DrawerActivity {
 
     @Inject
     CommonMenu commonMenu;
-
-    @Inject
-    EventBus bus;
 
     @Inject
     InternalIntents internalIntents;
@@ -67,21 +63,13 @@ public class DirectoryActivity extends DrawerActivity {
         return commonMenu.onOptionsItemSelected(this, item) || super.onOptionsItemSelected(item);
     }
 
-
     @Override
-    public void onStart() {
-        super.onStart();
-        bus.register(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        bus.unregister(this);
+    public boolean registerEventBus() {
+        return true;
     }
 
     @Subscribe
-    public void onListItemClicked(DirectoryItemSelectedEvent event) {
+    public void handle(DirectoryItemSelectedEvent event) {
         if (dualPane) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_pos2, IndividualFragment.newInstance(event.getId()))
@@ -92,7 +80,7 @@ public class DirectoryActivity extends DrawerActivity {
     }
 
     @Subscribe
-    public void onEditItemClicked(EditIndividualEvent event) {
+    public void handle(EditIndividualEvent event) {
         if (dualPane) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_pos2, IndividualEditFragment.newInstance(event.getId()))
