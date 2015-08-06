@@ -11,8 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
-import com.squareup.otto.Bus;
-import com.squareup.otto.Subscribe;
 
 import org.company.project.Analytics;
 import org.company.project.App;
@@ -32,6 +30,7 @@ import org.company.project.domain.other.individuallist.IndividualList;
 import org.company.project.domain.other.individuallist.IndividualListManager;
 import org.company.project.domain.other.individuallistitem.IndividualListItem;
 import org.company.project.domain.other.individuallistitem.IndividualListItemManager;
+import org.company.project.event.MyDBToolsEventBus;
 import org.company.project.webservice.websearch.DtoResult;
 import org.company.project.webservice.websearch.DtoSearchResponse;
 import org.company.project.webservice.websearch.WebSearchService;
@@ -48,6 +47,8 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
+import de.greenrobot.event.Subscribe;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -65,7 +66,7 @@ public class AboutActivity extends AppCompatActivity {
     Toolbar toolbar;
 
     @Inject
-    Bus bus;
+    EventBus bus;
 
     @Inject
     Analytics analytics;
@@ -89,14 +90,14 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onStart() {
+        super.onStart();
         bus.register(this);
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onStop() {
+        super.onStop();
         bus.unregister(this);
     }
 
@@ -200,7 +201,7 @@ public class AboutActivity extends AppCompatActivity {
         IndividualListManager individualListManager = new IndividualListManager();
         IndividualListItemManager individualListItemManager = new IndividualListItemManager();
 
-        Bus bus = new Bus();
+        org.dbtools.android.domain.DBToolsEventBus bus = new MyDBToolsEventBus(EventBus.getDefault());
         householdManager.setBus(bus);
         individualManager.setBus(bus);
         individualListManager.setBus(bus);

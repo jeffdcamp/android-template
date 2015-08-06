@@ -40,7 +40,7 @@ public abstract class IndividualListItemBaseRecord extends AndroidBaseRecord {
         "" + 
         "";
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS INDIVIDUAL_LIST_ITEM;";
-     static final String[] ALL_KEYS = new String[] {
+    public static final String[] ALL_KEYS = new String[] {
         C_ID,
         C_LIST_ID,
         C_INDIVIDUAL_ID};

@@ -22,14 +22,14 @@ import android.util.Log;
 import android.view.Display;
 import android.view.View;
 
-import com.squareup.otto.Bus;
-
 import org.company.project.App;
 import org.company.project.R;
 
 import java.lang.reflect.Field;
 
 import javax.inject.Inject;
+
+import de.greenrobot.event.EventBus;
 
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 public class TVVideoSelectionFragment extends BrowseFragment {
@@ -43,11 +43,11 @@ public class TVVideoSelectionFragment extends BrowseFragment {
     private String currentBackgroundUrl;
 
     @Inject
-    Bus bus;
+    EventBus bus;
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onStart() {
+        super.onStart();
         bus.register(this);
 
         if (currentBackgroundUrl != null) {
@@ -56,8 +56,8 @@ public class TVVideoSelectionFragment extends BrowseFragment {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onStop() {
+        super.onStop();
         bus.unregister(this);
     }
 

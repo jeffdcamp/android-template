@@ -2,10 +2,10 @@ package org.company.project;
 
 import android.content.SharedPreferences;
 
-import com.squareup.otto.Bus;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import de.greenrobot.event.EventBus;
 
 @Singleton
 public final class Prefs {
@@ -13,10 +13,10 @@ public final class Prefs {
     public static final String PREF_SOMETHING = "pref_enable_something_id";
 
     private SharedPreferences preferences;
-    private Bus bus; // use bus to implement Otto @Produce as needed
+    private EventBus bus;
 
     @Inject
-    public Prefs(SharedPreferences preferences, Bus bus) {
+    public Prefs(SharedPreferences preferences, EventBus bus) {
         this.bus = bus;
         this.preferences = preferences;
 

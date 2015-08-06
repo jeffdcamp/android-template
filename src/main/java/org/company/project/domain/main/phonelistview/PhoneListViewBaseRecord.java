@@ -27,7 +27,7 @@ public abstract class PhoneListViewBaseRecord extends AndroidBaseRecord {
     public static final String C_NAME = "NAME";
     public static final String FULL_C_NAME = "PHONE_LIST_VIEW.NAME";
     private String name = "";
-     static final String[] ALL_KEYS = new String[] {
+    public static final String[] ALL_KEYS = new String[] {
         C_ID,
         C_NAME};
 

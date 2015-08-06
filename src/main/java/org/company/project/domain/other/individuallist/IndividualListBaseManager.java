@@ -20,7 +20,7 @@ public abstract class IndividualListBaseManager extends AndroidBaseManager<Indiv
     @javax.inject.Inject
      DatabaseManager databaseManager;
     @javax.inject.Inject
-     com.squareup.otto.Bus bus;
+     org.dbtools.android.domain.DBToolsEventBus bus;
 
     public IndividualListBaseManager() {
     }
@@ -85,11 +85,11 @@ public abstract class IndividualListBaseManager extends AndroidBaseManager<Indiv
         return IndividualList.CREATE_TABLE;
     }
 
-    public com.squareup.otto.Bus getBus() {
+    public org.dbtools.android.domain.DBToolsEventBus getBus() {
         return bus;
     }
 
-    public void setBus(com.squareup.otto.Bus bus) {
+    public void setBus(org.dbtools.android.domain.DBToolsEventBus bus) {
         this.bus = bus;
     }
 

@@ -6,9 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.squareup.otto.Bus;
-import com.squareup.otto.Subscribe;
-
 import org.company.project.App;
 import org.company.project.R;
 import org.company.project.event.IndividualSavedEvent;
@@ -17,6 +14,8 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
+import de.greenrobot.event.Subscribe;
 import pocketknife.BindExtra;
 import pocketknife.PocketKnife;
 
@@ -28,7 +27,7 @@ public class IndividualEditActivity extends AppCompatActivity {
     Toolbar toolbar;
 
     @Inject
-    Bus bus;
+    EventBus bus;
 
     @BindExtra(EXTRA_ID)
     long individualId;
@@ -78,14 +77,14 @@ public class IndividualEditActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onStart() {
+        super.onStart();
         bus.register(this);
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onStop() {
+        super.onStop();
         bus.unregister(this);
     }
 

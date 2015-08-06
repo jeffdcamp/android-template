@@ -20,7 +20,7 @@ public abstract class PhoneListViewBaseManager extends AndroidBaseManager<PhoneL
     @javax.inject.Inject
      DatabaseManager databaseManager;
     @javax.inject.Inject
-     com.squareup.otto.Bus bus;
+     org.dbtools.android.domain.DBToolsEventBus bus;
 
     public PhoneListViewBaseManager() {
     }
@@ -90,11 +90,11 @@ public abstract class PhoneListViewBaseManager extends AndroidBaseManager<PhoneL
         throw new IllegalStateException("Cannot call SAVE on a PhoneListView View or Query");
     }
 
-    public com.squareup.otto.Bus getBus() {
+    public org.dbtools.android.domain.DBToolsEventBus getBus() {
         return bus;
     }
 
-    public void setBus(com.squareup.otto.Bus bus) {
+    public void setBus(org.dbtools.android.domain.DBToolsEventBus bus) {
         this.bus = bus;
     }
 

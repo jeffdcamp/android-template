@@ -9,9 +9,8 @@ import android.util.Log;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
-import com.squareup.otto.Bus;
 
-import org.company.project.event.AndroidBus;
+import org.company.project.event.MyDBToolsEventBus;
 import org.company.project.webservice.ServiceModule;
 
 import java.util.Map;
@@ -20,6 +19,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import de.greenrobot.event.EventBus;
 
 @Module(includes = {
         ServiceModule.class
@@ -49,9 +49,14 @@ public class AppModule {
 
     @Provides
     @Singleton
-    Bus provideBus() {
-        // AndroidBus is a version of the Bus that is safe to call from any thread to the main thread
-        return new AndroidBus();
+    EventBus provideBus() {
+        return EventBus.getDefault();
+    }
+
+    @Provides
+    @Singleton
+    org.dbtools.android.domain.DBToolsEventBus provideDBToolsEventBus(EventBus bus) {
+        return new MyDBToolsEventBus(bus);
     }
 
     @Provides

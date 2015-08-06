@@ -20,7 +20,7 @@ public abstract class IndividualQueryBaseManager extends AndroidBaseManager<Indi
     @javax.inject.Inject
      DatabaseManager databaseManager;
     @javax.inject.Inject
-     com.squareup.otto.Bus bus;
+     org.dbtools.android.domain.DBToolsEventBus bus;
 
     public IndividualQueryBaseManager() {
     }
@@ -92,11 +92,11 @@ public abstract class IndividualQueryBaseManager extends AndroidBaseManager<Indi
         throw new IllegalStateException("Cannot call SAVE on a IndividualQuery View or Query");
     }
 
-    public com.squareup.otto.Bus getBus() {
+    public org.dbtools.android.domain.DBToolsEventBus getBus() {
         return bus;
     }
 
-    public void setBus(com.squareup.otto.Bus bus) {
+    public void setBus(org.dbtools.android.domain.DBToolsEventBus bus) {
         this.bus = bus;
     }
 

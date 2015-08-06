@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.android.gms.analytics.HitBuilders;
-import com.squareup.otto.Bus;
 
 import org.company.project.Analytics;
 import org.company.project.App;
@@ -29,6 +28,7 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 import pocketknife.BindArgument;
 import pocketknife.PocketKnife;
 
@@ -50,7 +50,7 @@ public class IndividualFragment extends Fragment {
     IndividualManager individualManager;
 
     @Inject
-    Bus bus;
+    EventBus bus;
 
     @Inject
     Analytics analytics;

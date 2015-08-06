@@ -35,7 +35,7 @@ public abstract class HouseholdBaseRecord extends AndroidBaseRecord {
         "" + 
         "";
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS HOUSEHOLD;";
-     static final String[] ALL_KEYS = new String[] {
+    public static final String[] ALL_KEYS = new String[] {
         C_ID,
         C_NAME};
 

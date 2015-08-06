@@ -3,9 +3,6 @@ package org.company.project.ui;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
-import com.squareup.otto.Bus;
-import com.squareup.otto.Subscribe;
-
 import org.company.project.App;
 import org.company.project.InternalIntents;
 import org.company.project.R;
@@ -16,6 +13,8 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
+import de.greenrobot.event.Subscribe;
 import pocketknife.BindExtra;
 import pocketknife.PocketKnife;
 
@@ -30,7 +29,7 @@ public class IndividualActivity extends DrawerActivity {
     InternalIntents internalIntents;
 
     @Inject
-    Bus bus;
+    EventBus bus;
 
     @BindExtra(EXTRA_ID)
     long individualId;
@@ -55,14 +54,14 @@ public class IndividualActivity extends DrawerActivity {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onStart() {
+        super.onStart();
         bus.register(this);
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onStop() {
+        super.onStop();
         bus.unregister(this);
     }
 

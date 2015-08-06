@@ -28,7 +28,7 @@ public abstract class CrossDatabaseQueryBaseRecord extends AndroidBaseRecord {
     public static final String C_TYPE = "TYPE";
     public static final String FULL_C_TYPE = "CROSS_DATABASE_QUERY.TYPE";
     private LocationType type = LocationType.HOME;
-     static final String[] ALL_KEYS = new String[] {
+    public static final String[] ALL_KEYS = new String[] {
         C_ID,
         C_NAME,
         C_TYPE};

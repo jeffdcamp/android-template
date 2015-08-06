@@ -10,11 +10,10 @@
 
 package org.company.project.domain.main.individual;
 
-import android.content.ContentValues;
-import android.database.Cursor;
-
-import org.company.project.domain.main.individualtype.IndividualType;
 import org.dbtools.android.domain.AndroidBaseRecord;
+import android.database.Cursor;
+import org.company.project.domain.main.individualtype.IndividualType;
+import android.content.ContentValues;
 
 
 @SuppressWarnings("all")
@@ -67,7 +66,7 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         "" + 
         "";
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS INDIVIDUAL;";
-     static final String[] ALL_KEYS = new String[] {
+    public static final String[] ALL_KEYS = new String[] {
         C_ID,
         C_HOUSEHOLD_ID,
         C_INDIVIDUAL_TYPE,

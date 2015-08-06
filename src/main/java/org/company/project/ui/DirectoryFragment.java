@@ -19,8 +19,6 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.google.android.gms.analytics.HitBuilders;
-import com.squareup.otto.Bus;
-import com.squareup.otto.Subscribe;
 
 import org.company.project.Analytics;
 import org.company.project.App;
@@ -38,6 +36,8 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
+import de.greenrobot.event.EventBus;
+import de.greenrobot.event.Subscribe;
 import pocketknife.BindArgument;
 import pocketknife.PocketKnife;
 import pocketknife.SaveState;
@@ -48,7 +48,7 @@ public class DirectoryFragment extends BaseFragment implements LoaderManager.Loa
     private static final String ARGS_DUAL_PANE = "DUAL_PANE";
 
     @Inject
-    Bus bus;
+    EventBus bus;
 
     @Inject
     Analytics analytics;

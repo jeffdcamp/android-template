@@ -25,7 +25,7 @@ public abstract class IndividualQueryBaseRecord extends AndroidBaseRecord {
     public static final String C_NAME = "NAME";
     public static final String FULL_C_NAME = "INDIVIDUAL_QUERY.NAME";
     private String name = "";
-     static final String[] ALL_KEYS = new String[] {
+    public static final String[] ALL_KEYS = new String[] {
         C_ID,
         C_NAME};
 
