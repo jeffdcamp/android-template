@@ -110,15 +110,6 @@ public abstract class IndividualListItemBaseRecord extends AndroidBaseRecord {
         individualId = cursor.getLong(cursor.getColumnIndexOrThrow(C_INDIVIDUAL_ID));
     }
 
-    @Override
-    public String toString() {
-        String text = "\n";
-        text += "id = "+ id +"\n";
-        text += "listId = "+ listId +"\n";
-        text += "individualId = "+ individualId +"\n";
-        return text;
-    }
-
     public boolean isNewRecord() {
         return getPrimaryKeyId() <= 0;
     }

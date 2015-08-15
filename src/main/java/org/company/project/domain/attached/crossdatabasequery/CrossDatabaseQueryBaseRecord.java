@@ -99,15 +99,6 @@ public abstract class CrossDatabaseQueryBaseRecord extends AndroidBaseRecord {
         type = LocationType.values()[cursor.getInt(cursor.getColumnIndexOrThrow(C_TYPE))];
     }
 
-    @Override
-    public String toString() {
-        String text = "\n";
-        text += "id = "+ id +"\n";
-        text += "name = "+ name +"\n";
-        text += "type = "+ type +"\n";
-        return text;
-    }
-
     public boolean isNewRecord() {
         return getPrimaryKeyId() <= 0;
     }

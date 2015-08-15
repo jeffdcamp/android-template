@@ -190,21 +190,6 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         available = cursor.getInt(cursor.getColumnIndexOrThrow(C_AVAILABLE)) != 0 ? true : false;
     }
 
-    @Override
-    public String toString() {
-        String text = "\n";
-        text += "id = "+ id +"\n";
-        text += "householdId = "+ householdId +"\n";
-        text += "individualType = "+ individualType +"\n";
-        text += "firstName = "+ firstName +"\n";
-        text += "lastName = "+ lastName +"\n";
-        text += "birthDate = "+ birthDate +"\n";
-        text += "phone = "+ phone +"\n";
-        text += "email = "+ email +"\n";
-        text += "available = "+ available +"\n";
-        return text;
-    }
-
     public boolean isNewRecord() {
         return getPrimaryKeyId() <= 0;
     }
