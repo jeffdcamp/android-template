@@ -10,8 +10,8 @@ import android.util.Log;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 
-import org.company.project.event.MyDBToolsEventBus;
 import org.company.project.webservice.ServiceModule;
+import org.dbtools.android.domain.event.GreenRobotEventBus;
 
 import java.util.Map;
 
@@ -56,7 +56,7 @@ public class AppModule {
     @Provides
     @Singleton
     org.dbtools.android.domain.DBToolsEventBus provideDBToolsEventBus(EventBus bus) {
-        return new MyDBToolsEventBus(bus);
+        return new GreenRobotEventBus(bus);
     }
 
     @Provides

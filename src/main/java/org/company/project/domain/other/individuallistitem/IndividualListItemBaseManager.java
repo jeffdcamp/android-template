@@ -9,13 +9,13 @@
 
 package org.company.project.domain.other.individuallistitem;
 
-import org.dbtools.android.domain.AndroidBaseManager;
 import org.company.project.domain.DatabaseManager;
 import org.dbtools.android.domain.database.DatabaseWrapper;
+import org.dbtools.android.domain.AndroidBaseManagerWritable;
 
 
 @SuppressWarnings("all")
-public abstract class IndividualListItemBaseManager extends AndroidBaseManager<IndividualListItem> {
+public abstract class IndividualListItemBaseManager extends AndroidBaseManagerWritable<IndividualListItem> {
 
     @javax.inject.Inject
      DatabaseManager databaseManager;

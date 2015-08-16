@@ -180,6 +180,7 @@
                                     </xsd:attribute>
                                     <xsd:attribute name="className" type="xsd:string"/>
                                     <xsd:attribute name="fieldsDefaultNotNull" type="tns:trueFalse"/>
+                                    <xsd:attribute name="readOnly" type="tns:trueFalse"/>
                                 </xsd:complexType>
                             </xsd:element>
                             <xsd:element name="view" minOccurs="0" maxOccurs="unbounded">
@@ -247,6 +248,7 @@
                                     </xsd:attribute>
                                     <xsd:attribute name="className" type="xsd:string"/>
                                     <xsd:attribute name="fieldsDefaultNotNull" type="tns:trueFalse"/>
+                                    <xsd:attribute name="readOnly" type="tns:trueFalse"/>
                                 </xsd:complexType>
                             </xsd:element>
                             <xsd:element name="query" minOccurs="0" maxOccurs="unbounded">
@@ -314,6 +316,7 @@
                                     </xsd:attribute>
                                     <xsd:attribute name="className" type="xsd:string"/>
                                     <xsd:attribute name="fieldsDefaultNotNull" type="tns:trueFalse"/>
+                                    <xsd:attribute name="readOnly" type="tns:trueFalse"/>
                                 </xsd:complexType>
                             </xsd:element>
 
@@ -326,6 +329,7 @@
                         </xsd:sequence>
                         <xsd:attribute name="name" type="xsd:string" use="required"/>
                         <xsd:attribute name="fieldsDefaultNotNull" type="tns:trueFalse"/>
+                        <xsd:attribute name="readOnly" type="tns:trueFalse"/>
                     </xsd:complexType>
                 </xsd:element>
             </xsd:sequence>

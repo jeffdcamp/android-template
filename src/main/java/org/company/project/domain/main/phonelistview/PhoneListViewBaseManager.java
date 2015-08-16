@@ -9,13 +9,13 @@
 
 package org.company.project.domain.main.phonelistview;
 
-import org.dbtools.android.domain.AndroidBaseManager;
 import org.company.project.domain.DatabaseManager;
 import org.dbtools.android.domain.database.DatabaseWrapper;
+import org.dbtools.android.domain.AndroidBaseManagerReadOnly;
 
 
 @SuppressWarnings("all")
-public abstract class PhoneListViewBaseManager extends AndroidBaseManager<PhoneListView> {
+public abstract class PhoneListViewBaseManager extends AndroidBaseManagerReadOnly<PhoneListView> {
 
     @javax.inject.Inject
      DatabaseManager databaseManager;
@@ -83,11 +83,6 @@ public abstract class PhoneListViewBaseManager extends AndroidBaseManager<PhoneL
     @javax.annotation.Nonnull
     public String getCreateSql() {
         return PhoneListView.CREATE_VIEW;
-    }
-
-    @Override
-    public boolean save(@javax.annotation.Nonnull String databaseName, @javax.annotation.Nonnull PhoneListView e) {
-        throw new IllegalStateException("Cannot call SAVE on a PhoneListView View or Query");
     }
 
     public org.dbtools.android.domain.DBToolsEventBus getBus() {

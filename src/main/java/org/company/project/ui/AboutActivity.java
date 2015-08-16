@@ -2,7 +2,7 @@ package org.company.project.ui;
 
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -30,7 +30,6 @@ import org.company.project.domain.other.individuallist.IndividualList;
 import org.company.project.domain.other.individuallist.IndividualListManager;
 import org.company.project.domain.other.individuallistitem.IndividualListItem;
 import org.company.project.domain.other.individuallistitem.IndividualListItemManager;
-import org.company.project.event.MyDBToolsEventBus;
 import org.company.project.webservice.websearch.DtoResult;
 import org.company.project.webservice.websearch.DtoSearchResponse;
 import org.company.project.webservice.websearch.WebSearchService;
@@ -38,6 +37,7 @@ import org.dbtools.android.domain.database.DatabaseWrapper;
 import org.dbtools.android.domain.event.DatabaseChangeEvent;
 import org.dbtools.android.domain.event.DatabaseEndTransactionEvent;
 import org.dbtools.android.domain.event.DatabaseInsertEvent;
+import org.dbtools.android.domain.event.GreenRobotEventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,8 +83,11 @@ public class AboutActivity extends BaseActivity {
                 .build());
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         versionTextView.setText(getVersionName());
     }
@@ -194,7 +197,7 @@ public class AboutActivity extends BaseActivity {
         IndividualListManager individualListManager = new IndividualListManager();
         IndividualListItemManager individualListItemManager = new IndividualListItemManager();
 
-        org.dbtools.android.domain.DBToolsEventBus bus = new MyDBToolsEventBus(EventBus.getDefault());
+        org.dbtools.android.domain.DBToolsEventBus bus = new GreenRobotEventBus(EventBus.getDefault());
         householdManager.setBus(bus);
         individualManager.setBus(bus);
         individualListManager.setBus(bus);
@@ -388,6 +391,6 @@ public class AboutActivity extends BaseActivity {
     public void handle(DatabaseEndTransactionEvent event) {
         Log.e(TAG, "Database changed transaction end.  Tables changed: " + event.getAllTableName());
         boolean myTableUpdated = event.containsTable(Individual.TABLE);
-
+        Log.e(TAG, "Individual table updated: " + myTableUpdated);
     }
 }

@@ -1,15 +1,12 @@
 package org.company.project.ui.menu;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.MenuItem;
 
 import org.company.project.App;
 import org.company.project.InternalIntents;
 import org.company.project.R;
-import org.company.project.ui.AboutActivity;
-import org.company.project.ui.SettingsActivity;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

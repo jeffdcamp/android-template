@@ -9,13 +9,13 @@
 
 package org.company.project.domain.main.individualquery;
 
-import org.dbtools.android.domain.AndroidBaseManager;
 import org.company.project.domain.DatabaseManager;
 import org.dbtools.android.domain.database.DatabaseWrapper;
+import org.dbtools.android.domain.AndroidBaseManagerReadOnly;
 
 
 @SuppressWarnings("all")
-public abstract class IndividualQueryBaseManager extends AndroidBaseManager<IndividualQuery> {
+public abstract class IndividualQueryBaseManager extends AndroidBaseManagerReadOnly<IndividualQuery> {
 
     @javax.inject.Inject
      DatabaseManager databaseManager;
@@ -85,11 +85,6 @@ public abstract class IndividualQueryBaseManager extends AndroidBaseManager<Indi
     @javax.annotation.Nonnull
     public String getCreateSql() {
         return "";
-    }
-
-    @Override
-    public boolean save(@javax.annotation.Nonnull String databaseName, @javax.annotation.Nonnull IndividualQuery e) {
-        throw new IllegalStateException("Cannot call SAVE on a IndividualQuery View or Query");
     }
 
     public org.dbtools.android.domain.DBToolsEventBus getBus() {

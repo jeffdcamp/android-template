@@ -24,5 +24,4 @@ public class IndividualQueryManager extends IndividualQueryBaseManager {
         return IndividualQuery.QUERY;
     }
 
-
 }

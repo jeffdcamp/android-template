@@ -9,13 +9,13 @@
 
 package org.company.project.domain.main.household;
 
-import org.dbtools.android.domain.AndroidBaseManager;
 import org.company.project.domain.DatabaseManager;
 import org.dbtools.android.domain.database.DatabaseWrapper;
+import org.dbtools.android.domain.AndroidBaseManagerWritable;
 
 
 @SuppressWarnings("all")
-public abstract class HouseholdBaseManager extends AndroidBaseManager<Household> {
+public abstract class HouseholdBaseManager extends AndroidBaseManagerWritable<Household> {
 
     @javax.inject.Inject
      DatabaseManager databaseManager;

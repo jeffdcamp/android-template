@@ -9,13 +9,13 @@
 
 package org.company.project.domain.attached.crossdatabasequery;
 
-import org.dbtools.android.domain.AndroidBaseManager;
 import org.company.project.domain.DatabaseManager;
 import org.dbtools.android.domain.database.DatabaseWrapper;
+import org.dbtools.android.domain.AndroidBaseManagerReadOnly;
 
 
 @SuppressWarnings("all")
-public abstract class CrossDatabaseQueryBaseManager extends AndroidBaseManager<CrossDatabaseQuery> {
+public abstract class CrossDatabaseQueryBaseManager extends AndroidBaseManagerReadOnly<CrossDatabaseQuery> {
 
     @javax.inject.Inject
      DatabaseManager databaseManager;
@@ -85,11 +85,6 @@ public abstract class CrossDatabaseQueryBaseManager extends AndroidBaseManager<C
     @javax.annotation.Nonnull
     public String getCreateSql() {
         return "";
-    }
-
-    @Override
-    public boolean save(@javax.annotation.Nonnull String databaseName, @javax.annotation.Nonnull CrossDatabaseQuery e) {
-        throw new IllegalStateException("Cannot call SAVE on a CrossDatabaseQuery View or Query");
     }
 
     public org.dbtools.android.domain.DBToolsEventBus getBus() {
