@@ -1,10 +1,10 @@
-package org.company.project;
+package org.jdc.template;
 
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.LargeTest;
 
-import org.company.project.ui.DirectoryActivity;
+import org.jdc.template.ui.DirectoryActivity;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;

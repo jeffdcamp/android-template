@@ -211,8 +211,8 @@ sonarRunner {
 dbtools {
     type 'ANDROID'
 
-    basePackageName 'org.company.project.domain'
-    outputSrcDir 'src/main/java/org/company/project/domain'
+    basePackageName 'org.jdc.template.domain'
+    outputSrcDir 'src/main/java/org/jdc/template/domain'
 
     injectionSupport true
     jsr305Support true
