@@ -54,7 +54,7 @@ dependencies {
     compile 'joda-time:joda-time:2.8.2'
     compile 'de.greenrobot:eventbus:3.0.0-beta1'
     provided 'de.greenrobot:eventbus-annotation-processor:3.0.0-beta1'
-    compile 'org.dbtools:dbtools-android:3.5.0-SNAPSHOT'
+    compile 'org.dbtools:dbtools-android:3.5.0'
     compile 'org.dbtools:dbtools-query:2.5.2'
     compile 'org.apache.commons:commons-lang3:3.4'
 
