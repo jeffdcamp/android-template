@@ -89,7 +89,7 @@ public class DirectoryFragment extends BaseFragment implements LoaderManager.Loa
 
     @Override
     protected int getLayoutResourceId() {
-        return R.layout.directory_fragment;
+        return R.layout.fragment_directory;
     }
 
     @Override

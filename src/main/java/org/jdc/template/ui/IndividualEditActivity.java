@@ -34,7 +34,7 @@ public class IndividualEditActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.single_fragment);
+        setContentView(R.layout.fragment_single);
         App.getInjectComponent(this).inject(this);
         ButterKnife.bind(this);
         PocketKnife.bindExtras(this);

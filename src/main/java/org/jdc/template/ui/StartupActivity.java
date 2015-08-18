@@ -24,7 +24,7 @@ public class StartupActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.startup);
+        setContentView(R.layout.activity_splash);
         App.getInjectComponent(this).inject(this);
 
         analytics.send(new HitBuilders.EventBuilder()

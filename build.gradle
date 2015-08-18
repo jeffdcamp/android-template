@@ -35,11 +35,11 @@ repositories {
 
 dependencies {
     // Android
-    compile 'com.android.support:appcompat-v7:22.2.1'
-    compile 'com.android.support:design:22.2.1'
-    compile 'com.android.support:support-annotations:22.2.1' // includes support-v4
+    compile 'com.android.support:appcompat-v7:23.0.0'
+    compile 'com.android.support:design:23.0.0'
+    compile 'com.android.support:support-annotations:23.0.0' // includes support-v4
     compile 'com.android.support:multidex:1.0.1'
-    compile 'com.android.support:leanback-v17:22.2.1' // Support for AndroidTV
+    compile 'com.android.support:leanback-v17:23.0.0' // Support for AndroidTV
     compile 'com.google.android.gms:play-services-analytics:7.8.0'
 
     // UI
@@ -70,7 +70,7 @@ dependencies {
     // Test (Integration)
     androidTestCompile ('com.android.support.test.espresso:espresso-core:2.2') {exclude module: 'jsr305'}
     androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
-    androidTestCompile 'com.android.support:support-annotations:22.2.1' // fix dependency conflict warning
+    androidTestCompile 'com.android.support:support-annotations:23.0.0' // fix dependency conflict warning
 //    androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.2'
 
     // Test (Unit)

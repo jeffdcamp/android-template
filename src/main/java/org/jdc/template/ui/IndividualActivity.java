@@ -33,7 +33,7 @@ public class IndividualActivity extends DrawerActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.drawer_single_fragment);
+        setContentView(R.layout.fragment_drawer_single);
         App.getInjectComponent(this).inject(this);
         ButterKnife.bind(this);
         PocketKnife.bindExtras(this);

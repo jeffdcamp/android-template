@@ -75,7 +75,7 @@ public class IndividualFragment extends Fragment {
     @Override
     public View onCreateView(@Nonnull LayoutInflater inflater, ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.individual_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_individual, container, false);
         ButterKnife.bind(this, view);
 
         return view;
