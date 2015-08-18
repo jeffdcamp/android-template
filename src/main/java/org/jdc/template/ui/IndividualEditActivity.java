@@ -38,7 +38,13 @@ public class IndividualEditActivity extends BaseActivity {
         App.getInjectComponent(this).inject(this);
         ButterKnife.bind(this);
         PocketKnife.bindExtras(this);
+
         setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 
