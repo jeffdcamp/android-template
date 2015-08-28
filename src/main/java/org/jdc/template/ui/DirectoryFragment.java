@@ -99,7 +99,7 @@ public class DirectoryFragment extends BaseFragment implements LoaderManager.Loa
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onActivityCreated(savedInstanceState);
         App.getInjectComponent(this).inject(this);
         PocketKnife.restoreInstanceState(this, savedInstanceState);
         setHasOptionsMenu(true);
