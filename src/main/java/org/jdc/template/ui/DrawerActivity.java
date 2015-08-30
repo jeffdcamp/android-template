@@ -4,7 +4,6 @@ import android.support.annotation.StringRes;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
@@ -42,11 +41,7 @@ public abstract class DrawerActivity extends BaseActivity {
         init(toolbar, titleResId);
 
         // set the back arrow in the toolbar
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setHomeButtonEnabled(true);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+        enableActionBarBackArrow(true);
     }
 
     public void setupDrawerWithDrawerButton(@Nonnull Toolbar toolbar, @StringRes int titleResId) {

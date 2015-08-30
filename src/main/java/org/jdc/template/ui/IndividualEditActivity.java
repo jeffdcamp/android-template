@@ -9,11 +9,8 @@ import org.jdc.template.App;
 import org.jdc.template.R;
 import org.jdc.template.event.IndividualSavedEvent;
 
-import javax.inject.Inject;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
 import pocketknife.BindExtra;
 import pocketknife.PocketKnife;
@@ -24,9 +21,6 @@ public class IndividualEditActivity extends BaseActivity {
 
     @Bind(R.id.ab_toolbar)
     Toolbar toolbar;
-
-    @Inject
-    EventBus bus;
 
     @BindExtra(EXTRA_ID)
     long individualId;
@@ -40,11 +34,7 @@ public class IndividualEditActivity extends BaseActivity {
         PocketKnife.bindExtras(this);
 
         setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setHomeButtonEnabled(true);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+        enableActionBarBackArrow(true);
 
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 

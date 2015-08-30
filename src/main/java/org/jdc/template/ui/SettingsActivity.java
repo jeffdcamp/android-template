@@ -14,6 +14,8 @@ public class SettingsActivity extends BaseActivity {
         App.getInjectComponent(this).inject(this);
         setContentView(R.layout.activity_single_fragment_no_toolbar);
 
+        enableActionBarBackArrow(true);
+
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().add(R.id.fragment_pos1, SettingsFragment.newInstance()).commit();
         }

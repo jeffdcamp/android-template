@@ -2,7 +2,6 @@ package org.jdc.template.ui;
 
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -12,6 +11,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
 
+import org.dbtools.android.domain.database.DatabaseWrapper;
+import org.dbtools.android.domain.event.DatabaseChangeEvent;
+import org.dbtools.android.domain.event.DatabaseEndTransactionEvent;
+import org.dbtools.android.domain.event.DatabaseInsertEvent;
+import org.dbtools.android.domain.event.GreenRobotEventBus;
 import org.jdc.template.Analytics;
 import org.jdc.template.App;
 import org.jdc.template.BuildConfig;
@@ -33,11 +37,6 @@ import org.jdc.template.domain.other.individuallistitem.IndividualListItemManage
 import org.jdc.template.webservice.websearch.DtoResult;
 import org.jdc.template.webservice.websearch.DtoSearchResponse;
 import org.jdc.template.webservice.websearch.WebSearchService;
-import org.dbtools.android.domain.database.DatabaseWrapper;
-import org.dbtools.android.domain.event.DatabaseChangeEvent;
-import org.dbtools.android.domain.event.DatabaseEndTransactionEvent;
-import org.dbtools.android.domain.event.DatabaseInsertEvent;
-import org.dbtools.android.domain.event.GreenRobotEventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,11 +82,7 @@ public class AboutActivity extends BaseActivity {
                 .build());
 
         setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setHomeButtonEnabled(true);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+        enableActionBarBackArrow(true);
 
         versionTextView.setText(getVersionName());
     }
