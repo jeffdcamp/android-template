@@ -10,6 +10,7 @@ import org.jdc.template.ui.IndividualEditActivity;
 import org.jdc.template.ui.IndividualEditFragment;
 import org.jdc.template.ui.IndividualFragment;
 import org.jdc.template.ui.SettingsActivity;
+import org.jdc.template.ui.SettingsFragment;
 import org.jdc.template.ui.StartupActivity;
 import org.jdc.template.ui.loader.DirectoryListLoader;
 import org.jdc.template.ui.tv.TVVideoSelectionFragment;
@@ -40,4 +41,6 @@ public interface AppComponent {
 
     // Exported for child-components.
     Application application();
+
+    void inject(SettingsFragment target);
 }

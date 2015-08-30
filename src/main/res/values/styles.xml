@@ -7,6 +7,11 @@
         <item name="colorAccent">@color/accent</item>
     </style>
 
+    <style name="SettingsTheme" parent="Theme.AppCompat.Light">
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+
+    </style>
+
     <!-- ActionBar / ToolBar -->
     <style name="toolbar">
         <item name="android:background">?attr/colorPrimary</item>
@@ -22,8 +27,6 @@
     </style>
     <style name="divider_line_horizontal_light" parent="divider_line_horizontal">
         <item name="android:background">@color/divider_line_light</item>
-    </style>
-    <style name="SettingsTheme" parent="@style/Theme.AppCompat">
     </style>
 
     <style name="no_content">
