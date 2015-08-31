@@ -47,7 +47,7 @@ public abstract class DrawerActivity extends BaseActivity {
     public void setupDrawerWithDrawerButton(@Nonnull Toolbar toolbar, @StringRes int titleResId) {
         homeIsBackButton = false;
         init(toolbar, titleResId);
-        toolbar.setNavigationIcon(R.drawable.ic_menu);
+        toolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
     }
 
     @Override
