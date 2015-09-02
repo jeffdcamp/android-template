@@ -36,10 +36,14 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
+        if (allowFinishOnHome() && item.getItemId() == android.R.id.home) {
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    protected boolean allowFinishOnHome() {
+        return true;
     }
 
     public void enableActionBarBackArrow(boolean enable) {

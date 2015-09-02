@@ -58,6 +58,10 @@ public class DirectoryActivity extends DrawerActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    protected boolean allowFinishOnHome() {
+        return false;
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return commonMenu.onOptionsItemSelected(this, item) || super.onOptionsItemSelected(item);
