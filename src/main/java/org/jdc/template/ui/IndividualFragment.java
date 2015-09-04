@@ -69,7 +69,9 @@ public class IndividualFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        App.getInjectComponent(this).inject(this);
         PocketKnife.bindArguments(this);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -78,15 +80,9 @@ public class IndividualFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_individual, container, false);
         ButterKnife.bind(this, view);
 
-        return view;
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        App.getInjectComponent(this).inject(this);
-        setHasOptionsMenu(true);
         showIndividual();
+
+        return view;
     }
 
     @Override
