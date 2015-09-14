@@ -15,10 +15,6 @@
     <color name="default_text">#000000</color>
     <color name="default_text_light">#ffffffff</color>
 
-    <!-- General -->
-    <color name="divider_line">#32000000</color>
-    <color name="divider_line_light">#ffffffff</color>
-
     <!-- Lists -->
     <color name="list_header_text">@color/app_theme_color</color>
     <color name="list_header_line">@color/app_theme_color</color>

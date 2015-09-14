@@ -9,39 +9,39 @@
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/first_name_layout"
-        style="@style/text_input_layout">
+        style="@style/TextInputLayout">
 
         <EditText
             android:id="@+id/first_name"
-            style="@style/edit_text"
+            style="@style/EditText"
             android:hint="@string/first_name"
             />
     </android.support.design.widget.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout style="@style/text_input_layout">
+    <android.support.design.widget.TextInputLayout style="@style/TextInputLayout">
 
         <EditText
             android:id="@+id/last_name"
-            style="@style/edit_text"
+            style="@style/EditText"
             android:hint="@string/last_name"
             />
     </android.support.design.widget.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout style="@style/text_input_layout">
+    <android.support.design.widget.TextInputLayout style="@style/TextInputLayout">
 
         <EditText
             android:id="@+id/phone"
-            style="@style/edit_text"
+            style="@style/EditText"
             android:hint="@string/phone"
             android:inputType="phone"
             />
     </android.support.design.widget.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout style="@style/text_input_layout">
+    <android.support.design.widget.TextInputLayout style="@style/TextInputLayout">
 
         <EditText
             android:id="@+id/email"
-            style="@style/edit_text"
+            style="@style/EditText"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
             />

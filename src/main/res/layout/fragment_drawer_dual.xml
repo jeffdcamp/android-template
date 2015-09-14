@@ -40,7 +40,7 @@
 
                 <TextView
                     android:id="@+id/no_content_text"
-                    style="@style/no_content"
+                    style="@style/NoContent"
                     android:gravity="center_horizontal"
                     android:text="@string/no_content"
                     android:visibility="gone"

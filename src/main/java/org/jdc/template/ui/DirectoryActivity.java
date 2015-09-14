@@ -17,6 +17,7 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.greenrobot.event.Subscribe;
+import de.greenrobot.event.ThreadMode;
 
 public class DirectoryActivity extends DrawerActivity {
 
@@ -72,7 +73,8 @@ public class DirectoryActivity extends DrawerActivity {
         return true;
     }
 
-    @Subscribe
+    // ThreadMode.Async because this cannot be called from a onLoadFinished call
+    @Subscribe(threadMode = ThreadMode.Async)
     public void handle(DirectoryItemSelectedEvent event) {
         if (dualPane) {
             getSupportFragmentManager().beginTransaction()

@@ -15,23 +15,14 @@
     </style>
 
     <!-- ActionBar / ToolBar -->
-    <style name="toolbar">
+    <style name="Toolbar">
         <item name="android:background">?attr/colorPrimary</item>
         <item name="android:elevation">4dp</item>
         <item name="android:transitionName">actionBar</item>
     </style>
 
     <!-- General -->
-    <style name="divider_line_horizontal">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">1dp</item>
-        <item name="android:background">@color/divider_line</item>
-    </style>
-    <style name="divider_line_horizontal_light" parent="divider_line_horizontal">
-        <item name="android:background">@color/divider_line_light</item>
-    </style>
-
-    <style name="no_content">
+    <style name="NoContent">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/list_item_subtitle</item>
@@ -42,7 +33,7 @@
     </style>
 
     <!-- Lists -->
-    <style name="list_view_header">
+    <style name="ListViewHeader">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textAllCaps">true</item>
@@ -53,55 +44,40 @@
         <item name="android:paddingBottom">5dp</item>
         <item name="android:paddingTop">10dp</item>
     </style>
-    <style name="list_view_header_line">
+    <style name="ListViewHeaderLine">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
         <item name="android:background">@color/list_header_line</item>
         <item name="android:paddingBottom">10dp</item>
     </style>
-    <style name="list_text_item_layout">
-        <item name="android:padding">5dp</item>
-    </style>
-    <style name="list_item" parent="@android:style/TextAppearance.Medium">
-        <item name="android:textColor">@color/default_text</item>
-        <item name="android:gravity">center_vertical</item>
-
-        <!-- Deprecated -->
+    <style name="ListItemLayout">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_height">?attr/listPreferredItemHeight</item>
         <item name="android:paddingLeft">16dp</item>
-        <item name="android:paddingRight">5dp</item>
-        <item name="android:paddingTop">6dp</item>
-        <item name="android:paddingBottom">6dp</item>
-
-        <!-- Better implementation for SDK 14+ -->
-        <!--<item name="android:layout_width">wrap_content</item>-->
-        <!--<item name="android:layout_height">wrap_content</item>-->
-        <!--<item name="android:paddingStart">?android:attr/listPreferredItemPaddingStart</item>-->
-        <!--<item name="android:paddingEnd">?android:attr/listPreferredItemPaddingEnd</item>-->
-        <!--<item name="android:background">?android:attr/activatedBackgroundIndicator</item>-->
-        <!--<item name="android:minHeight">?android:attr/listPreferredItemHeightSmall</item>-->
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:background">?attr/selectableItemBackground</item> <!-- background will not highlight when row is tapped without this -->
+        <item name="android:gravity">center_vertical</item>
     </style>
-    <style name="list_item_title" parent="@android:style/TextAppearance.Medium">
-        <item name="android:textColor">@color/list_item_title</item>
-    </style>
-    <style name="list_item_subtitle" parent="@android:style/TextAppearance.Small">
-        <item name="android:textColor">@color/list_item_subtitle</item>
-    </style>
-    <style name="list_view">
+    <style name="ListItemText">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
-        <!--<item name="android:background">@color/white_background</item>--> <!-- this was moved to "list_view" style, because scroll bars would not be visible with StickyHeaderListView -->
-        <item name="android:cacheColorHint">@android:color/transparent</item>
-        <item name="android:fastScrollEnabled">true</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">?attr/textAppearanceListItem</item>
+    </style>
+    <style name="ListItemTitle" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textAppearance">?attr/textAppearanceListItem</item>
+    </style>
+    <style name="ListItemSubtitle" parent="@android:style/TextAppearance.Small">
+        <item name="android:textAppearance">?attr/textAppearanceListItem</item>
     </style>
 
     <!--Edit-->
-    <style name="text_input_layout">
+    <style name="TextInputLayout">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
-    <style name="edit_text">
+    <style name="EditText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">20sp</item>

@@ -1,5 +1,15 @@
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    android:id="@+id/list_item"
+    style="@style/ListItemLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/text1"
-    style="@style/list_item"
-    tools:text="Item Name" />
+    android:layout_weight="1"
+    android:orientation="horizontal"
+    >
+
+    <TextView
+        android:id="@+id/text1"
+        style="@style/ListItemText"
+        tools:text="Item Name"
+        />
+</LinearLayout>
