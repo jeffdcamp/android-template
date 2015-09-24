@@ -19,7 +19,6 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 public class DirectoryAdapter extends RecyclerCursorAdapter<DirectoryAdapter.ViewHolder> {
@@ -48,11 +47,6 @@ public class DirectoryAdapter extends RecyclerCursorAdapter<DirectoryAdapter.Vie
         public ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
-        }
-
-        @OnClick(R.id.list_item)
-        public void onRowItemClicked() {
-
         }
 
         public void setText(String text) {
