@@ -43,10 +43,9 @@ dependencies {
     compile 'com.android.support:support-annotations:23.0.1' // includes support-v4
     compile 'com.android.support:leanback-v17:23.0.1' // Support for AndroidTV
     compile 'com.android.support:multidex:1.0.1'
-    compile 'com.google.android.gms:play-services-analytics:7.8.0'
+    compile 'com.google.android.gms:play-services-analytics:8.1.0'
 
     // UI
-    compile 'se.emilsjolander:stickylistheaders:2.7.0'
     compile 'com.vikingsen:pocketknife-core:3.1.0'
     provided 'com.vikingsen:pocketknife-compiler:3.1.0'
     compile 'com.jakewharton:butterknife:7.0.1'
@@ -55,8 +54,6 @@ dependencies {
     compile 'com.google.code.findbugs:jsr305:3.0.0'
     compile 'com.squareup.retrofit:converter-jackson:1.9.0'
     compile 'joda-time:joda-time:2.8.2'
-    compile 'de.greenrobot:eventbus:3.0.0-beta1'
-    provided 'de.greenrobot:eventbus-annotation-processor:3.0.0-beta1'
     compile 'org.dbtools:dbtools-android:3.5.0'
     compile 'org.dbtools:dbtools-query:2.5.6'
     compile 'org.apache.commons:commons-lang3:3.4'
@@ -66,6 +63,10 @@ dependencies {
     compile 'com.google.dagger:dagger:2.0.1'
     provided 'com.google.dagger:dagger-compiler:2.0.1'
     provided 'javax.annotation:javax.annotation-api:1.2' // Dagger 2 dependency which is not available in Java 6
+
+    // Greenrobot EventBus
+    compile 'de.greenrobot:eventbus:3.0.0-beta1'
+    provided 'de.greenrobot:eventbus-annotation-processor:3.0.0-beta1'
 
     // Custom SQLite database
 //    compile 'org.sqlite:sqlite-android:3.8.9.0-20150415'
@@ -113,6 +114,12 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
     }
+
+    // Prevent OutOfMemory errors
+//    dexOptions {
+//        incremental true
+//        javaMaxHeapSize "4g"
+//    }
 
     packagingOptions {
         exclude 'META-INF/LICENSE'
