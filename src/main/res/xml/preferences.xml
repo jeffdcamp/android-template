@@ -2,15 +2,14 @@
     <!-- BE SURE TO MATCH KEYS WITH VALUES IN Prefs.java -->
 
     <PreferenceCategory
-            android:key="general_category"
-            android:title="@string/pref_category_general">
+        android:key="general_category"
+        android:title="@string/pref_category_general">
 
-        <CheckBoxPreference
-                android:title="@string/pref_enable_something"
-                android:key="pref_enable_something_id"
-                android:defaultValue="false"
-                android:summary="@string/pref_enable_something_summary">
-        </CheckBoxPreference>
+        <SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:key="pref_enable_something_id"
+            android:summary="@string/pref_enable_something_summary"
+            android:title="@string/pref_enable_something"/>
     </PreferenceCategory>
 
 </PreferenceScreen>
