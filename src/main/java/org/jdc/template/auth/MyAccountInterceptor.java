@@ -8,9 +8,9 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
-public class MyAccountAccountInterceptor implements Interceptor {
+public class MyAccountInterceptor implements Interceptor {
     @Inject
-    public MyAccountAccountInterceptor() {
+    public MyAccountInterceptor() {
     }
 
     public Response intercept(Chain chain) throws IOException {

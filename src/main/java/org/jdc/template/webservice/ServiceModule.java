@@ -11,7 +11,7 @@ import com.squareup.okhttp.Response;
 
 import org.jdc.template.BuildConfig;
 import org.jdc.template.R;
-import org.jdc.template.auth.MyAccountAccountInterceptor;
+import org.jdc.template.auth.MyAccountInterceptor;
 import org.jdc.template.webservice.websearch.WebSearchService;
 
 import java.io.IOException;
@@ -54,7 +54,7 @@ public class ServiceModule {
 
     @Provides
     @Named(AUTHENTICATED_CLIENT)
-    public OkHttpClient getAuthenticatedClient(@Nonnull MyAccountAccountInterceptor accountInterceptor) {
+    public OkHttpClient getAuthenticatedClient(@Nonnull MyAccountInterceptor accountInterceptor) {
         OkHttpClient client = new OkHttpClient();
         client.setReadTimeout(DEFAULT_TIMEOUT_MINUTES, TimeUnit.MINUTES);
         client.setConnectTimeout(DEFAULT_TIMEOUT_MINUTES, TimeUnit.MINUTES);
