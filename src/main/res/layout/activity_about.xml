@@ -55,11 +55,19 @@
                 />
 
             <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Test REST Call"
+                android:id="@+id/rest_test_button"
+                android:layout_gravity="center_horizontal"/>
+
+            <Button
                 android:id="@+id/test_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Test"
                 />
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

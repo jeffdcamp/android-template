@@ -10,7 +10,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
+import com.squareup.okhttp.ResponseBody;
 
+import org.apache.commons.io.FileUtils;
 import org.dbtools.android.domain.database.DatabaseWrapper;
 import org.dbtools.android.domain.event.DatabaseChangeEvent;
 import org.dbtools.android.domain.event.DatabaseEndTransactionEvent;
@@ -34,10 +36,13 @@ import org.jdc.template.domain.other.individuallist.IndividualList;
 import org.jdc.template.domain.other.individuallist.IndividualListManager;
 import org.jdc.template.domain.other.individuallistitem.IndividualListItem;
 import org.jdc.template.domain.other.individuallistitem.IndividualListItemManager;
+import org.jdc.template.util.WebServiceUtil;
 import org.jdc.template.webservice.websearch.DtoResult;
 import org.jdc.template.webservice.websearch.DtoSearchResponse;
 import org.jdc.template.webservice.websearch.WebSearchService;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,13 +53,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
+import retrofit.Call;
 import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
+import retrofit.Response;
+import retrofit.Retrofit;
 
-/**
- * @author jcampbell
- */
 public class AboutActivity extends BaseActivity {
     public static final String TAG = App.createTag(AboutActivity.class);
 
@@ -186,6 +189,7 @@ public class AboutActivity extends BaseActivity {
     }
 
     DatabaseManager noInjectionDatabaseManager = new DatabaseManager();
+
     private void createSampleDataNoInjection() {
         HouseholdManager householdManager = new HouseholdManager();
         IndividualManager individualManager = new IndividualManager();
@@ -296,7 +300,7 @@ public class AboutActivity extends BaseActivity {
     @Inject
     CrossDatabaseQueryManager crossDatabaseQueryManager;
 
-//    @OnClick(R.id.test_button)
+    //    @OnClick(R.id.test_button)
     public void testQuery() {
         // OBJECTS
 //        List<IndividualQuery> items = individualQueryManager.findAllByRawQuery(IndividualQuery.QUERY_RAW, new String[]{"Buddy"});
@@ -330,7 +334,7 @@ public class AboutActivity extends BaseActivity {
 
     }
 
-//    @OnClick(R.id.test)
+    //    @OnClick(R.id.test)
     public void test2() {
         Log.e(TAG, "Cross database");
         long s = System.currentTimeMillis();
@@ -353,22 +357,84 @@ public class AboutActivity extends BaseActivity {
     @Inject
     WebSearchService webSearchService;
 
-    @OnClick(R.id.test_button)
+    @Inject
+    WebServiceUtil webServiceUtil;
+
+    @OnClick(R.id.rest_test_button)
     public void testQueryWebServiceCall() {
-        webSearchService.search("Cat", new Callback<DtoSearchResponse>() {
+        Call<DtoSearchResponse> call = webSearchService.search("Cat");
+
+        call.enqueue(new Callback<DtoSearchResponse>() {
             @Override
-            public void success(DtoSearchResponse dtoSearchResponse, Response response) {
-                Log.e(TAG, "Search SUCCESS");
-                for (DtoResult dtoResult : dtoSearchResponse.getResponseData().getResults()) {
-                    Log.i(TAG, "Result: " + dtoResult.getTitle());
+            public void onResponse(Response<DtoSearchResponse> response, Retrofit retrofit) {
+                processWebServiceResponse(response);
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Log.e(TAG, "Search FAILED");
+            }
+        });
+    }
+
+//    @OnClick(R.id.rest_test_button)
+    public void testFullUrlQueryWebServiceCall() {
+        Call<DtoSearchResponse> call = webSearchService.searchByFullUrl("https://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=Cat");
+
+        call.enqueue(new Callback<DtoSearchResponse>() {
+            @Override
+            public void onResponse(Response<DtoSearchResponse> response, Retrofit retrofit) {
+                processWebServiceResponse(response);
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Log.e(TAG, "Search FAILED");
+            }
+        });
+    }
+
+//    @OnClick(R.id.rest_test_button)
+    public void testSaveQueryWebServiceCall() {
+        Call<ResponseBody> call = webSearchService.searchToFile("Cat");
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Response<ResponseBody> response, Retrofit retrofit) {
+                // delete any existing file
+                File outputFile = new File(getExternalCacheDir(), "ws-out.json");
+                if (outputFile.exists()) {
+                    outputFile.delete();
+                }
+
+                // save the response body to file
+                webServiceUtil.saveResponseToFile(response, outputFile);
+
+                // show the output of the file
+                try {
+                    String fileContents = FileUtils.readFileToString(outputFile);
+                    Log.i(TAG, "Output file: [" + fileContents + "]");
+                } catch (IOException e) {
+                    Log.e(TAG, "Error reading file", e);
                 }
             }
 
             @Override
-            public void failure(RetrofitError error) {
+            public void onFailure(Throwable t) {
                 Log.e(TAG, "Search FAILED");
             }
         });
+    }
+
+    private void processWebServiceResponse(Response<DtoSearchResponse> response) {
+        if (response.isSuccess()) {
+            Log.e(TAG, "Search SUCCESS");
+            for (DtoResult dtoResult : response.body().getResponseData().getResults()) {
+                Log.i(TAG, "Result: " + dtoResult.getTitle());
+            }
+        } else {
+            Log.e(TAG, "Search FAILURE: code (" + response.code() + ")");
+        }
     }
 
     @Subscribe

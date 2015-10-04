@@ -4,31 +4,40 @@ import android.app.Application;
 import android.util.Base64;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.squareup.okhttp.Interceptor;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
 import org.jdc.template.BuildConfig;
 import org.jdc.template.R;
+import org.jdc.template.auth.MyAccountAccountInterceptor;
 import org.jdc.template.webservice.websearch.WebSearchService;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Nonnull;
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import retrofit.RequestInterceptor;
-import retrofit.RestAdapter;
-import retrofit.converter.Converter;
-import retrofit.converter.JacksonConverter;
+import retrofit.JacksonConverterFactory;
+import retrofit.Retrofit;
 
 @Module
 public class ServiceModule {
     private static final String USER_AGENT_FORMAT = "%s %s / Android %s / %s";
+    private static final String STANDARD_CLIENT = "STANDARD_CLIENT"; // client without auth
+    private static final String AUTHENTICATED_CLIENT = "AUTHENTICATED_CLIENT";
+    private static final int DEFAULT_TIMEOUT_MINUTES = 3;
 
     // Log level
-    private RestAdapter.LogLevel serviceLogLevel = RestAdapter.LogLevel.BASIC;
-
-    private Converter defaultConverter = new JacksonConverter(new ObjectMapper());
+    private LoggingInterceptor.LogLevel serviceLogLevel = LoggingInterceptor.LogLevel.BASIC;
+    private JacksonConverterFactory jacksonConverterFactory = JacksonConverterFactory.create(new ObjectMapper());
     private String userAgent;
 
     public String getUserAgent(@Nonnull Application application) {
@@ -43,44 +52,73 @@ public class ServiceModule {
         return userAgent;
     }
 
-    private void setupStandardHeader(@Nonnull Application application, @Nonnull RequestInterceptor.RequestFacade requestFacade) {
-        requestFacade.addHeader("http.useragent", getUserAgent(application));
-        requestFacade.addHeader("Accept", "application/json");
+    @Provides
+    @Named(AUTHENTICATED_CLIENT)
+    public OkHttpClient getAuthenticatedClient(@Nonnull MyAccountAccountInterceptor accountInterceptor) {
+        OkHttpClient client = new OkHttpClient();
+        client.setReadTimeout(DEFAULT_TIMEOUT_MINUTES, TimeUnit.MINUTES);
+        client.setConnectTimeout(DEFAULT_TIMEOUT_MINUTES, TimeUnit.MINUTES);
+
+        client.interceptors().add(accountInterceptor);
+
+        return client;
     }
 
-    @Nonnull
-    private String getBasicAuthHeaderValue(@Nonnull String username, @Nonnull String password) {
+    @Provides
+    @Named(STANDARD_CLIENT)
+    public OkHttpClient getStandardClient() {
+        OkHttpClient client = new OkHttpClient();
+        client.setReadTimeout(DEFAULT_TIMEOUT_MINUTES, TimeUnit.MINUTES);
+        client.setConnectTimeout(DEFAULT_TIMEOUT_MINUTES, TimeUnit.MINUTES);
+        return client;
+    }
+
+    private void setupStandardHeader(@Nonnull final Application application, @Nonnull OkHttpClient client) {
+        List<Interceptor> interceptors = client.interceptors();
+        interceptors.add(new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request.Builder builder = chain.request().newBuilder();
+                builder.addHeader("http.useragent", ServiceModule.this.getUserAgent(application))
+                        .addHeader("Accept", "application/json");
+                return chain.proceed(builder.build());
+            }
+        });
+
+        interceptors.add(new LoggingInterceptor(serviceLogLevel));
+    }
+
+    private void setupBasicAuth(@Nonnull final Application application, @Nonnull OkHttpClient client, @Nonnull String username, @Nonnull String password) {
         try {
             String basicAuthCredentials = username + ":" + password;
-            return "Basic " + Base64.encodeToString(basicAuthCredentials.getBytes("UTF-8"), Base64.NO_WRAP);
+            final String auth = "Basic " + Base64.encodeToString(basicAuthCredentials.getBytes("UTF-8"), Base64.NO_WRAP);
+
+            List<Interceptor> interceptors = client.interceptors();
+
+            interceptors.add(new Interceptor() {
+                @Override
+                public Response intercept(Chain chain) throws IOException {
+                    Request.Builder builder = chain.request().newBuilder();
+                    builder.addHeader("Authorization", auth);
+                    return chain.proceed(builder.build());
+                }
+            });
         } catch (UnsupportedEncodingException e) {
             throw new IllegalStateException("Error encoding auth", e);
         }
     }
 
-
-
     @Provides
     @Singleton
-    public WebSearchService getSearchService(final Application application) {
-        // Setup RestAdapter
-        RestAdapter.Builder builder = new RestAdapter.Builder();
-        builder.setEndpoint(WebSearchService.BASE_URL);
-        builder.setConverter(defaultConverter);
-        builder.setLogLevel(serviceLogLevel);
+    public WebSearchService getSearchService(@Nonnull final Application application, @Nonnull @Named(STANDARD_CLIENT) OkHttpClient client) {
+        setupStandardHeader(application, client);
 
-        // for AUTH
-        builder.setRequestInterceptor(new RequestInterceptor() {
-            @Override
-            public void intercept(RequestFacade requestFacade) {
-                setupStandardHeader(application, requestFacade);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(WebSearchService.BASE_URL)
+                .client(client)
+                .addConverterFactory(jacksonConverterFactory)
+                .build();
 
-                // Setup Basic Auth (if needed)
-//                requestFacade.addHeader("Authorization", getBasicAuthHeaderValue(username, password));
-            }
-        });
-
-        RestAdapter restAdapter = builder.build();
-        return restAdapter.create(WebSearchService.class);
+        return retrofit.create(WebSearchService.class);
     }
 }
