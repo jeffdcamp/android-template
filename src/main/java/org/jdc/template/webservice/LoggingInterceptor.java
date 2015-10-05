@@ -37,17 +37,17 @@ public class LoggingInterceptor implements Interceptor {
         // Log
         long t1 = System.nanoTime();
         Log.i(TAG, String.format("---> %s %s %s", request.url().getProtocol(), request.method(), request.url()));
-        if (logLevel.ordinal() >= LogLevel.HEADERS.ordinal()) {
+        if (showLog(LogLevel.HEADERS)) {
             Log.i(TAG, String.format("HEADERS%n%s", request.headers()));
         }
         RequestBody requestBody = request.body();
         if (requestBody != null) {
             MediaType mediaType = requestBody.contentType();
-            if (mediaType != null) {
+            if (mediaType != null && showLog(LogLevel.HEADERS)) {
                 Log.i(TAG, String.format("Content-Type: %s", mediaType));
             }
             long contentLength = request.body().contentLength();
-            if (contentLength != -1) {
+            if (contentLength != -1 && showLog(LogLevel.HEADERS)) {
                 Log.i(TAG, String.format("Content-Length: %s-byte", contentLength));
             }
         }
@@ -58,21 +58,25 @@ public class LoggingInterceptor implements Interceptor {
         long t2 = System.nanoTime();
         Log.i(TAG, String.format("<--- %s %s %s (%.1fms)", response.request().url().getProtocol(), response.code(), response.request().url(),
                 (t2 - t1) / NANO_IN_MILLIS));
-        if (logLevel.ordinal() >= LogLevel.HEADERS.ordinal()) {
+        if (showLog(LogLevel.HEADERS)) {
             Log.i(TAG, String.format("HEADERS%n%s", response.headers()));
         }
         ResponseBody responseBody = response.body();
-        if (responseBody != null) {
+        if (responseBody != null && showLog(LogLevel.HEADERS)) {
             MediaType mediaType = responseBody.contentType();
             if (mediaType != null) {
                 Log.i(TAG, String.format("Content-Type: %s", mediaType));
             }
             long contentLength = responseBody.contentLength();
-            if (contentLength != -1) {
+            if (contentLength != -1 && showLog(LogLevel.HEADERS)) {
                 Log.i(TAG, String.format("Content-Length: %s-byte", contentLength));
             }
         }
 
         return response;
+    }
+
+    private boolean showLog(LogLevel minLogLevel) {
+        return logLevel.ordinal() >= minLogLevel.ordinal();
     }
 }

@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.ResponseBody;
 
 import org.apache.commons.io.FileUtils;
@@ -20,6 +21,8 @@ import retrofit.Response;
 @Singleton
 public class WebServiceUtil {
     private static final String TAG = App.createTag(WebServiceUtil.class);
+
+    public static final MediaType JSON_MEDIA_TYPE = MediaType.parse("application/json; charset=utf-8");
 
     @Inject
     public WebServiceUtil() {
