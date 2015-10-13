@@ -19,7 +19,7 @@ apply plugin: 'sonar-runner'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.ben-manes.versions' // ./gradlew dependencyUpdates -Drevision=release
 
-def artOnly = false; // enable a fast build supported ONLY by Android 5.0+
+def artOnly = true; // enable a fast build supported ONLY by Android 5.0+
 
 // Manifest version information
 def versionMajor = 1

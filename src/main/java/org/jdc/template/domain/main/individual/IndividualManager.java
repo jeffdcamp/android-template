@@ -30,7 +30,7 @@ public class IndividualManager extends IndividualBaseManager {
     }
 
     public Observable<Cursor> findCursorIndividualsRx() {
-//        return findCursorAllRx(); // dbtoold 4.0.0
-        return RxUtil.toObservable(() -> findCursorIndividuals());
+//        return findCursorAllRx(); // dbtools 4.0.0
+        return RxUtil.just(() -> findCursorIndividuals());
     }
 }

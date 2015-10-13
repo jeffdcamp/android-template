@@ -42,7 +42,7 @@ public class StartupActivity extends Activity {
                 .setLabel(BuildConfig.BUILD_TYPE)
                 .build());
 
-        RxUtil.toObservable(() -> startup())
+        RxUtil.just(() -> startup())
                 .subscribeOn(Schedulers.io())
 //                .filter(success -> success) // bail on fail?
                 .observeOn(AndroidSchedulers.mainThread())

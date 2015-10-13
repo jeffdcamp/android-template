@@ -24,7 +24,6 @@ import org.jdc.template.event.EditIndividualEvent;
 import org.jdc.template.event.IndividualDeletedEvent;
 import org.jdc.template.event.IndividualSavedEvent;
 import org.jdc.template.ui.adapter.DirectoryAdapter;
-import org.jdc.template.util.RxUtil;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
@@ -37,6 +36,8 @@ import pocketknife.BindArgument;
 import pocketknife.PocketKnife;
 import pocketknife.SaveState;
 import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class DirectoryFragment extends BaseFragment implements SearchView.OnQueryTextListener, ActionMode.Callback {
     public static final String TAG = App.createTag(DirectoryFragment.class);
@@ -131,7 +132,10 @@ public class DirectoryFragment extends BaseFragment implements SearchView.OnQuer
     }
 
     public void loadList() {
-        Observable<Cursor> observable = RxUtil.simpleBackgroundRx(individualManager.findCursorIndividualsRx());
+        Observable<Cursor> observable = individualManager.findCursorIndividualsRx()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+
         addSubscription(observable.subscribe(cursor -> dataLoaded(cursor)));
     }
 

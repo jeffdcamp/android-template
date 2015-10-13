@@ -13,9 +13,7 @@ import javax.annotation.Nonnull;
 import retrofit.Call;
 import retrofit.Response;
 import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func0;
-import rx.schedulers.Schedulers;
 
 public final class RxUtil {
     public static final String TAG = App.createTag(RxUtil.class);
@@ -24,19 +22,17 @@ public final class RxUtil {
     }
 
     /**
-     * Create a simple observable that runs in the background and subscribes on the foreground
+     * Simple call to make any method a deferred Observable call
      */
-    public static <T> Observable<T> simpleBackgroundRx(Observable<T> observable) {
-        return observable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+    public static <T> Observable<T> just(Func0<T> func) {
+        return Observable.defer(() -> Observable.just(func.call()));
     }
 
     /**
-     * Simple call to make any method a deferred Observable call
-     * NOTE: Because Supplier is not available on Android, use Func0 instead
+     * Simple call to make any method a deferred Observable that emitts each item from an Iterable
      */
-    public static <T> Observable<T> toObservable(Func0<T> func) {
-        return Observable.defer(() -> Observable.just(func.call()));
+    public static <T> Observable<T> from(Func0<Iterable<T>> func) {
+        return Observable.defer(() -> Observable.from(func.call()));
     }
 
     // ***** Retrofit *****

@@ -20,7 +20,7 @@ public class RxTest {
     public static void testConcurrentPeople() {
         ExecutorService pool = Executors.newFixedThreadPool(3);
 
-        Observable.from(getData())
+        RxUtil.from(() -> getData())
                 // do all following calls on background thread
                 .subscribeOn(Schedulers.io())
 
