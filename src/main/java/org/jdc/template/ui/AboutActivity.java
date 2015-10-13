@@ -386,7 +386,7 @@ public class AboutActivity extends BaseActivity {
         RxUtil.toRetrofitObservable(webSearchService.search("Cat"))
                 .subscribeOn(Schedulers.io())
                 .map(response -> RxUtil.verifyRetrofitResponse(response))
-                .filter(dtoObject -> dtoObject != null) // don't continue if null
+                .filter(dtoSearchResponse -> dtoSearchResponse != null) // don't continue if null
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(dtoSearchResponse -> processSearchResponse(dtoSearchResponse), throwable -> Log.e(TAG, "Failed to get results", throwable));
     }
