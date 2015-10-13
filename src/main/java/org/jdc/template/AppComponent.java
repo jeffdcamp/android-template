@@ -13,7 +13,6 @@ import org.jdc.template.ui.SettingsActivity;
 import org.jdc.template.ui.SettingsFragment;
 import org.jdc.template.ui.StartupActivity;
 import org.jdc.template.ui.adapter.DirectoryAdapter;
-import org.jdc.template.ui.loader.DirectoryListLoader;
 import org.jdc.template.ui.tv.TVVideoSelectionFragment;
 
 import javax.inject.Singleton;
@@ -39,9 +38,6 @@ public interface AppComponent {
 
     // Adapters
     void inject(DirectoryAdapter target);
-
-    // Loaders
-    void inject(DirectoryListLoader target);
 
     // Exported for child-components.
     Application application();

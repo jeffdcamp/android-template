@@ -36,6 +36,8 @@ import org.jdc.template.domain.other.individuallist.IndividualList;
 import org.jdc.template.domain.other.individuallist.IndividualListManager;
 import org.jdc.template.domain.other.individuallistitem.IndividualListItem;
 import org.jdc.template.domain.other.individuallistitem.IndividualListItemManager;
+import org.jdc.template.util.RxTest;
+import org.jdc.template.util.RxUtil;
 import org.jdc.template.util.WebServiceUtil;
 import org.jdc.template.webservice.websearch.DtoResult;
 import org.jdc.template.webservice.websearch.DtoSearchResponse;
@@ -57,6 +59,8 @@ import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class AboutActivity extends BaseActivity {
     public static final String TAG = App.createTag(AboutActivity.class);
@@ -360,7 +364,7 @@ public class AboutActivity extends BaseActivity {
     @Inject
     WebServiceUtil webServiceUtil;
 
-    @OnClick(R.id.rest_test_button)
+//    @OnClick(R.id.rest_test_button)
     public void testQueryWebServiceCall() {
         Call<DtoSearchResponse> call = webSearchService.search("Cat");
 
@@ -375,6 +379,16 @@ public class AboutActivity extends BaseActivity {
                 Log.e(TAG, "Search FAILED");
             }
         });
+    }
+
+    @OnClick(R.id.rest_test_button)
+    public void testQueryWebServiceCallRx() {
+        RxUtil.toRetrofitObservable(webSearchService.search("Cat"))
+                .subscribeOn(Schedulers.io())
+                .map(response -> RxUtil.verifyRetrofitResponse(response))
+                .filter(dtoObject -> dtoObject != null) // don't continue if null
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(dtoSearchResponse -> processSearchResponse(dtoSearchResponse), throwable -> Log.e(TAG, "Failed to get results", throwable));
     }
 
 //    @OnClick(R.id.rest_test_button)
@@ -429,11 +443,15 @@ public class AboutActivity extends BaseActivity {
     private void processWebServiceResponse(Response<DtoSearchResponse> response) {
         if (response.isSuccess()) {
             Log.e(TAG, "Search SUCCESS");
-            for (DtoResult dtoResult : response.body().getResponseData().getResults()) {
-                Log.i(TAG, "Result: " + dtoResult.getTitle());
-            }
+            processSearchResponse(response.body());
         } else {
             Log.e(TAG, "Search FAILURE: code (" + response.code() + ")");
+        }
+    }
+
+    private void processSearchResponse(DtoSearchResponse searchResponse) {
+        for (DtoResult dtoResult : searchResponse.getResponseData().getResults()) {
+            Log.i(TAG, "Result: " + dtoResult.getTitle());
         }
     }
 
@@ -453,5 +471,10 @@ public class AboutActivity extends BaseActivity {
         Log.e(TAG, "Database changed transaction end.  Tables changed: " + event.getAllTableName());
         boolean myTableUpdated = event.containsTable(Individual.TABLE);
         Log.e(TAG, "Individual table updated: " + myTableUpdated);
+    }
+
+    @OnClick(R.id.rx_test_button)
+    public void testRx() {
+        RxTest.testConcurrentPeople();
     }
 }

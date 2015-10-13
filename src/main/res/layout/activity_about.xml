@@ -62,6 +62,13 @@
                 android:layout_gravity="center_horizontal"/>
 
             <Button
+                android:id="@+id/rx_test_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RX Test"
+                />
+
+            <Button
                 android:id="@+id/test_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

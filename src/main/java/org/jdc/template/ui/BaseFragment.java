@@ -7,15 +7,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
+import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
 
 public abstract class BaseFragment extends Fragment {
 
     @Inject
     EventBus bus;
+
+    private CompositeSubscription compositeSubscription = new CompositeSubscription();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -35,7 +40,6 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ButterKnife.unbind(this);
     }
 
     @Override
@@ -55,7 +59,18 @@ public abstract class BaseFragment extends Fragment {
         super.onStop();
     }
 
+    @Override
+    public void onDestroyView() {
+        ButterKnife.unbind(this);
+        compositeSubscription.unsubscribe();
+        super.onDestroyView();
+    }
+
     public boolean registerEventBus() {
         return false;
+    }
+
+    public void addSubscription(@Nonnull Subscription subscription) {
+        compositeSubscription.add(subscription);
     }
 }

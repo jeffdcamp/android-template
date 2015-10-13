@@ -2,8 +2,6 @@ package org.jdc.template.ui;
 
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,13 +17,14 @@ import com.google.android.gms.analytics.HitBuilders;
 import org.jdc.template.Analytics;
 import org.jdc.template.App;
 import org.jdc.template.R;
+import org.jdc.template.domain.main.individual.IndividualManager;
 import org.jdc.template.event.DirectoryItemClickedEvent;
 import org.jdc.template.event.DirectoryItemSelectedEvent;
 import org.jdc.template.event.EditIndividualEvent;
 import org.jdc.template.event.IndividualDeletedEvent;
 import org.jdc.template.event.IndividualSavedEvent;
 import org.jdc.template.ui.adapter.DirectoryAdapter;
-import org.jdc.template.ui.loader.DirectoryListLoader;
+import org.jdc.template.util.RxUtil;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
@@ -37,17 +36,19 @@ import de.greenrobot.event.Subscribe;
 import pocketknife.BindArgument;
 import pocketknife.PocketKnife;
 import pocketknife.SaveState;
+import rx.Observable;
 
-public class DirectoryFragment extends BaseFragment implements LoaderManager.LoaderCallbacks<Cursor>, SearchView.OnQueryTextListener, ActionMode.Callback {
+public class DirectoryFragment extends BaseFragment implements SearchView.OnQueryTextListener, ActionMode.Callback {
     public static final String TAG = App.createTag(DirectoryFragment.class);
 
     private static final String ARGS_DUAL_PANE = "DUAL_PANE";
 
     @Inject
     EventBus bus;
-
     @Inject
     Analytics analytics;
+    @Inject
+    IndividualManager individualManager;
 
     @Bind(R.id.recycler_list)
     RecyclerView recyclerView;
@@ -91,8 +92,6 @@ public class DirectoryFragment extends BaseFragment implements LoaderManager.Loa
         PocketKnife.restoreInstanceState(this, savedInstanceState);
         setHasOptionsMenu(true);
         setupRecyclerView();
-
-        getLoaderManager().restartLoader(0, null, this);
     }
 
     private void setupRecyclerView() {
@@ -126,9 +125,28 @@ public class DirectoryFragment extends BaseFragment implements LoaderManager.Loa
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        getLoaderManager().restartLoader(0, null, this);
+    public void onStart() {
+        super.onStart();
+        loadList();
+    }
+
+    public void loadList() {
+        Observable<Cursor> observable = RxUtil.simpleBackgroundRx(individualManager.findCursorIndividualsRx());
+        addSubscription(observable.subscribe(cursor -> dataLoaded(cursor)));
+    }
+
+    @Override
+    public void onDestroy() {
+        adapter.changeCursor(null); // close cursor
+        super.onDestroy();
+    }
+
+    public void dataLoaded(Cursor data) {
+        if (dualPane) {
+            selectPosition(lastSelectedId);
+        }
+
+        adapter.changeCursor(data);
     }
 
     @Subscribe
@@ -138,13 +156,13 @@ public class DirectoryFragment extends BaseFragment implements LoaderManager.Loa
 
     @Subscribe
     public void handle(IndividualSavedEvent event) {
-        getLoaderManager().restartLoader(0, null, this);
+        loadList();
         bus.post(new DirectoryItemSelectedEvent(event.getId()));
     }
 
     @Subscribe
     public void handle(IndividualDeletedEvent event) {
-        getLoaderManager().restartLoader(0, null, this);
+        loadList();
     }
 
     @Override
@@ -179,27 +197,6 @@ public class DirectoryFragment extends BaseFragment implements LoaderManager.Loa
     @Override
     public void onDestroyActionMode(ActionMode actionMode) {
         // destroy action mode
-    }
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new DirectoryListLoader(getActivity());
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        if (dualPane) {
-            selectPosition(lastSelectedId);
-        }
-
-        adapter.changeCursor(data);
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-        if (adapter != null) {
-            adapter.changeCursor(null);
-        }
     }
 
     private void selectPosition(long id) {
