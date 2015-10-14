@@ -132,7 +132,7 @@ public class DirectoryFragment extends BaseFragment implements SearchView.OnQuer
     }
 
     public void loadList() {
-        Observable<Cursor> observable = individualManager.findCursorIndividualsRx()
+        Observable<Cursor> observable = individualManager.findCursorAllRx()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
 
