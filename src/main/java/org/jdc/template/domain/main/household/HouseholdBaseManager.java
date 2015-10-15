@@ -11,11 +11,11 @@ package org.jdc.template.domain.main.household;
 
 import org.jdc.template.domain.DatabaseManager;
 import org.dbtools.android.domain.database.DatabaseWrapper;
-import org.dbtools.android.domain.AndroidBaseManagerWritable;
+import org.dbtools.android.domain.RxAndroidBaseManagerWritable;
 
 
 @SuppressWarnings("all")
-public abstract class HouseholdBaseManager extends AndroidBaseManagerWritable<Household> {
+public abstract class HouseholdBaseManager extends RxAndroidBaseManagerWritable<Household> {
 
     @javax.inject.Inject
      DatabaseManager databaseManager;

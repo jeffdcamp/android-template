@@ -28,7 +28,7 @@
             <field name="_id" jdbcDataType="BIGINT"/>
             <field name="NAME" jdbcDataType="VARCHAR"/>
         </view>
-        <query name="INDIVIDUAL_QUERY">
+        <query name="INDIVIDUAL_QUERY" readOnly="false">
             <field name="ID" jdbcDataType="BIGINT"/>
             <field name="NAME" jdbcDataType="VARCHAR"/>
         </query>
