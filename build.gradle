@@ -36,12 +36,12 @@ repositories {
 
 dependencies {
     // Android
-    compile 'com.android.support:appcompat-v7:23.0.1'
-    compile 'com.android.support:recyclerview-v7:23.0.1'
-    compile 'com.android.support:preference-v7:23.0.1'
-    compile 'com.android.support:design:23.0.1'
-    compile 'com.android.support:support-annotations:23.0.1' // includes support-v4
-    compile 'com.android.support:leanback-v17:23.0.1' // Support for AndroidTV
+    compile 'com.android.support:appcompat-v7:23.1.0'
+    compile 'com.android.support:recyclerview-v7:23.1.0'
+    compile 'com.android.support:preference-v7:23.1.0'
+    compile 'com.android.support:design:23.1.0'
+    compile 'com.android.support:support-annotations:23.1.0' // includes support-v4
+    compile 'com.android.support:leanback-v17:23.1.0' // Support for AndroidTV
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.google.android.gms:play-services-analytics:8.1.0'
 
@@ -58,7 +58,7 @@ dependencies {
     compile 'org.dbtools:dbtools-query:2.5.6'
     compile 'org.apache.commons:commons-lang3:3.4'
     compile 'commons-io:commons-io:2.4'
-    compile 'com.devbrackets.android:recyclerext:0.10.4'
+    compile 'com.devbrackets.android:recyclerext:0.11.1'
 
     // Dagger 2
     compile 'com.google.dagger:dagger:2.0.1'
@@ -76,7 +76,7 @@ dependencies {
     // Test (Integration)
     androidTestCompile ('com.android.support.test.espresso:espresso-core:2.2.1') {exclude module: 'jsr305'}
     androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
-    androidTestCompile 'com.android.support:support-annotations:23.0.1' // fix dependency conflict warning
+    androidTestCompile 'com.android.support:support-annotations:23.1.0' // fix dependency conflict warning
 //    androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.2'
 
     // Test (Unit)
