@@ -376,7 +376,7 @@ public class AboutActivity extends BaseActivity {
 
             @Override
             public void onFailure(Throwable t) {
-                Log.e(TAG, "Search FAILED");
+                Log.e(TAG, "Search FAILED", t);
             }
         });
     }
@@ -403,7 +403,7 @@ public class AboutActivity extends BaseActivity {
 
             @Override
             public void onFailure(Throwable t) {
-                Log.e(TAG, "Search FAILED");
+                Log.e(TAG, "Search FAILED", t);
             }
         });
     }

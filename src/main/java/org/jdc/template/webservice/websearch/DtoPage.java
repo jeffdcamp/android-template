@@ -1,8 +1,5 @@
 package org.jdc.template.webservice.websearch;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class DtoPage {
     private String start;
     private int label;

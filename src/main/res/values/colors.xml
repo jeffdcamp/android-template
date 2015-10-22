@@ -3,7 +3,7 @@
     <!-- Primary App Colors -->
     <color name="primary">#F1433C</color>
     <color name="primary_dark">#D03033</color>
-    <color name="accent">#02A8F3</color>
+    <color name="accent">#027bc7</color>
 
     <!-- Splash -->
     <color name="startup_background_start">#cfe1edFF</color>

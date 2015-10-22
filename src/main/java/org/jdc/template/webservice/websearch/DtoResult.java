@@ -1,10 +1,7 @@
 package org.jdc.template.webservice.websearch;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import java.util.List;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class DtoResult {
     private String unescapedUrl;
     private String url;
