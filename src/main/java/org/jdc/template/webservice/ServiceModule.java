@@ -3,7 +3,6 @@ package org.jdc.template.webservice;
 import android.app.Application;
 import android.util.Base64;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -25,7 +24,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import retrofit.JacksonConverterFactory;
+import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
 
 @Module
@@ -37,7 +36,6 @@ public class ServiceModule {
 
     // Log level
     private LoggingInterceptor.LogLevel serviceLogLevel = LoggingInterceptor.LogLevel.BASIC;
-    private JacksonConverterFactory jacksonConverterFactory = JacksonConverterFactory.create(new ObjectMapper());
     private String userAgent;
 
     public String getUserAgent(@Nonnull Application application) {
@@ -110,13 +108,15 @@ public class ServiceModule {
 
     @Provides
     @Singleton
-    public WebSearchService getSearchService(@Nonnull final Application application, @Nonnull @Named(STANDARD_CLIENT) OkHttpClient client) {
+    public WebSearchService getSearchService(@Nonnull final Application application,
+                                             @Nonnull @Named(STANDARD_CLIENT) OkHttpClient client,
+                                             @Nonnull GsonConverterFactory converterFactory) {
         setupStandardHeader(application, client);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(WebSearchService.BASE_URL)
                 .client(client)
-                .addConverterFactory(jacksonConverterFactory)
+                .addConverterFactory(converterFactory)
                 .build();
 
         return retrofit.create(WebSearchService.class);

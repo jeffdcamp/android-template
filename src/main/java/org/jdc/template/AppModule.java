@@ -9,10 +9,14 @@ import android.util.Log;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.dbtools.android.domain.DBToolsEventBus;
 import org.dbtools.android.domain.event.GreenRobotEventBus;
 import org.jdc.template.webservice.ServiceModule;
+import org.jdc.template.webservice.converter.DateTimeTypeConverter;
+import org.joda.time.DateTime;
 
 import java.util.Map;
 
@@ -21,6 +25,9 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import de.greenrobot.event.EventBus;
+import retrofit.GsonConverterFactory;
+
+import static retrofit.GsonConverterFactory.create;
 
 @Module(includes = {
         ServiceModule.class
@@ -77,5 +84,20 @@ public class AppModule {
         Tracker tracker = googleAnalytics.newTracker(BuildConfig.ANALYTICS_KEY);
         // tracker.setSessionTimeout(300); // default is 30 seconds
         return new Analytics.GoogleAnalytics(tracker);
+    }
+
+    @Provides
+    @Singleton
+    Gson provideGson() {
+        GsonBuilder builder = new GsonBuilder()
+//                .setPrettyPrinting() // NOSONAR - DEBUG
+                .registerTypeAdapter(DateTime.class, new DateTimeTypeConverter());
+        return builder.create();
+    }
+
+    @Provides
+    @Singleton
+    GsonConverterFactory provideGsonConverterFactory(Gson gson) {
+        return create(gson);
     }
 }
