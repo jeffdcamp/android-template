@@ -11,9 +11,12 @@ buildscript {
     }
 }
 
+plugins {
+    id "org.sonarqube" version "1.0"
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'dbtools'
-apply plugin: 'sonar-runner'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.ben-manes.versions' // ./gradlew dependencyUpdates -Drevision=release
 
@@ -186,8 +189,8 @@ android {
     }
 }
 
-sonarRunner {
-    sonarProperties {
+sonarqube {
+    properties {
         if (!project.hasProperty('mySonarHostUrl')) {
             println '!!!! Sonar properties must be set in your gradle.properties !!!!'
             return
