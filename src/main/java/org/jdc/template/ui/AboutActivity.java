@@ -15,8 +15,10 @@ import com.squareup.okhttp.ResponseBody;
 import org.apache.commons.io.FileUtils;
 import org.dbtools.android.domain.database.DatabaseWrapper;
 import org.dbtools.android.domain.event.DatabaseChangeEvent;
+import org.dbtools.android.domain.event.DatabaseChangeType;
 import org.dbtools.android.domain.event.DatabaseEndTransactionEvent;
 import org.dbtools.android.domain.event.DatabaseInsertEvent;
+import org.dbtools.android.domain.event.DatabaseRowChange;
 import org.dbtools.android.domain.event.GreenRobotEventBus;
 import org.jdc.template.Analytics;
 import org.jdc.template.App;
@@ -36,7 +38,6 @@ import org.jdc.template.domain.other.individuallist.IndividualList;
 import org.jdc.template.domain.other.individuallist.IndividualListManager;
 import org.jdc.template.domain.other.individuallistitem.IndividualListItem;
 import org.jdc.template.domain.other.individuallistitem.IndividualListItemManager;
-import org.jdc.template.util.RxTest;
 import org.jdc.template.util.RxUtil;
 import org.jdc.template.util.WebServiceUtil;
 import org.jdc.template.webservice.websearch.DtoResult;
@@ -59,6 +60,7 @@ import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -475,6 +477,51 @@ public class AboutActivity extends BaseActivity {
 
     @OnClick(R.id.rx_test_button)
     public void testRx() {
-        RxTest.testConcurrentPeople();
+        // Sample tests for Rx
+        // RxTest.testConcurrentPeople();
+
+        // Subscribe
+        Subscription tableChangeSubscription = individualManager.tableChanges()
+                .subscribe(changeType -> handleRxIndividualTableChange(changeType));
+
+        Subscription rowChangeSubscription = individualManager.rowChanges()
+                .subscribe(databaseRowChange -> handleRxDatabaseRowChange(databaseRowChange));
+
+
+        // Make some changes
+        String originalName;
+
+        Individual individual = individualManager.findAll().get(0);
+        if (individual != null) {
+            originalName = individual.getFirstName();
+            Log.e(TAG, "ORIGINAL NAME = " + originalName);
+
+            // change name
+            individual.setFirstName("Bobby");
+            individualManager.save(individual);
+
+            // restore name
+            individual.setFirstName(originalName);
+            individualManager.save(individual);
+        } else {
+            Log.e(TAG, "Cannot find individual");
+        }
+
+        // Unsubscribe
+        tableChangeSubscription.unsubscribe();
+        rowChangeSubscription.unsubscribe();
+    }
+
+    public void handleRxIndividualTableChange(DatabaseChangeType changeType) {
+        Log.e(TAG, "Individual Table Changed [" + changeType + "]");
+    }
+
+    public void handleRxDatabaseRowChange(DatabaseRowChange change) {
+        Individual individual = individualManager.findByRowId(change.getRowId());
+        if (individual != null) {
+            Log.e(TAG, "DATABASE CHANGE: NAME = " + individual.getFirstName());
+        } else {
+            Log.e(TAG, "Cannot find individual for row change");
+        }
     }
 }

@@ -57,7 +57,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.4' // override the version from retrofit
     compile 'com.squareup.retrofit:converter-gson:2.0.0-beta2'
     compile 'joda-time:joda-time:2.8.2'
-    compile 'org.dbtools:dbtools-android:4.0.2'
+    compile 'org.dbtools:dbtools-android:4.1.1'
     compile 'org.dbtools:dbtools-query:2.5.6'
     compile 'org.apache.commons:commons-lang3:3.4'
     compile 'commons-io:commons-io:2.4'
