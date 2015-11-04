@@ -31,6 +31,8 @@ import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 import pocketknife.BindArgument;
 import pocketknife.PocketKnife;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class IndividualFragment extends Fragment {
     public static final String TAG = App.createTag(IndividualFragment.class);
@@ -116,8 +118,14 @@ public class IndividualFragment extends Fragment {
             return;
         }
 
-        Individual individual = individualManager.findByRowId(individualId);
-        if (individual != null) {
+        individualManager.findByRowIdRx(individualId)
+                .subscribeOn(Schedulers.io())
+                .filter(individual -> individual != null)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(individual -> setUi(individual));
+    }
+
+    private void setUi(@Nonnull Individual individual) {
             analytics.send(new HitBuilders.EventBuilder()
                     .setCategory(Analytics.CATEGORY_INDIVIDUAL)
                     .setAction(Analytics.ACTION_VIEW)
@@ -126,7 +134,6 @@ public class IndividualFragment extends Fragment {
             nameTextView.setText(individual.getFullName());
             phoneTextView.setText(individual.getPhone());
             emailTextView.setText(individual.getEmail());
-        }
     }
 
     private void deleteIndividual() {
