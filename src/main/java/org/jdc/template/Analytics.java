@@ -7,7 +7,7 @@ import java.util.Map;
 public interface Analytics {
     public static final String TAG = App.createTag(Analytics.class);
 
-    // Categorys
+    // Categories
     public String CATEGORY_APP = "App";
     public String CATEGORY_INDIVIDUAL = "Individual";
     public String CATEGORY_ABOUT = "About";
