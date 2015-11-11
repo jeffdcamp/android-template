@@ -41,7 +41,7 @@ dependencies {
     // Android
     compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.android.support:recyclerview-v7:23.1.0'
-    compile 'com.android.support:preference-v7:23.1.0'
+    compile 'com.android.support:preference-v14:23.1.0'
     compile 'com.android.support:design:23.1.0'
     compile 'com.android.support:support-annotations:23.1.0' // includes support-v4
     compile 'com.android.support:leanback-v17:23.1.0' // Support for AndroidTV
@@ -94,7 +94,7 @@ android {
     buildToolsVersion '23.0.2'
 
     defaultConfig {
-        minSdkVersion 10
+        minSdkVersion 15
         targetSdkVersion 23
 
         if (artOnly) {
