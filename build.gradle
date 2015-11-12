@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.5.0-beta3'
+        classpath 'com.android.tools.build:gradle:1.5.0'
         classpath 'org.dbtools:gradle-dbtools-plugin:4.0.2'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.10.1' // version plugin support
     }
@@ -39,12 +39,12 @@ repositories {
 
 dependencies {
     // Android
-    compile 'com.android.support:appcompat-v7:23.1.0'
-    compile 'com.android.support:recyclerview-v7:23.1.0'
-    compile 'com.android.support:preference-v14:23.1.0'
-    compile 'com.android.support:design:23.1.0'
-    compile 'com.android.support:support-annotations:23.1.0' // includes support-v4
-    compile 'com.android.support:leanback-v17:23.1.0' // Support for AndroidTV
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:recyclerview-v7:23.1.1'
+    compile 'com.android.support:preference-v14:23.1.1'
+    compile 'com.android.support:design:23.1.1'
+    compile 'com.android.support:support-annotations:23.1.1' // includes support-v4
+    compile 'com.android.support:leanback-v17:23.1.1' // Support for AndroidTV
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.google.android.gms:play-services-analytics:8.3.0'
 
@@ -57,7 +57,7 @@ dependencies {
     compile 'com.google.code.findbugs:jsr305:3.0.1'
     compile 'com.google.code.gson:gson:2.4' // override the version from retrofit
     compile 'com.squareup.retrofit:converter-gson:2.0.0-beta2'
-    compile 'joda-time:joda-time:2.9'
+    compile 'joda-time:joda-time:2.9.1'
     compile 'org.dbtools:dbtools-android:4.1.2'
     compile 'org.dbtools:dbtools-query:2.5.6'
     compile 'org.apache.commons:commons-lang3:3.4'
@@ -80,7 +80,7 @@ dependencies {
     // Test (Integration)
     androidTestCompile ('com.android.support.test.espresso:espresso-core:2.2.1') {exclude module: 'jsr305'}
     androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
-    androidTestCompile 'com.android.support:support-annotations:23.1.0' // fix dependency conflict warning
+    androidTestCompile 'com.android.support:support-annotations:23.1.1' // fix dependency conflict warning
 //    androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.2'
 
     // Test (Unit)
