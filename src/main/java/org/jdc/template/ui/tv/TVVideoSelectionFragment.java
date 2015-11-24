@@ -82,7 +82,7 @@ public class TVVideoSelectionFragment extends BrowseFragment {
 
     private void setupUIElements() {
         setTitle(getString(R.string.app_name));
-        setBadgeDrawable(getResources().getDrawable(R.drawable.ic_launcher));
+        setBadgeDrawable(getResources().getDrawable(R.mipmap.ic_launcher));
 
         setHeadersState(HEADERS_DISABLED);
         enableSearchSelectionWorkaround();
