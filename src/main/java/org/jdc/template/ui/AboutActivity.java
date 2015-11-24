@@ -22,6 +22,7 @@ import org.jdc.template.Analytics;
 import org.jdc.template.App;
 import org.jdc.template.BuildConfig;
 import org.jdc.template.R;
+import org.jdc.template.dagger.Injector;
 import org.jdc.template.domain.DatabaseManager;
 import org.jdc.template.domain.attached.crossdatabasequery.CrossDatabaseQuery;
 import org.jdc.template.domain.attached.crossdatabasequery.CrossDatabaseQueryManager;
@@ -78,7 +79,7 @@ public class AboutActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
         ButterKnife.bind(this);
-        App.getInjectComponent(this).inject(this);
+        Injector.get().inject(this);
 
         analytics.send(new HitBuilders.EventBuilder()
                 .setCategory(Analytics.CATEGORY_ABOUT)

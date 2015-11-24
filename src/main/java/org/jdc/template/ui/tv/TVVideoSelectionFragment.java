@@ -24,6 +24,7 @@ import android.view.View;
 
 import org.jdc.template.App;
 import org.jdc.template.R;
+import org.jdc.template.dagger.Injector;
 
 import java.lang.reflect.Field;
 
@@ -64,7 +65,7 @@ public class TVVideoSelectionFragment extends BrowseFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        App.getInjectComponent(this).inject(this);
+        Injector.get().inject(this);
 
         initializeBackgroundManager();
         setupUIElements();

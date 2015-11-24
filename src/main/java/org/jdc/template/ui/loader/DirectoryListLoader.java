@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.content.CursorLoader;
 
-import org.jdc.template.App;
+import org.jdc.template.dagger.Injector;
 import org.jdc.template.domain.main.individual.IndividualManager;
 
 import javax.inject.Inject;
@@ -15,7 +15,7 @@ public class DirectoryListLoader extends CursorLoader {
 
     public DirectoryListLoader(Context context) {
         super(context);
-        App.getInjectComponent(context).inject(this);
+        Injector.get().inject(this);
     }
 
     @Override

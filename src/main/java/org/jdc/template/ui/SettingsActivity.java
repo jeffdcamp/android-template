@@ -3,15 +3,15 @@ package org.jdc.template.ui;
 import android.content.Intent;
 import android.os.Bundle;
 
-import org.jdc.template.App;
 import org.jdc.template.R;
+import org.jdc.template.dagger.Injector;
 
 
 public class SettingsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        App.getInjectComponent(this).inject(this);
+        Injector.get().inject(this);
         setContentView(R.layout.activity_single_fragment_no_toolbar);
 
         enableActionBarBackArrow(true);

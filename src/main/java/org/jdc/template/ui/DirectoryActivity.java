@@ -5,9 +5,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import org.jdc.template.App;
 import org.jdc.template.InternalIntents;
 import org.jdc.template.R;
+import org.jdc.template.dagger.Injector;
 import org.jdc.template.event.DirectoryItemSelectedEvent;
 import org.jdc.template.event.EditIndividualEvent;
 import org.jdc.template.ui.menu.CommonMenu;
@@ -36,7 +36,7 @@ public class DirectoryActivity extends DrawerActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.directory_list);
-        App.getInjectComponent(this).inject(this);
+        Injector.get().inject(this);
         ButterKnife.bind(this);
 
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);

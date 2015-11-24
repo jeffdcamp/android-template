@@ -1,7 +1,8 @@
-package org.jdc.template;
+package org.jdc.template.dagger;
 
 import android.app.Application;
 
+import org.jdc.template.App;
 import org.jdc.template.ui.AboutActivity;
 import org.jdc.template.ui.DirectoryActivity;
 import org.jdc.template.ui.DirectoryFragment;
