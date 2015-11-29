@@ -6,8 +6,8 @@ import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.widget.Toolbar;
 
-import org.jdc.template.App;
 import org.jdc.template.R;
+import org.jdc.template.dagger.Injector;
 
 import butterknife.Bind;
 
@@ -23,7 +23,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        App.getInjectComponent(this).inject(this);
+        Injector.get().inject(this);
         super.onCreate(savedInstanceState); // must be done after inject(this) so that onCreatePreferences(...) can use injected variables
     }
 

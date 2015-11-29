@@ -17,6 +17,7 @@ import com.google.android.gms.analytics.HitBuilders;
 import org.jdc.template.Analytics;
 import org.jdc.template.App;
 import org.jdc.template.R;
+import org.jdc.template.dagger.Injector;
 import org.jdc.template.domain.main.individual.Individual;
 import org.jdc.template.domain.main.individual.IndividualManager;
 import org.jdc.template.event.EditIndividualEvent;
@@ -71,7 +72,7 @@ public class IndividualFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        App.getInjectComponent(this).inject(this);
+        Injector.get().inject(this);
         PocketKnife.bindArguments(this);
         setHasOptionsMenu(true);
     }

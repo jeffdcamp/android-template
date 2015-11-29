@@ -5,8 +5,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import org.jdc.template.App;
 import org.jdc.template.R;
+import org.jdc.template.dagger.Injector;
 import org.jdc.template.event.IndividualSavedEvent;
 
 import butterknife.Bind;
@@ -29,7 +29,7 @@ public class IndividualEditActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_single);
-        App.getInjectComponent(this).inject(this);
+        Injector.get().inject(this);
         ButterKnife.bind(this);
         PocketKnife.bindExtras(this);
 

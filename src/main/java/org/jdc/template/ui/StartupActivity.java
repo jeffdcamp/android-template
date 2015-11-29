@@ -8,11 +8,12 @@ import android.util.Log;
 import com.google.android.gms.analytics.HitBuilders;
 
 import org.jdc.template.Analytics;
-import org.jdc.template.App;
 import org.jdc.template.BuildConfig;
 import org.jdc.template.R;
 import org.jdc.template.domain.DatabaseManager;
 import org.jdc.template.util.RxUtil;
+import org.jdc.template.dagger.Injector;
+import org.jdc.template.task.StartupTask;
 
 import javax.inject.Inject;
 
@@ -34,7 +35,7 @@ public class StartupActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        App.getInjectComponent(this).inject(this);
+        Injector.get().inject(this);
 
         analytics.send(new HitBuilders.EventBuilder()
                 .setCategory(Analytics.CATEGORY_APP)

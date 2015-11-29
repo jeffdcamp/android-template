@@ -3,9 +3,9 @@ package org.jdc.template.ui;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
-import org.jdc.template.App;
 import org.jdc.template.InternalIntents;
 import org.jdc.template.R;
+import org.jdc.template.dagger.Injector;
 import org.jdc.template.event.EditIndividualEvent;
 import org.jdc.template.event.IndividualDeletedEvent;
 
@@ -34,7 +34,7 @@ public class IndividualActivity extends DrawerActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_drawer_single);
-        App.getInjectComponent(this).inject(this);
+        Injector.get().inject(this);
         ButterKnife.bind(this);
         PocketKnife.bindExtras(this);
 
