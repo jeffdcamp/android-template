@@ -8,12 +8,12 @@ import android.util.Log;
 import com.google.android.gms.analytics.HitBuilders;
 
 import org.jdc.template.Analytics;
+import org.jdc.template.App;
 import org.jdc.template.BuildConfig;
 import org.jdc.template.R;
+import org.jdc.template.dagger.Injector;
 import org.jdc.template.domain.DatabaseManager;
 import org.jdc.template.util.RxUtil;
-import org.jdc.template.dagger.Injector;
-import org.jdc.template.task.StartupTask;
 
 import javax.inject.Inject;
 
