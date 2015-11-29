@@ -74,6 +74,19 @@
                 android:layout_height="wrap_content"
                 android:text="Test"
                 />
+            <Button
+                android:id="@+id/test_kotlin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kotlin Activity"
+                />
+
+            <Button
+                android:id="@+id/test_java_kotlin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Java to Kotlin"
+                />
 
         </LinearLayout>
     </ScrollView>

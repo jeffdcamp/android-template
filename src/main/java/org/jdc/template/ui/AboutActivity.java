@@ -1,5 +1,6 @@
 package org.jdc.template.ui;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -28,6 +29,7 @@ import org.jdc.template.dagger.Injector;
 import org.jdc.template.domain.DatabaseManager;
 import org.jdc.template.domain.attached.crossdatabasequery.CrossDatabaseQuery;
 import org.jdc.template.domain.attached.crossdatabasequery.CrossDatabaseQueryManager;
+import org.jdc.template.domain.individual.KotlinIndividualManager;
 import org.jdc.template.domain.main.household.Household;
 import org.jdc.template.domain.main.household.HouseholdManager;
 import org.jdc.template.domain.main.individual.Individual;
@@ -39,6 +41,7 @@ import org.jdc.template.domain.other.individuallist.IndividualList;
 import org.jdc.template.domain.other.individuallist.IndividualListManager;
 import org.jdc.template.domain.other.individuallistitem.IndividualListItem;
 import org.jdc.template.domain.other.individuallistitem.IndividualListItemManager;
+import org.jdc.template.ui.util.KotlinMathUtil;
 import org.jdc.template.util.RxUtil;
 import org.jdc.template.util.WebServiceUtil;
 import org.jdc.template.webservice.websearch.DtoResult;
@@ -524,5 +527,27 @@ public class AboutActivity extends BaseActivity {
         } else {
             Log.e(TAG, "Cannot find individual for row change");
         }
+    }
+
+    @Inject
+    KotlinIndividualManager kIndividualManager;
+
+    @OnClick(R.id.test_kotlin)
+    public void onKotlinClick() {
+        Toast.makeText(this, "Kotlin Individual Manager Count: " + kIndividualManager.findCount(), Toast.LENGTH_LONG).show();
+
+        Intent intent = new Intent(this, KotlinActivity.class);
+        intent.putExtra(KotlinActivity.EXTRA_MESSAGE, "Hello Extras!");
+        startActivity(intent);
+    }
+
+    @Inject
+    KotlinMathUtil kotlinMathUtil;
+
+    @OnClick(R.id.test_java_kotlin)
+    public void onJavaToKotlinClick() {
+        kotlinMathUtil.list();
+
+        Toast.makeText(this, "Kotlin Math: " + kotlinMathUtil.add(2, 3), Toast.LENGTH_LONG).show();
     }
 }

@@ -37,6 +37,7 @@
         <activity android:name=".ui.IndividualActivity"/>
         <activity android:name=".ui.IndividualEditActivity"/>
         <activity android:name=".ui.AboutActivity"/>
+        <activity android:name=".ui.KotlinActivity"/>
 
         <activity
             android:name=".ui.SettingsActivity"
