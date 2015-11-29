@@ -1,4 +1,4 @@
-package org.jdc.template;
+package org.jdc.template.dagger;
 
 import android.app.Application;
 import android.app.NotificationManager;
@@ -14,6 +14,8 @@ import com.google.gson.GsonBuilder;
 
 import org.dbtools.android.domain.DBToolsEventBus;
 import org.dbtools.android.domain.event.GreenRobotEventBus;
+import org.jdc.template.Analytics;
+import org.jdc.template.BuildConfig;
 import org.jdc.template.webservice.ServiceModule;
 import org.jdc.template.webservice.converter.DateTimeTypeConverter;
 import org.joda.time.DateTime;
@@ -33,16 +35,16 @@ import static retrofit.GsonConverterFactory.create;
         ServiceModule.class
 })
 public class AppModule {
-    private final App app;
+    private Application application;
 
-    public AppModule(App application) {
-        this.app = application;
+    public AppModule(Application application) {
+        this.application = application;
     }
 
     @Provides
     @Singleton
     Application provideApplication() {
-        return app;
+        return application;
     }
 
     @Provides
@@ -80,7 +82,7 @@ public class AppModule {
 
         }
 
-        GoogleAnalytics googleAnalytics = GoogleAnalytics.getInstance(app);
+        GoogleAnalytics googleAnalytics = GoogleAnalytics.getInstance(application);
         Tracker tracker = googleAnalytics.newTracker(BuildConfig.ANALYTICS_KEY);
         // tracker.setSessionTimeout(300); // default is 30 seconds
         return new Analytics.GoogleAnalytics(tracker);

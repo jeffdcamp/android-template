@@ -18,6 +18,7 @@ import org.jdc.template.Analytics;
 import org.jdc.template.App;
 import org.jdc.template.R;
 import org.jdc.template.domain.main.individual.IndividualManager;
+import org.jdc.template.dagger.Injector;
 import org.jdc.template.event.DirectoryItemClickedEvent;
 import org.jdc.template.event.DirectoryItemSelectedEvent;
 import org.jdc.template.event.EditIndividualEvent;
@@ -89,7 +90,7 @@ public class DirectoryFragment extends BaseFragment implements SearchView.OnQuer
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        App.getInjectComponent(this).inject(this);
+        Injector.get().inject(this);
         PocketKnife.restoreInstanceState(this, savedInstanceState);
         setHasOptionsMenu(true);
         setupRecyclerView();
