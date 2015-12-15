@@ -37,20 +37,26 @@ repositories {
     jcenter()
 }
 
+ext {
+    // versions for libraries that multiple dependencies
+    supportLibVersion = "23.1.1"
+    daggerVersion = "2.0.2"
+    pocketKnifeVersion = "3.1.0"
+}
 dependencies {
     // Android
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.android.support:recyclerview-v7:23.1.1'
-    compile 'com.android.support:preference-v14:23.1.1'
-    compile 'com.android.support:design:23.1.1'
-    compile 'com.android.support:support-annotations:23.1.1' // includes support-v4
-    compile 'com.android.support:leanback-v17:23.1.1' // Support for AndroidTV
+    compile "com.android.support:appcompat-v7:${supportLibVersion}"
+    compile "com.android.support:recyclerview-v7:${supportLibVersion}"
+    compile "com.android.support:preference-v14:${supportLibVersion}"
+    compile "com.android.support:design:${supportLibVersion}"
+    compile "com.android.support:support-annotations:${supportLibVersion}" // includes support-v4
+    compile "com.android.support:leanback-v17:${supportLibVersion}" // Support for AndroidTV
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.google.android.gms:play-services-analytics:8.3.0'
 
     // UI
-    compile 'com.vikingsen:pocketknife-core:3.1.0'
-    provided 'com.vikingsen:pocketknife-compiler:3.1.0'
+    compile "com.vikingsen:pocketknife-core:${pocketKnifeVersion}"
+    provided "com.vikingsen:pocketknife-compiler:${pocketKnifeVersion}"
     compile 'com.jakewharton:butterknife:7.0.1'
 
     // Code
@@ -62,11 +68,11 @@ dependencies {
     compile 'org.dbtools:dbtools-query:2.5.6'
     compile 'org.apache.commons:commons-lang3:3.4'
     compile 'commons-io:commons-io:2.4'
-    compile 'com.devbrackets.android:recyclerext:0.12.3'
+    compile 'com.devbrackets.android:recyclerext:0.14.0'
 
     // Dagger 2
-    compile 'com.google.dagger:dagger:2.0.2'
-    provided 'com.google.dagger:dagger-compiler:2.0.2'
+    compile "com.google.dagger:dagger:${daggerVersion}"
+    provided "com.google.dagger:dagger-compiler:${daggerVersion}"
     provided 'javax.annotation:javax.annotation-api:1.2' // Dagger 2 dependency which is not available in Java 6
 
     // Greenrobot EventBus
