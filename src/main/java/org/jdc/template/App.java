@@ -7,7 +7,10 @@ import android.content.pm.PackageManager;
 import android.support.multidex.MultiDex;
 import android.util.Log;
 
+import com.evernote.android.job.JobManager;
+
 import org.jdc.template.dagger.Injector;
+import org.jdc.template.job.AppJobCreator;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -23,7 +26,8 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         Injector.init(this);
-        enableStrictMode();
+        JobManager.create(this).addJobCreator(new AppJobCreator());
+//        enableStrictMode();
     }
 
     @Override

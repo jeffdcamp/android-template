@@ -2,16 +2,16 @@ package org.jdc.template.webservice;
 
 import android.util.Log;
 
-import com.squareup.okhttp.Interceptor;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
-import com.squareup.okhttp.ResponseBody;
-
 import org.jdc.template.App;
 
 import java.io.IOException;
+
+import okhttp3.Interceptor;
+import okhttp3.MediaType;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 public class LoggingInterceptor implements Interceptor {
 
@@ -36,7 +36,7 @@ public class LoggingInterceptor implements Interceptor {
 
         // Log
         long t1 = System.nanoTime();
-        Log.i(TAG, String.format("---> %s %s %s", request.url().getProtocol(), request.method(), request.url()));
+        Log.i(TAG, String.format("---> %s %s %s", request.url().url().getProtocol(), request.method(), request.url()));
         if (showLog(LogLevel.HEADERS)) {
             Log.i(TAG, String.format("HEADERS%n%s", request.headers()));
         }
@@ -56,7 +56,7 @@ public class LoggingInterceptor implements Interceptor {
 
         // Log
         long t2 = System.nanoTime();
-        Log.i(TAG, String.format("<--- %s %s %s (%.1fms)", response.request().url().getProtocol(), response.code(), response.request().url(),
+        Log.i(TAG, String.format("<--- %s %s %s (%.1fms)", response.request().url().url().getProtocol(), response.code(), response.request().url(),
                 (t2 - t1) / NANO_IN_MILLIS));
         if (showLog(LogLevel.HEADERS)) {
             Log.i(TAG, String.format("HEADERS%n%s", response.headers()));

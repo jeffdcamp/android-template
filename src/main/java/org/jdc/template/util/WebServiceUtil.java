@@ -2,9 +2,6 @@ package org.jdc.template.util;
 
 import android.util.Log;
 
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.ResponseBody;
-
 import org.apache.commons.io.FileUtils;
 import org.jdc.template.App;
 
@@ -14,13 +11,13 @@ import java.io.IOException;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import retrofit.Response;
+import okhttp3.ResponseBody;
+import retrofit2.Response;
+
 
 @Singleton
 public class WebServiceUtil {
     private static final String TAG = App.createTag(WebServiceUtil.class);
-
-    public static final MediaType JSON_MEDIA_TYPE = MediaType.parse("application/json; charset=utf-8");
 
     @Inject
     public WebServiceUtil() {
@@ -28,7 +25,7 @@ public class WebServiceUtil {
     }
 
     public boolean saveResponseToFile(Response<ResponseBody> response, File outputFile) {
-        Log.d(TAG, "Saving response [" + response.raw().request().urlString() + "] to file [" + outputFile.getAbsolutePath() + "]...");
+        Log.d(TAG, "Saving response [" + response.raw().request().url().url().toString() + "] to file [" + outputFile.getAbsolutePath() + "]...");
         boolean success = false;
         try {
             FileUtils.copyInputStreamToFile(response.body().byteStream(), outputFile); // Closes all streams
