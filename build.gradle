@@ -111,7 +111,6 @@ android {
         versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
         versionName versionMajorMinorPatch
         buildConfigField "String", "USER_AGENT_APP_NAME", "\"AndroidTemplate\""
-        buildConfigField "long", "BUILD_TIME", "${buildTime}l"
         buildConfigField "String", "ANALYTICS_KEY", "\"${getAnalyticsKey()}\""
 
         multiDexEnabled true
@@ -171,13 +170,14 @@ android {
             versionNameSuffix '-DEV'
             applicationIdSuffix '.dev'
             buildConfigField "String", "VERSION_NAME_FULL", "\"${versionMajorMinorPatchBuild}-DEV\""
-//            signingConfig signingConfigs.prodConfig
+            buildConfigField "long", "BUILD_TIME", "0l" // to improve build times, do allow change on every build
         }
         alpha {
             initWith(buildTypes.release)
             versionNameSuffix '-ALPHA'
             applicationIdSuffix '.dev'
             buildConfigField "String", "VERSION_NAME_FULL", "\"${versionMajorMinorPatchBuild}-ALPHA\""
+            buildConfigField "long", "BUILD_TIME", "${buildTime}l"
             debuggable true
             signingConfig signingConfigs.prodConfig
         }
@@ -185,10 +185,12 @@ android {
             initWith(buildTypes.release)
             versionNameSuffix '-BETA'
             buildConfigField "String", "VERSION_NAME_FULL", "\"${versionMajorMinorPatchBuild}-BETA\""
+            buildConfigField "long", "BUILD_TIME", "${buildTime}l"
             signingConfig signingConfigs.prodConfig
         }
         release {
             buildConfigField "String", "VERSION_NAME_FULL", "\"${versionMajorMinorPatchBuild}\""
+            buildConfigField "long", "BUILD_TIME", "${buildTime}l"
             versionNameSuffix ''
             minifyEnabled true
             shrinkResources true
