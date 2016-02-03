@@ -8,7 +8,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:1.5.0'
         classpath 'me.tatarka:gradle-retrolambda:3.2.3'
         classpath 'org.dbtools:gradle-dbtools-plugin:4.0.2'
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.10.1' // version plugin support
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.12.0' // version plugin support
     }
 }
 
@@ -39,36 +39,43 @@ repositories {
     jcenter()
 }
 
+ext {
+    // versions for libraries that multiple dependencies
+    supportLibVersion = "23.1.1"
+    daggerVersion = "2.0.2"
+    pocketKnifeVersion = "3.1.0"
+}
 dependencies {
     // Android
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.android.support:recyclerview-v7:23.1.1'
-    compile 'com.android.support:preference-v14:23.1.1'
-    compile 'com.android.support:design:23.1.1'
-    compile 'com.android.support:support-annotations:23.1.1' // includes support-v4
-    compile 'com.android.support:leanback-v17:23.1.1' // Support for AndroidTV
+    compile "com.android.support:appcompat-v7:${supportLibVersion}"
+    compile "com.android.support:recyclerview-v7:${supportLibVersion}"
+    compile "com.android.support:preference-v14:${supportLibVersion}"
+    compile "com.android.support:design:${supportLibVersion}"
+    compile "com.android.support:support-annotations:${supportLibVersion}" // includes support-v4
+    compile "com.android.support:leanback-v17:${supportLibVersion}" // Support for AndroidTV
     compile 'com.android.support:multidex:1.0.1'
-    compile 'com.google.android.gms:play-services-analytics:8.3.0'
+    compile 'com.google.android.gms:play-services-analytics:8.4.0'
 
     // UI
-    compile 'com.vikingsen:pocketknife-core:3.1.0'
-    provided 'com.vikingsen:pocketknife-compiler:3.1.0'
+    compile "com.vikingsen:pocketknife-core:${pocketKnifeVersion}"
+    provided "com.vikingsen:pocketknife-compiler:${pocketKnifeVersion}"
     compile 'com.jakewharton:butterknife:7.0.1'
 
     // Code
     compile 'com.google.code.findbugs:jsr305:3.0.1'
     compile 'com.google.code.gson:gson:2.5' // override the version from retrofit
-    compile 'com.squareup.retrofit:converter-gson:2.0.0-beta2'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta3'
     compile 'joda-time:joda-time:2.9.1'
     compile 'org.dbtools:dbtools-android:4.1.2'
     compile 'org.dbtools:dbtools-query:2.5.6'
     compile 'org.apache.commons:commons-lang3:3.4'
     compile 'commons-io:commons-io:2.4'
-    compile 'com.devbrackets.android:recyclerext:0.12.3'
+    compile 'com.devbrackets.android:recyclerext:0.16.0'
+    compile 'com.evernote:android-job:1.0.2'
 
     // Dagger 2
-    compile 'com.google.dagger:dagger:2.0.2'
-    provided 'com.google.dagger:dagger-compiler:2.0.2'
+    compile "com.google.dagger:dagger:${daggerVersion}"
+    provided "com.google.dagger:dagger-compiler:${daggerVersion}"
     provided 'javax.annotation:javax.annotation-api:1.2' // Dagger 2 dependency which is not available in Java 6
 
     // Greenrobot EventBus
@@ -91,7 +98,7 @@ dependencies {
 
     // Test (Unit)
     testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.0.31-beta'
+    testCompile 'org.mockito:mockito-core:2.0.40-beta'
 
 }
 
@@ -109,7 +116,7 @@ android {
 
         versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
         versionName versionMajorMinorPatch
-        buildConfigField "long", "BUILD_TIME", "${buildTime}l"
+        buildConfigField "String", "USER_AGENT_APP_NAME", "\"AndroidTemplate\""
         buildConfigField "String", "ANALYTICS_KEY", "\"${getAnalyticsKey()}\""
 
         multiDexEnabled true
@@ -169,13 +176,14 @@ android {
             versionNameSuffix '-DEV'
             applicationIdSuffix '.dev'
             buildConfigField "String", "VERSION_NAME_FULL", "\"${versionMajorMinorPatchBuild}-DEV\""
-//            signingConfig signingConfigs.prodConfig
+            buildConfigField "long", "BUILD_TIME", "0l" // to improve build times, do allow change on every build
         }
         alpha {
             initWith(buildTypes.release)
             versionNameSuffix '-ALPHA'
             applicationIdSuffix '.dev'
             buildConfigField "String", "VERSION_NAME_FULL", "\"${versionMajorMinorPatchBuild}-ALPHA\""
+            buildConfigField "long", "BUILD_TIME", "${buildTime}l"
             debuggable true
             signingConfig signingConfigs.prodConfig
         }
@@ -183,10 +191,12 @@ android {
             initWith(buildTypes.release)
             versionNameSuffix '-BETA'
             buildConfigField "String", "VERSION_NAME_FULL", "\"${versionMajorMinorPatchBuild}-BETA\""
+            buildConfigField "long", "BUILD_TIME", "${buildTime}l"
             signingConfig signingConfigs.prodConfig
         }
         release {
             buildConfigField "String", "VERSION_NAME_FULL", "\"${versionMajorMinorPatchBuild}\""
+            buildConfigField "long", "BUILD_TIME", "${buildTime}l"
             versionNameSuffix ''
             minifyEnabled true
             shrinkResources true

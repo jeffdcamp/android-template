@@ -27,9 +27,9 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import de.greenrobot.event.EventBus;
-import retrofit.GsonConverterFactory;
+import retrofit2.GsonConverterFactory;
 
-import static retrofit.GsonConverterFactory.create;
+import static retrofit2.GsonConverterFactory.create;
 
 @Module(includes = {
         ServiceModule.class

@@ -10,7 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
-import com.squareup.okhttp.ResponseBody;
 
 import org.apache.commons.io.FileUtils;
 import org.dbtools.android.domain.database.DatabaseWrapper;
@@ -40,6 +39,7 @@ import org.jdc.template.domain.other.individuallist.IndividualListManager;
 import org.jdc.template.domain.other.individuallistitem.IndividualListItem;
 import org.jdc.template.domain.other.individuallistitem.IndividualListItemManager;
 import org.jdc.template.util.RxUtil;
+import org.jdc.template.job.SampleJob;
 import org.jdc.template.util.WebServiceUtil;
 import org.jdc.template.webservice.websearch.DtoResult;
 import org.jdc.template.webservice.websearch.DtoSearchResponse;
@@ -57,13 +57,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AboutActivity extends BaseActivity {
     public static final String TAG = App.createTag(AboutActivity.class);
@@ -373,7 +373,7 @@ public class AboutActivity extends BaseActivity {
 
         call.enqueue(new Callback<DtoSearchResponse>() {
             @Override
-            public void onResponse(Response<DtoSearchResponse> response, Retrofit retrofit) {
+            public void onResponse(Response<DtoSearchResponse> response) {
                 processWebServiceResponse(response);
             }
 
@@ -400,7 +400,7 @@ public class AboutActivity extends BaseActivity {
 
         call.enqueue(new Callback<DtoSearchResponse>() {
             @Override
-            public void onResponse(Response<DtoSearchResponse> response, Retrofit retrofit) {
+            public void onResponse(Response<DtoSearchResponse> response) {
                 processWebServiceResponse(response);
             }
 
@@ -417,7 +417,7 @@ public class AboutActivity extends BaseActivity {
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Response<ResponseBody> response, Retrofit retrofit) {
+            public void onResponse(Response<ResponseBody> response) {
                 // delete any existing file
                 File outputFile = new File(getExternalCacheDir(), "ws-out.json");
                 if (outputFile.exists()) {
@@ -456,6 +456,19 @@ public class AboutActivity extends BaseActivity {
         for (DtoResult dtoResult : searchResponse.getResponseData().getResults()) {
             Log.i(TAG, "Result: " + dtoResult.getTitle());
         }
+    }
+
+    @OnClick(R.id.job_test_button)
+    public void jobTest() {
+        SampleJob.schedule();
+        SampleJob.schedule();
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        SampleJob.schedule();
     }
 
     @Subscribe
