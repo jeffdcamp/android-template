@@ -10,8 +10,8 @@ import java.io.IOException;
 
 import javax.annotation.Nonnull;
 
-import retrofit.Call;
-import retrofit.Response;
+import retrofit2.Call;
+import retrofit2.Response;
 import rx.Observable;
 import rx.functions.Func0;
 
