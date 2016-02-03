@@ -1,12 +1,11 @@
 package org.jdc.template.webservice.websearch;
 
-import com.squareup.okhttp.ResponseBody;
-
-import retrofit.Call;
-import retrofit.http.GET;
-import retrofit.http.Query;
-import retrofit.http.Streaming;
-import retrofit.http.Url;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
+import retrofit2.http.Streaming;
+import retrofit2.http.Url;
 
 public interface WebSearchService {
     String BASE_URL = "https://ajax.googleapis.com";

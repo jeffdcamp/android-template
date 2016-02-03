@@ -10,9 +10,6 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
-    <!-- Ignore AndroidTV requirement to ONLY run on newer versions of Android -->
-    <uses-sdk tools:overrideLibrary="android.support.v17.leanback"/>
-
     <!-- MyApplication -->
     <application
         android:name=".App"
@@ -45,18 +42,6 @@
             android:theme="@style/SettingsTheme"/>
 
         <!-- Android TV -->
-        <activity
-            android:name=".ui.tv.TVVideoSelectionActivity"
-            android:banner="@drawable/ic_launcher_tv"
-            android:label="@string/app_name"
-            android:screenOrientation="landscape"
-            android:theme="@style/appTheme.Leanback"
-            >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LEANBACK_LAUNCHER"/>
-            </intent-filter>
-        </activity>
 
         <!-- Google Play Services -->
         <meta-data

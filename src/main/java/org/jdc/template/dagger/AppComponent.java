@@ -14,7 +14,7 @@ import org.jdc.template.ui.SettingsActivity;
 import org.jdc.template.ui.SettingsFragment;
 import org.jdc.template.ui.StartupActivity;
 import org.jdc.template.ui.adapter.DirectoryAdapter;
-import org.jdc.template.ui.tv.TVVideoSelectionFragment;
+
 
 import javax.inject.Singleton;
 
@@ -34,8 +34,6 @@ public interface AppComponent {
     void inject(IndividualEditFragment target);
     void inject(SettingsActivity target);
     void inject(AboutActivity target);
-
-    void inject(TVVideoSelectionFragment target);
 
     // Adapters
     void inject(DirectoryAdapter target);

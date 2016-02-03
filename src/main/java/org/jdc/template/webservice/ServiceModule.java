@@ -1,21 +1,15 @@
 package org.jdc.template.webservice;
 
 import android.app.Application;
+import android.os.Build;
 import android.util.Base64;
 
-import com.squareup.okhttp.Interceptor;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-
 import org.jdc.template.BuildConfig;
-import org.jdc.template.R;
 import org.jdc.template.auth.MyAccountInterceptor;
 import org.jdc.template.webservice.websearch.WebSearchService;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Nonnull;
@@ -24,76 +18,75 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import retrofit.GsonConverterFactory;
-import retrofit.Retrofit;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import retrofit2.GsonConverterFactory;
+import retrofit2.Retrofit;
 
 @Module
 public class ServiceModule {
-    private static final String USER_AGENT_FORMAT = "%s %s / Android %s / %s";
     private static final String STANDARD_CLIENT = "STANDARD_CLIENT"; // client without auth
     private static final String AUTHENTICATED_CLIENT = "AUTHENTICATED_CLIENT";
     private static final int DEFAULT_TIMEOUT_MINUTES = 3;
+    private static final String USER_AGENT;
 
     // Log level
     private LoggingInterceptor.LogLevel serviceLogLevel = LoggingInterceptor.LogLevel.BASIC;
-    private String userAgent;
 
-    public String getUserAgent(@Nonnull Application application) {
-        if (userAgent == null || userAgent.isEmpty()) {
-            userAgent = String.format(USER_AGENT_FORMAT,
-                    application.getString(R.string.app_name),
-                    BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")",
-                    android.os.Build.VERSION.RELEASE,
-                    android.os.Build.MODEL);
-        }
-
-        return userAgent;
+    static {
+        USER_AGENT = BuildConfig.USER_AGENT_APP_NAME + " " + BuildConfig.VERSION_NAME + " / " + "Android " + Build.VERSION.RELEASE + " " +
+                Build.VERSION.INCREMENTAL + " / " +
+                Build.MANUFACTURER +
+                " " + Build.MODEL;
     }
 
     @Provides
     @Named(AUTHENTICATED_CLIENT)
     public OkHttpClient getAuthenticatedClient(@Nonnull MyAccountInterceptor accountInterceptor) {
-        OkHttpClient client = new OkHttpClient();
-        client.setReadTimeout(DEFAULT_TIMEOUT_MINUTES, TimeUnit.MINUTES);
-        client.setConnectTimeout(DEFAULT_TIMEOUT_MINUTES, TimeUnit.MINUTES);
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        setupClient(builder);
 
-        client.interceptors().add(accountInterceptor);
+        // make sure authenticated connection is done
+        builder.addInterceptor(accountInterceptor);
 
-        return client;
+        return builder.build();
     }
 
     @Provides
     @Named(STANDARD_CLIENT)
     public OkHttpClient getStandardClient() {
-        OkHttpClient client = new OkHttpClient();
-        client.setReadTimeout(DEFAULT_TIMEOUT_MINUTES, TimeUnit.MINUTES);
-        client.setConnectTimeout(DEFAULT_TIMEOUT_MINUTES, TimeUnit.MINUTES);
-        return client;
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        setupClient(builder);
+
+        return builder.build();
     }
 
-    private void setupStandardHeader(@Nonnull final Application application, @Nonnull OkHttpClient client) {
-        List<Interceptor> interceptors = client.interceptors();
-        interceptors.add(new Interceptor() {
+    private void setupClient(@Nonnull OkHttpClient.Builder clientBuilder) {
+        clientBuilder.connectTimeout(DEFAULT_TIMEOUT_MINUTES, TimeUnit.MINUTES);
+        clientBuilder.readTimeout(DEFAULT_TIMEOUT_MINUTES, TimeUnit.MINUTES);
+
+        clientBuilder.addInterceptor(new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
-                Request.Builder builder = chain.request().newBuilder();
-                builder.addHeader("http.useragent", ServiceModule.this.getUserAgent(application))
-                        .addHeader("Accept", "application/json");
-                return chain.proceed(builder.build());
+                Request.Builder requestBuilder = chain.request().newBuilder();
+                requestBuilder.addHeader("http.useragent", USER_AGENT);
+                requestBuilder.addHeader("Accept", "application/json");
+                return chain.proceed(requestBuilder.build());
             }
         });
 
-        interceptors.add(new LoggingInterceptor(serviceLogLevel));
+        clientBuilder.addInterceptor(new LoggingInterceptor(serviceLogLevel));
     }
 
-    private void setupBasicAuth(@Nonnull final Application application, @Nonnull OkHttpClient client, @Nonnull String username, @Nonnull String password) {
+    private void setupBasicAuth(@Nonnull OkHttpClient.Builder clientBuilder, @Nonnull String username, @Nonnull String password) {
         try {
             String basicAuthCredentials = username + ":" + password;
             final String auth = "Basic " + Base64.encodeToString(basicAuthCredentials.getBytes("UTF-8"), Base64.NO_WRAP);
 
-            List<Interceptor> interceptors = client.interceptors();
 
-            interceptors.add(new Interceptor() {
+            clientBuilder.addInterceptor(new Interceptor() {
                 @Override
                 public Response intercept(Chain chain) throws IOException {
                     Request.Builder builder = chain.request().newBuilder();
@@ -111,8 +104,6 @@ public class ServiceModule {
     public WebSearchService getSearchService(@Nonnull final Application application,
                                              @Nonnull @Named(STANDARD_CLIENT) OkHttpClient client,
                                              @Nonnull GsonConverterFactory converterFactory) {
-        setupStandardHeader(application, client);
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(WebSearchService.BASE_URL)
                 .client(client)
