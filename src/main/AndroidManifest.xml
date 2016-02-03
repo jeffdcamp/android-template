@@ -10,9 +10,6 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
-    <!-- Ignore AndroidTV requirement to ONLY run on newer versions of Android -->
-    <uses-sdk tools:overrideLibrary="android.support.v17.leanback"/>
-
     <!-- MyApplication -->
     <application
         android:name=".App"
