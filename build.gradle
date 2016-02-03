@@ -82,8 +82,8 @@ dependencies {
     provided 'de.greenrobot:eventbus-annotation-processor:3.0.0-beta1'
 
     // RxJava
-    compile 'io.reactivex:rxandroid:1.0.1'
-    compile 'io.reactivex:rxjava:1.0.15'
+    compile 'io.reactivex:rxandroid:1.1.0'
+    compile 'io.reactivex:rxjava:1.1.0'
 
     // Custom SQLite database
 //    compile 'org.sqlite:sqlite-android:3.8.9.0-20150415'
