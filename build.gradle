@@ -9,8 +9,9 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:1.5.0'
-        classpath 'me.tatarka:gradle-retrolambda:3.2.3'
+        classpath 'me.tatarka:gradle-retrolambda:3.2.5'
         classpath 'org.dbtools:gradle-dbtools-plugin:4.0.2'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.12.0' // version plugin support
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
@@ -74,7 +75,7 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile 'com.google.code.findbugs:jsr305:3.0.1'
     compile 'com.google.code.gson:gson:2.5' // override the version from retrofit
-    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta3'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
     compile 'joda-time:joda-time:2.9.2'
     compile 'org.dbtools:dbtools-android:4.1.2'
     compile 'org.dbtools:dbtools-query:2.5.6'
@@ -87,10 +88,6 @@ dependencies {
     compile "com.google.dagger:dagger:${daggerVersion}"
     kapt "com.google.dagger:dagger-compiler:${daggerVersion}"
     provided 'javax.annotation:javax.annotation-api:1.2' // Dagger 2 dependency which is not available in Java 6
-
-    // Greenrobot EventBus
-    compile 'de.greenrobot:eventbus:3.0.0-beta1'
-    provided 'de.greenrobot:eventbus-annotation-processor:3.0.0-beta1'
 
     // RxJava
     compile 'io.reactivex:rxandroid:1.1.0'
@@ -264,7 +261,7 @@ dbtools {
     injectionSupport true
     jsr305Support true
     includeDatabaseNameInPackage true
-    eventBusSupport true
+    eventBusSupport false
     dateTimeSupport true
     sqlQueryBuilderSupport true
     rxJavaSupport true

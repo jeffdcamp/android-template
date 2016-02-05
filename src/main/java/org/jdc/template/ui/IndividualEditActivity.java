@@ -8,10 +8,12 @@ import android.view.MenuItem;
 import org.jdc.template.R;
 import org.jdc.template.dagger.Injector;
 import org.jdc.template.event.IndividualSavedEvent;
+import org.jdc.template.event.RxBus;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import de.greenrobot.event.Subscribe;
 import pocketknife.BindExtra;
 import pocketknife.PocketKnife;
 
@@ -21,9 +23,11 @@ public class IndividualEditActivity extends BaseActivity {
 
     @Bind(R.id.ab_toolbar)
     Toolbar toolbar;
-
     @BindExtra(EXTRA_ID)
     long individualId;
+
+    @Inject
+    RxBus bus;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,8 +52,9 @@ public class IndividualEditActivity extends BaseActivity {
     }
 
     @Override
-    public boolean registerEventBus() {
-        return true;
+    protected void onStart() {
+        super.onStart();
+        addSubscription(bus.subscribeMainThread(event -> handleSubscribeMainThread(event)));
     }
 
     private void setupActionBar() {
@@ -76,8 +81,9 @@ public class IndividualEditActivity extends BaseActivity {
         }
     }
 
-    @Subscribe
-    public void handle(IndividualSavedEvent event) {
-        finish();
+    private void handleSubscribeMainThread(Object event) {
+        if (event instanceof IndividualSavedEvent) {
+            finish();
+        }
     }
 }

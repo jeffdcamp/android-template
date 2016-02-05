@@ -19,8 +19,6 @@ public abstract class HouseholdBaseManager extends RxAndroidBaseManagerWritable<
 
     @javax.inject.Inject
      DatabaseManager databaseManager;
-    @javax.inject.Inject
-     org.dbtools.android.domain.DBToolsEventBus bus;
 
     public HouseholdBaseManager() {
     }
@@ -83,14 +81,6 @@ public abstract class HouseholdBaseManager extends RxAndroidBaseManagerWritable<
     @javax.annotation.Nonnull
     public String getCreateSql() {
         return Household.CREATE_TABLE;
-    }
-
-    public org.dbtools.android.domain.DBToolsEventBus getBus() {
-        return bus;
-    }
-
-    public void setBus(org.dbtools.android.domain.DBToolsEventBus bus) {
-        this.bus = bus;
     }
 
 

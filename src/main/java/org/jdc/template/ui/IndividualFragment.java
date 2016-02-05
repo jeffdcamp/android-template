@@ -22,6 +22,7 @@ import org.jdc.template.domain.main.individual.Individual;
 import org.jdc.template.domain.main.individual.IndividualManager;
 import org.jdc.template.event.EditIndividualEvent;
 import org.jdc.template.event.IndividualDeletedEvent;
+import org.jdc.template.event.RxBus;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -29,7 +30,6 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import de.greenrobot.event.EventBus;
 import pocketknife.BindArgument;
 import pocketknife.PocketKnife;
 import rx.android.schedulers.AndroidSchedulers;
@@ -42,19 +42,15 @@ public class IndividualFragment extends Fragment {
 
     @Bind(R.id.individual_name)
     TextView nameTextView;
-
     @Bind(R.id.individual_phone)
     TextView phoneTextView;
-
     @Bind(R.id.individual_email)
     TextView emailTextView;
 
     @Inject
     IndividualManager individualManager;
-
     @Inject
-    EventBus bus;
-
+    RxBus bus;
     @Inject
     Analytics analytics;
 
@@ -98,7 +94,7 @@ public class IndividualFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_edit:
-                bus.post(new EditIndividualEvent(individualId));
+                bus.send(new EditIndividualEvent(individualId));
                 return true;
             case R.id.menu_item_delete:
                 deleteIndividual();
@@ -150,7 +146,7 @@ public class IndividualFragment extends Fragment {
                                 .setAction(Analytics.ACTION_DELETE)
                                 .build());
 
-                        bus.post(new IndividualDeletedEvent(individualId));
+                        bus.send(new IndividualDeletedEvent(individualId));
                     }
                 })
                 .setNegativeButton(R.string.cancel, null)

@@ -8,12 +8,12 @@ import org.jdc.template.R;
 import org.jdc.template.dagger.Injector;
 import org.jdc.template.event.EditIndividualEvent;
 import org.jdc.template.event.IndividualDeletedEvent;
+import org.jdc.template.event.RxBus;
 
 import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import de.greenrobot.event.Subscribe;
 import pocketknife.BindExtra;
 import pocketknife.PocketKnife;
 
@@ -29,6 +29,10 @@ public class IndividualActivity extends DrawerActivity {
 
     @BindExtra(EXTRA_ID)
     long individualId;
+
+    @Inject
+    RxBus bus;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,17 +54,16 @@ public class IndividualActivity extends DrawerActivity {
     }
 
     @Override
-    public boolean registerEventBus() {
-        return true;
+    protected void onStart() {
+        super.onStart();
+        addSubscription(bus.subscribeMainThread(event -> handleSubscribeMainThread(event)));
     }
 
-    @Subscribe
-    public void handle(EditIndividualEvent event) {
-        internalIntents.editIndividual(this, event.getId());
-    }
-
-    @Subscribe
-    public void handle(IndividualDeletedEvent event) {
-        finish();
+    private void handleSubscribeMainThread(Object event) {
+        if (event instanceof EditIndividualEvent) {
+            internalIntents.editIndividual(this, ((EditIndividualEvent) event).getId());
+        } else if (event instanceof IndividualDeletedEvent) {
+            finish();
+        }
     }
 }

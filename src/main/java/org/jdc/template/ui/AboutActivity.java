@@ -14,12 +14,8 @@ import com.google.android.gms.analytics.HitBuilders;
 
 import org.apache.commons.io.FileUtils;
 import org.dbtools.android.domain.database.DatabaseWrapper;
-import org.dbtools.android.domain.event.DatabaseChangeEvent;
 import org.dbtools.android.domain.event.DatabaseChangeType;
-import org.dbtools.android.domain.event.DatabaseEndTransactionEvent;
-import org.dbtools.android.domain.event.DatabaseInsertEvent;
 import org.dbtools.android.domain.event.DatabaseRowChange;
-import org.dbtools.android.domain.event.GreenRobotEventBus;
 import org.jdc.template.Analytics;
 import org.jdc.template.App;
 import org.jdc.template.BuildConfig;
@@ -57,8 +53,9 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import de.greenrobot.event.EventBus;
-import de.greenrobot.event.Subscribe;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -72,12 +69,8 @@ public class AboutActivity extends BaseActivity {
 
     @Bind(R.id.version_info)
     TextView versionTextView;
-
     @Bind(R.id.ab_toolbar)
     Toolbar toolbar;
-
-    @Inject
-    EventBus bus;
 
     @Inject
     Analytics analytics;
@@ -97,11 +90,6 @@ public class AboutActivity extends BaseActivity {
         enableActionBarBackArrow(true);
 
         versionTextView.setText(getVersionName());
-    }
-
-    @Override
-    public boolean registerEventBus() {
-        return true;
     }
 
     @Override
@@ -204,12 +192,6 @@ public class AboutActivity extends BaseActivity {
         IndividualManager individualManager = new IndividualManager();
         IndividualListManager individualListManager = new IndividualListManager();
         IndividualListItemManager individualListItemManager = new IndividualListItemManager();
-
-        org.dbtools.android.domain.DBToolsEventBus bus = new GreenRobotEventBus(EventBus.getDefault());
-        householdManager.setBus(bus);
-        individualManager.setBus(bus);
-        individualListManager.setBus(bus);
-        individualListItemManager.setBus(bus);
 
         noInjectionDatabaseManager.setContext(getApplication());
 
@@ -375,12 +357,12 @@ public class AboutActivity extends BaseActivity {
 
         call.enqueue(new Callback<DtoSearchResponse>() {
             @Override
-            public void onResponse(Response<DtoSearchResponse> response) {
+            public void onResponse(Call<DtoSearchResponse> call, Response<DtoSearchResponse> response) {
                 processWebServiceResponse(response);
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(Call<DtoSearchResponse> call, Throwable t) {
                 Log.e(TAG, "Search FAILED", t);
             }
         });
@@ -402,12 +384,12 @@ public class AboutActivity extends BaseActivity {
 
         call.enqueue(new Callback<DtoSearchResponse>() {
             @Override
-            public void onResponse(Response<DtoSearchResponse> response) {
+            public void onResponse(Call<DtoSearchResponse> call, Response<DtoSearchResponse> response) {
                 processWebServiceResponse(response);
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(Call<DtoSearchResponse> call, Throwable t) {
                 Log.e(TAG, "Search FAILED", t);
             }
         });
@@ -419,7 +401,7 @@ public class AboutActivity extends BaseActivity {
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Response<ResponseBody> response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 // delete any existing file
                 File outputFile = new File(getExternalCacheDir(), "ws-out.json");
                 if (outputFile.exists()) {
@@ -439,7 +421,7 @@ public class AboutActivity extends BaseActivity {
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.e(TAG, "Search FAILED");
             }
         });
@@ -471,24 +453,6 @@ public class AboutActivity extends BaseActivity {
         }
 
         SampleJob.schedule();
-    }
-
-    @Subscribe
-    public void handle(DatabaseInsertEvent event) {
-        Log.e(TAG, "Item inserted on table " + event.getTableName());
-        Log.e(TAG, "NewId " + event.getNewId());
-    }
-
-    @Subscribe
-    public void handle(DatabaseChangeEvent event) {
-        Log.e(TAG, "Database changed on table " + event.getTableName());
-    }
-
-    @Subscribe
-    public void handle(DatabaseEndTransactionEvent event) {
-        Log.e(TAG, "Database changed transaction end.  Tables changed: " + event.getAllTableName());
-        boolean myTableUpdated = event.containsTable(Individual.TABLE);
-        Log.e(TAG, "Individual table updated: " + myTableUpdated);
     }
 
     @OnClick(R.id.rx_test_button)

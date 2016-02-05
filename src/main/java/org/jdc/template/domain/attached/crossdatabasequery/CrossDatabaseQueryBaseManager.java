@@ -19,8 +19,6 @@ public abstract class CrossDatabaseQueryBaseManager extends AndroidBaseManagerRe
 
     @javax.inject.Inject
      DatabaseManager databaseManager;
-    @javax.inject.Inject
-     org.dbtools.android.domain.DBToolsEventBus bus;
 
     public CrossDatabaseQueryBaseManager() {
     }
@@ -85,14 +83,6 @@ public abstract class CrossDatabaseQueryBaseManager extends AndroidBaseManagerRe
     @javax.annotation.Nonnull
     public String getCreateSql() {
         return "";
-    }
-
-    public org.dbtools.android.domain.DBToolsEventBus getBus() {
-        return bus;
-    }
-
-    public void setBus(org.dbtools.android.domain.DBToolsEventBus bus) {
-        this.bus = bus;
     }
 
 

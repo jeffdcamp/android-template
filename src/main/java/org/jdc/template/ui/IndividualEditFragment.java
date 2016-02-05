@@ -21,6 +21,7 @@ import org.jdc.template.dagger.Injector;
 import org.jdc.template.domain.main.individual.Individual;
 import org.jdc.template.domain.main.individual.IndividualManager;
 import org.jdc.template.event.IndividualSavedEvent;
+import org.jdc.template.event.RxBus;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -28,7 +29,6 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import de.greenrobot.event.EventBus;
 import pocketknife.BindArgument;
 import pocketknife.PocketKnife;
 
@@ -39,25 +39,19 @@ public class IndividualEditFragment extends Fragment {
 
     @Bind(R.id.first_name_layout)
     TextInputLayout firstNameLayout;
-
     @Bind(R.id.first_name)
     EditText firstNameEditText;
-
     @Bind(R.id.last_name)
     EditText lastNameEditText;
-
     @Bind(R.id.phone)
     EditText phoneEditText;
-
     @Bind(R.id.email)
     EditText emailEditText;
 
     @Inject
     IndividualManager individualManager;
-
     @Inject
-    EventBus bus;
-
+    RxBus bus;
     @Inject
     Analytics analytics;
 
@@ -142,7 +136,7 @@ public class IndividualEditFragment extends Fragment {
 
             individualManager.save(individual);
 
-            bus.post(new IndividualSavedEvent(individual.getId()));
+            bus.send(new IndividualSavedEvent(individual.getId()));
         }
     }
 }
