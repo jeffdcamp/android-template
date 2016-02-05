@@ -7,10 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.greenrobot.eventbus.EventBus;
-
 import javax.annotation.Nonnull;
-import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import rx.Subscription;
@@ -18,9 +15,7 @@ import rx.subscriptions.CompositeSubscription;
 
 public abstract class BaseFragment extends Fragment {
 
-    @Inject
-    EventBus bus;
-
+    @Nonnull
     private CompositeSubscription compositeSubscription = new CompositeSubscription();
 
     @Override
@@ -39,39 +34,21 @@ public abstract class BaseFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        if (registerEventBus()) {
-            bus.register(this);
-        }
-    }
-
-    @Override
     public void onStop() {
-        if (registerEventBus()) {
-            bus.unregister(this);
-        }
+        compositeSubscription.unsubscribe();
         super.onStop();
     }
 
     @Override
     public void onDestroyView() {
         ButterKnife.unbind(this);
-        compositeSubscription.unsubscribe();
         super.onDestroyView();
     }
 
-    public boolean registerEventBus() {
-        return false;
-    }
-
     public void addSubscription(@Nonnull Subscription subscription) {
+        if (compositeSubscription.isUnsubscribed()) {
+            compositeSubscription = new CompositeSubscription();
+        }
         compositeSubscription.add(subscription);
     }
 }

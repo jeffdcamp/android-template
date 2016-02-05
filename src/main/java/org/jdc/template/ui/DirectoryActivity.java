@@ -5,13 +5,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 import org.jdc.template.InternalIntents;
 import org.jdc.template.R;
 import org.jdc.template.dagger.Injector;
 import org.jdc.template.event.DirectoryItemSelectedEvent;
 import org.jdc.template.event.EditIndividualEvent;
+import org.jdc.template.event.RxBus;
 import org.jdc.template.ui.menu.CommonMenu;
 
 import javax.inject.Inject;
@@ -23,9 +22,11 @@ public class DirectoryActivity extends DrawerActivity {
 
     @Inject
     CommonMenu commonMenu;
-
     @Inject
     InternalIntents internalIntents;
+
+    @Inject
+    RxBus bus;
 
     @Bind(R.id.ab_toolbar)
     Toolbar toolbar;
@@ -59,6 +60,41 @@ public class DirectoryActivity extends DrawerActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        addSubscription(bus.subscribeMainThread(event -> handleSubscribeMainThread(event)));
+        addSubscription(bus.subscribeIoThread(event -> handleSubscribeIoThread(event)));
+    }
+
+    private void handleSubscribeIoThread(Object event) {
+        // ThreadMode.Async because this cannot be called from a onLoadFinished call
+        if (event instanceof DirectoryItemSelectedEvent) {
+            long id = ((DirectoryItemSelectedEvent) event).getId();
+            if (dualPane) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_pos2, IndividualFragment.newInstance(id))
+                        .commit();
+            } else {
+                internalIntents.showIndividual(this, id);
+            }
+        }
+    }
+
+    private void handleSubscribeMainThread(Object event) {
+        if (event instanceof EditIndividualEvent) {
+            long id = ((EditIndividualEvent) event).getId();
+
+            if (dualPane) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_pos2, IndividualEditFragment.newInstance(id))
+                        .commit();
+            } else {
+                internalIntents.editIndividual(this, id);
+            }
+        }
+    }
+
     protected boolean allowFinishOnHome() {
         return false;
     }
@@ -66,33 +102,5 @@ public class DirectoryActivity extends DrawerActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return commonMenu.onOptionsItemSelected(this, item) || super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean registerEventBus() {
-        return true;
-    }
-
-    // ThreadMode.Async because this cannot be called from a onLoadFinished call
-    @Subscribe(threadMode = ThreadMode.ASYNC)
-    public void handle(DirectoryItemSelectedEvent event) {
-        if (dualPane) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_pos2, IndividualFragment.newInstance(event.getId()))
-                    .commit();
-        } else {
-            internalIntents.showIndividual(this, event.getId());
-        }
-    }
-
-    @Subscribe
-    public void handle(EditIndividualEvent event) {
-        if (dualPane) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_pos2, IndividualEditFragment.newInstance(event.getId()))
-                    .commit();
-        } else {
-            internalIntents.editIndividual(this, event.getId());
-        }
     }
 }

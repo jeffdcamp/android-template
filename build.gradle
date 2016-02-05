@@ -21,7 +21,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'dbtools'
 apply plugin: 'jacoco'
-apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'com.github.ben-manes.versions' // ./gradlew dependencyUpdates -Drevision=release
 
 def artOnly = false; // enable a fast build supported ONLY by Android 5.0+
@@ -79,10 +78,6 @@ dependencies {
     provided "com.google.dagger:dagger-compiler:${daggerVersion}"
     provided 'javax.annotation:javax.annotation-api:1.2' // Dagger 2 dependency which is not available in Java 6
 
-    // Greenrobot EventBus
-    compile 'org.greenrobot:eventbus:3.0.0'
-    apt 'org.greenrobot:eventbus-annotation-processor:3.0.0'
-
     // RxJava
     compile 'io.reactivex:rxandroid:1.1.0'
     compile 'io.reactivex:rxjava:1.1.0'
@@ -101,12 +96,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:2.0.41-beta'
 
-}
-
-apt {
-    arguments {
-        eventBusIndex "org.jdc.template.AppMyEventBusIndex"
-    }
 }
 
 android {

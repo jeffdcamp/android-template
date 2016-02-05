@@ -4,49 +4,26 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-import org.greenrobot.eventbus.EventBus;
-
 import javax.annotation.Nonnull;
-import javax.inject.Inject;
 
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
 public class BaseActivity extends AppCompatActivity {
 
-    @Inject
-    EventBus bus;
-
+    @Nonnull
     private CompositeSubscription compositeSubscription = new CompositeSubscription();
 
     @Override
-    public void onStart() {
-        super.onStart();
-
-        if (registerEventBus()) {
-            bus.register(this);
-        }
-    }
-
-    @Override
-    public void onStop() {
-        if (registerEventBus()) {
-            bus.unregister(this);
-        }
+    protected void onStop() {
+        compositeSubscription.unsubscribe();
         super.onStop();
     }
 
-    @Override
-    public void onDestroy() {
-        compositeSubscription.unsubscribe();
-        super.onDestroy();
-    }
-
-    public boolean registerEventBus() {
-        return false;
-    }
-
     public void addSubscription(@Nonnull Subscription subscription) {
+        if (compositeSubscription.isUnsubscribed()) {
+            compositeSubscription = new CompositeSubscription();
+        }
         compositeSubscription.add(subscription);
     }
 

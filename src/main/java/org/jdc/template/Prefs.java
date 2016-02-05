@@ -2,25 +2,18 @@ package org.jdc.template;
 
 import android.content.SharedPreferences;
 
-import org.greenrobot.eventbus.EventBus;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
 public final class Prefs {
-
     public static final String PREF_SOMETHING = "pref_enable_something_id";
 
     private SharedPreferences preferences;
-    private EventBus bus;
 
     @Inject
-    public Prefs(SharedPreferences preferences, EventBus bus) {
-        this.bus = bus;
+    public Prefs(SharedPreferences preferences) {
         this.preferences = preferences;
-
-        this.bus.register(this);
     }
 
     public void reset() {

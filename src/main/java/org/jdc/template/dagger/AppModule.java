@@ -12,7 +12,6 @@ import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import org.greenrobot.eventbus.EventBus;
 import org.jdc.template.Analytics;
 import org.jdc.template.BuildConfig;
 import org.jdc.template.webservice.ServiceModule;
@@ -51,14 +50,6 @@ public class AppModule {
     @Provides
     public NotificationManager provideNotificationManager(Application application) {
         return (NotificationManager) application.getSystemService(Context.NOTIFICATION_SERVICE);
-    }
-
-    @Provides
-    @Singleton
-    EventBus provideBus() {
-        return EventBus.builder()
-                .addIndex(new org.jdc.template.AppMyEventBusIndex())
-                .build();
     }
 
     @Provides

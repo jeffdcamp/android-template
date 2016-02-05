@@ -14,18 +14,17 @@ import android.view.MenuItem;
 
 import com.google.android.gms.analytics.HitBuilders;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 import org.jdc.template.Analytics;
 import org.jdc.template.App;
 import org.jdc.template.R;
-import org.jdc.template.domain.main.individual.IndividualManager;
 import org.jdc.template.dagger.Injector;
+import org.jdc.template.domain.main.individual.IndividualManager;
 import org.jdc.template.event.DirectoryItemClickedEvent;
 import org.jdc.template.event.DirectoryItemSelectedEvent;
 import org.jdc.template.event.EditIndividualEvent;
 import org.jdc.template.event.IndividualDeletedEvent;
 import org.jdc.template.event.IndividualSavedEvent;
+import org.jdc.template.event.RxBus;
 import org.jdc.template.ui.adapter.DirectoryAdapter;
 
 import javax.annotation.Nonnull;
@@ -46,7 +45,7 @@ public class DirectoryFragment extends BaseFragment implements SearchView.OnQuer
     private static final String ARGS_DUAL_PANE = "DUAL_PANE";
 
     @Inject
-    EventBus bus;
+    RxBus bus;
     @Inject
     Analytics analytics;
     @Inject
@@ -80,11 +79,6 @@ public class DirectoryFragment extends BaseFragment implements SearchView.OnQuer
     @Override
     protected int getLayoutResourceId() {
         return R.layout.fragment_directory;
-    }
-
-    @Override
-    public boolean registerEventBus() {
-        return true;
     }
 
     @Override
@@ -129,6 +123,8 @@ public class DirectoryFragment extends BaseFragment implements SearchView.OnQuer
     @Override
     public void onStart() {
         super.onStart();
+
+        addSubscription(bus.subscribeMainThread(event -> handleSubscribeMainThread(event)));
         loadList();
     }
 
@@ -154,20 +150,15 @@ public class DirectoryFragment extends BaseFragment implements SearchView.OnQuer
         adapter.changeCursor(data);
     }
 
-    @Subscribe
-    public void handle(DirectoryItemClickedEvent event) {
-        selectPosition(event.getItemId());
-    }
-
-    @Subscribe
-    public void handle(IndividualSavedEvent event) {
-        loadList();
-        bus.post(new DirectoryItemSelectedEvent(event.getId()));
-    }
-
-    @Subscribe
-    public void handle(IndividualDeletedEvent event) {
-        loadList();
+    private void handleSubscribeMainThread(Object event) {
+        if (event instanceof DirectoryItemClickedEvent) {
+            selectPosition(((DirectoryItemClickedEvent) event).getItemId());
+        } else if (event instanceof IndividualSavedEvent) {
+            loadList();
+            bus.send(new DirectoryItemSelectedEvent(((IndividualSavedEvent) event).getId()));
+        } else if (event instanceof IndividualDeletedEvent) {
+            loadList();
+        }
     }
 
     @Override
@@ -210,7 +201,7 @@ public class DirectoryFragment extends BaseFragment implements SearchView.OnQuer
             adapter.setLastSelectedItemId(id);
         }
 
-        bus.post(new DirectoryItemSelectedEvent(id));
+        bus.send(new DirectoryItemSelectedEvent(id));
     }
 
     @OnClick(R.id.fab_new_item)
@@ -220,6 +211,6 @@ public class DirectoryFragment extends BaseFragment implements SearchView.OnQuer
                 .setAction(Analytics.ACTION_NEW)
                 .build());
 
-        bus.post(new EditIndividualEvent());
+        bus.send(new EditIndividualEvent());
     }
 }

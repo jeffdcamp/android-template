@@ -14,7 +14,6 @@ import android.widget.EditText;
 import com.google.android.gms.analytics.HitBuilders;
 
 import org.apache.commons.lang3.StringUtils;
-import org.greenrobot.eventbus.EventBus;
 import org.jdc.template.Analytics;
 import org.jdc.template.App;
 import org.jdc.template.R;
@@ -22,6 +21,7 @@ import org.jdc.template.dagger.Injector;
 import org.jdc.template.domain.main.individual.Individual;
 import org.jdc.template.domain.main.individual.IndividualManager;
 import org.jdc.template.event.IndividualSavedEvent;
+import org.jdc.template.event.RxBus;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -39,25 +39,19 @@ public class IndividualEditFragment extends Fragment {
 
     @Bind(R.id.first_name_layout)
     TextInputLayout firstNameLayout;
-
     @Bind(R.id.first_name)
     EditText firstNameEditText;
-
     @Bind(R.id.last_name)
     EditText lastNameEditText;
-
     @Bind(R.id.phone)
     EditText phoneEditText;
-
     @Bind(R.id.email)
     EditText emailEditText;
 
     @Inject
     IndividualManager individualManager;
-
     @Inject
-    EventBus bus;
-
+    RxBus bus;
     @Inject
     Analytics analytics;
 
@@ -142,7 +136,7 @@ public class IndividualEditFragment extends Fragment {
 
             individualManager.save(individual);
 
-            bus.post(new IndividualSavedEvent(individual.getId()));
+            bus.send(new IndividualSavedEvent(individual.getId()));
         }
     }
 }

@@ -13,13 +13,8 @@ import com.google.android.gms.analytics.HitBuilders;
 
 import org.apache.commons.io.FileUtils;
 import org.dbtools.android.domain.database.DatabaseWrapper;
-import org.dbtools.android.domain.event.DatabaseChangeEvent;
 import org.dbtools.android.domain.event.DatabaseChangeType;
-import org.dbtools.android.domain.event.DatabaseEndTransactionEvent;
-import org.dbtools.android.domain.event.DatabaseInsertEvent;
 import org.dbtools.android.domain.event.DatabaseRowChange;
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 import org.jdc.template.Analytics;
 import org.jdc.template.App;
 import org.jdc.template.BuildConfig;
@@ -69,12 +64,8 @@ public class AboutActivity extends BaseActivity {
 
     @Bind(R.id.version_info)
     TextView versionTextView;
-
     @Bind(R.id.ab_toolbar)
     Toolbar toolbar;
-
-    @Inject
-    EventBus bus;
 
     @Inject
     Analytics analytics;
@@ -94,11 +85,6 @@ public class AboutActivity extends BaseActivity {
         enableActionBarBackArrow(true);
 
         versionTextView.setText(getVersionName());
-    }
-
-    @Override
-    public boolean registerEventBus() {
-        return true;
     }
 
     @Override
@@ -462,24 +448,6 @@ public class AboutActivity extends BaseActivity {
         }
 
         SampleJob.schedule();
-    }
-
-    @Subscribe
-    public void handle(DatabaseInsertEvent event) {
-        Log.e(TAG, "Item inserted on table " + event.getTableName());
-        Log.e(TAG, "NewId " + event.getNewId());
-    }
-
-    @Subscribe
-    public void handle(DatabaseChangeEvent event) {
-        Log.e(TAG, "Database changed on table " + event.getTableName());
-    }
-
-    @Subscribe
-    public void handle(DatabaseEndTransactionEvent event) {
-        Log.e(TAG, "Database changed transaction end.  Tables changed: " + event.getAllTableName());
-        boolean myTableUpdated = event.containsTable(Individual.TABLE);
-        Log.e(TAG, "Individual table updated: " + myTableUpdated);
     }
 
     @OnClick(R.id.rx_test_button)
