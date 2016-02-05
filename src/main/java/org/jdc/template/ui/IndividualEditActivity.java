@@ -5,13 +5,13 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import org.greenrobot.eventbus.Subscribe;
 import org.jdc.template.R;
 import org.jdc.template.dagger.Injector;
 import org.jdc.template.event.IndividualSavedEvent;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import de.greenrobot.event.Subscribe;
 import pocketknife.BindExtra;
 import pocketknife.PocketKnife;
 

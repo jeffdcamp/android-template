@@ -4,9 +4,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-import javax.inject.Inject;
+import org.greenrobot.eventbus.EventBus;
 
-import de.greenrobot.event.EventBus;
+import javax.inject.Inject;
 
 public class BaseActivity extends AppCompatActivity {
 

@@ -7,10 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.greenrobot.eventbus.EventBus;
+
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
-import de.greenrobot.event.EventBus;
 
 public abstract class BaseFragment extends Fragment {
 

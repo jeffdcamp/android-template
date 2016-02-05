@@ -12,8 +12,7 @@ import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import org.dbtools.android.domain.DBToolsEventBus;
-import org.dbtools.android.domain.event.GreenRobotEventBus;
+import org.greenrobot.eventbus.EventBus;
 import org.jdc.template.Analytics;
 import org.jdc.template.BuildConfig;
 import org.jdc.template.webservice.ServiceModule;
@@ -26,7 +25,6 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import de.greenrobot.event.EventBus;
 import retrofit2.GsonConverterFactory;
 
 import static retrofit2.GsonConverterFactory.create;
@@ -60,13 +58,9 @@ public class AppModule {
     @Provides
     @Singleton
     EventBus provideBus() {
-        return EventBus.getDefault();
-    }
-
-    @Provides
-    @Singleton
-    DBToolsEventBus provideDBToolsEventBus(EventBus bus) {
-        return new GreenRobotEventBus(bus);
+        return EventBus.builder()
+                .addIndex(new org.jdc.template.AppMyEventBusIndex())
+                .build();
     }
 
     @Provides

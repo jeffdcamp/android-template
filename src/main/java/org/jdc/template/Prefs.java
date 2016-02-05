@@ -2,10 +2,10 @@ package org.jdc.template;
 
 import android.content.SharedPreferences;
 
+import org.greenrobot.eventbus.EventBus;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
-import de.greenrobot.event.EventBus;
 
 @Singleton
 public final class Prefs {

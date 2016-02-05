@@ -19,8 +19,6 @@ public abstract class PhoneListViewBaseManager extends AndroidBaseManagerReadOnl
 
     @javax.inject.Inject
      DatabaseManager databaseManager;
-    @javax.inject.Inject
-     org.dbtools.android.domain.DBToolsEventBus bus;
 
     public PhoneListViewBaseManager() {
     }
@@ -83,14 +81,6 @@ public abstract class PhoneListViewBaseManager extends AndroidBaseManagerReadOnl
     @javax.annotation.Nonnull
     public String getCreateSql() {
         return PhoneListView.CREATE_VIEW;
-    }
-
-    public org.dbtools.android.domain.DBToolsEventBus getBus() {
-        return bus;
-    }
-
-    public void setBus(org.dbtools.android.domain.DBToolsEventBus bus) {
-        this.bus = bus;
     }
 
 

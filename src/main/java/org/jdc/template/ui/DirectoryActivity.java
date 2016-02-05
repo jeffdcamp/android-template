@@ -5,6 +5,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.jdc.template.InternalIntents;
 import org.jdc.template.R;
 import org.jdc.template.dagger.Injector;
@@ -16,8 +18,6 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import de.greenrobot.event.Subscribe;
-import de.greenrobot.event.ThreadMode;
 
 public class DirectoryActivity extends DrawerActivity {
 
@@ -74,7 +74,7 @@ public class DirectoryActivity extends DrawerActivity {
     }
 
     // ThreadMode.Async because this cannot be called from a onLoadFinished call
-    @Subscribe(threadMode = ThreadMode.Async)
+    @Subscribe(threadMode = ThreadMode.ASYNC)
     public void handle(DirectoryItemSelectedEvent event) {
         if (dualPane) {
             getSupportFragmentManager().beginTransaction()

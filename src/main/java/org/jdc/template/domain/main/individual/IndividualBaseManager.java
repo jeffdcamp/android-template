@@ -19,8 +19,6 @@ public abstract class IndividualBaseManager extends AndroidBaseManagerWritable<I
 
     @javax.inject.Inject
      DatabaseManager databaseManager;
-    @javax.inject.Inject
-     org.dbtools.android.domain.DBToolsEventBus bus;
 
     public IndividualBaseManager() {
     }
@@ -83,14 +81,6 @@ public abstract class IndividualBaseManager extends AndroidBaseManagerWritable<I
     @javax.annotation.Nonnull
     public String getCreateSql() {
         return Individual.CREATE_TABLE;
-    }
-
-    public org.dbtools.android.domain.DBToolsEventBus getBus() {
-        return bus;
-    }
-
-    public void setBus(org.dbtools.android.domain.DBToolsEventBus bus) {
-        this.bus = bus;
     }
 
 

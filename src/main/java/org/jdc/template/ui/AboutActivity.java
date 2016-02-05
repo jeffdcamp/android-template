@@ -16,7 +16,8 @@ import org.dbtools.android.domain.database.DatabaseWrapper;
 import org.dbtools.android.domain.event.DatabaseChangeEvent;
 import org.dbtools.android.domain.event.DatabaseEndTransactionEvent;
 import org.dbtools.android.domain.event.DatabaseInsertEvent;
-import org.dbtools.android.domain.event.GreenRobotEventBus;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import org.jdc.template.Analytics;
 import org.jdc.template.App;
 import org.jdc.template.BuildConfig;
@@ -52,8 +53,6 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import de.greenrobot.event.EventBus;
-import de.greenrobot.event.Subscribe;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -196,12 +195,6 @@ public class AboutActivity extends BaseActivity {
         IndividualManager individualManager = new IndividualManager();
         IndividualListManager individualListManager = new IndividualListManager();
         IndividualListItemManager individualListItemManager = new IndividualListItemManager();
-
-        org.dbtools.android.domain.DBToolsEventBus bus = new GreenRobotEventBus(EventBus.getDefault());
-        householdManager.setBus(bus);
-        individualManager.setBus(bus);
-        individualListManager.setBus(bus);
-        individualListItemManager.setBus(bus);
 
         noInjectionDatabaseManager.setContext(getApplication());
 
