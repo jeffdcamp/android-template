@@ -25,9 +25,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import retrofit2.GsonConverterFactory;
-
-import static retrofit2.GsonConverterFactory.create;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module(includes = {
         ServiceModule.class
@@ -94,6 +92,6 @@ public class AppModule {
     @Provides
     @Singleton
     GsonConverterFactory provideGsonConverterFactory(Gson gson) {
-        return create(gson);
+        return GsonConverterFactory.create(gson);
     }
 }
