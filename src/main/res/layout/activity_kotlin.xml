@@ -7,7 +7,7 @@
     <include layout="@layout/toolbar_actionbar"/>
 
     <Button
-        android:id="@+id/kotlin_hello_button"
+        android:id="@+id/helloButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Kotlin Test"

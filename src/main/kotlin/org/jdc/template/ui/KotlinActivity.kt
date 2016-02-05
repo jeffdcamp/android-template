@@ -3,8 +3,8 @@ package org.jdc.template.ui
 import android.os.Bundle
 import android.widget.Toast
 import butterknife.ButterKnife
-import butterknife.OnClick
-import org.jdc.template.R
+import kotlinx.android.synthetic.main.activity_kotlin.*
+import org.jdc.template.R.layout.activity_kotlin
 import org.jdc.template.dagger.Injector
 import org.jdc.template.domain.main.individual.IndividualManager
 import org.jdc.template.event.RxBus
@@ -27,22 +27,18 @@ open class KotlinActivity : BaseActivity() {
 //    @SaveState
     var clickCount = 0
 
-//    @Bind(R.id.kotlin_hello_button)
-//    lateinit var kotlinButton : Button
-
     protected override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_kotlin)
+        setContentView(activity_kotlin)
         Injector.get().inject(this)
         ButterKnife.bind(this)
         PocketKnife.bindExtras(this)
         PocketKnife.restoreInstanceState(this, savedInstanceState)
 
 
-//        var kotlinButton = findViewById(R.id.kotlin_hello_button)
-//        kotlinButton.setOnClickListener {
-//            bus.send(KotlinButtonClickEvent())
-//        }
+        helloButton.setOnClickListener() {
+            bus.send(KotlinButtonClickEvent())
+        }
     }
 
     override fun onStart() {
@@ -59,11 +55,6 @@ open class KotlinActivity : BaseActivity() {
     override fun onSaveInstanceState(outState: Bundle?) {
         PocketKnife.saveInstanceState(this, outState)
         super.onSaveInstanceState(outState)
-    }
-
-    @OnClick(R.id.kotlin_hello_button)
-    fun onButtonClick() {
-        bus.send(KotlinButtonClickEvent())
     }
 
     fun handleButtonClick() {
