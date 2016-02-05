@@ -4,10 +4,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import org.greenrobot.eventbus.EventBus;
+
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-import de.greenrobot.event.EventBus;
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
