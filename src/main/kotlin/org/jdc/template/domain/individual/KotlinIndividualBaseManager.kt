@@ -56,7 +56,7 @@ abstract class KotlinIndividualBaseManager : RxAndroidBaseManagerWritable<Indivi
     val writableDatabase: DatabaseWrapper<Any>
         get() = databaseManager.getWritableDatabase(databaseName)
 
-    override fun getAndroidDatabase(databaseName: String): org.dbtools.android.domain.AndroidDatabase {
+    override fun getAndroidDatabase(databaseName: String): org.dbtools.android.domain.AndroidDatabase? {
         return databaseManager.getDatabase(databaseName)
     }
 

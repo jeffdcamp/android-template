@@ -10,6 +10,7 @@ import org.jdc.template.ui.IndividualActivity;
 import org.jdc.template.ui.IndividualEditActivity;
 import org.jdc.template.ui.IndividualEditFragment;
 import org.jdc.template.ui.IndividualFragment;
+import org.jdc.template.ui.KotlinActivity;
 import org.jdc.template.ui.SettingsActivity;
 import org.jdc.template.ui.SettingsFragment;
 import org.jdc.template.ui.StartupActivity;
@@ -34,6 +35,7 @@ public interface AppComponent {
     void inject(IndividualEditFragment target);
     void inject(SettingsActivity target);
     void inject(AboutActivity target);
+    void inject(KotlinActivity target);
 
     // Adapters
     void inject(DirectoryAdapter target);

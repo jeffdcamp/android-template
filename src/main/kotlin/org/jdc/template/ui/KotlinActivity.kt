@@ -7,9 +7,8 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import de.greenrobot.event.EventBus
 import de.greenrobot.event.Subscribe
-import org.jdc.template.App
 import org.jdc.template.R
-import org.jdc.template.domain.individual.KotlinIndividualManager
+import org.jdc.template.dagger.Injector
 import org.jdc.template.domain.main.individual.IndividualManager
 import pocketknife.PocketKnife
 import javax.inject.Inject
@@ -20,9 +19,7 @@ open class KotlinActivity : Activity() {
     }
 
     @Inject
-    lateinit var individualManager: IndividualManager
-    @Inject
-    lateinit var kIndividualManager: KotlinIndividualManager
+    lateinit var kIndividualManager: IndividualManager
     @Inject
     lateinit var bus: EventBus
 
@@ -38,7 +35,7 @@ open class KotlinActivity : Activity() {
     protected override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kotlin)
-        App.getInjectComponent(this).inject(this)
+        Injector.get().inject(this)
         ButterKnife.bind(this)
         PocketKnife.bindExtras(this)
         PocketKnife.restoreInstanceState(this, savedInstanceState)

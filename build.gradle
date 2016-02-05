@@ -1,10 +1,11 @@
 buildscript {
-    ext.kotlin_version = '1.0.0-beta-2423'
+    ext.kotlin_version = '1.0.0-rc-1036'
 
     repositories {
         mavenLocal()
         mavenCentral()
         jcenter()
+        maven { url 'https://dl.bintray.com/kotlin/kotlin-eap/' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:1.5.0'
@@ -44,6 +45,7 @@ repositories {
     mavenLocal()
     mavenCentral()
     jcenter()
+    maven { url 'https://dl.bintray.com/kotlin/kotlin-eap/' }
 }
 
 ext {
@@ -83,7 +85,7 @@ dependencies {
 
     // Dagger 2
     compile "com.google.dagger:dagger:${daggerVersion}"
-    provided "com.google.dagger:dagger-compiler:${daggerVersion}"
+    kapt "com.google.dagger:dagger-compiler:${daggerVersion}"
     provided 'javax.annotation:javax.annotation-api:1.2' // Dagger 2 dependency which is not available in Java 6
 
     // Greenrobot EventBus
@@ -253,6 +255,7 @@ sonarqube {
 }
 
 dbtools {
+    // debug: ./gradlew dbtools-genclasses --no-daemon -Dorg.gradle.debug=true
     type 'ANDROID-KOTLIN'
 
     basePackageName 'org.jdc.template.domain'

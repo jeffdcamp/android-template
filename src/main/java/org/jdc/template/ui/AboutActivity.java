@@ -28,7 +28,6 @@ import org.jdc.template.dagger.Injector;
 import org.jdc.template.domain.DatabaseManager;
 import org.jdc.template.domain.attached.crossdatabasequery.CrossDatabaseQuery;
 import org.jdc.template.domain.attached.crossdatabasequery.CrossDatabaseQueryManager;
-import org.jdc.template.domain.individual.KotlinIndividualManager;
 import org.jdc.template.domain.main.household.Household;
 import org.jdc.template.domain.main.household.HouseholdManager;
 import org.jdc.template.domain.main.individual.Individual;
@@ -40,9 +39,9 @@ import org.jdc.template.domain.other.individuallist.IndividualList;
 import org.jdc.template.domain.other.individuallist.IndividualListManager;
 import org.jdc.template.domain.other.individuallistitem.IndividualListItem;
 import org.jdc.template.domain.other.individuallistitem.IndividualListItemManager;
+import org.jdc.template.job.SampleJob;
 import org.jdc.template.ui.util.KotlinMathUtil;
 import org.jdc.template.util.RxUtil;
-import org.jdc.template.job.SampleJob;
 import org.jdc.template.util.WebServiceUtil;
 import org.jdc.template.webservice.websearch.DtoResult;
 import org.jdc.template.webservice.websearch.DtoSearchResponse;
@@ -60,13 +59,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class AboutActivity extends BaseActivity {
     public static final String TAG = App.createTag(AboutActivity.class);
@@ -542,12 +541,9 @@ public class AboutActivity extends BaseActivity {
         }
     }
 
-    @Inject
-    KotlinIndividualManager kIndividualManager;
-
     @OnClick(R.id.test_kotlin)
     public void onKotlinClick() {
-        Toast.makeText(this, "Kotlin Individual Manager Count: " + kIndividualManager.findCount(), Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, "Kotlin Individual Manager Count: " + kIndividualManager.findCount(), Toast.LENGTH_LONG).show();
 
         Intent intent = new Intent(this, KotlinActivity.class);
         intent.putExtra(KotlinActivity.EXTRA_MESSAGE, "Hello Extras!");
