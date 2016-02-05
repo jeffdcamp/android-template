@@ -14,6 +14,7 @@ import android.widget.EditText;
 import com.google.android.gms.analytics.HitBuilders;
 
 import org.apache.commons.lang3.StringUtils;
+import org.greenrobot.eventbus.EventBus;
 import org.jdc.template.Analytics;
 import org.jdc.template.App;
 import org.jdc.template.R;
@@ -28,7 +29,6 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import de.greenrobot.event.EventBus;
 import pocketknife.BindArgument;
 import pocketknife.PocketKnife;
 

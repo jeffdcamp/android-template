@@ -203,12 +203,6 @@ public class AboutActivity extends BaseActivity {
         IndividualListManager individualListManager = new IndividualListManager();
         IndividualListItemManager individualListItemManager = new IndividualListItemManager();
 
-        org.dbtools.android.domain.DBToolsEventBus bus = new GreenRobotEventBus(EventBus.getDefault());
-        householdManager.setBus(bus);
-        individualManager.setBus(bus);
-        individualListManager.setBus(bus);
-        individualListItemManager.setBus(bus);
-
         noInjectionDatabaseManager.setContext(getApplication());
 
         // Main Database
@@ -373,12 +367,12 @@ public class AboutActivity extends BaseActivity {
 
         call.enqueue(new Callback<DtoSearchResponse>() {
             @Override
-            public void onResponse(Response<DtoSearchResponse> response) {
+            public void onResponse(Call<DtoSearchResponse> call, Response<DtoSearchResponse> response) {
                 processWebServiceResponse(response);
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(Call<DtoSearchResponse> call, Throwable t) {
                 Log.e(TAG, "Search FAILED", t);
             }
         });
@@ -400,12 +394,12 @@ public class AboutActivity extends BaseActivity {
 
         call.enqueue(new Callback<DtoSearchResponse>() {
             @Override
-            public void onResponse(Response<DtoSearchResponse> response) {
+            public void onResponse(Call<DtoSearchResponse> call, Response<DtoSearchResponse> response) {
                 processWebServiceResponse(response);
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(Call<DtoSearchResponse> call, Throwable t) {
                 Log.e(TAG, "Search FAILED", t);
             }
         });
@@ -417,7 +411,7 @@ public class AboutActivity extends BaseActivity {
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Response<ResponseBody> response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 // delete any existing file
                 File outputFile = new File(getExternalCacheDir(), "ws-out.json");
                 if (outputFile.exists()) {
@@ -437,7 +431,7 @@ public class AboutActivity extends BaseActivity {
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.e(TAG, "Search FAILED");
             }
         });

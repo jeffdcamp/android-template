@@ -3,6 +3,7 @@ package org.jdc.template.ui;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
+import org.greenrobot.eventbus.Subscribe;
 import org.jdc.template.InternalIntents;
 import org.jdc.template.R;
 import org.jdc.template.dagger.Injector;
@@ -13,7 +14,6 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import de.greenrobot.event.Subscribe;
 import pocketknife.BindExtra;
 import pocketknife.PocketKnife;
 

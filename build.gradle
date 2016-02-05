@@ -8,6 +8,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:1.5.0'
         classpath 'me.tatarka:gradle-retrolambda:3.2.3'
         classpath 'org.dbtools:gradle-dbtools-plugin:4.0.2'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.12.0' // version plugin support
     }
 }
@@ -20,6 +21,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'dbtools'
 apply plugin: 'jacoco'
+apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'com.github.ben-manes.versions' // ./gradlew dependencyUpdates -Drevision=release
 
 def artOnly = false; // enable a fast build supported ONLY by Android 5.0+
@@ -63,7 +65,7 @@ dependencies {
     // Code
     compile 'com.google.code.findbugs:jsr305:3.0.1'
     compile 'com.google.code.gson:gson:2.5' // override the version from retrofit
-    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta3'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
     compile 'joda-time:joda-time:2.9.2'
     compile 'org.dbtools:dbtools-android:4.1.2'
     compile 'org.dbtools:dbtools-query:2.5.6'
@@ -78,8 +80,8 @@ dependencies {
     provided 'javax.annotation:javax.annotation-api:1.2' // Dagger 2 dependency which is not available in Java 6
 
     // Greenrobot EventBus
-    compile 'de.greenrobot:eventbus:3.0.0-beta1'
-    provided 'de.greenrobot:eventbus-annotation-processor:3.0.0-beta1'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    apt 'org.greenrobot:eventbus-annotation-processor:3.0.0'
 
     // RxJava
     compile 'io.reactivex:rxandroid:1.1.0'
@@ -99,6 +101,12 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:2.0.41-beta'
 
+}
+
+apt {
+    arguments {
+        eventBusIndex "org.jdc.template.AppMyEventBusIndex"
+    }
 }
 
 android {
@@ -248,7 +256,7 @@ dbtools {
     injectionSupport true
     jsr305Support true
     includeDatabaseNameInPackage true
-    eventBusSupport true
+    eventBusSupport false
     dateTimeSupport true
     sqlQueryBuilderSupport true
     rxJavaSupport true

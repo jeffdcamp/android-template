@@ -14,6 +14,8 @@ import android.view.MenuItem;
 
 import com.google.android.gms.analytics.HitBuilders;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import org.jdc.template.Analytics;
 import org.jdc.template.App;
 import org.jdc.template.R;
@@ -31,8 +33,6 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import de.greenrobot.event.EventBus;
-import de.greenrobot.event.Subscribe;
 import pocketknife.BindArgument;
 import pocketknife.PocketKnife;
 import pocketknife.SaveState;
