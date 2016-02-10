@@ -97,7 +97,7 @@ public class DirectoryAdapter extends RecyclerCursorAdapter<DirectoryAdapter.Vie
         this.lastSelectedItemId = selectedItemId;
         toggleDualPaneSelection(holder);
 
-        bus.send(new DirectoryItemClickedEvent(selectedItemId));
+        bus.post(new DirectoryItemClickedEvent(selectedItemId));
     }
 
     // dual pane methods

@@ -22,7 +22,7 @@ public class RxBus {
     public RxBus() {
     }
 
-    public void send(Object o) {
+    public void post(Object o) {
         bus.onNext(o);
     }
 
@@ -34,8 +34,8 @@ public class RxBus {
         return subscribe(AndroidSchedulers.mainThread(), onNext);
     }
 
-    public final Subscription subscribeIoThread(@Nonnull Action1<? super Object> onNext) {
-        return subscribe(Schedulers.io(), onNext);
+    public final Subscription subscribeBackgroundThread(@Nonnull Action1<? super Object> onNext) {
+        return subscribe(Schedulers.newThread(), onNext);
     }
 
     public Subscription subscribe(@Nonnull Scheduler scheduler, @Nonnull Action1<? super Object> onNext) {

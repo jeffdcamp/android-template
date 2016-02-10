@@ -136,7 +136,7 @@ public class IndividualEditFragment extends Fragment {
 
             individualManager.save(individual);
 
-            bus.send(new IndividualSavedEvent(individual.getId()));
+            bus.post(new IndividualSavedEvent(individual.getId()));
         }
     }
 }

@@ -94,7 +94,7 @@ public class IndividualFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_edit:
-                bus.send(new EditIndividualEvent(individualId));
+                bus.post(new EditIndividualEvent(individualId));
                 return true;
             case R.id.menu_item_delete:
                 deleteIndividual();
@@ -146,7 +146,7 @@ public class IndividualFragment extends Fragment {
                                 .setAction(Analytics.ACTION_DELETE)
                                 .build());
 
-                        bus.send(new IndividualDeletedEvent(individualId));
+                        bus.post(new IndividualDeletedEvent(individualId));
                     }
                 })
                 .setNegativeButton(R.string.cancel, null)
