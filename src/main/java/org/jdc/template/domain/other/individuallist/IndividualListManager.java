@@ -10,13 +10,16 @@
 package org.jdc.template.domain.other.individuallist;
 
 
+import org.jdc.template.domain.DatabaseManager;
+
 import javax.inject.Inject;
 
 @javax.inject.Singleton
 public class IndividualListManager extends IndividualListBaseManager {
 
     @Inject
-    public IndividualListManager() {
+    public IndividualListManager(DatabaseManager databaseManager) {
+        super(databaseManager);
     }
 
 

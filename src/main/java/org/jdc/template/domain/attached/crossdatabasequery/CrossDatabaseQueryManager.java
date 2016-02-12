@@ -10,13 +10,16 @@
 package org.jdc.template.domain.attached.crossdatabasequery;
 
 
+import org.jdc.template.domain.DatabaseManager;
+
 import javax.inject.Inject;
 
 @javax.inject.Singleton
 public class CrossDatabaseQueryManager extends CrossDatabaseQueryBaseManager {
 
     @Inject
-    public CrossDatabaseQueryManager() {
+    public CrossDatabaseQueryManager(DatabaseManager databaseManager) {
+        super(databaseManager);
     }
 
     @Override

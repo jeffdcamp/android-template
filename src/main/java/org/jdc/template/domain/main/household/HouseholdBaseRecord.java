@@ -11,40 +11,22 @@
 package org.jdc.template.domain.main.household;
 
 import org.dbtools.android.domain.AndroidBaseRecord;
-import android.database.Cursor;
 import android.content.ContentValues;
+import android.database.Cursor;
 
 
 @SuppressWarnings("all")
 public abstract class HouseholdBaseRecord extends AndroidBaseRecord {
 
-    public static final String DATABASE = "main";
-    public static final String TABLE = "HOUSEHOLD";
-    public static final String FULL_TABLE = "main.HOUSEHOLD";
-    public static final String PRIMARY_KEY_COLUMN = "_id";
-    public static final String C_ID = "_id";
-    public static final String FULL_C_ID = "HOUSEHOLD._id";
     private long id = 0;
-    public static final String C_NAME = "NAME";
-    public static final String FULL_C_NAME = "HOUSEHOLD.NAME";
     private String name = "";
-    public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS HOUSEHOLD (" + 
-        "_id INTEGER PRIMARY KEY  AUTOINCREMENT," + 
-        "NAME TEXT NOT NULL" + 
-        ");" + 
-        "" + 
-        "";
-    public static final String DROP_TABLE = "DROP TABLE IF EXISTS HOUSEHOLD;";
-    public static final String[] ALL_KEYS = new String[] {
-        C_ID,
-        C_NAME};
 
     public HouseholdBaseRecord() {
     }
 
     @Override
     public String getIdColumnName() {
-        return C_ID;
+        return HouseholdConst.C_ID;
     }
 
     @Override
@@ -57,23 +39,19 @@ public abstract class HouseholdBaseRecord extends AndroidBaseRecord {
         this.id = id;
     }
 
-    public static long getId(Cursor cursor) {
-        return cursor.getLong(cursor.getColumnIndexOrThrow(C_ID));
-    }
-
-    public static String getName(Cursor cursor) {
-        return cursor.getString(cursor.getColumnIndexOrThrow(C_NAME));
-    }
-
     @Override
-    public String[] getAllKeys() {
-        return ALL_KEYS.clone();
+    public String[] getAllColumns() {
+        return HouseholdConst.ALL_COLUMNS.clone();
+    }
+
+    public String[] getAllColumnsFull() {
+        return HouseholdConst.ALL_COLUMNS_FULL.clone();
     }
 
     @Override
     public ContentValues getContentValues() {
         ContentValues values = new ContentValues();
-        values.put(C_NAME, name);
+        values.put(HouseholdConst.C_NAME, name);
         return values;
     }
 
@@ -87,13 +65,13 @@ public abstract class HouseholdBaseRecord extends AndroidBaseRecord {
     }
 
     public void setContent(ContentValues values) {
-        name = values.getAsString(C_NAME);
+        name = values.getAsString(HouseholdConst.C_NAME);
     }
 
     @Override
     public void setContent(Cursor cursor) {
-        id = cursor.getLong(cursor.getColumnIndexOrThrow(C_ID));
-        name = cursor.getString(cursor.getColumnIndexOrThrow(C_NAME));
+        id = cursor.getLong(cursor.getColumnIndexOrThrow(HouseholdConst.C_ID));
+        name = cursor.getString(cursor.getColumnIndexOrThrow(HouseholdConst.C_NAME));
     }
 
     public boolean isNewRecord() {

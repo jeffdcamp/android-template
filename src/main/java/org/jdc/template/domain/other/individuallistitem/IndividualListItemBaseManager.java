@@ -17,15 +17,15 @@ import org.dbtools.android.domain.RxAndroidBaseManagerWritable;
 @SuppressWarnings("all")
 public abstract class IndividualListItemBaseManager extends RxAndroidBaseManagerWritable<IndividualListItem> {
 
-    @javax.inject.Inject
-     DatabaseManager databaseManager;
+    private DatabaseManager databaseManager;
 
-    public IndividualListItemBaseManager() {
+    public IndividualListItemBaseManager(DatabaseManager databaseManager) {
+        this.databaseManager = databaseManager;
     }
 
     @javax.annotation.Nonnull
     public String getDatabaseName() {
-        return IndividualListItem.DATABASE;
+        return IndividualListItemConst.DATABASE;
     }
 
     @javax.annotation.Nonnull
@@ -35,12 +35,12 @@ public abstract class IndividualListItemBaseManager extends RxAndroidBaseManager
 
     @javax.annotation.Nonnull
     public String getTableName() {
-        return IndividualListItem.TABLE;
+        return IndividualListItemConst.TABLE;
     }
 
     @javax.annotation.Nonnull
-    public String[] getAllKeys() {
-        return IndividualListItem.ALL_KEYS;
+    public String[] getAllColumns() {
+        return IndividualListItemConst.ALL_COLUMNS;
     }
 
     @javax.annotation.Nonnull
@@ -70,17 +70,17 @@ public abstract class IndividualListItemBaseManager extends RxAndroidBaseManager
 
     @javax.annotation.Nonnull
     public String getPrimaryKey() {
-        return IndividualListItem.PRIMARY_KEY_COLUMN;
+        return IndividualListItemConst.PRIMARY_KEY_COLUMN;
     }
 
     @javax.annotation.Nonnull
     public String getDropSql() {
-        return IndividualListItem.DROP_TABLE;
+        return IndividualListItemConst.DROP_TABLE;
     }
 
     @javax.annotation.Nonnull
     public String getCreateSql() {
-        return IndividualListItem.CREATE_TABLE;
+        return IndividualListItemConst.CREATE_TABLE;
     }
 
 

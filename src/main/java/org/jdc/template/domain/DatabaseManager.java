@@ -16,23 +16,24 @@ import javax.inject.Singleton;
 @Singleton
 public class DatabaseManager extends DatabaseBaseManager {
 
-    @Inject
-    Application application;
     public static final int MAIN_VERSION = 1;
     public static final int MAIN_VIEWS_VERSION = 3;
 
     public static final int OTHER_VERSION = 1;
     public static final int OTHER_VIEWS_VERSION = 1;
 
+    private Application application;
+
     @Inject
-    public DatabaseManager() {
+    public DatabaseManager(Application application) {
+        this.application = application;
     }
 
     public void identifyDatabases() {
-        addDatabase(application, MAIN_DATABASE_NAME, MAIN_VERSION, MAIN_VIEWS_VERSION);
-        addDatabase(application, OTHER_DATABASE_NAME, OTHER_VERSION, OTHER_VIEWS_VERSION);
+        addDatabase(application, DatabaseManagerConst.MAIN_DATABASE_NAME, MAIN_VERSION, MAIN_VIEWS_VERSION);
+        addDatabase(application, DatabaseManagerConst.OTHER_DATABASE_NAME, OTHER_VERSION, OTHER_VIEWS_VERSION);
 
-        addAttachedDatabase(ATTACHED_DATABASE_NAME, DatabaseManager.MAIN_DATABASE_NAME, Collections.singletonList(DatabaseManager.OTHER_DATABASE_NAME));
+        addAttachedDatabase(DatabaseManagerConst.ATTACHED_DATABASE_NAME, DatabaseManagerConst.MAIN_DATABASE_NAME, Collections.singletonList(DatabaseManagerConst.OTHER_DATABASE_NAME));
     }
 
     @Override
@@ -58,11 +59,11 @@ public class DatabaseManager extends DatabaseBaseManager {
     public void initDatabaseConnection() {
         Log.i(TAG, "Initializing Database connection: ");
         try {
-            getWritableDatabase(DatabaseManager.MAIN_DATABASE_NAME);
+            getWritableDatabase(DatabaseManagerConst.MAIN_DATABASE_NAME);
         } catch (Exception e) {
             Log.e(TAG, "Failed to open database... attempting to recreate database", e);
             cleanAllDatabases();
-            getWritableDatabase(DatabaseManager.MAIN_DATABASE_NAME);
+            getWritableDatabase(DatabaseManagerConst.MAIN_DATABASE_NAME);
         }
     }
 }

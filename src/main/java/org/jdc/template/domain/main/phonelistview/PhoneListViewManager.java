@@ -10,11 +10,14 @@
 package org.jdc.template.domain.main.phonelistview;
 
 
+import org.jdc.template.domain.DatabaseManager;
+
 @javax.inject.Singleton
 public class PhoneListViewManager extends PhoneListViewBaseManager {
 
 
-    public PhoneListViewManager() {
+    public PhoneListViewManager(DatabaseManager databaseManager) {
+        super(databaseManager);
     }
 
 

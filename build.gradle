@@ -5,10 +5,9 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.5.0'
+        classpath 'com.android.tools.build:gradle:2.0.0-beta4'
         classpath 'me.tatarka:gradle-retrolambda:3.2.5'
-        classpath 'org.dbtools:gradle-dbtools-plugin:4.0.2'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'org.dbtools:gradle-dbtools-plugin:5.0.0'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.12.0' // version plugin support
     }
 }
@@ -44,7 +43,7 @@ ext {
     // versions for libraries that multiple dependencies
     supportLibVersion = "23.1.1"
     daggerVersion = "2.0.2"
-    pocketKnifeVersion = "3.1.0"
+    pocketKnifeVersion = "3.2.0"
 }
 dependencies {
     // Android
@@ -66,7 +65,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.5' // override the version from retrofit
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
     compile 'joda-time:joda-time:2.9.2'
-    compile 'org.dbtools:dbtools-android:4.1.2'
+    compile 'org.dbtools:dbtools-android:5.0.0-SNAPSHOT'
     compile 'org.dbtools:dbtools-query:2.5.6'
     compile 'org.apache.commons:commons-lang3:3.4'
     compile 'commons-io:commons-io:2.4'
@@ -246,7 +245,7 @@ dbtools {
     jsr305Support true
     includeDatabaseNameInPackage true
     eventBusSupport false
-    dateTimeSupport true
+    dateType 'JODA'
     sqlQueryBuilderSupport true
     rxJavaSupport true
 }
