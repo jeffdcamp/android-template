@@ -1,5 +1,8 @@
 package org.jdc.template.event;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -18,6 +21,8 @@ import rx.subjects.Subject;
 public class RxBus {
     private final Subject<Object, Object> bus = new SerializedSubject<>(PublishSubject.create());
 
+    private Map<Class, Object> stickyEventList = new ConcurrentHashMap<>();
+
     @Inject
     public RxBus() {
     }
@@ -26,19 +31,38 @@ public class RxBus {
         bus.onNext(o);
     }
 
+    public void postSticky(Object o) {
+        stickyEventList.put(o.getClass(), o);
+        post(o);
+    }
+
+    public void removeSticky(Class eventClass) {
+        stickyEventList.remove(eventClass);
+    }
+
     public Observable<Object> toObserverable() {
         return bus;
     }
 
     public final Subscription subscribeMainThread(@Nonnull Action1<? super Object> onNext) {
-        return subscribe(AndroidSchedulers.mainThread(), onNext);
+        Subscription subscription = subscribe(AndroidSchedulers.mainThread(), onNext);
+        postStickyEvents();
+        return subscription;
     }
 
     public final Subscription subscribeBackgroundThread(@Nonnull Action1<? super Object> onNext) {
-        return subscribe(Schedulers.newThread(), onNext);
+        Subscription subscription = subscribe(Schedulers.newThread(), onNext);
+        postStickyEvents();
+        return subscription;
     }
 
     public Subscription subscribe(@Nonnull Scheduler scheduler, @Nonnull Action1<? super Object> onNext) {
         return bus.observeOn(scheduler).subscribe(onNext);
+    }
+
+    private void postStickyEvents() {
+        for (Object event : stickyEventList.values()) {
+            post(event);
+        }
     }
 }
