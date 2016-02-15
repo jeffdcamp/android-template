@@ -155,7 +155,7 @@ public class DirectoryFragment extends BaseFragment implements SearchView.OnQuer
             selectPosition(((DirectoryItemClickedEvent) event).getItemId());
         } else if (event instanceof IndividualSavedEvent) {
             loadList();
-            bus.send(new DirectoryItemSelectedEvent(((IndividualSavedEvent) event).getId()));
+            bus.post(new DirectoryItemSelectedEvent(((IndividualSavedEvent) event).getId()));
         } else if (event instanceof IndividualDeletedEvent) {
             loadList();
         }
@@ -201,7 +201,7 @@ public class DirectoryFragment extends BaseFragment implements SearchView.OnQuer
             adapter.setLastSelectedItemId(id);
         }
 
-        bus.send(new DirectoryItemSelectedEvent(id));
+        bus.post(new DirectoryItemSelectedEvent(id));
     }
 
     @OnClick(R.id.fab_new_item)
@@ -211,6 +211,6 @@ public class DirectoryFragment extends BaseFragment implements SearchView.OnQuer
                 .setAction(Analytics.ACTION_NEW)
                 .build());
 
-        bus.send(new EditIndividualEvent());
+        bus.post(new EditIndividualEvent());
     }
 }

@@ -54,6 +54,9 @@
     <string name="last_name">Last Name</string>
     <string name="phone">Phone</string>
     <string name="email">Email</string>
+    <string name="birth_date">Birth Date</string>
+    <string name="alarm_time">Alarm Time</string>
+    <string name="combined_date_time">Combinded Date and Time</string>
 
 
 </resources>

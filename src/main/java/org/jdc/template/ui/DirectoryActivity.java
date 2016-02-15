@@ -64,7 +64,7 @@ public class DirectoryActivity extends DrawerActivity {
     protected void onStart() {
         super.onStart();
         addSubscription(bus.subscribeMainThread(event -> handleSubscribeMainThread(event)));
-        addSubscription(bus.subscribeIoThread(event -> handleSubscribeIoThread(event)));
+        addSubscription(bus.subscribeBackgroundThread(event -> handleSubscribeIoThread(event)));
     }
 
     private void handleSubscribeIoThread(Object event) {

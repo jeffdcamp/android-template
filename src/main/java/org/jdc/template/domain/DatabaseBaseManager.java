@@ -19,20 +19,17 @@ import org.dbtools.android.domain.database.DatabaseWrapper;
 @SuppressWarnings("all")
 public abstract class DatabaseBaseManager extends AndroidDatabaseManager {
 
-    public static final String MAIN_DATABASE_NAME = "main";
-    public static final String OTHER_DATABASE_NAME = "other";
-    public static final String ATTACHED_DATABASE_NAME = "attached";
 
     public void createMainTables(@javax.annotation.Nonnull AndroidDatabase androidDatabase) {
         DatabaseWrapper database = androidDatabase.getDatabaseWrapper();
         database.beginTransaction();
         
         // Enum Tables
-        AndroidBaseManager.createTable(database, org.jdc.template.domain.main.individualtype.IndividualType.CREATE_TABLE);
+        AndroidBaseManager.createTable(database, org.jdc.template.domain.main.individualtype.IndividualTypeConst.CREATE_TABLE);
         
         // Tables
-        AndroidBaseManager.createTable(database, org.jdc.template.domain.main.household.Household.CREATE_TABLE);
-        AndroidBaseManager.createTable(database, org.jdc.template.domain.main.individual.Individual.CREATE_TABLE);
+        AndroidBaseManager.createTable(database, org.jdc.template.domain.main.household.HouseholdConst.CREATE_TABLE);
+        AndroidBaseManager.createTable(database, org.jdc.template.domain.main.individual.IndividualConst.CREATE_TABLE);
         
         database.setTransactionSuccessful();
         database.endTransaction();
@@ -45,8 +42,8 @@ public abstract class DatabaseBaseManager extends AndroidDatabaseManager {
         // Enum Tables
         
         // Tables
-        AndroidBaseManager.createTable(database, org.jdc.template.domain.other.individuallist.IndividualList.CREATE_TABLE);
-        AndroidBaseManager.createTable(database, org.jdc.template.domain.other.individuallistitem.IndividualListItem.CREATE_TABLE);
+        AndroidBaseManager.createTable(database, org.jdc.template.domain.other.individuallist.IndividualListConst.CREATE_TABLE);
+        AndroidBaseManager.createTable(database, org.jdc.template.domain.other.individuallistitem.IndividualListItemConst.CREATE_TABLE);
         
         database.setTransactionSuccessful();
         database.endTransaction();
@@ -66,13 +63,13 @@ public abstract class DatabaseBaseManager extends AndroidDatabaseManager {
 
     public void onCreate(@javax.annotation.Nonnull AndroidDatabase androidDatabase) {
         Log.i(TAG, "Creating database: " + androidDatabase.getName());
-        if (androidDatabase.getName().equals(MAIN_DATABASE_NAME)) {
+        if (androidDatabase.getName().equals(DatabaseManagerConst.MAIN_DATABASE_NAME)) {
             createMainTables(androidDatabase);
         }
-        if (androidDatabase.getName().equals(OTHER_DATABASE_NAME)) {
+        if (androidDatabase.getName().equals(DatabaseManagerConst.OTHER_DATABASE_NAME)) {
             createOtherTables(androidDatabase);
         }
-        if (androidDatabase.getName().equals(ATTACHED_DATABASE_NAME)) {
+        if (androidDatabase.getName().equals(DatabaseManagerConst.ATTACHED_DATABASE_NAME)) {
             createAttachedTables(androidDatabase);
         }
     }
@@ -101,14 +98,14 @@ public abstract class DatabaseBaseManager extends AndroidDatabaseManager {
 
     public void onCreateViews(@javax.annotation.Nonnull AndroidDatabase androidDatabase) {
         Log.i(TAG, "Creating database views: " + androidDatabase.getName());
-        if (androidDatabase.getName().equals(MAIN_DATABASE_NAME)) {
+        if (androidDatabase.getName().equals(DatabaseManagerConst.MAIN_DATABASE_NAME)) {
             createMainViews(androidDatabase);
         }
     }
 
     public void onDropViews(@javax.annotation.Nonnull AndroidDatabase androidDatabase) {
         Log.i(TAG, "Dropping database views: " + androidDatabase.getName());
-        if (androidDatabase.getName().equals(MAIN_DATABASE_NAME)) {
+        if (androidDatabase.getName().equals(DatabaseManagerConst.MAIN_DATABASE_NAME)) {
             dropMainViews(androidDatabase);
         }
     }

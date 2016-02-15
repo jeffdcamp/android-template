@@ -19,7 +19,10 @@
             <field name="INDIVIDUAL_TYPE_ID" jdbcDataType="INTEGER" varName="individualType" foreignKeyTable="INDIVIDUAL_TYPE" foreignKeyField="_id" foreignKeyType="ENUM" enumerationDefault="HEAD"/>
             <field name="FIRST_NAME" jdbcDataType="VARCHAR"/>
             <field name="LAST_NAME" jdbcDataType="VARCHAR"/>
-            <field name="BIRTH_DATE" jdbcDataType="TIMESTAMP" notNull="false"/>
+            <field name="BIRTH_DATE" jdbcDataType="DATE" notNull="false"/>
+            <field name="ALARM_TIME" jdbcDataType="TIME"/>
+            <field name="LAST_MODIFIED" jdbcDataType="TIMESTAMP"/> <!-- long -->
+            <field name="SAMPLE_DATE_TIME" jdbcDataType="DATETIME" notNull="false"/> <!-- text -->
             <field name="PHONE" jdbcDataType="VARCHAR"/>
             <field name="EMAIL" jdbcDataType="VARCHAR"/>
             <field name="AVAILABLE" jdbcDataType="BOOLEAN"/>

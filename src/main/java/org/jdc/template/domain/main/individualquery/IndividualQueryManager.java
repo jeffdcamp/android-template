@@ -10,13 +10,16 @@
 package org.jdc.template.domain.main.individualquery;
 
 
+import org.jdc.template.domain.DatabaseManager;
+
 import javax.inject.Inject;
 
 @javax.inject.Singleton
 public class IndividualQueryManager extends IndividualQueryBaseManager {
 
     @Inject
-    public IndividualQueryManager() {
+    public IndividualQueryManager(DatabaseManager databaseManager) {
+        super(databaseManager);
     }
 
     @Override

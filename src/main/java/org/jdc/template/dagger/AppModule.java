@@ -16,7 +16,7 @@ import org.jdc.template.Analytics;
 import org.jdc.template.BuildConfig;
 import org.jdc.template.webservice.ServiceModule;
 import org.jdc.template.webservice.converter.DateTimeTypeConverter;
-import org.joda.time.DateTime;
+import org.threeten.bp.LocalDateTime;
 
 import java.util.Map;
 
@@ -76,7 +76,7 @@ public class AppModule {
     Gson provideGson() {
         GsonBuilder builder = new GsonBuilder()
 //                .setPrettyPrinting() // NOSONAR - DEBUG
-                .registerTypeAdapter(DateTime.class, new DateTimeTypeConverter());
+                .registerTypeAdapter(LocalDateTime.class, new DateTimeTypeConverter());
         return builder.create();
     }
 

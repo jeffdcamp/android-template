@@ -8,10 +8,9 @@ buildscript {
         maven { url 'https://dl.bintray.com/kotlin/kotlin-eap/' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.0.0-beta2'
+        classpath 'com.android.tools.build:gradle:2.0.0-beta4'
         classpath 'me.tatarka:gradle-retrolambda:3.2.5'
-        classpath 'org.dbtools:gradle-dbtools-plugin:4.0.2'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'org.dbtools:gradle-dbtools-plugin:5.0.0'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.12.0' // version plugin support
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
@@ -54,7 +53,7 @@ ext {
     // versions for libraries that multiple dependencies
     supportLibVersion = "23.1.1"
     daggerVersion = "2.0.2"
-    pocketKnifeVersion = "3.1.0"
+    pocketKnifeVersion = "3.2.0"
 }
 dependencies {
     // Android
@@ -75,10 +74,10 @@ dependencies {
     // Code
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile 'com.google.code.findbugs:jsr305:3.0.1'
-    compile 'com.google.code.gson:gson:2.5' // override the version from retrofit
+    compile 'com.google.code.gson:gson:2.6.1' // override the version from retrofit
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
-    compile 'joda-time:joda-time:2.9.2'
-    compile 'org.dbtools:dbtools-android:4.1.2'
+    compile 'org.threeten:threetenbp:1.3.1'
+    compile 'org.dbtools:dbtools-android:5.0.0-SNAPSHOT'
     compile 'org.dbtools:dbtools-query:2.5.6'
     compile 'org.apache.commons:commons-lang3:3.4'
     compile 'commons-io:commons-io:2.4'
@@ -92,9 +91,9 @@ dependencies {
 
     // RxJava
     compile 'io.reactivex:rxandroid:1.1.0'
-    compile 'io.reactivex:rxjava:1.1.0'
+    compile 'io.reactivex:rxjava:1.1.1'
 
-    // Custom SQLite database
+    // Custom SQLite databasethreetenbp
 //    compile 'org.sqlite:sqlite-android:3.8.9.0-20150415'
 //    compile 'net.sqlcipher:sqlcipher-aar:3.1.0.20140823'
 
@@ -106,7 +105,7 @@ dependencies {
 
     // Test (Unit)
     testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.0.41-beta'
+    testCompile 'org.mockito:mockito-core:2.0.42-beta'
 
 }
 
@@ -263,7 +262,7 @@ dbtools {
     jsr305Support true
     includeDatabaseNameInPackage true
     eventBusSupport false
-    dateTimeSupport true
+    dateType 'JSR-310'
     sqlQueryBuilderSupport true
     rxJavaSupport true
 }

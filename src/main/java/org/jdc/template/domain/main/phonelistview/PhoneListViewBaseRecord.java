@@ -11,35 +11,18 @@
 package org.jdc.template.domain.main.phonelistview;
 
 import org.dbtools.android.domain.AndroidBaseRecord;
-import android.database.Cursor;
+import org.dbtools.android.domain.DBToolsDateFormatter;
 import android.content.ContentValues;
+import android.database.Cursor;
 
 
 @SuppressWarnings("all")
 public abstract class PhoneListViewBaseRecord extends AndroidBaseRecord {
 
-    public static final String DATABASE = "main";
-    public static final String TABLE = "PHONE_LIST_VIEW";
-    public static final String FULL_TABLE = "main.PHONE_LIST_VIEW";
-    public static final String C_ID = "_id";
-    public static final String FULL_C_ID = "PHONE_LIST_VIEW._id";
     private long id = 0;
-    public static final String C_NAME = "NAME";
-    public static final String FULL_C_NAME = "PHONE_LIST_VIEW.NAME";
     private String name = "";
-    public static final String[] ALL_KEYS = new String[] {
-        C_ID,
-        C_NAME};
 
     public PhoneListViewBaseRecord() {
-    }
-
-    public static long getId(Cursor cursor) {
-        return cursor.getLong(cursor.getColumnIndexOrThrow(C_ID));
-    }
-
-    public static String getName(Cursor cursor) {
-        return cursor.getString(cursor.getColumnIndexOrThrow(C_NAME));
     }
 
     @Override
@@ -57,15 +40,19 @@ public abstract class PhoneListViewBaseRecord extends AndroidBaseRecord {
     }
 
     @Override
-    public String[] getAllKeys() {
-        return ALL_KEYS.clone();
+    public String[] getAllColumns() {
+        return PhoneListViewConst.ALL_COLUMNS.clone();
+    }
+
+    public String[] getAllColumnsFull() {
+        return PhoneListViewConst.ALL_COLUMNS_FULL.clone();
     }
 
     @Override
     public ContentValues getContentValues() {
         ContentValues values = new ContentValues();
-        values.put(C_ID, id);
-        values.put(C_NAME, name);
+        values.put(PhoneListViewConst.C_ID, id);
+        values.put(PhoneListViewConst.C_NAME, name);
         return values;
     }
 
@@ -79,14 +66,14 @@ public abstract class PhoneListViewBaseRecord extends AndroidBaseRecord {
     }
 
     public void setContent(ContentValues values) {
-        id = values.getAsLong(C_ID);
-        name = values.getAsString(C_NAME);
+        id = values.getAsLong(PhoneListViewConst.C_ID);
+        name = values.getAsString(PhoneListViewConst.C_NAME);
     }
 
     @Override
     public void setContent(Cursor cursor) {
-        id = cursor.getLong(cursor.getColumnIndexOrThrow(C_ID));
-        name = cursor.getString(cursor.getColumnIndexOrThrow(C_NAME));
+        id = cursor.getLong(cursor.getColumnIndexOrThrow(PhoneListViewConst.C_ID));
+        name = cursor.getString(cursor.getColumnIndexOrThrow(PhoneListViewConst.C_NAME));
     }
 
     public boolean isNewRecord() {

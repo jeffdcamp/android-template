@@ -11,21 +11,21 @@ package org.jdc.template.domain.main.phonelistview;
 
 import org.jdc.template.domain.DatabaseManager;
 import org.dbtools.android.domain.database.DatabaseWrapper;
-import org.dbtools.android.domain.AndroidBaseManagerReadOnly;
+import org.dbtools.android.domain.RxAndroidBaseManagerReadOnly;
 
 
 @SuppressWarnings("all")
-public abstract class PhoneListViewBaseManager extends AndroidBaseManagerReadOnly<PhoneListView> {
+public abstract class PhoneListViewBaseManager extends RxAndroidBaseManagerReadOnly<PhoneListView> {
 
-    @javax.inject.Inject
-     DatabaseManager databaseManager;
+    private DatabaseManager databaseManager;
 
-    public PhoneListViewBaseManager() {
+    public PhoneListViewBaseManager(DatabaseManager databaseManager) {
+        this.databaseManager = databaseManager;
     }
 
     @javax.annotation.Nonnull
     public String getDatabaseName() {
-        return PhoneListView.DATABASE;
+        return PhoneListViewConst.DATABASE;
     }
 
     @javax.annotation.Nonnull
@@ -35,12 +35,12 @@ public abstract class PhoneListViewBaseManager extends AndroidBaseManagerReadOnl
 
     @javax.annotation.Nonnull
     public String getTableName() {
-        return PhoneListView.TABLE;
+        return PhoneListViewConst.TABLE;
     }
 
     @javax.annotation.Nonnull
-    public String[] getAllKeys() {
-        return PhoneListView.ALL_KEYS;
+    public String[] getAllColumns() {
+        return PhoneListViewConst.ALL_COLUMNS;
     }
 
     @javax.annotation.Nonnull

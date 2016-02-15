@@ -19,6 +19,7 @@
             <xsd:enumeration value="CHAR" />
             <xsd:enumeration value="VARCHAR" />
             <xsd:enumeration value="LONGVARCHAR" />
+            <xsd:enumeration value="DATETIME" />
             <xsd:enumeration value="DATE" />
             <xsd:enumeration value="TIME" />
             <xsd:enumeration value="TIMESTAMP" />
