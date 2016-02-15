@@ -8,22 +8,21 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.ISODateTimeFormat;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.format.DateTimeFormatter;
 
 import java.lang.reflect.Type;
 
-public class DateTimeTypeConverter implements JsonSerializer<DateTime>, JsonDeserializer<DateTime> {
-    public static final DateTimeFormatter FORMATTER = ISODateTimeFormat.dateTime();
+public class DateTimeTypeConverter implements JsonSerializer<LocalDateTime>, JsonDeserializer<LocalDateTime> {
+    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_DATE_TIME;
 
     @Override
-    public JsonElement serialize(DateTime src, Type srcType, JsonSerializationContext context) {
-        return new JsonPrimitive(FORMATTER.print(src));
+    public JsonElement serialize(LocalDateTime src, Type srcType, JsonSerializationContext context) {
+        return new JsonPrimitive(FORMATTER.format(src));
     }
 
     @Override
-    public DateTime deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws JsonParseException {
-        return FORMATTER.parseDateTime(json.getAsString());
+    public LocalDateTime deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws JsonParseException {
+        return LocalDateTime.parse(json.getAsString(), FORMATTER);
     }
 }

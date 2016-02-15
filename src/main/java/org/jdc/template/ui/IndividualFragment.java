@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.analytics.HitBuilders;
 
+import org.dbtools.android.domain.DBToolsDateFormatter;
 import org.jdc.template.Analytics;
 import org.jdc.template.App;
 import org.jdc.template.R;
@@ -23,6 +25,10 @@ import org.jdc.template.domain.main.individual.IndividualManager;
 import org.jdc.template.event.EditIndividualEvent;
 import org.jdc.template.event.IndividualDeletedEvent;
 import org.jdc.template.event.RxBus;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.LocalTime;
+import org.threeten.bp.ZoneId;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -46,6 +52,12 @@ public class IndividualFragment extends Fragment {
     TextView phoneTextView;
     @Bind(R.id.individual_email)
     TextView emailTextView;
+    @Bind(R.id.birth_date)
+    TextView birthDateEditText;
+    @Bind(R.id.alarm_time)
+    TextView alarmTimeEditText;
+    @Bind(R.id.sample_datetime)
+    TextView sampleDateTimeEditText;
 
     @Inject
     IndividualManager individualManager;
@@ -123,14 +135,47 @@ public class IndividualFragment extends Fragment {
     }
 
     private void setUi(@Nonnull Individual individual) {
-            analytics.send(new HitBuilders.EventBuilder()
-                    .setCategory(Analytics.CATEGORY_INDIVIDUAL)
-                    .setAction(Analytics.ACTION_VIEW)
-                    .build());
+        analytics.send(new HitBuilders.EventBuilder()
+                .setCategory(Analytics.CATEGORY_INDIVIDUAL)
+                .setAction(Analytics.ACTION_VIEW)
+                .build());
 
-            nameTextView.setText(individual.getFullName());
-            phoneTextView.setText(individual.getPhone());
-            emailTextView.setText(individual.getEmail());
+        nameTextView.setText(individual.getFullName());
+        phoneTextView.setText(individual.getPhone());
+        emailTextView.setText(individual.getEmail());
+        showBirthDate(individual);
+        showAlarmTime(individual);
+        showSampleDateTime(individual);
+    }
+
+    private void showBirthDate(Individual individual) {
+        if (individual.getBirthDate() == null) {
+            return;
+        }
+
+        LocalDate date = individual.getBirthDate();
+        long millis = DBToolsDateFormatter.localDateTimeToLong(date.atStartOfDay(ZoneId.systemDefault()).toLocalDateTime());
+        birthDateEditText.setText(DateUtils.formatDateTime(getActivity(), millis, DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR));
+    }
+
+    private void showAlarmTime(Individual individual) {
+        if (individual.getAlarmTime() == null) {
+            return;
+        }
+
+        LocalTime time = individual.getAlarmTime();
+        long millis = DBToolsDateFormatter.localDateTimeToLong(time.atDate(LocalDate.now()));
+        alarmTimeEditText.setText(DateUtils.formatDateTime(getActivity(), millis, DateUtils.FORMAT_SHOW_TIME));
+    }
+
+    private void showSampleDateTime(Individual individual) {
+        if (individual.getSampleDateTime() == null) {
+            return;
+        }
+
+        LocalDateTime dateTime = individual.getSampleDateTime();
+        long millis = DBToolsDateFormatter.localDateTimeToLong(dateTime);
+        sampleDateTimeEditText.setText(DateUtils.formatDateTime(getActivity(), millis, DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_SHOW_TIME));
     }
 
     private void deleteIndividual() {

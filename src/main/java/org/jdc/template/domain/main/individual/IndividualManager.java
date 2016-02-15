@@ -11,8 +11,7 @@ package org.jdc.template.domain.main.individual;
 
 
 import org.jdc.template.domain.DatabaseManager;
-import org.joda.time.DateTime;
-
+import org.threeten.bp.LocalDateTime;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -31,7 +30,11 @@ public class IndividualManager extends IndividualBaseManager {
             return false;
         }
 
-        individual.setLastModified(DateTime.now());
+        if (individual.getBirthDate() != null && individual.getAlarmTime() != null) {
+            individual.setSampleDateTime(LocalDateTime.of(individual.getBirthDate(),  individual.getAlarmTime()));
+        }
+
+        individual.setLastModified(LocalDateTime.now());
         return super.save(databaseName, individual);
     }
 }

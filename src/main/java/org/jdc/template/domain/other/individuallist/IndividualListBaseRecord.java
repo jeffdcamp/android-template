@@ -11,6 +11,7 @@
 package org.jdc.template.domain.other.individuallist;
 
 import org.dbtools.android.domain.AndroidBaseRecord;
+import org.dbtools.android.domain.DBToolsDateFormatter;
 import android.content.ContentValues;
 import android.database.Cursor;
 

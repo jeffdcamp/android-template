@@ -43,6 +43,8 @@ import org.jdc.template.util.WebServiceUtil;
 import org.jdc.template.webservice.websearch.DtoResult;
 import org.jdc.template.webservice.websearch.DtoSearchResponse;
 import org.jdc.template.webservice.websearch.WebSearchService;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.LocalTime;
 
 import java.io.File;
 import java.io.IOException;
@@ -157,6 +159,8 @@ public class AboutActivity extends BaseActivity {
         individual1.setPhone("801-555-0000");
         individual1.setIndividualType(IndividualType.HEAD);
         individual1.setHouseholdId(household.getId());
+        individual1.setBirthDate(LocalDate.of(1970, 1, 1));
+        individual1.setAlarmTime(LocalTime.of(7, 0));
         individualManager.save(individual1);
 
         Individual individual2 = new Individual();
@@ -165,6 +169,8 @@ public class AboutActivity extends BaseActivity {
         individual2.setPhone("303-555-1111");
         individual2.setIndividualType(IndividualType.CHILD);
         individual2.setHouseholdId(household.getId());
+        individual1.setBirthDate(LocalDate.of(1970, 1, 2));
+        individual2.setAlarmTime(LocalTime.of(6, 0));
         individualManager.save(individual2);
 
         householdManager.endTransaction(true);

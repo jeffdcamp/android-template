@@ -11,6 +11,7 @@
 package org.jdc.template.domain.main.individual;
 
 import org.dbtools.android.domain.AndroidBaseRecord;
+import org.dbtools.android.domain.DBToolsDateFormatter;
 import org.jdc.template.domain.main.individualtype.IndividualType;
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -24,8 +25,10 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
     private IndividualType individualType = IndividualType.HEAD;
     private String firstName = "";
     private String lastName = "";
-    private org.joda.time.DateTime birthDate = null;
-    private org.joda.time.DateTime lastModified = null;
+    private org.threeten.bp.LocalDate birthDate = null;
+    private org.threeten.bp.LocalTime alarmTime = null;
+    private org.threeten.bp.LocalDateTime lastModified = null;
+    private org.threeten.bp.LocalDateTime sampleDateTime = null;
     private String phone = "";
     private String email = "";
     private boolean available = false;
@@ -64,8 +67,10 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         values.put(IndividualConst.C_INDIVIDUAL_TYPE, individualType.ordinal());
         values.put(IndividualConst.C_FIRST_NAME, firstName);
         values.put(IndividualConst.C_LAST_NAME, lastName);
-        values.put(IndividualConst.C_BIRTH_DATE, birthDate != null ? birthDate.getMillis() : null);
-        values.put(IndividualConst.C_LAST_MODIFIED, lastModified != null ? lastModified.getMillis() : null);
+        values.put(IndividualConst.C_BIRTH_DATE, DBToolsDateFormatter.localDateToDBString(birthDate));
+        values.put(IndividualConst.C_ALARM_TIME, DBToolsDateFormatter.localTimeToDBString(alarmTime));
+        values.put(IndividualConst.C_LAST_MODIFIED, DBToolsDateFormatter.localDateTimeToLong(lastModified));
+        values.put(IndividualConst.C_SAMPLE_DATE_TIME, DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime));
         values.put(IndividualConst.C_PHONE, phone);
         values.put(IndividualConst.C_EMAIL, email);
         values.put(IndividualConst.C_AVAILABLE, available ? 1 : 0);
@@ -80,8 +85,10 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
             individualType.ordinal(),
             firstName,
             lastName,
-            birthDate != null ? birthDate.getMillis() : null,
-            lastModified != null ? lastModified.getMillis() : null,
+            DBToolsDateFormatter.localDateToDBString(birthDate),
+            DBToolsDateFormatter.localTimeToDBString(alarmTime),
+            DBToolsDateFormatter.localDateTimeToLong(lastModified),
+            DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime),
             phone,
             email,
             available ? 1 : 0,
@@ -94,8 +101,10 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         individualType = IndividualType.values()[values.getAsInteger(IndividualConst.C_INDIVIDUAL_TYPE)];
         firstName = values.getAsString(IndividualConst.C_FIRST_NAME);
         lastName = values.getAsString(IndividualConst.C_LAST_NAME);
-        birthDate = dbStringToDateTime(values.getAsString(IndividualConst.C_BIRTH_DATE));
-        lastModified = longToDateTime(values.getAsLong(IndividualConst.C_LAST_MODIFIED));
+        birthDate = DBToolsDateFormatter.dbStringToLocalDate(values.getAsString(IndividualConst.C_BIRTH_DATE));
+        alarmTime = DBToolsDateFormatter.dbStringToLocalTime(values.getAsString(IndividualConst.C_ALARM_TIME));
+        lastModified = DBToolsDateFormatter.longToLocalDateTime(values.getAsLong(IndividualConst.C_LAST_MODIFIED));
+        sampleDateTime = DBToolsDateFormatter.dbStringToLocalDateTime(values.getAsString(IndividualConst.C_SAMPLE_DATE_TIME));
         phone = values.getAsString(IndividualConst.C_PHONE);
         email = values.getAsString(IndividualConst.C_EMAIL);
         available = values.getAsBoolean(IndividualConst.C_AVAILABLE);
@@ -108,8 +117,10 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         individualType = IndividualType.values()[cursor.getInt(cursor.getColumnIndexOrThrow(IndividualConst.C_INDIVIDUAL_TYPE))];
         firstName = cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_FIRST_NAME));
         lastName = cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_LAST_NAME));
-        birthDate = org.dbtools.android.domain.AndroidBaseRecord.dbStringToDateTime(cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_BIRTH_DATE)));
-        lastModified = !cursor.isNull(cursor.getColumnIndexOrThrow(IndividualConst.C_LAST_MODIFIED)) ? org.dbtools.android.domain.AndroidBaseRecord.longToDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(IndividualConst.C_LAST_MODIFIED))) : null;
+        birthDate = DBToolsDateFormatter.dbStringToLocalDate(cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_BIRTH_DATE)));
+        alarmTime = DBToolsDateFormatter.dbStringToLocalTime(cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_ALARM_TIME)));
+        lastModified = !cursor.isNull(cursor.getColumnIndexOrThrow(IndividualConst.C_LAST_MODIFIED)) ? DBToolsDateFormatter.longToLocalDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(IndividualConst.C_LAST_MODIFIED))) : null;
+        sampleDateTime = DBToolsDateFormatter.dbStringToLocalDateTime(cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_SAMPLE_DATE_TIME)));
         phone = cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_PHONE));
         email = cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_EMAIL));
         available = cursor.getInt(cursor.getColumnIndexOrThrow(IndividualConst.C_AVAILABLE)) != 0 ? true : false;
@@ -163,21 +174,39 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
     }
 
     @javax.annotation.Nullable
-    public org.joda.time.DateTime getBirthDate() {
+    public org.threeten.bp.LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(@javax.annotation.Nullable org.joda.time.DateTime birthDate) {
+    public void setBirthDate(@javax.annotation.Nullable org.threeten.bp.LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
     @javax.annotation.Nonnull
-    public org.joda.time.DateTime getLastModified() {
+    public org.threeten.bp.LocalTime getAlarmTime() {
+        return alarmTime;
+    }
+
+    public void setAlarmTime(@javax.annotation.Nonnull org.threeten.bp.LocalTime alarmTime) {
+        this.alarmTime = alarmTime;
+    }
+
+    @javax.annotation.Nonnull
+    public org.threeten.bp.LocalDateTime getLastModified() {
         return lastModified;
     }
 
-    public void setLastModified(@javax.annotation.Nonnull org.joda.time.DateTime lastModified) {
+    public void setLastModified(@javax.annotation.Nonnull org.threeten.bp.LocalDateTime lastModified) {
         this.lastModified = lastModified;
+    }
+
+    @javax.annotation.Nullable
+    public org.threeten.bp.LocalDateTime getSampleDateTime() {
+        return sampleDateTime;
+    }
+
+    public void setSampleDateTime(@javax.annotation.Nullable org.threeten.bp.LocalDateTime sampleDateTime) {
+        this.sampleDateTime = sampleDateTime;
     }
 
     @javax.annotation.Nonnull

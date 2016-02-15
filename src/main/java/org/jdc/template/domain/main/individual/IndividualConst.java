@@ -10,6 +10,7 @@
 
 package org.jdc.template.domain.main.individual;
 
+import org.dbtools.android.domain.DBToolsDateFormatter;
 import android.database.Cursor;
 import org.jdc.template.domain.main.individualtype.IndividualType;
 
@@ -33,8 +34,12 @@ public class IndividualConst {
     public static final String FULL_C_LAST_NAME = "INDIVIDUAL.LAST_NAME";
     public static final String C_BIRTH_DATE = "BIRTH_DATE";
     public static final String FULL_C_BIRTH_DATE = "INDIVIDUAL.BIRTH_DATE";
+    public static final String C_ALARM_TIME = "ALARM_TIME";
+    public static final String FULL_C_ALARM_TIME = "INDIVIDUAL.ALARM_TIME";
     public static final String C_LAST_MODIFIED = "LAST_MODIFIED";
     public static final String FULL_C_LAST_MODIFIED = "INDIVIDUAL.LAST_MODIFIED";
+    public static final String C_SAMPLE_DATE_TIME = "SAMPLE_DATE_TIME";
+    public static final String FULL_C_SAMPLE_DATE_TIME = "INDIVIDUAL.SAMPLE_DATE_TIME";
     public static final String C_PHONE = "PHONE";
     public static final String FULL_C_PHONE = "INDIVIDUAL.PHONE";
     public static final String C_EMAIL = "EMAIL";
@@ -48,7 +53,9 @@ public class IndividualConst {
         "FIRST_NAME TEXT NOT NULL," + 
         "LAST_NAME TEXT NOT NULL," + 
         "BIRTH_DATE TEXT," + 
+        "ALARM_TIME TEXT NOT NULL," + 
         "LAST_MODIFIED INTEGER NOT NULL," + 
+        "SAMPLE_DATE_TIME TEXT," + 
         "PHONE TEXT NOT NULL," + 
         "EMAIL TEXT NOT NULL," + 
         "AVAILABLE INTEGER NOT NULL," + 
@@ -65,7 +72,9 @@ public class IndividualConst {
         C_FIRST_NAME,
         C_LAST_NAME,
         C_BIRTH_DATE,
+        C_ALARM_TIME,
         C_LAST_MODIFIED,
+        C_SAMPLE_DATE_TIME,
         C_PHONE,
         C_EMAIL,
         C_AVAILABLE};
@@ -76,7 +85,9 @@ public class IndividualConst {
         FULL_C_FIRST_NAME,
         FULL_C_LAST_NAME,
         FULL_C_BIRTH_DATE,
+        FULL_C_ALARM_TIME,
         FULL_C_LAST_MODIFIED,
+        FULL_C_SAMPLE_DATE_TIME,
         FULL_C_PHONE,
         FULL_C_EMAIL,
         FULL_C_AVAILABLE};
@@ -104,12 +115,20 @@ public class IndividualConst {
         return cursor.getString(cursor.getColumnIndexOrThrow(C_LAST_NAME));
     }
 
-    public static org.joda.time.DateTime getBirthDate(Cursor cursor) {
-        return org.dbtools.android.domain.AndroidBaseRecord.dbStringToDateTime(cursor.getString(cursor.getColumnIndexOrThrow(C_BIRTH_DATE)));
+    public static org.threeten.bp.LocalDate getBirthDate(Cursor cursor) {
+        return DBToolsDateFormatter.dbStringToLocalDate(cursor.getString(cursor.getColumnIndexOrThrow(C_BIRTH_DATE)));
     }
 
-    public static org.joda.time.DateTime getLastModified(Cursor cursor) {
-        return !cursor.isNull(cursor.getColumnIndexOrThrow(C_LAST_MODIFIED)) ? org.dbtools.android.domain.AndroidBaseRecord.longToDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(C_LAST_MODIFIED))) : null;
+    public static org.threeten.bp.LocalTime getAlarmTime(Cursor cursor) {
+        return DBToolsDateFormatter.dbStringToLocalTime(cursor.getString(cursor.getColumnIndexOrThrow(C_ALARM_TIME)));
+    }
+
+    public static org.threeten.bp.LocalDateTime getLastModified(Cursor cursor) {
+        return !cursor.isNull(cursor.getColumnIndexOrThrow(C_LAST_MODIFIED)) ? DBToolsDateFormatter.longToLocalDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(C_LAST_MODIFIED))) : null;
+    }
+
+    public static org.threeten.bp.LocalDateTime getSampleDateTime(Cursor cursor) {
+        return DBToolsDateFormatter.dbStringToLocalDateTime(cursor.getString(cursor.getColumnIndexOrThrow(C_SAMPLE_DATE_TIME)));
     }
 
     public static String getPhone(Cursor cursor) {

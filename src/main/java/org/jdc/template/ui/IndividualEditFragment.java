@@ -1,19 +1,25 @@
 package org.jdc.template.ui;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 
 import com.google.android.gms.analytics.HitBuilders;
 
 import org.apache.commons.lang3.StringUtils;
+import org.dbtools.android.domain.DBToolsDateFormatter;
 import org.jdc.template.Analytics;
 import org.jdc.template.App;
 import org.jdc.template.R;
@@ -22,6 +28,9 @@ import org.jdc.template.domain.main.individual.Individual;
 import org.jdc.template.domain.main.individual.IndividualManager;
 import org.jdc.template.event.IndividualSavedEvent;
 import org.jdc.template.event.RxBus;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.LocalTime;
+import org.threeten.bp.ZoneId;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -29,6 +38,7 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import pocketknife.BindArgument;
 import pocketknife.PocketKnife;
 
@@ -39,6 +49,8 @@ public class IndividualEditFragment extends Fragment {
 
     @Bind(R.id.first_name_layout)
     TextInputLayout firstNameLayout;
+    @Bind(R.id.alarm_time_layout)
+    TextInputLayout alarmTimeLayout;
     @Bind(R.id.first_name)
     EditText firstNameEditText;
     @Bind(R.id.last_name)
@@ -47,6 +59,10 @@ public class IndividualEditFragment extends Fragment {
     EditText phoneEditText;
     @Bind(R.id.email)
     EditText emailEditText;
+    @Bind(R.id.birth_date)
+    EditText birthDateEditText;
+    @Bind(R.id.alarm_time)
+    EditText alarmTimeEditText;
 
     @Inject
     IndividualManager individualManager;
@@ -57,6 +73,12 @@ public class IndividualEditFragment extends Fragment {
 
     @BindArgument(ARG_ID)
     long individualId;
+
+    @Nonnull
+    private Individual individual = new Individual();
+
+    private DatePickerDialog birthDatePickerDialog;
+    private TimePickerDialog alarmTimePickerDialog;
 
     public static IndividualEditFragment newInstance(long individualId) {
         IndividualEditFragment fragment = new IndividualEditFragment();
@@ -81,6 +103,8 @@ public class IndividualEditFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         showIndividual();
+//        birthDateEditText.setInputType(InputType.TYPE_NULL);
+//        alarmTimeEditText.setInputType(InputType.TYPE_NULL);
 
         return view;
     }
@@ -102,13 +126,49 @@ public class IndividualEditFragment extends Fragment {
         }
     }
 
+    @OnClick(R.id.birth_date)
+    public void onBirthdayClick() {
+        if (birthDatePickerDialog == null) {
+
+            LocalDate date = individual.getBirthDate() != null ? individual.getBirthDate() : LocalDate.now();
+            birthDatePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                    individual.setBirthDate(LocalDate.of(year, monthOfYear + 1, dayOfMonth)); // + 1 because cord Java Date is 0 based
+                    showBirthDate();
+                }
+            }, date.getYear(), date.getMonthValue() - 1, date.getDayOfMonth()); // - 1 because cord Java Date is 0 based
+        }
+
+        birthDatePickerDialog.show();
+    }
+
+    @OnClick(R.id.alarm_time)
+    public void onAlarmClick() {
+        if (alarmTimePickerDialog == null) {
+
+            LocalTime time = individual.getAlarmTime() != null ? individual.getAlarmTime() : LocalTime.now();
+            alarmTimePickerDialog = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                    individual.setAlarmTime(LocalTime.of(hourOfDay, minute));
+                    showAlarmTime();
+                }
+
+            }, time.getHour(), time.getMinute(), false);
+        }
+
+        alarmTimePickerDialog.show();
+    }
+
     private void showIndividual() {
         if (individualId <= 0) {
             return;
         }
 
-        Individual individual = individualManager.findByRowId(individualId);
-        if (individual != null) {
+        Individual foundIndividual = individualManager.findByRowId(individualId);
+        if (foundIndividual != null) {
+            individual = foundIndividual;
             analytics.send(new HitBuilders.EventBuilder()
                     .setCategory(Analytics.CATEGORY_INDIVIDUAL)
                     .setAction(Analytics.ACTION_EDIT)
@@ -118,25 +178,51 @@ public class IndividualEditFragment extends Fragment {
             lastNameEditText.setText(individual.getLastName());
             emailEditText.setText(individual.getEmail());
             phoneEditText.setText(individual.getPhone());
+
+            showBirthDate();
+            showAlarmTime();
         }
     }
 
+    private void showBirthDate() {
+        if (individual.getBirthDate() == null) {
+            return;
+        }
+
+        LocalDate date = individual.getBirthDate();
+        long millis = DBToolsDateFormatter.localDateTimeToLong(date.atStartOfDay(ZoneId.systemDefault()).toLocalDateTime());
+        birthDateEditText.setText(DateUtils.formatDateTime(getActivity(), millis, DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR));
+    }
+
+    private void showAlarmTime() {
+        if (individual.getAlarmTime() == null) {
+            return;
+        }
+
+        LocalTime time = individual.getAlarmTime();
+        long millis = DBToolsDateFormatter.localDateTimeToLong(time.atDate(LocalDate.now()));
+        alarmTimeEditText.setText(DateUtils.formatDateTime(getActivity(), millis, DateUtils.FORMAT_SHOW_TIME));
+    }
+
     private void saveIndividual() {
-        Individual individual = individualId > 0 ? individualManager.findByRowId(individualId) : new Individual();
-        if (individual != null) {
-            if (StringUtils.isBlank(firstNameEditText.getText())) {
-                firstNameLayout.setError(getString(R.string.required));
-                return;
-            }
+        if (StringUtils.isBlank(firstNameEditText.getText())) {
+            firstNameLayout.setError(getString(R.string.required));
+            return;
+        }
 
-            individual.setFirstName(firstNameEditText.getText().toString());
-            individual.setLastName(lastNameEditText.getText().toString());
-            individual.setPhone(phoneEditText.getText().toString());
-            individual.setEmail(emailEditText.getText().toString());
+        if (individual.getAlarmTime() == null) {
+            alarmTimeLayout.setError(getString(R.string.required));
+            return;
+        }
 
-            individualManager.save(individual);
+        individual.setFirstName(firstNameEditText.getText().toString());
+        individual.setLastName(lastNameEditText.getText().toString());
+        individual.setPhone(phoneEditText.getText().toString());
+        individual.setEmail(emailEditText.getText().toString());
+
+        individualManager.save(individual);
 
             bus.post(new IndividualSavedEvent(individual.getId()));
-        }
+        bus.post(new IndividualSavedEvent(individual.getId()));
     }
 }

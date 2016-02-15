@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
@@ -46,4 +45,25 @@
             android:inputType="textEmailAddress"
             />
     </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout style="@style/TextInputLayout">
+
+        <EditText
+            android:id="@+id/birth_date"
+            style="@style/EditText"
+            android:focusableInTouchMode="false"
+            android:hint="@string/birth_date"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout style="@style/TextInputLayout"
+                                                   android:id="@+id/alarm_time_layout">
+        <EditText
+            android:id="@+id/alarm_time"
+            style="@style/EditText"
+            android:focusableInTouchMode="false"
+            android:hint="@string/alarm_time"
+            />
+    </android.support.design.widget.TextInputLayout>
+
 </LinearLayout>

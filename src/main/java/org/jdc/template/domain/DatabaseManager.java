@@ -16,8 +16,8 @@ import javax.inject.Singleton;
 @Singleton
 public class DatabaseManager extends DatabaseBaseManager {
 
-    public static final int MAIN_VERSION = 1;
-    public static final int MAIN_VIEWS_VERSION = 3;
+    public static final int MAIN_VERSION = 2;
+    public static final int MAIN_VIEWS_VERSION = 1;
 
     public static final int OTHER_VERSION = 1;
     public static final int OTHER_VIEWS_VERSION = 1;
