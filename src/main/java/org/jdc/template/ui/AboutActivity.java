@@ -200,8 +200,6 @@ public class AboutActivity extends BaseActivity {
         IndividualListManager individualListManager = new IndividualListManager(noInjectionDatabaseManager);
         IndividualListItemManager individualListItemManager = new IndividualListItemManager(noInjectionDatabaseManager);
 
-        noInjectionDatabaseManager.setContext(getApplication());
-
         // Main Database
         DatabaseWrapper db = noInjectionDatabaseManager.getWritableDatabase(DatabaseManagerConst.MAIN_DATABASE_NAME);
         noInjectionDatabaseManager.beginTransaction(DatabaseManagerConst.MAIN_DATABASE_NAME);

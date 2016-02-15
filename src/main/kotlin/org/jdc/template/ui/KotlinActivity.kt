@@ -37,7 +37,7 @@ open class KotlinActivity : BaseActivity() {
 
 
         helloButton.setOnClickListener() {
-            bus.send(KotlinButtonClickEvent())
+            bus.post(KotlinButtonClickEvent())
         }
     }
 

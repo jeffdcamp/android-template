@@ -67,7 +67,7 @@ dependencies {
 
     // UI
     compile "com.vikingsen:pocketknife-core:${pocketKnifeVersion}"
-    provided "com.vikingsen:pocketknife-compiler:${pocketKnifeVersion}"
+    kapt "com.vikingsen:pocketknife-compiler:${pocketKnifeVersion}"
     compile 'com.jakewharton:butterknife:7.0.1'
     kapt 'com.jakewharton:butterknife:7.0.1'
 
