@@ -40,6 +40,8 @@ public class IndividualConst {
     public static final String FULL_C_LAST_MODIFIED = "INDIVIDUAL.LAST_MODIFIED";
     public static final String C_SAMPLE_DATE_TIME = "SAMPLE_DATE_TIME";
     public static final String FULL_C_SAMPLE_DATE_TIME = "INDIVIDUAL.SAMPLE_DATE_TIME";
+    public static final String C_SAMPLE_TIMESTAMP = "SAMPLE_TIMESTAMP";
+    public static final String FULL_C_SAMPLE_TIMESTAMP = "INDIVIDUAL.SAMPLE_TIMESTAMP";
     public static final String C_PHONE = "PHONE";
     public static final String FULL_C_PHONE = "INDIVIDUAL.PHONE";
     public static final String C_EMAIL = "EMAIL";
@@ -56,6 +58,7 @@ public class IndividualConst {
         "ALARM_TIME TEXT NOT NULL," + 
         "LAST_MODIFIED INTEGER NOT NULL," + 
         "SAMPLE_DATE_TIME TEXT," + 
+        "SAMPLE_TIMESTAMP INTEGER," + 
         "PHONE TEXT NOT NULL," + 
         "EMAIL TEXT NOT NULL," + 
         "AVAILABLE INTEGER NOT NULL," + 
@@ -75,6 +78,7 @@ public class IndividualConst {
         C_ALARM_TIME,
         C_LAST_MODIFIED,
         C_SAMPLE_DATE_TIME,
+        C_SAMPLE_TIMESTAMP,
         C_PHONE,
         C_EMAIL,
         C_AVAILABLE};
@@ -88,6 +92,7 @@ public class IndividualConst {
         FULL_C_ALARM_TIME,
         FULL_C_LAST_MODIFIED,
         FULL_C_SAMPLE_DATE_TIME,
+        FULL_C_SAMPLE_TIMESTAMP,
         FULL_C_PHONE,
         FULL_C_EMAIL,
         FULL_C_AVAILABLE};
@@ -129,6 +134,10 @@ public class IndividualConst {
 
     public static org.threeten.bp.LocalDateTime getSampleDateTime(Cursor cursor) {
         return DBToolsDateFormatter.dbStringToLocalDateTime(cursor.getString(cursor.getColumnIndexOrThrow(C_SAMPLE_DATE_TIME)));
+    }
+
+    public static org.threeten.bp.LocalDateTime getSampleTimestamp(Cursor cursor) {
+        return !cursor.isNull(cursor.getColumnIndexOrThrow(C_SAMPLE_TIMESTAMP)) ? DBToolsDateFormatter.longToLocalDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(C_SAMPLE_TIMESTAMP))) : null;
     }
 
     public static String getPhone(Cursor cursor) {

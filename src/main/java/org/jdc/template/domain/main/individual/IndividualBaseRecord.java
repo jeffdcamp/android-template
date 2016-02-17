@@ -29,6 +29,7 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
     private org.threeten.bp.LocalTime alarmTime = null;
     private org.threeten.bp.LocalDateTime lastModified = null;
     private org.threeten.bp.LocalDateTime sampleDateTime = null;
+    private org.threeten.bp.LocalDateTime sampleTimestamp = null;
     private String phone = "";
     private String email = "";
     private boolean available = false;
@@ -71,6 +72,7 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         values.put(IndividualConst.C_ALARM_TIME, DBToolsDateFormatter.localTimeToDBString(alarmTime));
         values.put(IndividualConst.C_LAST_MODIFIED, DBToolsDateFormatter.localDateTimeToLong(lastModified));
         values.put(IndividualConst.C_SAMPLE_DATE_TIME, DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime));
+        values.put(IndividualConst.C_SAMPLE_TIMESTAMP, DBToolsDateFormatter.localDateTimeToLong(sampleTimestamp));
         values.put(IndividualConst.C_PHONE, phone);
         values.put(IndividualConst.C_EMAIL, email);
         values.put(IndividualConst.C_AVAILABLE, available ? 1 : 0);
@@ -89,6 +91,7 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
             DBToolsDateFormatter.localTimeToDBString(alarmTime),
             DBToolsDateFormatter.localDateTimeToLong(lastModified),
             DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime),
+            DBToolsDateFormatter.localDateTimeToLong(sampleTimestamp),
             phone,
             email,
             available ? 1 : 0,
@@ -105,6 +108,7 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         alarmTime = DBToolsDateFormatter.dbStringToLocalTime(values.getAsString(IndividualConst.C_ALARM_TIME));
         lastModified = DBToolsDateFormatter.longToLocalDateTime(values.getAsLong(IndividualConst.C_LAST_MODIFIED));
         sampleDateTime = DBToolsDateFormatter.dbStringToLocalDateTime(values.getAsString(IndividualConst.C_SAMPLE_DATE_TIME));
+        sampleTimestamp = DBToolsDateFormatter.longToLocalDateTime(values.getAsLong(IndividualConst.C_SAMPLE_TIMESTAMP));
         phone = values.getAsString(IndividualConst.C_PHONE);
         email = values.getAsString(IndividualConst.C_EMAIL);
         available = values.getAsBoolean(IndividualConst.C_AVAILABLE);
@@ -121,6 +125,7 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         alarmTime = DBToolsDateFormatter.dbStringToLocalTime(cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_ALARM_TIME)));
         lastModified = !cursor.isNull(cursor.getColumnIndexOrThrow(IndividualConst.C_LAST_MODIFIED)) ? DBToolsDateFormatter.longToLocalDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(IndividualConst.C_LAST_MODIFIED))) : null;
         sampleDateTime = DBToolsDateFormatter.dbStringToLocalDateTime(cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_SAMPLE_DATE_TIME)));
+        sampleTimestamp = !cursor.isNull(cursor.getColumnIndexOrThrow(IndividualConst.C_SAMPLE_TIMESTAMP)) ? DBToolsDateFormatter.longToLocalDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(IndividualConst.C_SAMPLE_TIMESTAMP))) : null;
         phone = cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_PHONE));
         email = cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_EMAIL));
         available = cursor.getInt(cursor.getColumnIndexOrThrow(IndividualConst.C_AVAILABLE)) != 0 ? true : false;
@@ -207,6 +212,15 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
 
     public void setSampleDateTime(@javax.annotation.Nullable org.threeten.bp.LocalDateTime sampleDateTime) {
         this.sampleDateTime = sampleDateTime;
+    }
+
+    @javax.annotation.Nullable
+    public org.threeten.bp.LocalDateTime getSampleTimestamp() {
+        return sampleTimestamp;
+    }
+
+    public void setSampleTimestamp(@javax.annotation.Nullable org.threeten.bp.LocalDateTime sampleTimestamp) {
+        this.sampleTimestamp = sampleTimestamp;
     }
 
     @javax.annotation.Nonnull
