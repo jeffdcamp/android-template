@@ -8,7 +8,9 @@ import org.jdc.template.R.layout.activity_kotlin
 import org.jdc.template.dagger.Injector
 import org.jdc.template.domain.main.individual.IndividualManager
 import org.jdc.template.event.RxBus
+import pocketknife.BindExtra
 import pocketknife.PocketKnife
+import pocketknife.SaveState
 import javax.inject.Inject
 
 open class KotlinActivity : BaseActivity() {
@@ -21,10 +23,10 @@ open class KotlinActivity : BaseActivity() {
     @Inject
     lateinit var bus: RxBus
 
-//    @BindExtra(KotlinActivity.EXTRA_MESSAGE)
+    @BindExtra(KotlinActivity.EXTRA_MESSAGE)
     var message = "Default Text"
 
-//    @SaveState
+    @SaveState
     var clickCount = 0
 
     protected override fun onCreate(savedInstanceState: Bundle?) {

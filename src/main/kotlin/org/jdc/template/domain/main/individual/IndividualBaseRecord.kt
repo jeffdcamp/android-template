@@ -29,6 +29,7 @@ abstract class IndividualBaseRecord : AndroidBaseRecord() {
      var alarmTime: org.threeten.bp.LocalTime = org.threeten.bp.LocalTime.now()
      var lastModified: org.threeten.bp.LocalDateTime = org.threeten.bp.LocalDateTime.now()
      var sampleDateTime: org.threeten.bp.LocalDateTime? = null
+     var sampleTimestamp: org.threeten.bp.LocalDateTime? = null
      var phone: String = ""
      var email: String = ""
      var available: Boolean = false
@@ -63,6 +64,7 @@ abstract class IndividualBaseRecord : AndroidBaseRecord() {
         values.put(IndividualConst.C_ALARM_TIME, DBToolsDateFormatter.localTimeToDBString(alarmTime))
         values.put(IndividualConst.C_LAST_MODIFIED, DBToolsDateFormatter.localDateTimeToLong(lastModified))
         values.put(IndividualConst.C_SAMPLE_DATE_TIME, DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime))
+        values.put(IndividualConst.C_SAMPLE_TIMESTAMP, DBToolsDateFormatter.localDateTimeToLong(sampleTimestamp))
         values.put(IndividualConst.C_PHONE, phone)
         values.put(IndividualConst.C_EMAIL, email)
         values.put(IndividualConst.C_AVAILABLE, if (available) 1 else 0)
@@ -80,6 +82,7 @@ abstract class IndividualBaseRecord : AndroidBaseRecord() {
             DBToolsDateFormatter.localTimeToDBString(alarmTime),
             DBToolsDateFormatter.localDateTimeToLong(lastModified),
             DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime),
+            DBToolsDateFormatter.localDateTimeToLong(sampleTimestamp),
             phone,
             email,
             if (available) 1 else 0)
@@ -94,6 +97,7 @@ abstract class IndividualBaseRecord : AndroidBaseRecord() {
         alarmTime = DBToolsDateFormatter.dbStringToLocalTime(values.getAsString(IndividualConst.C_ALARM_TIME))!!
         lastModified = DBToolsDateFormatter.longToLocalDateTime(values.getAsLong(IndividualConst.C_LAST_MODIFIED))!!
         sampleDateTime = DBToolsDateFormatter.dbStringToLocalDateTime(values.getAsString(IndividualConst.C_SAMPLE_DATE_TIME))
+        sampleTimestamp = DBToolsDateFormatter.longToLocalDateTime(values.getAsLong(IndividualConst.C_SAMPLE_TIMESTAMP))
         phone = values.getAsString(IndividualConst.C_PHONE)
         email = values.getAsString(IndividualConst.C_EMAIL)
         available = values.getAsBoolean(IndividualConst.C_AVAILABLE)
@@ -107,8 +111,9 @@ abstract class IndividualBaseRecord : AndroidBaseRecord() {
         lastName = cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_LAST_NAME))
         birthDate = DBToolsDateFormatter.dbStringToLocalDate(cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_BIRTH_DATE)))
         alarmTime = DBToolsDateFormatter.dbStringToLocalTime(cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_ALARM_TIME)))!!
-        lastModified = if (!cursor.isNull(cursor.getColumnIndexOrThrow(IndividualConst.C_LAST_MODIFIED))) DBToolsDateFormatter.longToLocalDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(IndividualConst.C_LAST_MODIFIED))) else null!!
+        lastModified = if (!cursor.isNull(cursor.getColumnIndexOrThrow(IndividualConst.C_LAST_MODIFIED))) DBToolsDateFormatter.longToLocalDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(IndividualConst.C_LAST_MODIFIED)))!! else null!!
         sampleDateTime = DBToolsDateFormatter.dbStringToLocalDateTime(cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_SAMPLE_DATE_TIME)))
+        sampleTimestamp = if (!cursor.isNull(cursor.getColumnIndexOrThrow(IndividualConst.C_SAMPLE_TIMESTAMP))) DBToolsDateFormatter.longToLocalDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(IndividualConst.C_SAMPLE_TIMESTAMP))) else null
         phone = cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_PHONE))
         email = cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_EMAIL))
         available = if (cursor.getInt(cursor.getColumnIndexOrThrow(IndividualConst.C_AVAILABLE)) != 0) true else false

@@ -40,6 +40,8 @@ object IndividualConst {
     const val FULL_C_LAST_MODIFIED = "INDIVIDUAL.LAST_MODIFIED"
     const val C_SAMPLE_DATE_TIME = "SAMPLE_DATE_TIME"
     const val FULL_C_SAMPLE_DATE_TIME = "INDIVIDUAL.SAMPLE_DATE_TIME"
+    const val C_SAMPLE_TIMESTAMP = "SAMPLE_TIMESTAMP"
+    const val FULL_C_SAMPLE_TIMESTAMP = "INDIVIDUAL.SAMPLE_TIMESTAMP"
     const val C_PHONE = "PHONE"
     const val FULL_C_PHONE = "INDIVIDUAL.PHONE"
     const val C_EMAIL = "EMAIL"
@@ -56,6 +58,7 @@ object IndividualConst {
         "ALARM_TIME TEXT NOT NULL," + 
         "LAST_MODIFIED INTEGER NOT NULL," + 
         "SAMPLE_DATE_TIME TEXT," + 
+        "SAMPLE_TIMESTAMP INTEGER," + 
         "PHONE TEXT NOT NULL," + 
         "EMAIL TEXT NOT NULL," + 
         "AVAILABLE INTEGER NOT NULL," + 
@@ -75,6 +78,7 @@ object IndividualConst {
         C_ALARM_TIME,
         C_LAST_MODIFIED,
         C_SAMPLE_DATE_TIME,
+        C_SAMPLE_TIMESTAMP,
         C_PHONE,
         C_EMAIL,
         C_AVAILABLE)
@@ -88,6 +92,7 @@ object IndividualConst {
         FULL_C_ALARM_TIME,
         FULL_C_LAST_MODIFIED,
         FULL_C_SAMPLE_DATE_TIME,
+        FULL_C_SAMPLE_TIMESTAMP,
         FULL_C_PHONE,
         FULL_C_EMAIL,
         FULL_C_AVAILABLE)
@@ -121,11 +126,15 @@ object IndividualConst {
     }
 
     fun getLastModified(cursor: Cursor): org.threeten.bp.LocalDateTime {
-        return if (!cursor.isNull(cursor.getColumnIndexOrThrow(C_LAST_MODIFIED))) DBToolsDateFormatter.longToLocalDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(C_LAST_MODIFIED))) else null!!
+        return if (!cursor.isNull(cursor.getColumnIndexOrThrow(C_LAST_MODIFIED))) DBToolsDateFormatter.longToLocalDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(C_LAST_MODIFIED)))!! else null!!
     }
 
     fun getSampleDateTime(cursor: Cursor): org.threeten.bp.LocalDateTime? {
         return DBToolsDateFormatter.dbStringToLocalDateTime(cursor.getString(cursor.getColumnIndexOrThrow(C_SAMPLE_DATE_TIME)))
+    }
+
+    fun getSampleTimestamp(cursor: Cursor): org.threeten.bp.LocalDateTime? {
+        return if (!cursor.isNull(cursor.getColumnIndexOrThrow(C_SAMPLE_TIMESTAMP))) DBToolsDateFormatter.longToLocalDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(C_SAMPLE_TIMESTAMP))) else null
     }
 
     fun getPhone(cursor: Cursor): String {
