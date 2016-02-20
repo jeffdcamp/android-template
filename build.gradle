@@ -76,8 +76,6 @@ dependencies {
     compile 'com.jakewharton.threetenabp:threetenabp:1.0.3'
     compile 'org.dbtools:dbtools-android:5.0.1'
     compile 'org.dbtools:dbtools-query:2.5.6'
-    compile 'org.apache.commons:commons-lang3:3.4'
-    compile 'commons-io:commons-io:2.4'
     compile 'com.devbrackets.android:recyclerext:0.17.1'
     compile 'com.evernote:android-job:1.0.2'
 

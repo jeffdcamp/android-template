@@ -8,7 +8,6 @@ import android.text.format.DateUtils
 import android.view.*
 import com.google.android.gms.analytics.HitBuilders
 import kotlinx.android.synthetic.main.fragment_individual_edit.*
-import org.apache.commons.lang3.StringUtils
 import org.dbtools.android.domain.DBToolsDateFormatter
 import org.jdc.template.Analytics
 import org.jdc.template.App
@@ -154,7 +153,7 @@ class IndividualEditFragment : Fragment() {
     }
 
     private fun saveIndividual() {
-        if (StringUtils.isBlank(firstNameEditText.text)) {
+        if (firstNameEditText.text.isBlank()) {
             firstNameLayout.error = getString(R.string.required)
             return
         }

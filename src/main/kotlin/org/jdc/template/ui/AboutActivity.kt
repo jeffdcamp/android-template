@@ -9,7 +9,6 @@ import com.google.android.gms.analytics.HitBuilders
 import kotlinx.android.synthetic.main.activity_about.*
 import kotlinx.android.synthetic.main.toolbar_actionbar.*
 import okhttp3.ResponseBody
-import org.apache.commons.io.FileUtils
 import org.dbtools.android.domain.event.DatabaseChangeType
 import org.dbtools.android.domain.event.DatabaseRowChange
 import org.jdc.template.Analytics
@@ -48,7 +47,6 @@ import retrofit2.Response
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 import java.io.File
-import java.io.IOException
 import java.util.*
 import javax.inject.Inject
 
@@ -93,7 +91,8 @@ class AboutActivity : BaseActivity() {
             onCreateDatabaseButtonClick()
         }
         restTestButton.setOnClickListener() {
-            testQueryWebServiceCallRx()
+//            testQueryWebServiceCallRx() // use Rx to make the call
+            testSaveQueryWebServiceCall() // write the response to file, the read the file to show results
         }
         jobTestButton.setOnClickListener() {
             jobTest()
@@ -355,7 +354,6 @@ class AboutActivity : BaseActivity() {
                 .subscribe({dtoSearchResponse -> processSearchResponse(dtoSearchResponse!!)}, {throwable -> Log.e(TAG, "Failed to get results", throwable)});
     }
 
-    //    @OnClick(R.id.rest_test_button)
     fun testFullUrlQueryWebServiceCall() {
         val call = webSearchService.searchByFullUrl("https://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=Cat")
 
@@ -370,7 +368,6 @@ class AboutActivity : BaseActivity() {
         })
     }
 
-    //    @OnClick(R.id.rest_test_button)
     fun testSaveQueryWebServiceCall() {
         val call = webSearchService.searchToFile("Cat")
 
@@ -386,13 +383,8 @@ class AboutActivity : BaseActivity() {
                 webServiceUtil.saveResponseToFile(response, outputFile)
 
                 // show the output of the file
-                try {
-                    val fileContents = FileUtils.readFileToString(outputFile)
-                    Log.i(TAG, "Output file: [$fileContents]")
-                } catch (e: IOException) {
-                    Log.e(TAG, "Error reading file", e)
-                }
-
+                val fileContents = outputFile.readText();
+                Log.i(TAG, "Output file: [$fileContents]")
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
@@ -434,7 +426,10 @@ class AboutActivity : BaseActivity() {
 
     fun testRx() {
         // Sample tests for Rx
-        // RxTest.testConcurrentPeople();
+        if (individualManager.findCount() == 0L) {
+            Log.e(TAG, "No data.. cannot perform test")
+            return
+        }
 
         // Subscribe
         val tableChangeSubscription = individualManager.tableChanges().subscribe { changeType -> handleRxIndividualTableChange(changeType) }
