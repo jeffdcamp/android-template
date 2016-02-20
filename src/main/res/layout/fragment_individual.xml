@@ -8,21 +8,21 @@
     android:paddingTop="10dp">
 
     <TextView
-        android:id="@+id/individual_name"
+        android:id="@+id/nameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
         tools:text="Some Name" />
 
     <TextView
-        android:id="@+id/individual_phone"
+        android:id="@+id/phoneTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
         tools:text="Some Name" />
 
     <TextView
-        android:id="@+id/individual_email"
+        android:id="@+id/emailTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
@@ -41,7 +41,7 @@
             android:paddingRight="16dp"
             android:text="@string/birth_date" />
         <TextView
-            android:id="@+id/birth_date"
+            android:id="@+id/birthDateTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
@@ -61,7 +61,7 @@
             android:paddingRight="16dp"
             android:text="@string/alarm_time" />
         <TextView
-            android:id="@+id/alarm_time"
+            android:id="@+id/alarmTimeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
@@ -80,7 +80,7 @@
             android:paddingRight="16dp"
             android:text="@string/combined_date_time" />
         <TextView
-            android:id="@+id/sample_datetime"
+            android:id="@+id/sampleDateTimeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"

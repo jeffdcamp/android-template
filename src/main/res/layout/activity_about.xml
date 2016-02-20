@@ -40,7 +40,7 @@
                 />
 
             <TextView
-                android:id="@+id/version_info"
+                android:id="@+id/versionTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
@@ -48,7 +48,7 @@
                 />
 
             <Button
-                android:id="@+id/create_database_button"
+                android:id="@+id/createDatabaseButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Create Database"
@@ -58,11 +58,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Test REST Call"
-                android:id="@+id/rest_test_button"
+                android:id="@+id/restTestButton"
                 android:layout_gravity="center_horizontal"/>
 
             <Button
-                android:id="@+id/rx_test_button"
+                android:id="@+id/rxTestButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="RX Test"
@@ -72,7 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Test Job Scheduler Call"
-                android:id="@+id/job_test_button"
+                android:id="@+id/jobTestButton"
                 android:layout_gravity="center_horizontal"/>
 
             <Button
@@ -81,20 +81,6 @@
                 android:layout_height="wrap_content"
                 android:text="Test"
                 />
-            <Button
-                android:id="@+id/test_kotlin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Kotlin Activity"
-                />
-
-            <Button
-                android:id="@+id/test_java_kotlin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Java to Kotlin"
-                />
-
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
