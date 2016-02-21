@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:1.5.0'
-        classpath 'org.dbtools:gradle-dbtools-plugin:4.0.2'
+        classpath 'org.dbtools:gradle-dbtools-plugin:5.0.1'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.12.0' // version plugin support
     }
@@ -63,7 +63,7 @@ dependencies {
     // Code
     compile 'com.google.code.findbugs:jsr305:3.0.1'
     compile 'joda-time:joda-time:2.9.2'
-    compile 'org.dbtools:dbtools-android:4.1.2'
+    compile 'org.dbtools:dbtools-android:5.0.1'
     compile 'org.dbtools:dbtools-query:2.5.6'
     compile 'org.apache.commons:commons-lang3:3.4'
     compile 'commons-io:commons-io:2.4'
@@ -255,7 +255,7 @@ dbtools {
     jsr305Support true
     includeDatabaseNameInPackage true
     eventBusSupport false
-    dateTimeSupport true
+    dateType 'JODA'
     sqlQueryBuilderSupport true
     rxJavaSupport false
 }

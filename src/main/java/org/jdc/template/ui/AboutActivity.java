@@ -24,11 +24,13 @@ import org.jdc.template.BuildConfig;
 import org.jdc.template.R;
 import org.jdc.template.dagger.Injector;
 import org.jdc.template.domain.DatabaseManager;
+import org.jdc.template.domain.DatabaseManagerConst;
 import org.jdc.template.domain.attached.crossdatabasequery.CrossDatabaseQuery;
 import org.jdc.template.domain.attached.crossdatabasequery.CrossDatabaseQueryManager;
 import org.jdc.template.domain.main.household.Household;
 import org.jdc.template.domain.main.household.HouseholdManager;
 import org.jdc.template.domain.main.individual.Individual;
+import org.jdc.template.domain.main.individual.IndividualConst;
 import org.jdc.template.domain.main.individual.IndividualManager;
 import org.jdc.template.domain.main.individualquery.IndividualQuery;
 import org.jdc.template.domain.main.individualquery.IndividualQueryManager;
@@ -36,6 +38,7 @@ import org.jdc.template.domain.main.individualtype.IndividualType;
 import org.jdc.template.domain.other.individuallist.IndividualList;
 import org.jdc.template.domain.other.individuallist.IndividualListManager;
 import org.jdc.template.domain.other.individuallistitem.IndividualListItem;
+import org.jdc.template.domain.other.individuallistitem.IndividualListItemConst;
 import org.jdc.template.domain.other.individuallistitem.IndividualListItemManager;
 import org.jdc.template.job.SampleJob;
 import org.jdc.template.util.WebServiceUtil;
@@ -188,19 +191,19 @@ public class AboutActivity extends BaseActivity {
         individualListManager.endTransaction(true);
     }
 
-    DatabaseManager noInjectionDatabaseManager = new DatabaseManager();
 
     private void createSampleDataNoInjection() {
-        HouseholdManager householdManager = new HouseholdManager();
-        IndividualManager individualManager = new IndividualManager();
-        IndividualListManager individualListManager = new IndividualListManager();
-        IndividualListItemManager individualListItemManager = new IndividualListItemManager();
+        DatabaseManager noInjectionDatabaseManager = new DatabaseManager();
+        HouseholdManager householdManager = new HouseholdManager(noInjectionDatabaseManager);
+        IndividualManager individualManager = new IndividualManager(noInjectionDatabaseManager);
+        IndividualListManager individualListManager = new IndividualListManager(noInjectionDatabaseManager);
+        IndividualListItemManager individualListItemManager = new IndividualListItemManager(noInjectionDatabaseManager);
 
         noInjectionDatabaseManager.setContext(getApplication());
 
         // Main Database
-        DatabaseWrapper db = noInjectionDatabaseManager.getWritableDatabase(DatabaseManager.MAIN_DATABASE_NAME);
-        noInjectionDatabaseManager.beginTransaction(DatabaseManager.MAIN_DATABASE_NAME);
+        DatabaseWrapper db = noInjectionDatabaseManager.getWritableDatabase(DatabaseManagerConst.MAIN_DATABASE_NAME);
+        noInjectionDatabaseManager.beginTransaction(DatabaseManagerConst.MAIN_DATABASE_NAME);
 
         Household household = new Household();
         household.setName("Campbell");
@@ -220,13 +223,13 @@ public class AboutActivity extends BaseActivity {
         individual2.setIndividualType(IndividualType.CHILD);
         individual2.setHouseholdId(household.getId());
         individualManager.save(db, individual2);
-        noInjectionDatabaseManager.endTransaction(DatabaseManager.MAIN_DATABASE_NAME, true);
+        noInjectionDatabaseManager.endTransaction(DatabaseManagerConst.MAIN_DATABASE_NAME, true);
 
 
         // Other Database
-        noInjectionDatabaseManager.beginTransaction(DatabaseManager.OTHER_DATABASE_NAME);
+        noInjectionDatabaseManager.beginTransaction(DatabaseManagerConst.OTHER_DATABASE_NAME);
 
-        DatabaseWrapper otherDb = noInjectionDatabaseManager.getWritableDatabase(DatabaseManager.MAIN_DATABASE_NAME);
+        DatabaseWrapper otherDb = noInjectionDatabaseManager.getWritableDatabase(DatabaseManagerConst.MAIN_DATABASE_NAME);
         IndividualList newList = new IndividualList();
         newList.setName("My List");
         individualListManager.save(otherDb, newList);
@@ -236,38 +239,27 @@ public class AboutActivity extends BaseActivity {
         newListItem.setIndividualId(individual1.getId());
         individualListItemManager.save(otherDb, newListItem);
 
-        noInjectionDatabaseManager.endTransaction(DatabaseManager.OTHER_DATABASE_NAME, true);
+        noInjectionDatabaseManager.endTransaction(DatabaseManagerConst.OTHER_DATABASE_NAME, true);
 
         Toast.makeText(this, "Database created", Toast.LENGTH_SHORT).show();
     }
 
-    public static final String ATTACH_DATABASE_QUERY = "SELECT " + Individual.C_FIRST_NAME +
-            " FROM " + Individual.TABLE +
-            " JOIN " + IndividualListItem.TABLE + " ON " + Individual.FULL_C_ID + " = " + IndividualListItem.FULL_C_INDIVIDUAL_ID;
+    public static final String ATTACH_DATABASE_QUERY = "SELECT " + IndividualConst.C_FIRST_NAME +
+            " FROM " + IndividualConst.TABLE +
+            " JOIN " + IndividualListItemConst.TABLE + " ON " + IndividualConst.FULL_C_ID + " = " + IndividualListItemConst.FULL_C_INDIVIDUAL_ID;
 
     private void testDatabaseWithInjection() {
         // (Optional) attach databases on demand (instead of in the DatabaseManager)
 //        databaseManager.identifyDatabases(); // NOSONAR
-//        databaseManager.addAttachedDatabase(DatabaseManager.ATTACH_DATABASE_NAME, DatabaseManager.MAIN_DATABASE_NAME, Arrays.asList(DatabaseManager.OTHER_DATABASE_NAME)); // NOSONAR
+//        DatabaseManagerConst.AddAttachedDatabase(DatabaseManagerConst.ATTACH_DATABASE_NAME, DatabaseManagerConst.MAIN_DATABASE_NAME, Arrays.asList(DatabaseManagerConst.OTHER_DATABASE_NAME)); // NOSONAR
 
-        List<String> names = findAllStringByRawQuery(databaseManager, DatabaseManager.ATTACHED_DATABASE_NAME, ATTACH_DATABASE_QUERY, null);
+        List<String> names = findAllStringByRawQuery(databaseManager, DatabaseManagerConst.ATTACHED_DATABASE_NAME, ATTACH_DATABASE_QUERY, null);
         for (String name : names) {
             Log.i(TAG, "Attached Database Item Name: " + name);
         }
     }
 
-    private void testDatabaseNoInjection() {
-        noInjectionDatabaseManager.setContext(getApplication());
 
-        // (Optional) attach databases on demand (instead of in the DatabaseManager)
-//        noInjectionDatabaseManager.identifyDatabases(); // NOSONAR
-//        noInjectionDatabaseManager.addAttachedDatabase(DatabaseManager.ATTACH_DATABASE_NAME, DatabaseManager.MAIN_DATABASE_NAME, Arrays.asList(DatabaseManager.OTHER_DATABASE_NAME)); // NOSONAR
-
-        List<String> names = findAllStringByRawQuery(noInjectionDatabaseManager, DatabaseManager.ATTACHED_DATABASE_NAME, ATTACH_DATABASE_QUERY, null);
-        for (String name : names) {
-            Log.i(TAG, "Attached Database Item Name: " + name);
-        }
-    }
 
     public List<String> findAllStringByRawQuery(DatabaseManager dbManager, String databaseName, String rawQuery, String[] selectionArgs) {
         List<String> foundItems;
@@ -458,7 +450,7 @@ public class AboutActivity extends BaseActivity {
     @Subscribe
     public void handle(DatabaseEndTransactionEvent event) {
         Log.e(TAG, "Database changed transaction end.  Tables changed: " + event.getAllTableName());
-        boolean myTableUpdated = event.containsTable(Individual.TABLE);
+        boolean myTableUpdated = event.containsTable(IndividualConst.TABLE);
         Log.e(TAG, "Individual table updated: " + myTableUpdated);
     }
 }

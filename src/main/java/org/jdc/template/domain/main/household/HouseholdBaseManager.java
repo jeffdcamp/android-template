@@ -17,15 +17,15 @@ import org.dbtools.android.domain.AndroidBaseManagerWritable;
 @SuppressWarnings("all")
 public abstract class HouseholdBaseManager extends AndroidBaseManagerWritable<Household> {
 
-    @javax.inject.Inject
-     DatabaseManager databaseManager;
+    private DatabaseManager databaseManager;
 
-    public HouseholdBaseManager() {
+    public HouseholdBaseManager(DatabaseManager databaseManager) {
+        this.databaseManager = databaseManager;
     }
 
     @javax.annotation.Nonnull
     public String getDatabaseName() {
-        return Household.DATABASE;
+        return HouseholdConst.DATABASE;
     }
 
     @javax.annotation.Nonnull
@@ -35,12 +35,12 @@ public abstract class HouseholdBaseManager extends AndroidBaseManagerWritable<Ho
 
     @javax.annotation.Nonnull
     public String getTableName() {
-        return Household.TABLE;
+        return HouseholdConst.TABLE;
     }
 
     @javax.annotation.Nonnull
-    public String[] getAllKeys() {
-        return Household.ALL_KEYS;
+    public String[] getAllColumns() {
+        return HouseholdConst.ALL_COLUMNS;
     }
 
     @javax.annotation.Nonnull
@@ -70,17 +70,17 @@ public abstract class HouseholdBaseManager extends AndroidBaseManagerWritable<Ho
 
     @javax.annotation.Nonnull
     public String getPrimaryKey() {
-        return Household.PRIMARY_KEY_COLUMN;
+        return HouseholdConst.PRIMARY_KEY_COLUMN;
     }
 
     @javax.annotation.Nonnull
     public String getDropSql() {
-        return Household.DROP_TABLE;
+        return HouseholdConst.DROP_TABLE;
     }
 
     @javax.annotation.Nonnull
     public String getCreateSql() {
-        return Household.CREATE_TABLE;
+        return HouseholdConst.CREATE_TABLE;
     }
 
 

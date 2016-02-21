@@ -10,13 +10,16 @@
 package org.jdc.template.domain.main.individual;
 
 
+import org.jdc.template.domain.DatabaseManager;
+
 import javax.inject.Inject;
 
 @javax.inject.Singleton
 public class IndividualManager extends IndividualBaseManager {
 
     @Inject
-    public IndividualManager() {
+    public IndividualManager(DatabaseManager databaseManager) {
+        super(databaseManager);
     }
 
 

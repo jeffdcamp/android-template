@@ -12,8 +12,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.util.Log;
 
-import org.jdc.template.domain.main.individual.Individual;
 import org.dbtools.query.sql.SQLQueryBuilder;
+import org.jdc.template.domain.main.individual.IndividualConst;
 
 public class IndividualQuery extends IndividualQueryBaseRecord {
 
@@ -22,9 +22,9 @@ public class IndividualQuery extends IndividualQueryBaseRecord {
     static {
 
         QUERY = new SQLQueryBuilder()
-                .field(Individual.FULL_C_ID, IndividualQuery.C_ID)
-                .field(Individual.FULL_C_FIRST_NAME, IndividualQuery.C_NAME)
-                .table(Individual.TABLE)
+                .field(IndividualConst.FULL_C_ID, IndividualQueryConst.C_ID)
+                .field(IndividualConst.FULL_C_FIRST_NAME, IndividualQueryConst.C_NAME)
+                .table(IndividualConst.TABLE)
                 .toString();
 
         Log.e("ldst", "QUERY: " + QUERY);

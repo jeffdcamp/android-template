@@ -17,15 +17,15 @@ import org.dbtools.android.domain.AndroidBaseManagerReadOnly;
 @SuppressWarnings("all")
 public abstract class CrossDatabaseQueryBaseManager extends AndroidBaseManagerReadOnly<CrossDatabaseQuery> {
 
-    @javax.inject.Inject
-     DatabaseManager databaseManager;
+    private DatabaseManager databaseManager;
 
-    public CrossDatabaseQueryBaseManager() {
+    public CrossDatabaseQueryBaseManager(DatabaseManager databaseManager) {
+        this.databaseManager = databaseManager;
     }
 
     @javax.annotation.Nonnull
     public String getDatabaseName() {
-        return CrossDatabaseQuery.DATABASE;
+        return CrossDatabaseQueryConst.DATABASE;
     }
 
     @javax.annotation.Nonnull
@@ -34,8 +34,8 @@ public abstract class CrossDatabaseQueryBaseManager extends AndroidBaseManagerRe
     }
 
     @javax.annotation.Nonnull
-    public String[] getAllKeys() {
-        return CrossDatabaseQuery.ALL_KEYS;
+    public String[] getAllColumns() {
+        return CrossDatabaseQueryConst.ALL_COLUMNS;
     }
 
     @javax.annotation.Nonnull

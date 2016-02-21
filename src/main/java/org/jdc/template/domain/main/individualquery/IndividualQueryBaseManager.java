@@ -17,15 +17,15 @@ import org.dbtools.android.domain.AndroidBaseManagerReadOnly;
 @SuppressWarnings("all")
 public abstract class IndividualQueryBaseManager extends AndroidBaseManagerReadOnly<IndividualQuery> {
 
-    @javax.inject.Inject
-     DatabaseManager databaseManager;
+    private DatabaseManager databaseManager;
 
-    public IndividualQueryBaseManager() {
+    public IndividualQueryBaseManager(DatabaseManager databaseManager) {
+        this.databaseManager = databaseManager;
     }
 
     @javax.annotation.Nonnull
     public String getDatabaseName() {
-        return IndividualQuery.DATABASE;
+        return IndividualQueryConst.DATABASE;
     }
 
     @javax.annotation.Nonnull
@@ -34,8 +34,8 @@ public abstract class IndividualQueryBaseManager extends AndroidBaseManagerReadO
     }
 
     @javax.annotation.Nonnull
-    public String[] getAllKeys() {
-        return IndividualQuery.ALL_KEYS;
+    public String[] getAllColumns() {
+        return IndividualQueryConst.ALL_COLUMNS;
     }
 
     @javax.annotation.Nonnull

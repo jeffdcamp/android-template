@@ -17,15 +17,15 @@ import org.dbtools.android.domain.AndroidBaseManagerWritable;
 @SuppressWarnings("all")
 public abstract class IndividualBaseManager extends AndroidBaseManagerWritable<Individual> {
 
-    @javax.inject.Inject
-     DatabaseManager databaseManager;
+    private DatabaseManager databaseManager;
 
-    public IndividualBaseManager() {
+    public IndividualBaseManager(DatabaseManager databaseManager) {
+        this.databaseManager = databaseManager;
     }
 
     @javax.annotation.Nonnull
     public String getDatabaseName() {
-        return Individual.DATABASE;
+        return IndividualConst.DATABASE;
     }
 
     @javax.annotation.Nonnull
@@ -35,12 +35,12 @@ public abstract class IndividualBaseManager extends AndroidBaseManagerWritable<I
 
     @javax.annotation.Nonnull
     public String getTableName() {
-        return Individual.TABLE;
+        return IndividualConst.TABLE;
     }
 
     @javax.annotation.Nonnull
-    public String[] getAllKeys() {
-        return Individual.ALL_KEYS;
+    public String[] getAllColumns() {
+        return IndividualConst.ALL_COLUMNS;
     }
 
     @javax.annotation.Nonnull
@@ -70,17 +70,17 @@ public abstract class IndividualBaseManager extends AndroidBaseManagerWritable<I
 
     @javax.annotation.Nonnull
     public String getPrimaryKey() {
-        return Individual.PRIMARY_KEY_COLUMN;
+        return IndividualConst.PRIMARY_KEY_COLUMN;
     }
 
     @javax.annotation.Nonnull
     public String getDropSql() {
-        return Individual.DROP_TABLE;
+        return IndividualConst.DROP_TABLE;
     }
 
     @javax.annotation.Nonnull
     public String getCreateSql() {
-        return Individual.CREATE_TABLE;
+        return IndividualConst.CREATE_TABLE;
     }
 
 
