@@ -62,8 +62,6 @@ dependencies {
 
     // Code
     compile 'com.google.code.findbugs:jsr305:3.0.1'
-    compile 'com.google.code.gson:gson:2.5' // override the version from retrofit
-    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
     compile 'joda-time:joda-time:2.9.2'
     compile 'org.dbtools:dbtools-android:4.1.2'
     compile 'org.dbtools:dbtools-query:2.5.6'
@@ -71,6 +69,12 @@ dependencies {
     compile 'commons-io:commons-io:2.4'
     compile 'com.devbrackets.android:recyclerext:0.17.1'
     compile 'com.evernote:android-job:1.0.2'
+
+    // Network
+    compile 'com.squareup.okhttp3:okhttp:3.1.2'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.1.2'
+    compile 'com.google.code.gson:gson:2.6.1' // override the version from retrofit
+    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
 
     // Dagger 2
     compile "com.google.dagger:dagger:${daggerVersion}"

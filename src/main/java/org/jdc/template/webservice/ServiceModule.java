@@ -22,6 +22,7 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -33,7 +34,7 @@ public class ServiceModule {
     private static final String USER_AGENT;
 
     // Log level
-    private LoggingInterceptor.LogLevel serviceLogLevel = LoggingInterceptor.LogLevel.BASIC;
+    private HttpLoggingInterceptor.Level serviceLogLevel = HttpLoggingInterceptor.Level.BASIC;
 
     static {
         USER_AGENT = BuildConfig.USER_AGENT_APP_NAME + " " + BuildConfig.VERSION_NAME + " / " + "Android " + Build.VERSION.RELEASE + " " +
@@ -77,7 +78,7 @@ public class ServiceModule {
             }
         });
 
-        clientBuilder.addInterceptor(new LoggingInterceptor(serviceLogLevel));
+        clientBuilder.addInterceptor(new HttpLoggingInterceptor().setLevel(serviceLogLevel));
     }
 
     private void setupBasicAuth(@Nonnull OkHttpClient.Builder clientBuilder, @Nonnull String username, @Nonnull String password) {
