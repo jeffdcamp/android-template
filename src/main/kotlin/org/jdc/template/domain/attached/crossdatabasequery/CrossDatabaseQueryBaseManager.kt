@@ -9,13 +9,13 @@
 
 package org.jdc.template.domain.attached.crossdatabasequery
 
-import org.jdc.template.domain.DatabaseManager
+import org.dbtools.android.domain.RxKotlinAndroidBaseManagerReadOnly
 import org.dbtools.android.domain.database.DatabaseWrapper
-import org.dbtools.android.domain.RxAndroidBaseManagerReadOnly
+import org.jdc.template.domain.DatabaseManager
 
 
 @SuppressWarnings("all")
-abstract class CrossDatabaseQueryBaseManager : RxAndroidBaseManagerReadOnly<CrossDatabaseQuery> {
+abstract class CrossDatabaseQueryBaseManager : RxKotlinAndroidBaseManagerReadOnly<CrossDatabaseQuery> {
 
      var databaseManager: DatabaseManager
 

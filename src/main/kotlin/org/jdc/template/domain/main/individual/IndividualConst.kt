@@ -10,7 +10,6 @@
 
 package org.jdc.template.domain.main.individual
 
-import org.dbtools.android.domain.DBToolsDateFormatter
 import android.database.Cursor
 import org.jdc.template.domain.main.individualtype.IndividualType
 
@@ -118,23 +117,23 @@ object IndividualConst {
     }
 
     fun getBirthDate(cursor: Cursor): org.threeten.bp.LocalDate? {
-        return DBToolsDateFormatter.dbStringToLocalDate(cursor.getString(cursor.getColumnIndexOrThrow(C_BIRTH_DATE)))
+        return org.dbtools.android.domain.DBToolsDateFormatter.dbStringToLocalDate(cursor.getString(cursor.getColumnIndexOrThrow(C_BIRTH_DATE)))
     }
 
     fun getAlarmTime(cursor: Cursor): org.threeten.bp.LocalTime {
-        return DBToolsDateFormatter.dbStringToLocalTime(cursor.getString(cursor.getColumnIndexOrThrow(C_ALARM_TIME)))!!
+        return org.dbtools.android.domain.DBToolsDateFormatter.dbStringToLocalTime(cursor.getString(cursor.getColumnIndexOrThrow(C_ALARM_TIME)))!!
     }
 
     fun getLastModified(cursor: Cursor): org.threeten.bp.LocalDateTime {
-        return if (!cursor.isNull(cursor.getColumnIndexOrThrow(C_LAST_MODIFIED))) DBToolsDateFormatter.longToLocalDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(C_LAST_MODIFIED)))!! else null!!
+        return if (!cursor.isNull(cursor.getColumnIndexOrThrow(C_LAST_MODIFIED))) org.dbtools.android.domain.DBToolsDateFormatter.longToLocalDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(C_LAST_MODIFIED)))!! else null!!
     }
 
     fun getSampleDateTime(cursor: Cursor): org.threeten.bp.LocalDateTime? {
-        return DBToolsDateFormatter.dbStringToLocalDateTime(cursor.getString(cursor.getColumnIndexOrThrow(C_SAMPLE_DATE_TIME)))
+        return org.dbtools.android.domain.DBToolsDateFormatter.dbStringToLocalDateTime(cursor.getString(cursor.getColumnIndexOrThrow(C_SAMPLE_DATE_TIME)))
     }
 
     fun getSampleTimestamp(cursor: Cursor): org.threeten.bp.LocalDateTime? {
-        return if (!cursor.isNull(cursor.getColumnIndexOrThrow(C_SAMPLE_TIMESTAMP))) DBToolsDateFormatter.longToLocalDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(C_SAMPLE_TIMESTAMP))) else null
+        return if (!cursor.isNull(cursor.getColumnIndexOrThrow(C_SAMPLE_TIMESTAMP))) org.dbtools.android.domain.DBToolsDateFormatter.longToLocalDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(C_SAMPLE_TIMESTAMP))) else null
     }
 
     fun getPhone(cursor: Cursor): String {

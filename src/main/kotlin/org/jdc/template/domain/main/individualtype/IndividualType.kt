@@ -10,8 +10,6 @@
 
 package org.jdc.template.domain.main.individualtype
 
-import org.dbtools.android.domain.DBToolsDateFormatter
-
 
 @SuppressWarnings("all")
 enum class IndividualType {

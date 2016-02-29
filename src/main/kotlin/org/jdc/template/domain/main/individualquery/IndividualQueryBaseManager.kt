@@ -11,11 +11,11 @@ package org.jdc.template.domain.main.individualquery
 
 import org.jdc.template.domain.DatabaseManager
 import org.dbtools.android.domain.database.DatabaseWrapper
-import org.dbtools.android.domain.RxAndroidBaseManagerReadOnly
+import org.dbtools.android.domain.RxKotlinAndroidBaseManagerReadOnly
 
 
 @SuppressWarnings("all")
-abstract class IndividualQueryBaseManager : RxAndroidBaseManagerReadOnly<IndividualQuery> {
+abstract class IndividualQueryBaseManager : RxKotlinAndroidBaseManagerReadOnly<IndividualQuery> {
 
      var databaseManager: DatabaseManager
 

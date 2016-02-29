@@ -11,11 +11,11 @@ package org.jdc.template.domain.main.household
 
 import org.jdc.template.domain.DatabaseManager
 import org.dbtools.android.domain.database.DatabaseWrapper
-import org.dbtools.android.domain.RxAndroidBaseManagerWritable
+import org.dbtools.android.domain.RxKotlinAndroidBaseManagerWritable
 
 
 @SuppressWarnings("all")
-abstract class HouseholdBaseManager : RxAndroidBaseManagerWritable<Household> {
+abstract class HouseholdBaseManager : RxKotlinAndroidBaseManagerWritable<Household> {
 
      var databaseManager: DatabaseManager
 

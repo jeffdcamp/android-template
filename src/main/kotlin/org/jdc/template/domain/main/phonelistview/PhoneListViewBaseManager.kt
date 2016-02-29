@@ -11,11 +11,11 @@ package org.jdc.template.domain.main.phonelistview
 
 import org.jdc.template.domain.DatabaseManager
 import org.dbtools.android.domain.database.DatabaseWrapper
-import org.dbtools.android.domain.RxAndroidBaseManagerReadOnly
+import org.dbtools.android.domain.RxKotlinAndroidBaseManagerReadOnly
 
 
 @SuppressWarnings("all")
-abstract class PhoneListViewBaseManager : RxAndroidBaseManagerReadOnly<PhoneListView> {
+abstract class PhoneListViewBaseManager : RxKotlinAndroidBaseManagerReadOnly<PhoneListView> {
 
      var databaseManager: DatabaseManager
 

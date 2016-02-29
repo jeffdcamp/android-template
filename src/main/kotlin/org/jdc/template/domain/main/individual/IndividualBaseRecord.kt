@@ -11,7 +11,6 @@
 package org.jdc.template.domain.main.individual
 
 import org.dbtools.android.domain.AndroidBaseRecord
-import org.dbtools.android.domain.DBToolsDateFormatter
 import org.jdc.template.domain.main.individualtype.IndividualType
 import android.content.ContentValues
 import android.database.Cursor
@@ -60,11 +59,11 @@ abstract class IndividualBaseRecord : AndroidBaseRecord() {
         values.put(IndividualConst.C_INDIVIDUAL_TYPE, individualType.ordinal)
         values.put(IndividualConst.C_FIRST_NAME, firstName)
         values.put(IndividualConst.C_LAST_NAME, lastName)
-        values.put(IndividualConst.C_BIRTH_DATE, DBToolsDateFormatter.localDateToDBString(birthDate))
-        values.put(IndividualConst.C_ALARM_TIME, DBToolsDateFormatter.localTimeToDBString(alarmTime))
-        values.put(IndividualConst.C_LAST_MODIFIED, DBToolsDateFormatter.localDateTimeToLong(lastModified))
-        values.put(IndividualConst.C_SAMPLE_DATE_TIME, DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime))
-        values.put(IndividualConst.C_SAMPLE_TIMESTAMP, DBToolsDateFormatter.localDateTimeToLong(sampleTimestamp))
+        values.put(IndividualConst.C_BIRTH_DATE, org.dbtools.android.domain.DBToolsDateFormatter.localDateToDBString(birthDate))
+        values.put(IndividualConst.C_ALARM_TIME, org.dbtools.android.domain.DBToolsDateFormatter.localTimeToDBString(alarmTime))
+        values.put(IndividualConst.C_LAST_MODIFIED, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(lastModified))
+        values.put(IndividualConst.C_SAMPLE_DATE_TIME, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime))
+        values.put(IndividualConst.C_SAMPLE_TIMESTAMP, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(sampleTimestamp))
         values.put(IndividualConst.C_PHONE, phone)
         values.put(IndividualConst.C_EMAIL, email)
         values.put(IndividualConst.C_AVAILABLE, if (available) 1 else 0)
@@ -78,11 +77,11 @@ abstract class IndividualBaseRecord : AndroidBaseRecord() {
             individualType.ordinal,
             firstName,
             lastName,
-            DBToolsDateFormatter.localDateToDBString(birthDate),
-            DBToolsDateFormatter.localTimeToDBString(alarmTime),
-            DBToolsDateFormatter.localDateTimeToLong(lastModified),
-            DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime),
-            DBToolsDateFormatter.localDateTimeToLong(sampleTimestamp),
+            org.dbtools.android.domain.DBToolsDateFormatter.localDateToDBString(birthDate),
+            org.dbtools.android.domain.DBToolsDateFormatter.localTimeToDBString(alarmTime),
+            org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(lastModified),
+            org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime),
+            org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(sampleTimestamp),
             phone,
             email,
             if (available) 1 else 0)
@@ -93,11 +92,11 @@ abstract class IndividualBaseRecord : AndroidBaseRecord() {
         individualType = IndividualType.values()[values.getAsInteger(IndividualConst.C_INDIVIDUAL_TYPE)]
         firstName = values.getAsString(IndividualConst.C_FIRST_NAME)
         lastName = values.getAsString(IndividualConst.C_LAST_NAME)
-        birthDate = DBToolsDateFormatter.dbStringToLocalDate(values.getAsString(IndividualConst.C_BIRTH_DATE))
-        alarmTime = DBToolsDateFormatter.dbStringToLocalTime(values.getAsString(IndividualConst.C_ALARM_TIME))!!
-        lastModified = DBToolsDateFormatter.longToLocalDateTime(values.getAsLong(IndividualConst.C_LAST_MODIFIED))!!
-        sampleDateTime = DBToolsDateFormatter.dbStringToLocalDateTime(values.getAsString(IndividualConst.C_SAMPLE_DATE_TIME))
-        sampleTimestamp = DBToolsDateFormatter.longToLocalDateTime(values.getAsLong(IndividualConst.C_SAMPLE_TIMESTAMP))
+        birthDate = org.dbtools.android.domain.DBToolsDateFormatter.dbStringToLocalDate(values.getAsString(IndividualConst.C_BIRTH_DATE))
+        alarmTime = org.dbtools.android.domain.DBToolsDateFormatter.dbStringToLocalTime(values.getAsString(IndividualConst.C_ALARM_TIME))!!
+        lastModified = org.dbtools.android.domain.DBToolsDateFormatter.longToLocalDateTime(values.getAsLong(IndividualConst.C_LAST_MODIFIED))!!
+        sampleDateTime = org.dbtools.android.domain.DBToolsDateFormatter.dbStringToLocalDateTime(values.getAsString(IndividualConst.C_SAMPLE_DATE_TIME))
+        sampleTimestamp = org.dbtools.android.domain.DBToolsDateFormatter.longToLocalDateTime(values.getAsLong(IndividualConst.C_SAMPLE_TIMESTAMP))
         phone = values.getAsString(IndividualConst.C_PHONE)
         email = values.getAsString(IndividualConst.C_EMAIL)
         available = values.getAsBoolean(IndividualConst.C_AVAILABLE)
@@ -109,11 +108,11 @@ abstract class IndividualBaseRecord : AndroidBaseRecord() {
         individualType = IndividualType.values()[cursor.getInt(cursor.getColumnIndexOrThrow(IndividualConst.C_INDIVIDUAL_TYPE))]
         firstName = cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_FIRST_NAME))
         lastName = cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_LAST_NAME))
-        birthDate = DBToolsDateFormatter.dbStringToLocalDate(cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_BIRTH_DATE)))
-        alarmTime = DBToolsDateFormatter.dbStringToLocalTime(cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_ALARM_TIME)))!!
-        lastModified = if (!cursor.isNull(cursor.getColumnIndexOrThrow(IndividualConst.C_LAST_MODIFIED))) DBToolsDateFormatter.longToLocalDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(IndividualConst.C_LAST_MODIFIED)))!! else null!!
-        sampleDateTime = DBToolsDateFormatter.dbStringToLocalDateTime(cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_SAMPLE_DATE_TIME)))
-        sampleTimestamp = if (!cursor.isNull(cursor.getColumnIndexOrThrow(IndividualConst.C_SAMPLE_TIMESTAMP))) DBToolsDateFormatter.longToLocalDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(IndividualConst.C_SAMPLE_TIMESTAMP))) else null
+        birthDate = org.dbtools.android.domain.DBToolsDateFormatter.dbStringToLocalDate(cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_BIRTH_DATE)))
+        alarmTime = org.dbtools.android.domain.DBToolsDateFormatter.dbStringToLocalTime(cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_ALARM_TIME)))!!
+        lastModified = if (!cursor.isNull(cursor.getColumnIndexOrThrow(IndividualConst.C_LAST_MODIFIED))) org.dbtools.android.domain.DBToolsDateFormatter.longToLocalDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(IndividualConst.C_LAST_MODIFIED)))!! else null!!
+        sampleDateTime = org.dbtools.android.domain.DBToolsDateFormatter.dbStringToLocalDateTime(cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_SAMPLE_DATE_TIME)))
+        sampleTimestamp = if (!cursor.isNull(cursor.getColumnIndexOrThrow(IndividualConst.C_SAMPLE_TIMESTAMP))) org.dbtools.android.domain.DBToolsDateFormatter.longToLocalDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(IndividualConst.C_SAMPLE_TIMESTAMP))) else null
         phone = cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_PHONE))
         email = cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_EMAIL))
         available = if (cursor.getInt(cursor.getColumnIndexOrThrow(IndividualConst.C_AVAILABLE)) != 0) true else false

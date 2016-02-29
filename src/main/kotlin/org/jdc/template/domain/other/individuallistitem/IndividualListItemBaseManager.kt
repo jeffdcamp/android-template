@@ -11,11 +11,11 @@ package org.jdc.template.domain.other.individuallistitem
 
 import org.jdc.template.domain.DatabaseManager
 import org.dbtools.android.domain.database.DatabaseWrapper
-import org.dbtools.android.domain.RxAndroidBaseManagerWritable
+import org.dbtools.android.domain.RxKotlinAndroidBaseManagerWritable
 
 
 @SuppressWarnings("all")
-abstract class IndividualListItemBaseManager : RxAndroidBaseManagerWritable<IndividualListItem> {
+abstract class IndividualListItemBaseManager : RxKotlinAndroidBaseManagerWritable<IndividualListItem> {
 
      var databaseManager: DatabaseManager
 
