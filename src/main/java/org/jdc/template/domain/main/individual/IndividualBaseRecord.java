@@ -10,12 +10,10 @@
 
 package org.jdc.template.domain.main.individual;
 
+import org.dbtools.android.domain.AndroidBaseRecord;
+import org.jdc.template.domain.main.individualtype.IndividualType;
 import android.content.ContentValues;
 import android.database.Cursor;
-
-import org.dbtools.android.domain.AndroidBaseRecord;
-import org.dbtools.android.domain.DBToolsDateFormatter;
-import org.jdc.template.domain.main.individualtype.IndividualType;
 
 
 @SuppressWarnings("all")
@@ -65,7 +63,7 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         values.put(IndividualConst.C_INDIVIDUAL_TYPE, individualType.ordinal());
         values.put(IndividualConst.C_FIRST_NAME, firstName);
         values.put(IndividualConst.C_LAST_NAME, lastName);
-        values.put(IndividualConst.C_BIRTH_DATE, DBToolsDateFormatter.dateTimeToLong(birthDate));
+        values.put(IndividualConst.C_BIRTH_DATE, org.dbtools.android.domain.DBToolsDateFormatter.dateTimeToLong(birthDate));
         values.put(IndividualConst.C_PHONE, phone);
         values.put(IndividualConst.C_EMAIL, email);
         values.put(IndividualConst.C_AVAILABLE, available ? 1 : 0);
@@ -80,7 +78,7 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
             individualType.ordinal(),
             firstName,
             lastName,
-            DBToolsDateFormatter.dateTimeToLong(birthDate),
+            org.dbtools.android.domain.DBToolsDateFormatter.dateTimeToLong(birthDate),
             phone,
             email,
             available ? 1 : 0,
@@ -93,7 +91,7 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         individualType = IndividualType.values()[values.getAsInteger(IndividualConst.C_INDIVIDUAL_TYPE)];
         firstName = values.getAsString(IndividualConst.C_FIRST_NAME);
         lastName = values.getAsString(IndividualConst.C_LAST_NAME);
-        birthDate = DBToolsDateFormatter.longToDateTime(values.getAsLong(IndividualConst.C_BIRTH_DATE));
+        birthDate = org.dbtools.android.domain.DBToolsDateFormatter.longToDateTime(values.getAsLong(IndividualConst.C_BIRTH_DATE));
         phone = values.getAsString(IndividualConst.C_PHONE);
         email = values.getAsString(IndividualConst.C_EMAIL);
         available = values.getAsBoolean(IndividualConst.C_AVAILABLE);
@@ -106,7 +104,7 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         individualType = IndividualType.values()[cursor.getInt(cursor.getColumnIndexOrThrow(IndividualConst.C_INDIVIDUAL_TYPE))];
         firstName = cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_FIRST_NAME));
         lastName = cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_LAST_NAME));
-        birthDate = !cursor.isNull(cursor.getColumnIndexOrThrow(IndividualConst.C_BIRTH_DATE)) ? DBToolsDateFormatter.longToDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(IndividualConst.C_BIRTH_DATE))) : null;
+        birthDate = !cursor.isNull(cursor.getColumnIndexOrThrow(IndividualConst.C_BIRTH_DATE)) ? org.dbtools.android.domain.DBToolsDateFormatter.longToDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(IndividualConst.C_BIRTH_DATE))) : null;
         phone = cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_PHONE));
         email = cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_EMAIL));
         available = cursor.getInt(cursor.getColumnIndexOrThrow(IndividualConst.C_AVAILABLE)) != 0 ? true : false;

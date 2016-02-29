@@ -15,7 +15,6 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
-import org.dbtools.android.domain.DBToolsDateFormatter;
 
 
 @SuppressWarnings("all")

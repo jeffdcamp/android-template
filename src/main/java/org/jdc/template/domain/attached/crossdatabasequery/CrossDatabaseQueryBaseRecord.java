@@ -10,10 +10,9 @@
 
 package org.jdc.template.domain.attached.crossdatabasequery;
 
+import org.dbtools.android.domain.AndroidBaseRecord;
 import android.content.ContentValues;
 import android.database.Cursor;
-
-import org.dbtools.android.domain.AndroidBaseRecord;
 
 
 @SuppressWarnings("all")

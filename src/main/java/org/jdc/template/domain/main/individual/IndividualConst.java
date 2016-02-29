@@ -11,8 +11,6 @@
 package org.jdc.template.domain.main.individual;
 
 import android.database.Cursor;
-
-import org.dbtools.android.domain.DBToolsDateFormatter;
 import org.jdc.template.domain.main.individualtype.IndividualType;
 
 
@@ -102,7 +100,7 @@ public class IndividualConst {
     }
 
     public static org.joda.time.DateTime getBirthDate(Cursor cursor) {
-        return !cursor.isNull(cursor.getColumnIndexOrThrow(C_BIRTH_DATE)) ? DBToolsDateFormatter.longToDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(C_BIRTH_DATE))) : null;
+        return !cursor.isNull(cursor.getColumnIndexOrThrow(C_BIRTH_DATE)) ? org.dbtools.android.domain.DBToolsDateFormatter.longToDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(C_BIRTH_DATE))) : null;
     }
 
     public static String getPhone(Cursor cursor) {
