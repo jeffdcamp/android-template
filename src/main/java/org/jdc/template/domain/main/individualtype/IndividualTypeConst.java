@@ -10,7 +10,6 @@
 
 package org.jdc.template.domain.main.individualtype;
 
-import org.dbtools.android.domain.DBToolsDateFormatter;
 import android.database.Cursor;
 
 

@@ -11,7 +11,6 @@
 package org.jdc.template.domain.main.individualquery;
 
 import org.dbtools.android.domain.AndroidBaseRecord;
-import org.dbtools.android.domain.DBToolsDateFormatter;
 import android.content.ContentValues;
 import android.database.Cursor;
 
