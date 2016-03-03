@@ -27,7 +27,6 @@ import org.jdc.template.dagger.Injector;
 import org.jdc.template.domain.main.individual.Individual;
 import org.jdc.template.domain.main.individual.IndividualManager;
 import org.jdc.template.event.IndividualSavedEvent;
-import org.jdc.template.event.RxBus;
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalTime;
 import org.threeten.bp.ZoneId;
@@ -39,6 +38,7 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import pocketbus.Bus;
 import pocketknife.BindArgument;
 import pocketknife.PocketKnife;
 
@@ -67,7 +67,7 @@ public class IndividualEditFragment extends Fragment {
     @Inject
     IndividualManager individualManager;
     @Inject
-    RxBus bus;
+    Bus bus;
     @Inject
     Analytics analytics;
 

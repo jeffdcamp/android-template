@@ -24,7 +24,6 @@ import org.jdc.template.event.DirectoryItemSelectedEvent;
 import org.jdc.template.event.EditIndividualEvent;
 import org.jdc.template.event.IndividualDeletedEvent;
 import org.jdc.template.event.IndividualSavedEvent;
-import org.jdc.template.event.RxBus;
 import org.jdc.template.ui.adapter.DirectoryAdapter;
 
 import javax.annotation.Nonnull;
@@ -32,6 +31,10 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import pocketbus.Bus;
+import pocketbus.Registrar;
+import pocketbus.Subscribe;
+import pocketbus.ThreadMode;
 import pocketknife.BindArgument;
 import pocketknife.PocketKnife;
 import pocketknife.SaveState;
@@ -45,7 +48,7 @@ public class DirectoryFragment extends BaseFragment implements SearchView.OnQuer
     private static final String ARGS_DUAL_PANE = "DUAL_PANE";
 
     @Inject
-    RxBus bus;
+    Bus bus;
     @Inject
     Analytics analytics;
     @Inject
@@ -60,6 +63,7 @@ public class DirectoryFragment extends BaseFragment implements SearchView.OnQuer
     @SaveState
     long lastSelectedId = 0;
 
+    private Registrar registrar = new DirectoryFragmentRegistrar(this);
     private DirectoryAdapter adapter;
 
     public static DirectoryFragment newInstance(boolean dualPane) {
@@ -123,9 +127,14 @@ public class DirectoryFragment extends BaseFragment implements SearchView.OnQuer
     @Override
     public void onStart() {
         super.onStart();
-
-        addSubscription(bus.subscribeMainThread(event -> handleSubscribeMainThread(event)));
         loadList();
+        bus.register(registrar);
+    }
+
+    @Override
+    public void onStop() {
+        bus.unregister(registrar);
+        super.onStop();
     }
 
     public void loadList() {
@@ -150,15 +159,20 @@ public class DirectoryFragment extends BaseFragment implements SearchView.OnQuer
         adapter.changeCursor(data);
     }
 
-    private void handleSubscribeMainThread(Object event) {
-        if (event instanceof DirectoryItemClickedEvent) {
-            selectPosition(((DirectoryItemClickedEvent) event).getItemId());
-        } else if (event instanceof IndividualSavedEvent) {
-            loadList();
-            bus.post(new DirectoryItemSelectedEvent(((IndividualSavedEvent) event).getId()));
-        } else if (event instanceof IndividualDeletedEvent) {
-            loadList();
-        }
+    @Subscribe(ThreadMode.MAIN)
+    public void handle(DirectoryItemClickedEvent event) {
+        selectPosition(((DirectoryItemClickedEvent) event).getItemId());
+    }
+
+    @Subscribe(ThreadMode.MAIN)
+    public void handle(IndividualSavedEvent event) {
+        loadList();
+        bus.post(new DirectoryItemSelectedEvent(((IndividualSavedEvent) event).getId()));
+    }
+
+    @Subscribe(ThreadMode.MAIN)
+    public void handle(IndividualDeletedEvent event) {
+        loadList();
     }
 
     @Override

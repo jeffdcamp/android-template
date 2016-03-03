@@ -14,16 +14,16 @@ import org.jdc.template.R;
 import org.jdc.template.dagger.Injector;
 import org.jdc.template.domain.main.individual.Individual;
 import org.jdc.template.event.DirectoryItemClickedEvent;
-import org.jdc.template.event.RxBus;
 
 import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import pocketbus.Bus;
 
 public class DirectoryAdapter extends RecyclerCursorAdapter<DirectoryAdapter.ViewHolder> {
     @Inject
-    RxBus bus;
+    Bus bus;
 
     private LayoutInflater inflater;
 

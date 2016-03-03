@@ -24,6 +24,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import pocketbus.Bus;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module(includes = {
@@ -58,7 +59,8 @@ public class AppModule {
         // Only send analytics to Google Analytics with versions of the app that are NOT debuggable (such as BETA or RELEASE)
         if (BuildConfig.DEBUG) {
             return new Analytics() {
-                @Override public void send(Map<String, String> params) {
+                @Override
+                public void send(Map<String, String> params) {
                     Log.d(TAG, String.valueOf(params));
                 }
             };
@@ -84,5 +86,12 @@ public class AppModule {
     @Singleton
     GsonConverterFactory provideGsonConverterFactory(Gson gson) {
         return GsonConverterFactory.create(gson);
+    }
+
+    @Provides
+    @Singleton
+    Bus provideEventBus() {
+        return new Bus.Builder()
+                .build();
     }
 }

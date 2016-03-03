@@ -24,7 +24,6 @@ import org.jdc.template.domain.main.individual.Individual;
 import org.jdc.template.domain.main.individual.IndividualManager;
 import org.jdc.template.event.EditIndividualEvent;
 import org.jdc.template.event.IndividualDeletedEvent;
-import org.jdc.template.event.RxBus;
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.LocalTime;
@@ -36,6 +35,7 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import pocketbus.Bus;
 import pocketknife.BindArgument;
 import pocketknife.PocketKnife;
 import rx.android.schedulers.AndroidSchedulers;
@@ -62,7 +62,7 @@ public class IndividualFragment extends Fragment {
     @Inject
     IndividualManager individualManager;
     @Inject
-    RxBus bus;
+    Bus bus;
     @Inject
     Analytics analytics;
 

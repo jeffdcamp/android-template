@@ -8,12 +8,15 @@ import android.view.MenuItem;
 import org.jdc.template.R;
 import org.jdc.template.dagger.Injector;
 import org.jdc.template.event.IndividualSavedEvent;
-import org.jdc.template.event.RxBus;
 
 import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import pocketbus.Bus;
+import pocketbus.Registrar;
+import pocketbus.Subscribe;
+import pocketbus.ThreadMode;
 import pocketknife.BindExtra;
 import pocketknife.PocketKnife;
 
@@ -27,7 +30,9 @@ public class IndividualEditActivity extends BaseActivity {
     long individualId;
 
     @Inject
-    RxBus bus;
+    Bus bus;
+
+    private Registrar registrar = new IndividualEditActivityRegistrar(this);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,7 +59,13 @@ public class IndividualEditActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        addSubscription(bus.subscribeMainThread(event -> handleSubscribeMainThread(event)));
+        bus.register(registrar);
+    }
+
+    @Override
+    protected void onStop() {
+        bus.unregister(registrar);
+        super.onStop();
     }
 
     private void setupActionBar() {
@@ -81,9 +92,8 @@ public class IndividualEditActivity extends BaseActivity {
         }
     }
 
-    private void handleSubscribeMainThread(Object event) {
-        if (event instanceof IndividualSavedEvent) {
-            finish();
-        }
+    @Subscribe(ThreadMode.MAIN)
+    public void handle(IndividualSavedEvent event) {
+        finish();
     }
 }

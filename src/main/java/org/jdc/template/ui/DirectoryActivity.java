@@ -10,13 +10,16 @@ import org.jdc.template.R;
 import org.jdc.template.dagger.Injector;
 import org.jdc.template.event.DirectoryItemSelectedEvent;
 import org.jdc.template.event.EditIndividualEvent;
-import org.jdc.template.event.RxBus;
 import org.jdc.template.ui.menu.CommonMenu;
 
 import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import pocketbus.Bus;
+import pocketbus.Registrar;
+import pocketbus.Subscribe;
+import pocketbus.ThreadMode;
 
 public class DirectoryActivity extends DrawerActivity {
 
@@ -26,10 +29,12 @@ public class DirectoryActivity extends DrawerActivity {
     InternalIntents internalIntents;
 
     @Inject
-    RxBus bus;
+    Bus bus;
 
     @Bind(R.id.ab_toolbar)
     Toolbar toolbar;
+
+    private Registrar registrar = new DirectoryActivityRegistrar(this);
 
     private boolean dualPane = false;
 
@@ -63,35 +68,37 @@ public class DirectoryActivity extends DrawerActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        addSubscription(bus.subscribeMainThread(event -> handleSubscribeMainThread(event)));
-        addSubscription(bus.subscribeBackgroundThread(event -> handleSubscribeIoThread(event)));
+        bus.register(registrar);
     }
 
-    private void handleSubscribeIoThread(Object event) {
-        // ThreadMode.Async because this cannot be called from a onLoadFinished call
-        if (event instanceof DirectoryItemSelectedEvent) {
-            long id = ((DirectoryItemSelectedEvent) event).getId();
-            if (dualPane) {
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_pos2, IndividualFragment.newInstance(id))
-                        .commit();
-            } else {
-                internalIntents.showIndividual(this, id);
-            }
+    @Override
+    protected void onStop() {
+        bus.unregister(registrar);
+        super.onStop();
+    }
+
+    @Subscribe(ThreadMode.BACKGROUND)
+    public void handle(DirectoryItemSelectedEvent event) {
+        long id = event.getId();
+        if (dualPane) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_pos2, IndividualFragment.newInstance(id))
+                    .commit();
+        } else {
+            internalIntents.showIndividual(this, id);
         }
     }
 
-    private void handleSubscribeMainThread(Object event) {
-        if (event instanceof EditIndividualEvent) {
-            long id = ((EditIndividualEvent) event).getId();
+    @Subscribe(ThreadMode.MAIN)
+    public void handle(EditIndividualEvent event) {
+        long id = event.getId();
 
-            if (dualPane) {
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_pos2, IndividualEditFragment.newInstance(id))
-                        .commit();
-            } else {
-                internalIntents.editIndividual(this, id);
-            }
+        if (dualPane) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_pos2, IndividualEditFragment.newInstance(id))
+                    .commit();
+        } else {
+            internalIntents.editIndividual(this, id);
         }
     }
 

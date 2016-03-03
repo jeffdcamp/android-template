@@ -9,6 +9,7 @@ buildscript {
         classpath 'me.tatarka:gradle-retrolambda:3.2.5'
         classpath 'org.dbtools:gradle-dbtools-plugin:5.0.2'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.12.0' // version plugin support
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
     }
 }
 
@@ -21,8 +22,9 @@ apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'dbtools'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.ben-manes.versions' // ./gradlew dependencyUpdates -Drevision=release
+apply plugin: 'com.neenbedankt.android-apt'
 
-def artOnly = false; // enable a fast build supported ONLY by Android 5.0+
+def artOnly = true; // enable a fast build supported ONLY by Android 5.0+
 
 // Manifest version information
 def versionMajor = 1
@@ -41,10 +43,12 @@ repositories {
 
 ext {
     // versions for libraries that multiple dependencies
-    supportLibVersion = "23.2.0"
-    daggerVersion = "2.0.2"
-    pocketKnifeVersion = "3.2.0"
+    supportLibVersion = '23.2.0'
+    daggerVersion = '2.0.2'
+    pocketKnifeVersion = '3.2.0'
+    pocketbusVersion = '0.2.0'
 }
+
 dependencies {
     // Android
     compile "com.android.support:appcompat-v7:${supportLibVersion}"
@@ -57,8 +61,10 @@ dependencies {
 
     // UI
     compile "com.vikingsen:pocketknife-core:${pocketKnifeVersion}"
-    provided "com.vikingsen:pocketknife-compiler:${pocketKnifeVersion}"
+    apt "com.vikingsen:pocketknife-compiler:${pocketKnifeVersion}"
     compile 'com.jakewharton:butterknife:7.0.1'
+    compile "com.vikingsen:pocketbus:$pocketbusVersion"
+    apt "com.vikingsen:pocketbus-compiler:$pocketbusVersion"
 
     // Code
     compile 'com.google.code.findbugs:jsr305:3.0.1'
@@ -78,7 +84,7 @@ dependencies {
 
     // Dagger 2
     compile "com.google.dagger:dagger:${daggerVersion}"
-    provided "com.google.dagger:dagger-compiler:${daggerVersion}"
+    apt "com.google.dagger:dagger-compiler:${daggerVersion}"
     provided 'javax.annotation:javax.annotation-api:1.2' // Dagger 2 dependency which is not available in Java 6
 
     // RxJava
@@ -119,7 +125,7 @@ android {
         buildConfigField "String", "ANALYTICS_KEY", "\"${getAnalyticsKey()}\""
 
         multiDexEnabled true
-        vectorDrawables.useSupportLibrary = true
+        vectorDrawables.useSupportLibrary = true // do not generate png's for svg files
 
         // Enable the experimental Jack build tools. (note... may not work with shrinking enabled)
         // useJack = true
