@@ -16,6 +16,7 @@ import org.jdc.template.BuildConfig
 import org.jdc.template.webservice.ServiceModule
 import org.jdc.template.webservice.converter.DateTimeTypeConverter
 import org.threeten.bp.LocalDateTime
+import pocketbus.Bus
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
@@ -71,5 +72,11 @@ class AppModule(private val application: Application) {
     @Singleton
     internal fun provideGsonConverterFactory(gson: Gson): GsonConverterFactory {
         return GsonConverterFactory.create(gson)
+    }
+
+    @Provides
+    @Singleton
+    internal fun provideEventBus(): Bus {
+        return Bus.Builder().build()
     }
 }

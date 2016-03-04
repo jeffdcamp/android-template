@@ -13,12 +13,12 @@ import org.jdc.template.R.layout.list_item_dual_pane
 import org.jdc.template.dagger.Injector
 import org.jdc.template.domain.main.individual.Individual
 import org.jdc.template.event.DirectoryItemClickedEvent
-import org.jdc.template.event.RxBus
+import pocketbus.Bus
 import javax.inject.Inject
 
 class DirectoryAdapter(context: Context, cursor: Cursor?, dualPane: Boolean) : RecyclerCursorAdapter<DirectoryAdapter.ViewHolder>(cursor) {
     @Inject
-    lateinit var bus: RxBus
+    lateinit var bus: Bus
 
     private val inflater: LayoutInflater
 

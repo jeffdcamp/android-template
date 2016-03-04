@@ -12,8 +12,10 @@ import org.jdc.template.R.layout.directory_list
 import org.jdc.template.dagger.Injector
 import org.jdc.template.event.DirectoryItemSelectedEvent
 import org.jdc.template.event.EditIndividualEvent
-import org.jdc.template.event.RxBus
 import org.jdc.template.ui.menu.CommonMenu
+import pocketbus.Bus
+import pocketbus.Subscribe
+import pocketbus.ThreadMode
 import javax.inject.Inject
 
 class DirectoryActivity : DrawerActivity() {
@@ -24,9 +26,11 @@ class DirectoryActivity : DrawerActivity() {
     lateinit var internalIntents: InternalIntents
 
     @Inject
-    lateinit var bus: RxBus
+    lateinit var bus: Bus
 
     private var dualPane = false
+
+    private val registrar = DirectoryActivityRegistrar(this)
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,32 +56,32 @@ class DirectoryActivity : DrawerActivity() {
 
     override fun onStart() {
         super.onStart()
-
-        addSubscription(bus.subscribeMainThread{event -> handleSubscribeMainThread(event)})
-        addSubscription(bus.subscribeBackgroundThread{ event ->  handleSubscribeIoThread(event)})
+        bus.register(registrar)
     }
 
-    private fun handleSubscribeIoThread(event: Any) {
-        // ThreadMode.Async because this cannot be called from a onLoadFinished call
-        if (event is DirectoryItemSelectedEvent) {
-            val id = event.id
-            if (dualPane) {
-                supportFragmentManager.beginTransaction().replace(R.id.fragment_pos2, IndividualFragment.newInstance(id)).commit()
-            } else {
-                internalIntents.showIndividual(this, id)
-            }
+    override fun onStop() {
+        bus.unregister(registrar)
+        super.onStop()
+    }
+
+    @Subscribe(ThreadMode.BACKGROUND)
+    fun handleDirectoryItemSelectedEvent(event: DirectoryItemSelectedEvent) {
+        val id = event.id
+        if (dualPane) {
+            supportFragmentManager.beginTransaction().replace(R.id.fragment_pos2, IndividualFragment.newInstance(id)).commit()
+        } else {
+            internalIntents.showIndividual(this, id)
         }
     }
 
-    private fun handleSubscribeMainThread(event: Any) {
-        if (event is EditIndividualEvent) {
-            val id = event.id
+    @Subscribe(ThreadMode.MAIN)
+    fun handleEditIndividualEvent(event: EditIndividualEvent) {
+        val id = event.id
 
-            if (dualPane) {
-                supportFragmentManager.beginTransaction().replace(R.id.fragment_pos2, IndividualEditFragment.newInstance(id)).commit()
-            } else {
-                internalIntents.editIndividual(this, id)
-            }
+        if (dualPane) {
+            supportFragmentManager.beginTransaction().replace(R.id.fragment_pos2, IndividualEditFragment.newInstance(id)).commit()
+        } else {
+            internalIntents.editIndividual(this, id)
         }
     }
 

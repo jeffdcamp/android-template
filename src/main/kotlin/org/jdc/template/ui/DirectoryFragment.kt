@@ -20,6 +20,9 @@ import org.jdc.template.dagger.Injector
 import org.jdc.template.domain.main.individual.IndividualManager
 import org.jdc.template.event.*
 import org.jdc.template.ui.adapter.DirectoryAdapter
+import pocketbus.Bus
+import pocketbus.Subscribe
+import pocketbus.ThreadMode
 import pocketknife.BindArgument
 import pocketknife.PocketKnife
 import pocketknife.SaveState
@@ -30,7 +33,7 @@ import javax.inject.Inject
 class DirectoryFragment : BaseFragment(), SearchView.OnQueryTextListener, ActionMode.Callback {
 
     @Inject
-    lateinit var bus: RxBus
+    lateinit var bus: Bus
     @Inject
     lateinit var analytics: Analytics
     @Inject
@@ -43,6 +46,7 @@ class DirectoryFragment : BaseFragment(), SearchView.OnQueryTextListener, Action
     var lastSelectedId: Long = 0
 
     private var adapter: DirectoryAdapter? = null
+    private val registrar = DirectoryFragmentRegistrar(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,9 +101,13 @@ class DirectoryFragment : BaseFragment(), SearchView.OnQueryTextListener, Action
 
     override fun onStart() {
         super.onStart()
-
-        addSubscription(bus.subscribeMainThread{ event -> handleSubscribeMainThread(event) })
+        bus.register(registrar)
         loadList()
+    }
+
+    override fun onStop() {
+        bus.unregister(registrar)
+        super.onStop()
     }
 
     fun loadList() {
@@ -123,15 +131,20 @@ class DirectoryFragment : BaseFragment(), SearchView.OnQueryTextListener, Action
         adapter!!.changeCursor(data)
     }
 
-    private fun handleSubscribeMainThread(event: Any) {
-        if (event is DirectoryItemClickedEvent) {
-            selectPosition(event.itemId)
-        } else if (event is IndividualSavedEvent) {
-            loadList()
-            bus.post(DirectoryItemSelectedEvent(event.id))
-        } else if (event is IndividualDeletedEvent) {
-            loadList()
-        }
+    @Subscribe(ThreadMode.MAIN)
+    fun handleDirectoryItemClickedEvent(event: DirectoryItemClickedEvent) {
+        selectPosition(event.itemId)
+    }
+
+    @Subscribe(ThreadMode.MAIN)
+    fun handleIndividualSavedEvent(event: IndividualSavedEvent) {
+        loadList()
+        bus.post(DirectoryItemSelectedEvent(event.id))
+    }
+
+    @Subscribe(ThreadMode.MAIN)
+    fun handleIndividualDeletedEvent(event: IndividualDeletedEvent) {
+        loadList()
     }
 
     override fun onQueryTextSubmit(s: String): Boolean {

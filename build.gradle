@@ -47,9 +47,10 @@ repositories {
 
 ext {
     // versions for libraries that multiple dependencies
-    supportLibVersion = "23.2.0"
-    daggerVersion = "2.0.2"
-    pocketKnifeVersion = "3.2.0"
+    supportLibVersion = '23.2.0'
+    daggerVersion = '2.0.2'
+    pocketKnifeVersion = '3.2.0'
+    pocketbusVersion = '0.2.1'
 }
 
 kapt {
@@ -69,6 +70,8 @@ dependencies {
     // UI
     compile "com.vikingsen:pocketknife-core:${pocketKnifeVersion}"
     kapt "com.vikingsen:pocketknife-compiler:${pocketKnifeVersion}"
+    compile "com.vikingsen:pocketbus:$pocketbusVersion"
+    kapt "com.vikingsen:pocketbus-compiler:$pocketbusVersion"
 
     // Code
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -76,13 +79,13 @@ dependencies {
     compile 'com.jakewharton.threetenabp:threetenabp:1.0.3'
     compile 'org.dbtools:dbtools-android:5.0.2'
     compile 'org.dbtools:dbtools-query:2.5.6'
-    compile 'com.devbrackets.android:recyclerext:0.17.1'
-    compile 'com.evernote:android-job:1.0.2'
+    compile 'com.devbrackets.android:recyclerext:0.18.0'
+    compile 'com.evernote:android-job:1.0.3'
 
     // Network
-    compile 'com.squareup.okhttp3:okhttp:3.1.2'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.1.2'
-    compile 'com.google.code.gson:gson:2.6.1' // override the version from retrofit
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
+    compile 'com.google.code.gson:gson:2.6.2' // override the version from retrofit
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
 
     // Dagger 2

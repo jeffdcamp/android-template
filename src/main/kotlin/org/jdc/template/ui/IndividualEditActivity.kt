@@ -7,7 +7,9 @@ import kotlinx.android.synthetic.main.toolbar_actionbar.*
 import org.jdc.template.R
 import org.jdc.template.dagger.Injector
 import org.jdc.template.event.IndividualSavedEvent
-import org.jdc.template.event.RxBus
+import pocketbus.Bus
+import pocketbus.Subscribe
+import pocketbus.ThreadMode
 import pocketknife.BindExtra
 import pocketknife.PocketKnife
 import javax.inject.Inject
@@ -19,7 +21,9 @@ class IndividualEditActivity : BaseActivity() {
     var individualId: Long = 0
 
     @Inject
-    lateinit var bus: RxBus
+    lateinit var bus: Bus
+
+    private val registrar = IndividualEditActivityRegistrar(this)
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +45,12 @@ class IndividualEditActivity : BaseActivity() {
 
     override fun onStart() {
         super.onStart()
-        addSubscription(bus.subscribeMainThread{ event -> handleSubscribeMainThread(event) })
+        bus.register(registrar)
+    }
+
+    override fun onStop() {
+        bus.unregister(registrar)
+        super.onStop()
     }
 
     private fun setupActionBar() {
@@ -65,10 +74,9 @@ class IndividualEditActivity : BaseActivity() {
         }
     }
 
-    private fun handleSubscribeMainThread(event: Any) {
-        if (event is IndividualSavedEvent) {
-            finish()
-        }
+    @Subscribe(ThreadMode.MAIN)
+    fun handleIndividualSavedEvent1(event: IndividualSavedEvent) {
+        finish()
     }
 
     companion object {

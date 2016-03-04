@@ -9,7 +9,9 @@ import org.jdc.template.R.layout.fragment_drawer_single
 import org.jdc.template.dagger.Injector
 import org.jdc.template.event.EditIndividualEvent
 import org.jdc.template.event.IndividualDeletedEvent
-import org.jdc.template.event.RxBus
+import pocketbus.Bus
+import pocketbus.Subscribe
+import pocketbus.ThreadMode
 import pocketknife.BindExtra
 import pocketknife.PocketKnife
 import javax.inject.Inject
@@ -22,7 +24,9 @@ class IndividualActivity : DrawerActivity() {
     @Inject
     lateinit var internalIntents: InternalIntents
     @Inject
-    lateinit var bus: RxBus
+    lateinit var bus: Bus
+
+    private val registrar = IndividualActivityRegistrar(this)
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,15 +48,22 @@ class IndividualActivity : DrawerActivity() {
 
     override fun onStart() {
         super.onStart()
-        addSubscription(bus.subscribeMainThread{ event -> handleSubscribeMainThread(event) })
+        bus.register(registrar)
     }
 
-    private fun handleSubscribeMainThread(event: Any) {
-        if (event is EditIndividualEvent) {
-            internalIntents.editIndividual(this, event.id)
-        } else if (event is IndividualDeletedEvent) {
-            finish()
-        }
+    override fun onStop() {
+        bus.unregister(registrar)
+        super.onStop()
+    }
+
+    @Subscribe(ThreadMode.MAIN)
+    fun handleEditIndividualEvent8(event: EditIndividualEvent) {
+        internalIntents.editIndividual(this, event.id)
+    }
+
+    @Subscribe(ThreadMode.MAIN)
+    fun handleIndividualDeletedEvent9(event: IndividualDeletedEvent) {
+        finish()
     }
 
     companion object {

@@ -17,10 +17,10 @@ import org.jdc.template.dagger.Injector
 import org.jdc.template.domain.main.individual.Individual
 import org.jdc.template.domain.main.individual.IndividualManager
 import org.jdc.template.event.IndividualSavedEvent
-import org.jdc.template.event.RxBus
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalTime
 import org.threeten.bp.ZoneId
+import pocketbus.Bus
 import pocketknife.BindArgument
 import pocketknife.PocketKnife
 import javax.inject.Inject
@@ -30,7 +30,7 @@ class IndividualEditFragment : Fragment() {
     @Inject
     lateinit var individualManager: IndividualManager
     @Inject
-    lateinit var bus: RxBus
+    lateinit var bus: Bus
     @Inject
     lateinit var analytics: Analytics
 
