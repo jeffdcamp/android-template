@@ -46,7 +46,7 @@ ext {
     supportLibVersion = '23.2.0'
     daggerVersion = '2.0.2'
     pocketKnifeVersion = '3.2.0'
-    pocketbusVersion = '0.2.0'
+    pocketbusVersion = '0.2.1'
 }
 
 dependencies {
