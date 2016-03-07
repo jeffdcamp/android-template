@@ -47,6 +47,8 @@ object IndividualConst {
     const val FULL_C_EMAIL = "INDIVIDUAL.EMAIL"
     const val C_AVAILABLE = "AVAILABLE"
     const val FULL_C_AVAILABLE = "INDIVIDUAL.AVAILABLE"
+    const val C_SPOUSE_INDIVIDUAL_ID = "SPOUSE_INDIVIDUAL_ID"
+    const val FULL_C_SPOUSE_INDIVIDUAL_ID = "INDIVIDUAL.SPOUSE_INDIVIDUAL_ID"
     const val CREATE_TABLE = "CREATE TABLE IF NOT EXISTS INDIVIDUAL (" + 
         "_id INTEGER PRIMARY KEY  AUTOINCREMENT," + 
         "HOUSEHOLD_ID INTEGER NOT NULL," + 
@@ -61,6 +63,7 @@ object IndividualConst {
         "PHONE TEXT NOT NULL," + 
         "EMAIL TEXT NOT NULL," + 
         "AVAILABLE INTEGER NOT NULL," + 
+        "SPOUSE_INDIVIDUAL_ID INTEGER," + 
         "FOREIGN KEY (HOUSEHOLD_ID) REFERENCES HOUSEHOLD (_id)," + 
         "FOREIGN KEY (INDIVIDUAL_TYPE_ID) REFERENCES INDIVIDUAL_TYPE (_id)" + 
         ");" + 
@@ -80,7 +83,8 @@ object IndividualConst {
         C_SAMPLE_TIMESTAMP,
         C_PHONE,
         C_EMAIL,
-        C_AVAILABLE)
+        C_AVAILABLE,
+        C_SPOUSE_INDIVIDUAL_ID)
     val ALL_COLUMNS_FULL = arrayOf(
         FULL_C_ID,
         FULL_C_HOUSEHOLD_ID,
@@ -94,7 +98,8 @@ object IndividualConst {
         FULL_C_SAMPLE_TIMESTAMP,
         FULL_C_PHONE,
         FULL_C_EMAIL,
-        FULL_C_AVAILABLE)
+        FULL_C_AVAILABLE,
+        FULL_C_SPOUSE_INDIVIDUAL_ID)
 
     fun getId(cursor: Cursor): Long {
         return cursor.getLong(cursor.getColumnIndexOrThrow(C_ID))
@@ -146,6 +151,10 @@ object IndividualConst {
 
     fun isAvailable(cursor: Cursor): Boolean {
         return if (cursor.getInt(cursor.getColumnIndexOrThrow(C_AVAILABLE)) != 0) true else false
+    }
+
+    fun getSpouseIndividualId(cursor: Cursor): Long? {
+        return if (!cursor.isNull(cursor.getColumnIndexOrThrow(C_SPOUSE_INDIVIDUAL_ID))) cursor.getLong(cursor.getColumnIndexOrThrow(C_SPOUSE_INDIVIDUAL_ID)) else null
     }
 
 

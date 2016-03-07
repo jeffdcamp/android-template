@@ -10,10 +10,10 @@
 
 package org.jdc.template.domain.main.individual
 
-import org.dbtools.android.domain.AndroidBaseRecord
-import org.jdc.template.domain.main.individualtype.IndividualType
 import android.content.ContentValues
 import android.database.Cursor
+import org.dbtools.android.domain.AndroidBaseRecord
+import org.jdc.template.domain.main.individualtype.IndividualType
 
 
 @SuppressWarnings("all")
@@ -32,6 +32,7 @@ abstract class IndividualBaseRecord : AndroidBaseRecord() {
      var phone: String = ""
      var email: String = ""
      var available: Boolean = false
+     var spouseIndividualId: Long? = 0
 
     override fun getIdColumnName(): String {
         return IndividualConst.C_ID
@@ -67,6 +68,7 @@ abstract class IndividualBaseRecord : AndroidBaseRecord() {
         values.put(IndividualConst.C_PHONE, phone)
         values.put(IndividualConst.C_EMAIL, email)
         values.put(IndividualConst.C_AVAILABLE, if (available) 1 else 0)
+        values.put(IndividualConst.C_SPOUSE_INDIVIDUAL_ID, spouseIndividualId)
         return values
     }
 
@@ -84,7 +86,8 @@ abstract class IndividualBaseRecord : AndroidBaseRecord() {
             org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(sampleTimestamp),
             phone,
             email,
-            if (available) 1 else 0)
+            if (available) 1 else 0,
+            spouseIndividualId)
     }
 
     fun setContent(values: ContentValues) {
@@ -100,6 +103,7 @@ abstract class IndividualBaseRecord : AndroidBaseRecord() {
         phone = values.getAsString(IndividualConst.C_PHONE)
         email = values.getAsString(IndividualConst.C_EMAIL)
         available = values.getAsBoolean(IndividualConst.C_AVAILABLE)
+        spouseIndividualId = values.getAsLong(IndividualConst.C_SPOUSE_INDIVIDUAL_ID)
     }
 
     override fun setContent(cursor: Cursor) {
@@ -116,6 +120,7 @@ abstract class IndividualBaseRecord : AndroidBaseRecord() {
         phone = cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_PHONE))
         email = cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_EMAIL))
         available = if (cursor.getInt(cursor.getColumnIndexOrThrow(IndividualConst.C_AVAILABLE)) != 0) true else false
+        spouseIndividualId = if (!cursor.isNull(cursor.getColumnIndexOrThrow(IndividualConst.C_SPOUSE_INDIVIDUAL_ID))) cursor.getLong(cursor.getColumnIndexOrThrow(IndividualConst.C_SPOUSE_INDIVIDUAL_ID)) else null
     }
 
     override fun isNewRecord(): Boolean {

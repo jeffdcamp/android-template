@@ -27,6 +27,7 @@
             <field name="PHONE" jdbcDataType="VARCHAR"/>
             <field name="EMAIL" jdbcDataType="VARCHAR"/>
             <field name="AVAILABLE" jdbcDataType="BOOLEAN"/>
+            <field name="SPOUSE_INDIVIDUAL_ID" jdbcDataType="BIGINT" notNull="false"/> <!-- test for nullable -->
         </table>
         <view name="PHONE_LIST_VIEW">
             <field name="_id" jdbcDataType="BIGINT"/>
