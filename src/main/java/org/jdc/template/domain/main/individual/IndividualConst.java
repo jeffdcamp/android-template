@@ -47,6 +47,8 @@ public class IndividualConst {
     public static final String FULL_C_EMAIL = "INDIVIDUAL.EMAIL";
     public static final String C_AVAILABLE = "AVAILABLE";
     public static final String FULL_C_AVAILABLE = "INDIVIDUAL.AVAILABLE";
+    public static final String C_SPOUSE_INDIVIDUAL_ID = "SPOUSE_INDIVIDUAL_ID";
+    public static final String FULL_C_SPOUSE_INDIVIDUAL_ID = "INDIVIDUAL.SPOUSE_INDIVIDUAL_ID";
     public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS INDIVIDUAL (" + 
         "_id INTEGER PRIMARY KEY  AUTOINCREMENT," + 
         "HOUSEHOLD_ID INTEGER NOT NULL," + 
@@ -61,6 +63,7 @@ public class IndividualConst {
         "PHONE TEXT NOT NULL," + 
         "EMAIL TEXT NOT NULL," + 
         "AVAILABLE INTEGER NOT NULL," + 
+        "SPOUSE_INDIVIDUAL_ID INTEGER," + 
         "FOREIGN KEY (HOUSEHOLD_ID) REFERENCES HOUSEHOLD (_id)," + 
         "FOREIGN KEY (INDIVIDUAL_TYPE_ID) REFERENCES INDIVIDUAL_TYPE (_id)" + 
         ");" + 
@@ -80,7 +83,8 @@ public class IndividualConst {
         C_SAMPLE_TIMESTAMP,
         C_PHONE,
         C_EMAIL,
-        C_AVAILABLE};
+        C_AVAILABLE,
+        C_SPOUSE_INDIVIDUAL_ID};
     public static final String[] ALL_COLUMNS_FULL = new String[] {
         FULL_C_ID,
         FULL_C_HOUSEHOLD_ID,
@@ -94,7 +98,8 @@ public class IndividualConst {
         FULL_C_SAMPLE_TIMESTAMP,
         FULL_C_PHONE,
         FULL_C_EMAIL,
-        FULL_C_AVAILABLE};
+        FULL_C_AVAILABLE,
+        FULL_C_SPOUSE_INDIVIDUAL_ID};
 
     public IndividualConst() {
     }
@@ -149,6 +154,10 @@ public class IndividualConst {
 
     public static boolean isAvailable(Cursor cursor) {
         return cursor.getInt(cursor.getColumnIndexOrThrow(C_AVAILABLE)) != 0 ? true : false;
+    }
+
+    public static Long getSpouseIndividualId(Cursor cursor) {
+        return !cursor.isNull(cursor.getColumnIndexOrThrow(C_SPOUSE_INDIVIDUAL_ID)) ? cursor.getLong(cursor.getColumnIndexOrThrow(C_SPOUSE_INDIVIDUAL_ID)) : null;
     }
 
 

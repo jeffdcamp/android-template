@@ -32,6 +32,7 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
     private String phone = "";
     private String email = "";
     private boolean available = false;
+    private Long spouseIndividualId = null;
 
     public IndividualBaseRecord() {
     }
@@ -75,6 +76,7 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         values.put(IndividualConst.C_PHONE, phone);
         values.put(IndividualConst.C_EMAIL, email);
         values.put(IndividualConst.C_AVAILABLE, available ? 1 : 0);
+        values.put(IndividualConst.C_SPOUSE_INDIVIDUAL_ID, spouseIndividualId);
         return values;
     }
 
@@ -94,6 +96,7 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
             phone,
             email,
             available ? 1 : 0,
+            spouseIndividualId,
         };
         return values;
     }
@@ -111,6 +114,7 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         phone = values.getAsString(IndividualConst.C_PHONE);
         email = values.getAsString(IndividualConst.C_EMAIL);
         available = values.getAsBoolean(IndividualConst.C_AVAILABLE);
+        spouseIndividualId = values.getAsLong(IndividualConst.C_SPOUSE_INDIVIDUAL_ID);
     }
 
     @Override
@@ -128,6 +132,7 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         phone = cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_PHONE));
         email = cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_EMAIL));
         available = cursor.getInt(cursor.getColumnIndexOrThrow(IndividualConst.C_AVAILABLE)) != 0 ? true : false;
+        spouseIndividualId = !cursor.isNull(cursor.getColumnIndexOrThrow(IndividualConst.C_SPOUSE_INDIVIDUAL_ID)) ? cursor.getLong(cursor.getColumnIndexOrThrow(IndividualConst.C_SPOUSE_INDIVIDUAL_ID)) : null;
     }
 
     public boolean isNewRecord() {
@@ -246,6 +251,15 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
 
     public void setAvailable(boolean available) {
         this.available = available;
+    }
+
+    @javax.annotation.Nullable
+    public Long getSpouseIndividualId() {
+        return spouseIndividualId;
+    }
+
+    public void setSpouseIndividualId(@javax.annotation.Nullable Long spouseIndividualId) {
+        this.spouseIndividualId = spouseIndividualId;
     }
 
 
