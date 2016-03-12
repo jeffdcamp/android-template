@@ -54,13 +54,11 @@ public final class RxUtil {
 
     @Nullable
     public static <T> T verifyRetrofitResponse(@Nullable Response<T> response) {
-        Log.e(TAG, "Retrofit thread: " + Thread.currentThread().getName());
-
         if (response == null) {
             return null;
         }
 
-        if (response.isSuccess()) {
+        if (response.isSuccessful()) {
             return response.body();
         } else {
             return null;

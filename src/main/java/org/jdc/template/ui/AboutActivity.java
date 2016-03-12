@@ -420,7 +420,7 @@ public class AboutActivity extends BaseActivity {
     }
 
     private void processWebServiceResponse(Response<DtoSearchResponse> response) {
-        if (response.isSuccess()) {
+        if (response.isSuccessful()) {
             Log.e(TAG, "Search SUCCESS");
             processSearchResponse(response.body());
         } else {
