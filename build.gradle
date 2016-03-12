@@ -260,8 +260,8 @@ dbtools {
     // debug: ./gradlew dbtools-genclasses --no-daemon -Dorg.gradle.debug=true
     type 'ANDROID-KOTLIN'
 
-    basePackageName 'org.jdc.template.domain'
-    outputSrcDir 'src/main/kotlin/org/jdc/template/domain'
+    basePackageName 'org.jdc.template.model.database'
+    outputSrcDir 'src/main/kotlin/org/jdc/template/model/database'
 
     injectionSupport true
     jsr305Support true

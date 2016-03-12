@@ -10,7 +10,7 @@ import org.jdc.template.App
 import org.jdc.template.BuildConfig
 import org.jdc.template.R
 import org.jdc.template.dagger.Injector
-import org.jdc.template.domain.DatabaseManager
+import org.jdc.template.model.database.DatabaseManager
 import org.jdc.template.util.RxUtil
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers

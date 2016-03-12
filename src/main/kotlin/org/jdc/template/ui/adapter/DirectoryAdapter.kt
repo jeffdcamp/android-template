@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.list_item.view.*
 import kotlinx.android.synthetic.main.list_item_dual_pane.view.*
 import org.jdc.template.R.layout.list_item_dual_pane
 import org.jdc.template.dagger.Injector
-import org.jdc.template.domain.main.individual.Individual
+import org.jdc.template.model.database.main.individual.Individual
 import org.jdc.template.event.DirectoryItemClickedEvent
 import pocketbus.Bus
 import javax.inject.Inject

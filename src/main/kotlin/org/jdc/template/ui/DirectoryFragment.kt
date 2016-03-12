@@ -17,7 +17,7 @@ import org.jdc.template.Analytics
 import org.jdc.template.App
 import org.jdc.template.R
 import org.jdc.template.dagger.Injector
-import org.jdc.template.domain.main.individual.IndividualManager
+import org.jdc.template.model.database.main.individual.IndividualManager
 import org.jdc.template.event.*
 import org.jdc.template.ui.adapter.DirectoryAdapter
 import pocketbus.Bus

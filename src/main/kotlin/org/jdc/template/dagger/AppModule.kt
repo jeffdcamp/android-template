@@ -13,8 +13,8 @@ import dagger.Module
 import dagger.Provides
 import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
-import org.jdc.template.webservice.ServiceModule
-import org.jdc.template.webservice.converter.DateTimeTypeConverter
+import org.jdc.template.model.webservice.ServiceModule
+import org.jdc.template.model.webservice.DateTimeTypeConverter
 import org.threeten.bp.LocalDateTime
 import pocketbus.Bus
 import retrofit2.converter.gson.GsonConverterFactory
