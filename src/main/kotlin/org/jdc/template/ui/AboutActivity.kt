@@ -394,7 +394,7 @@ class AboutActivity : BaseActivity() {
     }
 
     private fun processWebServiceResponse(response: Response<DtoSearchResponse>) {
-        if (response.isSuccess) {
+        if (response.isSuccessful) {
             Log.e(TAG, "Search SUCCESS")
             processSearchResponse(response.body())
         } else {

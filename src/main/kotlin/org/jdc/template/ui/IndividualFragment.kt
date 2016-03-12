@@ -93,6 +93,10 @@ class IndividualFragment : Fragment() {
     private fun setUi(individual: Individual) {
         analytics.send(HitBuilders.EventBuilder().setCategory(Analytics.CATEGORY_INDIVIDUAL).setAction(Analytics.ACTION_VIEW).build())
 
+        if (!this.isVisible) {
+            return;
+        }
+
         nameTextView.text = individual.getFullName()
         phoneTextView.text = individual.phone
         emailTextView.text = individual.email

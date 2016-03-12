@@ -48,7 +48,7 @@ object RxUtil {
             return null
         }
 
-        if (response.isSuccess) {
+        if (response.isSuccessful) {
             return response.body()
         } else {
             return null
