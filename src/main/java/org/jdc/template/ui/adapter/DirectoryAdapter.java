@@ -12,7 +12,7 @@ import com.devbrackets.android.recyclerext.adapter.RecyclerCursorAdapter;
 
 import org.jdc.template.R;
 import org.jdc.template.dagger.Injector;
-import org.jdc.template.domain.main.individual.Individual;
+import org.jdc.template.model.database.main.individual.Individual;
 import org.jdc.template.event.DirectoryItemClickedEvent;
 
 import javax.inject.Inject;

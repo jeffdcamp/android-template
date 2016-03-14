@@ -20,8 +20,8 @@ import org.jdc.template.Analytics;
 import org.jdc.template.App;
 import org.jdc.template.R;
 import org.jdc.template.dagger.Injector;
-import org.jdc.template.domain.main.individual.Individual;
-import org.jdc.template.domain.main.individual.IndividualManager;
+import org.jdc.template.model.database.main.individual.Individual;
+import org.jdc.template.model.database.main.individual.IndividualManager;
 import org.jdc.template.event.EditIndividualEvent;
 import org.jdc.template.event.IndividualDeletedEvent;
 import org.threeten.bp.LocalDate;
@@ -123,7 +123,7 @@ public class IndividualFragment extends Fragment {
     }
 
     private void showIndividual() {
-        if (individualId <= 0) {
+        if (individualId <= 0 || !this.isVisible() || getActivity() == null) {
             return;
         }
 
