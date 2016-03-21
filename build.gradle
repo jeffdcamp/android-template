@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.0.0'
+    ext.kotlin_version = '1.0.1'
 
     repositories {
         mavenLocal()
@@ -7,7 +7,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0-alpha1'
+        classpath 'com.android.tools.build:gradle:2.1.0-alpha3'
         classpath 'org.dbtools:gradle-dbtools-plugin:5.0.3'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.12.0' // version plugin support
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
@@ -79,7 +79,7 @@ dependencies {
     compile 'com.jakewharton.threetenabp:threetenabp:1.0.3'
     compile 'org.dbtools:dbtools-android:5.0.3'
     compile 'org.dbtools:dbtools-query:2.5.6'
-    compile 'com.devbrackets.android:recyclerext:0.18.1'
+    compile 'com.devbrackets.android:recyclerext:1.0.0'
     compile 'com.evernote:android-job:1.0.3'
 
     // Network
@@ -95,7 +95,7 @@ dependencies {
 
     // RxJava
     compile 'io.reactivex:rxandroid:1.1.0'
-    compile 'io.reactivex:rxjava:1.1.1'
+    compile 'io.reactivex:rxjava:1.1.2'
 
     // Custom SQLite databasethreetenbp
 //    compile 'org.sqlite:sqlite-android:3.8.9.0-20150415'
@@ -104,7 +104,7 @@ dependencies {
     // Test (Integration)
     androidTestCompile ('com.android.support.test.espresso:espresso-core:2.2.2') {exclude module: 'jsr305'}
     androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
-    androidTestCompile 'com.android.support:support-annotations:23.2.0' // fix dependency conflict warning
+    androidTestCompile 'com.android.support:support-annotations:23.2.1' // fix dependency conflict warning
 //    androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.2'
 
     // Test (Unit)
