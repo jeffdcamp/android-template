@@ -43,7 +43,7 @@ repositories {
 
 ext {
     // versions for libraries that multiple dependencies
-    supportLibVersion = '23.2.0'
+    supportLibVersion = '23.2.1'
     daggerVersion = '2.0.2'
     pocketKnifeVersion = '3.2.0'
     pocketbusVersion = '0.2.1'
@@ -73,7 +73,7 @@ dependencies {
     compile 'org.dbtools:dbtools-query:2.5.6'
     compile 'org.apache.commons:commons-lang3:3.4'
     compile 'commons-io:commons-io:2.4'
-    compile 'com.devbrackets.android:recyclerext:0.18.1'
+    compile 'com.devbrackets.android:recyclerext:1.0.0'
     compile 'com.evernote:android-job:1.0.3'
 
     // Network
@@ -89,7 +89,7 @@ dependencies {
 
     // RxJava
     compile 'io.reactivex:rxandroid:1.1.0'
-    compile 'io.reactivex:rxjava:1.1.1'
+    compile 'io.reactivex:rxjava:1.1.2'
 
     // Custom SQLite databasethreetenbp
 //    compile 'org.sqlite:sqlite-android:3.8.9.0-20150415'
@@ -98,7 +98,7 @@ dependencies {
     // Test (Integration)
     androidTestCompile ('com.android.support.test.espresso:espresso-core:2.2.2') {exclude module: 'jsr305'}
     androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
-    androidTestCompile 'com.android.support:support-annotations:23.2.0' // fix dependency conflict warning
+    androidTestCompile "com.android.support:support-annotations:${supportLibVersion}" // fix dependency conflict warning
 //    androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.2'
 
     // Test (Unit)

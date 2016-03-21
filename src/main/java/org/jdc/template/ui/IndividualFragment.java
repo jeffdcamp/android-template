@@ -90,10 +90,13 @@ public class IndividualFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_individual, container, false);
         ButterKnife.bind(this, view);
-
-        showIndividual();
-
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        showIndividual();
     }
 
     @Override
@@ -123,7 +126,7 @@ public class IndividualFragment extends Fragment {
     }
 
     private void showIndividual() {
-        if (individualId <= 0 || !this.isVisible() || getActivity() == null) {
+        if (individualId <= 0) { // || !this.isVisible() || getActivity() == null) {
             return;
         }
 
