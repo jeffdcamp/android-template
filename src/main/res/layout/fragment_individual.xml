@@ -12,21 +12,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        tools:text="Some Name" />
+        tools:text="Jeff Campbell" />
 
     <TextView
         android:id="@+id/individual_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        tools:text="Some Name" />
+        tools:text="801-555-1234" />
 
     <TextView
         android:id="@+id/individual_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        tools:text="Some Name" />
+        tools:text="bob@bob.com" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            tools:text="Some Date" />
+            tools:text="1/1/70" />
     </LinearLayout>
 
     <LinearLayout
@@ -65,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            tools:text="Some Time" />
+            tools:text="12:00 PM" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -84,6 +84,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            tools:text="Some Time" />
+            tools:text="1/1/70 12:00 PM" />
     </LinearLayout>
 </LinearLayout>
