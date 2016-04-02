@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0-alpha3'
+        classpath 'com.android.tools.build:gradle:2.1.0-alpha5'
         classpath 'me.tatarka:gradle-retrolambda:3.2.5'
         classpath 'org.dbtools:gradle-dbtools-plugin:5.0.3'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.12.0' // version plugin support
@@ -73,19 +73,21 @@ dependencies {
     compile 'org.dbtools:dbtools-query:2.5.6'
     compile 'org.apache.commons:commons-lang3:3.4'
     compile 'commons-io:commons-io:2.4'
-    compile 'com.devbrackets.android:recyclerext:1.0.0'
-    compile 'com.evernote:android-job:1.0.3'
+    compile 'com.devbrackets.android:recyclerext:1.0.2'
+    compile 'com.evernote:android-job:1.0.4'
 
     // Network
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
     compile 'com.google.code.gson:gson:2.6.2' // override the version from retrofit
-    compile 'com.squareup.retrofit2:converter-gson:2.0.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.1'
 
     // Dagger 2
     compile "com.google.dagger:dagger:${daggerVersion}"
+//    compile "com.google.dagger:dagger-producers:${daggerVersion}"
     apt "com.google.dagger:dagger-compiler:${daggerVersion}"
     provided 'javax.annotation:javax.annotation-api:1.2' // Dagger 2 dependency which is not available in Java 6
+//    provided 'org.jetbrains:annotations:15.0'
 
     // RxJava
     compile 'io.reactivex:rxandroid:1.1.0'
