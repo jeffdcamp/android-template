@@ -44,8 +44,8 @@ repositories {
 ext {
     // versions for libraries that multiple dependencies
     supportLibVersion = '23.2.1'
-    daggerVersion = '2.0.2'
-    pocketKnifeVersion = '3.2.0'
+    daggerVersion = '2.2'
+    pocketKnifeVersion = '3.2.1'
     pocketbusVersion = '0.4.0'
 }
 
@@ -86,8 +86,7 @@ dependencies {
     compile "com.google.dagger:dagger:${daggerVersion}"
 //    compile "com.google.dagger:dagger-producers:${daggerVersion}"
     apt "com.google.dagger:dagger-compiler:${daggerVersion}"
-    provided 'javax.annotation:javax.annotation-api:1.2' // Dagger 2 dependency which is not available in Java 6
-//    provided 'org.jetbrains:annotations:15.0'
+    provided 'org.jetbrains:annotations:15.0'
 
     // RxJava
     compile 'io.reactivex:rxandroid:1.1.0'
