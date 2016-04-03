@@ -17,11 +17,12 @@ import org.jdc.template.Analytics
 import org.jdc.template.App
 import org.jdc.template.R
 import org.jdc.template.dagger.Injector
-import org.jdc.template.model.database.main.individual.IndividualManager
 import org.jdc.template.event.*
+import org.jdc.template.model.database.main.individual.IndividualManager
 import org.jdc.template.ui.adapter.DirectoryAdapter
 import pocketbus.Bus
 import pocketbus.Subscribe
+import pocketbus.SubscriptionRegistration
 import pocketbus.ThreadMode
 import pocketknife.BindArgument
 import pocketknife.PocketKnife
@@ -46,7 +47,8 @@ class DirectoryFragment : BaseFragment(), SearchView.OnQueryTextListener, Action
     var lastSelectedId: Long = 0
 
     private var adapter: DirectoryAdapter? = null
-    private val registrar = DirectoryFragmentRegistrar(this)
+    lateinit var subscriptionRegistration: SubscriptionRegistration
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,12 +103,12 @@ class DirectoryFragment : BaseFragment(), SearchView.OnQueryTextListener, Action
 
     override fun onStart() {
         super.onStart()
-        bus.register(registrar)
+        subscriptionRegistration = bus.register(this)
         loadList()
     }
 
     override fun onStop() {
-        bus.unregister(registrar)
+        bus.unregister(subscriptionRegistration)
         super.onStop()
     }
 

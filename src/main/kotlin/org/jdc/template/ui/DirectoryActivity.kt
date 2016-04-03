@@ -15,6 +15,7 @@ import org.jdc.template.event.EditIndividualEvent
 import org.jdc.template.ui.menu.CommonMenu
 import pocketbus.Bus
 import pocketbus.Subscribe
+import pocketbus.SubscriptionRegistration
 import pocketbus.ThreadMode
 import javax.inject.Inject
 
@@ -30,7 +31,7 @@ class DirectoryActivity : DrawerActivity() {
 
     private var dualPane = false
 
-    private val registrar = DirectoryActivityRegistrar(this)
+    lateinit var subscriptionRegistration: SubscriptionRegistration
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,11 +57,11 @@ class DirectoryActivity : DrawerActivity() {
 
     override fun onStart() {
         super.onStart()
-        bus.register(registrar)
+        subscriptionRegistration = bus.register(this)
     }
 
     override fun onStop() {
-        bus.unregister(registrar)
+        bus.unregister(subscriptionRegistration)
         super.onStop()
     }
 

@@ -8,7 +8,9 @@ import com.evernote.android.job.JobManager
 import com.jakewharton.threetenabp.AndroidThreeTen
 import org.jdc.template.dagger.Injector
 import org.jdc.template.job.AppJobCreator
+import pocketbus.Registry
 
+@Registry // PocketBus Registry
 class App : Application() {
 
     override fun onCreate() {

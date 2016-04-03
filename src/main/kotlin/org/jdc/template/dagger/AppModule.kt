@@ -13,8 +13,9 @@ import dagger.Module
 import dagger.Provides
 import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
-import org.jdc.template.model.webservice.ServiceModule
+import org.jdc.template.BusRegistry
 import org.jdc.template.model.webservice.DateTimeTypeConverter
+import org.jdc.template.model.webservice.ServiceModule
 import org.threeten.bp.LocalDateTime
 import pocketbus.Bus
 import retrofit2.converter.gson.GsonConverterFactory
@@ -77,6 +78,9 @@ class AppModule(private val application: Application) {
     @Provides
     @Singleton
     internal fun provideEventBus(): Bus {
-        return Bus.Builder().build()
+        val bus = Bus.Builder()
+                .build()
+        bus.setRegistry(BusRegistry())
+        return bus
     }
 }

@@ -9,9 +9,9 @@ import org.jdc.template.dagger.Injector
 import org.jdc.template.event.IndividualSavedEvent
 import pocketbus.Bus
 import pocketbus.Subscribe
+import pocketbus.SubscriptionRegistration
 import pocketbus.ThreadMode
 import pocketknife.BindExtra
-import pocketknife.PocketKnife
 import javax.inject.Inject
 
 class IndividualEditActivity : BaseActivity() {
@@ -22,7 +22,7 @@ class IndividualEditActivity : BaseActivity() {
     @Inject
     lateinit var bus: Bus
 
-    private val registrar = IndividualEditActivityRegistrar(this)
+    lateinit var subscriptionRegistration: SubscriptionRegistration
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,11 +47,11 @@ class IndividualEditActivity : BaseActivity() {
 
     override fun onStart() {
         super.onStart()
-        bus.register(registrar)
+        subscriptionRegistration = bus.register(this)
     }
 
     override fun onStop() {
-        bus.unregister(registrar)
+        bus.unregister(subscriptionRegistration)
         super.onStop()
     }
 

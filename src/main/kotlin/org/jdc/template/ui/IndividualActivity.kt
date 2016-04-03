@@ -11,6 +11,7 @@ import org.jdc.template.event.EditIndividualEvent
 import org.jdc.template.event.IndividualDeletedEvent
 import pocketbus.Bus
 import pocketbus.Subscribe
+import pocketbus.SubscriptionRegistration
 import pocketbus.ThreadMode
 import pocketknife.BindExtra
 import pocketknife.PocketKnife
@@ -26,7 +27,7 @@ class IndividualActivity : DrawerActivity() {
     @Inject
     lateinit var bus: Bus
 
-    private val registrar = IndividualActivityRegistrar(this)
+    lateinit var subscriptionRegistration: SubscriptionRegistration
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,11 +49,11 @@ class IndividualActivity : DrawerActivity() {
 
     override fun onStart() {
         super.onStart()
-        bus.register(registrar)
+        subscriptionRegistration = bus.register(this)
     }
 
     override fun onStop() {
-        bus.unregister(registrar)
+        bus.unregister(subscriptionRegistration)
         super.onStop()
     }
 
