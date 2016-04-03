@@ -46,7 +46,7 @@ ext {
     supportLibVersion = '23.2.1'
     daggerVersion = '2.0.2'
     pocketKnifeVersion = '3.2.0'
-    pocketbusVersion = '0.2.1'
+    pocketbusVersion = '0.4.0'
 }
 
 dependencies {
@@ -111,7 +111,7 @@ dependencies {
 
 android {
     compileSdkVersion 23
-    buildToolsVersion '23.0.2'
+    buildToolsVersion '23.0.3'
 
     defaultConfig {
         minSdkVersion 15

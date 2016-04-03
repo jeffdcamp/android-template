@@ -17,8 +17,8 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import pocketbus.Bus;
-import pocketbus.Registrar;
 import pocketbus.Subscribe;
+import pocketbus.SubscriptionRegistration;
 import pocketbus.ThreadMode;
 
 public class DirectoryActivity extends DrawerActivity {
@@ -34,7 +34,7 @@ public class DirectoryActivity extends DrawerActivity {
     @Bind(R.id.ab_toolbar)
     Toolbar toolbar;
 
-    private Registrar registrar = new DirectoryActivityRegistrar(this);
+    private SubscriptionRegistration subscriptionRegistration;
 
     private boolean dualPane = false;
 
@@ -68,12 +68,12 @@ public class DirectoryActivity extends DrawerActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        bus.register(registrar);
+        subscriptionRegistration = bus.register(this);
     }
 
     @Override
     protected void onStop() {
-        bus.unregister(registrar);
+        bus.unregister(subscriptionRegistration);
         super.onStop();
     }
 

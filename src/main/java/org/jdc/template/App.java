@@ -15,6 +15,9 @@ import org.jdc.template.job.AppJobCreator;
 import java.io.IOException;
 import java.util.Properties;
 
+import pocketbus.Registry;
+
+@Registry // PocketBus Registry
 public class App extends Application {
     public static final String TAG = App.createTag(App.class);
 

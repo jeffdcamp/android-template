@@ -18,12 +18,12 @@ import org.jdc.template.Analytics;
 import org.jdc.template.App;
 import org.jdc.template.R;
 import org.jdc.template.dagger.Injector;
-import org.jdc.template.model.database.main.individual.IndividualManager;
 import org.jdc.template.event.DirectoryItemClickedEvent;
 import org.jdc.template.event.DirectoryItemSelectedEvent;
 import org.jdc.template.event.EditIndividualEvent;
 import org.jdc.template.event.IndividualDeletedEvent;
 import org.jdc.template.event.IndividualSavedEvent;
+import org.jdc.template.model.database.main.individual.IndividualManager;
 import org.jdc.template.ui.adapter.DirectoryAdapter;
 
 import javax.annotation.Nonnull;
@@ -32,8 +32,8 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.OnClick;
 import pocketbus.Bus;
-import pocketbus.Registrar;
 import pocketbus.Subscribe;
+import pocketbus.SubscriptionRegistration;
 import pocketbus.ThreadMode;
 import pocketknife.BindArgument;
 import pocketknife.PocketKnife;
@@ -63,8 +63,8 @@ public class DirectoryFragment extends BaseFragment implements SearchView.OnQuer
     @SaveState
     long lastSelectedId = 0;
 
-    private Registrar registrar = new DirectoryFragmentRegistrar(this);
     private DirectoryAdapter adapter;
+    private SubscriptionRegistration subscriptionRegistration;
 
     public static DirectoryFragment newInstance(boolean dualPane) {
         DirectoryFragment fragment = new DirectoryFragment();
@@ -128,12 +128,12 @@ public class DirectoryFragment extends BaseFragment implements SearchView.OnQuer
     public void onStart() {
         super.onStart();
         loadList();
-        bus.register(registrar);
+        subscriptionRegistration = bus.register(this);
     }
 
     @Override
     public void onStop() {
-        bus.unregister(registrar);
+        bus.unregister(subscriptionRegistration);
         super.onStop();
     }
 

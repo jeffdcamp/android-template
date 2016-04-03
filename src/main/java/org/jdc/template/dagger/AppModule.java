@@ -14,6 +14,7 @@ import com.google.gson.GsonBuilder;
 
 import org.jdc.template.Analytics;
 import org.jdc.template.BuildConfig;
+import org.jdc.template.BusRegistry;
 import org.jdc.template.model.webservice.ServiceModule;
 import org.jdc.template.model.webservice.DateTimeTypeConverter;
 import org.threeten.bp.LocalDateTime;
@@ -91,7 +92,9 @@ public class AppModule {
     @Provides
     @Singleton
     Bus provideEventBus() {
-        return new Bus.Builder()
+        Bus bus = new Bus.Builder()
                 .build();
+        bus.setRegistry(new BusRegistry());
+        return bus;
     }
 }

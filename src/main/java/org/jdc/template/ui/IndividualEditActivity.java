@@ -14,8 +14,8 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import pocketbus.Bus;
-import pocketbus.Registrar;
 import pocketbus.Subscribe;
+import pocketbus.SubscriptionRegistration;
 import pocketbus.ThreadMode;
 import pocketknife.BindExtra;
 import pocketknife.PocketKnife;
@@ -32,7 +32,7 @@ public class IndividualEditActivity extends BaseActivity {
     @Inject
     Bus bus;
 
-    private Registrar registrar = new IndividualEditActivityRegistrar(this);
+    private SubscriptionRegistration subscriptionRegistration;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,12 +59,12 @@ public class IndividualEditActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        bus.register(registrar);
+        subscriptionRegistration = bus.register(this);
     }
 
     @Override
     protected void onStop() {
-        bus.unregister(registrar);
+        bus.unregister(subscriptionRegistration);
         super.onStop();
     }
 
