@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.0.1'
+    ext.kotlin_version = '1.0.1-2'
 
     repositories {
         mavenLocal()
@@ -7,7 +7,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0-alpha3'
+        classpath 'com.android.tools.build:gradle:2.1.0-alpha5'
         classpath 'org.dbtools:gradle-dbtools-plugin:5.0.3'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.12.0' // version plugin support
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
@@ -47,7 +47,7 @@ repositories {
 
 ext {
     // versions for libraries that multiple dependencies
-    supportLibVersion = '23.2.0'
+    supportLibVersion = '23.2.1'
     daggerVersion = '2.0.2'
     pocketKnifeVersion = '3.2.0'
     pocketbusVersion = '0.2.1'
@@ -79,14 +79,14 @@ dependencies {
     compile 'com.jakewharton.threetenabp:threetenabp:1.0.3'
     compile 'org.dbtools:dbtools-android:5.0.3'
     compile 'org.dbtools:dbtools-query:2.5.6'
-    compile 'com.devbrackets.android:recyclerext:1.0.0'
-    compile 'com.evernote:android-job:1.0.3'
+    compile 'com.devbrackets.android:recyclerext:1.0.2'
+    compile 'com.evernote:android-job:1.0.4'
 
     // Network
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
     compile 'com.google.code.gson:gson:2.6.2' // override the version from retrofit
-    compile 'com.squareup.retrofit2:converter-gson:2.0.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.1'
 
     // Dagger 2
     compile "com.google.dagger:dagger:${daggerVersion}"
@@ -115,7 +115,7 @@ dependencies {
 
 android {
     compileSdkVersion 23
-    buildToolsVersion '23.0.2'
+    buildToolsVersion '23.0.3'
 
     defaultConfig {
         minSdkVersion 15

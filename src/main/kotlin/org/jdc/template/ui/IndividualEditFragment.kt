@@ -171,7 +171,6 @@ class IndividualEditFragment : Fragment() {
         individualManager.save(individual)
 
         bus.post(IndividualSavedEvent(individual.id))
-        bus.post(IndividualSavedEvent(individual.id))
     }
 
     companion object {
