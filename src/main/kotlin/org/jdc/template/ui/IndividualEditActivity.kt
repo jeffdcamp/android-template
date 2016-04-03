@@ -16,9 +16,8 @@ import javax.inject.Inject
 
 class IndividualEditActivity : BaseActivity() {
 
-
     @BindExtra(EXTRA_ID)
-    var individualId: Long = 0
+    var individualEditId: Long = 0
 
     @Inject
     lateinit var bus: Bus
@@ -29,7 +28,10 @@ class IndividualEditActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_single)
         Injector.get().inject(this)
-        PocketKnife.bindExtras(this)
+
+        // temp fix for kapt issue (https://youtrack.jetbrains.com/issue/KT-9183)
+        individualEditId = getIntent().getLongExtra(EXTRA_ID, 0);
+//        PocketKnife.bindExtras(this)
 
         setSupportActionBar(ab_toolbar)
         enableActionBarBackArrow(true)
@@ -39,7 +41,7 @@ class IndividualEditActivity : BaseActivity() {
         setupActionBar()
 
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction().add(R.id.fragment_pos1, IndividualEditFragment.newInstance(individualId)).commit()
+            supportFragmentManager.beginTransaction().add(R.id.fragment_pos1, IndividualEditFragment.newInstance(individualEditId)).commit()
         }
     }
 
