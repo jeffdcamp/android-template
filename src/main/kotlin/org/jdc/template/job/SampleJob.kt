@@ -1,9 +1,7 @@
 package org.jdc.template.job
 
 import android.util.Log
-
 import com.evernote.android.job.Job
-import com.evernote.android.job.JobManager
 import com.evernote.android.job.JobRequest
 
 class SampleJob : Job() {
@@ -24,9 +22,13 @@ class SampleJob : Job() {
         val TAG = "SampleJob"
 
         fun schedule() {
-            JobManager.instance().cancelAllForTag(SampleJob.TAG)
-
-            JobRequest.Builder(SampleJob.TAG).setRequirementsEnforced(true).setRequiredNetworkType(JobRequest.NetworkType.CONNECTED).setExecutionWindow(1000L, 2000L).build().schedule()
+            JobRequest.Builder(SampleJob.TAG)
+                    .setRequirementsEnforced(true)
+                    .setRequiredNetworkType(JobRequest.NetworkType.CONNECTED)
+                    .setExecutionWindow(1000L, 2000L)
+                    .setUpdateCurrent(true)
+                    .build()
+                    .schedule()
         }
     }
 
