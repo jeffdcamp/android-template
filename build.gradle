@@ -46,7 +46,7 @@ ext {
     supportLibVersion = '23.2.1'
     daggerVersion = '2.2'
     pocketKnifeVersion = '3.2.1'
-    pocketbusVersion = '0.4.0'
+    pocketBusVersion = '0.4.0'
 }
 
 dependencies {
@@ -63,8 +63,6 @@ dependencies {
     compile "com.vikingsen:pocketknife-core:${pocketKnifeVersion}"
     apt "com.vikingsen:pocketknife-compiler:${pocketKnifeVersion}"
     compile 'com.jakewharton:butterknife:7.0.1'
-    compile "com.vikingsen:pocketbus:$pocketbusVersion"
-    apt "com.vikingsen:pocketbus-compiler:$pocketbusVersion"
 
     // Code
     compile 'com.google.code.findbugs:jsr305:3.0.1'
@@ -75,6 +73,8 @@ dependencies {
     compile 'commons-io:commons-io:2.4'
     compile 'com.devbrackets.android:recyclerext:1.0.2'
     compile 'com.evernote:android-job:1.0.4'
+    compile "com.vikingsen:pocketbus:$pocketBusVersion"
+    apt "com.vikingsen:pocketbus-compiler:$pocketBusVersion"
 
     // Network
     compile 'com.squareup.okhttp3:okhttp:3.2.0'

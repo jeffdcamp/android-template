@@ -161,13 +161,13 @@ public class DirectoryFragment extends BaseFragment implements SearchView.OnQuer
 
     @Subscribe(ThreadMode.MAIN)
     public void handle(DirectoryItemClickedEvent event) {
-        selectPosition(((DirectoryItemClickedEvent) event).getItemId());
+        selectPosition(event.getItemId());
     }
 
     @Subscribe(ThreadMode.MAIN)
     public void handle(IndividualSavedEvent event) {
         loadList();
-        bus.post(new DirectoryItemSelectedEvent(((IndividualSavedEvent) event).getId()));
+        bus.post(new DirectoryItemSelectedEvent(event.getId()));
     }
 
     @Subscribe(ThreadMode.MAIN)
