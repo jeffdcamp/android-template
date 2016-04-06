@@ -50,7 +50,7 @@ ext {
     supportLibVersion = '23.2.1'
     daggerVersion = '2.2'
     pocketKnifeVersion = '3.2.1'
-    pocketbusVersion = '0.4.0'
+    pocketBusVersion = '0.4.0'
 }
 
 kapt {
@@ -70,8 +70,8 @@ dependencies {
     // UI
     compile "com.vikingsen:pocketknife-core:${pocketKnifeVersion}"
     kapt "com.vikingsen:pocketknife-compiler:${pocketKnifeVersion}"
-    compile "com.vikingsen:pocketbus:$pocketbusVersion"
-    kapt "com.vikingsen:pocketbus-compiler:$pocketbusVersion"
+    compile "com.vikingsen:pocketbus:$pocketBusVersion"
+    kapt "com.vikingsen:pocketbus-compiler:$pocketBusVersion"
 
     // Code
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
