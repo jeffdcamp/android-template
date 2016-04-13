@@ -1,6 +1,5 @@
 package org.jdc.template.ui.fragment;
 
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.view.ActionMode;
@@ -17,14 +16,17 @@ import com.google.android.gms.analytics.HitBuilders;
 import org.jdc.template.Analytics;
 import org.jdc.template.App;
 import org.jdc.template.R;
-import org.jdc.template.inject.Injector;
 import org.jdc.template.event.DirectoryItemClickedEvent;
 import org.jdc.template.event.DirectoryItemSelectedEvent;
 import org.jdc.template.event.EditIndividualEvent;
 import org.jdc.template.event.IndividualDeletedEvent;
 import org.jdc.template.event.IndividualSavedEvent;
+import org.jdc.template.inject.Injector;
+import org.jdc.template.model.database.main.individual.Individual;
 import org.jdc.template.model.database.main.individual.IndividualManager;
 import org.jdc.template.ui.adapter.DirectoryAdapter;
+
+import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
@@ -98,7 +100,7 @@ public class DirectoryFragment extends BaseFragment implements SearchView.OnQuer
     }
 
     private void setupRecyclerView() {
-        adapter = new DirectoryAdapter(getActivity(), null, dualPane);
+        adapter = new DirectoryAdapter(getActivity(), dualPane);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
 
@@ -141,25 +143,20 @@ public class DirectoryFragment extends BaseFragment implements SearchView.OnQuer
     }
 
     public void loadList() {
-        Observable<Cursor> observable = individualManager.findCursorAllRx()
+        Observable<List<Individual>> observable = individualManager.findAllRx()
                 .subscribeOn(Schedulers.io())
+                .toList()
                 .observeOn(AndroidSchedulers.mainThread());
 
-        addSubscription(observable.subscribe(cursor -> dataLoaded(cursor)));
+        addSubscription(observable.subscribe(data -> dataLoaded(data)));
     }
 
-    @Override
-    public void onDestroy() {
-        adapter.changeCursor(null); // close cursor
-        super.onDestroy();
-    }
-
-    public void dataLoaded(Cursor data) {
+    public void dataLoaded(List<Individual> data) {
         if (dualPane) {
             selectPosition(lastSelectedId);
         }
 
-        adapter.changeCursor(data);
+        adapter.set(data);
     }
 
     @Subscribe(ThreadMode.MAIN)

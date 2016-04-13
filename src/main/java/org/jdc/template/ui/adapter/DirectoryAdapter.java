@@ -1,19 +1,18 @@
 package org.jdc.template.ui.adapter;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.devbrackets.android.recyclerext.adapter.RecyclerCursorAdapter;
+import com.devbrackets.android.recyclerext.adapter.RecyclerListAdapter;
 
 import org.jdc.template.R;
+import org.jdc.template.event.DirectoryItemClickedEvent;
 import org.jdc.template.inject.Injector;
 import org.jdc.template.model.database.main.individual.Individual;
-import org.jdc.template.event.DirectoryItemClickedEvent;
 
 import javax.inject.Inject;
 
@@ -21,7 +20,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import pocketbus.Bus;
 
-public class DirectoryAdapter extends RecyclerCursorAdapter<DirectoryAdapter.ViewHolder> {
+public class DirectoryAdapter extends RecyclerListAdapter<DirectoryAdapter.ViewHolder, Individual> {
     @Inject
     Bus bus;
 
@@ -59,8 +58,7 @@ public class DirectoryAdapter extends RecyclerCursorAdapter<DirectoryAdapter.Vie
         }
     }
 
-    public DirectoryAdapter(Context context, Cursor cursor, boolean dualPane) {
-        super(cursor);
+    public DirectoryAdapter(Context context, boolean dualPane) {
         Injector.get().inject(this);
 
         this.inflater = LayoutInflater.from(context);
@@ -74,8 +72,8 @@ public class DirectoryAdapter extends RecyclerCursorAdapter<DirectoryAdapter.Vie
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, Cursor cursor, int position) {
-        Individual individual = new Individual(cursor);
+    public void onBindViewHolder(final ViewHolder holder, int position) {
+        Individual individual = getItem(position);
         final long itemId = individual.getId();
 
         // bind data to view holder
