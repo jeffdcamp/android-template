@@ -10,8 +10,7 @@ import com.google.android.gms.analytics.HitBuilders
 import kotlinx.android.synthetic.main.activity_about.*
 import kotlinx.android.synthetic.main.toolbar_actionbar.*
 import okhttp3.ResponseBody
-import org.dbtools.android.domain.event.DatabaseChangeType
-import org.dbtools.android.domain.event.DatabaseRowChange
+import org.dbtools.android.domain.DatabaseTableChange
 import org.jdc.template.Analytics
 import org.jdc.template.App
 import org.jdc.template.BuildConfig
@@ -435,11 +434,11 @@ class AboutActivity : BaseActivity() {
             return
         }
 
-        // Subscribe
-        val tableChangeSubscription = individualManager.tableChanges().subscribe { changeType -> handleRxIndividualTableChange(changeType) }
+        // Rx Subscribe
+        val tableChangeSubscription = individualManager.tableChanges().subscribe { change -> handleRxIndividualTableChange(change) }
 
-        val rowChangeSubscription = individualManager.rowChanges().subscribe { databaseRowChange -> handleRxDatabaseRowChange(databaseRowChange) }
-
+        // Standard Listener
+        individualManager.addTableChangeListener({ change -> handleIndividualTableChange(change) })
 
         // Make some changes
         val originalName: String
@@ -462,19 +461,21 @@ class AboutActivity : BaseActivity() {
 
         // Unsubscribe
         tableChangeSubscription.unsubscribe()
-        rowChangeSubscription.unsubscribe()
     }
 
-    fun handleRxIndividualTableChange(changeType: DatabaseChangeType) {
-        Log.e(TAG, "Individual Table Changed [$changeType]")
+    fun handleRxIndividualTableChange(change: DatabaseTableChange) {
+        when {
+            change.isInsert -> Log.e(TAG, "Rx Individual Table had insert")
+            change.isUpdate -> Log.e(TAG, "Rx Individual Table had update")
+            change.isDelete -> Log.e(TAG, "Rx Individual Table had delete")
+        }
     }
 
-    fun handleRxDatabaseRowChange(change: DatabaseRowChange) {
-        val individual = individualManager.findByRowId(change.rowId!!)
-        if (individual != null) {
-            Log.e(TAG, "DATABASE CHANGE: NAME = " + individual.firstName)
-        } else {
-            Log.e(TAG, "Cannot find individual for row change")
+    fun handleIndividualTableChange(change: DatabaseTableChange) {
+        when {
+            change.isInsert -> Log.e(TAG, "Individual Table had insert")
+            change.isUpdate -> Log.e(TAG, "Individual Table had update")
+            change.isDelete -> Log.e(TAG, "Individual Table had delete")
         }
     }
 
