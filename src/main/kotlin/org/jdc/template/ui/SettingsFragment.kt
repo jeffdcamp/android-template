@@ -9,12 +9,15 @@ import org.jdc.template.dagger.Injector
 
 class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    init {
         Injector.get().inject(this)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState) // must be done after inject(this) so that onCreatePreferences(...) can use injected variables
     }
 
-    override fun onCreatePreferences(savedInstanceState: Bundle, rootKey: String) {
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.preferences)
     }
 

@@ -26,10 +26,13 @@ class StartupActivity : Activity() {
     private val startupActivityClass = DirectoryActivity::class.java
     private var perfTime: Long = 0
 
+    init {
+        Injector.get().inject(this)
+    }
+
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        Injector.get().inject(this)
 
         analytics.send(HitBuilders.EventBuilder().setCategory(Analytics.CATEGORY_APP).setAction(Analytics.ACTION_APP_LAUNCH).setLabel(BuildConfig.BUILD_TYPE).build())
 

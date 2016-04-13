@@ -14,9 +14,9 @@ import org.jdc.template.App
 import org.jdc.template.R
 import org.jdc.template.R.layout.fragment_individual_edit
 import org.jdc.template.dagger.Injector
+import org.jdc.template.event.IndividualSavedEvent
 import org.jdc.template.model.database.main.individual.Individual
 import org.jdc.template.model.database.main.individual.IndividualManager
-import org.jdc.template.event.IndividualSavedEvent
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalTime
 import org.threeten.bp.ZoneId
@@ -42,9 +42,12 @@ class IndividualEditFragment : Fragment() {
     private var birthDatePickerDialog: DatePickerDialog? = null
     private var alarmTimePickerDialog: TimePickerDialog? = null
 
+    init {
+        Injector.get().inject(this)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Injector.get().inject(this)
         PocketKnife.bindArguments(this)
         setHasOptionsMenu(true)
     }

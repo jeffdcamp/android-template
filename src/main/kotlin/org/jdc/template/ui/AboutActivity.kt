@@ -16,6 +16,7 @@ import org.jdc.template.App
 import org.jdc.template.BuildConfig
 import org.jdc.template.R.layout.activity_about
 import org.jdc.template.dagger.Injector
+import org.jdc.template.job.SampleJob
 import org.jdc.template.model.database.DatabaseManager
 import org.jdc.template.model.database.DatabaseManagerConst
 import org.jdc.template.model.database.attached.crossdatabasequery.CrossDatabaseQuery
@@ -33,12 +34,11 @@ import org.jdc.template.model.database.other.individuallist.IndividualListManage
 import org.jdc.template.model.database.other.individuallistitem.IndividualListItem
 import org.jdc.template.model.database.other.individuallistitem.IndividualListItemConst
 import org.jdc.template.model.database.other.individuallistitem.IndividualListItemManager
-import org.jdc.template.job.SampleJob
-import org.jdc.template.util.RxUtil
-import org.jdc.template.util.WebServiceUtil
+import org.jdc.template.model.webservice.websearch.WebSearchService
 import org.jdc.template.model.webservice.websearch.dto.DtoResult
 import org.jdc.template.model.webservice.websearch.dto.DtoSearchResponse
-import org.jdc.template.model.webservice.websearch.WebSearchService
+import org.jdc.template.util.RxUtil
+import org.jdc.template.util.WebServiceUtil
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalTime
 import retrofit2.Call
@@ -75,10 +75,13 @@ class AboutActivity : BaseActivity() {
     @Inject
     lateinit var webServiceUtil: WebServiceUtil
 
+    init {
+        Injector.get().inject(this)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(activity_about)
-        Injector.get().inject(this)
 
         analytics.send(HitBuilders.EventBuilder().setCategory(Analytics.CATEGORY_ABOUT).build())
 

@@ -65,9 +65,12 @@ class DirectoryFragment : BaseFragment(), SearchView.OnQueryTextListener, Action
     override val layoutResourceId: Int
         get() = R.layout.fragment_directory
 
+    init {
+        Injector.get().inject(this)
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        Injector.get().inject(this)
         PocketKnife.restoreInstanceState(this, savedInstanceState)
         setHasOptionsMenu(true)
         setupRecyclerView()

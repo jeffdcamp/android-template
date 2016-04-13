@@ -29,10 +29,13 @@ class IndividualActivity : DrawerActivity() {
 
     lateinit var subscriptionRegistration: SubscriptionRegistration
 
+    init {
+        Injector.get().inject(this)
+    }
+
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(fragment_drawer_single)
-        Injector.get().inject(this)
         PocketKnife.bindExtras(this)
 
         // todo fix issue with Pocketknife (this should be initialized by @BindExtra)

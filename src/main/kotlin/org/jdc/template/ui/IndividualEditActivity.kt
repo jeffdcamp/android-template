@@ -24,10 +24,13 @@ class IndividualEditActivity : BaseActivity() {
 
     lateinit var subscriptionRegistration: SubscriptionRegistration
 
+    init {
+        Injector.get().inject(this)
+    }
+
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_single)
-        Injector.get().inject(this)
 
         // temp fix for kapt issue (https://youtrack.jetbrains.com/issue/KT-9183)
         individualEditId = getIntent().getLongExtra(EXTRA_ID, 0);

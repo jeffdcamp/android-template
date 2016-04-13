@@ -33,10 +33,13 @@ class DirectoryActivity : DrawerActivity() {
 
     lateinit var subscriptionRegistration: SubscriptionRegistration
 
+    init {
+        Injector.get().inject(this)
+    }
+
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(directory_list)
-        Injector.get().inject(this)
 
         setDefaultKeyMode(Activity.DEFAULT_KEYS_SEARCH_LOCAL)
 
