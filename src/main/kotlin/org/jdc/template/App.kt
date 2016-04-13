@@ -6,7 +6,7 @@ import android.support.multidex.MultiDex
 import android.util.Log
 import com.evernote.android.job.JobManager
 import com.jakewharton.threetenabp.AndroidThreeTen
-import org.jdc.template.dagger.Injector
+import org.jdc.template.inject.Injector
 import org.jdc.template.job.AppJobCreator
 import pocketbus.Registry
 

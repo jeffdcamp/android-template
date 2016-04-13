@@ -1,4 +1,4 @@
-package org.jdc.template.ui
+package org.jdc.template.ui.activity
 
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem

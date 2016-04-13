@@ -1,12 +1,13 @@
-package org.jdc.template.ui
+package org.jdc.template.ui.activity
 
 import android.app.Activity
 import android.os.Bundle
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.toolbar_actionbar.*
 import org.jdc.template.R
-import org.jdc.template.dagger.Injector
+import org.jdc.template.inject.Injector
 import org.jdc.template.event.IndividualSavedEvent
+import org.jdc.template.ui.fragment.IndividualEditFragment
 import pocketbus.Bus
 import pocketbus.Subscribe
 import pocketbus.SubscriptionRegistration

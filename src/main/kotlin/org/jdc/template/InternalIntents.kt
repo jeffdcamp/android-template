@@ -3,10 +3,10 @@ package org.jdc.template
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import org.jdc.template.ui.AboutActivity
-import org.jdc.template.ui.IndividualActivity
-import org.jdc.template.ui.IndividualEditActivity
-import org.jdc.template.ui.SettingsActivity
+import org.jdc.template.ui.activity.AboutActivity
+import org.jdc.template.ui.activity.IndividualActivity
+import org.jdc.template.ui.activity.IndividualEditActivity
+import org.jdc.template.ui.activity.SettingsActivity
 import javax.inject.Inject
 import javax.inject.Singleton
 

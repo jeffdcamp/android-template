@@ -1,10 +1,11 @@
-package org.jdc.template.ui
+package org.jdc.template.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
 
 import org.jdc.template.R
-import org.jdc.template.dagger.Injector
+import org.jdc.template.inject.Injector
+import org.jdc.template.ui.fragment.SettingsFragment
 
 
 class SettingsActivity : BaseActivity() {

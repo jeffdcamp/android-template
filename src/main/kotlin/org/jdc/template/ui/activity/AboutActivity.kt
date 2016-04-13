@@ -1,5 +1,6 @@
-package org.jdc.template.ui
+package org.jdc.template.ui.activity
 
+import android.R
 import android.os.Bundle
 import android.text.format.DateUtils
 import android.util.Log
@@ -15,7 +16,7 @@ import org.jdc.template.Analytics
 import org.jdc.template.App
 import org.jdc.template.BuildConfig
 import org.jdc.template.R.layout.activity_about
-import org.jdc.template.dagger.Injector
+import org.jdc.template.inject.Injector
 import org.jdc.template.job.SampleJob
 import org.jdc.template.model.database.DatabaseManager
 import org.jdc.template.model.database.DatabaseManagerConst
@@ -107,7 +108,7 @@ class AboutActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            android.R.id.home -> {
+            R.id.home -> {
                 finish()
                 return true
             }

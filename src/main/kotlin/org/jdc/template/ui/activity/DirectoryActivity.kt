@@ -1,4 +1,4 @@
-package org.jdc.template.ui
+package org.jdc.template.ui.activity
 
 import android.app.Activity
 import android.os.Bundle
@@ -9,9 +9,12 @@ import kotlinx.android.synthetic.main.toolbar_actionbar.*
 import org.jdc.template.InternalIntents
 import org.jdc.template.R
 import org.jdc.template.R.layout.directory_list
-import org.jdc.template.dagger.Injector
+import org.jdc.template.inject.Injector
 import org.jdc.template.event.DirectoryItemSelectedEvent
 import org.jdc.template.event.EditIndividualEvent
+import org.jdc.template.ui.fragment.DirectoryFragment
+import org.jdc.template.ui.fragment.IndividualEditFragment
+import org.jdc.template.ui.fragment.IndividualFragment
 import org.jdc.template.ui.menu.CommonMenu
 import pocketbus.Bus
 import pocketbus.Subscribe
