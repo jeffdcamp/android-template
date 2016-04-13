@@ -1,4 +1,4 @@
-package org.jdc.template.ui;
+package org.jdc.template.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;

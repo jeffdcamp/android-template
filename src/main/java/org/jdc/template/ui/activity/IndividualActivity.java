@@ -1,13 +1,14 @@
-package org.jdc.template.ui;
+package org.jdc.template.ui.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 import org.jdc.template.InternalIntents;
 import org.jdc.template.R;
-import org.jdc.template.dagger.Injector;
+import org.jdc.template.inject.Injector;
 import org.jdc.template.event.EditIndividualEvent;
 import org.jdc.template.event.IndividualDeletedEvent;
+import org.jdc.template.ui.fragment.IndividualFragment;
 
 import javax.inject.Inject;
 

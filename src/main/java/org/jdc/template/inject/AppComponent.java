@@ -1,18 +1,18 @@
-package org.jdc.template.dagger;
+package org.jdc.template.inject;
 
 import android.app.Application;
 
 import org.jdc.template.App;
-import org.jdc.template.ui.AboutActivity;
-import org.jdc.template.ui.DirectoryActivity;
-import org.jdc.template.ui.DirectoryFragment;
-import org.jdc.template.ui.IndividualActivity;
-import org.jdc.template.ui.IndividualEditActivity;
-import org.jdc.template.ui.IndividualEditFragment;
-import org.jdc.template.ui.IndividualFragment;
-import org.jdc.template.ui.SettingsActivity;
-import org.jdc.template.ui.SettingsFragment;
-import org.jdc.template.ui.StartupActivity;
+import org.jdc.template.ui.activity.AboutActivity;
+import org.jdc.template.ui.activity.DirectoryActivity;
+import org.jdc.template.ui.fragment.DirectoryFragment;
+import org.jdc.template.ui.activity.IndividualActivity;
+import org.jdc.template.ui.activity.IndividualEditActivity;
+import org.jdc.template.ui.fragment.IndividualEditFragment;
+import org.jdc.template.ui.fragment.IndividualFragment;
+import org.jdc.template.ui.activity.SettingsActivity;
+import org.jdc.template.ui.fragment.SettingsFragment;
+import org.jdc.template.ui.activity.StartupActivity;
 import org.jdc.template.ui.adapter.DirectoryAdapter;
 
 

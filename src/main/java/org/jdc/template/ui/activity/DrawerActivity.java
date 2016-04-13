@@ -1,4 +1,4 @@
-package org.jdc.template.ui;
+package org.jdc.template.ui.activity;
 
 import android.support.annotation.StringRes;
 import android.support.design.widget.NavigationView;

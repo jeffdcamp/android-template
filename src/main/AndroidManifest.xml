@@ -20,23 +20,23 @@
         >
         <!-- Activities -->
         <activity
-            android:name=".ui.StartupActivity"
+            android:name=".ui.activity.StartupActivity"
             android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.DirectoryActivity">
+        <activity android:name=".ui.activity.DirectoryActivity">
             <!-- Split support for ActionBarCompat -->
             <!--<meta-data android:name="android.support.UI_OPTIONS" android:value="splitActionBarWhenNarrow"/> -->
         </activity>
-        <activity android:name=".ui.IndividualActivity"/>
-        <activity android:name=".ui.IndividualEditActivity"/>
-        <activity android:name=".ui.AboutActivity"/>
+        <activity android:name=".ui.activity.IndividualActivity"/>
+        <activity android:name=".ui.activity.IndividualEditActivity"/>
+        <activity android:name=".ui.activity.AboutActivity"/>
 
         <activity
-            android:name=".ui.SettingsActivity"
+            android:name=".ui.activity.SettingsActivity"
             android:label="@string/pref_title"
             android:theme="@style/SettingsTheme"/>
 

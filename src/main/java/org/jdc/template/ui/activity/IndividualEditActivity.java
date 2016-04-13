@@ -1,4 +1,4 @@
-package org.jdc.template.ui;
+package org.jdc.template.ui.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -6,8 +6,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import org.jdc.template.R;
-import org.jdc.template.dagger.Injector;
+import org.jdc.template.inject.Injector;
 import org.jdc.template.event.IndividualSavedEvent;
+import org.jdc.template.ui.fragment.IndividualEditFragment;
 
 import javax.inject.Inject;
 

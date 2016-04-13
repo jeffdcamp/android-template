@@ -1,4 +1,4 @@
-package org.jdc.template.dagger;
+package org.jdc.template.inject;
 
 import android.app.Application;
 import android.app.NotificationManager;

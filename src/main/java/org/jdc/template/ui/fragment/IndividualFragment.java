@@ -1,4 +1,4 @@
-package org.jdc.template.ui;
+package org.jdc.template.ui.fragment;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -19,7 +19,7 @@ import org.dbtools.android.domain.DBToolsDateFormatter;
 import org.jdc.template.Analytics;
 import org.jdc.template.App;
 import org.jdc.template.R;
-import org.jdc.template.dagger.Injector;
+import org.jdc.template.inject.Injector;
 import org.jdc.template.model.database.main.individual.Individual;
 import org.jdc.template.model.database.main.individual.IndividualManager;
 import org.jdc.template.event.EditIndividualEvent;

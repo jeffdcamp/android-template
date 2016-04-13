@@ -9,7 +9,7 @@ import android.util.Log;
 
 import com.evernote.android.job.JobManager;
 
-import org.jdc.template.dagger.Injector;
+import org.jdc.template.inject.Injector;
 import org.jdc.template.job.AppJobCreator;
 
 import java.io.IOException;

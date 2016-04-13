@@ -1,4 +1,4 @@
-package org.jdc.template.ui;
+package org.jdc.template.ui.activity;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -19,7 +19,7 @@ import org.jdc.template.Analytics;
 import org.jdc.template.App;
 import org.jdc.template.BuildConfig;
 import org.jdc.template.R;
-import org.jdc.template.dagger.Injector;
+import org.jdc.template.inject.Injector;
 import org.jdc.template.model.database.DatabaseManager;
 import org.jdc.template.model.database.DatabaseManagerConst;
 import org.jdc.template.model.database.attached.crossdatabasequery.CrossDatabaseQuery;

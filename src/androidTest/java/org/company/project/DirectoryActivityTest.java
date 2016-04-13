@@ -4,7 +4,7 @@ package org.jdc.template;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.LargeTest;
 
-import org.jdc.template.ui.DirectoryActivity;
+import org.jdc.template.ui.activity.DirectoryActivity;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
