@@ -12,14 +12,15 @@ import android.widget.Toast;
 import com.google.android.gms.analytics.HitBuilders;
 
 import org.apache.commons.io.FileUtils;
+import org.dbtools.android.domain.DBToolsTableChangeListener;
+import org.dbtools.android.domain.DatabaseTableChange;
 import org.dbtools.android.domain.database.DatabaseWrapper;
-import org.dbtools.android.domain.event.DatabaseChangeType;
-import org.dbtools.android.domain.event.DatabaseRowChange;
 import org.jdc.template.Analytics;
 import org.jdc.template.App;
 import org.jdc.template.BuildConfig;
 import org.jdc.template.R;
 import org.jdc.template.inject.Injector;
+import org.jdc.template.job.SampleJob;
 import org.jdc.template.model.database.DatabaseManager;
 import org.jdc.template.model.database.DatabaseManagerConst;
 import org.jdc.template.model.database.attached.crossdatabasequery.CrossDatabaseQuery;
@@ -37,12 +38,11 @@ import org.jdc.template.model.database.other.individuallist.IndividualListManage
 import org.jdc.template.model.database.other.individuallistitem.IndividualListItem;
 import org.jdc.template.model.database.other.individuallistitem.IndividualListItemConst;
 import org.jdc.template.model.database.other.individuallistitem.IndividualListItemManager;
-import org.jdc.template.job.SampleJob;
-import org.jdc.template.util.RxUtil;
-import org.jdc.template.util.WebServiceUtil;
+import org.jdc.template.model.webservice.websearch.WebSearchService;
 import org.jdc.template.model.webservice.websearch.dto.DtoResult;
 import org.jdc.template.model.webservice.websearch.dto.DtoSearchResponse;
-import org.jdc.template.model.webservice.websearch.WebSearchService;
+import org.jdc.template.util.RxUtil;
+import org.jdc.template.util.WebServiceUtil;
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalTime;
 
@@ -455,13 +455,17 @@ public class AboutActivity extends BaseActivity {
         // Sample tests for Rx
         // RxTest.testConcurrentPeople();
 
-        // Subscribe
+        // Rx Subscribe
         Subscription tableChangeSubscription = individualManager.tableChanges()
                 .subscribe(changeType -> handleRxIndividualTableChange(changeType));
 
-        Subscription rowChangeSubscription = individualManager.rowChanges()
-                .subscribe(databaseRowChange -> handleRxDatabaseRowChange(databaseRowChange));
-
+        // Standard Listener
+        individualManager.addTableChangeListener(new DBToolsTableChangeListener() {
+            @Override
+            public void onTableChange(DatabaseTableChange tableChange) {
+                handleIndividualTableChange(tableChange);
+            }
+        });
 
         // Make some changes
         String originalName;
@@ -484,19 +488,26 @@ public class AboutActivity extends BaseActivity {
 
         // Unsubscribe
         tableChangeSubscription.unsubscribe();
-        rowChangeSubscription.unsubscribe();
     }
 
-    public void handleRxIndividualTableChange(DatabaseChangeType changeType) {
-        Log.e(TAG, "Individual Table Changed [" + changeType + "]");
-    }
-
-    public void handleRxDatabaseRowChange(DatabaseRowChange change) {
-        Individual individual = individualManager.findByRowId(change.getRowId());
-        if (individual != null) {
-            Log.e(TAG, "DATABASE CHANGE: NAME = " + individual.getFirstName());
-        } else {
-            Log.e(TAG, "Cannot find individual for row change");
+    public void handleIndividualTableChange(DatabaseTableChange change) {
+        if (change.isInsert()) {
+            Log.e(TAG, "Individual Table Insert");
+        } else if (change.isUpdate()) {
+            Log.e(TAG, "Individual Table Insert");
+        } else if (change.isDelete()) {
+            Log.e(TAG, "Individual Table Delete");
         }
     }
+
+    public void handleRxIndividualTableChange(DatabaseTableChange change) {
+        if (change.isInsert()) {
+            Log.e(TAG, "Rx Individual Table Insert");
+        } else if (change.isUpdate()) {
+            Log.e(TAG, "Rx Individual Table Insert");
+        } else if (change.isDelete()) {
+            Log.e(TAG, "Rx Individual Table Delete");
+        }
+    }
+
 }
