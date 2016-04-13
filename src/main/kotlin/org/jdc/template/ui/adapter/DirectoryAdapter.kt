@@ -1,22 +1,22 @@
 package org.jdc.template.ui.adapter
 
 import android.content.Context
-import android.database.Cursor
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.devbrackets.android.recyclerext.adapter.RecyclerCursorAdapter
+import com.devbrackets.android.recyclerext.adapter.RecyclerListAdapter
 import kotlinx.android.synthetic.main.list_item.view.*
 import kotlinx.android.synthetic.main.list_item_dual_pane.view.*
 import org.jdc.template.R.layout.list_item_dual_pane
+import org.jdc.template.event.DirectoryItemClickedEvent
 import org.jdc.template.inject.Injector
 import org.jdc.template.model.database.main.individual.Individual
-import org.jdc.template.event.DirectoryItemClickedEvent
 import pocketbus.Bus
 import javax.inject.Inject
 
-class DirectoryAdapter(context: Context, cursor: Cursor?, dualPane: Boolean) : RecyclerCursorAdapter<DirectoryAdapter.ViewHolder>(cursor) {
+class DirectoryAdapter(context: Context, dualPane: Boolean) : RecyclerListAdapter<DirectoryAdapter.ViewHolder, Individual>() {
+
     @Inject
     lateinit var bus: Bus
 
@@ -61,8 +61,12 @@ class DirectoryAdapter(context: Context, cursor: Cursor?, dualPane: Boolean) : R
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, cursor: Cursor, position: Int) {
-        val individual = Individual(cursor)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val individual = getItem(position);
+        if (individual == null) {
+            return
+        }
+
         val itemId = individual.id
 
         // bind data to view holder

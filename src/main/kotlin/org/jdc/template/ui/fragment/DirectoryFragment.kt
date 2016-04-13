@@ -1,6 +1,5 @@
 package org.jdc.template.ui.fragment
 
-import android.database.Cursor
 import android.os.Bundle
 import android.support.v4.view.MenuItemCompat
 import android.support.v7.view.ActionMode
@@ -16,8 +15,9 @@ import kotlinx.android.synthetic.main.fragment_directory.*
 import org.jdc.template.Analytics
 import org.jdc.template.App
 import org.jdc.template.R
-import org.jdc.template.inject.Injector
 import org.jdc.template.event.*
+import org.jdc.template.inject.Injector
+import org.jdc.template.model.database.main.individual.Individual
 import org.jdc.template.model.database.main.individual.IndividualManager
 import org.jdc.template.ui.adapter.DirectoryAdapter
 import pocketbus.Bus
@@ -46,9 +46,8 @@ class DirectoryFragment : BaseFragment(), SearchView.OnQueryTextListener, Action
     @SaveState
     var lastSelectedId: Long = 0
 
-    private var adapter: DirectoryAdapter? = null
+    lateinit var adapter: DirectoryAdapter
     lateinit var subscriptionRegistration: SubscriptionRegistration
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,7 +76,7 @@ class DirectoryFragment : BaseFragment(), SearchView.OnQueryTextListener, Action
     }
 
     private fun setupRecyclerView() {
-        adapter = DirectoryAdapter(activity, null, dualPane)
+        adapter = DirectoryAdapter(activity, dualPane)
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = adapter
 
@@ -88,7 +87,7 @@ class DirectoryFragment : BaseFragment(), SearchView.OnQueryTextListener, Action
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
 
-        lastSelectedId = adapter!!.lastSelectedItemId
+        lastSelectedId = adapter.lastSelectedItemId
 
         PocketKnife.saveInstanceState(this, outState)
     }
@@ -116,24 +115,20 @@ class DirectoryFragment : BaseFragment(), SearchView.OnQueryTextListener, Action
     }
 
     fun loadList() {
-        val observable = individualManager.findCursorAllRx()
+        val observable = individualManager.findAllRx()
                 .subscribeOn(Schedulers.io())
+                .toList()
                 .observeOn(AndroidSchedulers.mainThread())
 
-        addSubscription(observable.subscribe { cursor -> dataLoaded(cursor) })
+        addSubscription(observable.subscribe { data -> dataLoaded(data) })
     }
 
-    override fun onDestroy() {
-        adapter!!.changeCursor(null) // close cursor
-        super.onDestroy()
-    }
-
-    fun dataLoaded(data: Cursor?) {
+    fun dataLoaded(data: List<Individual>) {
         if (dualPane) {
             selectPosition(lastSelectedId)
         }
 
-        adapter!!.changeCursor(data)
+        adapter.set(data);
     }
 
     @Subscribe(ThreadMode.MAIN)
@@ -183,7 +178,7 @@ class DirectoryFragment : BaseFragment(), SearchView.OnQueryTextListener, Action
     private fun selectPosition(id: Long) {
         // Only if we're showing both fragments should the item be "highlighted"
         if (dualPane) {
-            adapter!!.lastSelectedItemId = id
+            adapter.lastSelectedItemId = id
         }
 
         bus.post(DirectoryItemSelectedEvent(id))
