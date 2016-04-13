@@ -37,11 +37,14 @@ public class IndividualActivity extends DrawerActivity {
 
     private SubscriptionRegistration subscriptionRegistration;
 
+    public IndividualActivity() {
+        Injector.get().inject(this);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_drawer_single);
-        Injector.get().inject(this);
         ButterKnife.bind(this);
         PocketKnife.bindExtras(this);
 

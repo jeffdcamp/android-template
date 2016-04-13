@@ -77,10 +77,13 @@ public class IndividualFragment extends Fragment {
         return fragment;
     }
 
+    public IndividualFragment() {
+        Injector.get().inject(this);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Injector.get().inject(this);
         PocketKnife.bindArguments(this);
         setHasOptionsMenu(true);
     }

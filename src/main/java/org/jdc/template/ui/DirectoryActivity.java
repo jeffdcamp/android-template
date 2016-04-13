@@ -38,11 +38,14 @@ public class DirectoryActivity extends DrawerActivity {
 
     private boolean dualPane = false;
 
+    public DirectoryActivity() {
+        Injector.get().inject(this);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.directory_list);
-        Injector.get().inject(this);
         ButterKnife.bind(this);
 
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);

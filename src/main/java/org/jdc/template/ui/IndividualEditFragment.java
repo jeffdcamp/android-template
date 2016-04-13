@@ -88,10 +88,13 @@ public class IndividualEditFragment extends Fragment {
         return fragment;
     }
 
+    public IndividualEditFragment() {
+        Injector.get().inject(this);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Injector.get().inject(this);
         PocketKnife.bindArguments(this);
         setHasOptionsMenu(true);
     }

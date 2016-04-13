@@ -75,12 +75,15 @@ public class AboutActivity extends BaseActivity {
     @Inject
     Analytics analytics;
 
+    public AboutActivity() {
+        Injector.get().inject(this);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
         ButterKnife.bind(this);
-        Injector.get().inject(this);
 
         analytics.send(new HitBuilders.EventBuilder()
                 .setCategory(Analytics.CATEGORY_ABOUT)

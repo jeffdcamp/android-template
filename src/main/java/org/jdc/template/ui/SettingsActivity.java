@@ -8,10 +8,14 @@ import org.jdc.template.dagger.Injector;
 
 
 public class SettingsActivity extends BaseActivity {
+
+    public SettingsActivity() {
+        Injector.get().inject(this);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Injector.get().inject(this);
         setContentView(R.layout.activity_single_fragment_no_toolbar);
 
         enableActionBarBackArrow(true);

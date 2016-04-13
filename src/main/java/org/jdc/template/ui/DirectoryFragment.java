@@ -74,6 +74,10 @@ public class DirectoryFragment extends BaseFragment implements SearchView.OnQuer
         return fragment;
     }
 
+    public DirectoryFragment() {
+        Injector.get().inject(this);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +92,6 @@ public class DirectoryFragment extends BaseFragment implements SearchView.OnQuer
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Injector.get().inject(this);
         PocketKnife.restoreInstanceState(this, savedInstanceState);
         setHasOptionsMenu(true);
         setupRecyclerView();

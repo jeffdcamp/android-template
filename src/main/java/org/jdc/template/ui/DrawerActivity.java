@@ -23,7 +23,6 @@ public abstract class DrawerActivity extends BaseActivity {
 
     @Bind(R.id.drawer_layout)
     DrawerLayout drawerLayout;
-
     @Bind(R.id.nav_view)
     NavigationView navigationView;
 

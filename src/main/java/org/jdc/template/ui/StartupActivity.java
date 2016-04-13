@@ -31,11 +31,14 @@ public class StartupActivity extends Activity {
     private Class startupActivityClass = DirectoryActivity.class;
     private long perfTime = 0;
 
+    public StartupActivity() {
+        Injector.get().inject(this);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        Injector.get().inject(this);
 
         analytics.send(new HitBuilders.EventBuilder()
                 .setCategory(Analytics.CATEGORY_APP)

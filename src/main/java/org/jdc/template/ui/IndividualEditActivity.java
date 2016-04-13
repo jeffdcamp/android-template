@@ -34,11 +34,14 @@ public class IndividualEditActivity extends BaseActivity {
 
     private SubscriptionRegistration subscriptionRegistration;
 
+    public IndividualEditActivity() {
+        Injector.get().inject(this);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_single);
-        Injector.get().inject(this);
         ButterKnife.bind(this);
         PocketKnife.bindExtras(this);
 
