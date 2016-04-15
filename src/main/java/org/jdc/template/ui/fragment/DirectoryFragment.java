@@ -23,6 +23,7 @@ import org.jdc.template.event.IndividualDeletedEvent;
 import org.jdc.template.event.IndividualSavedEvent;
 import org.jdc.template.inject.Injector;
 import org.jdc.template.model.database.main.individual.Individual;
+import org.jdc.template.model.database.main.individual.IndividualConst;
 import org.jdc.template.model.database.main.individual.IndividualManager;
 import org.jdc.template.ui.adapter.DirectoryAdapter;
 
@@ -143,7 +144,7 @@ public class DirectoryFragment extends BaseFragment implements SearchView.OnQuer
     }
 
     public void loadList() {
-        Observable<List<Individual>> observable = individualManager.findAllRx()
+        Observable<List<Individual>> observable = individualManager.findBySelectionRx(null, null, IndividualConst.C_FIRST_NAME + ", " + IndividualConst.C_LAST_NAME)
                 .subscribeOn(Schedulers.io())
                 .toList()
                 .observeOn(AndroidSchedulers.mainThread());
