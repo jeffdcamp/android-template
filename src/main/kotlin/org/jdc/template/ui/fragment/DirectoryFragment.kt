@@ -18,6 +18,7 @@ import org.jdc.template.R
 import org.jdc.template.event.*
 import org.jdc.template.inject.Injector
 import org.jdc.template.model.database.main.individual.Individual
+import org.jdc.template.model.database.main.individual.IndividualConst
 import org.jdc.template.model.database.main.individual.IndividualManager
 import org.jdc.template.ui.adapter.DirectoryAdapter
 import pocketbus.Bus
@@ -115,7 +116,7 @@ class DirectoryFragment : BaseFragment(), SearchView.OnQueryTextListener, Action
     }
 
     fun loadList() {
-        val observable = individualManager.findAllRx()
+        val observable = individualManager.findBySelectionRx(null, null, IndividualConst.C_FIRST_NAME + ", " + IndividualConst.C_LAST_NAME)
                 .subscribeOn(Schedulers.io())
                 .toList()
                 .observeOn(AndroidSchedulers.mainThread())
