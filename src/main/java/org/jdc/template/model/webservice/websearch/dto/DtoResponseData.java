@@ -1,9 +1,15 @@
 package org.jdc.template.model.webservice.websearch.dto;
 
+import com.bluelinelabs.logansquare.annotation.JsonField;
+import com.bluelinelabs.logansquare.annotation.JsonObject;
+
 import java.util.List;
 
+@JsonObject
 public class DtoResponseData {
+    @JsonField
     private List<DtoResult> results;
+    @JsonField
     private DtoCursor cursor;
 
     public List<DtoResult> getResults() {

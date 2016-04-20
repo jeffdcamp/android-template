@@ -1,13 +1,23 @@
 package org.jdc.template.model.webservice.websearch.dto;
 
+import com.bluelinelabs.logansquare.annotation.JsonField;
+import com.bluelinelabs.logansquare.annotation.JsonObject;
+
 import java.util.List;
 
+@JsonObject
 public class DtoCursor {
+    @JsonField
     private String resultCount;
+    @JsonField
     private List<DtoPage> pages;
+    @JsonField
     private String estimatedResultCount;
+    @JsonField
     private int currentPageIndex;
+    @JsonField
     private String moreResultsUrl;
+    @JsonField
     private String searchResultTime;
 
     public String getResultCount() {

@@ -1,8 +1,9 @@
 package org.jdc.template.model.webservice;
 
-import android.app.Application;
 import android.os.Build;
 import android.util.Base64;
+
+import com.github.aurae.retrofit2.LoganSquareConverterFactory;
 
 import org.jdc.template.BuildConfig;
 import org.jdc.template.auth.MyAccountInterceptor;
@@ -24,7 +25,6 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class ServiceModule {
@@ -102,13 +102,11 @@ public class ServiceModule {
 
     @Provides
     @Singleton
-    public WebSearchService getSearchService(@Nonnull final Application application,
-                                             @Nonnull @Named(STANDARD_CLIENT) OkHttpClient client,
-                                             @Nonnull GsonConverterFactory converterFactory) {
+    public WebSearchService getSearchService(@Nonnull @Named(STANDARD_CLIENT) OkHttpClient client) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(WebSearchService.BASE_URL)
                 .client(client)
-                .addConverterFactory(converterFactory)
+                .addConverterFactory(LoganSquareConverterFactory.create())
                 .build();
 
         return retrofit.create(WebSearchService.class);

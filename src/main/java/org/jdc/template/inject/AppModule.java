@@ -9,15 +9,11 @@ import android.util.Log;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import org.jdc.template.Analytics;
 import org.jdc.template.BuildConfig;
 import org.jdc.template.BusRegistry;
 import org.jdc.template.model.webservice.ServiceModule;
-import org.jdc.template.model.webservice.DateTimeTypeConverter;
-import org.threeten.bp.LocalDateTime;
 
 import java.util.Map;
 
@@ -26,7 +22,6 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import pocketbus.Bus;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module(includes = {
         ServiceModule.class
@@ -72,21 +67,6 @@ public class AppModule {
         Tracker tracker = googleAnalytics.newTracker(BuildConfig.ANALYTICS_KEY);
         // tracker.setSessionTimeout(300); // default is 30 seconds
         return new Analytics.GoogleAnalytics(tracker);
-    }
-
-    @Provides
-    @Singleton
-    Gson provideGson() {
-        GsonBuilder builder = new GsonBuilder()
-//                .setPrettyPrinting() // NOSONAR - DEBUG
-                .registerTypeAdapter(LocalDateTime.class, new DateTimeTypeConverter());
-        return builder.create();
-    }
-
-    @Provides
-    @Singleton
-    GsonConverterFactory provideGsonConverterFactory(Gson gson) {
-        return GsonConverterFactory.create(gson);
     }
 
     @Provides

@@ -1,15 +1,27 @@
 package org.jdc.template.model.webservice.websearch.dto;
 
+import com.bluelinelabs.logansquare.annotation.JsonField;
+import com.bluelinelabs.logansquare.annotation.JsonObject;
+
 import java.util.List;
 
+@JsonObject
 public class DtoResult {
+    @JsonField
     private String unescapedUrl;
+    @JsonField
     private String url;
+    @JsonField
     private String visibleUrl;
+    @JsonField
     private String cacheUrl;
+    @JsonField
     private String title;
+    @JsonField
     private String titleNoFormatting;
+    @JsonField
     private String content;
+    @JsonField
     private List<DtoCursor> curor;
 
     public String getUnescapedUrl() {
