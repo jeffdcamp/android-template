@@ -4,10 +4,13 @@ import android.app.Application
 import android.content.Context
 import android.support.multidex.MultiDex
 import android.util.Log
+import com.bluelinelabs.logansquare.LoganSquare
 import com.evernote.android.job.JobManager
 import com.jakewharton.threetenabp.AndroidThreeTen
 import org.jdc.template.inject.Injector
 import org.jdc.template.job.AppJobCreator
+import org.jdc.template.model.webservice.DateTimeTypeConverter
+import org.threeten.bp.LocalDateTime
 import pocketbus.Registry
 
 @Registry // PocketBus Registry
@@ -18,7 +21,9 @@ class App : Application() {
         AndroidThreeTen.init(this)
         Injector.init(this)
         JobManager.create(this).addJobCreator(AppJobCreator())
-        //        enableStrictMode();
+
+        // register json global converters
+        registerJsonConverters();
     }
 
     override fun attachBaseContext(base: Context) {
@@ -33,17 +38,8 @@ class App : Application() {
         }
     }
 
-    /**
-     * Enable strict mode
-     * This only works if compiling against android 2.3 or greater
-     * also, this will crash on devices running on less than 2.3
-     */
-    private fun enableStrictMode() {
-        android.os.StrictMode.setThreadPolicy(android.os.StrictMode.ThreadPolicy.Builder().detectDiskWrites//.detectDiskReads()
-        ().detectNetwork()   // or .detectAll() for all detectable problems
-                .penaltyLog().build())
-
-        android.os.StrictMode.setVmPolicy(android.os.StrictMode.VmPolicy.Builder().detectLeakedSqlLiteObjects().penaltyLog().penaltyDeath().build())
+    fun registerJsonConverters() {
+        LoganSquare.registerTypeConverter(LocalDateTime::class.java, DateTimeTypeConverter());
     }
 
     companion object {

@@ -7,18 +7,13 @@ import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import android.util.Log
 import com.google.android.gms.analytics.GoogleAnalytics
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
 import org.jdc.template.BusRegistry
-import org.jdc.template.model.webservice.DateTimeTypeConverter
 import org.jdc.template.model.webservice.ServiceModule
-import org.threeten.bp.LocalDateTime
 import pocketbus.Bus
-import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module(includes = arrayOf(ServiceModule::class))
@@ -57,22 +52,6 @@ class AppModule(private val application: Application) {
         val tracker = googleAnalytics.newTracker(BuildConfig.ANALYTICS_KEY)
         // tracker.setSessionTimeout(300); // default is 30 seconds
         return Analytics.GoogleAnalytics(tracker)
-    }
-
-    @Provides
-    @Singleton
-    internal fun provideGson(): Gson {
-        val builder = GsonBuilder()
-                .registerTypeAdapter(LocalDateTime::class.java, DateTimeTypeConverter())
-//                .setPrettyPrinting() // NOSONAR - DEBUG
-
-        return builder.create()
-    }
-
-    @Provides
-    @Singleton
-    internal fun provideGsonConverterFactory(gson: Gson): GsonConverterFactory {
-        return GsonConverterFactory.create(gson)
     }
 
     @Provides

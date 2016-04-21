@@ -94,8 +94,8 @@ class AboutActivity : BaseActivity() {
             onCreateDatabaseButtonClick()
         }
         restTestButton.setOnClickListener() {
-//            testQueryWebServiceCallRx() // use Rx to make the call
-            testSaveQueryWebServiceCall() // write the response to file, the read the file to show results
+            testQueryWebServiceCallRx() // use Rx to make the call
+//            testSaveQueryWebServiceCall() // write the response to file, the read the file to show results
         }
         jobTestButton.setOnClickListener() {
             jobTest()
