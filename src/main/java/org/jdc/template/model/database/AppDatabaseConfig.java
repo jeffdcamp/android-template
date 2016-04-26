@@ -12,12 +12,9 @@ import org.dbtools.android.domain.log.DBToolsLogger;
 
 import java.util.Collections;
 
-import javax.inject.Inject;
-
 public class AppDatabaseConfig implements DatabaseConfig {
     private Application application;
 
-    @Inject
     public AppDatabaseConfig(Application application) {
         this.application = application;
     }
