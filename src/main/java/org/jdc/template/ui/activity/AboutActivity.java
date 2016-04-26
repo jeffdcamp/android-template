@@ -23,6 +23,7 @@ import org.jdc.template.inject.Injector;
 import org.jdc.template.job.SampleJob;
 import org.jdc.template.model.database.DatabaseManager;
 import org.jdc.template.model.database.DatabaseManagerConst;
+import org.jdc.template.model.database.AppDatabaseConfig;
 import org.jdc.template.model.database.attached.crossdatabasequery.CrossDatabaseQuery;
 import org.jdc.template.model.database.attached.crossdatabasequery.CrossDatabaseQueryManager;
 import org.jdc.template.model.database.main.household.Household;
@@ -194,14 +195,12 @@ public class AboutActivity extends BaseActivity {
 
 
     private void createSampleDataNoInjection() {
-        DatabaseManager noInjectionDatabaseManager = new DatabaseManager(getApplication());
+        DatabaseManager noInjectionDatabaseManager = new DatabaseManager(new AppDatabaseConfig(getApplication()));
 
         HouseholdManager householdManager = new HouseholdManager(noInjectionDatabaseManager);
         IndividualManager individualManager = new IndividualManager(noInjectionDatabaseManager);
         IndividualListManager individualListManager = new IndividualListManager(noInjectionDatabaseManager);
         IndividualListItemManager individualListItemManager = new IndividualListItemManager(noInjectionDatabaseManager);
-
-        noInjectionDatabaseManager.setContext(getApplication());
 
         // Main Database
         DatabaseWrapper db = noInjectionDatabaseManager.getWritableDatabase(DatabaseManagerConst.MAIN_DATABASE_NAME);

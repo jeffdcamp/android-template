@@ -11,7 +11,7 @@
 package org.jdc.template.model.database.attached.crossdatabasequery;
 
 import org.dbtools.android.domain.AndroidBaseRecord;
-import android.content.ContentValues;
+import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues;
 import android.database.Cursor;
 
 
@@ -49,12 +49,10 @@ public abstract class CrossDatabaseQueryBaseRecord extends AndroidBaseRecord {
     }
 
     @Override
-    public ContentValues getContentValues() {
-        ContentValues values = new ContentValues();
+    public void getContentValues(DBToolsContentValues values) {
         values.put(CrossDatabaseQueryConst.C_ID, id);
         values.put(CrossDatabaseQueryConst.C_NAME, name);
         values.put(CrossDatabaseQueryConst.C_TYPE, type.ordinal());
-        return values;
     }
 
     @Override
@@ -67,7 +65,7 @@ public abstract class CrossDatabaseQueryBaseRecord extends AndroidBaseRecord {
         return values;
     }
 
-    public void setContent(ContentValues values) {
+    public void setContent(DBToolsContentValues values) {
         id = values.getAsLong(CrossDatabaseQueryConst.C_ID);
         name = values.getAsString(CrossDatabaseQueryConst.C_NAME);
         type = LocationType.values()[values.getAsInteger(CrossDatabaseQueryConst.C_TYPE)];

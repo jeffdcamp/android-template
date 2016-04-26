@@ -8,9 +8,9 @@
 
 package org.jdc.template.model.database.attached.crossdatabasequery;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 
+import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues;
 import org.jdc.template.model.database.main.individual.IndividualConst;
 
 public class CrossDatabaseQuery extends CrossDatabaseQueryBaseRecord {
@@ -28,7 +28,7 @@ public class CrossDatabaseQuery extends CrossDatabaseQueryBaseRecord {
         setContent(cursor);
     }
 
-    public CrossDatabaseQuery(ContentValues values) {
+    public CrossDatabaseQuery(DBToolsContentValues values) {
         setContent(values);
     }
 

@@ -11,7 +11,7 @@
 package org.jdc.template.model.database.other.individuallistitem;
 
 import org.dbtools.android.domain.AndroidBaseRecord;
-import android.content.ContentValues;
+import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues;
 import android.database.Cursor;
 
 
@@ -50,11 +50,9 @@ public abstract class IndividualListItemBaseRecord extends AndroidBaseRecord {
     }
 
     @Override
-    public ContentValues getContentValues() {
-        ContentValues values = new ContentValues();
+    public void getContentValues(DBToolsContentValues values) {
         values.put(IndividualListItemConst.C_LIST_ID, listId);
         values.put(IndividualListItemConst.C_INDIVIDUAL_ID, individualId);
-        return values;
     }
 
     @Override
@@ -67,7 +65,7 @@ public abstract class IndividualListItemBaseRecord extends AndroidBaseRecord {
         return values;
     }
 
-    public void setContent(ContentValues values) {
+    public void setContent(DBToolsContentValues values) {
         listId = values.getAsLong(IndividualListItemConst.C_LIST_ID);
         individualId = values.getAsLong(IndividualListItemConst.C_INDIVIDUAL_ID);
     }

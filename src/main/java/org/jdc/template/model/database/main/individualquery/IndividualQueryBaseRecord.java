@@ -11,7 +11,7 @@
 package org.jdc.template.model.database.main.individualquery;
 
 import org.dbtools.android.domain.AndroidBaseRecord;
-import android.content.ContentValues;
+import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues;
 import android.database.Cursor;
 
 
@@ -48,11 +48,9 @@ public abstract class IndividualQueryBaseRecord extends AndroidBaseRecord {
     }
 
     @Override
-    public ContentValues getContentValues() {
-        ContentValues values = new ContentValues();
+    public void getContentValues(DBToolsContentValues values) {
         values.put(IndividualQueryConst.C_ID, id);
         values.put(IndividualQueryConst.C_NAME, name);
-        return values;
     }
 
     @Override
@@ -64,7 +62,7 @@ public abstract class IndividualQueryBaseRecord extends AndroidBaseRecord {
         return values;
     }
 
-    public void setContent(ContentValues values) {
+    public void setContent(DBToolsContentValues values) {
         id = values.getAsLong(IndividualQueryConst.C_ID);
         name = values.getAsString(IndividualQueryConst.C_NAME);
     }

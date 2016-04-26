@@ -11,7 +11,7 @@
 package org.jdc.template.model.database.main.household;
 
 import org.dbtools.android.domain.AndroidBaseRecord;
-import android.content.ContentValues;
+import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues;
 import android.database.Cursor;
 
 
@@ -49,10 +49,8 @@ public abstract class HouseholdBaseRecord extends AndroidBaseRecord {
     }
 
     @Override
-    public ContentValues getContentValues() {
-        ContentValues values = new ContentValues();
+    public void getContentValues(DBToolsContentValues values) {
         values.put(HouseholdConst.C_NAME, name);
-        return values;
     }
 
     @Override
@@ -64,7 +62,7 @@ public abstract class HouseholdBaseRecord extends AndroidBaseRecord {
         return values;
     }
 
-    public void setContent(ContentValues values) {
+    public void setContent(DBToolsContentValues values) {
         name = values.getAsString(HouseholdConst.C_NAME);
     }
 

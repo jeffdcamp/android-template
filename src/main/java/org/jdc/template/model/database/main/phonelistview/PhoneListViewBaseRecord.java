@@ -11,7 +11,7 @@
 package org.jdc.template.model.database.main.phonelistview;
 
 import org.dbtools.android.domain.AndroidBaseRecord;
-import android.content.ContentValues;
+import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues;
 import android.database.Cursor;
 
 
@@ -48,11 +48,9 @@ public abstract class PhoneListViewBaseRecord extends AndroidBaseRecord {
     }
 
     @Override
-    public ContentValues getContentValues() {
-        ContentValues values = new ContentValues();
+    public void getContentValues(DBToolsContentValues values) {
         values.put(PhoneListViewConst.C_ID, id);
         values.put(PhoneListViewConst.C_NAME, name);
-        return values;
     }
 
     @Override
@@ -64,7 +62,7 @@ public abstract class PhoneListViewBaseRecord extends AndroidBaseRecord {
         return values;
     }
 
-    public void setContent(ContentValues values) {
+    public void setContent(DBToolsContentValues values) {
         id = values.getAsLong(PhoneListViewConst.C_ID);
         name = values.getAsString(PhoneListViewConst.C_NAME);
     }

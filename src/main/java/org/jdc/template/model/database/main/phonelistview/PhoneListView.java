@@ -8,9 +8,9 @@
 
 package org.jdc.template.model.database.main.phonelistview;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 
+import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues;
 import org.jdc.template.model.database.main.individual.IndividualConst;
 
 public class PhoneListView extends PhoneListViewBaseRecord {
@@ -25,7 +25,7 @@ public class PhoneListView extends PhoneListViewBaseRecord {
         setContent(cursor);
     }
 
-    public PhoneListView(ContentValues values) {
+    public PhoneListView(DBToolsContentValues values) {
         setContent(values);
     }
 

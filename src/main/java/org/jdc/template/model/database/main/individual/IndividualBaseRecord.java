@@ -12,7 +12,7 @@ package org.jdc.template.model.database.main.individual;
 
 import org.dbtools.android.domain.AndroidBaseRecord;
 import org.jdc.template.model.database.main.individualtype.IndividualType;
-import android.content.ContentValues;
+import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues;
 import android.database.Cursor;
 
 
@@ -62,8 +62,7 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
     }
 
     @Override
-    public ContentValues getContentValues() {
-        ContentValues values = new ContentValues();
+    public void getContentValues(DBToolsContentValues values) {
         values.put(IndividualConst.C_HOUSEHOLD_ID, householdId);
         values.put(IndividualConst.C_INDIVIDUAL_TYPE, individualType.ordinal());
         values.put(IndividualConst.C_FIRST_NAME, firstName);
@@ -77,7 +76,6 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         values.put(IndividualConst.C_EMAIL, email);
         values.put(IndividualConst.C_AVAILABLE, available ? 1 : 0);
         values.put(IndividualConst.C_SPOUSE_INDIVIDUAL_ID, spouseIndividualId);
-        return values;
     }
 
     @Override
@@ -101,7 +99,7 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         return values;
     }
 
-    public void setContent(ContentValues values) {
+    public void setContent(DBToolsContentValues values) {
         householdId = values.getAsLong(IndividualConst.C_HOUSEHOLD_ID);
         individualType = IndividualType.values()[values.getAsInteger(IndividualConst.C_INDIVIDUAL_TYPE)];
         firstName = values.getAsString(IndividualConst.C_FIRST_NAME);

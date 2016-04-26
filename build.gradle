@@ -5,9 +5,9 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0-beta3'
+        classpath 'com.android.tools.build:gradle:2.1.0-rc1'
         classpath 'me.tatarka:gradle-retrolambda:3.2.5'
-        classpath 'org.dbtools:gradle-dbtools-plugin:6.0.1'
+        classpath 'org.dbtools:gradle-dbtools-plugin:6.1.0'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.12.0' // version plugin support
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
     }
@@ -68,8 +68,8 @@ dependencies {
     // Code
     compile 'com.google.code.findbugs:jsr305:3.0.1'
     compile 'org.threeten:threetenbp:1.3.1'
-    compile 'org.dbtools:dbtools-android:6.0.1'
-    compile 'org.dbtools:dbtools-query:2.5.6'
+    compile 'org.dbtools:dbtools-android:6.1.0-SNAPSHOT'
+    compile 'org.dbtools:dbtools-query:3.0.0-SNAPSHOT'
     compile 'org.apache.commons:commons-lang3:3.4'
     compile 'commons-io:commons-io:2.4'
     compile 'com.devbrackets.android:recyclerext:1.1.0'
@@ -110,6 +110,7 @@ dependencies {
     // Test (Unit)
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:2.0.50-beta'
+    testCompile 'org.xerial:sqlite-jdbc:3.8.11.2'
 
 }
 

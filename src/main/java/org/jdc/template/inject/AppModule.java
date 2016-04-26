@@ -10,9 +10,11 @@ import android.util.Log;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 
+import org.dbtools.android.domain.config.DatabaseConfig;
 import org.jdc.template.Analytics;
 import org.jdc.template.BuildConfig;
 import org.jdc.template.BusRegistry;
+import org.jdc.template.model.database.AppDatabaseConfig;
 import org.jdc.template.model.webservice.ServiceModule;
 
 import java.util.Map;
@@ -67,6 +69,12 @@ public class AppModule {
         Tracker tracker = googleAnalytics.newTracker(BuildConfig.ANALYTICS_KEY);
         // tracker.setSessionTimeout(300); // default is 30 seconds
         return new Analytics.GoogleAnalytics(tracker);
+    }
+
+    @Provides
+    @Singleton
+    DatabaseConfig provideDatabaseConfig(Application application) {
+        return new AppDatabaseConfig(application);
     }
 
     @Provides

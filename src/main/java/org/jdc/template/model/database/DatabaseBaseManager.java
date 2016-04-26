@@ -9,33 +9,31 @@
 
 package org.jdc.template.model.database;
 
-import android.util.Log;
 import org.dbtools.android.domain.AndroidDatabase;
 import org.dbtools.android.domain.AndroidBaseManager;
 import org.dbtools.android.domain.AndroidDatabaseManager;
 import org.dbtools.android.domain.database.DatabaseWrapper;
-import org.jdc.template.model.database.main.household.HouseholdConst;
-import org.jdc.template.model.database.main.individual.IndividualConst;
-import org.jdc.template.model.database.main.individualtype.IndividualTypeConst;
-import org.jdc.template.model.database.main.phonelistview.PhoneListView;
-import org.jdc.template.model.database.other.individuallist.IndividualListConst;
-import org.jdc.template.model.database.other.individuallistitem.IndividualListItemConst;
+import org.dbtools.android.domain.config.DatabaseConfig;
 
 
 @SuppressWarnings("all")
 public abstract class DatabaseBaseManager extends AndroidDatabaseManager {
 
 
+    public DatabaseBaseManager(DatabaseConfig databaseConfig) {
+        super(databaseConfig);
+    }
+
     public void createMainTables(@javax.annotation.Nonnull AndroidDatabase androidDatabase) {
         DatabaseWrapper database = androidDatabase.getDatabaseWrapper();
         database.beginTransaction();
         
         // Enum Tables
-        AndroidBaseManager.createTable(database, IndividualTypeConst.CREATE_TABLE);
+        AndroidBaseManager.createTable(database, org.jdc.template.model.database.main.individualtype.IndividualTypeConst.CREATE_TABLE);
         
         // Tables
-        AndroidBaseManager.createTable(database, HouseholdConst.CREATE_TABLE);
-        AndroidBaseManager.createTable(database, IndividualConst.CREATE_TABLE);
+        AndroidBaseManager.createTable(database, org.jdc.template.model.database.main.household.HouseholdConst.CREATE_TABLE);
+        AndroidBaseManager.createTable(database, org.jdc.template.model.database.main.individual.IndividualConst.CREATE_TABLE);
         
         database.setTransactionSuccessful();
         database.endTransaction();
@@ -48,8 +46,8 @@ public abstract class DatabaseBaseManager extends AndroidDatabaseManager {
         // Enum Tables
         
         // Tables
-        AndroidBaseManager.createTable(database, IndividualListConst.CREATE_TABLE);
-        AndroidBaseManager.createTable(database, IndividualListItemConst.CREATE_TABLE);
+        AndroidBaseManager.createTable(database, org.jdc.template.model.database.other.individuallist.IndividualListConst.CREATE_TABLE);
+        AndroidBaseManager.createTable(database, org.jdc.template.model.database.other.individuallistitem.IndividualListItemConst.CREATE_TABLE);
         
         database.setTransactionSuccessful();
         database.endTransaction();
@@ -68,7 +66,7 @@ public abstract class DatabaseBaseManager extends AndroidDatabaseManager {
     }
 
     public void onCreate(@javax.annotation.Nonnull AndroidDatabase androidDatabase) {
-        Log.i(TAG, "Creating database: " + androidDatabase.getName());
+        getLogger().i(TAG, "Creating database: " + androidDatabase.getName());
         if (androidDatabase.getName().equals(DatabaseManagerConst.MAIN_DATABASE_NAME)) {
             createMainTables(androidDatabase);
         }
@@ -85,7 +83,7 @@ public abstract class DatabaseBaseManager extends AndroidDatabaseManager {
         database.beginTransaction();
         
         // Views
-        AndroidBaseManager.createTable(database, PhoneListView.CREATE_VIEW);
+        AndroidBaseManager.createTable(database, org.jdc.template.model.database.main.phonelistview.PhoneListView.CREATE_VIEW);
         
         database.setTransactionSuccessful();
         database.endTransaction();
@@ -96,21 +94,21 @@ public abstract class DatabaseBaseManager extends AndroidDatabaseManager {
         database.beginTransaction();
         
         // Views
-        AndroidBaseManager.dropTable(database, PhoneListView.DROP_VIEW);
+        AndroidBaseManager.dropTable(database, org.jdc.template.model.database.main.phonelistview.PhoneListView.DROP_VIEW);
         
         database.setTransactionSuccessful();
         database.endTransaction();
     }
 
     public void onCreateViews(@javax.annotation.Nonnull AndroidDatabase androidDatabase) {
-        Log.i(TAG, "Creating database views: " + androidDatabase.getName());
+        getLogger().i(TAG, "Creating database views: " + androidDatabase.getName());
         if (androidDatabase.getName().equals(DatabaseManagerConst.MAIN_DATABASE_NAME)) {
             createMainViews(androidDatabase);
         }
     }
 
     public void onDropViews(@javax.annotation.Nonnull AndroidDatabase androidDatabase) {
-        Log.i(TAG, "Dropping database views: " + androidDatabase.getName());
+        getLogger().i(TAG, "Dropping database views: " + androidDatabase.getName());
         if (androidDatabase.getName().equals(DatabaseManagerConst.MAIN_DATABASE_NAME)) {
             dropMainViews(androidDatabase);
         }
