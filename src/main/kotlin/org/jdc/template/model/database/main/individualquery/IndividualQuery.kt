@@ -8,8 +8,8 @@
 
 package org.jdc.template.model.database.main.individualquery
 
-import android.content.ContentValues
 import android.database.Cursor
+import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues
 import org.dbtools.query.sql.SQLQueryBuilder
 
 class IndividualQuery : IndividualQueryBaseRecord {
@@ -33,7 +33,7 @@ class IndividualQuery : IndividualQueryBaseRecord {
         setContent(cursor)
     }
 
-    constructor(values: ContentValues) {
+    constructor(values: DBToolsContentValues<*>) {
         setContent(values)
     }
 

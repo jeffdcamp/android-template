@@ -10,10 +10,10 @@
 
 package org.jdc.template.model.database.main.individual
 
-import org.dbtools.android.domain.AndroidBaseRecord
-import org.jdc.template.model.database.main.individualtype.IndividualType
-import android.content.ContentValues
 import android.database.Cursor
+import org.dbtools.android.domain.AndroidBaseRecord
+import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues
+import org.jdc.template.model.database.main.individualtype.IndividualType
 
 
 @SuppressWarnings("all")
@@ -54,8 +54,7 @@ abstract class IndividualBaseRecord : AndroidBaseRecord() {
         return IndividualConst.ALL_COLUMNS_FULL.clone()
     }
 
-    override fun getContentValues(): ContentValues {
-        val values = ContentValues()
+    override fun getContentValues(values: DBToolsContentValues<*>) {
         values.put(IndividualConst.C_HOUSEHOLD_ID, householdId)
         values.put(IndividualConst.C_INDIVIDUAL_TYPE, individualType.ordinal)
         values.put(IndividualConst.C_FIRST_NAME, firstName)
@@ -69,7 +68,6 @@ abstract class IndividualBaseRecord : AndroidBaseRecord() {
         values.put(IndividualConst.C_EMAIL, email)
         values.put(IndividualConst.C_AVAILABLE, if (available) 1 else 0)
         values.put(IndividualConst.C_SPOUSE_INDIVIDUAL_ID, spouseIndividualId)
-        return values
     }
 
     override fun getValues(): Array<Any?> {
@@ -90,7 +88,7 @@ abstract class IndividualBaseRecord : AndroidBaseRecord() {
             spouseIndividualId)
     }
 
-    fun setContent(values: ContentValues) {
+    override fun setContent(values: DBToolsContentValues<*>) {
         householdId = values.getAsLong(IndividualConst.C_HOUSEHOLD_ID)
         individualType = IndividualType.values()[values.getAsInteger(IndividualConst.C_INDIVIDUAL_TYPE)]
         firstName = values.getAsString(IndividualConst.C_FIRST_NAME)

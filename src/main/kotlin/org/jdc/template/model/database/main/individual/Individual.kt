@@ -8,8 +8,8 @@
 
 package org.jdc.template.model.database.main.individual
 
-import android.content.ContentValues
 import android.database.Cursor
+import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues
 
 
 class Individual : IndividualBaseRecord {
@@ -22,7 +22,7 @@ class Individual : IndividualBaseRecord {
         setContent(cursor)
     }
 
-    constructor(values: ContentValues) {
+    constructor(values: DBToolsContentValues<*>) {
         setContent(values)
     }
 

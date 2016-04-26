@@ -11,7 +11,7 @@
 package org.jdc.template.model.database.main.household
 
 import org.dbtools.android.domain.AndroidBaseRecord
-import android.content.ContentValues
+import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues
 import android.database.Cursor
 
 
@@ -41,10 +41,8 @@ abstract class HouseholdBaseRecord : AndroidBaseRecord() {
         return HouseholdConst.ALL_COLUMNS_FULL.clone()
     }
 
-    override fun getContentValues(): ContentValues {
-        val values = ContentValues()
+    override fun getContentValues(values: DBToolsContentValues<*>) {
         values.put(HouseholdConst.C_NAME, name)
-        return values
     }
 
     override fun getValues(): Array<Any?> {
@@ -53,7 +51,7 @@ abstract class HouseholdBaseRecord : AndroidBaseRecord() {
             name)
     }
 
-    fun setContent(values: ContentValues) {
+    override fun setContent(values: DBToolsContentValues<*>) {
         name = values.getAsString(HouseholdConst.C_NAME)
     }
 

@@ -35,19 +35,19 @@ abstract class IndividualQueryBaseManager : RxKotlinAndroidBaseManagerReadOnly<I
         return IndividualQueryConst.ALL_COLUMNS
     }
 
-    override fun getReadableDatabase(@javax.annotation.Nonnull databaseName: String): DatabaseWrapper<*> {
+    override fun getReadableDatabase(@javax.annotation.Nonnull databaseName: String): DatabaseWrapper<*, *> {
         return databaseManager.getReadableDatabase(databaseName)
     }
 
-    fun getReadableDatabase(): DatabaseWrapper<*> {
+    fun getReadableDatabase(): DatabaseWrapper<*, *> {
         return databaseManager.getReadableDatabase(databaseName)
     }
 
-    override fun getWritableDatabase(@javax.annotation.Nonnull databaseName: String): DatabaseWrapper<*> {
+    override fun getWritableDatabase(@javax.annotation.Nonnull databaseName: String): DatabaseWrapper<*, *> {
         return databaseManager.getWritableDatabase(databaseName)
     }
 
-    fun getWritableDatabase(): DatabaseWrapper<*> {
+    fun getWritableDatabase(): DatabaseWrapper<*, *> {
         return databaseManager.getWritableDatabase(databaseName)
     }
 

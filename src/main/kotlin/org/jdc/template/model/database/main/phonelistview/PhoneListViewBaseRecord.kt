@@ -11,7 +11,7 @@
 package org.jdc.template.model.database.main.phonelistview
 
 import org.dbtools.android.domain.AndroidBaseRecord
-import android.content.ContentValues
+import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues
 import android.database.Cursor
 
 
@@ -40,11 +40,9 @@ abstract class PhoneListViewBaseRecord : AndroidBaseRecord() {
         return PhoneListViewConst.ALL_COLUMNS_FULL.clone()
     }
 
-    override fun getContentValues(): ContentValues {
-        val values = ContentValues()
+    override fun getContentValues(values: DBToolsContentValues<*>) {
         values.put(PhoneListViewConst.C_ID, id)
         values.put(PhoneListViewConst.C_NAME, name)
-        return values
     }
 
     override fun getValues(): Array<Any?> {
@@ -53,7 +51,7 @@ abstract class PhoneListViewBaseRecord : AndroidBaseRecord() {
             name)
     }
 
-    fun setContent(values: ContentValues) {
+    override fun setContent(values: DBToolsContentValues<*>) {
         id = values.getAsLong(PhoneListViewConst.C_ID)
         name = values.getAsString(PhoneListViewConst.C_NAME)
     }

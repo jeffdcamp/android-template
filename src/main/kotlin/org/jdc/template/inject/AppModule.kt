@@ -9,9 +9,11 @@ import android.util.Log
 import com.google.android.gms.analytics.GoogleAnalytics
 import dagger.Module
 import dagger.Provides
+import org.dbtools.android.domain.config.DatabaseConfig
 import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
 import org.jdc.template.BusRegistry
+import org.jdc.template.model.database.AppDatabaseConfig
 import org.jdc.template.model.webservice.ServiceModule
 import pocketbus.Bus
 import javax.inject.Singleton
@@ -52,6 +54,12 @@ class AppModule(private val application: Application) {
         val tracker = googleAnalytics.newTracker(BuildConfig.ANALYTICS_KEY)
         // tracker.setSessionTimeout(300); // default is 30 seconds
         return Analytics.GoogleAnalytics(tracker)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDatabaseConfig(application: Application): DatabaseConfig {
+        return AppDatabaseConfig(application);
     }
 
     @Provides

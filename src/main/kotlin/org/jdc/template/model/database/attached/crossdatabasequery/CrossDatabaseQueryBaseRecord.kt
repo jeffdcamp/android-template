@@ -11,7 +11,7 @@
 package org.jdc.template.model.database.attached.crossdatabasequery
 
 import org.dbtools.android.domain.AndroidBaseRecord
-import android.content.ContentValues
+import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues
 import android.database.Cursor
 
 
@@ -41,12 +41,10 @@ abstract class CrossDatabaseQueryBaseRecord : AndroidBaseRecord() {
         return CrossDatabaseQueryConst.ALL_COLUMNS_FULL.clone()
     }
 
-    override fun getContentValues(): ContentValues {
-        val values = ContentValues()
+    override fun getContentValues(values: DBToolsContentValues<*>) {
         values.put(CrossDatabaseQueryConst.C_ID, id)
         values.put(CrossDatabaseQueryConst.C_NAME, name)
         values.put(CrossDatabaseQueryConst.C_TYPE, type.ordinal)
-        return values
     }
 
     override fun getValues(): Array<Any?> {
@@ -56,7 +54,7 @@ abstract class CrossDatabaseQueryBaseRecord : AndroidBaseRecord() {
             type.ordinal)
     }
 
-    fun setContent(values: ContentValues) {
+    override fun setContent(values: DBToolsContentValues<*>) {
         id = values.getAsLong(CrossDatabaseQueryConst.C_ID)
         name = values.getAsString(CrossDatabaseQueryConst.C_NAME)
         type = LocationType.values()[values.getAsInteger(CrossDatabaseQueryConst.C_TYPE)]

@@ -8,8 +8,8 @@
 
 package org.jdc.template.model.database.main.phonelistview
 
-import android.content.ContentValues
 import android.database.Cursor
+import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues
 import org.jdc.template.model.database.main.individual.IndividualConst
 
 class PhoneListView : PhoneListViewBaseRecord {
@@ -34,7 +34,7 @@ class PhoneListView : PhoneListViewBaseRecord {
         setContent(cursor)
     }
 
-    constructor(values: ContentValues) {
+    constructor(values: DBToolsContentValues<*>) {
         setContent(values)
     }
 

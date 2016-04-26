@@ -9,7 +9,7 @@
 package org.jdc.template.model.database.other.individuallist
 
 import android.database.Cursor
-import android.content.ContentValues
+import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues
 
 
 class IndividualList : IndividualListBaseRecord {
@@ -22,7 +22,7 @@ class IndividualList : IndividualListBaseRecord {
         setContent(cursor)
     }
 
-    constructor(values: ContentValues) {
+    constructor(values: DBToolsContentValues<*>) {
         setContent(values)
     }
 

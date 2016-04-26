@@ -10,16 +10,18 @@
 
 package org.jdc.template.model.database
 
-import android.util.Log
-import org.dbtools.android.domain.AndroidDatabase
 import org.dbtools.android.domain.AndroidBaseManager
+import org.dbtools.android.domain.AndroidDatabase
 import org.dbtools.android.domain.AndroidDatabaseManager
-import org.dbtools.android.domain.database.DatabaseWrapper
+import org.dbtools.android.domain.config.DatabaseConfig
 
 
 @SuppressWarnings("all")
-abstract class DatabaseBaseManager : AndroidDatabaseManager() {
+abstract class DatabaseBaseManager : AndroidDatabaseManager {
 
+
+    constructor(databaseConfig: DatabaseConfig): super(databaseConfig) {
+    }
 
     fun createMainTables(androidDatabase: AndroidDatabase) {
         val database = androidDatabase.databaseWrapper
@@ -63,7 +65,7 @@ abstract class DatabaseBaseManager : AndroidDatabaseManager() {
     }
 
     override fun onCreate(androidDatabase: AndroidDatabase) {
-        Log.i(TAG, "Creating database: $androidDatabase.name");
+        getLogger().i(TAG, "Creating database: $androidDatabase.name");
         if (androidDatabase.name.equals(DatabaseManagerConst.MAIN_DATABASE_NAME)) {
             createMainTables(androidDatabase);
         }
@@ -98,14 +100,14 @@ abstract class DatabaseBaseManager : AndroidDatabaseManager() {
     }
 
     override fun onCreateViews(androidDatabase: AndroidDatabase) {
-        Log.i(TAG, "Creating database views: $androidDatabase.name")
+        getLogger().i(TAG, "Creating database views: $androidDatabase.name")
         if (androidDatabase.name.equals(DatabaseManagerConst.MAIN_DATABASE_NAME)) {
             createMainViews(androidDatabase)
         }
     }
 
     override fun onDropViews(androidDatabase: AndroidDatabase) {
-        Log.i(TAG, "Dropping database views: $androidDatabase.name")
+        getLogger().i(TAG, "Dropping database views: $androidDatabase.name")
         if (androidDatabase.name.equals(DatabaseManagerConst.MAIN_DATABASE_NAME)) {
             dropMainViews(androidDatabase);
         }

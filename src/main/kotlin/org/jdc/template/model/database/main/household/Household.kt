@@ -9,7 +9,7 @@
 package org.jdc.template.model.database.main.household
 
 import android.database.Cursor
-import android.content.ContentValues
+import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues
 
 
 class Household : HouseholdBaseRecord {
@@ -22,7 +22,7 @@ class Household : HouseholdBaseRecord {
         setContent(cursor)
     }
 
-    constructor(values: ContentValues) {
+    constructor(values: DBToolsContentValues<*>) {
         setContent(values)
     }
 

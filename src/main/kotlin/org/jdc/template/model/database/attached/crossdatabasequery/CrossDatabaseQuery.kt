@@ -8,8 +8,8 @@
 
 package org.jdc.template.model.database.attached.crossdatabasequery
 
-import android.content.ContentValues
 import android.database.Cursor
+import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues
 import org.dbtools.query.sql.SQLQueryBuilder
 
 class CrossDatabaseQuery : CrossDatabaseQueryBaseRecord {
@@ -33,7 +33,7 @@ class CrossDatabaseQuery : CrossDatabaseQueryBaseRecord {
         setContent(cursor)
     }
 
-    constructor(values: ContentValues) {
+    constructor(values: DBToolsContentValues<*>) {
         setContent(values)
     }
 

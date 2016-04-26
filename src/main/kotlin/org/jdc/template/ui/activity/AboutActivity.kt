@@ -17,6 +17,7 @@ import org.jdc.template.BuildConfig
 import org.jdc.template.R.layout.activity_about
 import org.jdc.template.inject.Injector
 import org.jdc.template.job.SampleJob
+import org.jdc.template.model.database.AppDatabaseConfig
 import org.jdc.template.model.database.DatabaseManager
 import org.jdc.template.model.database.DatabaseManagerConst
 import org.jdc.template.model.database.attached.crossdatabasequery.CrossDatabaseQuery
@@ -188,7 +189,7 @@ class AboutActivity : BaseActivity() {
 
 
     private fun createSampleDataNoInjection() {
-        val noInjectionDatabaseManager = DatabaseManager(application)
+        val noInjectionDatabaseManager = DatabaseManager(AppDatabaseConfig(application))
 
         val householdManager = HouseholdManager(noInjectionDatabaseManager)
         val individualManager = IndividualManager(noInjectionDatabaseManager)

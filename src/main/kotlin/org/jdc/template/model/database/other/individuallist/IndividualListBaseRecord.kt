@@ -11,7 +11,7 @@
 package org.jdc.template.model.database.other.individuallist
 
 import org.dbtools.android.domain.AndroidBaseRecord
-import android.content.ContentValues
+import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues
 import android.database.Cursor
 
 
@@ -41,10 +41,8 @@ abstract class IndividualListBaseRecord : AndroidBaseRecord() {
         return IndividualListConst.ALL_COLUMNS_FULL.clone()
     }
 
-    override fun getContentValues(): ContentValues {
-        val values = ContentValues()
+    override fun getContentValues(values: DBToolsContentValues<*>) {
         values.put(IndividualListConst.C_NAME, name)
-        return values
     }
 
     override fun getValues(): Array<Any?> {
@@ -53,7 +51,7 @@ abstract class IndividualListBaseRecord : AndroidBaseRecord() {
             name)
     }
 
-    fun setContent(values: ContentValues) {
+    override fun setContent(values: DBToolsContentValues<*>) {
         name = values.getAsString(IndividualListConst.C_NAME)
     }
 
