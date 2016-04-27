@@ -83,5 +83,15 @@ public abstract class IndividualListBaseManager extends RxAndroidBaseManagerWrit
         return IndividualListConst.CREATE_TABLE;
     }
 
+    @javax.annotation.Nonnull
+    public String getInsertSql() {
+        return IndividualListConst.INSERT_STATEMENT;
+    }
+
+    @javax.annotation.Nonnull
+    public String getUpdateSql() {
+        return IndividualListConst.UPDATE_STATEMENT;
+    }
+
 
 }

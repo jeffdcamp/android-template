@@ -85,5 +85,15 @@ public abstract class CrossDatabaseQueryBaseManager extends RxAndroidBaseManager
         return "";
     }
 
+    @javax.annotation.Nonnull
+    public String getInsertSql() {
+        return "";
+    }
+
+    @javax.annotation.Nonnull
+    public String getUpdateSql() {
+        return "";
+    }
+
 
 }

@@ -83,5 +83,15 @@ public abstract class HouseholdBaseManager extends RxAndroidBaseManagerWritable<
         return HouseholdConst.CREATE_TABLE;
     }
 
+    @javax.annotation.Nonnull
+    public String getInsertSql() {
+        return HouseholdConst.INSERT_STATEMENT;
+    }
+
+    @javax.annotation.Nonnull
+    public String getUpdateSql() {
+        return HouseholdConst.UPDATE_STATEMENT;
+    }
+
 
 }

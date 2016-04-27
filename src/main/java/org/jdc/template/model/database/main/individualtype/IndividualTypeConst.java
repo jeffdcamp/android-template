@@ -37,6 +37,8 @@ public class IndividualTypeConst {
         "" + 
         "";
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS INDIVIDUAL_TYPE;";
+    public static final String INSERT_STATEMENT = "INSERT INTO INDIVIDUAL_TYPE (NAME) VALUES (?)";
+    public static final String UPDATE_STATEMENT = "UPDATE INDIVIDUAL_TYPE SET NAME=? WHERE _id = ?";
 
     public IndividualTypeConst() {
     }

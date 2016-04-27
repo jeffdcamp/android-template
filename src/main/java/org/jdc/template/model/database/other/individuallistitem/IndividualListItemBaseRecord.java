@@ -11,6 +11,7 @@
 package org.jdc.template.model.database.other.individuallistitem;
 
 import org.dbtools.android.domain.AndroidBaseRecord;
+import org.dbtools.android.domain.database.statement.StatementWrapper;
 import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues;
 import android.database.Cursor;
 
@@ -63,6 +64,28 @@ public abstract class IndividualListItemBaseRecord extends AndroidBaseRecord {
             individualId,
         };
         return values;
+    }
+
+    @Override
+    public String[] getBindInsertValues() {
+        String[] values = new String[]{
+            String.valueOf(listId),
+            String.valueOf(individualId),
+        };
+        return values;
+    }
+
+    @Override
+    public void bindInsertStatement(StatementWrapper statement) {
+        statement.bindLong( 1, listId);
+        statement.bindLong( 2, individualId);
+    }
+
+    @Override
+    public void bindUpdateStatement(StatementWrapper statement) {
+        statement.bindLong( 1, listId);
+        statement.bindLong( 2, individualId);
+        statement.bindLong( 3, id);
     }
 
     public void setContent(DBToolsContentValues values) {

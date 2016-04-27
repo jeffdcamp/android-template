@@ -11,6 +11,7 @@
 package org.jdc.template.model.database.main.individualquery;
 
 import org.dbtools.android.domain.AndroidBaseRecord;
+import org.dbtools.android.domain.database.statement.StatementWrapper;
 import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues;
 import android.database.Cursor;
 
@@ -60,6 +61,35 @@ public abstract class IndividualQueryBaseRecord extends AndroidBaseRecord {
             name,
         };
         return values;
+    }
+
+    @Override
+    public String[] getBindInsertValues() {
+        String[] values = new String[]{
+            String.valueOf(id),
+            name != null ? String.valueOf(name) : null,
+        };
+        return values;
+    }
+
+    @Override
+    public void bindInsertStatement(StatementWrapper statement) {
+        statement.bindLong( 1, id);
+        if (name != null) {
+            statement.bindString(2, name);
+        } else {
+            statement.bindNull(2);
+        }
+    }
+
+    @Override
+    public void bindUpdateStatement(StatementWrapper statement) {
+        statement.bindLong( 1, id);
+        if (name != null) {
+            statement.bindString(2, name);
+        } else {
+            statement.bindNull(2);
+        }
     }
 
     public void setContent(DBToolsContentValues values) {

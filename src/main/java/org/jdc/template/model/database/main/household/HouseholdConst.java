@@ -31,6 +31,8 @@ public class HouseholdConst {
         "" + 
         "";
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS HOUSEHOLD;";
+    public static final String INSERT_STATEMENT = "INSERT INTO HOUSEHOLD (NAME) VALUES (?)";
+    public static final String UPDATE_STATEMENT = "UPDATE HOUSEHOLD SET NAME=? WHERE _id = ?";
     public static final String[] ALL_COLUMNS = new String[] {
         C_ID,
         C_NAME};

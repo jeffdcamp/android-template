@@ -11,6 +11,7 @@
 package org.jdc.template.model.database.main.household;
 
 import org.dbtools.android.domain.AndroidBaseRecord;
+import org.dbtools.android.domain.database.statement.StatementWrapper;
 import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues;
 import android.database.Cursor;
 
@@ -60,6 +61,33 @@ public abstract class HouseholdBaseRecord extends AndroidBaseRecord {
             name,
         };
         return values;
+    }
+
+    @Override
+    public String[] getBindInsertValues() {
+        String[] values = new String[]{
+            name != null ? String.valueOf(name) : null,
+        };
+        return values;
+    }
+
+    @Override
+    public void bindInsertStatement(StatementWrapper statement) {
+        if (name != null) {
+            statement.bindString(1, name);
+        } else {
+            statement.bindNull(1);
+        }
+    }
+
+    @Override
+    public void bindUpdateStatement(StatementWrapper statement) {
+        if (name != null) {
+            statement.bindString(1, name);
+        } else {
+            statement.bindNull(1);
+        }
+        statement.bindLong( 2, id);
     }
 
     public void setContent(DBToolsContentValues values) {

@@ -31,6 +31,8 @@ public class IndividualListConst {
         "" + 
         "";
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS INDIVIDUAL_LIST;";
+    public static final String INSERT_STATEMENT = "INSERT INTO INDIVIDUAL_LIST (NAME) VALUES (?)";
+    public static final String UPDATE_STATEMENT = "UPDATE INDIVIDUAL_LIST SET NAME=? WHERE _id = ?";
     public static final String[] ALL_COLUMNS = new String[] {
         C_ID,
         C_NAME};

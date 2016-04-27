@@ -85,5 +85,15 @@ public abstract class IndividualQueryBaseManager extends RxAndroidBaseManagerRea
         return "";
     }
 
+    @javax.annotation.Nonnull
+    public String getInsertSql() {
+        return "";
+    }
+
+    @javax.annotation.Nonnull
+    public String getUpdateSql() {
+        return "";
+    }
+
 
 }

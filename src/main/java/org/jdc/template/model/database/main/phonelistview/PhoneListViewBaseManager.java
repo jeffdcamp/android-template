@@ -83,5 +83,15 @@ public abstract class PhoneListViewBaseManager extends RxAndroidBaseManagerReadO
         return PhoneListView.CREATE_VIEW;
     }
 
+    @javax.annotation.Nonnull
+    public String getInsertSql() {
+        return "";
+    }
+
+    @javax.annotation.Nonnull
+    public String getUpdateSql() {
+        return "";
+    }
+
 
 }
