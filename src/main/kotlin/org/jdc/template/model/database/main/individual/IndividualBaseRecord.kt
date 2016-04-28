@@ -97,19 +97,19 @@ abstract class IndividualBaseRecord : AndroidBaseRecord() {
         if (org.dbtools.android.domain.DBToolsDateFormatter.localDateToDBString(birthDate) != null) {
             statement.bindString(5, org.dbtools.android.domain.DBToolsDateFormatter.localDateToDBString(birthDate)!!)
         } else {
-            statement.bindNull(5);
+            statement.bindNull(5)
         }
         statement.bindString(6, org.dbtools.android.domain.DBToolsDateFormatter.localTimeToDBString(alarmTime)!!)
         statement.bindLong(7, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(lastModified)!!)
         if (org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime) != null) {
             statement.bindString(8, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime)!!)
         } else {
-            statement.bindNull(8);
+            statement.bindNull(8)
         }
         if (org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(sampleTimestamp) != null) {
             statement.bindLong(9, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(sampleTimestamp)!!)
         } else {
-            statement.bindNull(9);
+            statement.bindNull(9)
         }
         statement.bindString(10, phone)
         statement.bindString(11, email)
@@ -117,7 +117,7 @@ abstract class IndividualBaseRecord : AndroidBaseRecord() {
         if (spouseIndividualId != null) {
             statement.bindLong(13, spouseIndividualId!!)
         } else {
-            statement.bindNull(13);
+            statement.bindNull(13)
         }
     }
 
@@ -129,19 +129,19 @@ abstract class IndividualBaseRecord : AndroidBaseRecord() {
         if (org.dbtools.android.domain.DBToolsDateFormatter.localDateToDBString(birthDate) != null) {
             statement.bindString(5, org.dbtools.android.domain.DBToolsDateFormatter.localDateToDBString(birthDate)!!)
         } else {
-            statement.bindNull(5);
+            statement.bindNull(5)
         }
         statement.bindString(6, org.dbtools.android.domain.DBToolsDateFormatter.localTimeToDBString(alarmTime)!!)
         statement.bindLong(7, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(lastModified)!!)
         if (org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime) != null) {
             statement.bindString(8, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime)!!)
         } else {
-            statement.bindNull(8);
+            statement.bindNull(8)
         }
         if (org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(sampleTimestamp) != null) {
             statement.bindLong(9, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(sampleTimestamp)!!)
         } else {
-            statement.bindNull(9);
+            statement.bindNull(9)
         }
         statement.bindString(10, phone)
         statement.bindString(11, email)
@@ -149,7 +149,7 @@ abstract class IndividualBaseRecord : AndroidBaseRecord() {
         if (spouseIndividualId != null) {
             statement.bindLong(13, spouseIndividualId!!)
         } else {
-            statement.bindNull(13);
+            statement.bindNull(13)
         }
         statement.bindLong(14, id)
     }
