@@ -10,10 +10,11 @@
 
 package org.jdc.template.model.database.attached.crossdatabasequery;
 
-import org.dbtools.android.domain.AndroidBaseRecord;
-import org.dbtools.android.domain.database.statement.StatementWrapper;
-import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues;
 import android.database.Cursor;
+
+import org.dbtools.android.domain.AndroidBaseRecord;
+import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues;
+import org.dbtools.android.domain.database.statement.StatementWrapper;
 
 
 @SuppressWarnings("all")
@@ -67,35 +68,17 @@ public abstract class CrossDatabaseQueryBaseRecord extends AndroidBaseRecord {
     }
 
     @Override
-    public String[] getBindInsertValues() {
-        String[] values = new String[]{
-            String.valueOf(id),
-            name != null ? String.valueOf(name) : null,
-            String.valueOf(type.ordinal()),
-        };
-        return values;
-    }
-
-    @Override
     public void bindInsertStatement(StatementWrapper statement) {
-        statement.bindLong( 1, id);
-        if (name != null) {
-            statement.bindString(2, name);
-        } else {
-            statement.bindNull(2);
-        }
-        statement.bindLong( 3, type.ordinal());
+        statement.bindLong(1, id);
+        statement.bindString(2, name);
+        statement.bindLong(3, type.ordinal());
     }
 
     @Override
     public void bindUpdateStatement(StatementWrapper statement) {
-        statement.bindLong( 1, id);
-        if (name != null) {
-            statement.bindString(2, name);
-        } else {
-            statement.bindNull(2);
-        }
-        statement.bindLong( 3, type.ordinal());
+        statement.bindLong(1, id);
+        statement.bindString(2, name);
+        statement.bindLong(3, type.ordinal());
     }
 
     public void setContent(DBToolsContentValues values) {

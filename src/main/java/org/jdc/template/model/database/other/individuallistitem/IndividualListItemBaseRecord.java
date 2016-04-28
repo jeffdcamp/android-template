@@ -67,25 +67,16 @@ public abstract class IndividualListItemBaseRecord extends AndroidBaseRecord {
     }
 
     @Override
-    public String[] getBindInsertValues() {
-        String[] values = new String[]{
-            String.valueOf(listId),
-            String.valueOf(individualId),
-        };
-        return values;
-    }
-
-    @Override
     public void bindInsertStatement(StatementWrapper statement) {
-        statement.bindLong( 1, listId);
-        statement.bindLong( 2, individualId);
+        statement.bindLong(1, listId);
+        statement.bindLong(2, individualId);
     }
 
     @Override
     public void bindUpdateStatement(StatementWrapper statement) {
-        statement.bindLong( 1, listId);
-        statement.bindLong( 2, individualId);
-        statement.bindLong( 3, id);
+        statement.bindLong(1, listId);
+        statement.bindLong(2, individualId);
+        statement.bindLong(3, id);
     }
 
     public void setContent(DBToolsContentValues values) {

@@ -64,30 +64,14 @@ public abstract class HouseholdBaseRecord extends AndroidBaseRecord {
     }
 
     @Override
-    public String[] getBindInsertValues() {
-        String[] values = new String[]{
-            name != null ? String.valueOf(name) : null,
-        };
-        return values;
-    }
-
-    @Override
     public void bindInsertStatement(StatementWrapper statement) {
-        if (name != null) {
-            statement.bindString(1, name);
-        } else {
-            statement.bindNull(1);
-        }
+        statement.bindString(1, name);
     }
 
     @Override
     public void bindUpdateStatement(StatementWrapper statement) {
-        if (name != null) {
-            statement.bindString(1, name);
-        } else {
-            statement.bindNull(1);
-        }
-        statement.bindLong( 2, id);
+        statement.bindString(1, name);
+        statement.bindLong(2, id);
     }
 
     public void setContent(DBToolsContentValues values) {

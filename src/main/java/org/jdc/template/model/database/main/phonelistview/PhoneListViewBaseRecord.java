@@ -64,32 +64,15 @@ public abstract class PhoneListViewBaseRecord extends AndroidBaseRecord {
     }
 
     @Override
-    public String[] getBindInsertValues() {
-        String[] values = new String[]{
-            String.valueOf(id),
-            name != null ? String.valueOf(name) : null,
-        };
-        return values;
-    }
-
-    @Override
     public void bindInsertStatement(StatementWrapper statement) {
-        statement.bindLong( 1, id);
-        if (name != null) {
-            statement.bindString(2, name);
-        } else {
-            statement.bindNull(2);
-        }
+        statement.bindLong(1, id);
+        statement.bindString(2, name);
     }
 
     @Override
     public void bindUpdateStatement(StatementWrapper statement) {
-        statement.bindLong( 1, id);
-        if (name != null) {
-            statement.bindString(2, name);
-        } else {
-            statement.bindNull(2);
-        }
+        statement.bindLong(1, id);
+        statement.bindString(2, name);
     }
 
     public void setContent(DBToolsContentValues values) {

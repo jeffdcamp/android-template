@@ -101,54 +101,18 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
     }
 
     @Override
-    public String[] getBindInsertValues() {
-        String[] values = new String[]{
-            String.valueOf(householdId),
-            String.valueOf(individualType.ordinal()),
-            firstName != null ? String.valueOf(firstName) : null,
-            lastName != null ? String.valueOf(lastName) : null,
-            birthDate != null ? String.valueOf(org.dbtools.android.domain.DBToolsDateFormatter.localDateToDBString(birthDate)) : null,
-            alarmTime != null ? String.valueOf(org.dbtools.android.domain.DBToolsDateFormatter.localTimeToDBString(alarmTime)) : null,
-            lastModified != null ? String.valueOf(org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(lastModified)) : null,
-            sampleDateTime != null ? String.valueOf(org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime)) : null,
-            sampleTimestamp != null ? String.valueOf(org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(sampleTimestamp)) : null,
-            phone != null ? String.valueOf(phone) : null,
-            email != null ? String.valueOf(email) : null,
-            String.valueOf(available ? 1 : 0),
-            spouseIndividualId != null ? String.valueOf(spouseIndividualId) : null,
-        };
-        return values;
-    }
-
-    @Override
     public void bindInsertStatement(StatementWrapper statement) {
-        statement.bindLong( 1, householdId);
-        statement.bindLong( 2, individualType.ordinal());
-        if (firstName != null) {
-            statement.bindString(3, firstName);
-        } else {
-            statement.bindNull(3);
-        }
-        if (lastName != null) {
-            statement.bindString(4, lastName);
-        } else {
-            statement.bindNull(4);
-        }
+        statement.bindLong(1, householdId);
+        statement.bindLong(2, individualType.ordinal());
+        statement.bindString(3, firstName);
+        statement.bindString(4, lastName);
         if (org.dbtools.android.domain.DBToolsDateFormatter.localDateToDBString(birthDate) != null) {
             statement.bindString(5, org.dbtools.android.domain.DBToolsDateFormatter.localDateToDBString(birthDate));
         } else {
             statement.bindNull(5);
         }
-        if (org.dbtools.android.domain.DBToolsDateFormatter.localTimeToDBString(alarmTime) != null) {
-            statement.bindString(6, org.dbtools.android.domain.DBToolsDateFormatter.localTimeToDBString(alarmTime));
-        } else {
-            statement.bindNull(6);
-        }
-        if (org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(lastModified) != null) {
-            statement.bindLong(7, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(lastModified));
-        } else {
-            statement.bindNull(7);
-        }
+        statement.bindString(6, org.dbtools.android.domain.DBToolsDateFormatter.localTimeToDBString(alarmTime));
+        statement.bindLong(7, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(lastModified));
         if (org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime) != null) {
             statement.bindString(8, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime));
         } else {
@@ -159,17 +123,9 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         } else {
             statement.bindNull(9);
         }
-        if (phone != null) {
-            statement.bindString(10, phone);
-        } else {
-            statement.bindNull(10);
-        }
-        if (email != null) {
-            statement.bindString(11, email);
-        } else {
-            statement.bindNull(11);
-        }
-        statement.bindLong( 12, available ? 1 : 0);
+        statement.bindString(10, phone);
+        statement.bindString(11, email);
+        statement.bindLong(12, available ? 1 : 0);
         if (spouseIndividualId != null) {
             statement.bindLong(13, spouseIndividualId);
         } else {
@@ -179,33 +135,17 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
 
     @Override
     public void bindUpdateStatement(StatementWrapper statement) {
-        statement.bindLong( 1, householdId);
-        statement.bindLong( 2, individualType.ordinal());
-        if (firstName != null) {
-            statement.bindString(3, firstName);
-        } else {
-            statement.bindNull(3);
-        }
-        if (lastName != null) {
-            statement.bindString(4, lastName);
-        } else {
-            statement.bindNull(4);
-        }
+        statement.bindLong(1, householdId);
+        statement.bindLong(2, individualType.ordinal());
+        statement.bindString(3, firstName);
+        statement.bindString(4, lastName);
         if (org.dbtools.android.domain.DBToolsDateFormatter.localDateToDBString(birthDate) != null) {
             statement.bindString(5, org.dbtools.android.domain.DBToolsDateFormatter.localDateToDBString(birthDate));
         } else {
             statement.bindNull(5);
         }
-        if (org.dbtools.android.domain.DBToolsDateFormatter.localTimeToDBString(alarmTime) != null) {
-            statement.bindString(6, org.dbtools.android.domain.DBToolsDateFormatter.localTimeToDBString(alarmTime));
-        } else {
-            statement.bindNull(6);
-        }
-        if (org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(lastModified) != null) {
-            statement.bindLong(7, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(lastModified));
-        } else {
-            statement.bindNull(7);
-        }
+        statement.bindString(6, org.dbtools.android.domain.DBToolsDateFormatter.localTimeToDBString(alarmTime));
+        statement.bindLong(7, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(lastModified));
         if (org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime) != null) {
             statement.bindString(8, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime));
         } else {
@@ -216,23 +156,15 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         } else {
             statement.bindNull(9);
         }
-        if (phone != null) {
-            statement.bindString(10, phone);
-        } else {
-            statement.bindNull(10);
-        }
-        if (email != null) {
-            statement.bindString(11, email);
-        } else {
-            statement.bindNull(11);
-        }
-        statement.bindLong( 12, available ? 1 : 0);
+        statement.bindString(10, phone);
+        statement.bindString(11, email);
+        statement.bindLong(12, available ? 1 : 0);
         if (spouseIndividualId != null) {
             statement.bindLong(13, spouseIndividualId);
         } else {
             statement.bindNull(13);
         }
-        statement.bindLong( 14, id);
+        statement.bindLong(14, id);
     }
 
     public void setContent(DBToolsContentValues values) {
