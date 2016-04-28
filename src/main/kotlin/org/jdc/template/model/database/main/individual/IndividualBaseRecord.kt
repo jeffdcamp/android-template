@@ -90,17 +90,17 @@ abstract class IndividualBaseRecord : AndroidBaseRecord() {
     }
 
     override fun bindInsertStatement(statement: StatementWrapper) {
-        statement.bindLong( 1, householdId)
-        statement.bindLong( 2, individualType.ordinal.toLong())
-        statement.bindString( 3, firstName)
-        statement.bindString( 4, lastName)
+        statement.bindLong(1, householdId)
+        statement.bindLong(2, individualType.ordinal.toLong())
+        statement.bindString(3, firstName)
+        statement.bindString(4, lastName)
         if (org.dbtools.android.domain.DBToolsDateFormatter.localDateToDBString(birthDate) != null) {
             statement.bindString(5, org.dbtools.android.domain.DBToolsDateFormatter.localDateToDBString(birthDate)!!)
         } else {
             statement.bindNull(5);
         }
-        statement.bindString( 6, org.dbtools.android.domain.DBToolsDateFormatter.localTimeToDBString(alarmTime)!!)
-        statement.bindLong( 7, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(lastModified)!!)
+        statement.bindString(6, org.dbtools.android.domain.DBToolsDateFormatter.localTimeToDBString(alarmTime)!!)
+        statement.bindLong(7, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(lastModified)!!)
         if (org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime) != null) {
             statement.bindString(8, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime)!!)
         } else {
@@ -111,9 +111,9 @@ abstract class IndividualBaseRecord : AndroidBaseRecord() {
         } else {
             statement.bindNull(9);
         }
-        statement.bindString( 10, phone)
-        statement.bindString( 11, email)
-        statement.bindLong( 12, if (available) 1 else 0)
+        statement.bindString(10, phone)
+        statement.bindString(11, email)
+        statement.bindLong(12, if (available) 1 else 0)
         if (spouseIndividualId != null) {
             statement.bindLong(13, spouseIndividualId!!)
         } else {
@@ -122,17 +122,17 @@ abstract class IndividualBaseRecord : AndroidBaseRecord() {
     }
 
     override fun bindUpdateStatement(statement: StatementWrapper) {
-        statement.bindLong( 1, householdId)
-        statement.bindLong( 2, individualType.ordinal.toLong())
-        statement.bindString( 3, firstName)
-        statement.bindString( 4, lastName)
+        statement.bindLong(1, householdId)
+        statement.bindLong(2, individualType.ordinal.toLong())
+        statement.bindString(3, firstName)
+        statement.bindString(4, lastName)
         if (org.dbtools.android.domain.DBToolsDateFormatter.localDateToDBString(birthDate) != null) {
             statement.bindString(5, org.dbtools.android.domain.DBToolsDateFormatter.localDateToDBString(birthDate)!!)
         } else {
             statement.bindNull(5);
         }
-        statement.bindString( 6, org.dbtools.android.domain.DBToolsDateFormatter.localTimeToDBString(alarmTime)!!)
-        statement.bindLong( 7, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(lastModified)!!)
+        statement.bindString(6, org.dbtools.android.domain.DBToolsDateFormatter.localTimeToDBString(alarmTime)!!)
+        statement.bindLong(7, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(lastModified)!!)
         if (org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime) != null) {
             statement.bindString(8, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime)!!)
         } else {
@@ -143,15 +143,15 @@ abstract class IndividualBaseRecord : AndroidBaseRecord() {
         } else {
             statement.bindNull(9);
         }
-        statement.bindString( 10, phone)
-        statement.bindString( 11, email)
-        statement.bindLong( 12, if (available) 1 else 0)
+        statement.bindString(10, phone)
+        statement.bindString(11, email)
+        statement.bindLong(12, if (available) 1 else 0)
         if (spouseIndividualId != null) {
             statement.bindLong(13, spouseIndividualId!!)
         } else {
             statement.bindNull(13);
         }
-        statement.bindLong( 14, id)
+        statement.bindLong(14, id)
     }
 
     override fun setContent(values: DBToolsContentValues<*>) {

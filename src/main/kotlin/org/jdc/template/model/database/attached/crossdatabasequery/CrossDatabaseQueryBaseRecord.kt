@@ -56,15 +56,15 @@ abstract class CrossDatabaseQueryBaseRecord : AndroidBaseRecord() {
     }
 
     override fun bindInsertStatement(statement: StatementWrapper) {
-        statement.bindLong( 1, id)
-        statement.bindString( 2, name)
-        statement.bindLong( 3, type.ordinal.toLong())
+        statement.bindLong(1, id)
+        statement.bindString(2, name)
+        statement.bindLong(3, type.ordinal.toLong())
     }
 
     override fun bindUpdateStatement(statement: StatementWrapper) {
-        statement.bindLong( 1, id)
-        statement.bindString( 2, name)
-        statement.bindLong( 3, type.ordinal.toLong())
+        statement.bindLong(1, id)
+        statement.bindString(2, name)
+        statement.bindLong(3, type.ordinal.toLong())
     }
 
     override fun setContent(values: DBToolsContentValues<*>) {

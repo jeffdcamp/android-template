@@ -53,13 +53,13 @@ abstract class PhoneListViewBaseRecord : AndroidBaseRecord() {
     }
 
     override fun bindInsertStatement(statement: StatementWrapper) {
-        statement.bindLong( 1, id)
-        statement.bindString( 2, name)
+        statement.bindLong(1, id)
+        statement.bindString(2, name)
     }
 
     override fun bindUpdateStatement(statement: StatementWrapper) {
-        statement.bindLong( 1, id)
-        statement.bindString( 2, name)
+        statement.bindLong(1, id)
+        statement.bindString(2, name)
     }
 
     override fun setContent(values: DBToolsContentValues<*>) {

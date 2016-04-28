@@ -56,14 +56,14 @@ abstract class IndividualListItemBaseRecord : AndroidBaseRecord() {
     }
 
     override fun bindInsertStatement(statement: StatementWrapper) {
-        statement.bindLong( 1, listId)
-        statement.bindLong( 2, individualId)
+        statement.bindLong(1, listId)
+        statement.bindLong(2, individualId)
     }
 
     override fun bindUpdateStatement(statement: StatementWrapper) {
-        statement.bindLong( 1, listId)
-        statement.bindLong( 2, individualId)
-        statement.bindLong( 3, id)
+        statement.bindLong(1, listId)
+        statement.bindLong(2, individualId)
+        statement.bindLong(3, id)
     }
 
     override fun setContent(values: DBToolsContentValues<*>) {
