@@ -31,6 +31,8 @@ object HouseholdConst {
         "" + 
         ""
     const val DROP_TABLE = "DROP TABLE IF EXISTS HOUSEHOLD;"
+    const val INSERT_STATEMENT = "INSERT INTO HOUSEHOLD (NAME) VALUES (?)"
+    const val UPDATE_STATEMENT = "UPDATE HOUSEHOLD SET NAME=? WHERE _id = ?"
     val ALL_COLUMNS = arrayOf(
         C_ID,
         C_NAME)

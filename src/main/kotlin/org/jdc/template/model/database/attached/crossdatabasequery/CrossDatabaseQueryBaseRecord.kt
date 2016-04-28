@@ -11,6 +11,7 @@
 package org.jdc.template.model.database.attached.crossdatabasequery
 
 import org.dbtools.android.domain.AndroidBaseRecord
+import org.dbtools.android.domain.database.statement.StatementWrapper
 import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues
 import android.database.Cursor
 
@@ -44,14 +45,26 @@ abstract class CrossDatabaseQueryBaseRecord : AndroidBaseRecord() {
     override fun getContentValues(values: DBToolsContentValues<*>) {
         values.put(CrossDatabaseQueryConst.C_ID, id)
         values.put(CrossDatabaseQueryConst.C_NAME, name)
-        values.put(CrossDatabaseQueryConst.C_TYPE, type.ordinal)
+        values.put(CrossDatabaseQueryConst.C_TYPE, type.ordinal.toLong())
     }
 
     override fun getValues(): Array<Any?> {
         return arrayOf(
             id,
             name,
-            type.ordinal)
+            type.ordinal.toLong())
+    }
+
+    override fun bindInsertStatement(statement: StatementWrapper) {
+        statement.bindLong( 1, id)
+        statement.bindString( 2, name)
+        statement.bindLong( 3, type.ordinal.toLong())
+    }
+
+    override fun bindUpdateStatement(statement: StatementWrapper) {
+        statement.bindLong( 1, id)
+        statement.bindString( 2, name)
+        statement.bindLong( 3, type.ordinal.toLong())
     }
 
     override fun setContent(values: DBToolsContentValues<*>) {

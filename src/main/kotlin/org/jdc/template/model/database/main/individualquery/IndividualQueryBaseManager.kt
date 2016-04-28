@@ -73,5 +73,13 @@ abstract class IndividualQueryBaseManager : RxKotlinAndroidBaseManagerReadOnly<I
         return ""
     }
 
+    override fun getInsertSql(): String {
+        return ""
+    }
+
+    override fun getUpdateSql(): String {
+        return ""
+    }
+
 
 }

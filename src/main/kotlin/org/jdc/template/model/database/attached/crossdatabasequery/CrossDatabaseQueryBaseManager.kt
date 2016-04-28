@@ -73,5 +73,13 @@ abstract class CrossDatabaseQueryBaseManager : RxKotlinAndroidBaseManagerReadOnl
         return ""
     }
 
+    override fun getInsertSql(): String {
+        return ""
+    }
+
+    override fun getUpdateSql(): String {
+        return ""
+    }
+
 
 }

@@ -71,5 +71,13 @@ abstract class IndividualListItemBaseManager : RxKotlinAndroidBaseManagerWritabl
         return IndividualListItemConst.CREATE_TABLE
     }
 
+    override fun getInsertSql(): String {
+        return IndividualListItemConst.INSERT_STATEMENT
+    }
+
+    override fun getUpdateSql(): String {
+        return IndividualListItemConst.UPDATE_STATEMENT
+    }
+
 
 }

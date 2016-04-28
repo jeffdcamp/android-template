@@ -11,6 +11,7 @@
 package org.jdc.template.model.database.main.individualquery
 
 import org.dbtools.android.domain.AndroidBaseRecord
+import org.dbtools.android.domain.database.statement.StatementWrapper
 import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues
 import android.database.Cursor
 
@@ -49,6 +50,16 @@ abstract class IndividualQueryBaseRecord : AndroidBaseRecord() {
         return arrayOf(
             id,
             name)
+    }
+
+    override fun bindInsertStatement(statement: StatementWrapper) {
+        statement.bindLong( 1, id)
+        statement.bindString( 2, name)
+    }
+
+    override fun bindUpdateStatement(statement: StatementWrapper) {
+        statement.bindLong( 1, id)
+        statement.bindString( 2, name)
     }
 
     override fun setContent(values: DBToolsContentValues<*>) {

@@ -37,6 +37,8 @@ object IndividualTypeConst {
         "" + 
         ""
     const val DROP_TABLE = "DROP TABLE IF EXISTS INDIVIDUAL_TYPE;"
+    const val INSERT_STATEMENT = "INSERT INTO INDIVIDUAL_TYPE (NAME) VALUES (?)"
+    const val UPDATE_STATEMENT = "UPDATE INDIVIDUAL_TYPE SET NAME=? WHERE _id = ?"
 
     fun getId(cursor: Cursor): Long {
         return cursor.getLong(cursor.getColumnIndexOrThrow(C_ID))

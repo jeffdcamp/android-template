@@ -10,9 +10,10 @@
 
 package org.jdc.template.model.database
 
-import org.dbtools.android.domain.AndroidBaseManager
 import org.dbtools.android.domain.AndroidDatabase
+import org.dbtools.android.domain.AndroidBaseManager
 import org.dbtools.android.domain.AndroidDatabaseManager
+import org.dbtools.android.domain.database.DatabaseWrapper
 import org.dbtools.android.domain.config.DatabaseConfig
 
 

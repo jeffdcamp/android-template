@@ -71,5 +71,13 @@ abstract class IndividualBaseManager : RxKotlinAndroidBaseManagerWritable<Indivi
         return IndividualConst.CREATE_TABLE
     }
 
+    override fun getInsertSql(): String {
+        return IndividualConst.INSERT_STATEMENT
+    }
+
+    override fun getUpdateSql(): String {
+        return IndividualConst.UPDATE_STATEMENT
+    }
+
 
 }

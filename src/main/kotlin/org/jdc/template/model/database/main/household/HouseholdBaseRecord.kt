@@ -11,6 +11,7 @@
 package org.jdc.template.model.database.main.household
 
 import org.dbtools.android.domain.AndroidBaseRecord
+import org.dbtools.android.domain.database.statement.StatementWrapper
 import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues
 import android.database.Cursor
 
@@ -49,6 +50,15 @@ abstract class HouseholdBaseRecord : AndroidBaseRecord() {
         return arrayOf(
             id,
             name)
+    }
+
+    override fun bindInsertStatement(statement: StatementWrapper) {
+        statement.bindString( 1, name)
+    }
+
+    override fun bindUpdateStatement(statement: StatementWrapper) {
+        statement.bindString( 1, name)
+        statement.bindLong( 2, id)
     }
 
     override fun setContent(values: DBToolsContentValues<*>) {

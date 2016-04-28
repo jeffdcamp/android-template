@@ -71,5 +71,13 @@ abstract class HouseholdBaseManager : RxKotlinAndroidBaseManagerWritable<Househo
         return HouseholdConst.CREATE_TABLE
     }
 
+    override fun getInsertSql(): String {
+        return HouseholdConst.INSERT_STATEMENT
+    }
+
+    override fun getUpdateSql(): String {
+        return HouseholdConst.UPDATE_STATEMENT
+    }
+
 
 }

@@ -71,5 +71,13 @@ abstract class PhoneListViewBaseManager : RxKotlinAndroidBaseManagerReadOnly<Pho
         return PhoneListView.CREATE_VIEW
     }
 
+    override fun getInsertSql(): String {
+        return ""
+    }
+
+    override fun getUpdateSql(): String {
+        return ""
+    }
+
 
 }

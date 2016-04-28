@@ -10,10 +10,11 @@
 
 package org.jdc.template.model.database.main.individual
 
-import android.database.Cursor
 import org.dbtools.android.domain.AndroidBaseRecord
-import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues
+import org.dbtools.android.domain.database.statement.StatementWrapper
 import org.jdc.template.model.database.main.individualtype.IndividualType
+import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues
+import android.database.Cursor
 
 
 @SuppressWarnings("all")
@@ -56,12 +57,12 @@ abstract class IndividualBaseRecord : AndroidBaseRecord() {
 
     override fun getContentValues(values: DBToolsContentValues<*>) {
         values.put(IndividualConst.C_HOUSEHOLD_ID, householdId)
-        values.put(IndividualConst.C_INDIVIDUAL_TYPE, individualType.ordinal)
+        values.put(IndividualConst.C_INDIVIDUAL_TYPE, individualType.ordinal.toLong())
         values.put(IndividualConst.C_FIRST_NAME, firstName)
         values.put(IndividualConst.C_LAST_NAME, lastName)
         values.put(IndividualConst.C_BIRTH_DATE, org.dbtools.android.domain.DBToolsDateFormatter.localDateToDBString(birthDate))
-        values.put(IndividualConst.C_ALARM_TIME, org.dbtools.android.domain.DBToolsDateFormatter.localTimeToDBString(alarmTime))
-        values.put(IndividualConst.C_LAST_MODIFIED, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(lastModified))
+        values.put(IndividualConst.C_ALARM_TIME, org.dbtools.android.domain.DBToolsDateFormatter.localTimeToDBString(alarmTime)!!)
+        values.put(IndividualConst.C_LAST_MODIFIED, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(lastModified)!!)
         values.put(IndividualConst.C_SAMPLE_DATE_TIME, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime))
         values.put(IndividualConst.C_SAMPLE_TIMESTAMP, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(sampleTimestamp))
         values.put(IndividualConst.C_PHONE, phone)
@@ -74,18 +75,83 @@ abstract class IndividualBaseRecord : AndroidBaseRecord() {
         return arrayOf(
             id,
             householdId,
-            individualType.ordinal,
+            individualType.ordinal.toLong(),
             firstName,
             lastName,
             org.dbtools.android.domain.DBToolsDateFormatter.localDateToDBString(birthDate),
-            org.dbtools.android.domain.DBToolsDateFormatter.localTimeToDBString(alarmTime),
-            org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(lastModified),
+            org.dbtools.android.domain.DBToolsDateFormatter.localTimeToDBString(alarmTime)!!,
+            org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(lastModified)!!,
             org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime),
             org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(sampleTimestamp),
             phone,
             email,
             if (available) 1 else 0,
             spouseIndividualId)
+    }
+
+    override fun bindInsertStatement(statement: StatementWrapper) {
+        statement.bindLong( 1, householdId)
+        statement.bindLong( 2, individualType.ordinal.toLong())
+        statement.bindString( 3, firstName)
+        statement.bindString( 4, lastName)
+        if (org.dbtools.android.domain.DBToolsDateFormatter.localDateToDBString(birthDate) != null) {
+            statement.bindString(5, org.dbtools.android.domain.DBToolsDateFormatter.localDateToDBString(birthDate)!!)
+        } else {
+            statement.bindNull(5);
+        }
+        statement.bindString( 6, org.dbtools.android.domain.DBToolsDateFormatter.localTimeToDBString(alarmTime)!!)
+        statement.bindLong( 7, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(lastModified)!!)
+        if (org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime) != null) {
+            statement.bindString(8, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime)!!)
+        } else {
+            statement.bindNull(8);
+        }
+        if (org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(sampleTimestamp) != null) {
+            statement.bindLong(9, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(sampleTimestamp)!!)
+        } else {
+            statement.bindNull(9);
+        }
+        statement.bindString( 10, phone)
+        statement.bindString( 11, email)
+        statement.bindLong( 12, if (available) 1 else 0)
+        if (spouseIndividualId != null) {
+            statement.bindLong(13, spouseIndividualId!!)
+        } else {
+            statement.bindNull(13);
+        }
+    }
+
+    override fun bindUpdateStatement(statement: StatementWrapper) {
+        statement.bindLong( 1, householdId)
+        statement.bindLong( 2, individualType.ordinal.toLong())
+        statement.bindString( 3, firstName)
+        statement.bindString( 4, lastName)
+        if (org.dbtools.android.domain.DBToolsDateFormatter.localDateToDBString(birthDate) != null) {
+            statement.bindString(5, org.dbtools.android.domain.DBToolsDateFormatter.localDateToDBString(birthDate)!!)
+        } else {
+            statement.bindNull(5);
+        }
+        statement.bindString( 6, org.dbtools.android.domain.DBToolsDateFormatter.localTimeToDBString(alarmTime)!!)
+        statement.bindLong( 7, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(lastModified)!!)
+        if (org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime) != null) {
+            statement.bindString(8, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime)!!)
+        } else {
+            statement.bindNull(8);
+        }
+        if (org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(sampleTimestamp) != null) {
+            statement.bindLong(9, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(sampleTimestamp)!!)
+        } else {
+            statement.bindNull(9);
+        }
+        statement.bindString( 10, phone)
+        statement.bindString( 11, email)
+        statement.bindLong( 12, if (available) 1 else 0)
+        if (spouseIndividualId != null) {
+            statement.bindLong(13, spouseIndividualId!!)
+        } else {
+            statement.bindNull(13);
+        }
+        statement.bindLong( 14, id)
     }
 
     override fun setContent(values: DBToolsContentValues<*>) {

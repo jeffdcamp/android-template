@@ -11,6 +11,7 @@
 package org.jdc.template.model.database.other.individuallistitem
 
 import org.dbtools.android.domain.AndroidBaseRecord
+import org.dbtools.android.domain.database.statement.StatementWrapper
 import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues
 import android.database.Cursor
 
@@ -52,6 +53,17 @@ abstract class IndividualListItemBaseRecord : AndroidBaseRecord() {
             id,
             listId,
             individualId)
+    }
+
+    override fun bindInsertStatement(statement: StatementWrapper) {
+        statement.bindLong( 1, listId)
+        statement.bindLong( 2, individualId)
+    }
+
+    override fun bindUpdateStatement(statement: StatementWrapper) {
+        statement.bindLong( 1, listId)
+        statement.bindLong( 2, individualId)
+        statement.bindLong( 3, id)
     }
 
     override fun setContent(values: DBToolsContentValues<*>) {

@@ -31,6 +31,8 @@ object IndividualListConst {
         "" + 
         ""
     const val DROP_TABLE = "DROP TABLE IF EXISTS INDIVIDUAL_LIST;"
+    const val INSERT_STATEMENT = "INSERT INTO INDIVIDUAL_LIST (NAME) VALUES (?)"
+    const val UPDATE_STATEMENT = "UPDATE INDIVIDUAL_LIST SET NAME=? WHERE _id = ?"
     val ALL_COLUMNS = arrayOf(
         C_ID,
         C_NAME)
