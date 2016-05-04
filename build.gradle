@@ -1,13 +1,14 @@
 buildscript {
-    ext.kotlin_version = '1.0.1-2'
+    ext.kotlin_version = '1.0.2-eap-74'
 
     repositories {
+        maven { url "https://dl.bintray.com/kotlin/kotlin-eap/" }
         mavenLocal()
         mavenCentral()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0-beta3'
+        classpath 'com.android.tools.build:gradle:2.1.0'
         classpath 'org.dbtools:gradle-dbtools-plugin:6.0.1'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.12.0' // version plugin support
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
@@ -40,6 +41,7 @@ def versionMajorMinorPatchBuild = "${versionMajor}.${versionMinor}.${versionPatc
 def buildTime = new Date().getTime()
 
 repositories {
+    maven { url "https://dl.bintray.com/kotlin/kotlin-eap/" }
     mavenLocal()
     mavenCentral()
     jcenter()
