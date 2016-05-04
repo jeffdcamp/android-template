@@ -12,9 +12,9 @@ import org.jdc.template.Analytics
 import org.jdc.template.App
 import org.jdc.template.R
 import org.jdc.template.R.layout.fragment_individual
-import org.jdc.template.inject.Injector
 import org.jdc.template.event.EditIndividualEvent
 import org.jdc.template.event.IndividualDeletedEvent
+import org.jdc.template.inject.Injector
 import org.jdc.template.model.database.main.individual.Individual
 import org.jdc.template.model.database.main.individual.IndividualManager
 import org.threeten.bp.LocalDate
@@ -45,9 +45,6 @@ class IndividualFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         PocketKnife.bindArguments(this)
-
-        // todo fix issue with Pocketknife (this should be initialized by @BindArgument)
-        individualId = arguments.getLong(ARG_ID)
 
         setHasOptionsMenu(true)
     }

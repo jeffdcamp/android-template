@@ -6,9 +6,9 @@ import kotlinx.android.synthetic.main.toolbar_actionbar.*
 import org.jdc.template.InternalIntents
 import org.jdc.template.R
 import org.jdc.template.R.layout.fragment_drawer_single
-import org.jdc.template.inject.Injector
 import org.jdc.template.event.EditIndividualEvent
 import org.jdc.template.event.IndividualDeletedEvent
+import org.jdc.template.inject.Injector
 import org.jdc.template.ui.fragment.IndividualFragment
 import pocketbus.Bus
 import pocketbus.Subscribe
@@ -38,9 +38,6 @@ class IndividualActivity : DrawerActivity() {
         super.onCreate(savedInstanceState)
         setContentView(fragment_drawer_single)
         PocketKnife.bindExtras(this)
-
-        // todo fix issue with Pocketknife (this should be initialized by @BindExtra)
-        individualId = getIntent().getLongExtra(EXTRA_ID, 0L)
 
         setDefaultKeyMode(Activity.DEFAULT_KEYS_SEARCH_LOCAL)
 
