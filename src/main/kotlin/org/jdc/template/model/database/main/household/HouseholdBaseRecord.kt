@@ -52,6 +52,13 @@ abstract class HouseholdBaseRecord : AndroidBaseRecord() {
             name)
     }
 
+    fun copy(): Household {
+        var copy = Household()
+        copy.id = id
+        copy.name = name
+        return copy
+    }
+
     override fun bindInsertStatement(statement: StatementWrapper) {
         statement.bindString(1, name)
     }

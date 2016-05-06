@@ -55,6 +55,10 @@ abstract class IndividualQueryBaseManager : RxKotlinAndroidBaseManagerReadOnly<I
         return databaseManager.getDatabase(databaseName)
     }
 
+    override fun getDatabaseConfig(): org.dbtools.android.domain.config.DatabaseConfig {
+        return databaseManager.getDatabaseConfig()
+    }
+
     abstract fun getQuery(): String;
 
     override fun getTableName(): String {

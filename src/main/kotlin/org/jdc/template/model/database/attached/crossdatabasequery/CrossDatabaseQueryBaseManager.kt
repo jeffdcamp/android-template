@@ -9,9 +9,9 @@
 
 package org.jdc.template.model.database.attached.crossdatabasequery
 
-import org.jdc.template.model.database.DatabaseManager
-import org.dbtools.android.domain.database.DatabaseWrapper
 import org.dbtools.android.domain.RxKotlinAndroidBaseManagerReadOnly
+import org.dbtools.android.domain.database.DatabaseWrapper
+import org.jdc.template.model.database.DatabaseManager
 
 
 @SuppressWarnings("all")
@@ -53,6 +53,10 @@ abstract class CrossDatabaseQueryBaseManager : RxKotlinAndroidBaseManagerReadOnl
 
     override fun getAndroidDatabase(@javax.annotation.Nonnull databaseName: String): org.dbtools.android.domain.AndroidDatabase? {
         return databaseManager.getDatabase(databaseName)
+    }
+
+    override fun getDatabaseConfig(): org.dbtools.android.domain.config.DatabaseConfig {
+        return databaseManager.getDatabaseConfig()
     }
 
     abstract fun getQuery(): String;

@@ -55,6 +55,14 @@ abstract class IndividualListItemBaseRecord : AndroidBaseRecord() {
             individualId)
     }
 
+    fun copy(): IndividualListItem {
+        var copy = IndividualListItem()
+        copy.id = id
+        copy.listId = listId
+        copy.individualId = individualId
+        return copy
+    }
+
     override fun bindInsertStatement(statement: StatementWrapper) {
         statement.bindLong(1, listId)
         statement.bindLong(2, individualId)

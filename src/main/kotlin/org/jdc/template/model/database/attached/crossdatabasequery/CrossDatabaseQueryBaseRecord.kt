@@ -55,6 +55,14 @@ abstract class CrossDatabaseQueryBaseRecord : AndroidBaseRecord() {
             type.ordinal.toLong())
     }
 
+    fun copy(): CrossDatabaseQuery {
+        var copy = CrossDatabaseQuery()
+        copy.id = id
+        copy.name = name
+        copy.type = type
+        return copy
+    }
+
     override fun bindInsertStatement(statement: StatementWrapper) {
         statement.bindLong(1, id)
         statement.bindString(2, name)

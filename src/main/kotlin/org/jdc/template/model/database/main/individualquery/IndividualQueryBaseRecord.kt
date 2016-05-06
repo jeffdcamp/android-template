@@ -52,6 +52,13 @@ abstract class IndividualQueryBaseRecord : AndroidBaseRecord() {
             name)
     }
 
+    fun copy(): IndividualQuery {
+        var copy = IndividualQuery()
+        copy.id = id
+        copy.name = name
+        return copy
+    }
+
     override fun bindInsertStatement(statement: StatementWrapper) {
         statement.bindLong(1, id)
         statement.bindString(2, name)

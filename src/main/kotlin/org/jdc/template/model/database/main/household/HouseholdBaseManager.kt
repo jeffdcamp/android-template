@@ -59,6 +59,10 @@ abstract class HouseholdBaseManager : RxKotlinAndroidBaseManagerWritable<Househo
         return databaseManager.getDatabase(databaseName)
     }
 
+    override fun getDatabaseConfig(): org.dbtools.android.domain.config.DatabaseConfig {
+        return databaseManager.getDatabaseConfig()
+    }
+
     override fun getPrimaryKey(): String {
         return HouseholdConst.PRIMARY_KEY_COLUMN
     }
