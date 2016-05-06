@@ -63,6 +63,13 @@ public abstract class IndividualQueryBaseRecord extends AndroidBaseRecord {
         return values;
     }
 
+    public IndividualQuery copy() {
+        IndividualQuery copy = new IndividualQuery();
+        copy.setId(id);
+        copy.setName(name);
+        return copy;
+    }
+
     @Override
     public void bindInsertStatement(StatementWrapper statement) {
         statement.bindLong(1, id);

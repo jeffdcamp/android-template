@@ -63,6 +63,10 @@ public abstract class IndividualQueryBaseManager extends RxAndroidBaseManagerRea
         return databaseManager.getDatabase(databaseName);
     }
 
+    public org.dbtools.android.domain.config.DatabaseConfig getDatabaseConfig() {
+        return databaseManager.getDatabaseConfig();
+    }
+
     public abstract String getQuery();
 
     @javax.annotation.Nonnull

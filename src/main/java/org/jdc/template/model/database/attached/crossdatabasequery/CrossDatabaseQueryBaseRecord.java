@@ -10,11 +10,10 @@
 
 package org.jdc.template.model.database.attached.crossdatabasequery;
 
-import android.database.Cursor;
-
 import org.dbtools.android.domain.AndroidBaseRecord;
-import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues;
 import org.dbtools.android.domain.database.statement.StatementWrapper;
+import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues;
+import android.database.Cursor;
 
 
 @SuppressWarnings("all")
@@ -67,6 +66,14 @@ public abstract class CrossDatabaseQueryBaseRecord extends AndroidBaseRecord {
         return values;
     }
 
+    public CrossDatabaseQuery copy() {
+        CrossDatabaseQuery copy = new CrossDatabaseQuery();
+        copy.setId(id);
+        copy.setName(name);
+        copy.setType(type);
+        return copy;
+    }
+
     @Override
     public void bindInsertStatement(StatementWrapper statement) {
         statement.bindLong(1, id);
@@ -102,14 +109,26 @@ public abstract class CrossDatabaseQueryBaseRecord extends AndroidBaseRecord {
         return id;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     @javax.annotation.Nonnull
     public String getName() {
         return name;
     }
 
+    public void setName(@javax.annotation.Nonnull String name) {
+        this.name = name;
+    }
+
     @javax.annotation.Nonnull
     public LocationType getType() {
         return type;
+    }
+
+    public void setType(@javax.annotation.Nonnull LocationType type) {
+        this.type = type;
     }
 
 

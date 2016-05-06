@@ -63,6 +63,10 @@ public abstract class CrossDatabaseQueryBaseManager extends RxAndroidBaseManager
         return databaseManager.getDatabase(databaseName);
     }
 
+    public org.dbtools.android.domain.config.DatabaseConfig getDatabaseConfig() {
+        return databaseManager.getDatabaseConfig();
+    }
+
     public abstract String getQuery();
 
     @javax.annotation.Nonnull

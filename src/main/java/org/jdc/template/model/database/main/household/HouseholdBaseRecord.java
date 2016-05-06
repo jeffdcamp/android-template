@@ -63,6 +63,13 @@ public abstract class HouseholdBaseRecord extends AndroidBaseRecord {
         return values;
     }
 
+    public Household copy() {
+        Household copy = new Household();
+        copy.setId(id);
+        copy.setName(name);
+        return copy;
+    }
+
     @Override
     public void bindInsertStatement(StatementWrapper statement) {
         statement.bindString(1, name);

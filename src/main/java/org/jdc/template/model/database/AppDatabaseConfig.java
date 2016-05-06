@@ -7,6 +7,8 @@ import org.dbtools.android.domain.AndroidDatabaseBaseManager;
 import org.dbtools.android.domain.config.DatabaseConfig;
 import org.dbtools.android.domain.database.AndroidDatabaseWrapper;
 import org.dbtools.android.domain.database.DatabaseWrapper;
+import org.dbtools.android.domain.database.contentvalues.AndroidDBToolsContentValues;
+import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues;
 import org.dbtools.android.domain.log.DBToolsAndroidLogger;
 import org.dbtools.android.domain.log.DBToolsLogger;
 
@@ -31,6 +33,11 @@ public class AppDatabaseConfig implements DatabaseConfig {
         databaseManager.addDatabase(application, DatabaseManagerConst.OTHER_DATABASE_NAME, DatabaseManager.OTHER_VERSION, DatabaseManager.OTHER_VIEWS_VERSION);
 
         databaseManager.addAttachedDatabase(DatabaseManagerConst.ATTACHED_DATABASE_NAME, DatabaseManagerConst.MAIN_DATABASE_NAME, Collections.singletonList(DatabaseManagerConst.OTHER_DATABASE_NAME));
+    }
+
+    @Override
+    public DBToolsContentValues createNewDBToolsContentValues() {
+        return new AndroidDBToolsContentValues();
     }
 
     @Override

@@ -63,6 +63,13 @@ public abstract class PhoneListViewBaseRecord extends AndroidBaseRecord {
         return values;
     }
 
+    public PhoneListView copy() {
+        PhoneListView copy = new PhoneListView();
+        copy.setId(id);
+        copy.setName(name);
+        return copy;
+    }
+
     @Override
     public void bindInsertStatement(StatementWrapper statement) {
         statement.bindLong(1, id);
@@ -94,9 +101,17 @@ public abstract class PhoneListViewBaseRecord extends AndroidBaseRecord {
         return id;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     @javax.annotation.Nonnull
     public String getName() {
         return name;
+    }
+
+    public void setName(@javax.annotation.Nonnull String name) {
+        this.name = name;
     }
 
 

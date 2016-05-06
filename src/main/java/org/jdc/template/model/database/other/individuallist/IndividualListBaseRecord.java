@@ -63,6 +63,13 @@ public abstract class IndividualListBaseRecord extends AndroidBaseRecord {
         return values;
     }
 
+    public IndividualList copy() {
+        IndividualList copy = new IndividualList();
+        copy.setId(id);
+        copy.setName(name);
+        return copy;
+    }
+
     @Override
     public void bindInsertStatement(StatementWrapper statement) {
         statement.bindString(1, name);

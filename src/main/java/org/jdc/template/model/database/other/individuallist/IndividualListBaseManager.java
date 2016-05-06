@@ -68,6 +68,10 @@ public abstract class IndividualListBaseManager extends RxAndroidBaseManagerWrit
         return databaseManager.getDatabase(databaseName);
     }
 
+    public org.dbtools.android.domain.config.DatabaseConfig getDatabaseConfig() {
+        return databaseManager.getDatabaseConfig();
+    }
+
     @javax.annotation.Nonnull
     public String getPrimaryKey() {
         return IndividualListConst.PRIMARY_KEY_COLUMN;

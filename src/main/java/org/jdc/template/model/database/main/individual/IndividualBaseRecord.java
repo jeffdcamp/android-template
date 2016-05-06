@@ -100,25 +100,44 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         return values;
     }
 
+    public Individual copy() {
+        Individual copy = new Individual();
+        copy.setId(id);
+        copy.setHouseholdId(householdId);
+        copy.setIndividualType(individualType);
+        copy.setFirstName(firstName);
+        copy.setLastName(lastName);
+        copy.setBirthDate(birthDate);
+        copy.setAlarmTime(alarmTime);
+        copy.setLastModified(lastModified);
+        copy.setSampleDateTime(sampleDateTime);
+        copy.setSampleTimestamp(sampleTimestamp);
+        copy.setPhone(phone);
+        copy.setEmail(email);
+        copy.setAvailable(available);
+        copy.setSpouseIndividualId(spouseIndividualId);
+        return copy;
+    }
+
     @Override
     public void bindInsertStatement(StatementWrapper statement) {
         statement.bindLong(1, householdId);
         statement.bindLong(2, individualType.ordinal());
         statement.bindString(3, firstName);
         statement.bindString(4, lastName);
-        if (org.dbtools.android.domain.DBToolsDateFormatter.localDateToDBString(birthDate) != null) {
+        if (birthDate != null) {
             statement.bindString(5, org.dbtools.android.domain.DBToolsDateFormatter.localDateToDBString(birthDate));
         } else {
             statement.bindNull(5);
         }
         statement.bindString(6, org.dbtools.android.domain.DBToolsDateFormatter.localTimeToDBString(alarmTime));
         statement.bindLong(7, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(lastModified));
-        if (org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime) != null) {
+        if (sampleDateTime != null) {
             statement.bindString(8, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime));
         } else {
             statement.bindNull(8);
         }
-        if (org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(sampleTimestamp) != null) {
+        if (sampleTimestamp != null) {
             statement.bindLong(9, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(sampleTimestamp));
         } else {
             statement.bindNull(9);
@@ -139,19 +158,19 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         statement.bindLong(2, individualType.ordinal());
         statement.bindString(3, firstName);
         statement.bindString(4, lastName);
-        if (org.dbtools.android.domain.DBToolsDateFormatter.localDateToDBString(birthDate) != null) {
+        if (birthDate != null) {
             statement.bindString(5, org.dbtools.android.domain.DBToolsDateFormatter.localDateToDBString(birthDate));
         } else {
             statement.bindNull(5);
         }
         statement.bindString(6, org.dbtools.android.domain.DBToolsDateFormatter.localTimeToDBString(alarmTime));
         statement.bindLong(7, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(lastModified));
-        if (org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime) != null) {
+        if (sampleDateTime != null) {
             statement.bindString(8, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime));
         } else {
             statement.bindNull(8);
         }
-        if (org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(sampleTimestamp) != null) {
+        if (sampleTimestamp != null) {
             statement.bindLong(9, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(sampleTimestamp));
         } else {
             statement.bindNull(9);
