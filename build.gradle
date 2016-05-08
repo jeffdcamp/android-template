@@ -49,7 +49,8 @@ ext {
     // versions for libraries that multiple dependencies
     supportLibVersion = '23.3.0'
     daggerVersion = '2.4'
-    loganSquare = '1.3.7'
+    okhttpVersion = '3.2.0'
+    loganSquareVersion = '1.3.7'
     pocketKnifeVersion = '3.2.1'
     pocketBusVersion = '0.4.0'
 }
@@ -78,18 +79,18 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile 'com.google.code.findbugs:jsr305:3.0.1'
     compile 'com.jakewharton.threetenabp:threetenabp:1.0.3'
-    compile 'org.dbtools:dbtools-android:7.0.0-SNAPSHOT'
+    compile 'org.dbtools:dbtools-android:7.0.0'
     compile 'com.devbrackets.android:recyclerext:1.1.1'
     compile 'com.evernote:android-job:1.0.4'
 
     // Network
-    compile 'com.squareup.okhttp3:okhttp:3.2.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
+    compile "com.squareup.okhttp3:okhttp:$okhttpVersion"
+    compile "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
 
     // JSON Parsing
     compile 'com.fasterxml.jackson.core:jackson-core:2.7.3'
-    compile "com.bluelinelabs:logansquare:$loganSquare"
-    kapt "com.bluelinelabs:logansquare-compiler:$loganSquare"
+    compile "com.bluelinelabs:logansquare:$loganSquareVersion"
+    kapt "com.bluelinelabs:logansquare-compiler:$loganSquareVersion"
     compile 'com.github.aurae.retrofit2:converter-logansquare:1.4.0' // retrofit support
 
     // Dagger 2
