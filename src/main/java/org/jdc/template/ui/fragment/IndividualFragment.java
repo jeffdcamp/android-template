@@ -15,15 +15,15 @@ import android.widget.TextView;
 
 import com.google.android.gms.analytics.HitBuilders;
 
-import org.dbtools.android.domain.DBToolsDateFormatter;
+import org.dbtools.android.domain.date.DBToolsThreeTenFormatter;
 import org.jdc.template.Analytics;
 import org.jdc.template.App;
 import org.jdc.template.R;
+import org.jdc.template.event.EditIndividualEvent;
+import org.jdc.template.event.IndividualDeletedEvent;
 import org.jdc.template.inject.Injector;
 import org.jdc.template.model.database.main.individual.Individual;
 import org.jdc.template.model.database.main.individual.IndividualManager;
-import org.jdc.template.event.EditIndividualEvent;
-import org.jdc.template.event.IndividualDeletedEvent;
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.LocalTime;
@@ -160,7 +160,7 @@ public class IndividualFragment extends Fragment {
         }
 
         LocalDate date = individual.getBirthDate();
-        long millis = DBToolsDateFormatter.localDateTimeToLong(date.atStartOfDay(ZoneId.systemDefault()).toLocalDateTime());
+        long millis = DBToolsThreeTenFormatter.localDateTimeToLong(date.atStartOfDay(ZoneId.systemDefault()).toLocalDateTime());
         birthDateEditText.setText(DateUtils.formatDateTime(getActivity(), millis, DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR));
     }
 
@@ -170,7 +170,7 @@ public class IndividualFragment extends Fragment {
         }
 
         LocalTime time = individual.getAlarmTime();
-        long millis = DBToolsDateFormatter.localDateTimeToLong(time.atDate(LocalDate.now()));
+        long millis = DBToolsThreeTenFormatter.localDateTimeToLong(time.atDate(LocalDate.now()));
         alarmTimeEditText.setText(DateUtils.formatDateTime(getActivity(), millis, DateUtils.FORMAT_SHOW_TIME));
     }
 
@@ -180,7 +180,7 @@ public class IndividualFragment extends Fragment {
         }
 
         LocalDateTime dateTime = individual.getSampleDateTime();
-        long millis = DBToolsDateFormatter.localDateTimeToLong(dateTime);
+        long millis = DBToolsThreeTenFormatter.localDateTimeToLong(dateTime);
         sampleDateTimeEditText.setText(DateUtils.formatDateTime(getActivity(), millis, DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_SHOW_TIME));
     }
 

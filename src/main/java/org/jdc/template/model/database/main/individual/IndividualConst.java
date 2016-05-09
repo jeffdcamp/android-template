@@ -47,6 +47,12 @@ public class IndividualConst {
     public static final String FULL_C_EMAIL = "INDIVIDUAL.EMAIL";
     public static final String C_AVAILABLE = "AVAILABLE";
     public static final String FULL_C_AVAILABLE = "INDIVIDUAL.AVAILABLE";
+    public static final String C_AMOUNT1 = "AMOUNT1";
+    public static final String FULL_C_AMOUNT1 = "INDIVIDUAL.AMOUNT1";
+    public static final String C_AMOUNT2 = "AMOUNT2";
+    public static final String FULL_C_AMOUNT2 = "INDIVIDUAL.AMOUNT2";
+    public static final String C_ENABLED = "ENABLED";
+    public static final String FULL_C_ENABLED = "INDIVIDUAL.ENABLED";
     public static final String C_SPOUSE_INDIVIDUAL_ID = "SPOUSE_INDIVIDUAL_ID";
     public static final String FULL_C_SPOUSE_INDIVIDUAL_ID = "INDIVIDUAL.SPOUSE_INDIVIDUAL_ID";
     public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS INDIVIDUAL (" + 
@@ -63,6 +69,9 @@ public class IndividualConst {
         "PHONE TEXT NOT NULL," + 
         "EMAIL TEXT NOT NULL," + 
         "AVAILABLE INTEGER NOT NULL," + 
+        "AMOUNT1 REAL NOT NULL," + 
+        "AMOUNT2 REAL NOT NULL," + 
+        "ENABLED INTEGER NOT NULL," + 
         "SPOUSE_INDIVIDUAL_ID INTEGER," + 
         "FOREIGN KEY (HOUSEHOLD_ID) REFERENCES HOUSEHOLD (_id)," + 
         "FOREIGN KEY (INDIVIDUAL_TYPE_ID) REFERENCES INDIVIDUAL_TYPE (_id)" + 
@@ -70,8 +79,8 @@ public class IndividualConst {
         "" + 
         "";
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS INDIVIDUAL;";
-    public static final String INSERT_STATEMENT = "INSERT INTO INDIVIDUAL (HOUSEHOLD_ID,INDIVIDUAL_TYPE_ID,FIRST_NAME,LAST_NAME,BIRTH_DATE,ALARM_TIME,LAST_MODIFIED,SAMPLE_DATE_TIME,SAMPLE_TIMESTAMP,PHONE,EMAIL,AVAILABLE,SPOUSE_INDIVIDUAL_ID) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    public static final String UPDATE_STATEMENT = "UPDATE INDIVIDUAL SET HOUSEHOLD_ID=?, INDIVIDUAL_TYPE_ID=?, FIRST_NAME=?, LAST_NAME=?, BIRTH_DATE=?, ALARM_TIME=?, LAST_MODIFIED=?, SAMPLE_DATE_TIME=?, SAMPLE_TIMESTAMP=?, PHONE=?, EMAIL=?, AVAILABLE=?, SPOUSE_INDIVIDUAL_ID=? WHERE _id = ?";
+    public static final String INSERT_STATEMENT = "INSERT INTO INDIVIDUAL (HOUSEHOLD_ID,INDIVIDUAL_TYPE_ID,FIRST_NAME,LAST_NAME,BIRTH_DATE,ALARM_TIME,LAST_MODIFIED,SAMPLE_DATE_TIME,SAMPLE_TIMESTAMP,PHONE,EMAIL,AVAILABLE,AMOUNT1,AMOUNT2,ENABLED,SPOUSE_INDIVIDUAL_ID) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    public static final String UPDATE_STATEMENT = "UPDATE INDIVIDUAL SET HOUSEHOLD_ID=?, INDIVIDUAL_TYPE_ID=?, FIRST_NAME=?, LAST_NAME=?, BIRTH_DATE=?, ALARM_TIME=?, LAST_MODIFIED=?, SAMPLE_DATE_TIME=?, SAMPLE_TIMESTAMP=?, PHONE=?, EMAIL=?, AVAILABLE=?, AMOUNT1=?, AMOUNT2=?, ENABLED=?, SPOUSE_INDIVIDUAL_ID=? WHERE _id = ?";
     public static final String[] ALL_COLUMNS = new String[] {
         C_ID,
         C_HOUSEHOLD_ID,
@@ -86,6 +95,9 @@ public class IndividualConst {
         C_PHONE,
         C_EMAIL,
         C_AVAILABLE,
+        C_AMOUNT1,
+        C_AMOUNT2,
+        C_ENABLED,
         C_SPOUSE_INDIVIDUAL_ID};
     public static final String[] ALL_COLUMNS_FULL = new String[] {
         FULL_C_ID,
@@ -101,6 +113,9 @@ public class IndividualConst {
         FULL_C_PHONE,
         FULL_C_EMAIL,
         FULL_C_AVAILABLE,
+        FULL_C_AMOUNT1,
+        FULL_C_AMOUNT2,
+        FULL_C_ENABLED,
         FULL_C_SPOUSE_INDIVIDUAL_ID};
 
     public IndividualConst() {
@@ -127,23 +142,23 @@ public class IndividualConst {
     }
 
     public static org.threeten.bp.LocalDate getBirthDate(Cursor cursor) {
-        return org.dbtools.android.domain.DBToolsDateFormatter.dbStringToLocalDate(cursor.getString(cursor.getColumnIndexOrThrow(C_BIRTH_DATE)));
+        return org.dbtools.android.domain.date.DBToolsThreeTenFormatter.dbStringToLocalDate(cursor.getString(cursor.getColumnIndexOrThrow(C_BIRTH_DATE)));
     }
 
     public static org.threeten.bp.LocalTime getAlarmTime(Cursor cursor) {
-        return org.dbtools.android.domain.DBToolsDateFormatter.dbStringToLocalTime(cursor.getString(cursor.getColumnIndexOrThrow(C_ALARM_TIME)));
+        return org.dbtools.android.domain.date.DBToolsThreeTenFormatter.dbStringToLocalTime(cursor.getString(cursor.getColumnIndexOrThrow(C_ALARM_TIME)));
     }
 
     public static org.threeten.bp.LocalDateTime getLastModified(Cursor cursor) {
-        return !cursor.isNull(cursor.getColumnIndexOrThrow(C_LAST_MODIFIED)) ? org.dbtools.android.domain.DBToolsDateFormatter.longToLocalDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(C_LAST_MODIFIED))) : null;
+        return !cursor.isNull(cursor.getColumnIndexOrThrow(C_LAST_MODIFIED)) ? org.dbtools.android.domain.date.DBToolsThreeTenFormatter.longToLocalDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(C_LAST_MODIFIED))) : null;
     }
 
     public static org.threeten.bp.LocalDateTime getSampleDateTime(Cursor cursor) {
-        return org.dbtools.android.domain.DBToolsDateFormatter.dbStringToLocalDateTime(cursor.getString(cursor.getColumnIndexOrThrow(C_SAMPLE_DATE_TIME)));
+        return org.dbtools.android.domain.date.DBToolsThreeTenFormatter.dbStringToLocalDateTime(cursor.getString(cursor.getColumnIndexOrThrow(C_SAMPLE_DATE_TIME)));
     }
 
     public static org.threeten.bp.LocalDateTime getSampleTimestamp(Cursor cursor) {
-        return !cursor.isNull(cursor.getColumnIndexOrThrow(C_SAMPLE_TIMESTAMP)) ? org.dbtools.android.domain.DBToolsDateFormatter.longToLocalDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(C_SAMPLE_TIMESTAMP))) : null;
+        return !cursor.isNull(cursor.getColumnIndexOrThrow(C_SAMPLE_TIMESTAMP)) ? org.dbtools.android.domain.date.DBToolsThreeTenFormatter.longToLocalDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(C_SAMPLE_TIMESTAMP))) : null;
     }
 
     public static String getPhone(Cursor cursor) {
@@ -156,6 +171,18 @@ public class IndividualConst {
 
     public static boolean isAvailable(Cursor cursor) {
         return cursor.getInt(cursor.getColumnIndexOrThrow(C_AVAILABLE)) != 0 ? true : false;
+    }
+
+    public static float getAmount1(Cursor cursor) {
+        return cursor.getFloat(cursor.getColumnIndexOrThrow(C_AMOUNT1));
+    }
+
+    public static double getAmount2(Cursor cursor) {
+        return cursor.getDouble(cursor.getColumnIndexOrThrow(C_AMOUNT2));
+    }
+
+    public static boolean isEnabled(Cursor cursor) {
+        return cursor.getInt(cursor.getColumnIndexOrThrow(C_ENABLED)) != 0 ? true : false;
     }
 
     public static Long getSpouseIndividualId(Cursor cursor) {

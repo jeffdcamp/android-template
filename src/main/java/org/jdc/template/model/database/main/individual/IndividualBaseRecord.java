@@ -33,6 +33,9 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
     private String phone = "";
     private String email = "";
     private boolean available = false;
+    private float amount1 = 0;
+    private double amount2 = 0;
+    private boolean enabled = false;
     private Long spouseIndividualId = null;
 
     public IndividualBaseRecord() {
@@ -68,14 +71,17 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         values.put(IndividualConst.C_INDIVIDUAL_TYPE, individualType.ordinal());
         values.put(IndividualConst.C_FIRST_NAME, firstName);
         values.put(IndividualConst.C_LAST_NAME, lastName);
-        values.put(IndividualConst.C_BIRTH_DATE, org.dbtools.android.domain.DBToolsDateFormatter.localDateToDBString(birthDate));
-        values.put(IndividualConst.C_ALARM_TIME, org.dbtools.android.domain.DBToolsDateFormatter.localTimeToDBString(alarmTime));
-        values.put(IndividualConst.C_LAST_MODIFIED, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(lastModified));
-        values.put(IndividualConst.C_SAMPLE_DATE_TIME, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime));
-        values.put(IndividualConst.C_SAMPLE_TIMESTAMP, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(sampleTimestamp));
+        values.put(IndividualConst.C_BIRTH_DATE, org.dbtools.android.domain.date.DBToolsThreeTenFormatter.localDateToDBString(birthDate));
+        values.put(IndividualConst.C_ALARM_TIME, org.dbtools.android.domain.date.DBToolsThreeTenFormatter.localTimeToDBString(alarmTime));
+        values.put(IndividualConst.C_LAST_MODIFIED, org.dbtools.android.domain.date.DBToolsThreeTenFormatter.localDateTimeToLong(lastModified));
+        values.put(IndividualConst.C_SAMPLE_DATE_TIME, org.dbtools.android.domain.date.DBToolsThreeTenFormatter.localDateTimeToDBString(sampleDateTime));
+        values.put(IndividualConst.C_SAMPLE_TIMESTAMP, org.dbtools.android.domain.date.DBToolsThreeTenFormatter.localDateTimeToLong(sampleTimestamp));
         values.put(IndividualConst.C_PHONE, phone);
         values.put(IndividualConst.C_EMAIL, email);
         values.put(IndividualConst.C_AVAILABLE, available ? 1 : 0);
+        values.put(IndividualConst.C_AMOUNT1, amount1);
+        values.put(IndividualConst.C_AMOUNT2, amount2);
+        values.put(IndividualConst.C_ENABLED, enabled ? 1 : 0);
         values.put(IndividualConst.C_SPOUSE_INDIVIDUAL_ID, spouseIndividualId);
     }
 
@@ -87,14 +93,17 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
             individualType.ordinal(),
             firstName,
             lastName,
-            org.dbtools.android.domain.DBToolsDateFormatter.localDateToDBString(birthDate),
-            org.dbtools.android.domain.DBToolsDateFormatter.localTimeToDBString(alarmTime),
-            org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(lastModified),
-            org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime),
-            org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(sampleTimestamp),
+            org.dbtools.android.domain.date.DBToolsThreeTenFormatter.localDateToDBString(birthDate),
+            org.dbtools.android.domain.date.DBToolsThreeTenFormatter.localTimeToDBString(alarmTime),
+            org.dbtools.android.domain.date.DBToolsThreeTenFormatter.localDateTimeToLong(lastModified),
+            org.dbtools.android.domain.date.DBToolsThreeTenFormatter.localDateTimeToDBString(sampleDateTime),
+            org.dbtools.android.domain.date.DBToolsThreeTenFormatter.localDateTimeToLong(sampleTimestamp),
             phone,
             email,
             available ? 1 : 0,
+            amount1,
+            amount2,
+            enabled ? 1 : 0,
             spouseIndividualId,
         };
         return values;
@@ -115,6 +124,9 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         copy.setPhone(phone);
         copy.setEmail(email);
         copy.setAvailable(available);
+        copy.setAmount1(amount1);
+        copy.setAmount2(amount2);
+        copy.setEnabled(enabled);
         copy.setSpouseIndividualId(spouseIndividualId);
         return copy;
     }
@@ -126,29 +138,32 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         statement.bindString(3, firstName);
         statement.bindString(4, lastName);
         if (birthDate != null) {
-            statement.bindString(5, org.dbtools.android.domain.DBToolsDateFormatter.localDateToDBString(birthDate));
+            statement.bindString(5, org.dbtools.android.domain.date.DBToolsThreeTenFormatter.localDateToDBString(birthDate));
         } else {
             statement.bindNull(5);
         }
-        statement.bindString(6, org.dbtools.android.domain.DBToolsDateFormatter.localTimeToDBString(alarmTime));
-        statement.bindLong(7, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(lastModified));
+        statement.bindString(6, org.dbtools.android.domain.date.DBToolsThreeTenFormatter.localTimeToDBString(alarmTime));
+        statement.bindLong(7, org.dbtools.android.domain.date.DBToolsThreeTenFormatter.localDateTimeToLong(lastModified));
         if (sampleDateTime != null) {
-            statement.bindString(8, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime));
+            statement.bindString(8, org.dbtools.android.domain.date.DBToolsThreeTenFormatter.localDateTimeToDBString(sampleDateTime));
         } else {
             statement.bindNull(8);
         }
         if (sampleTimestamp != null) {
-            statement.bindLong(9, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(sampleTimestamp));
+            statement.bindLong(9, org.dbtools.android.domain.date.DBToolsThreeTenFormatter.localDateTimeToLong(sampleTimestamp));
         } else {
             statement.bindNull(9);
         }
         statement.bindString(10, phone);
         statement.bindString(11, email);
         statement.bindLong(12, available ? 1 : 0);
+        statement.bindDouble(13, amount1);
+        statement.bindDouble(14, amount2);
+        statement.bindLong(15, enabled ? 1 : 0);
         if (spouseIndividualId != null) {
-            statement.bindLong(13, spouseIndividualId);
+            statement.bindLong(16, spouseIndividualId);
         } else {
-            statement.bindNull(13);
+            statement.bindNull(16);
         }
     }
 
@@ -159,31 +174,34 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         statement.bindString(3, firstName);
         statement.bindString(4, lastName);
         if (birthDate != null) {
-            statement.bindString(5, org.dbtools.android.domain.DBToolsDateFormatter.localDateToDBString(birthDate));
+            statement.bindString(5, org.dbtools.android.domain.date.DBToolsThreeTenFormatter.localDateToDBString(birthDate));
         } else {
             statement.bindNull(5);
         }
-        statement.bindString(6, org.dbtools.android.domain.DBToolsDateFormatter.localTimeToDBString(alarmTime));
-        statement.bindLong(7, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(lastModified));
+        statement.bindString(6, org.dbtools.android.domain.date.DBToolsThreeTenFormatter.localTimeToDBString(alarmTime));
+        statement.bindLong(7, org.dbtools.android.domain.date.DBToolsThreeTenFormatter.localDateTimeToLong(lastModified));
         if (sampleDateTime != null) {
-            statement.bindString(8, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToDBString(sampleDateTime));
+            statement.bindString(8, org.dbtools.android.domain.date.DBToolsThreeTenFormatter.localDateTimeToDBString(sampleDateTime));
         } else {
             statement.bindNull(8);
         }
         if (sampleTimestamp != null) {
-            statement.bindLong(9, org.dbtools.android.domain.DBToolsDateFormatter.localDateTimeToLong(sampleTimestamp));
+            statement.bindLong(9, org.dbtools.android.domain.date.DBToolsThreeTenFormatter.localDateTimeToLong(sampleTimestamp));
         } else {
             statement.bindNull(9);
         }
         statement.bindString(10, phone);
         statement.bindString(11, email);
         statement.bindLong(12, available ? 1 : 0);
+        statement.bindDouble(13, amount1);
+        statement.bindDouble(14, amount2);
+        statement.bindLong(15, enabled ? 1 : 0);
         if (spouseIndividualId != null) {
-            statement.bindLong(13, spouseIndividualId);
+            statement.bindLong(16, spouseIndividualId);
         } else {
-            statement.bindNull(13);
+            statement.bindNull(16);
         }
-        statement.bindLong(14, id);
+        statement.bindLong(17, id);
     }
 
     public void setContent(DBToolsContentValues values) {
@@ -191,14 +209,17 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         individualType = IndividualType.values()[values.getAsInteger(IndividualConst.C_INDIVIDUAL_TYPE)];
         firstName = values.getAsString(IndividualConst.C_FIRST_NAME);
         lastName = values.getAsString(IndividualConst.C_LAST_NAME);
-        birthDate = org.dbtools.android.domain.DBToolsDateFormatter.dbStringToLocalDate(values.getAsString(IndividualConst.C_BIRTH_DATE));
-        alarmTime = org.dbtools.android.domain.DBToolsDateFormatter.dbStringToLocalTime(values.getAsString(IndividualConst.C_ALARM_TIME));
-        lastModified = org.dbtools.android.domain.DBToolsDateFormatter.longToLocalDateTime(values.getAsLong(IndividualConst.C_LAST_MODIFIED));
-        sampleDateTime = org.dbtools.android.domain.DBToolsDateFormatter.dbStringToLocalDateTime(values.getAsString(IndividualConst.C_SAMPLE_DATE_TIME));
-        sampleTimestamp = org.dbtools.android.domain.DBToolsDateFormatter.longToLocalDateTime(values.getAsLong(IndividualConst.C_SAMPLE_TIMESTAMP));
+        birthDate = org.dbtools.android.domain.date.DBToolsThreeTenFormatter.dbStringToLocalDate(values.getAsString(IndividualConst.C_BIRTH_DATE));
+        alarmTime = org.dbtools.android.domain.date.DBToolsThreeTenFormatter.dbStringToLocalTime(values.getAsString(IndividualConst.C_ALARM_TIME));
+        lastModified = org.dbtools.android.domain.date.DBToolsThreeTenFormatter.longToLocalDateTime(values.getAsLong(IndividualConst.C_LAST_MODIFIED));
+        sampleDateTime = org.dbtools.android.domain.date.DBToolsThreeTenFormatter.dbStringToLocalDateTime(values.getAsString(IndividualConst.C_SAMPLE_DATE_TIME));
+        sampleTimestamp = org.dbtools.android.domain.date.DBToolsThreeTenFormatter.longToLocalDateTime(values.getAsLong(IndividualConst.C_SAMPLE_TIMESTAMP));
         phone = values.getAsString(IndividualConst.C_PHONE);
         email = values.getAsString(IndividualConst.C_EMAIL);
         available = values.getAsBoolean(IndividualConst.C_AVAILABLE);
+        amount1 = values.getAsFloat(IndividualConst.C_AMOUNT1);
+        amount2 = values.getAsDouble(IndividualConst.C_AMOUNT2);
+        enabled = values.getAsBoolean(IndividualConst.C_ENABLED);
         spouseIndividualId = values.getAsLong(IndividualConst.C_SPOUSE_INDIVIDUAL_ID);
     }
 
@@ -209,14 +230,17 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
         individualType = IndividualType.values()[cursor.getInt(cursor.getColumnIndexOrThrow(IndividualConst.C_INDIVIDUAL_TYPE))];
         firstName = cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_FIRST_NAME));
         lastName = cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_LAST_NAME));
-        birthDate = org.dbtools.android.domain.DBToolsDateFormatter.dbStringToLocalDate(cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_BIRTH_DATE)));
-        alarmTime = org.dbtools.android.domain.DBToolsDateFormatter.dbStringToLocalTime(cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_ALARM_TIME)));
-        lastModified = !cursor.isNull(cursor.getColumnIndexOrThrow(IndividualConst.C_LAST_MODIFIED)) ? org.dbtools.android.domain.DBToolsDateFormatter.longToLocalDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(IndividualConst.C_LAST_MODIFIED))) : null;
-        sampleDateTime = org.dbtools.android.domain.DBToolsDateFormatter.dbStringToLocalDateTime(cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_SAMPLE_DATE_TIME)));
-        sampleTimestamp = !cursor.isNull(cursor.getColumnIndexOrThrow(IndividualConst.C_SAMPLE_TIMESTAMP)) ? org.dbtools.android.domain.DBToolsDateFormatter.longToLocalDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(IndividualConst.C_SAMPLE_TIMESTAMP))) : null;
+        birthDate = org.dbtools.android.domain.date.DBToolsThreeTenFormatter.dbStringToLocalDate(cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_BIRTH_DATE)));
+        alarmTime = org.dbtools.android.domain.date.DBToolsThreeTenFormatter.dbStringToLocalTime(cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_ALARM_TIME)));
+        lastModified = !cursor.isNull(cursor.getColumnIndexOrThrow(IndividualConst.C_LAST_MODIFIED)) ? org.dbtools.android.domain.date.DBToolsThreeTenFormatter.longToLocalDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(IndividualConst.C_LAST_MODIFIED))) : null;
+        sampleDateTime = org.dbtools.android.domain.date.DBToolsThreeTenFormatter.dbStringToLocalDateTime(cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_SAMPLE_DATE_TIME)));
+        sampleTimestamp = !cursor.isNull(cursor.getColumnIndexOrThrow(IndividualConst.C_SAMPLE_TIMESTAMP)) ? org.dbtools.android.domain.date.DBToolsThreeTenFormatter.longToLocalDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(IndividualConst.C_SAMPLE_TIMESTAMP))) : null;
         phone = cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_PHONE));
         email = cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_EMAIL));
         available = cursor.getInt(cursor.getColumnIndexOrThrow(IndividualConst.C_AVAILABLE)) != 0 ? true : false;
+        amount1 = cursor.getFloat(cursor.getColumnIndexOrThrow(IndividualConst.C_AMOUNT1));
+        amount2 = cursor.getDouble(cursor.getColumnIndexOrThrow(IndividualConst.C_AMOUNT2));
+        enabled = cursor.getInt(cursor.getColumnIndexOrThrow(IndividualConst.C_ENABLED)) != 0 ? true : false;
         spouseIndividualId = !cursor.isNull(cursor.getColumnIndexOrThrow(IndividualConst.C_SPOUSE_INDIVIDUAL_ID)) ? cursor.getLong(cursor.getColumnIndexOrThrow(IndividualConst.C_SPOUSE_INDIVIDUAL_ID)) : null;
     }
 
@@ -336,6 +360,30 @@ public abstract class IndividualBaseRecord extends AndroidBaseRecord {
 
     public void setAvailable(boolean available) {
         this.available = available;
+    }
+
+    public float getAmount1() {
+        return amount1;
+    }
+
+    public void setAmount1(float amount1) {
+        this.amount1 = amount1;
+    }
+
+    public double getAmount2() {
+        return amount2;
+    }
+
+    public void setAmount2(double amount2) {
+        this.amount2 = amount2;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     @javax.annotation.Nullable

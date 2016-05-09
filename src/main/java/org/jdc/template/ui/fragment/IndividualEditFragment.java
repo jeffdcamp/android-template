@@ -19,12 +19,12 @@ import android.widget.TimePicker;
 import com.google.android.gms.analytics.HitBuilders;
 
 import org.apache.commons.lang3.StringUtils;
-import org.dbtools.android.domain.DBToolsDateFormatter;
+import org.dbtools.android.domain.date.DBToolsThreeTenFormatter;
 import org.jdc.template.Analytics;
 import org.jdc.template.App;
 import org.jdc.template.R;
-import org.jdc.template.inject.Injector;
 import org.jdc.template.event.IndividualSavedEvent;
+import org.jdc.template.inject.Injector;
 import org.jdc.template.model.database.main.individual.Individual;
 import org.jdc.template.model.database.main.individual.IndividualManager;
 import org.threeten.bp.LocalDate;
@@ -193,7 +193,7 @@ public class IndividualEditFragment extends Fragment {
         }
 
         LocalDate date = individual.getBirthDate();
-        long millis = DBToolsDateFormatter.localDateTimeToLong(date.atStartOfDay(ZoneId.systemDefault()).toLocalDateTime());
+        long millis = DBToolsThreeTenFormatter.localDateTimeToLong(date.atStartOfDay(ZoneId.systemDefault()).toLocalDateTime());
         birthDateEditText.setText(DateUtils.formatDateTime(getActivity(), millis, DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR));
     }
 
@@ -203,7 +203,7 @@ public class IndividualEditFragment extends Fragment {
         }
 
         LocalTime time = individual.getAlarmTime();
-        long millis = DBToolsDateFormatter.localDateTimeToLong(time.atDate(LocalDate.now()));
+        long millis = DBToolsThreeTenFormatter.localDateTimeToLong(time.atDate(LocalDate.now()));
         alarmTimeEditText.setText(DateUtils.formatDateTime(getActivity(), millis, DateUtils.FORMAT_SHOW_TIME));
     }
 

@@ -216,6 +216,9 @@ public class AboutActivity extends BaseActivity {
         individual1.setPhone("000-555-1234");
         individual1.setIndividualType(IndividualType.HEAD);
         individual1.setHouseholdId(household.getId());
+        individual1.setAmount1(19.95F);
+        individual1.setAmount2(1000000000.25D);
+        individual1.setEnabled(true);
         individualManager.save(db, individual1);
 
         Individual individual2 = new Individual();
@@ -223,6 +226,9 @@ public class AboutActivity extends BaseActivity {
         individual2.setLastName("Campbell");
         individual2.setIndividualType(IndividualType.CHILD);
         individual2.setHouseholdId(household.getId());
+        individual2.setAmount1(21.95F);
+        individual2.setAmount2(2000000000.25D);
+        individual2.setEnabled(false);
         individualManager.save(db, individual2);
         noInjectionDatabaseManager.endTransaction(DatabaseManagerConst.MAIN_DATABASE_NAME, true);
 
