@@ -159,6 +159,9 @@ class AboutActivity : BaseActivity() {
         individual1.householdId = household.id
         individual1.birthDate = LocalDate.of(1970, 1, 1)
         individual1.alarmTime = LocalTime.of(7, 0)
+        individual1.amount1 = 19.95F
+        individual1.amount2 = 1000000000.25
+        individual1.enabled = true
         individualManager.save(individual1)
 
         val individual2 = Individual()
@@ -169,6 +172,9 @@ class AboutActivity : BaseActivity() {
         individual2.householdId = household.id
         individual1.birthDate = LocalDate.of(1970, 1, 2)
         individual2.alarmTime = LocalTime.of(6, 0)
+        individual2.amount1 = 21.95F
+        individual2.amount2 = 2000000000.25
+        individual1.enabled = false
         individualManager.save(individual2)
 
         householdManager.endTransaction(true)

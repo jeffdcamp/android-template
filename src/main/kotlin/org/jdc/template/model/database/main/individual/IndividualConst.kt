@@ -47,6 +47,12 @@ object IndividualConst {
     const val FULL_C_EMAIL = "INDIVIDUAL.EMAIL"
     const val C_AVAILABLE = "AVAILABLE"
     const val FULL_C_AVAILABLE = "INDIVIDUAL.AVAILABLE"
+    const val C_AMOUNT1 = "AMOUNT1"
+    const val FULL_C_AMOUNT1 = "INDIVIDUAL.AMOUNT1"
+    const val C_AMOUNT2 = "AMOUNT2"
+    const val FULL_C_AMOUNT2 = "INDIVIDUAL.AMOUNT2"
+    const val C_ENABLED = "ENABLED"
+    const val FULL_C_ENABLED = "INDIVIDUAL.ENABLED"
     const val C_SPOUSE_INDIVIDUAL_ID = "SPOUSE_INDIVIDUAL_ID"
     const val FULL_C_SPOUSE_INDIVIDUAL_ID = "INDIVIDUAL.SPOUSE_INDIVIDUAL_ID"
     const val CREATE_TABLE = "CREATE TABLE IF NOT EXISTS INDIVIDUAL (" + 
@@ -63,6 +69,9 @@ object IndividualConst {
         "PHONE TEXT NOT NULL," + 
         "EMAIL TEXT NOT NULL," + 
         "AVAILABLE INTEGER NOT NULL," + 
+        "AMOUNT1 REAL NOT NULL," + 
+        "AMOUNT2 REAL NOT NULL," + 
+        "ENABLED INTEGER NOT NULL," + 
         "SPOUSE_INDIVIDUAL_ID INTEGER," + 
         "FOREIGN KEY (HOUSEHOLD_ID) REFERENCES HOUSEHOLD (_id)," + 
         "FOREIGN KEY (INDIVIDUAL_TYPE_ID) REFERENCES INDIVIDUAL_TYPE (_id)" + 
@@ -70,8 +79,8 @@ object IndividualConst {
         "" + 
         ""
     const val DROP_TABLE = "DROP TABLE IF EXISTS INDIVIDUAL;"
-    const val INSERT_STATEMENT = "INSERT INTO INDIVIDUAL (HOUSEHOLD_ID,INDIVIDUAL_TYPE_ID,FIRST_NAME,LAST_NAME,BIRTH_DATE,ALARM_TIME,LAST_MODIFIED,SAMPLE_DATE_TIME,SAMPLE_TIMESTAMP,PHONE,EMAIL,AVAILABLE,SPOUSE_INDIVIDUAL_ID) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)"
-    const val UPDATE_STATEMENT = "UPDATE INDIVIDUAL SET HOUSEHOLD_ID=?, INDIVIDUAL_TYPE_ID=?, FIRST_NAME=?, LAST_NAME=?, BIRTH_DATE=?, ALARM_TIME=?, LAST_MODIFIED=?, SAMPLE_DATE_TIME=?, SAMPLE_TIMESTAMP=?, PHONE=?, EMAIL=?, AVAILABLE=?, SPOUSE_INDIVIDUAL_ID=? WHERE _id = ?"
+    const val INSERT_STATEMENT = "INSERT INTO INDIVIDUAL (HOUSEHOLD_ID,INDIVIDUAL_TYPE_ID,FIRST_NAME,LAST_NAME,BIRTH_DATE,ALARM_TIME,LAST_MODIFIED,SAMPLE_DATE_TIME,SAMPLE_TIMESTAMP,PHONE,EMAIL,AVAILABLE,AMOUNT1,AMOUNT2,ENABLED,SPOUSE_INDIVIDUAL_ID) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+    const val UPDATE_STATEMENT = "UPDATE INDIVIDUAL SET HOUSEHOLD_ID=?, INDIVIDUAL_TYPE_ID=?, FIRST_NAME=?, LAST_NAME=?, BIRTH_DATE=?, ALARM_TIME=?, LAST_MODIFIED=?, SAMPLE_DATE_TIME=?, SAMPLE_TIMESTAMP=?, PHONE=?, EMAIL=?, AVAILABLE=?, AMOUNT1=?, AMOUNT2=?, ENABLED=?, SPOUSE_INDIVIDUAL_ID=? WHERE _id = ?"
     val ALL_COLUMNS = arrayOf(
         C_ID,
         C_HOUSEHOLD_ID,
@@ -86,6 +95,9 @@ object IndividualConst {
         C_PHONE,
         C_EMAIL,
         C_AVAILABLE,
+        C_AMOUNT1,
+        C_AMOUNT2,
+        C_ENABLED,
         C_SPOUSE_INDIVIDUAL_ID)
     val ALL_COLUMNS_FULL = arrayOf(
         FULL_C_ID,
@@ -101,6 +113,9 @@ object IndividualConst {
         FULL_C_PHONE,
         FULL_C_EMAIL,
         FULL_C_AVAILABLE,
+        FULL_C_AMOUNT1,
+        FULL_C_AMOUNT2,
+        FULL_C_ENABLED,
         FULL_C_SPOUSE_INDIVIDUAL_ID)
 
     fun getId(cursor: Cursor): Long {
@@ -124,23 +139,23 @@ object IndividualConst {
     }
 
     fun getBirthDate(cursor: Cursor): org.threeten.bp.LocalDate? {
-        return org.dbtools.android.domain.DBToolsDateFormatter.dbStringToLocalDate(cursor.getString(cursor.getColumnIndexOrThrow(C_BIRTH_DATE)))
+        return org.dbtools.android.domain.date.DBToolsThreeTenFormatter.dbStringToLocalDate(cursor.getString(cursor.getColumnIndexOrThrow(C_BIRTH_DATE)))
     }
 
     fun getAlarmTime(cursor: Cursor): org.threeten.bp.LocalTime {
-        return org.dbtools.android.domain.DBToolsDateFormatter.dbStringToLocalTime(cursor.getString(cursor.getColumnIndexOrThrow(C_ALARM_TIME)))!!
+        return org.dbtools.android.domain.date.DBToolsThreeTenFormatter.dbStringToLocalTime(cursor.getString(cursor.getColumnIndexOrThrow(C_ALARM_TIME)))!!
     }
 
     fun getLastModified(cursor: Cursor): org.threeten.bp.LocalDateTime {
-        return if (!cursor.isNull(cursor.getColumnIndexOrThrow(C_LAST_MODIFIED))) org.dbtools.android.domain.DBToolsDateFormatter.longToLocalDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(C_LAST_MODIFIED)))!! else null!!
+        return if (!cursor.isNull(cursor.getColumnIndexOrThrow(C_LAST_MODIFIED))) org.dbtools.android.domain.date.DBToolsThreeTenFormatter.longToLocalDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(C_LAST_MODIFIED)))!! else null!!
     }
 
     fun getSampleDateTime(cursor: Cursor): org.threeten.bp.LocalDateTime? {
-        return org.dbtools.android.domain.DBToolsDateFormatter.dbStringToLocalDateTime(cursor.getString(cursor.getColumnIndexOrThrow(C_SAMPLE_DATE_TIME)))
+        return org.dbtools.android.domain.date.DBToolsThreeTenFormatter.dbStringToLocalDateTime(cursor.getString(cursor.getColumnIndexOrThrow(C_SAMPLE_DATE_TIME)))
     }
 
     fun getSampleTimestamp(cursor: Cursor): org.threeten.bp.LocalDateTime? {
-        return if (!cursor.isNull(cursor.getColumnIndexOrThrow(C_SAMPLE_TIMESTAMP))) org.dbtools.android.domain.DBToolsDateFormatter.longToLocalDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(C_SAMPLE_TIMESTAMP))) else null
+        return if (!cursor.isNull(cursor.getColumnIndexOrThrow(C_SAMPLE_TIMESTAMP))) org.dbtools.android.domain.date.DBToolsThreeTenFormatter.longToLocalDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(C_SAMPLE_TIMESTAMP))) else null
     }
 
     fun getPhone(cursor: Cursor): String {
@@ -153,6 +168,18 @@ object IndividualConst {
 
     fun isAvailable(cursor: Cursor): Boolean {
         return if (cursor.getInt(cursor.getColumnIndexOrThrow(C_AVAILABLE)) != 0) true else false
+    }
+
+    fun getAmount1(cursor: Cursor): Float {
+        return cursor.getFloat(cursor.getColumnIndexOrThrow(C_AMOUNT1))
+    }
+
+    fun getAmount2(cursor: Cursor): Double {
+        return cursor.getDouble(cursor.getColumnIndexOrThrow(C_AMOUNT2))
+    }
+
+    fun isEnabled(cursor: Cursor): Boolean {
+        return if (cursor.getInt(cursor.getColumnIndexOrThrow(C_ENABLED)) != 0) true else false
     }
 
     fun getSpouseIndividualId(cursor: Cursor): Long? {

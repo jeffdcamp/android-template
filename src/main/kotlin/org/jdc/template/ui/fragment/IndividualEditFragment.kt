@@ -8,13 +8,13 @@ import android.text.format.DateUtils
 import android.view.*
 import com.google.android.gms.analytics.HitBuilders
 import kotlinx.android.synthetic.main.fragment_individual_edit.*
-import org.dbtools.android.domain.DBToolsDateFormatter
+import org.dbtools.android.domain.date.DBToolsThreeTenFormatter
 import org.jdc.template.Analytics
 import org.jdc.template.App
 import org.jdc.template.R
 import org.jdc.template.R.layout.fragment_individual_edit
-import org.jdc.template.inject.Injector
 import org.jdc.template.event.IndividualSavedEvent
+import org.jdc.template.inject.Injector
 import org.jdc.template.model.database.main.individual.Individual
 import org.jdc.template.model.database.main.individual.IndividualManager
 import org.threeten.bp.LocalDate
@@ -140,7 +140,7 @@ class IndividualEditFragment : Fragment() {
 
         val date = individual.birthDate
         if (date != null) {
-            val millis = DBToolsDateFormatter.localDateTimeToLong(date.atStartOfDay(ZoneId.systemDefault()).toLocalDateTime())
+            val millis = DBToolsThreeTenFormatter.localDateTimeToLong(date.atStartOfDay(ZoneId.systemDefault()).toLocalDateTime())
             birthDateEditText.setText(DateUtils.formatDateTime(activity, millis!!, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_YEAR))
         }
     }
@@ -151,7 +151,7 @@ class IndividualEditFragment : Fragment() {
         }
 
         val time = individual.alarmTime
-        val millis = DBToolsDateFormatter.localDateTimeToLong(time.atDate(LocalDate.now()))
+        val millis = DBToolsThreeTenFormatter.localDateTimeToLong(time.atDate(LocalDate.now()))
         alarmTimeEditText.setText(DateUtils.formatDateTime(activity, millis!!, DateUtils.FORMAT_SHOW_TIME))
     }
 
