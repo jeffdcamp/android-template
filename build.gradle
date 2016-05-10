@@ -49,6 +49,7 @@ ext {
     okhttpVersion = '3.2.0'
     pocketKnifeVersion = '3.2.1'
     pocketBusVersion = '0.5.0'
+    butterKnifeVersion = '8.0.1'
 }
 
 dependencies {
@@ -64,7 +65,8 @@ dependencies {
     // UI
     compile "com.vikingsen:pocketknife-core:${pocketKnifeVersion}"
     apt "com.vikingsen:pocketknife-compiler:${pocketKnifeVersion}"
-    compile 'com.jakewharton:butterknife:7.0.1'
+    compile "com.jakewharton:butterknife:${butterKnifeVersion}"
+    apt "com.jakewharton:butterknife-compiler:${butterKnifeVersion}"
 
     // Code
     compile 'com.google.code.findbugs:jsr305:3.0.1'

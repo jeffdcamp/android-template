@@ -16,7 +16,7 @@ import org.jdc.template.model.database.main.individual.Individual;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import pocketbus.Bus;
 
@@ -32,15 +32,15 @@ public class DirectoryAdapter extends RecyclerListAdapter<DirectoryAdapter.ViewH
     private ViewHolder lastSelectedViewHolder;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.text1)
+        @BindView(R.id.text1)
         TextView text1TextView;
-        @Bind(R.id.list_item)
+        @BindView(R.id.list_item)
         View listItemView;
 
         // dual pane items
-        @Bind(R.id.list_item_full_layout)
+        @BindView(R.id.list_item_full_layout)
         View listItemFullLayout;
-        @Bind(R.id.listview_sidebar_selected)
+        @BindView(R.id.listview_sidebar_selected)
         View sideBarSelectedView;
 
         public ViewHolder(View view) {

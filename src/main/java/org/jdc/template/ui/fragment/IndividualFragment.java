@@ -33,7 +33,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import pocketbus.Bus;
 import pocketknife.BindArgument;
@@ -46,17 +46,17 @@ public class IndividualFragment extends Fragment {
 
     private static final String ARG_ID = "ID";
 
-    @Bind(R.id.individual_name)
+    @BindView(R.id.individual_name)
     TextView nameTextView;
-    @Bind(R.id.individual_phone)
+    @BindView(R.id.individual_phone)
     TextView phoneTextView;
-    @Bind(R.id.individual_email)
+    @BindView(R.id.individual_email)
     TextView emailTextView;
-    @Bind(R.id.birth_date)
+    @BindView(R.id.birth_date)
     TextView birthDateEditText;
-    @Bind(R.id.alarm_time)
+    @BindView(R.id.alarm_time)
     TextView alarmTimeEditText;
-    @Bind(R.id.sample_datetime)
+    @BindView(R.id.sample_datetime)
     TextView sampleDateTimeEditText;
 
     @Inject

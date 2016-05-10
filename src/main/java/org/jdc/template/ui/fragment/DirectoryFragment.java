@@ -32,7 +32,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import pocketbus.Bus;
 import pocketbus.Subscribe;
@@ -56,7 +56,7 @@ public class DirectoryFragment extends BaseFragment implements SearchView.OnQuer
     @Inject
     IndividualManager individualManager;
 
-    @Bind(R.id.recycler_list)
+    @BindView(R.id.recycler_list)
     RecyclerView recyclerView;
 
     @BindArgument(ARGS_DUAL_PANE)

@@ -35,7 +35,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import pocketbus.Bus;
@@ -47,21 +47,21 @@ public class IndividualEditFragment extends Fragment {
 
     private static final String ARG_ID = "ID";
 
-    @Bind(R.id.first_name_layout)
+    @BindView(R.id.first_name_layout)
     TextInputLayout firstNameLayout;
-    @Bind(R.id.alarm_time_layout)
+    @BindView(R.id.alarm_time_layout)
     TextInputLayout alarmTimeLayout;
-    @Bind(R.id.first_name)
+    @BindView(R.id.first_name)
     EditText firstNameEditText;
-    @Bind(R.id.last_name)
+    @BindView(R.id.last_name)
     EditText lastNameEditText;
-    @Bind(R.id.phone)
+    @BindView(R.id.phone)
     EditText phoneEditText;
-    @Bind(R.id.email)
+    @BindView(R.id.email)
     EditText emailEditText;
-    @Bind(R.id.birth_date)
+    @BindView(R.id.birth_date)
     EditText birthDateEditText;
-    @Bind(R.id.alarm_time)
+    @BindView(R.id.alarm_time)
     EditText alarmTimeEditText;
 
     @Inject

@@ -17,7 +17,7 @@ import org.jdc.template.ui.menu.CommonMenu;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import pocketbus.Bus;
 import pocketbus.Subscribe;
@@ -33,7 +33,7 @@ public class DirectoryActivity extends DrawerActivity {
     @Inject
     Bus bus;
 
-    @Bind(R.id.ab_toolbar)
+    @BindView(R.id.ab_toolbar)
     Toolbar toolbar;
 
     private boolean dualPane = false;

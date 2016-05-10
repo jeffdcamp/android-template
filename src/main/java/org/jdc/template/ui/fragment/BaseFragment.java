@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import javax.annotation.Nonnull;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
@@ -17,12 +18,13 @@ public abstract class BaseFragment extends Fragment {
 
     @Nonnull
     private CompositeSubscription compositeSubscription = new CompositeSubscription();
+    private Unbinder butterkifeUnbinder;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         final View view = inflater.inflate(getLayoutResourceId(), container, false);
-        ButterKnife.bind(this, view);
+        butterkifeUnbinder = ButterKnife.bind(this, view);
         onPostCreateView();
         return view;
     }
@@ -41,7 +43,7 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-        ButterKnife.unbind(this);
+        butterkifeUnbinder.unbind();
         super.onDestroyView();
     }
 

@@ -12,7 +12,7 @@ import org.jdc.template.ui.fragment.IndividualEditFragment;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import pocketbus.Bus;
 import pocketbus.Subscribe;
@@ -24,7 +24,7 @@ public class IndividualEditActivity extends BaseActivity {
 
     public static final String EXTRA_ID = "INDIVIDUAL_ID";
 
-    @Bind(R.id.ab_toolbar)
+    @BindView(R.id.ab_toolbar)
     Toolbar toolbar;
     @BindExtra(EXTRA_ID)
     long individualId;

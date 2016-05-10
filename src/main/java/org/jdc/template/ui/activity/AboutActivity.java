@@ -54,7 +54,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.ResponseBody;
@@ -68,9 +68,9 @@ import rx.schedulers.Schedulers;
 public class AboutActivity extends BaseActivity {
     public static final String TAG = App.createTag(AboutActivity.class);
 
-    @Bind(R.id.version_info)
+    @BindView(R.id.version_info)
     TextView versionTextView;
-    @Bind(R.id.ab_toolbar)
+    @BindView(R.id.ab_toolbar)
     Toolbar toolbar;
 
     @Inject

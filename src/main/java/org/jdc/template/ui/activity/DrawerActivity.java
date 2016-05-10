@@ -13,7 +13,7 @@ import org.jdc.template.ui.menu.DrawerMenu;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public abstract class DrawerActivity extends BaseActivity {
@@ -21,9 +21,9 @@ public abstract class DrawerActivity extends BaseActivity {
     @Inject
     DrawerMenu drawerMenu;
 
-    @Bind(R.id.drawer_layout)
+    @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
-    @Bind(R.id.nav_view)
+    @BindView(R.id.nav_view)
     NavigationView navigationView;
 
     private boolean homeIsBackButton;
