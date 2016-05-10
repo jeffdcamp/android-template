@@ -9,7 +9,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.1.0'
-        classpath 'org.dbtools:gradle-dbtools-plugin:7.0.0'
+        classpath 'org.dbtools:gradle-dbtools-plugin:7.0.1'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.12.0' // version plugin support
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
@@ -81,7 +81,7 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile 'com.google.code.findbugs:jsr305:3.0.1'
     compile 'com.jakewharton.threetenabp:threetenabp:1.0.3'
-    compile 'org.dbtools:dbtools-android:7.0.0'
+    compile 'org.dbtools:dbtools-android:7.0.1'
     compile 'com.devbrackets.android:recyclerext:1.1.1'
     compile 'com.evernote:android-job:1.0.4'
 
