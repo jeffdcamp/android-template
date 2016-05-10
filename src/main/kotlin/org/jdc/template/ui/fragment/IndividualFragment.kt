@@ -46,9 +46,6 @@ class IndividualFragment : Fragment() {
         super.onCreate(savedInstanceState)
         PocketKnife.bindArguments(this)
 
-        // todo fix issue with Pocketknife (this should be initialized by @BindArgument)
-        individualId = arguments.getLong(ARG_ID)
-
         setHasOptionsMenu(true)
     }
 
