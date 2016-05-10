@@ -7,7 +7,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:2.1.0'
         classpath 'me.tatarka:gradle-retrolambda:3.2.5'
-        classpath 'org.dbtools:gradle-dbtools-plugin:7.0.1'
+        classpath 'org.dbtools:gradle-dbtools-plugin:7.0.2'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.12.0' // version plugin support
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
     }
