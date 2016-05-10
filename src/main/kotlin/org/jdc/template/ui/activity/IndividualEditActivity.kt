@@ -5,12 +5,11 @@ import android.os.Bundle
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.toolbar_actionbar.*
 import org.jdc.template.R
-import org.jdc.template.inject.Injector
 import org.jdc.template.event.IndividualSavedEvent
+import org.jdc.template.inject.Injector
 import org.jdc.template.ui.fragment.IndividualEditFragment
 import pocketbus.Bus
 import pocketbus.Subscribe
-import pocketbus.SubscriptionRegistration
 import pocketbus.ThreadMode
 import pocketknife.BindExtra
 import javax.inject.Inject
@@ -22,8 +21,6 @@ class IndividualEditActivity : BaseActivity() {
 
     @Inject
     lateinit var bus: Bus
-
-    lateinit var subscriptionRegistration: SubscriptionRegistration
 
     init {
         Injector.get().inject(this)
@@ -51,11 +48,11 @@ class IndividualEditActivity : BaseActivity() {
 
     override fun onStart() {
         super.onStart()
-        subscriptionRegistration = bus.register(this)
+        bus.register(this)
     }
 
     override fun onStop() {
-        bus.unregister(subscriptionRegistration)
+        bus.unregister(this)
         super.onStop()
     }
 

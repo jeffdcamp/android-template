@@ -12,7 +12,6 @@ import org.jdc.template.inject.Injector
 import org.jdc.template.ui.fragment.IndividualFragment
 import pocketbus.Bus
 import pocketbus.Subscribe
-import pocketbus.SubscriptionRegistration
 import pocketbus.ThreadMode
 import pocketknife.BindExtra
 import pocketknife.PocketKnife
@@ -27,8 +26,6 @@ class IndividualActivity : DrawerActivity() {
     lateinit var internalIntents: InternalIntents
     @Inject
     lateinit var bus: Bus
-
-    lateinit var subscriptionRegistration: SubscriptionRegistration
 
     init {
         Injector.get().inject(this)
@@ -50,11 +47,11 @@ class IndividualActivity : DrawerActivity() {
 
     override fun onStart() {
         super.onStart()
-        subscriptionRegistration = bus.register(this)
+        bus.register(this)
     }
 
     override fun onStop() {
-        bus.unregister(subscriptionRegistration)
+        bus.unregister(this)
         super.onStop()
     }
 

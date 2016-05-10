@@ -48,7 +48,6 @@ class DirectoryFragment : BaseFragment(), SearchView.OnQueryTextListener, Action
     var lastSelectedId: Long = 0
 
     lateinit var adapter: DirectoryAdapter
-    lateinit var subscriptionRegistration: SubscriptionRegistration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,12 +105,12 @@ class DirectoryFragment : BaseFragment(), SearchView.OnQueryTextListener, Action
 
     override fun onStart() {
         super.onStart()
-        subscriptionRegistration = bus.register(this)
+        bus.register(this)
         loadList()
     }
 
     override fun onStop() {
-        bus.unregister(subscriptionRegistration)
+        bus.unregister(this)
         super.onStop()
     }
 
