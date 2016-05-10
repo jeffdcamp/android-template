@@ -5,9 +5,9 @@ import android.support.v7.widget.Toolbar;
 
 import org.jdc.template.InternalIntents;
 import org.jdc.template.R;
-import org.jdc.template.inject.Injector;
 import org.jdc.template.event.EditIndividualEvent;
 import org.jdc.template.event.IndividualDeletedEvent;
+import org.jdc.template.inject.Injector;
 import org.jdc.template.ui.fragment.IndividualFragment;
 
 import javax.inject.Inject;
@@ -16,7 +16,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import pocketbus.Bus;
 import pocketbus.Subscribe;
-import pocketbus.SubscriptionRegistration;
 import pocketbus.ThreadMode;
 import pocketknife.BindExtra;
 import pocketknife.PocketKnife;
@@ -35,8 +34,6 @@ public class IndividualActivity extends DrawerActivity {
     InternalIntents internalIntents;
     @Inject
     Bus bus;
-
-    private SubscriptionRegistration subscriptionRegistration;
 
     public IndividualActivity() {
         Injector.get().inject(this);
@@ -63,12 +60,12 @@ public class IndividualActivity extends DrawerActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        subscriptionRegistration = bus.register(this);
+        bus.register(this);
     }
 
     @Override
     protected void onStop() {
-        bus.unregister(subscriptionRegistration);
+        bus.unregister(this);
         super.onStop();
     }
 

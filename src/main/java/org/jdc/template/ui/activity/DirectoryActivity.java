@@ -7,9 +7,9 @@ import android.view.MenuItem;
 
 import org.jdc.template.InternalIntents;
 import org.jdc.template.R;
-import org.jdc.template.inject.Injector;
 import org.jdc.template.event.DirectoryItemSelectedEvent;
 import org.jdc.template.event.EditIndividualEvent;
+import org.jdc.template.inject.Injector;
 import org.jdc.template.ui.fragment.DirectoryFragment;
 import org.jdc.template.ui.fragment.IndividualEditFragment;
 import org.jdc.template.ui.fragment.IndividualFragment;
@@ -21,7 +21,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import pocketbus.Bus;
 import pocketbus.Subscribe;
-import pocketbus.SubscriptionRegistration;
 import pocketbus.ThreadMode;
 
 public class DirectoryActivity extends DrawerActivity {
@@ -36,8 +35,6 @@ public class DirectoryActivity extends DrawerActivity {
 
     @Bind(R.id.ab_toolbar)
     Toolbar toolbar;
-
-    private SubscriptionRegistration subscriptionRegistration;
 
     private boolean dualPane = false;
 
@@ -74,12 +71,12 @@ public class DirectoryActivity extends DrawerActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        subscriptionRegistration = bus.register(this);
+        bus.register(this);
     }
 
     @Override
     protected void onStop() {
-        bus.unregister(subscriptionRegistration);
+        bus.unregister(this);
         super.onStop();
     }
 

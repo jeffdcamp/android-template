@@ -6,8 +6,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import org.jdc.template.R;
-import org.jdc.template.inject.Injector;
 import org.jdc.template.event.IndividualSavedEvent;
+import org.jdc.template.inject.Injector;
 import org.jdc.template.ui.fragment.IndividualEditFragment;
 
 import javax.inject.Inject;
@@ -16,7 +16,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import pocketbus.Bus;
 import pocketbus.Subscribe;
-import pocketbus.SubscriptionRegistration;
 import pocketbus.ThreadMode;
 import pocketknife.BindExtra;
 import pocketknife.PocketKnife;
@@ -32,8 +31,6 @@ public class IndividualEditActivity extends BaseActivity {
 
     @Inject
     Bus bus;
-
-    private SubscriptionRegistration subscriptionRegistration;
 
     public IndividualEditActivity() {
         Injector.get().inject(this);
@@ -63,12 +60,12 @@ public class IndividualEditActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        subscriptionRegistration = bus.register(this);
+        bus.register(this);
     }
 
     @Override
     protected void onStop() {
-        bus.unregister(subscriptionRegistration);
+        bus.unregister(this);
         super.onStop();
     }
 

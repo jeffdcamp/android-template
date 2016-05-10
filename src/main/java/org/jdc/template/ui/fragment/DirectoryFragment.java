@@ -36,7 +36,6 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import pocketbus.Bus;
 import pocketbus.Subscribe;
-import pocketbus.SubscriptionRegistration;
 import pocketbus.ThreadMode;
 import pocketknife.BindArgument;
 import pocketknife.PocketKnife;
@@ -67,7 +66,6 @@ public class DirectoryFragment extends BaseFragment implements SearchView.OnQuer
     long lastSelectedId = 0;
 
     private DirectoryAdapter adapter;
-    private SubscriptionRegistration subscriptionRegistration;
 
     public static DirectoryFragment newInstance(boolean dualPane) {
         DirectoryFragment fragment = new DirectoryFragment();
@@ -134,12 +132,12 @@ public class DirectoryFragment extends BaseFragment implements SearchView.OnQuer
     public void onStart() {
         super.onStart();
         loadList();
-        subscriptionRegistration = bus.register(this);
+        bus.register(this);
     }
 
     @Override
     public void onStop() {
-        bus.unregister(subscriptionRegistration);
+        bus.unregister(this);
         super.onStop();
     }
 
