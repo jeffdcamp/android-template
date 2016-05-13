@@ -2,7 +2,6 @@ buildscript {
     ext.kotlin_version = '1.0.2'
 
     repositories {
-        maven { url "https://dl.bintray.com/kotlin/kotlin-eap/" }
         mavenLocal()
         mavenCentral()
         jcenter()
@@ -41,7 +40,6 @@ def versionMajorMinorPatchBuild = "${versionMajor}.${versionMinor}.${versionPatc
 def buildTime = new Date().getTime()
 
 repositories {
-    maven { url "https://dl.bintray.com/kotlin/kotlin-eap/" }
     mavenLocal()
     mavenCentral()
     jcenter()
