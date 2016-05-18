@@ -1,5 +1,5 @@
 buildscript {
-    ext.dbtoolsVersion = '7.0.3'
+    ext.dbtoolsVersion = '7.0.5'
 
     repositories {
         mavenLocal()

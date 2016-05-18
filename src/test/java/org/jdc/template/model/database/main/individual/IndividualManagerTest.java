@@ -10,7 +10,7 @@ public class IndividualManagerTest {
     @Test
     public void testIndividual() {
         TestMainDatabaseConfig databaseConfig = new TestMainDatabaseConfig("test-individual.db");
-        databaseConfig.deleteDatabaseFile();
+        databaseConfig.deleteAllDatabaseFiles();
         DatabaseManager databaseManager = new DatabaseManager(databaseConfig);
 
         // === CREATE / INSERT ===
