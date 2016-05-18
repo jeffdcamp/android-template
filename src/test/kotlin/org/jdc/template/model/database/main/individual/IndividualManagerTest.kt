@@ -9,7 +9,7 @@ class IndividualManagerTest {
     @Test
     fun testIndividual() {
         val databaseConfig = TestMainDatabaseConfig("test-individual.db")
-        databaseConfig.deleteDatabaseFile()
+        databaseConfig.deleteAllDatabaseFiles()
         val databaseManager = DatabaseManager(databaseConfig)
 
         // === CREATE / INSERT ===
