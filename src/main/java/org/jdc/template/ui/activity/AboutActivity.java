@@ -19,6 +19,7 @@ import org.jdc.template.Analytics;
 import org.jdc.template.App;
 import org.jdc.template.BuildConfig;
 import org.jdc.template.R;
+import org.jdc.template.event.NewDataEvent;
 import org.jdc.template.inject.Injector;
 import org.jdc.template.job.SampleJob;
 import org.jdc.template.model.database.AppDatabaseConfig;
@@ -39,9 +40,9 @@ import org.jdc.template.model.database.other.individuallist.IndividualListManage
 import org.jdc.template.model.database.other.individuallistitem.IndividualListItem;
 import org.jdc.template.model.database.other.individuallistitem.IndividualListItemConst;
 import org.jdc.template.model.database.other.individuallistitem.IndividualListItemManager;
-import org.jdc.template.model.webservice.websearch.WebSearchService;
-import org.jdc.template.model.webservice.websearch.dto.DtoResult;
-import org.jdc.template.model.webservice.websearch.dto.DtoSearchResponse;
+import org.jdc.template.model.webservice.colors.ColorService;
+import org.jdc.template.model.webservice.colors.dto.DtoColor;
+import org.jdc.template.model.webservice.colors.dto.DtoColors;
 import org.jdc.template.util.RxUtil;
 import org.jdc.template.util.WebServiceUtil;
 import org.threeten.bp.LocalDate;
@@ -58,6 +59,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.ResponseBody;
+import pocketbus.Bus;
+import pocketbus.Subscribe;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -75,6 +78,8 @@ public class AboutActivity extends BaseActivity {
 
     @Inject
     Analytics analytics;
+    @Inject
+    Bus bus;
 
     public AboutActivity() {
         Injector.get().inject(this);
@@ -94,6 +99,18 @@ public class AboutActivity extends BaseActivity {
         enableActionBarBackArrow(true);
 
         versionTextView.setText(getVersionName());
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        bus.register(this);
+    }
+
+    @Override
+    protected void onStop() {
+        bus.unregister(this);
+        super.onStop();
     }
 
     @Override
@@ -346,23 +363,23 @@ public class AboutActivity extends BaseActivity {
     }
 
     @Inject
-    WebSearchService webSearchService;
+    ColorService colorService;
 
     @Inject
     WebServiceUtil webServiceUtil;
 
 //    @OnClick(R.id.rest_test_button)
     public void testQueryWebServiceCall() {
-        Call<DtoSearchResponse> call = webSearchService.search("Cat");
+        Call<DtoColors> call = colorService.colors();
 
-        call.enqueue(new Callback<DtoSearchResponse>() {
+        call.enqueue(new Callback<DtoColors>() {
             @Override
-            public void onResponse(Call<DtoSearchResponse> call, Response<DtoSearchResponse> response) {
-                processWebServiceResponse(response);
+            public void onResponse(Call<DtoColors> call, Response<DtoColors> response) {
+                processColorsResponse(response);
             }
 
             @Override
-            public void onFailure(Call<DtoSearchResponse> call, Throwable t) {
+            public void onFailure(Call<DtoColors> call, Throwable t) {
                 Log.e(TAG, "Search FAILED", t);
             }
         });
@@ -370,26 +387,31 @@ public class AboutActivity extends BaseActivity {
 
     @OnClick(R.id.rest_test_button)
     public void testQueryWebServiceCallRx() {
-        RxUtil.toRetrofitObservable(webSearchService.search("Cat"))
+        RxUtil.toRetrofitObservable(colorService.colors())
                 .subscribeOn(Schedulers.io())
                 .map(response -> RxUtil.verifyRetrofitResponse(response))
                 .filter(dtoSearchResponse -> dtoSearchResponse != null) // don't continue if null
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(dtoSearchResponse -> processSearchResponse(dtoSearchResponse), throwable -> Log.e(TAG, "Failed to get results", throwable));
+                .subscribe(dtoColors -> processColorsResponse(dtoColors), throwable -> bus.post(new NewDataEvent(false, throwable)), () -> bus.post(new NewDataEvent(true)));
+    }
+
+    @Subscribe
+    public void handle(NewDataEvent event) {
+        Log.e(TAG, "Rest Service finished [" + event.isSuccess() + "]", event.getThrowable());
     }
 
 //    @OnClick(R.id.rest_test_button)
     public void testFullUrlQueryWebServiceCall() {
-        Call<DtoSearchResponse> call = webSearchService.searchByFullUrl("https://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=Cat");
+        Call<DtoColors> call = colorService.colorsByFullUrl(ColorService.FULL_URL);
 
-        call.enqueue(new Callback<DtoSearchResponse>() {
+        call.enqueue(new Callback<DtoColors>() {
             @Override
-            public void onResponse(Call<DtoSearchResponse> call, Response<DtoSearchResponse> response) {
-                processWebServiceResponse(response);
+            public void onResponse(Call<DtoColors> call, Response<DtoColors> response) {
+                processColorsResponse(response);
             }
 
             @Override
-            public void onFailure(Call<DtoSearchResponse> call, Throwable t) {
+            public void onFailure(Call<DtoColors> call, Throwable t) {
                 Log.e(TAG, "Search FAILED", t);
             }
         });
@@ -397,7 +419,7 @@ public class AboutActivity extends BaseActivity {
 
 //    @OnClick(R.id.rest_test_button)
     public void testSaveQueryWebServiceCall() {
-        Call<ResponseBody> call = webSearchService.searchToFile("Cat");
+        Call<ResponseBody> call = colorService.colorsToFile();
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -427,18 +449,18 @@ public class AboutActivity extends BaseActivity {
         });
     }
 
-    private void processWebServiceResponse(Response<DtoSearchResponse> response) {
+    private void processColorsResponse(Response<DtoColors> response) {
         if (response.isSuccessful()) {
             Log.e(TAG, "Search SUCCESS");
-            processSearchResponse(response.body());
+            processColorsResponse(response.body());
         } else {
             Log.e(TAG, "Search FAILURE: code (" + response.code() + ")");
         }
     }
 
-    private void processSearchResponse(DtoSearchResponse searchResponse) {
-        for (DtoResult dtoResult : searchResponse.getResponseData().getResults()) {
-            Log.i(TAG, "Result: " + dtoResult.getTitle());
+    private void processColorsResponse(DtoColors dtoColors) {
+        for (DtoColor dtoColor : dtoColors.getColors()) {
+            Log.i(TAG, "Result: " + dtoColor.getColorName());
         }
     }
 

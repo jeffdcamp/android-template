@@ -7,7 +7,7 @@ import com.github.aurae.retrofit2.LoganSquareConverterFactory;
 
 import org.jdc.template.BuildConfig;
 import org.jdc.template.auth.MyAccountInterceptor;
-import org.jdc.template.model.webservice.websearch.WebSearchService;
+import org.jdc.template.model.webservice.colors.ColorService;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -102,13 +102,13 @@ public class ServiceModule {
 
     @Provides
     @Singleton
-    public WebSearchService getSearchService(@Nonnull @Named(STANDARD_CLIENT) OkHttpClient client) {
+    public ColorService getColorService(@Nonnull @Named(STANDARD_CLIENT) OkHttpClient client) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(WebSearchService.BASE_URL)
+                .baseUrl(ColorService.BASE_URL)
                 .client(client)
                 .addConverterFactory(LoganSquareConverterFactory.create())
                 .build();
 
-        return retrofit.create(WebSearchService.class);
+        return retrofit.create(ColorService.class);
     }
 }

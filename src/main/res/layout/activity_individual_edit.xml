@@ -9,20 +9,30 @@
     android:fitsSystemWindows="true"
     >
 
-    <LinearLayout
+    <android.support.percent.PercentRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/toolbar_actionbar"/>
+        <include
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/toolbar_actionbar"/>
 
         <!-- main content -->
         <FrameLayout
             android:id="@+id/fragment_pos1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-    </LinearLayout>
+            android:layout_height="match_parent"
+            app:layout_widthPercent="@fraction/fragment_width"
+            android:layout_below="@+id/appbar"
+            android:layout_centerHorizontal="true"
+            android:background="@color/default_background"
+            android:elevation="@dimen/fragment_elevation"
+            >
+                <include layout="@layout/individual_edit"/>
+        </FrameLayout>
+    </android.support.percent.PercentRelativeLayout>
 
     <!-- drawer -->
     <android.support.design.widget.NavigationView

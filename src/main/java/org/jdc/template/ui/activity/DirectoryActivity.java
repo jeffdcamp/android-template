@@ -1,42 +1,59 @@
 package org.jdc.template.ui.activity;
 
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.gms.analytics.HitBuilders;
+
+import org.jdc.template.Analytics;
 import org.jdc.template.InternalIntents;
 import org.jdc.template.R;
-import org.jdc.template.event.DirectoryItemSelectedEvent;
-import org.jdc.template.event.EditIndividualEvent;
 import org.jdc.template.inject.Injector;
-import org.jdc.template.ui.fragment.DirectoryFragment;
-import org.jdc.template.ui.fragment.IndividualEditFragment;
-import org.jdc.template.ui.fragment.IndividualFragment;
+import org.jdc.template.model.database.main.individual.Individual;
+import org.jdc.template.model.database.main.individual.IndividualConst;
+import org.jdc.template.model.database.main.individual.IndividualManager;
+import org.jdc.template.ui.adapter.DirectoryAdapter;
 import org.jdc.template.ui.menu.CommonMenu;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import pocketbus.Bus;
-import pocketbus.Subscribe;
-import pocketbus.ThreadMode;
+import butterknife.OnClick;
+import pocketknife.PocketKnife;
+import pocketknife.SaveState;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
-public class DirectoryActivity extends DrawerActivity {
+public class DirectoryActivity extends DrawerActivity implements SearchView.OnQueryTextListener {
 
+    @Inject
+    Analytics analytics;
     @Inject
     CommonMenu commonMenu;
     @Inject
     InternalIntents internalIntents;
-
     @Inject
-    Bus bus;
+    IndividualManager individualManager;
 
     @BindView(R.id.ab_toolbar)
     Toolbar toolbar;
+    @BindView(R.id.recycler_list)
+    RecyclerView recyclerView;
 
-    private boolean dualPane = false;
+    @SaveState
+    long lastSelectedId = 0;
+
+    private DirectoryAdapter adapter;
 
     public DirectoryActivity() {
         Injector.get().inject(this);
@@ -45,25 +62,37 @@ public class DirectoryActivity extends DrawerActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.directory_list);
+        setContentView(R.layout.activity_directory);
         ButterKnife.bind(this);
-
-        setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 
         super.setupDrawerWithDrawerButton(toolbar, R.string.drawer_main);
 
-        dualPane = ButterKnife.findById(this, R.id.fragment_pos2) != null;
+        setupRecyclerView();
+    }
 
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_pos1, DirectoryFragment.newInstance(dualPane))
-                    .commit();
-        }
+    private void setupRecyclerView() {
+        adapter = new DirectoryAdapter(this);
+        adapter.setListener(selectedItemId -> internalIntents.showIndividual(DirectoryActivity.this, selectedItemId));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        lastSelectedId = adapter.getLastSelectedItemId();
+        PocketKnife.saveInstanceState(this, outState);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.directory_menu, menu);
         getMenuInflater().inflate(R.menu.common_menu, menu);
+
+        MenuItem searchMenuItem = menu.findItem(R.id.menu_item_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchMenuItem);
+        searchView.setQueryHint(getString(R.string.menu_search_hint));
+        searchView.setOnQueryTextListener(this);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -71,38 +100,20 @@ public class DirectoryActivity extends DrawerActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        bus.register(this);
+        loadList();
     }
 
-    @Override
-    protected void onStop() {
-        bus.unregister(this);
-        super.onStop();
+    public void loadList() {
+        Observable<List<Individual>> observable = individualManager.findBySelectionRx(null, null, IndividualConst.C_FIRST_NAME + ", " + IndividualConst.C_LAST_NAME)
+                .subscribeOn(Schedulers.io())
+                .toList()
+                .observeOn(AndroidSchedulers.mainThread());
+
+        addSubscription(observable.subscribe(data -> dataLoaded(data)));
     }
 
-    @Subscribe(ThreadMode.BACKGROUND)
-    public void handle(DirectoryItemSelectedEvent event) {
-        long id = event.getId();
-        if (dualPane) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_pos2, IndividualFragment.newInstance(id))
-                    .commit();
-        } else {
-            internalIntents.showIndividual(this, id);
-        }
-    }
-
-    @Subscribe(ThreadMode.MAIN)
-    public void handle(EditIndividualEvent event) {
-        long id = event.getId();
-
-        if (dualPane) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_pos2, IndividualEditFragment.newInstance(id))
-                    .commit();
-        } else {
-            internalIntents.editIndividual(this, id);
-        }
+    public void dataLoaded(List<Individual> data) {
+        adapter.set(data);
     }
 
     protected boolean allowFinishOnHome() {
@@ -112,5 +123,25 @@ public class DirectoryActivity extends DrawerActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return commonMenu.onOptionsItemSelected(this, item) || super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
+    }
+
+    @OnClick(R.id.fab_new_item)
+    public void onNewItemClick() {
+        analytics.send(new HitBuilders.EventBuilder()
+                .setCategory(Analytics.CATEGORY_INDIVIDUAL)
+                .setAction(Analytics.ACTION_NEW)
+                .build());
+
+        internalIntents.editIndividual(this, -1);
     }
 }

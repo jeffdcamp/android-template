@@ -5,16 +5,12 @@ import android.app.Application;
 import org.jdc.template.App;
 import org.jdc.template.ui.activity.AboutActivity;
 import org.jdc.template.ui.activity.DirectoryActivity;
-import org.jdc.template.ui.fragment.DirectoryFragment;
 import org.jdc.template.ui.activity.IndividualActivity;
 import org.jdc.template.ui.activity.IndividualEditActivity;
-import org.jdc.template.ui.fragment.IndividualEditFragment;
-import org.jdc.template.ui.fragment.IndividualFragment;
 import org.jdc.template.ui.activity.SettingsActivity;
-import org.jdc.template.ui.fragment.SettingsFragment;
 import org.jdc.template.ui.activity.StartupActivity;
 import org.jdc.template.ui.adapter.DirectoryAdapter;
-
+import org.jdc.template.ui.fragment.SettingsFragment;
 
 import javax.inject.Singleton;
 
@@ -27,11 +23,8 @@ public interface AppComponent {
     void inject(App application);
     void inject(StartupActivity target);
     void inject(DirectoryActivity target);
-    void inject(DirectoryFragment target);
     void inject(IndividualActivity target);
-    void inject(IndividualFragment target);
     void inject(IndividualEditActivity target);
-    void inject(IndividualEditFragment target);
     void inject(SettingsActivity target);
     void inject(AboutActivity target);
 

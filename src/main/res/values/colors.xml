@@ -14,6 +14,7 @@
     <color name="default_background">#ffffffff</color>
     <color name="default_text">#000000</color>
     <color name="default_text_light">#ffffffff</color>
+    <color name="window_background">#ececec</color>
 
     <!-- Lists -->
     <color name="list_header_text">@color/app_theme_color</color>

@@ -10,38 +10,23 @@ import android.widget.TextView;
 import com.devbrackets.android.recyclerext.adapter.RecyclerListAdapter;
 
 import org.jdc.template.R;
-import org.jdc.template.event.DirectoryItemClickedEvent;
 import org.jdc.template.inject.Injector;
 import org.jdc.template.model.database.main.individual.Individual;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import pocketbus.Bus;
 
 public class DirectoryAdapter extends RecyclerListAdapter<DirectoryAdapter.ViewHolder, Individual> {
-    @Inject
-    Bus bus;
-
     private LayoutInflater inflater;
 
-    // dual pane variables
-    private boolean dualPane = false;
+    private OnItemClickListener listener;
     private long lastSelectedItemId = 0;
-    private ViewHolder lastSelectedViewHolder;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.text1)
         TextView text1TextView;
         @BindView(R.id.list_item)
         View listItemView;
-
-        // dual pane items
-        @BindView(R.id.list_item_full_layout)
-        View listItemFullLayout;
-        @BindView(R.id.listview_sidebar_selected)
-        View sideBarSelectedView;
 
         public ViewHolder(View view) {
             super(view);
@@ -51,23 +36,17 @@ public class DirectoryAdapter extends RecyclerListAdapter<DirectoryAdapter.ViewH
         public void setText(String text) {
             text1TextView.setText(text);
         }
-
-        public void setItemSelected(boolean selected) {
-            listItemFullLayout.setSelected(selected);
-            sideBarSelectedView.setVisibility(selected ? View.VISIBLE : View.GONE);
-        }
     }
 
-    public DirectoryAdapter(Context context, boolean dualPane) {
+    public DirectoryAdapter(Context context) {
         Injector.get().inject(this);
 
         this.inflater = LayoutInflater.from(context);
-        this.dualPane = dualPane;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = inflater.inflate(R.layout.list_item_dual_pane, viewGroup, false);
+        View view = inflater.inflate(R.layout.list_item, viewGroup, false);
         return new ViewHolder(view);
     }
 
@@ -78,35 +57,20 @@ public class DirectoryAdapter extends RecyclerListAdapter<DirectoryAdapter.ViewH
 
         // bind data to view holder
         holder.text1TextView.setText(individual.getFullName());
-        if (dualPane) {
-            holder.setItemSelected(itemId == lastSelectedItemId);
-        }
 
         // Click listener
         holder.listItemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onItemClicked(holder, itemId);
+                onItemClicked(itemId);
             }
         });
     }
 
-    private void onItemClicked(ViewHolder holder, long selectedItemId) {
+    private void onItemClicked(long selectedItemId) {
         this.lastSelectedItemId = selectedItemId;
-        toggleDualPaneSelection(holder);
-
-        bus.post(new DirectoryItemClickedEvent(selectedItemId));
-    }
-
-    // dual pane methods
-    private void toggleDualPaneSelection(ViewHolder holder) {
-        if (dualPane) {
-            if (lastSelectedViewHolder != null) {
-                lastSelectedViewHolder.setItemSelected(false);
-            }
-            holder.setItemSelected(true);
-
-            lastSelectedViewHolder = holder;
+        if (listener != null) {
+            listener.onItemClick(selectedItemId);
         }
     }
 
@@ -114,7 +78,11 @@ public class DirectoryAdapter extends RecyclerListAdapter<DirectoryAdapter.ViewH
         return lastSelectedItemId;
     }
 
-    public void setLastSelectedItemId(long lastSelectedItemId) {
-        this.lastSelectedItemId = lastSelectedItemId;
+    public void setListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(long selectedItemId);
     }
 }
