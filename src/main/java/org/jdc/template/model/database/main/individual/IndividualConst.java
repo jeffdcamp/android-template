@@ -31,6 +31,8 @@ public class IndividualConst {
     public static final String FULL_C_FIRST_NAME = "INDIVIDUAL.FIRST_NAME";
     public static final String C_LAST_NAME = "LAST_NAME";
     public static final String FULL_C_LAST_NAME = "INDIVIDUAL.LAST_NAME";
+    public static final String C_IMAGE_URL = "IMAGE_URL";
+    public static final String FULL_C_IMAGE_URL = "INDIVIDUAL.IMAGE_URL";
     public static final String C_BIRTH_DATE = "BIRTH_DATE";
     public static final String FULL_C_BIRTH_DATE = "INDIVIDUAL.BIRTH_DATE";
     public static final String C_ALARM_TIME = "ALARM_TIME";
@@ -61,6 +63,7 @@ public class IndividualConst {
         "INDIVIDUAL_TYPE_ID INTEGER NOT NULL," + 
         "FIRST_NAME TEXT NOT NULL," + 
         "LAST_NAME TEXT NOT NULL," + 
+        "IMAGE_URL TEXT NOT NULL," + 
         "BIRTH_DATE TEXT," + 
         "ALARM_TIME TEXT NOT NULL," + 
         "LAST_MODIFIED INTEGER NOT NULL," + 
@@ -79,14 +82,15 @@ public class IndividualConst {
         "" + 
         "";
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS INDIVIDUAL;";
-    public static final String INSERT_STATEMENT = "INSERT INTO INDIVIDUAL (HOUSEHOLD_ID,INDIVIDUAL_TYPE_ID,FIRST_NAME,LAST_NAME,BIRTH_DATE,ALARM_TIME,LAST_MODIFIED,SAMPLE_DATE_TIME,SAMPLE_TIMESTAMP,PHONE,EMAIL,AVAILABLE,AMOUNT1,AMOUNT2,ENABLED,SPOUSE_INDIVIDUAL_ID) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    public static final String UPDATE_STATEMENT = "UPDATE INDIVIDUAL SET HOUSEHOLD_ID=?, INDIVIDUAL_TYPE_ID=?, FIRST_NAME=?, LAST_NAME=?, BIRTH_DATE=?, ALARM_TIME=?, LAST_MODIFIED=?, SAMPLE_DATE_TIME=?, SAMPLE_TIMESTAMP=?, PHONE=?, EMAIL=?, AVAILABLE=?, AMOUNT1=?, AMOUNT2=?, ENABLED=?, SPOUSE_INDIVIDUAL_ID=? WHERE _id = ?";
+    public static final String INSERT_STATEMENT = "INSERT INTO INDIVIDUAL (HOUSEHOLD_ID,INDIVIDUAL_TYPE_ID,FIRST_NAME,LAST_NAME,IMAGE_URL,BIRTH_DATE,ALARM_TIME,LAST_MODIFIED,SAMPLE_DATE_TIME,SAMPLE_TIMESTAMP,PHONE,EMAIL,AVAILABLE,AMOUNT1,AMOUNT2,ENABLED,SPOUSE_INDIVIDUAL_ID) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    public static final String UPDATE_STATEMENT = "UPDATE INDIVIDUAL SET HOUSEHOLD_ID=?, INDIVIDUAL_TYPE_ID=?, FIRST_NAME=?, LAST_NAME=?, IMAGE_URL=?, BIRTH_DATE=?, ALARM_TIME=?, LAST_MODIFIED=?, SAMPLE_DATE_TIME=?, SAMPLE_TIMESTAMP=?, PHONE=?, EMAIL=?, AVAILABLE=?, AMOUNT1=?, AMOUNT2=?, ENABLED=?, SPOUSE_INDIVIDUAL_ID=? WHERE _id = ?";
     public static final String[] ALL_COLUMNS = new String[] {
         C_ID,
         C_HOUSEHOLD_ID,
         C_INDIVIDUAL_TYPE,
         C_FIRST_NAME,
         C_LAST_NAME,
+        C_IMAGE_URL,
         C_BIRTH_DATE,
         C_ALARM_TIME,
         C_LAST_MODIFIED,
@@ -105,6 +109,7 @@ public class IndividualConst {
         FULL_C_INDIVIDUAL_TYPE,
         FULL_C_FIRST_NAME,
         FULL_C_LAST_NAME,
+        FULL_C_IMAGE_URL,
         FULL_C_BIRTH_DATE,
         FULL_C_ALARM_TIME,
         FULL_C_LAST_MODIFIED,
@@ -139,6 +144,10 @@ public class IndividualConst {
 
     public static String getLastName(Cursor cursor) {
         return cursor.getString(cursor.getColumnIndexOrThrow(C_LAST_NAME));
+    }
+
+    public static String getImageUrl(Cursor cursor) {
+        return cursor.getString(cursor.getColumnIndexOrThrow(C_IMAGE_URL));
     }
 
     public static org.threeten.bp.LocalDate getBirthDate(Cursor cursor) {
