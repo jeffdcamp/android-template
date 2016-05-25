@@ -9,7 +9,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.jdc.template.BuildConfig
 import org.jdc.template.auth.MyAccountInterceptor
-import org.jdc.template.model.webservice.websearch.WebSearchService
+import org.jdc.template.model.webservice.colors.ColorService
 import retrofit2.Retrofit
 import java.io.UnsupportedEncodingException
 import java.util.concurrent.TimeUnit
@@ -77,10 +77,10 @@ class ServiceModule {
 
     @Provides
     @Singleton
-    fun getSearchService(@Named(STANDARD_CLIENT) client: OkHttpClient): WebSearchService {
-        val retrofit = Retrofit.Builder().baseUrl(WebSearchService.BASE_URL).client(client).addConverterFactory(LoganSquareConverterFactory.create()).build()
+    fun getSearchService(@Named(STANDARD_CLIENT) client: OkHttpClient): ColorService {
+        val retrofit = Retrofit.Builder().baseUrl(ColorService.BASE_URL).client(client).addConverterFactory(LoganSquareConverterFactory.create()).build()
 
-        return retrofit.create(WebSearchService::class.java)
+        return retrofit.create(ColorService::class.java)
     }
 
     companion object {

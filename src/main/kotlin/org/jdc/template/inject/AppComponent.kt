@@ -4,12 +4,8 @@ package org.jdc.template.inject
 import android.app.Application
 import dagger.Component
 import org.jdc.template.App
-import org.jdc.template.ui.*
 import org.jdc.template.ui.activity.*
 import org.jdc.template.ui.adapter.DirectoryAdapter
-import org.jdc.template.ui.fragment.DirectoryFragment
-import org.jdc.template.ui.fragment.IndividualEditFragment
-import org.jdc.template.ui.fragment.IndividualFragment
 import org.jdc.template.ui.fragment.SettingsFragment
 import javax.inject.Singleton
 
@@ -22,10 +18,7 @@ interface AppComponent {
 
     fun inject(target: StartupActivity)
     fun inject(target: DirectoryActivity)
-    fun inject(target: DirectoryFragment)
-    fun inject(target: IndividualFragment)
     fun inject(target: IndividualEditActivity)
-    fun inject(target: IndividualEditFragment)
     fun inject(target: SettingsActivity)
     fun inject(target: AboutActivity)
     fun inject(target: IndividualActivity)

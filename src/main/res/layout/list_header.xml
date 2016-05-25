@@ -27,12 +27,4 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp" />
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/listview_header_sidebar"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:background="@drawable/list_item_edge"
-        android:gravity="right|top|bottom"
-        android:visibility="gone" />
 </LinearLayout>

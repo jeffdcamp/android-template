@@ -7,57 +7,29 @@ import android.view.View
 import android.view.ViewGroup
 import com.devbrackets.android.recyclerext.adapter.RecyclerListAdapter
 import kotlinx.android.synthetic.main.list_item.view.*
-import kotlinx.android.synthetic.main.list_item_dual_pane.view.*
-import org.jdc.template.R.layout.list_item_dual_pane
-import org.jdc.template.event.DirectoryItemClickedEvent
-import org.jdc.template.inject.Injector
+import org.jdc.template.R
 import org.jdc.template.model.database.main.individual.Individual
-import pocketbus.Bus
-import javax.inject.Inject
 
-class DirectoryAdapter(context: Context, dualPane: Boolean) : RecyclerListAdapter<DirectoryAdapter.ViewHolder, Individual>() {
-
-    @Inject
-    lateinit var bus: Bus
+class DirectoryAdapter(context: Context) : RecyclerListAdapter<DirectoryAdapter.ViewHolder, Individual>() {
 
     private val inflater: LayoutInflater
 
     // dual pane variables
-    private var dualPane = false
     var lastSelectedItemId: Long = 0
-    private var lastSelectedViewHolder: ViewHolder? = null
+    var listener: OnItemClickListener? = null
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-//        @Bind(R.id.text1)
-//        internal var text1TextView: TextView
-//        @Bind(R.id.list_item)
-//        internal var listItemView: View
-
-        // dual pane items
-//        @Bind(R.id.list_item_full_layout)
-//        internal var listItemFullLayout: View
-//        @Bind(R.id.listview_sidebar_selected)
-//        internal var sideBarSelectedView: View
-
         fun setText(text: String) {
             itemView.text1.text = text
-        }
-
-        fun setItemSelected(selected: Boolean) {
-            itemView.list_item_full_layout.isSelected = selected
-            itemView.listview_sidebar_selected.visibility = if (selected) View.VISIBLE else View.GONE
         }
     }
 
     init {
-        Injector.get().inject(this)
-
         this.inflater = LayoutInflater.from(context)
-        this.dualPane = dualPane
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
-        val view = inflater.inflate(list_item_dual_pane, viewGroup, false)
+        val view = inflater.inflate(R.layout.list_item, viewGroup, false)
         return ViewHolder(view)
     }
 
@@ -71,30 +43,16 @@ class DirectoryAdapter(context: Context, dualPane: Boolean) : RecyclerListAdapte
 
         // bind data to view holder
         holder.itemView.text1.text = individual.getFullName()
-        if (dualPane) {
-            holder.setItemSelected(itemId == lastSelectedItemId)
-        }
-
         // Click listener
         holder.itemView.list_item.setOnClickListener { onItemClicked(holder, itemId) }
     }
 
     private fun onItemClicked(holder: ViewHolder, selectedItemId: Long) {
         this.lastSelectedItemId = selectedItemId
-        toggleDualPaneSelection(holder)
-
-        bus.post(DirectoryItemClickedEvent(selectedItemId))
+        listener?.onItemClick(selectedItemId);
     }
 
-    // dual pane methods
-    private fun toggleDualPaneSelection(holder: ViewHolder) {
-        if (dualPane) {
-            if (lastSelectedViewHolder != null) {
-                lastSelectedViewHolder!!.setItemSelected(false)
-            }
-            holder.setItemSelected(true)
-
-            lastSelectedViewHolder = holder
-        }
+    interface OnItemClickListener {
+        fun onItemClick(selectedItemId: Long)
     }
 }

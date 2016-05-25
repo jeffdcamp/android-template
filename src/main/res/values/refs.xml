@@ -1,3 +1,0 @@
-<resources>
-    <item type="layout" name="directory_list">@layout/fragment_drawer_single</item>
-</resources>

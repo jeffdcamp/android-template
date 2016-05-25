@@ -1,12 +1,10 @@
-package org.jdc.template.model.webservice.websearch.dto
+package org.jdc.template.model.webservice.colors.dto
 
 import com.bluelinelabs.logansquare.annotation.JsonField
 import com.bluelinelabs.logansquare.annotation.JsonObject
 
 @JsonObject
-class DtoPage {
+class DtoColors {
     @JsonField
-    var start: String? = null
-    @JsonField
-    var label: Int = 0
+    var colors: List<DtoColor>? = null
 }

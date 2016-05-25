@@ -15,6 +15,7 @@ import org.jdc.template.Analytics
 import org.jdc.template.App
 import org.jdc.template.BuildConfig
 import org.jdc.template.R.layout.activity_about
+import org.jdc.template.event.NewDataEvent
 import org.jdc.template.inject.Injector
 import org.jdc.template.job.SampleJob
 import org.jdc.template.model.database.AppDatabaseConfig
@@ -35,13 +36,14 @@ import org.jdc.template.model.database.other.individuallist.IndividualListManage
 import org.jdc.template.model.database.other.individuallistitem.IndividualListItem
 import org.jdc.template.model.database.other.individuallistitem.IndividualListItemConst
 import org.jdc.template.model.database.other.individuallistitem.IndividualListItemManager
-import org.jdc.template.model.webservice.websearch.WebSearchService
-import org.jdc.template.model.webservice.websearch.dto.DtoResult
-import org.jdc.template.model.webservice.websearch.dto.DtoSearchResponse
+import org.jdc.template.model.webservice.colors.ColorService
+import org.jdc.template.model.webservice.colors.dto.DtoColors
 import org.jdc.template.util.RxUtil
 import org.jdc.template.util.WebServiceUtil
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalTime
+import pocketbus.Bus
+import pocketbus.Subscribe
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -54,10 +56,11 @@ import javax.inject.Inject
 class AboutActivity : BaseActivity() {
 
     @Inject
-    lateinit  var analytics: Analytics
-
+    lateinit var analytics: Analytics
     @Inject
-    lateinit  var databaseManager: DatabaseManager
+    lateinit var bus: Bus
+    @Inject
+    lateinit var databaseManager: DatabaseManager
     @Inject
     lateinit var individualManager: IndividualManager
     @Inject
@@ -72,7 +75,7 @@ class AboutActivity : BaseActivity() {
     lateinit var crossDatabaseQueryManager: CrossDatabaseQueryManager
 
     @Inject
-    lateinit var webSearchService: WebSearchService
+    lateinit var colorService: ColorService
     @Inject
     lateinit var webServiceUtil: WebServiceUtil
 
@@ -104,6 +107,16 @@ class AboutActivity : BaseActivity() {
         rxTestButton.setOnClickListener() {
             testRx()
         }
+    }
+
+    override fun onStart() {
+        super.onStart();
+        bus.register(this);
+    }
+
+    override fun onStop() {
+        bus.unregister(this);
+        super.onStop();
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -332,14 +345,14 @@ class AboutActivity : BaseActivity() {
 
     //    @OnClick(R.id.rest_test_button)
     fun testQueryWebServiceCall() {
-        val call = webSearchService.search("Cat")
+        val call = colorService.colors()
 
-        call.enqueue(object : Callback<DtoSearchResponse> {
-            override fun onResponse(call: Call<DtoSearchResponse>, response: Response<DtoSearchResponse>) {
+        call.enqueue(object : Callback<DtoColors> {
+            override fun onResponse(call: Call<DtoColors>, response: Response<DtoColors>) {
                 processWebServiceResponse(response)
             }
 
-            override fun onFailure(call: Call<DtoSearchResponse>, t: Throwable) {
+            override fun onFailure(call: Call<DtoColors>, t: Throwable) {
                 Log.e(TAG, "Search FAILED", t)
             }
         })
@@ -353,33 +366,38 @@ class AboutActivity : BaseActivity() {
 //                .observeOn(AndroidSchedulers.mainThread())
 //                .subscribe(dtoSearchResponse -> processSearchResponse(dtoSearchResponse), throwable -> Log.e(TAG, "Failed to get results", throwable));
 
-        RxUtil.toRetrofitObservable(webSearchService.search("Cat"))
+        RxUtil.toRetrofitObservable(colorService.colors())
                 .subscribeOn(Schedulers.io())
-                .map({response ->
+                .map({ response ->
                     RxUtil.verifyRetrofitResponse(response)
 
                 })
-                .filter({dtoSearchResponse -> dtoSearchResponse != null}) // don't continue if null
+                .filter({ dtoSearchResponse -> dtoSearchResponse != null }) // don't continue if null
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({dtoSearchResponse -> processSearchResponse(dtoSearchResponse!!)}, {throwable -> Log.e(TAG, "Failed to get results", throwable)});
+                .subscribe({ dtoSearchResponse -> processSearchResponse(dtoSearchResponse!!) }, { throwable -> bus.post(NewDataEvent(false, null)) }, {bus.post(NewDataEvent(true, null))});
+    }
+
+    @Subscribe
+    fun handle(event: NewDataEvent) {
+        Log.e(TAG, "Rest Service finished [" + event.isSuccess + "]", event.throwable);
     }
 
     fun testFullUrlQueryWebServiceCall() {
-        val call = webSearchService.searchByFullUrl("https://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=Cat")
+        val call = colorService.colorsByFullUrl(ColorService.FULL_URL)
 
-        call.enqueue(object : Callback<DtoSearchResponse> {
-            override fun onResponse(call: Call<DtoSearchResponse>, response: Response<DtoSearchResponse>) {
+        call.enqueue(object : Callback<DtoColors> {
+            override fun onResponse(call: Call<DtoColors>, response: Response<DtoColors>) {
                 processWebServiceResponse(response)
             }
 
-            override fun onFailure(call: Call<DtoSearchResponse>, t: Throwable) {
+            override fun onFailure(call: Call<DtoColors>, t: Throwable) {
                 Log.e(TAG, "Search FAILED", t)
             }
         })
     }
 
     fun testSaveQueryWebServiceCall() {
-        val call = webSearchService.searchToFile("Cat")
+        val call = colorService.colorsToFile()
 
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
@@ -403,7 +421,7 @@ class AboutActivity : BaseActivity() {
         })
     }
 
-    private fun processWebServiceResponse(response: Response<DtoSearchResponse>) {
+    private fun processWebServiceResponse(response: Response<DtoColors>) {
         if (response.isSuccessful) {
             Log.e(TAG, "Search SUCCESS")
             processSearchResponse(response.body())
@@ -412,13 +430,9 @@ class AboutActivity : BaseActivity() {
         }
     }
 
-    private fun processSearchResponse(searchResponse: DtoSearchResponse) {
-        var resultList = searchResponse.responseData?.results
-
-        if (resultList is List<DtoResult>) {
-            for (dtoResult in resultList) {
-                Log.i(TAG, "Result: " + dtoResult.title)
-            }
+    private fun processSearchResponse(dtoColors: DtoColors) {
+        for (dtoResult in dtoColors.colors!!) {
+            Log.i(TAG, "Result: " + dtoResult.colorName)
         }
     }
 
