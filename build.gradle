@@ -69,7 +69,7 @@ dependencies {
     compile "com.android.support:percent:${supportLibVersion}"
     compile "com.android.support:support-annotations:${supportLibVersion}" // includes support-v4
     compile 'com.android.support:multidex:1.0.1'
-    compile 'com.google.android.gms:play-services-analytics:9.0.1'
+    compile 'com.google.android.gms:play-services-analytics:9.0.2'
 
     // UI
     compile "com.vikingsen:pocketknife-core:${pocketKnifeVersion}"
@@ -83,7 +83,7 @@ dependencies {
     compile 'com.jakewharton.threetenabp:threetenabp:1.0.3'
     compile "org.dbtools:dbtools-android:$dbtoolsVersion"
     compile 'com.devbrackets.android:recyclerext:1.1.1'
-    compile 'com.evernote:android-job:1.0.6'
+    compile 'com.evernote:android-job:1.0.7'
 
     // Network
     compile "com.squareup.okhttp3:okhttp:$okhttpVersion"
