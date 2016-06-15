@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlinVersion = '1.0.2'
+    ext.kotlinVersion = '1.0.2-1'
     ext.dbtoolsVersion = '7.0.5'
 
     repositories {
@@ -48,8 +48,8 @@ repositories {
 
 ext {
     // versions for libraries that multiple dependencies
-    supportLibVersion = '23.4.0'
-    daggerVersion = '2.4'
+    supportLibVersion = '24.0.0'
+    daggerVersion = '2.5'
     okhttpVersion = '3.3.1'
     loganSquareVersion = '1.3.7'
     pocketKnifeVersion = '3.2.1'
@@ -64,7 +64,7 @@ dependencies {
     // Android
     compile "com.android.support:appcompat-v7:${supportLibVersion}"
     compile "com.android.support:recyclerview-v7:${supportLibVersion}"
-    compile "com.android.support:preference-v14:${supportLibVersion}"
+    compile "com.android.support:preference-v14:23.4.0" // not 24.0.0 because of https://code.google.com/p/android/issues/detail?id=203156#makechanges
     compile "com.android.support:design:${supportLibVersion}"
     compile "com.android.support:percent:${supportLibVersion}"
     compile "com.android.support:support-annotations:${supportLibVersion}" // includes support-v4
@@ -122,18 +122,18 @@ dependencies {
 
     // Test (Unit)
     testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.0.54-beta'
+    testCompile 'org.mockito:mockito-core:2.0.57-beta'
     testCompile 'org.threeten:threetenbp:1.3.1'
     testCompile 'org.xerial:sqlite-jdbc:3.8.11.2'
 }
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '23.0.3'
+    compileSdkVersion 24
+    buildToolsVersion '24'
 
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 23
+        targetSdkVersion 24
 
         if (artOnly) {
             minSdkVersion 21 // temp enable to perform faster builds
