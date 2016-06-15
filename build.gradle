@@ -45,20 +45,20 @@ repositories {
 
 ext {
     // versions for libraries that multiple dependencies
-    supportLibVersion = '23.4.0'
-    daggerVersion = '2.4'
+    supportLibVersion = '24.0.0'
+    daggerVersion = '2.5'
     loganSquareVersion = '1.3.7'
     okhttpVersion = '3.3.1'
     pocketKnifeVersion = '3.2.1'
     pocketBusVersion = '1.0.0'
-    butterKnifeVersion = '8.0.1'
+    butterKnifeVersion = '8.1.0'
 }
 
 dependencies {
     // Android
     compile "com.android.support:appcompat-v7:${supportLibVersion}"
     compile "com.android.support:recyclerview-v7:${supportLibVersion}"
-    compile "com.android.support:preference-v14:${supportLibVersion}"
+    compile "com.android.support:preference-v14:23.4.0" // not 24.0.0 because of https://code.google.com/p/android/issues/detail?id=203156#makechanges
     compile "com.android.support:design:${supportLibVersion}"
     compile "com.android.support:percent:${supportLibVersion}"
     compile "com.android.support:support-annotations:${supportLibVersion}" // includes support-v4
@@ -78,7 +78,7 @@ dependencies {
     compile 'org.apache.commons:commons-lang3:3.4'
     compile 'commons-io:commons-io:2.5'
     compile 'com.devbrackets.android:recyclerext:1.1.1'
-    compile 'com.evernote:android-job:1.0.6'
+    compile 'com.evernote:android-job:1.0.7'
     compile "com.vikingsen:pocketbus:$pocketBusVersion"
     apt "com.vikingsen:pocketbus-compiler:$pocketBusVersion"
 
@@ -119,18 +119,18 @@ dependencies {
 
     // Test (Unit)
     testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.0.54-beta'
+    testCompile 'org.mockito:mockito-core:2.0.57-beta'
     testCompile 'org.threeten:threetenbp:1.3.1' // required for DBTools java junit tests
     testCompile 'org.xerial:sqlite-jdbc:3.8.11.2'
 }
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '23.0.3'
+    compileSdkVersion 24
+    buildToolsVersion '24'
 
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 23
+        targetSdkVersion 24
 
         if (artOnly) {
             minSdkVersion 21 // temp enable to perform faster builds
