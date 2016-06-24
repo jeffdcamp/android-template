@@ -1,6 +1,6 @@
 buildscript {
     ext.kotlinVersion = '1.0.2-1'
-    ext.dbtoolsVersion = '7.0.5'
+    ext.dbtoolsVersion = '7.0.8'
 
     repositories {
         mavenLocal()
@@ -93,15 +93,15 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-core:2.7.4'
     compile "com.bluelinelabs:logansquare:$loganSquareVersion"
     kapt "com.bluelinelabs:logansquare-compiler:$loganSquareVersion"
-    compile 'com.github.aurae.retrofit2:converter-logansquare:1.4.0' // retrofit support
+    compile 'com.github.aurae.retrofit2:converter-logansquare:1.4.1' // retrofit support
 
     // Dagger 2
     compile "com.google.dagger:dagger:${daggerVersion}"
     kapt "com.google.dagger:dagger-compiler:${daggerVersion}"
 
     // RxJava
-    compile 'io.reactivex:rxandroid:1.2.0'
-    compile 'io.reactivex:rxjava:1.1.5'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex:rxjava:1.1.6'
 
     // Custom SQLite databasethreetenbp
 //    compile 'org.sqlite:sqlite-android:3.8.9.0-20150415'
@@ -122,7 +122,7 @@ dependencies {
 
     // Test (Unit)
     testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.0.57-beta'
+    testCompile 'org.mockito:mockito-core:2.0.70-beta'
     testCompile 'org.threeten:threetenbp:1.3.1'
     testCompile 'org.xerial:sqlite-jdbc:3.8.11.2'
 }
