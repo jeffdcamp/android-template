@@ -21,6 +21,10 @@ public class PhoneListView extends PhoneListViewBaseRecord {
             IndividualConst.FULL_C_LAST_NAME + " AS " + PhoneListViewConst.C_NAME +
             " FROM " + IndividualConst.TABLE;
 
+    public PhoneListView(PhoneListView record) {
+        super(record);
+    }
+
     public PhoneListView(Cursor cursor) {
         setContent(cursor);
     }

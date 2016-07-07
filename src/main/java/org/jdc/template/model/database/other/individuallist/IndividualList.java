@@ -15,6 +15,9 @@ import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues;
 
 public class IndividualList extends IndividualListBaseRecord {
 
+    public IndividualList(IndividualList record) {
+        super(record);
+    }
 
     public IndividualList(Cursor cursor) {
         setContent(cursor);

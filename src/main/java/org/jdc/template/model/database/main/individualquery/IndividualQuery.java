@@ -30,6 +30,10 @@ public class IndividualQuery extends IndividualQueryBaseRecord {
         Log.e("ldst", "QUERY: " + QUERY);
     }
 
+    public IndividualQuery(IndividualQuery record) {
+        super(record);
+    }
+
     public IndividualQuery(Cursor cursor) {
         setContent(cursor);
     }

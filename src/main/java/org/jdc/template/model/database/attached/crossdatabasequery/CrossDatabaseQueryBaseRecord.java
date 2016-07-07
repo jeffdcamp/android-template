@@ -23,6 +23,12 @@ public abstract class CrossDatabaseQueryBaseRecord extends AndroidBaseRecord {
     private String name = "";
     private LocationType type = LocationType.HOME;
 
+    public CrossDatabaseQueryBaseRecord(CrossDatabaseQuery record) {
+        this.id = record.getId();
+        this.name = record.getName();
+        this.type = record.getType();
+    }
+
     public CrossDatabaseQueryBaseRecord() {
     }
 

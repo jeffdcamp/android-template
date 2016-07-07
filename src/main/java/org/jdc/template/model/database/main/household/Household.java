@@ -15,6 +15,9 @@ import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues;
 
 public class Household extends HouseholdBaseRecord {
 
+    public Household(Household record) {
+        super(record);
+    }
 
     public Household(Cursor cursor) {
         setContent(cursor);

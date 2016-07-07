@@ -22,6 +22,10 @@ public abstract class IndividualListBaseRecord extends AndroidBaseRecord {
     private long id = 0;
     private String name = "";
 
+    public IndividualListBaseRecord(IndividualList record) {
+        this.name = record.getName();
+    }
+
     public IndividualListBaseRecord() {
     }
 
