@@ -21,7 +21,7 @@ import org.dbtools.android.domain.config.DatabaseConfig
 abstract class DatabaseBaseManager : AndroidDatabaseManager {
 
 
-    constructor(databaseConfig: DatabaseConfig): super(databaseConfig) {
+    constructor(databaseConfig: DatabaseConfig) : super(databaseConfig) {
     }
 
     fun createMainTables(androidDatabase: AndroidDatabase) {

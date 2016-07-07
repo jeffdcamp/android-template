@@ -29,6 +29,9 @@ class IndividualQuery : IndividualQueryBaseRecord {
     constructor() {
     }
 
+    constructor(record: IndividualQuery) : super(record) {
+    }
+
     constructor(cursor: Cursor) {
         setContent(cursor)
     }

@@ -18,7 +18,7 @@ import android.database.Cursor
 
 
 @SuppressWarnings("all")
-abstract class IndividualBaseRecord : AndroidBaseRecord() {
+abstract class IndividualBaseRecord : AndroidBaseRecord {
 
      var id: Long = 0
      var householdId: Long = 0
@@ -38,11 +38,33 @@ abstract class IndividualBaseRecord : AndroidBaseRecord() {
      var enabled: Boolean = false
      var spouseIndividualId: Long? = 0
 
-    override fun getIdColumnName(): String {
+    constructor(record: Individual) {
+        this.householdId = record.householdId
+        this.individualType = record.individualType
+        this.firstName = record.firstName
+        this.lastName = record.lastName
+        this.birthDate = record.birthDate
+        this.alarmTime = record.alarmTime
+        this.lastModified = record.lastModified
+        this.sampleDateTime = record.sampleDateTime
+        this.sampleTimestamp = record.sampleTimestamp
+        this.phone = record.phone
+        this.email = record.email
+        this.available = record.available
+        this.amount1 = record.amount1
+        this.amount2 = record.amount2
+        this.enabled = record.enabled
+        this.spouseIndividualId = record.spouseIndividualId
+    }
+
+    constructor() {
+    }
+
+    override fun getIdColumnName() : String {
         return IndividualConst.C_ID
     }
 
-    override fun getPrimaryKeyId(): Long {
+    override fun getPrimaryKeyId() : Long {
         return id
     }
 
@@ -50,11 +72,11 @@ abstract class IndividualBaseRecord : AndroidBaseRecord() {
         this.id = id
     }
 
-    override fun getAllColumns(): Array<String> {
+    override fun getAllColumns() : Array<String> {
         return IndividualConst.ALL_COLUMNS.clone()
     }
 
-    fun getAllColumnsFull(): Array<String> {
+    fun getAllColumnsFull() : Array<String> {
         return IndividualConst.ALL_COLUMNS_FULL.clone()
     }
 
@@ -77,7 +99,7 @@ abstract class IndividualBaseRecord : AndroidBaseRecord() {
         values.put(IndividualConst.C_SPOUSE_INDIVIDUAL_ID, spouseIndividualId)
     }
 
-    override fun getValues(): Array<Any?> {
+    override fun getValues() : Array<Any?> {
         return arrayOf(
             id,
             householdId,
@@ -98,7 +120,7 @@ abstract class IndividualBaseRecord : AndroidBaseRecord() {
             spouseIndividualId)
     }
 
-    fun copy(): Individual {
+    fun copy() : Individual {
         var copy = Individual()
         copy.id = id
         copy.householdId = householdId
@@ -230,7 +252,7 @@ abstract class IndividualBaseRecord : AndroidBaseRecord() {
         spouseIndividualId = if (!cursor.isNull(cursor.getColumnIndexOrThrow(IndividualConst.C_SPOUSE_INDIVIDUAL_ID))) cursor.getLong(cursor.getColumnIndexOrThrow(IndividualConst.C_SPOUSE_INDIVIDUAL_ID)) else null
     }
 
-    override fun isNewRecord(): Boolean {
+    override fun isNewRecord() : Boolean {
         return primaryKeyId <= 0
     }
 

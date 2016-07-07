@@ -28,11 +28,11 @@ object IndividualQueryConst {
         FULL_C_ID,
         FULL_C_NAME)
 
-    fun getId(cursor: Cursor): Long {
+    fun getId(cursor: Cursor) : Long {
         return cursor.getLong(cursor.getColumnIndexOrThrow(C_ID))
     }
 
-    fun getName(cursor: Cursor): String {
+    fun getName(cursor: Cursor) : String {
         return cursor.getString(cursor.getColumnIndexOrThrow(C_NAME))
     }
 

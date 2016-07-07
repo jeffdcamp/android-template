@@ -46,15 +46,15 @@ object IndividualListItemConst {
         FULL_C_LIST_ID,
         FULL_C_INDIVIDUAL_ID)
 
-    fun getId(cursor: Cursor): Long {
+    fun getId(cursor: Cursor) : Long {
         return cursor.getLong(cursor.getColumnIndexOrThrow(C_ID))
     }
 
-    fun getListId(cursor: Cursor): Long {
+    fun getListId(cursor: Cursor) : Long {
         return cursor.getLong(cursor.getColumnIndexOrThrow(C_LIST_ID))
     }
 
-    fun getIndividualId(cursor: Cursor): Long {
+    fun getIndividualId(cursor: Cursor) : Long {
         return cursor.getLong(cursor.getColumnIndexOrThrow(C_INDIVIDUAL_ID))
     }
 

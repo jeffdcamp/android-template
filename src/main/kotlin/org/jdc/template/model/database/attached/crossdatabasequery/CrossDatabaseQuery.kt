@@ -29,6 +29,9 @@ class CrossDatabaseQuery : CrossDatabaseQueryBaseRecord {
     constructor() {
     }
 
+    constructor(record: CrossDatabaseQuery) : super(record) {
+    }
+
     constructor(cursor: Cursor) {
         setContent(cursor)
     }

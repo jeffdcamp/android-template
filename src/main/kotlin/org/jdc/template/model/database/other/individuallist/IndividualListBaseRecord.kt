@@ -17,16 +17,23 @@ import android.database.Cursor
 
 
 @SuppressWarnings("all")
-abstract class IndividualListBaseRecord : AndroidBaseRecord() {
+abstract class IndividualListBaseRecord : AndroidBaseRecord {
 
      var id: Long = 0
      var name: String = ""
 
-    override fun getIdColumnName(): String {
+    constructor(record: IndividualList) {
+        this.name = record.name
+    }
+
+    constructor() {
+    }
+
+    override fun getIdColumnName() : String {
         return IndividualListConst.C_ID
     }
 
-    override fun getPrimaryKeyId(): Long {
+    override fun getPrimaryKeyId() : Long {
         return id
     }
 
@@ -34,11 +41,11 @@ abstract class IndividualListBaseRecord : AndroidBaseRecord() {
         this.id = id
     }
 
-    override fun getAllColumns(): Array<String> {
+    override fun getAllColumns() : Array<String> {
         return IndividualListConst.ALL_COLUMNS.clone()
     }
 
-    fun getAllColumnsFull(): Array<String> {
+    fun getAllColumnsFull() : Array<String> {
         return IndividualListConst.ALL_COLUMNS_FULL.clone()
     }
 
@@ -46,13 +53,13 @@ abstract class IndividualListBaseRecord : AndroidBaseRecord() {
         values.put(IndividualListConst.C_NAME, name)
     }
 
-    override fun getValues(): Array<Any?> {
+    override fun getValues() : Array<Any?> {
         return arrayOf(
             id,
             name)
     }
 
-    fun copy(): IndividualList {
+    fun copy() : IndividualList {
         var copy = IndividualList()
         copy.id = id
         copy.name = name
@@ -77,7 +84,7 @@ abstract class IndividualListBaseRecord : AndroidBaseRecord() {
         name = cursor.getString(cursor.getColumnIndexOrThrow(IndividualListConst.C_NAME))
     }
 
-    override fun isNewRecord(): Boolean {
+    override fun isNewRecord() : Boolean {
         return primaryKeyId <= 0
     }
 

@@ -18,6 +18,9 @@ class IndividualList : IndividualListBaseRecord {
     constructor() {
     }
 
+    constructor(record: IndividualList) : super(record) {
+    }
+
     constructor(cursor: Cursor) {
         setContent(cursor)
     }

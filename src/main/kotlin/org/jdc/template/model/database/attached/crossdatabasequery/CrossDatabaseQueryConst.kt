@@ -32,15 +32,15 @@ object CrossDatabaseQueryConst {
         FULL_C_NAME,
         FULL_C_TYPE)
 
-    fun getId(cursor: Cursor): Long {
+    fun getId(cursor: Cursor) : Long {
         return cursor.getLong(cursor.getColumnIndexOrThrow(C_ID))
     }
 
-    fun getName(cursor: Cursor): String {
+    fun getName(cursor: Cursor) : String {
         return cursor.getString(cursor.getColumnIndexOrThrow(C_NAME))
     }
 
-    fun getType(cursor: Cursor): LocationType {
+    fun getType(cursor: Cursor) : LocationType {
         return LocationType.values()[cursor.getInt(cursor.getColumnIndexOrThrow(C_TYPE))]
     }
 

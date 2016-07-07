@@ -118,71 +118,71 @@ object IndividualConst {
         FULL_C_ENABLED,
         FULL_C_SPOUSE_INDIVIDUAL_ID)
 
-    fun getId(cursor: Cursor): Long {
+    fun getId(cursor: Cursor) : Long {
         return cursor.getLong(cursor.getColumnIndexOrThrow(C_ID))
     }
 
-    fun getHouseholdId(cursor: Cursor): Long {
+    fun getHouseholdId(cursor: Cursor) : Long {
         return cursor.getLong(cursor.getColumnIndexOrThrow(C_HOUSEHOLD_ID))
     }
 
-    fun getIndividualType(cursor: Cursor): IndividualType {
+    fun getIndividualType(cursor: Cursor) : IndividualType {
         return IndividualType.values()[cursor.getInt(cursor.getColumnIndexOrThrow(C_INDIVIDUAL_TYPE))]
     }
 
-    fun getFirstName(cursor: Cursor): String {
+    fun getFirstName(cursor: Cursor) : String {
         return cursor.getString(cursor.getColumnIndexOrThrow(C_FIRST_NAME))
     }
 
-    fun getLastName(cursor: Cursor): String {
+    fun getLastName(cursor: Cursor) : String {
         return cursor.getString(cursor.getColumnIndexOrThrow(C_LAST_NAME))
     }
 
-    fun getBirthDate(cursor: Cursor): org.threeten.bp.LocalDate? {
+    fun getBirthDate(cursor: Cursor) : org.threeten.bp.LocalDate? {
         return org.dbtools.android.domain.date.DBToolsThreeTenFormatter.dbStringToLocalDate(cursor.getString(cursor.getColumnIndexOrThrow(C_BIRTH_DATE)))
     }
 
-    fun getAlarmTime(cursor: Cursor): org.threeten.bp.LocalTime {
+    fun getAlarmTime(cursor: Cursor) : org.threeten.bp.LocalTime {
         return org.dbtools.android.domain.date.DBToolsThreeTenFormatter.dbStringToLocalTime(cursor.getString(cursor.getColumnIndexOrThrow(C_ALARM_TIME)))!!
     }
 
-    fun getLastModified(cursor: Cursor): org.threeten.bp.LocalDateTime {
+    fun getLastModified(cursor: Cursor) : org.threeten.bp.LocalDateTime {
         return if (!cursor.isNull(cursor.getColumnIndexOrThrow(C_LAST_MODIFIED))) org.dbtools.android.domain.date.DBToolsThreeTenFormatter.longToLocalDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(C_LAST_MODIFIED)))!! else null!!
     }
 
-    fun getSampleDateTime(cursor: Cursor): org.threeten.bp.LocalDateTime? {
+    fun getSampleDateTime(cursor: Cursor) : org.threeten.bp.LocalDateTime? {
         return org.dbtools.android.domain.date.DBToolsThreeTenFormatter.dbStringToLocalDateTime(cursor.getString(cursor.getColumnIndexOrThrow(C_SAMPLE_DATE_TIME)))
     }
 
-    fun getSampleTimestamp(cursor: Cursor): org.threeten.bp.LocalDateTime? {
+    fun getSampleTimestamp(cursor: Cursor) : org.threeten.bp.LocalDateTime? {
         return if (!cursor.isNull(cursor.getColumnIndexOrThrow(C_SAMPLE_TIMESTAMP))) org.dbtools.android.domain.date.DBToolsThreeTenFormatter.longToLocalDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(C_SAMPLE_TIMESTAMP))) else null
     }
 
-    fun getPhone(cursor: Cursor): String {
+    fun getPhone(cursor: Cursor) : String {
         return cursor.getString(cursor.getColumnIndexOrThrow(C_PHONE))
     }
 
-    fun getEmail(cursor: Cursor): String {
+    fun getEmail(cursor: Cursor) : String {
         return cursor.getString(cursor.getColumnIndexOrThrow(C_EMAIL))
     }
 
-    fun isAvailable(cursor: Cursor): Boolean {
+    fun isAvailable(cursor: Cursor) : Boolean {
         return if (cursor.getInt(cursor.getColumnIndexOrThrow(C_AVAILABLE)) != 0) true else false
     }
 
-    fun getAmount1(cursor: Cursor): Float {
+    fun getAmount1(cursor: Cursor) : Float {
         return cursor.getFloat(cursor.getColumnIndexOrThrow(C_AMOUNT1))
     }
 
-    fun getAmount2(cursor: Cursor): Double {
+    fun getAmount2(cursor: Cursor) : Double {
         return cursor.getDouble(cursor.getColumnIndexOrThrow(C_AMOUNT2))
     }
 
-    fun isEnabled(cursor: Cursor): Boolean {
+    fun isEnabled(cursor: Cursor) : Boolean {
         return if (cursor.getInt(cursor.getColumnIndexOrThrow(C_ENABLED)) != 0) true else false
     }
 
-    fun getSpouseIndividualId(cursor: Cursor): Long? {
+    fun getSpouseIndividualId(cursor: Cursor) : Long? {
         return if (!cursor.isNull(cursor.getColumnIndexOrThrow(C_SPOUSE_INDIVIDUAL_ID))) cursor.getLong(cursor.getColumnIndexOrThrow(C_SPOUSE_INDIVIDUAL_ID)) else null
     }
 

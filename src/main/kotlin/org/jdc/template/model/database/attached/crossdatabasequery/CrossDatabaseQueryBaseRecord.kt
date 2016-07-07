@@ -17,28 +17,37 @@ import android.database.Cursor
 
 
 @SuppressWarnings("all")
-abstract class CrossDatabaseQueryBaseRecord : AndroidBaseRecord() {
+abstract class CrossDatabaseQueryBaseRecord : AndroidBaseRecord {
 
      var id: Long = 0
      var name: String = ""
      var type: LocationType = LocationType.HOME
 
-    override fun getIdColumnName(): String {
+    constructor(record: CrossDatabaseQuery) {
+        this.id = record.id
+        this.name = record.name
+        this.type = record.type
+    }
+
+    constructor() {
+    }
+
+    override fun getIdColumnName() : String {
         return ""
     }
 
-    override fun getPrimaryKeyId(): Long {
+    override fun getPrimaryKeyId() : Long {
         return 0
     }
 
     override fun setPrimaryKeyId(id: Long) {
     }
 
-    override fun getAllColumns(): Array<String> {
+    override fun getAllColumns() : Array<String> {
         return CrossDatabaseQueryConst.ALL_COLUMNS.clone()
     }
 
-    fun getAllColumnsFull(): Array<String> {
+    fun getAllColumnsFull() : Array<String> {
         return CrossDatabaseQueryConst.ALL_COLUMNS_FULL.clone()
     }
 
@@ -48,14 +57,14 @@ abstract class CrossDatabaseQueryBaseRecord : AndroidBaseRecord() {
         values.put(CrossDatabaseQueryConst.C_TYPE, type.ordinal.toLong())
     }
 
-    override fun getValues(): Array<Any?> {
+    override fun getValues() : Array<Any?> {
         return arrayOf(
             id,
             name,
             type.ordinal.toLong())
     }
 
-    fun copy(): CrossDatabaseQuery {
+    fun copy() : CrossDatabaseQuery {
         var copy = CrossDatabaseQuery()
         copy.id = id
         copy.name = name
@@ -87,7 +96,7 @@ abstract class CrossDatabaseQueryBaseRecord : AndroidBaseRecord() {
         type = LocationType.values()[cursor.getInt(cursor.getColumnIndexOrThrow(CrossDatabaseQueryConst.C_TYPE))]
     }
 
-    override fun isNewRecord(): Boolean {
+    override fun isNewRecord() : Boolean {
         return primaryKeyId <= 0
     }
 

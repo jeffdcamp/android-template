@@ -18,6 +18,9 @@ class Individual : IndividualBaseRecord {
     constructor() {
     }
 
+    constructor(record: Individual) : super(record) {
+    }
+
     constructor(cursor: Cursor) {
         setContent(cursor)
     }

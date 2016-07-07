@@ -30,6 +30,9 @@ class PhoneListView : PhoneListViewBaseRecord {
     constructor() {
     }
 
+    constructor(record: PhoneListView) : super(record) {
+    }
+
     constructor(cursor: Cursor) {
         setContent(cursor)
     }

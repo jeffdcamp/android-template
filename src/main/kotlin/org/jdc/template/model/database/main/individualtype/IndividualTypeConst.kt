@@ -40,11 +40,11 @@ object IndividualTypeConst {
     const val INSERT_STATEMENT = "INSERT INTO INDIVIDUAL_TYPE (NAME) VALUES (?)"
     const val UPDATE_STATEMENT = "UPDATE INDIVIDUAL_TYPE SET NAME=? WHERE _id = ?"
 
-    fun getId(cursor: Cursor): Long {
+    fun getId(cursor: Cursor) : Long {
         return cursor.getLong(cursor.getColumnIndexOrThrow(C_ID))
     }
 
-    fun getName(cursor: Cursor): String {
+    fun getName(cursor: Cursor) : String {
         return cursor.getString(cursor.getColumnIndexOrThrow(C_NAME))
     }
 

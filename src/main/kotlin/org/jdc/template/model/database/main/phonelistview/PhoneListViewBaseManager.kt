@@ -23,63 +23,63 @@ abstract class PhoneListViewBaseManager : RxKotlinAndroidBaseManagerReadOnly<Pho
         this.databaseManager = databaseManager
     }
 
-    override fun getDatabaseName(): String {
+    override fun getDatabaseName() : String {
         return PhoneListViewConst.DATABASE
     }
 
-    override fun newRecord(): PhoneListView {
+    override fun newRecord() : PhoneListView {
         return PhoneListView()
     }
 
-    override fun getTableName(): String {
+    override fun getTableName() : String {
         return PhoneListViewConst.TABLE
     }
 
-    override fun getAllColumns(): Array<String> {
+    override fun getAllColumns() : Array<String> {
         return PhoneListViewConst.ALL_COLUMNS
     }
 
-    override fun getReadableDatabase(@javax.annotation.Nonnull databaseName: String): DatabaseWrapper<*, *> {
+    override fun getReadableDatabase(@javax.annotation.Nonnull databaseName: String) : DatabaseWrapper<*, *> {
         return databaseManager.getReadableDatabase(databaseName)
     }
 
-    fun getReadableDatabase(): DatabaseWrapper<*, *> {
+    fun getReadableDatabase() : DatabaseWrapper<*, *> {
         return databaseManager.getReadableDatabase(databaseName)
     }
 
-    override fun getWritableDatabase(@javax.annotation.Nonnull databaseName: String): DatabaseWrapper<*, *> {
+    override fun getWritableDatabase(@javax.annotation.Nonnull databaseName: String) : DatabaseWrapper<*, *> {
         return databaseManager.getWritableDatabase(databaseName)
     }
 
-    fun getWritableDatabase(): DatabaseWrapper<*, *> {
+    fun getWritableDatabase() : DatabaseWrapper<*, *> {
         return databaseManager.getWritableDatabase(databaseName)
     }
 
-    override fun getAndroidDatabase(@javax.annotation.Nonnull databaseName: String): org.dbtools.android.domain.AndroidDatabase? {
+    override fun getAndroidDatabase(@javax.annotation.Nonnull databaseName: String) : org.dbtools.android.domain.AndroidDatabase? {
         return databaseManager.getDatabase(databaseName)
     }
 
-    override fun getDatabaseConfig(): org.dbtools.android.domain.config.DatabaseConfig {
+    override fun getDatabaseConfig() : org.dbtools.android.domain.config.DatabaseConfig {
         return databaseManager.getDatabaseConfig()
     }
 
-    override fun getPrimaryKey(): String {
+    override fun getPrimaryKey() : String {
         return ""
     }
 
-    override fun getDropSql(): String {
+    override fun getDropSql() : String {
         return PhoneListView.DROP_VIEW
     }
 
-    override fun getCreateSql(): String {
+    override fun getCreateSql() : String {
         return PhoneListView.CREATE_VIEW
     }
 
-    override fun getInsertSql(): String {
+    override fun getInsertSql() : String {
         return ""
     }
 
-    override fun getUpdateSql(): String {
+    override fun getUpdateSql() : String {
         return ""
     }
 

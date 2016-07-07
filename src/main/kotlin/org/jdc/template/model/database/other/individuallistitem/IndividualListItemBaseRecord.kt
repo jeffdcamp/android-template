@@ -17,17 +17,25 @@ import android.database.Cursor
 
 
 @SuppressWarnings("all")
-abstract class IndividualListItemBaseRecord : AndroidBaseRecord() {
+abstract class IndividualListItemBaseRecord : AndroidBaseRecord {
 
      var id: Long = 0
      var listId: Long = 0
      var individualId: Long = 0
 
-    override fun getIdColumnName(): String {
+    constructor(record: IndividualListItem) {
+        this.listId = record.listId
+        this.individualId = record.individualId
+    }
+
+    constructor() {
+    }
+
+    override fun getIdColumnName() : String {
         return IndividualListItemConst.C_ID
     }
 
-    override fun getPrimaryKeyId(): Long {
+    override fun getPrimaryKeyId() : Long {
         return id
     }
 
@@ -35,11 +43,11 @@ abstract class IndividualListItemBaseRecord : AndroidBaseRecord() {
         this.id = id
     }
 
-    override fun getAllColumns(): Array<String> {
+    override fun getAllColumns() : Array<String> {
         return IndividualListItemConst.ALL_COLUMNS.clone()
     }
 
-    fun getAllColumnsFull(): Array<String> {
+    fun getAllColumnsFull() : Array<String> {
         return IndividualListItemConst.ALL_COLUMNS_FULL.clone()
     }
 
@@ -48,14 +56,14 @@ abstract class IndividualListItemBaseRecord : AndroidBaseRecord() {
         values.put(IndividualListItemConst.C_INDIVIDUAL_ID, individualId)
     }
 
-    override fun getValues(): Array<Any?> {
+    override fun getValues() : Array<Any?> {
         return arrayOf(
             id,
             listId,
             individualId)
     }
 
-    fun copy(): IndividualListItem {
+    fun copy() : IndividualListItem {
         var copy = IndividualListItem()
         copy.id = id
         copy.listId = listId
@@ -85,7 +93,7 @@ abstract class IndividualListItemBaseRecord : AndroidBaseRecord() {
         individualId = cursor.getLong(cursor.getColumnIndexOrThrow(IndividualListItemConst.C_INDIVIDUAL_ID))
     }
 
-    override fun isNewRecord(): Boolean {
+    override fun isNewRecord() : Boolean {
         return primaryKeyId <= 0
     }
 
