@@ -24,7 +24,7 @@ abstract class DatabaseBaseManager : AndroidDatabaseManager {
     constructor(databaseConfig: DatabaseConfig) : super(databaseConfig) {
     }
 
-    fun createMainTables(androidDatabase: AndroidDatabase) {
+    open fun createMainTables(androidDatabase: AndroidDatabase) {
         val database = androidDatabase.databaseWrapper
         database.beginTransaction()
         
@@ -39,7 +39,7 @@ abstract class DatabaseBaseManager : AndroidDatabaseManager {
         database.endTransaction()
     }
 
-    fun createOtherTables(androidDatabase: AndroidDatabase) {
+    open fun createOtherTables(androidDatabase: AndroidDatabase) {
         val database = androidDatabase.databaseWrapper
         database.beginTransaction()
         
@@ -53,7 +53,7 @@ abstract class DatabaseBaseManager : AndroidDatabaseManager {
         database.endTransaction()
     }
 
-    fun createAttachedTables(androidDatabase: AndroidDatabase) {
+    open fun createAttachedTables(androidDatabase: AndroidDatabase) {
         val database = androidDatabase.databaseWrapper
         database.beginTransaction()
         
@@ -78,7 +78,7 @@ abstract class DatabaseBaseManager : AndroidDatabaseManager {
         }
     }
 
-    fun createMainViews(androidDatabase: AndroidDatabase) {
+    open fun createMainViews(androidDatabase: AndroidDatabase) {
         val database = androidDatabase.databaseWrapper
         database.beginTransaction()
         
@@ -89,7 +89,7 @@ abstract class DatabaseBaseManager : AndroidDatabaseManager {
         database.endTransaction()
     }
 
-    fun dropMainViews(androidDatabase: AndroidDatabase) {
+    open fun dropMainViews(androidDatabase: AndroidDatabase) {
         val database = androidDatabase.databaseWrapper
         database.beginTransaction()
         

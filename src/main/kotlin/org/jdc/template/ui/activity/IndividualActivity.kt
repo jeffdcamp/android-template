@@ -26,7 +26,7 @@ import javax.inject.Inject
 
 class IndividualActivity : DrawerActivity() {
 
-    @BindExtra("INDIVIDUAL_ID")
+    @BindExtra(EXTRA_ID)
     var individualId = 0L
 
     @Inject

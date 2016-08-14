@@ -59,8 +59,8 @@ abstract class IndividualListBaseRecord : AndroidBaseRecord {
             name)
     }
 
-    fun copy() : IndividualList {
-        var copy = IndividualList()
+    open fun copy() : IndividualList {
+        val copy = IndividualList()
         copy.id = id
         copy.name = name
         return copy

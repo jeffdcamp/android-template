@@ -59,8 +59,8 @@ abstract class HouseholdBaseRecord : AndroidBaseRecord {
             name)
     }
 
-    fun copy() : Household {
-        var copy = Household()
+    open fun copy() : Household {
+        val copy = Household()
         copy.id = id
         copy.name = name
         return copy

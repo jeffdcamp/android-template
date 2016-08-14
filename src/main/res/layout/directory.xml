@@ -17,6 +17,6 @@
         app:borderWidth="0dp"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_add_24dp"
+        app:srcCompat="@drawable/ic_add_24dp"
         />
 </FrameLayout>

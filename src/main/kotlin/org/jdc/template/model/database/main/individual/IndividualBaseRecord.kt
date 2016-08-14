@@ -120,8 +120,8 @@ abstract class IndividualBaseRecord : AndroidBaseRecord {
             spouseIndividualId)
     }
 
-    fun copy() : Individual {
-        var copy = Individual()
+    open fun copy() : Individual {
+        val copy = Individual()
         copy.id = id
         copy.householdId = householdId
         copy.individualType = individualType

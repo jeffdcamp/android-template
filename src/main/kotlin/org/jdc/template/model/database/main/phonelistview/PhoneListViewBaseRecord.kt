@@ -60,8 +60,8 @@ abstract class PhoneListViewBaseRecord : AndroidBaseRecord {
             name)
     }
 
-    fun copy() : PhoneListView {
-        var copy = PhoneListView()
+    open fun copy() : PhoneListView {
+        val copy = PhoneListView()
         copy.id = id
         copy.name = name
         return copy

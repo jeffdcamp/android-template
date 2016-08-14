@@ -63,8 +63,8 @@ abstract class IndividualListItemBaseRecord : AndroidBaseRecord {
             individualId)
     }
 
-    fun copy() : IndividualListItem {
-        var copy = IndividualListItem()
+    open fun copy() : IndividualListItem {
+        val copy = IndividualListItem()
         copy.id = id
         copy.listId = listId
         copy.individualId = individualId

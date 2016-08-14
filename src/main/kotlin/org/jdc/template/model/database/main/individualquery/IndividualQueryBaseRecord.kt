@@ -60,8 +60,8 @@ abstract class IndividualQueryBaseRecord : AndroidBaseRecord {
             name)
     }
 
-    fun copy() : IndividualQuery {
-        var copy = IndividualQuery()
+    open fun copy() : IndividualQuery {
+        val copy = IndividualQuery()
         copy.id = id
         copy.name = name
         return copy

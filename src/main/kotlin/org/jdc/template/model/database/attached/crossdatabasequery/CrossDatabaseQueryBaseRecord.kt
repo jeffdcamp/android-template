@@ -64,8 +64,8 @@ abstract class CrossDatabaseQueryBaseRecord : AndroidBaseRecord {
             type.ordinal.toLong())
     }
 
-    fun copy() : CrossDatabaseQuery {
-        var copy = CrossDatabaseQuery()
+    open fun copy() : CrossDatabaseQuery {
+        val copy = CrossDatabaseQuery()
         copy.id = id
         copy.name = name
         copy.type = type
