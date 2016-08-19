@@ -3,6 +3,7 @@ package org.jdc.template.ui.activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -10,7 +11,6 @@ import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.TimePicker;
 
 import com.google.android.gms.analytics.HitBuilders;
@@ -49,17 +49,17 @@ public class IndividualEditActivity extends BaseActivity {
     @BindView(R.id.alarm_time_layout)
     TextInputLayout alarmTimeLayout;
     @BindView(R.id.first_name)
-    EditText firstNameEditText;
+    TextInputEditText firstNameEditText;
     @BindView(R.id.last_name)
-    EditText lastNameEditText;
+    TextInputEditText lastNameEditText;
     @BindView(R.id.phone)
-    EditText phoneEditText;
+    TextInputEditText phoneEditText;
     @BindView(R.id.email)
-    EditText emailEditText;
+    TextInputEditText emailEditText;
     @BindView(R.id.birth_date)
-    EditText birthDateEditText;
+    TextInputEditText birthDateEditText;
     @BindView(R.id.alarm_time)
-    EditText alarmTimeEditText;
+    TextInputEditText alarmTimeEditText;
 
     @Inject
     IndividualManager individualManager;
