@@ -8,7 +8,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0-beta1'
+        classpath 'com.android.tools.build:gradle:2.2.0-beta2'
         classpath "org.dbtools:gradle-dbtools-plugin:$dbtoolsVersion"
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.13.0' // version plugin support
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
@@ -48,7 +48,7 @@ repositories {
 
 ext {
     // versions for libraries that multiple dependencies
-    supportLibVersion = '24.1.1'
+    supportLibVersion = '24.2.0'
     daggerVersion = '2.6'
     okhttpVersion = '3.4.1'
     loganSquareVersion = '1.3.7'
@@ -82,7 +82,7 @@ dependencies {
     compile 'com.google.code.findbugs:jsr305:3.0.1'
     compile 'com.jakewharton.threetenabp:threetenabp:1.0.3'
     compile "org.dbtools:dbtools-android:$dbtoolsVersion"
-    compile 'com.devbrackets.android:recyclerext:1.3.0'
+    compile 'com.devbrackets.android:recyclerext:1.3.1'
     compile 'com.evernote:android-job:1.0.11'
 
     // Network
@@ -300,33 +300,6 @@ tasks.withType(Test) {
 def coverageSourceDirs = [
         'src/main/java',
 ]
-
-//task testDebugJacoco(type: JacocoReport, dependsOn: "testDebug") {
-//    group = "Reporting"
-//    description = "Generate Jacoco coverage reports after running tests."
-//    reports {
-//        xml.enabled = true
-//        html.enabled = true
-//    }
-//    classDirectories = fileTree(
-//            dir: './build/intermediates/classes/debug',
-//            excludes: ['**/R*.class',
-//                       '**/*$InjectAdapter.class',
-//                       '**/*$ModuleAdapter.class',
-//                       '**/*$ViewInjector*.class'
-//            ])
-//    sourceDirectories = files(coverageSourceDirs)
-//    executionData = files("$buildDir/jacoco/testDebug.exec")
-//    // Bit hacky but fixes https://code.google.com/p/android/issues/detail?id=69174.
-//    // We iterate through the compiled .class tree and rename $$ to $.
-//    doFirst {
-//        new File("$buildDir/intermediates/classes/").eachFileRecurse { file ->
-//            if (file.name.contains('$$')) {
-//                file.renameTo(file.path.replace('$$', '$'))
-//            }
-//        }
-//    }
-//}
 
 // Rename and place "myAnalyticsKey" in global gradle.properties
 def getAnalyticsKey() {
