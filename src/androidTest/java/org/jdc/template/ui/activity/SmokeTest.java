@@ -64,15 +64,11 @@ public class SmokeTest {
         actionMenuItemView.perform(click());
 
         ViewInteraction appCompatEditText = onView(
-                allOf(withId(org.jdc.template.R.id.first_name), withText("Jeff"),
-                        withParent(withId(org.jdc.template.R.id.first_name_layout)),
-                        isDisplayed()));
+                allOf(withId(org.jdc.template.R.id.first_name), withText("Jeff"), isDisplayed()));
         appCompatEditText.perform(click());
 
         ViewInteraction appCompatEditText2 = onView(
-                allOf(withId(org.jdc.template.R.id.first_name), withText("Jeff"),
-                        withParent(withId(org.jdc.template.R.id.first_name_layout)),
-                        isDisplayed()));
+                allOf(withId(org.jdc.template.R.id.first_name), withText("Jeff"), isDisplayed()));
         appCompatEditText2.perform(replaceText("Jeffery"));
 
         ViewInteraction actionMenuItemView2 = onView(

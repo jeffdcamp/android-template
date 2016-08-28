@@ -7,7 +7,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0-beta2'
+        classpath 'com.android.tools.build:gradle:2.2.0-beta3'
         classpath 'me.tatarka:gradle-retrolambda:3.2.5'
         classpath "org.dbtools:gradle-dbtools-plugin:$dbtoolsVersion"
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.13.0' // version plugin support
@@ -46,12 +46,12 @@ repositories {
 ext {
     // versions for libraries that multiple dependencies
     supportLibVersion = '24.2.0'
-    daggerVersion = '2.6'
+    daggerVersion = '2.6.1'
     loganSquareVersion = '1.3.7'
     okhttpVersion = '3.4.1'
     pocketKnifeVersion = '3.2.1'
     pocketBusVersion = '1.0.1'
-    butterKnifeVersion = '8.2.1'
+    butterKnifeVersion = '8.4.0'
 }
 
 dependencies {
@@ -77,7 +77,7 @@ dependencies {
     compile "org.dbtools:dbtools-android:$dbtoolsVersion"
     compile 'org.apache.commons:commons-lang3:3.4'
     compile 'commons-io:commons-io:2.5'
-    compile 'com.devbrackets.android:recyclerext:1.3.0'
+    compile 'com.devbrackets.android:recyclerext:1.3.1'
     compile 'com.evernote:android-job:1.0.11'
     compile "com.vikingsen:pocketbus:$pocketBusVersion"
     apt "com.vikingsen:pocketbus-compiler:$pocketBusVersion"
@@ -119,7 +119,7 @@ dependencies {
 
     // Test (Unit)
     testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.0.101-beta'
+    testCompile 'org.mockito:mockito-core:2.0.111-beta'
     testCompile 'org.threeten:threetenbp:1.3.2' // required for DBTools java junit tests
     testCompile 'org.xerial:sqlite-jdbc:3.8.11.2'
 }
