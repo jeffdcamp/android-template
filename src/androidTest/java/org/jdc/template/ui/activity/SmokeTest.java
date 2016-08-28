@@ -66,13 +66,11 @@ public class SmokeTest {
 
         ViewInteraction appCompatEditText = onView(
                 allOf(withId(R.id.firstNameEditText), withText("Jeff"),
-                        withParent(withId(R.id.firstNameLayout)),
                         isDisplayed()));
         appCompatEditText.perform(click());
 
         ViewInteraction appCompatEditText2 = onView(
                 allOf(withId(org.jdc.template.R.id.firstNameEditText), withText("Jeff"),
-                        withParent(withId(R.id.firstNameLayout)),
                         isDisplayed()));
         appCompatEditText2.perform(replaceText("Jeffery"));
 

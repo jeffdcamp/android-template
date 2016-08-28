@@ -8,7 +8,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0-beta2'
+        classpath 'com.android.tools.build:gradle:2.2.0-beta3'
         classpath "org.dbtools:gradle-dbtools-plugin:$dbtoolsVersion"
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.13.0' // version plugin support
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
@@ -49,7 +49,7 @@ repositories {
 ext {
     // versions for libraries that multiple dependencies
     supportLibVersion = '24.2.0'
-    daggerVersion = '2.6'
+    daggerVersion = '2.6.1'
     okhttpVersion = '3.4.1'
     loganSquareVersion = '1.3.7'
     pocketKnifeVersion = '3.2.1'
@@ -80,7 +80,7 @@ dependencies {
     // Code
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
     compile 'com.google.code.findbugs:jsr305:3.0.1'
-    compile 'com.jakewharton.threetenabp:threetenabp:1.0.3'
+    compile 'com.jakewharton.threetenabp:threetenabp:1.0.4'
     compile "org.dbtools:dbtools-android:$dbtoolsVersion"
     compile 'com.devbrackets.android:recyclerext:1.3.1'
     compile 'com.evernote:android-job:1.0.11'
@@ -122,7 +122,7 @@ dependencies {
 
     // Test (Unit)
     testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.0.101-beta'
+    testCompile 'org.mockito:mockito-core:2.0.111-beta'
     testCompile 'org.threeten:threetenbp:1.3.2'
     testCompile 'org.xerial:sqlite-jdbc:3.8.11.2'
 }
