@@ -90,7 +90,7 @@ dependencies {
     compile "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
 
     // JSON Parsing
-    compile 'com.fasterxml.jackson.core:jackson-core:2.8.2'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.8.3'
     compile "com.bluelinelabs:logansquare:$loganSquareVersion"
     kapt "com.bluelinelabs:logansquare-compiler:$loganSquareVersion"
     compile 'com.github.aurae.retrofit2:converter-logansquare:1.4.1' // retrofit support
@@ -101,7 +101,7 @@ dependencies {
 
     // RxJava
     compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'io.reactivex:rxjava:1.1.10'
+    compile 'io.reactivex:rxjava:1.2.0'
 
     // Custom SQLite databasethreetenbp
 //    compile 'org.sqlite:sqlite-android:3.8.9.0-20150415'
