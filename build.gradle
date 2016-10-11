@@ -24,7 +24,6 @@ apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'dbtools'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.ben-manes.versions' // ./gradlew dependencyUpdates -Drevision=release
-apply plugin: 'com.neenbedankt.android-apt'
 
 def artOnly = false; // enable a fast build supported ONLY by Android 5.0+
 
@@ -67,9 +66,9 @@ dependencies {
 
     // UI
     compile "com.vikingsen:pocketknife-core:${pocketKnifeVersion}"
-    apt "com.vikingsen:pocketknife-compiler:${pocketKnifeVersion}"
+    annotationProcessor "com.vikingsen:pocketknife-compiler:${pocketKnifeVersion}"
     compile "com.jakewharton:butterknife:${butterKnifeVersion}"
-    apt "com.jakewharton:butterknife-compiler:${butterKnifeVersion}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${butterKnifeVersion}"
 
     // Code
     compile 'com.google.code.findbugs:jsr305:3.0.1'
@@ -80,7 +79,7 @@ dependencies {
     compile 'com.devbrackets.android:recyclerext:1.3.1'
     compile 'com.evernote:android-job:1.1.0'
     compile "com.vikingsen:pocketbus:$pocketBusVersion"
-    apt "com.vikingsen:pocketbus-compiler:$pocketBusVersion"
+    annotationProcessor "com.vikingsen:pocketbus-compiler:$pocketBusVersion"
 
     // Network
     compile "com.squareup.okhttp3:okhttp:$okhttpVersion"
@@ -89,12 +88,12 @@ dependencies {
     // JSON Parsing
     compile 'com.fasterxml.jackson.core:jackson-core:2.8.3'
     compile "com.bluelinelabs:logansquare:$loganSquareVersion"
-    apt "com.bluelinelabs:logansquare-compiler:$loganSquareVersion"
+    annotationProcessor "com.bluelinelabs:logansquare-compiler:$loganSquareVersion"
     compile 'com.github.aurae.retrofit2:converter-logansquare:1.4.1' // retrofit support
 
     // Dagger 2
     compile "com.google.dagger:dagger:${daggerVersion}"
-    apt "com.google.dagger:dagger-compiler:${daggerVersion}"
+    annotationProcessor "com.google.dagger:dagger-compiler:${daggerVersion}"
 
     // RxJava
     compile 'io.reactivex:rxandroid:1.2.1'
@@ -145,7 +144,9 @@ android {
         vectorDrawables.useSupportLibrary = true // do not generate png's for svg files
 
         // Enable the experimental Jack build tools. (note... may not work with shrinking enabled)
-        // useJack = true
+//        jackOptions {
+//            enabled true
+//        }
 
         // Espresso
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
