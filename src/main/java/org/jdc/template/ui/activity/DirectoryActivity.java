@@ -54,6 +54,7 @@ public class DirectoryActivity extends DrawerActivity implements SearchView.OnQu
     long lastSelectedId = 0;
 
     private DirectoryAdapter adapter;
+    private long modelTs;
 
     public DirectoryActivity() {
         Injector.get().inject(this);
@@ -100,16 +101,26 @@ public class DirectoryActivity extends DrawerActivity implements SearchView.OnQu
     @Override
     protected void onStart() {
         super.onStart();
-        loadList();
+        reloadData();
     }
 
     public void loadList() {
+        modelTs = individualManager.getLastTableModifiedTs();
         Observable<List<Individual>> observable = individualManager.findBySelectionRx(null, null, IndividualConst.C_FIRST_NAME + ", " + IndividualConst.C_LAST_NAME)
                 .subscribeOn(Schedulers.io())
                 .toList()
                 .observeOn(AndroidSchedulers.mainThread());
 
         addSubscription(observable.subscribe(data -> dataLoaded(data)));
+    }
+
+    public void reloadData() {
+        long lastTableModifiedTs = individualManager.getLastTableModifiedTs();
+        if (modelTs < lastTableModifiedTs) {
+            modelTs = lastTableModifiedTs;
+            adapter.clear();
+            loadList();
+        }
     }
 
     public void dataLoaded(List<Individual> data) {
