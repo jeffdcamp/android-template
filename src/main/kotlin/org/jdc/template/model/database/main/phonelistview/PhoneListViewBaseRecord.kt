@@ -19,8 +19,8 @@ import android.database.Cursor
 @SuppressWarnings("all")
 abstract class PhoneListViewBaseRecord : AndroidBaseRecord {
 
-     var id: Long = 0
-     var name: String = ""
+     open var id: Long = 0
+     open var name: String = ""
 
     constructor(record: PhoneListView) {
         this.id = record.id

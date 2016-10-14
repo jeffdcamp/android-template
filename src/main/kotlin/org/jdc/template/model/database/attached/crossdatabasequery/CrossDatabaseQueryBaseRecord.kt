@@ -19,9 +19,9 @@ import android.database.Cursor
 @SuppressWarnings("all")
 abstract class CrossDatabaseQueryBaseRecord : AndroidBaseRecord {
 
-     var id: Long = 0
-     var name: String = ""
-     var type: LocationType = LocationType.HOME
+     open var id: Long = 0
+     open var name: String = ""
+     open var type: LocationType = LocationType.HOME
 
     constructor(record: CrossDatabaseQuery) {
         this.id = record.id

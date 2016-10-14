@@ -66,7 +66,7 @@ abstract class DatabaseBaseManager : AndroidDatabaseManager {
     }
 
     override fun onCreate(androidDatabase: AndroidDatabase) {
-        getLogger().i(TAG, "Creating database: $androidDatabase.name")
+        getLogger().i(TAG, "Creating database: ${androidDatabase.name}")
         if (androidDatabase.name.equals(DatabaseManagerConst.MAIN_DATABASE_NAME)) {
             createMainTables(androidDatabase)
         }
@@ -101,14 +101,14 @@ abstract class DatabaseBaseManager : AndroidDatabaseManager {
     }
 
     override fun onCreateViews(androidDatabase: AndroidDatabase) {
-        getLogger().i(TAG, "Creating database views: $androidDatabase.name")
+        getLogger().i(TAG, "Creating database views: ${androidDatabase.name}")
         if (androidDatabase.name.equals(DatabaseManagerConst.MAIN_DATABASE_NAME)) {
             createMainViews(androidDatabase)
         }
     }
 
     override fun onDropViews(androidDatabase: AndroidDatabase) {
-        getLogger().i(TAG, "Dropping database views: $androidDatabase.name")
+        getLogger().i(TAG, "Dropping database views: ${androidDatabase.name}")
         if (androidDatabase.name.equals(DatabaseManagerConst.MAIN_DATABASE_NAME)) {
             dropMainViews(androidDatabase)
         }

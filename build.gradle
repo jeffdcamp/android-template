@@ -1,6 +1,6 @@
 buildscript {
     ext.kotlinVersion = '1.0.4'
-    ext.dbtoolsVersion = '7.0.11'
+    ext.dbtoolsVersion = '7.1.0'
 
     repositories {
         mavenLocal()
@@ -54,7 +54,7 @@ ext {
     okhttpVersion = '3.4.1'
     loganSquareVersion = '1.3.7'
     pocketKnifeVersion = '3.2.1'
-    pocketBusVersion = '1.0.1'
+    pocketBusVersion = '1.1.0'
 }
 
 dependencies {
@@ -87,7 +87,7 @@ dependencies {
     compile "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
 
     // JSON Parsing
-    compile 'com.fasterxml.jackson.core:jackson-core:2.8.3'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.8.4'
     compile "com.bluelinelabs:logansquare:$loganSquareVersion"
     kapt "com.bluelinelabs:logansquare-compiler:$loganSquareVersion"
     compile 'com.github.aurae.retrofit2:converter-logansquare:1.4.1' // retrofit support
@@ -119,7 +119,7 @@ dependencies {
 
     // Test (Unit)
     testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.1.0'
+    testCompile 'org.mockito:mockito-core:2.2.1'
     testCompile 'org.threeten:threetenbp:1.3.2'
     testCompile 'org.xerial:sqlite-jdbc:3.14.2.1'
 }

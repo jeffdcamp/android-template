@@ -34,4 +34,8 @@ class IndividualManager : IndividualBaseManager {
         return super.save(databaseName, individual)
     }
 
+    fun findMaxLastModifiedTs(): Long {
+        return findValueBySelection(Long::class.java, "MAX(" + IndividualConst.C_LAST_MODIFIED + ")", null, null, 0L)
+    }
+
 }

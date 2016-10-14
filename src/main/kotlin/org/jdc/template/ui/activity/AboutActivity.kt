@@ -486,17 +486,17 @@ class AboutActivity : BaseActivity() {
 
     fun handleRxIndividualTableChange(change: DatabaseTableChange) {
         when {
-            change.isInsert -> Log.e(TAG, "Rx Individual Table had insert")
-            change.isUpdate -> Log.e(TAG, "Rx Individual Table had update")
-            change.isDelete -> Log.e(TAG, "Rx Individual Table had delete")
+            change.isInsert -> Log.e(TAG, "Rx Individual Table had insert for table: [${change.table}] rowId: [${change.rowId}]")
+            change.isUpdate -> Log.e(TAG, "Rx Individual Table had update for table: [${change.table}] rowId: [${change.rowId}]")
+            change.isDelete -> Log.e(TAG, "Rx Individual Table had delete for table: [${change.table}] rowId: [${change.rowId}]")
         }
     }
 
     fun handleIndividualTableChange(change: DatabaseTableChange) {
         when {
-            change.isInsert -> Log.e(TAG, "Individual Table had insert")
-            change.isUpdate -> Log.e(TAG, "Individual Table had update")
-            change.isDelete -> Log.e(TAG, "Individual Table had delete")
+            change.isInsert -> Log.e(TAG, "Individual Table had insert for table: [${change.table}] rowId: [${change.rowId}]")
+            change.isUpdate -> Log.e(TAG, "Individual Table had update for table: [${change.table}] rowId: [${change.rowId}]")
+            change.isDelete -> Log.e(TAG, "Individual Table had delete for table: [${change.table}] rowId: [${change.rowId}]")
         }
     }
 

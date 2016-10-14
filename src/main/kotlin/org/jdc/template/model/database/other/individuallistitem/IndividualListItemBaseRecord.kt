@@ -19,9 +19,9 @@ import android.database.Cursor
 @SuppressWarnings("all")
 abstract class IndividualListItemBaseRecord : AndroidBaseRecord {
 
-     var id: Long = 0
-     var listId: Long = 0
-     var individualId: Long = 0
+     open var id: Long = 0
+     open var listId: Long = 0
+     open var individualId: Long = 0
 
     constructor(record: IndividualListItem) {
         this.listId = record.listId
