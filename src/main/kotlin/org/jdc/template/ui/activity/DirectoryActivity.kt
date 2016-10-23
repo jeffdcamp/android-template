@@ -40,7 +40,6 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener, Dire
     var lastSelectedId = 0L
 
     lateinit var adapter: DirectoryAdapter
-    private var modelTs: Long = 0
 
 
     init {
@@ -101,26 +100,15 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener, Dire
 
     override fun onStart() {
         super.onStart()
-        reloadData()
+        loadList()
     }
 
     fun loadList() {
-        modelTs = individualManager.findMaxLastModifiedTs()
-        val observable = individualManager.findBySelectionRx(null, null, IndividualConst.C_FIRST_NAME + ", " + IndividualConst.C_LAST_NAME)
+        val observable = individualManager.findAllBySelectionRx(null, null, IndividualConst.C_FIRST_NAME + ", " + IndividualConst.C_LAST_NAME)
                 .subscribeOn(Schedulers.io())
-                .toList()
                 .observeOn(AndroidSchedulers.mainThread())
 
         addSubscription(observable.subscribe { data -> dataLoaded(data) })
-    }
-
-    fun reloadData() {
-        val maxLastModifiedTs = individualManager.findMaxLastModifiedTs()
-        if (modelTs < maxLastModifiedTs) {
-            modelTs = maxLastModifiedTs
-            adapter.clear()
-            loadList()
-        }
     }
 
     fun dataLoaded(data: List<Individual>) {
