@@ -106,9 +106,8 @@ public class DirectoryActivity extends DrawerActivity implements SearchView.OnQu
 
     public void loadList() {
         modelTs = individualManager.getLastTableModifiedTs();
-        Observable<List<Individual>> observable = individualManager.findBySelectionRx(null, null, IndividualConst.C_FIRST_NAME + ", " + IndividualConst.C_LAST_NAME)
+        Observable<List<Individual>> observable = individualManager.findAllBySelectionRx(null, null, IndividualConst.C_FIRST_NAME + ", " + IndividualConst.C_LAST_NAME)
                 .subscribeOn(Schedulers.io())
-                .toList()
                 .observeOn(AndroidSchedulers.mainThread());
 
         addSubscription(observable.subscribe(data -> dataLoaded(data)));
