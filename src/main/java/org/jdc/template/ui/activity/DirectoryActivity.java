@@ -54,7 +54,7 @@ public class DirectoryActivity extends DrawerActivity implements SearchView.OnQu
     long lastSelectedId = 0;
 
     private DirectoryAdapter adapter;
-    private long modelTs;
+    private long modelTs = 0;
 
     public DirectoryActivity() {
         Injector.get().inject(this);
@@ -114,9 +114,8 @@ public class DirectoryActivity extends DrawerActivity implements SearchView.OnQu
     }
 
     public void reloadData() {
-        long lastTableModifiedTs = individualManager.getLastTableModifiedTs();
-        if (modelTs < lastTableModifiedTs) {
-            modelTs = lastTableModifiedTs;
+        if (modelTs != individualManager.getLastTableModifiedTs()) {
+            modelTs = individualManager.getLastTableModifiedTs();
             adapter.clear();
             loadList();
         }
