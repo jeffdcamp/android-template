@@ -41,6 +41,7 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener, Dire
 
     lateinit var adapter: DirectoryAdapter
 
+    var modelTs = 0L;
 
     init {
         Injector.get().inject(this)
@@ -100,7 +101,10 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener, Dire
 
     override fun onStart() {
         super.onStart()
-        loadList()
+        if (modelTs != individualManager.lastTableModifiedTs) {
+            modelTs = individualManager.lastTableModifiedTs
+            loadList()
+        }
     }
 
     fun loadList() {
