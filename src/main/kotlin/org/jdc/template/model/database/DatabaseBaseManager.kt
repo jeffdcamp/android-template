@@ -33,6 +33,7 @@ abstract class DatabaseBaseManager : AndroidDatabaseManager {
         
         // Tables
         AndroidBaseManager.createTable(database, org.jdc.template.model.database.main.household.HouseholdConst.CREATE_TABLE)
+        AndroidBaseManager.createTable(database, org.jdc.template.model.database.main.individualdata.IndividualDataConst.CREATE_TABLE)
         AndroidBaseManager.createTable(database, org.jdc.template.model.database.main.individual.IndividualConst.CREATE_TABLE)
         
         database.setTransactionSuccessful()

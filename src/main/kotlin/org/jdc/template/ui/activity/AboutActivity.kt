@@ -28,6 +28,8 @@ import org.jdc.template.model.database.main.household.HouseholdManager
 import org.jdc.template.model.database.main.individual.Individual
 import org.jdc.template.model.database.main.individual.IndividualConst
 import org.jdc.template.model.database.main.individual.IndividualManager
+import org.jdc.template.model.database.main.individualdata.IndividualData
+import org.jdc.template.model.database.main.individualdata.IndividualDataManager
 import org.jdc.template.model.database.main.individualquery.IndividualQuery
 import org.jdc.template.model.database.main.individualquery.IndividualQueryManager
 import org.jdc.template.model.database.main.individualtype.IndividualType
@@ -73,6 +75,8 @@ class AboutActivity : BaseActivity() {
     lateinit var individualQueryManager: IndividualQueryManager
     @Inject
     lateinit var crossDatabaseQueryManager: CrossDatabaseQueryManager
+    @Inject
+    lateinit var individualDataManager: IndividualDataManager
 
     @Inject
     lateinit var colorService: ColorService
@@ -106,6 +110,15 @@ class AboutActivity : BaseActivity() {
         }
         rxTestButton.setOnClickListener() {
             testRx()
+        }
+        testButton.setOnClickListener {
+            var data = IndividualData()
+            data.externalId = 555;
+            data.typeId = 1;
+            data.name = "Foo";
+            individualDataManager.save(data);
+
+            Log.e(TAG, "findAll count (should always be 1): ${individualDataManager.findAll().size}");
         }
     }
 

@@ -1,6 +1,6 @@
 buildscript {
-    ext.kotlinVersion = '1.0.4'
-    ext.dbtoolsVersion = '7.1.1'
+    ext.kotlin_version = '1.0.5-2'
+    ext.dbtoolsVersion = '7.2.0'
 
     repositories {
         mavenLocal()
@@ -11,8 +11,8 @@ buildscript {
         classpath 'com.android.tools.build:gradle:2.2.2'
         classpath "org.dbtools:gradle-dbtools-plugin:$dbtoolsVersion"
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.13.0' // version plugin support
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlinVersion"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
     }
 }
 
@@ -49,7 +49,7 @@ repositories {
 
 ext {
     // versions for libraries that multiple dependencies
-    supportLibVersion = '25.0.0'
+    supportLibVersion = '25.0.1'
     daggerVersion = '2.7'
     okhttpVersion = '3.4.2'
     loganSquareVersion = '1.3.7'
@@ -75,19 +75,19 @@ dependencies {
     kapt "com.vikingsen:pocketbus-compiler:$pocketBusVersion"
 
     // Code
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile 'com.google.code.findbugs:jsr305:3.0.1'
     compile 'com.jakewharton.threetenabp:threetenabp:1.0.4'
     compile "org.dbtools:dbtools-android:$dbtoolsVersion"
     compile 'com.devbrackets.android:recyclerext:2.0.1'
-    compile 'com.evernote:android-job:1.1.2'
+    compile 'com.evernote:android-job:1.1.3'
 
     // Network
     compile "com.squareup.okhttp3:okhttp:$okhttpVersion"
     compile "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
 
     // JSON Parsing
-    compile 'com.fasterxml.jackson.core:jackson-core:2.8.4'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.8.5'
     compile "com.bluelinelabs:logansquare:$loganSquareVersion"
     kapt "com.bluelinelabs:logansquare-compiler:$loganSquareVersion"
     compile 'com.github.aurae.retrofit2:converter-logansquare:1.4.1' // retrofit support
@@ -119,7 +119,7 @@ dependencies {
 
     // Test (Unit)
     testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.2.11'
+    testCompile 'org.mockito:mockito-core:2.2.21'
     testCompile 'org.threeten:threetenbp:1.3.2'
     testCompile 'org.xerial:sqlite-jdbc:3.15.1'
 }
