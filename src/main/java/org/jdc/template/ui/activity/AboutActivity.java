@@ -32,6 +32,8 @@ import org.jdc.template.model.database.main.household.HouseholdManager;
 import org.jdc.template.model.database.main.individual.Individual;
 import org.jdc.template.model.database.main.individual.IndividualConst;
 import org.jdc.template.model.database.main.individual.IndividualManager;
+import org.jdc.template.model.database.main.individualdata.IndividualData;
+import org.jdc.template.model.database.main.individualdata.IndividualDataManager;
 import org.jdc.template.model.database.main.individualquery.IndividualQuery;
 import org.jdc.template.model.database.main.individualquery.IndividualQueryManager;
 import org.jdc.template.model.database.main.individualtype.IndividualType;
@@ -462,6 +464,20 @@ public class AboutActivity extends BaseActivity {
         for (DtoColor dtoColor : dtoColors.getColors()) {
             Log.i(TAG, "Result: " + dtoColor.getColorName());
         }
+    }
+
+    @Inject
+    IndividualDataManager individualDataManager;
+
+    @OnClick(R.id.test_button)
+    public void testNoPrimaryKeyAndUnique() {
+        IndividualData data = new IndividualData();
+        data.setExternalId(555);
+        data.setExternalId(1);
+        data.setName("Foo");
+        individualDataManager.save(data);
+
+        Log.e(TAG, "findAll count (should always be 1): " + individualDataManager.findAll().size());
     }
 
     @OnClick(R.id.job_test_button)

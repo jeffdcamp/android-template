@@ -33,6 +33,18 @@
             <field name="ENABLED" jdbcDataType="BOOLEAN"/>
             <field name="SPOUSE_INDIVIDUAL_ID" jdbcDataType="BIGINT" notNull="false"/> <!-- test nullable field -->
         </table>
+
+        <!-- Sample table without a primary key -->
+        <table name="INDIVIDUAL_DATA">
+            <field name="EXTERNAL_ID" jdbcDataType="BIGINT" index="true"/>
+            <field name="TYPE_ID" jdbcDataType="INTEGER" index="true"/>
+            <field name="NAME" jdbcDataType="VARCHAR"/>
+            <unique sqliteOnConflict="REPLACE">
+                <uniqueField name="EXTERNAL_ID" />
+                <uniqueField name="TYPE_ID" />
+            </unique>
+        </table>
+
         <view name="PHONE_LIST_VIEW">
             <field name="_id" jdbcDataType="BIGINT"/>
             <field name="NAME" jdbcDataType="VARCHAR"/>
