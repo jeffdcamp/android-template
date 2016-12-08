@@ -42,14 +42,14 @@ abstract class IndividualDataBaseRecord : AndroidBaseRecord {
 
     override fun getContentValues(values: DBToolsContentValues<*>) {
         values.put(IndividualDataConst.C_EXTERNAL_ID, externalId)
-        values.put(IndividualDataConst.C_TYPE_ID, (typeId as Int).toLong())
+        values.put(IndividualDataConst.C_TYPE_ID, typeId.toLong())
         values.put(IndividualDataConst.C_NAME, name)
     }
 
     override fun getValues() : Array<Any?> {
         return arrayOf(
             externalId,
-            (typeId as Int).toLong(),
+            typeId.toLong(),
             name)
     }
 
@@ -63,13 +63,13 @@ abstract class IndividualDataBaseRecord : AndroidBaseRecord {
 
     override fun bindInsertStatement(statement: StatementWrapper) {
         statement.bindLong(1, externalId)
-        statement.bindLong(2, (typeId as Int).toLong())
+        statement.bindLong(2, typeId.toLong())
         statement.bindString(3, name)
     }
 
     override fun bindUpdateStatement(statement: StatementWrapper) {
         statement.bindLong(1, externalId)
-        statement.bindLong(2, (typeId as Int).toLong())
+        statement.bindLong(2, typeId.toLong())
         statement.bindString(3, name)
     }
 

@@ -93,7 +93,7 @@ abstract class IndividualBaseRecord : AndroidBaseRecord {
         values.put(IndividualConst.C_PHONE, phone)
         values.put(IndividualConst.C_EMAIL, email)
         values.put(IndividualConst.C_AVAILABLE, if (available) 1L else 0L)
-        values.put(IndividualConst.C_AMOUNT1, (amount1 as Float).toDouble())
+        values.put(IndividualConst.C_AMOUNT1, amount1.toDouble())
         values.put(IndividualConst.C_AMOUNT2, amount2)
         values.put(IndividualConst.C_ENABLED, if (enabled) 1L else 0L)
         values.put(IndividualConst.C_SPOUSE_INDIVIDUAL_ID, spouseIndividualId)
@@ -114,7 +114,7 @@ abstract class IndividualBaseRecord : AndroidBaseRecord {
             phone,
             email,
             if (available) 1L else 0L,
-            (amount1 as Float).toDouble(),
+            amount1.toDouble(),
             amount2,
             if (enabled) 1L else 0L,
             spouseIndividualId)
@@ -167,7 +167,7 @@ abstract class IndividualBaseRecord : AndroidBaseRecord {
         statement.bindString(10, phone)
         statement.bindString(11, email)
         statement.bindLong(12, if (available) 1L else 0L)
-        statement.bindDouble(13, (amount1 as Float).toDouble())
+        statement.bindDouble(13, amount1.toDouble())
         statement.bindDouble(14, amount2)
         statement.bindLong(15, if (enabled) 1L else 0L)
         if (spouseIndividualId != null) {
@@ -202,7 +202,7 @@ abstract class IndividualBaseRecord : AndroidBaseRecord {
         statement.bindString(10, phone)
         statement.bindString(11, email)
         statement.bindLong(12, if (available) 1L else 0L)
-        statement.bindDouble(13, (amount1 as Float).toDouble())
+        statement.bindDouble(13, amount1.toDouble())
         statement.bindDouble(14, amount2)
         statement.bindLong(15, if (enabled) 1L else 0L)
         if (spouseIndividualId != null) {
