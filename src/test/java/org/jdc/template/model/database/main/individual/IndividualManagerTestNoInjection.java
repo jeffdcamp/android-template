@@ -1,28 +1,23 @@
 package org.jdc.template.model.database.main.individual;
 
-import org.dbtools.android.domain.config.DatabaseConfig;
+import org.jdc.template.model.database.DatabaseManager;
 import org.jdc.template.model.database.TestMainDatabaseConfig;
 import org.junit.Before;
 import org.junit.Test;
 import org.threeten.bp.LocalTime;
 
-import javax.inject.Inject;
-
 import static org.junit.Assert.assertEquals;
 
-public class IndividualManagerTest {
+public class IndividualManagerTestNoInjection {
 
-    @Inject
-    DatabaseConfig databaseConfig;
-    @Inject
-    IndividualManager individualManager;
+    private IndividualManager individualManager;
 
     @Before
     public void setUp() throws Exception {
-        TestComponent component = DaggerTestComponent.builder().testModule(new TestModule()).build();
-        component.inject(this);
-
-        ((TestMainDatabaseConfig) databaseConfig).deleteAllDatabaseFiles();
+        TestMainDatabaseConfig databaseConfig = TestMainDatabaseConfig.getInstance();
+        databaseConfig.deleteAllDatabaseFiles();
+        DatabaseManager databaseManager = new DatabaseManager(databaseConfig);
+        individualManager = new IndividualManager(databaseManager);
     }
 
     @Test

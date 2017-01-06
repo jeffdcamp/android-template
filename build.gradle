@@ -7,7 +7,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.2'
+        classpath 'com.android.tools.build:gradle:2.2.3'
         classpath 'me.tatarka:gradle-retrolambda:3.4.0'
         classpath "org.dbtools:gradle-dbtools-plugin:$dbtoolsVersion"
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.13.0' // version plugin support
@@ -44,7 +44,7 @@ repositories {
 
 ext {
     // versions for libraries that multiple dependencies
-    supportLibVersion = '25.0.1'
+    supportLibVersion = '25.1.0'
     daggerVersion = '2.8'
     loganSquareVersion = '1.3.7'
     okhttpVersion = '3.5.0'
@@ -72,12 +72,12 @@ dependencies {
 
     // Code
     compile 'com.google.code.findbugs:jsr305:3.0.1'
-    compile 'org.threeten:threetenbp:1.3.2'
+    compile 'org.threeten:threetenbp:1.3.3'
     compile "org.dbtools:dbtools-android:$dbtoolsVersion"
     compile 'org.apache.commons:commons-lang3:3.5'
     compile 'commons-io:commons-io:2.5'
     compile 'com.devbrackets.android:recyclerext:2.0.1'
-    compile 'com.evernote:android-job:1.1.3'
+    compile 'com.evernote:android-job:1.1.4'
     compile "com.vikingsen:pocketbus:$pocketBusVersion"
     annotationProcessor "com.vikingsen:pocketbus-compiler:$pocketBusVersion"
 
@@ -97,7 +97,7 @@ dependencies {
 
     // RxJava
     compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'io.reactivex:rxjava:1.2.3'
+    compile 'io.reactivex:rxjava:1.2.5'
 
     // Custom SQLite databasethreetenbp
 //    compile 'org.sqlite:sqlite-android:3.8.9.0-20150415'
@@ -118,14 +118,15 @@ dependencies {
 
     // Test (Unit)
     testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.2.29'
-    testCompile 'org.threeten:threetenbp:1.3.2' // required for DBTools java junit tests
+    testCompile 'org.mockito:mockito-core:2.5.5'
+    testCompile 'org.threeten:threetenbp:1.3.3' // required for DBTools java junit tests
     testCompile 'org.xerial:sqlite-jdbc:3.15.1'
+    testAnnotationProcessor "com.google.dagger:dagger-compiler:${daggerVersion}"
 }
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '25.0.1'
+    buildToolsVersion '25.0.2'
 
     defaultConfig {
         minSdkVersion 15
