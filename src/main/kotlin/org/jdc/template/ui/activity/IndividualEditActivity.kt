@@ -54,11 +54,11 @@ class IndividualEditActivity : BaseActivity() {
 
         setupActionBar()
 
-        alarmTimeEditText.setOnClickListener() {
+        alarmTimeEditText.setOnClickListener {
             onAlarmClick()
         }
 
-        birthDateEditText.setOnClickListener() {
+        birthDateEditText.setOnClickListener {
             onBirthdayClick()
         }
 
@@ -101,7 +101,7 @@ class IndividualEditActivity : BaseActivity() {
                 birthDatePickerDialog = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                     individual.birthDate = LocalDate.of(year, monthOfYear + 1, dayOfMonth) // + 1 because cord Java Date is 0 based
                     showBirthDate()
-                }, date.getYear(), date.getMonthValue() - 1, date.getDayOfMonth()) // - 1 because cord Java Date is 0 based
+                }, date.year, date.monthValue - 1, date.dayOfMonth) // - 1 because cord Java Date is 0 based
             }
         }
 

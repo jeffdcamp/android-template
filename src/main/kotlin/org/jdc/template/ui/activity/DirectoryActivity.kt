@@ -41,7 +41,7 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener, Dire
 
     lateinit var adapter: DirectoryAdapter
 
-    var modelTs = 0L;
+    var modelTs = 0L
 
     init {
         Injector.get().inject(this)
@@ -56,7 +56,7 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener, Dire
         super.setupDrawerWithDrawerButton(ab_toolbar, R.string.drawer_main)
 
 
-        newFloatingActionButton.setOnClickListener() {
+        newFloatingActionButton.setOnClickListener {
             onNewItemClick()
         }
 
@@ -65,7 +65,7 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener, Dire
 
     private fun setupRecyclerView() {
         adapter = DirectoryAdapter(this)
-        adapter.listener = this;
+        adapter.listener = this
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
     }
@@ -116,7 +116,7 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener, Dire
     }
 
     fun dataLoaded(data: List<Individual>) {
-        adapter.set(data);
+        adapter.set(data)
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
@@ -135,8 +135,8 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener, Dire
         analytics.send(HitBuilders.EventBuilder()
                 .setCategory(Analytics.CATEGORY_INDIVIDUAL)
                 .setAction(Analytics.ACTION_NEW)
-                .build());
+                .build())
 
-        internalIntents.editIndividual(this, -1);
+        internalIntents.editIndividual(this, -1)
     }
 }

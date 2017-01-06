@@ -87,13 +87,9 @@ class ServiceModule {
         const val STANDARD_CLIENT = "STANDARD_CLIENT" // client without auth
         const val AUTHENTICATED_CLIENT = "AUTHENTICATED_CLIENT"
         const val DEFAULT_TIMEOUT_MINUTES = 3
-        private val USER_AGENT: String
-
-        init {
-            USER_AGENT = BuildConfig.USER_AGENT_APP_NAME + " " + BuildConfig.VERSION_NAME + " / " + "Android " + Build.VERSION.RELEASE + " " +
-                    Build.VERSION.INCREMENTAL + " / " +
-                    Build.MANUFACTURER +
-                    " " + Build.MODEL
-        }
+        private val USER_AGENT: String = BuildConfig.USER_AGENT_APP_NAME + " " + BuildConfig.VERSION_NAME + " / " + "Android " + Build.VERSION.RELEASE + " " +
+                Build.VERSION.INCREMENTAL + " / " +
+                Build.MANUFACTURER +
+                " " + Build.MODEL
     }
 }

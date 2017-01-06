@@ -15,15 +15,11 @@ import org.dbtools.query.sql.SQLQueryBuilder
 class IndividualQuery : IndividualQueryBaseRecord {
 
     companion object {
-        val QUERY: String
-        init {
-            QUERY = SQLQueryBuilder()
-                    .field(IndividualQueryConst.FULL_C_ID, IndividualQueryConst.C_ID)
-                    .field(IndividualQueryConst.FULL_C_NAME, IndividualQueryConst.C_NAME)
-                    .table("FROM SOME TABLE(S)")
-                    .buildQuery();
-
-        }
+        val QUERY: String = SQLQueryBuilder()
+                .field(IndividualQueryConst.FULL_C_ID, IndividualQueryConst.C_ID)
+                .field(IndividualQueryConst.FULL_C_NAME, IndividualQueryConst.C_NAME)
+                .table("FROM SOME TABLE(S)")
+                .buildQuery()
     }
 
     constructor() {

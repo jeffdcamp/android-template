@@ -34,10 +34,7 @@ class DirectoryAdapter(context: Context) : RecyclerListAdapter<DirectoryAdapter.
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val individual = getItem(position);
-        if (individual == null) {
-            return
-        }
+        val individual = getItem(position) ?: return
 
         val itemId = individual.id
 
@@ -49,7 +46,7 @@ class DirectoryAdapter(context: Context) : RecyclerListAdapter<DirectoryAdapter.
 
     private fun onItemClicked(holder: ViewHolder, selectedItemId: Long) {
         this.lastSelectedItemId = selectedItemId
-        listener?.onItemClick(selectedItemId);
+        listener?.onItemClick(selectedItemId)
     }
 
     interface OnItemClickListener {

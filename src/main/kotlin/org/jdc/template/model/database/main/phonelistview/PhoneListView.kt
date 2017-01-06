@@ -15,16 +15,12 @@ import org.jdc.template.model.database.main.individual.IndividualConst
 class PhoneListView : PhoneListViewBaseRecord {
 
     companion object {
-        val DROP_VIEW: String
-        val CREATE_VIEW: String
+        val DROP_VIEW: String = "DROP VIEW IF EXISTS " + PhoneListViewConst.TABLE + ";"
+        val CREATE_VIEW: String = "CREATE VIEW IF NOT EXISTS " + PhoneListViewConst.TABLE + " AS SELECT " +
+                IndividualConst.FULL_C_ID + " AS " + PhoneListViewConst.C_ID + ", " +
+                IndividualConst.FULL_C_LAST_NAME + " AS " + PhoneListViewConst.C_NAME +
+                " FROM " + IndividualConst.TABLE
 
-        init {
-            DROP_VIEW = "DROP VIEW IF EXISTS " + PhoneListViewConst.TABLE + ";";
-            CREATE_VIEW = "CREATE VIEW IF NOT EXISTS " + PhoneListViewConst.TABLE + " AS SELECT " +
-                    IndividualConst.FULL_C_ID + " AS " + PhoneListViewConst.C_ID + ", " +
-                    IndividualConst.FULL_C_LAST_NAME + " AS " + PhoneListViewConst.C_NAME +
-                    " FROM " + IndividualConst.TABLE;
-        }
     }
 
     constructor() {

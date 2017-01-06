@@ -101,35 +101,35 @@ class AboutActivity : BaseActivity() {
         createDatabaseButton.setOnClickListener {
             onCreateDatabaseButtonClick()
         }
-        restTestButton.setOnClickListener() {
+        restTestButton.setOnClickListener {
             testQueryWebServiceCallRx() // use Rx to make the call
 //            testSaveQueryWebServiceCall() // write the response to file, the read the file to show results
         }
-        jobTestButton.setOnClickListener() {
+        jobTestButton.setOnClickListener {
             jobTest()
         }
-        rxTestButton.setOnClickListener() {
+        rxTestButton.setOnClickListener {
             testRx()
         }
         testButton.setOnClickListener {
-            var data = IndividualData()
-            data.externalId = 555;
-            data.typeId = 1;
-            data.name = "Foo";
-            individualDataManager.save(data);
+            val data = IndividualData()
+            data.externalId = 555
+            data.typeId = 1
+            data.name = "Foo"
+            individualDataManager.save(data)
 
-            Log.e(TAG, "findAll count (should always be 1): ${individualDataManager.findAll().size}");
+            Log.e(TAG, "findAll count (should always be 1): ${individualDataManager.findAll().size}")
         }
     }
 
     override fun onStart() {
-        super.onStart();
-        bus.register(this);
+        super.onStart()
+        bus.register(this)
     }
 
     override fun onStop() {
-        bus.unregister(this);
-        super.onStop();
+        bus.unregister(this)
+        super.onStop()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -387,12 +387,12 @@ class AboutActivity : BaseActivity() {
                 })
                 .filter({ dtoSearchResponse -> dtoSearchResponse != null }) // don't continue if null
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ dtoSearchResponse -> processSearchResponse(dtoSearchResponse!!) }, { throwable -> bus.post(NewDataEvent(false, null)) }, {bus.post(NewDataEvent(true, null))});
+                .subscribe({ dtoSearchResponse -> processSearchResponse(dtoSearchResponse!!) }, { throwable -> bus.post(NewDataEvent(false, null)) }, {bus.post(NewDataEvent(true, null))})
     }
 
     @Subscribe
     fun handle(event: NewDataEvent) {
-        Log.e(TAG, "Rest Service finished [" + event.isSuccess + "]", event.throwable);
+        Log.e(TAG, "Rest Service finished [" + event.isSuccess + "]", event.throwable)
     }
 
     fun testFullUrlQueryWebServiceCall() {
@@ -424,7 +424,7 @@ class AboutActivity : BaseActivity() {
                 webServiceUtil.saveResponseToFile(response, outputFile)
 
                 // show the output of the file
-                val fileContents = outputFile.readText();
+                val fileContents = outputFile.readText()
                 Log.i(TAG, "Output file: [$fileContents]")
             }
 

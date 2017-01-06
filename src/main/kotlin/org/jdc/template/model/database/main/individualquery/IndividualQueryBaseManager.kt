@@ -9,9 +9,9 @@
 
 package org.jdc.template.model.database.main.individualquery
 
-import org.jdc.template.model.database.DatabaseManager
-import org.dbtools.android.domain.database.DatabaseWrapper
 import org.dbtools.android.domain.RxKotlinAndroidBaseManagerReadOnly
+import org.dbtools.android.domain.database.DatabaseWrapper
+import org.jdc.template.model.database.DatabaseManager
 
 
 @SuppressWarnings("all")
@@ -59,7 +59,7 @@ abstract class IndividualQueryBaseManager : RxKotlinAndroidBaseManagerReadOnly<I
         return databaseManager.getDatabaseConfig()
     }
 
-    abstract fun getQuery() : String;
+    abstract fun getQuery() : String
 
     override fun getTableName() : String {
         return getQuery()

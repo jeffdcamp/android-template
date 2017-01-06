@@ -37,7 +37,7 @@ class RxTest {
         data.add(Person("John"))
         data.add(Person("Lenny"))
         data.add(Person("Marvin"))
-        return data;
+        return data
     }
 
     private class Person(private val name: String) {

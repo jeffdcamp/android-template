@@ -30,7 +30,7 @@ class IndividualActivity : DrawerActivity() {
     var individualId = 0L
 
     @Inject
-    lateinit var analytics: Analytics;
+    lateinit var analytics: Analytics
     @Inject
     lateinit var internalIntents: InternalIntents
     @Inject
@@ -58,11 +58,11 @@ class IndividualActivity : DrawerActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_item_edit -> {
-                internalIntents.editIndividual(this, individualId);
+                internalIntents.editIndividual(this, individualId)
                 return true
             }
             R.id.menu_item_delete -> {
-                deleteIndividual();
+                deleteIndividual()
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
@@ -131,7 +131,7 @@ class IndividualActivity : DrawerActivity() {
 
             analytics.send(HitBuilders.EventBuilder().setCategory(Analytics.CATEGORY_INDIVIDUAL).setAction(Analytics.ACTION_DELETE).build())
 
-            finish();
+            finish()
         }.setNegativeButton(R.string.cancel, null).show()
     }
 

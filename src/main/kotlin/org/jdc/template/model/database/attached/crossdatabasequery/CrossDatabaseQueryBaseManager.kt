@@ -59,7 +59,7 @@ abstract class CrossDatabaseQueryBaseManager : RxKotlinAndroidBaseManagerReadOnl
         return databaseManager.getDatabaseConfig()
     }
 
-    abstract fun getQuery() : String;
+    abstract fun getQuery() : String
 
     override fun getTableName() : String {
         return getQuery()

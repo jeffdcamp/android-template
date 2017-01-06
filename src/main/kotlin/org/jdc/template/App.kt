@@ -23,7 +23,7 @@ class App : Application() {
         JobManager.create(this).addJobCreator(AppJobCreator())
 
         // register json global converters
-        registerJsonConverters();
+        registerJsonConverters()
     }
 
     override fun attachBaseContext(base: Context) {
@@ -39,7 +39,7 @@ class App : Application() {
     }
 
     fun registerJsonConverters() {
-        LoganSquare.registerTypeConverter(LocalDateTime::class.java, DateTimeTypeConverter());
+        LoganSquare.registerTypeConverter(LocalDateTime::class.java, DateTimeTypeConverter())
     }
 
     companion object {

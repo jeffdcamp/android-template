@@ -59,7 +59,7 @@ class AppModule(private val application: Application) {
     @Provides
     @Singleton
     fun provideDatabaseConfig(application: Application): DatabaseConfig {
-        return AppDatabaseConfig(application);
+        return AppDatabaseConfig(application)
     }
 
     @Provides

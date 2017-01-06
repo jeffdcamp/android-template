@@ -10,10 +10,9 @@
 
 package org.jdc.template.model.database
 
-import org.dbtools.android.domain.AndroidDatabase
 import org.dbtools.android.domain.AndroidBaseManager
+import org.dbtools.android.domain.AndroidDatabase
 import org.dbtools.android.domain.AndroidDatabaseManager
-import org.dbtools.android.domain.database.DatabaseWrapper
 import org.dbtools.android.domain.config.DatabaseConfig
 
 
@@ -68,13 +67,13 @@ abstract class DatabaseBaseManager : AndroidDatabaseManager {
 
     override fun onCreate(androidDatabase: AndroidDatabase) {
         getLogger().i(TAG, "Creating database: ${androidDatabase.name}")
-        if (androidDatabase.name.equals(DatabaseManagerConst.MAIN_DATABASE_NAME)) {
+        if (androidDatabase.name == DatabaseManagerConst.MAIN_DATABASE_NAME) {
             createMainTables(androidDatabase)
         }
-        if (androidDatabase.name.equals(DatabaseManagerConst.OTHER_DATABASE_NAME)) {
+        if (androidDatabase.name == DatabaseManagerConst.OTHER_DATABASE_NAME) {
             createOtherTables(androidDatabase)
         }
-        if (androidDatabase.name.equals(DatabaseManagerConst.ATTACHED_DATABASE_NAME)) {
+        if (androidDatabase.name == DatabaseManagerConst.ATTACHED_DATABASE_NAME) {
             createAttachedTables(androidDatabase)
         }
     }
@@ -103,14 +102,14 @@ abstract class DatabaseBaseManager : AndroidDatabaseManager {
 
     override fun onCreateViews(androidDatabase: AndroidDatabase) {
         getLogger().i(TAG, "Creating database views: ${androidDatabase.name}")
-        if (androidDatabase.name.equals(DatabaseManagerConst.MAIN_DATABASE_NAME)) {
+        if (androidDatabase.name == DatabaseManagerConst.MAIN_DATABASE_NAME) {
             createMainViews(androidDatabase)
         }
     }
 
     override fun onDropViews(androidDatabase: AndroidDatabase) {
         getLogger().i(TAG, "Dropping database views: ${androidDatabase.name}")
-        if (androidDatabase.name.equals(DatabaseManagerConst.MAIN_DATABASE_NAME)) {
+        if (androidDatabase.name == DatabaseManagerConst.MAIN_DATABASE_NAME) {
             dropMainViews(androidDatabase)
         }
     }
