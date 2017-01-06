@@ -1,31 +1,20 @@
 package org.jdc.template.model.database.main.individual
 
-import org.dbtools.android.domain.config.DatabaseConfig
+import org.jdc.template.model.database.DatabaseManager
 import org.jdc.template.model.database.TestMainDatabaseConfig
 import org.junit.Assert.assertEquals
-import org.junit.Before
 import org.junit.Test
 import org.threeten.bp.LocalTime
-import javax.inject.Inject
 
-class IndividualManagerTest {
-    @Inject
-    internal lateinit var databaseConfig: DatabaseConfig
-    @Inject
-    internal lateinit var individualManager: IndividualManager
-
-    @Before
-    @Throws(Exception::class)
-    fun setUp() {
-        val component = DaggerIndividualManagerTestComponent.builder().individualManagerTestModule(IndividualManagerTestModule()).build()
-        component.inject(this)
-
-        (databaseConfig as TestMainDatabaseConfig).deleteAllDatabaseFiles()
-    }
-
+class IndividualManagerTestNoInjection {
     @Test
     fun testIndividual() {
+        val databaseConfig = TestMainDatabaseConfig.instance
+        databaseConfig.deleteAllDatabaseFiles()
+        val databaseManager = DatabaseManager(databaseConfig)
+
         // === CREATE / INSERT ===
+        val individualManager = IndividualManager(databaseManager)
         val individual = Individual()
         individual.firstName = "Jeff"
         individual.alarmTime = LocalTime.now()
