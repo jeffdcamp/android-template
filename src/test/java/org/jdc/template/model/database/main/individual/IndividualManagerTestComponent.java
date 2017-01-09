@@ -6,7 +6,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 @Singleton
-@Component(modules = TestModule.class)
-public interface TestComponent {
+@Component(modules = IndividualManagerTestModule.class)
+public interface IndividualManagerTestComponent {
     void inject(IndividualManagerTest target);
 }

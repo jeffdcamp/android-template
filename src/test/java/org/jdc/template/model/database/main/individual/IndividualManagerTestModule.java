@@ -9,8 +9,8 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class TestModule {
-    public TestModule() {
+public class IndividualManagerTestModule {
+    public IndividualManagerTestModule() {
     }
 
     @Provides

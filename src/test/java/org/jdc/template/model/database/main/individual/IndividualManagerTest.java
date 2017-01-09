@@ -19,7 +19,7 @@ public class IndividualManagerTest {
 
     @Before
     public void setUp() throws Exception {
-        TestComponent component = DaggerTestComponent.builder().testModule(new TestModule()).build();
+        IndividualManagerTestComponent component = DaggerIndividualManagerTestComponent.builder().individualManagerTestModule(new IndividualManagerTestModule()).build();
         component.inject(this);
 
         ((TestMainDatabaseConfig) databaseConfig).deleteAllDatabaseFiles();
