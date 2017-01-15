@@ -14,8 +14,6 @@ interface Analytics {
     }
 
     companion object {
-        val TAG = App.createTag(Analytics::class.java)
-
         // Categories
         val CATEGORY_APP = "App"
         val CATEGORY_INDIVIDUAL = "Individual"

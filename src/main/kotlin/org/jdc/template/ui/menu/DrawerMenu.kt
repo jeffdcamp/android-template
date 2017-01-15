@@ -4,11 +4,8 @@ import android.app.Activity
 import android.support.design.widget.NavigationView
 import android.support.v4.widget.DrawerLayout
 import android.view.MenuItem
-
-import org.jdc.template.App
 import org.jdc.template.InternalIntents
 import org.jdc.template.R
-
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -43,9 +40,5 @@ constructor() {
         }
 
         return false
-    }
-
-    companion object {
-        val TAG = App.createTag(DrawerMenu::class.java)
     }
 }

@@ -1,9 +1,9 @@
 
 package org.jdc.template.model.database
 
-import android.util.Log
 import org.dbtools.android.domain.AndroidDatabase
 import org.dbtools.android.domain.config.DatabaseConfig
+import timber.log.Timber
 import javax.inject.Singleton
 
 
@@ -24,21 +24,21 @@ class DatabaseManager : DatabaseBaseManager {
     }
 
     override fun onUpgrade(androidDatabase: AndroidDatabase, oldVersion: Int, newVersion: Int) {
-        Log.i(TAG, "Upgrading database [$androidDatabase.name] from version $oldVersion to $newVersion")
+        Timber.i("Upgrading database [$androidDatabase.name] from version $oldVersion to $newVersion")
     }
 
     override fun onUpgradeViews(androidDatabase: AndroidDatabase, oldVersion: Int, newVersion: Int) {
-        Log.i(TAG, "Upgrading database [$androidDatabase.name] VIEWS from version $oldVersion to $newVersion")
+        Timber.i("Upgrading database [$androidDatabase.name] VIEWS from version $oldVersion to $newVersion")
         // automatically drop/create views
         super.onUpgradeViews(androidDatabase, oldVersion, newVersion)
     }
 
     fun initDatabaseConnection() {
-        Log.i(TAG, "Initializing Database connection: ")
+        Timber.i("Initializing Database connection: ")
         try {
             getWritableDatabase(DatabaseManagerConst.MAIN_DATABASE_NAME)
         } catch (e: Exception) {
-            Log.e(TAG, "Failed to open database... attempting to recreate database", e)
+            Timber.e(e, "Failed to open database... attempting to recreate database")
             cleanAllDatabases()
             getWritableDatabase(DatabaseManagerConst.MAIN_DATABASE_NAME)
         }

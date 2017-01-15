@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- ...and here we setting appcompat’s color theme attrs -->
         <item name="colorPrimary">@color/primary</item>
@@ -21,8 +21,8 @@
     <!-- ActionBar / ToolBar -->
     <style name="Toolbar">
         <item name="android:background">?attr/colorPrimary</item>
-        <item name="android:elevation">4dp</item>
-        <item name="android:transitionName">actionBar</item>
+        <item name="android:elevation" tools:targetApi="lollipop">4dp</item>
+        <item name="android:transitionName" tools:targetApi="lollipop">actionBar</item>
     </style>
 
     <!-- General -->
@@ -90,7 +90,7 @@
     <!-- This is needed because the default PreferenceCategory appearance doesn't use bold text style -->
     <style name="Preference_TextAppearanceMaterialBody2">
         <item name="android:textSize">14sp</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif-medium</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>

@@ -1,11 +1,13 @@
 package org.jdc.template.model.database.main.individual
 
 import org.dbtools.android.domain.config.DatabaseConfig
+import org.jdc.template.log.JavaTree
 import org.jdc.template.model.database.TestMainDatabaseConfig
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.threeten.bp.LocalTime
+import timber.log.Timber
 import javax.inject.Inject
 
 class IndividualManagerTest {
@@ -20,11 +22,15 @@ class IndividualManagerTest {
         val component = DaggerIndividualManagerTestComponent.builder().individualManagerTestModule(IndividualManagerTestModule()).build()
         component.inject(this)
 
+        Timber.plant(JavaTree()) // JVM Tree is
+
         (databaseConfig as TestMainDatabaseConfig).deleteAllDatabaseFiles()
     }
 
     @Test
     fun testIndividual() {
+        Timber.e("Blah")
+
         // === CREATE / INSERT ===
         val individual = Individual()
         individual.firstName = "Jeff"

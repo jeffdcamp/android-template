@@ -1,17 +1,17 @@
 package org.jdc.template.job
 
-import android.util.Log
 import com.evernote.android.job.Job
 import com.evernote.android.job.JobRequest
+import timber.log.Timber
 
 class SampleJob : Job() {
 
     override fun onRunJob(params: Job.Params): Job.Result {
-        Log.e(TAG, "onRunJob: **************************** RUNNING!!! *******************************************  [" + Thread.currentThread().name + "]")
+        Timber.e("onRunJob: **************************** RUNNING!!! *******************************************  [" + Thread.currentThread().name + "]")
         try {
             Thread.sleep(1000)
         } catch (e: InterruptedException) {
-            e.printStackTrace()
+            Timber.e("Sleep Failure")
         }
 
         // run your job
@@ -22,7 +22,7 @@ class SampleJob : Job() {
         val TAG = "SampleJob"
 
         fun schedule() {
-            JobRequest.Builder(SampleJob.TAG)
+            JobRequest.Builder(TAG)
                     .setRequirementsEnforced(true)
                     .setRequiredNetworkType(JobRequest.NetworkType.CONNECTED)
                     .setExecutionWindow(1000L, 2000L)

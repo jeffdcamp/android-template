@@ -1,13 +1,10 @@
 package org.jdc.template.util
 
-import android.util.Log
-import org.jdc.template.App
+import timber.log.Timber
 import java.util.*
 import java.util.concurrent.TimeUnit
 
 class RxTest {
-    val TAG = App.createTag(RxTest::class.java)
-
 //    fun testConcurrentPeople() {
 //        val pool = Executors.newFixedThreadPool(3)
 //
@@ -42,7 +39,7 @@ class RxTest {
 
     private class Person(private val name: String) {
         fun getFirstName(): String {
-            Log.e("Person", "PROCESSING Person: [" + name + "] thread: [" + Thread.currentThread().name + "]")
+            Timber.i("PROCESSING Person: [$name] thread: [${Thread.currentThread().name}]")
 
             try {
                 TimeUnit.SECONDS.sleep(5)
@@ -50,7 +47,7 @@ class RxTest {
                 e.printStackTrace()
             }
 
-            Log.e("Person", "Finished processing person: " + name)
+            Timber.e("Finished processing person: $name")
             return name
         }
     }

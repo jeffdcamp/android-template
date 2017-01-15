@@ -1,13 +1,10 @@
 package org.jdc.template.ui.menu
 
 import android.content.Context
-import android.util.Log
 import android.view.MenuItem
-
-import org.jdc.template.App
 import org.jdc.template.InternalIntents
 import org.jdc.template.R
-
+import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -31,13 +28,9 @@ constructor() {
                 return true
             }
             else -> {
-                Log.i(TAG, "Unknown common menu item id: " + item.itemId + ", ignoring")
+                Timber.i("Unknown common menu item id: ${item.itemId}, ignoring")
                 return false
             }
         }
-    }
-
-    companion object {
-        val TAG = App.createTag(CommonMenu::class.java)
     }
 }

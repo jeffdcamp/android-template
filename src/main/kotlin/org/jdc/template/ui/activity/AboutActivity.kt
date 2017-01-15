@@ -1,9 +1,7 @@
 package org.jdc.template.ui.activity
 
-import android.R
 import android.os.Bundle
 import android.text.format.DateUtils
-import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import com.google.android.gms.analytics.HitBuilders
@@ -12,7 +10,6 @@ import kotlinx.android.synthetic.main.toolbar_actionbar.*
 import okhttp3.ResponseBody
 import org.dbtools.android.domain.DatabaseTableChange
 import org.jdc.template.Analytics
-import org.jdc.template.App
 import org.jdc.template.BuildConfig
 import org.jdc.template.R.layout.activity_about
 import org.jdc.template.event.NewDataEvent
@@ -51,6 +48,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
+import timber.log.Timber
 import java.io.File
 import java.util.*
 import javax.inject.Inject
@@ -118,7 +116,7 @@ class AboutActivity : BaseActivity() {
             data.name = "Foo"
             individualDataManager.save(data)
 
-            Log.e(TAG, "findAll count (should always be 1): ${individualDataManager.findAll().size}")
+            Timber.i("findAll count (should always be 1): ${individualDataManager.findAll().size}")
         }
     }
 
@@ -134,7 +132,7 @@ class AboutActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.home -> {
+            android.R.id.home -> {
                 finish()
                 return true
             }
@@ -278,7 +276,7 @@ class AboutActivity : BaseActivity() {
 
         val names = findAllStringByRawQuery(databaseManager, DatabaseManagerConst.ATTACHED_DATABASE_NAME, ATTACH_DATABASE_QUERY, null)
         for (name in names) {
-            Log.i(TAG, "Attached Database Item Name: " + name)
+            Timber.i("Attached Database Item Name: %s", name)
         }
     }
 
@@ -307,11 +305,11 @@ class AboutActivity : BaseActivity() {
         // OBJECTS
         //        List<IndividualQuery> items = individualQueryManager.findAllByRawQuery(IndividualQuery.QUERY_RAW, new String[]{"Buddy"});
         val items = individualQueryManager.findAll()
-        Log.e(TAG, "List Count: " + items.size)
+        Timber.i("List Count: %d", items.size)
 
         // show results
         for (item in items) {
-            Log.e(TAG, "Item Name: " + item.name)
+            Timber.i("Item Name: %s", item.name)
         }
 
         // CURSORS
@@ -323,13 +321,13 @@ class AboutActivity : BaseActivity() {
 
         // add item to cursor
         val newCursor = individualQueryManager.addAllToCursorTop(cursor, newInd, newInd)
-        Log.e(TAG, "Count: " + newCursor.count)
+        Timber.i("Count: %d", newCursor.count)
 
         // show results
         if (newCursor.moveToFirst()) {
             do {
                 val cursorIndividual = IndividualQuery(newCursor)
-                Log.e(TAG, "Cursor Individual: " + cursorIndividual.name)
+                Timber.i("Cursor Individual: %s", cursorIndividual.name)
             } while (newCursor.moveToNext())
         }
         newCursor.close()
@@ -338,22 +336,21 @@ class AboutActivity : BaseActivity() {
 
     //    @OnClick(R.id.test)
     fun test2() {
-        Log.e(TAG, "Cross database")
+        Timber.i("Cross database")
         val s = System.currentTimeMillis()
         val allCrossCursor = crossDatabaseQueryManager.findCursorAll()
-        Log.e(TAG, "Cross db query time: " + (System.currentTimeMillis() - s))
+        Timber.i("Cross db query time: %d", (System.currentTimeMillis() - s))
         if (allCrossCursor != null) {
-            //            Log.e(TAG, "Cross Count: " + allCrossCursor.getCount());
             if (allCrossCursor.moveToFirst()) {
                 do {
                     val obj = CrossDatabaseQuery(allCrossCursor)
-                    Log.e(TAG, "Cursor Individual: " + obj.name)
+                    Timber.i("Cursor Individual: %s", obj.name)
                 } while (allCrossCursor.moveToNext())
             }
             allCrossCursor.close()
         }
 
-        Log.e(TAG, "Cross db query time FINISH: " + (System.currentTimeMillis() - s))
+        Timber.i("Cross db query time FINISH: %d", (System.currentTimeMillis() - s))
     }
 
     //    @OnClick(R.id.rest_test_button)
@@ -366,19 +363,12 @@ class AboutActivity : BaseActivity() {
             }
 
             override fun onFailure(call: Call<DtoColors>, t: Throwable) {
-                Log.e(TAG, "Search FAILED", t)
+                Timber.e(t, "Search FAILED")
             }
         })
     }
 
     fun testQueryWebServiceCallRx() {
-//        RxUtil.toRetrofitObservable(webSearchService.search("Cat"))
-//                .subscribeOn(Schedulers.io())
-//                .map(response -> RxUtil.verifyRetrofitResponse(response))
-//                .filter(dtoSearchResponse -> dtoSearchResponse != null) // don't continue if null
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(dtoSearchResponse -> processSearchResponse(dtoSearchResponse), throwable -> Log.e(TAG, "Failed to get results", throwable));
-
         RxUtil.toRetrofitObservable(colorService.colors())
                 .subscribeOn(Schedulers.io())
                 .map({ response ->
@@ -392,7 +382,7 @@ class AboutActivity : BaseActivity() {
 
     @Subscribe
     fun handle(event: NewDataEvent) {
-        Log.e(TAG, "Rest Service finished [" + event.isSuccess + "]", event.throwable)
+        Timber.i(event.throwable, "Rest Service finished [%b]", event.isSuccess)
     }
 
     fun testFullUrlQueryWebServiceCall() {
@@ -404,7 +394,7 @@ class AboutActivity : BaseActivity() {
             }
 
             override fun onFailure(call: Call<DtoColors>, t: Throwable) {
-                Log.e(TAG, "Search FAILED", t)
+                Timber.e(t, "Search FAILED")
             }
         })
     }
@@ -425,27 +415,27 @@ class AboutActivity : BaseActivity() {
 
                 // show the output of the file
                 val fileContents = outputFile.readText()
-                Log.i(TAG, "Output file: [$fileContents]")
+                Timber.i("Output file: [$fileContents]")
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                Log.e(TAG, "Search FAILED")
+                Timber.e("Search FAILED")
             }
         })
     }
 
     private fun processWebServiceResponse(response: Response<DtoColors>) {
         if (response.isSuccessful) {
-            Log.e(TAG, "Search SUCCESS")
+            Timber.i("Search SUCCESS")
             processSearchResponse(response.body())
         } else {
-            Log.e(TAG, "Search FAILURE: code (" + response.code() + ")")
+            Timber.e("Search FAILURE: code (%d)", response.code())
         }
     }
 
     private fun processSearchResponse(dtoColors: DtoColors) {
         for (dtoResult in dtoColors.colors!!) {
-            Log.i(TAG, "Result: " + dtoResult.colorName)
+            Timber.i("Result: %s", dtoResult.colorName)
         }
     }
 
@@ -464,7 +454,7 @@ class AboutActivity : BaseActivity() {
     fun testRx() {
         // Sample tests for Rx
         if (individualManager.findCount() == 0L) {
-            Log.e(TAG, "No data.. cannot perform test")
+            Timber.e("No data.. cannot perform test")
             return
         }
 
@@ -480,7 +470,7 @@ class AboutActivity : BaseActivity() {
         val individual = individualManager.findAll()[0]
         if (individual != null) {
             originalName = individual.firstName
-            Log.e(TAG, "ORIGINAL NAME = " + originalName)
+            Timber.i("ORIGINAL NAME = %s", originalName)
 
             // change name
             individual.firstName = "Bobby"
@@ -490,7 +480,7 @@ class AboutActivity : BaseActivity() {
             individual.firstName = originalName
             individualManager.save(individual)
         } else {
-            Log.e(TAG, "Cannot find individual")
+            Timber.e("Cannot find individual")
         }
 
         // Unsubscribe
@@ -499,23 +489,21 @@ class AboutActivity : BaseActivity() {
 
     fun handleRxIndividualTableChange(change: DatabaseTableChange) {
         when {
-            change.isInsert -> Log.e(TAG, "Rx Individual Table had insert for table: [${change.table}] rowId: [${change.rowId}]")
-            change.isUpdate -> Log.e(TAG, "Rx Individual Table had update for table: [${change.table}] rowId: [${change.rowId}]")
-            change.isDelete -> Log.e(TAG, "Rx Individual Table had delete for table: [${change.table}] rowId: [${change.rowId}]")
+            change.isInsert -> Timber.i("Rx Individual Table had insert for table: [${change.table}] rowId: [${change.rowId}]")
+            change.isUpdate -> Timber.i("Rx Individual Table had update for table: [${change.table}] rowId: [${change.rowId}]")
+            change.isDelete -> Timber.i("Rx Individual Table had delete for table: [${change.table}] rowId: [${change.rowId}]")
         }
     }
 
     fun handleIndividualTableChange(change: DatabaseTableChange) {
         when {
-            change.isInsert -> Log.e(TAG, "Individual Table had insert for table: [${change.table}] rowId: [${change.rowId}]")
-            change.isUpdate -> Log.e(TAG, "Individual Table had update for table: [${change.table}] rowId: [${change.rowId}]")
-            change.isDelete -> Log.e(TAG, "Individual Table had delete for table: [${change.table}] rowId: [${change.rowId}]")
+            change.isInsert -> Timber.i("Individual Table had insert for table: [${change.table}] rowId: [${change.rowId}]")
+            change.isUpdate -> Timber.i("Individual Table had update for table: [${change.table}] rowId: [${change.rowId}]")
+            change.isDelete -> Timber.i("Individual Table had delete for table: [${change.table}] rowId: [${change.rowId}]")
         }
     }
 
     companion object {
-        val TAG = App.createTag(AboutActivity::class.java)
-
         val ATTACH_DATABASE_QUERY = "SELECT " + IndividualConst.C_FIRST_NAME +
                 " FROM " + IndividualConst.TABLE +
                 " JOIN " + IndividualListItemConst.TABLE + " ON " + IndividualConst.FULL_C_ID + " = " + IndividualListItemConst.FULL_C_INDIVIDUAL_ID

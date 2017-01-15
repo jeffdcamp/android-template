@@ -1,16 +1,13 @@
 package org.jdc.template.util
 
 
-import android.util.Log
-import org.jdc.template.App
 import retrofit2.Call
 import retrofit2.Response
 import rx.Observable
+import timber.log.Timber
 import java.io.IOException
 
 object RxUtil {
-    val TAG = App.createTag(RxUtil::class.java)
-
     /**
      * Simple call to make any method a deferred Observable call
      */
@@ -35,14 +32,14 @@ object RxUtil {
         try {
             return call.execute()
         } catch (e: IOException) {
-            Log.e(TAG, "Failed to call retrofit execute()", e)
+            Timber.e(e, "Failed to call retrofit execute()")
         }
 
         return null
     }
 
     fun <T> verifyRetrofitResponse(response: Response<T>?): T? {
-        Log.e(TAG, "Retrofit thread: " + Thread.currentThread().name)
+        Timber.i("Retrofit thread: ${Thread.currentThread().name}")
 
         if (response == null) {
             return null
