@@ -1,9 +1,5 @@
 package org.jdc.template.util;
 
-import android.util.Log;
-
-import org.jdc.template.App;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -13,10 +9,9 @@ import java.util.concurrent.TimeUnit;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class RxTest {
-    public static final String TAG = App.createTag(RxTest.class);
-
     public static void testConcurrentPeople() {
         ExecutorService pool = Executors.newFixedThreadPool(3);
 
@@ -35,7 +30,7 @@ public class RxTest {
 
                 // display on main thread
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(name -> Log.e(TAG, "Person Name: [" + name + "] thread: [" + Thread.currentThread().getName() + "]"));
+                .subscribe(name -> Timber.i("Person: [%s] thread: [%s]", name, Thread.currentThread().getName()));
     }
 
     private static List<Person> getData() {
@@ -58,7 +53,7 @@ public class RxTest {
 
 
         public String getFirstName() {
-            Log.e(TAG, "PROCESSING Person: [" + name + "] thread: [" + Thread.currentThread().getName() + "]");
+            Timber.i("PROCESSING Person: [%s] thread: [%s]", name, Thread.currentThread().getName());
 
             try {
                 TimeUnit.SECONDS.sleep(5);
@@ -66,7 +61,7 @@ public class RxTest {
                 e.printStackTrace();
             }
 
-            Log.e(TAG, "Finished processing person: " + name);
+            Timber.i("Finished processing person: %s", name);
             return name;
         }
     }

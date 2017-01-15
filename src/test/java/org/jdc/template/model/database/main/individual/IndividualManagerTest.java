@@ -1,12 +1,15 @@
 package org.jdc.template.model.database.main.individual;
 
 import org.dbtools.android.domain.config.DatabaseConfig;
+import org.jdc.template.log.JavaTree;
 import org.jdc.template.model.database.TestMainDatabaseConfig;
 import org.junit.Before;
 import org.junit.Test;
 import org.threeten.bp.LocalTime;
 
 import javax.inject.Inject;
+
+import timber.log.Timber;
 
 import static org.junit.Assert.assertEquals;
 
@@ -21,6 +24,8 @@ public class IndividualManagerTest {
     public void setUp() throws Exception {
         IndividualManagerTestComponent component = DaggerIndividualManagerTestComponent.builder().individualManagerTestModule(new IndividualManagerTestModule()).build();
         component.inject(this);
+
+        Timber.plant(new JavaTree()); // JVM Tree is
 
         ((TestMainDatabaseConfig) databaseConfig).deleteAllDatabaseFiles();
     }

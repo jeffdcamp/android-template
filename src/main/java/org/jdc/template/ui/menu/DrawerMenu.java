@@ -5,7 +5,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 
-import org.jdc.template.App;
 import org.jdc.template.InternalIntents;
 import org.jdc.template.R;
 
@@ -14,15 +13,13 @@ import javax.inject.Singleton;
 
 @Singleton
 public class DrawerMenu {
-    public static final String TAG = App.createTag(DrawerMenu.class);
+    private final InternalIntents internalIntents;
 
-    Activity parentActivity;
-
-    @Inject
-    InternalIntents internalIntents;
+    private Activity parentActivity;
 
     @Inject
-    public DrawerMenu() {
+    public DrawerMenu(InternalIntents internalIntents) {
+        this.internalIntents = internalIntents;
     }
 
     public void setupDrawerMenu(Activity parentActivity, final DrawerLayout drawerLayout, NavigationView navigationView) {
@@ -40,7 +37,7 @@ public class DrawerMenu {
                 });
     }
 
-    public boolean onDrawerItemSelected(MenuItem item) {
+    private boolean onDrawerItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_drawer_item_settings:
                 internalIntents.showSettings(parentActivity);

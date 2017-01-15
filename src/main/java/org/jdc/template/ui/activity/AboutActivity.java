@@ -4,7 +4,6 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,7 +15,6 @@ import org.dbtools.android.domain.DBToolsTableChangeListener;
 import org.dbtools.android.domain.DatabaseTableChange;
 import org.dbtools.android.domain.database.DatabaseWrapper;
 import org.jdc.template.Analytics;
-import org.jdc.template.App;
 import org.jdc.template.BuildConfig;
 import org.jdc.template.R;
 import org.jdc.template.event.NewDataEvent;
@@ -69,10 +67,9 @@ import retrofit2.Response;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class AboutActivity extends BaseActivity {
-    public static final String TAG = App.createTag(AboutActivity.class);
-
     @BindView(R.id.version_info)
     TextView versionTextView;
     @BindView(R.id.ab_toolbar)
@@ -281,7 +278,7 @@ public class AboutActivity extends BaseActivity {
 
         List<String> names = findAllStringByRawQuery(databaseManager, DatabaseManagerConst.ATTACHED_DATABASE_NAME, ATTACH_DATABASE_QUERY, null);
         for (String name : names) {
-            Log.i(TAG, "Attached Database Item Name: " + name);
+            Timber.i("Attached Database Item Name: %s", name);
         }
     }
 
@@ -315,11 +312,11 @@ public class AboutActivity extends BaseActivity {
         // OBJECTS
 //        List<IndividualQuery> items = individualQueryManager.findAllByRawQuery(IndividualQuery.QUERY_RAW, new String[]{"Buddy"});
         List<IndividualQuery> items = individualQueryManager.findAll();
-        Log.e(TAG, "List Count: " + items.size());
+        Timber.i("List Count: %d", items.size());
 
         // show results
         for (IndividualQuery item : items) {
-            Log.e(TAG, "Item Name: " + item.getName());
+            Timber.i("Item Name: %s", item.getName());
         }
 
         // CURSORS
@@ -331,13 +328,13 @@ public class AboutActivity extends BaseActivity {
 
         // add item to cursor
         Cursor newCursor = individualQueryManager.addAllToCursorTop(cursor, newInd, newInd);
-        Log.e(TAG, "Count: " + newCursor.getCount());
+        Timber.i("Count: %d", newCursor.getCount());
 
         // show results
         if (newCursor.moveToFirst()) {
             do {
                 IndividualQuery cursorIndividual = new IndividualQuery(newCursor);
-                Log.e(TAG, "Cursor Individual: " + cursorIndividual.getName());
+                Timber.i("Cursor Individual: %s", cursorIndividual.getName());
             } while (newCursor.moveToNext());
         }
         newCursor.close();
@@ -346,22 +343,21 @@ public class AboutActivity extends BaseActivity {
 
     //    @OnClick(R.id.test)
     public void test2() {
-        Log.e(TAG, "Cross database");
+        Timber.i("Cross database");
         long s = System.currentTimeMillis();
         Cursor allCrossCursor = crossDatabaseQueryManager.findCursorAll();
-        Log.e(TAG, "Cross db query time: " + (System.currentTimeMillis() - s));
+        Timber.i("Cross db query time: %d", (System.currentTimeMillis() - s));
         if (allCrossCursor != null) {
-//            Log.e(TAG, "Cross Count: " + allCrossCursor.getCount());
             if (allCrossCursor.moveToFirst()) {
                 do {
                     CrossDatabaseQuery obj = new CrossDatabaseQuery(allCrossCursor);
-                    Log.e(TAG, "Cursor Individual: " + obj.getName());
+                    Timber.i("Cursor Individual: %s", obj.getName());
                 } while (allCrossCursor.moveToNext());
             }
             allCrossCursor.close();
         }
 
-        Log.e(TAG, "Cross db query time FINISH: " + (System.currentTimeMillis() - s));
+        Timber.i("Cross db query time FINISH: %d", (System.currentTimeMillis() - s));
     }
 
     @Inject
@@ -382,7 +378,7 @@ public class AboutActivity extends BaseActivity {
 
             @Override
             public void onFailure(Call<DtoColors> call, Throwable t) {
-                Log.e(TAG, "Search FAILED", t);
+                Timber.e(t, "Search FAILED");
             }
         });
     }
@@ -399,7 +395,7 @@ public class AboutActivity extends BaseActivity {
 
     @Subscribe
     public void handle(NewDataEvent event) {
-        Log.e(TAG, "Rest Service finished [" + event.isSuccess() + "]", event.getThrowable());
+        Timber.i(event.getThrowable(), "Rest Service finished [%b]", event.isSuccess());
     }
 
 //    @OnClick(R.id.rest_test_button)
@@ -414,7 +410,7 @@ public class AboutActivity extends BaseActivity {
 
             @Override
             public void onFailure(Call<DtoColors> call, Throwable t) {
-                Log.e(TAG, "Search FAILED", t);
+                Timber.e(t, "Search FAILED");
             }
         });
     }
@@ -438,31 +434,31 @@ public class AboutActivity extends BaseActivity {
                 // show the output of the file
                 try {
                     String fileContents = FileUtils.readFileToString(outputFile);
-                    Log.i(TAG, "Output file: [" + fileContents + "]");
+                    Timber.i("Output file: [%s]", fileContents);
                 } catch (IOException e) {
-                    Log.e(TAG, "Error reading file", e);
+                    Timber.e(e, "Error reading file");
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.e(TAG, "Search FAILED");
+                Timber.e("Search FAILED");
             }
         });
     }
 
     private void processColorsResponse(Response<DtoColors> response) {
         if (response.isSuccessful()) {
-            Log.e(TAG, "Search SUCCESS");
+            Timber.i("Search SUCCESS");
             processColorsResponse(response.body());
         } else {
-            Log.e(TAG, "Search FAILURE: code (" + response.code() + ")");
+            Timber.e("Search FAILURE: code (%d)", response.code());
         }
     }
 
     private void processColorsResponse(DtoColors dtoColors) {
         for (DtoColor dtoColor : dtoColors.getColors()) {
-            Log.i(TAG, "Result: " + dtoColor.getColorName());
+            Timber.i("Result: %s", dtoColor.getColorName());
         }
     }
 
@@ -477,7 +473,7 @@ public class AboutActivity extends BaseActivity {
         data.setName("Foo");
         individualDataManager.save(data);
 
-        Log.e(TAG, "findAll count (should always be 1): " + individualDataManager.findAll().size());
+        Timber.i("findAll count (should always be 1): %d", individualDataManager.findAll().size());
     }
 
     @OnClick(R.id.job_test_button)
@@ -516,7 +512,7 @@ public class AboutActivity extends BaseActivity {
         Individual individual = individualManager.findAll().get(0);
         if (individual != null) {
             originalName = individual.getFirstName();
-            Log.e(TAG, "ORIGINAL NAME = " + originalName);
+            Timber.i("ORIGINAL NAME = %s", originalName);
 
             // change name
             individual.setFirstName("Bobby");
@@ -526,7 +522,7 @@ public class AboutActivity extends BaseActivity {
             individual.setFirstName(originalName);
             individualManager.save(individual);
         } else {
-            Log.e(TAG, "Cannot find individual");
+            Timber.e("Cannot find individual");
         }
 
         // Unsubscribe
@@ -535,21 +531,21 @@ public class AboutActivity extends BaseActivity {
 
     public void handleIndividualTableChange(DatabaseTableChange change) {
         if (change.isInsert()) {
-            Log.e(TAG, "Individual Table Insert");
+            Timber.i("Individual Table Insert");
         } else if (change.isUpdate()) {
-            Log.e(TAG, "Individual Table Insert");
+            Timber.i("Individual Table Insert");
         } else if (change.isDelete()) {
-            Log.e(TAG, "Individual Table Delete");
+            Timber.i("Individual Table Delete");
         }
     }
 
     public void handleRxIndividualTableChange(DatabaseTableChange change) {
         if (change.isInsert()) {
-            Log.e(TAG, "Rx Individual Table Insert");
+            Timber.i("Rx Individual Table Insert");
         } else if (change.isUpdate()) {
-            Log.e(TAG, "Rx Individual Table Insert");
+            Timber.i("Rx Individual Table Insert");
         } else if (change.isDelete()) {
-            Log.e(TAG, "Rx Individual Table Delete");
+            Timber.i("Rx Individual Table Delete");
         }
     }
 

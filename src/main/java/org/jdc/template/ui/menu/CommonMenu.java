@@ -1,25 +1,23 @@
 package org.jdc.template.ui.menu;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.MenuItem;
 
-import org.jdc.template.App;
 import org.jdc.template.InternalIntents;
 import org.jdc.template.R;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import timber.log.Timber;
+
 @Singleton
 public class CommonMenu {
-    public static final String TAG = App.createTag(CommonMenu.class);
+    private final InternalIntents internalIntents;
 
     @Inject
-    InternalIntents internalIntents;
-
-    @Inject
-    public CommonMenu() {
+    public CommonMenu(InternalIntents internalIntents) {
+        this.internalIntents = internalIntents;
     }
 
     public boolean onOptionsItemSelected(Context context, MenuItem item) {
@@ -33,7 +31,7 @@ public class CommonMenu {
                 internalIntents.showHelp(context);
                 return true;
             default:
-                Log.i(TAG, "Unknown common menu item id: " + item.getItemId() + ", ignoring");
+                Timber.i("Unknown common menu item id: %d, ignoring", item.getItemId());
                 return false;
         }
     }

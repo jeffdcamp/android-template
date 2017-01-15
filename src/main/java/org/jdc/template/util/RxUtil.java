@@ -2,9 +2,6 @@ package org.jdc.template.util;
 
 
 import android.support.annotation.Nullable;
-import android.util.Log;
-
-import org.jdc.template.App;
 
 import java.io.IOException;
 
@@ -14,10 +11,9 @@ import retrofit2.Call;
 import retrofit2.Response;
 import rx.Observable;
 import rx.functions.Func0;
+import timber.log.Timber;
 
 public final class RxUtil {
-    public static final String TAG = App.createTag(RxUtil.class);
-
     private RxUtil() {
     }
 
@@ -46,7 +42,7 @@ public final class RxUtil {
         try {
             return call.execute();
         } catch (IOException e) {
-            Log.e(TAG, "Failed to call retrofit execute()", e);
+            Timber.e(e, "Failed to call retrofit execute()");
         }
 
         return null;

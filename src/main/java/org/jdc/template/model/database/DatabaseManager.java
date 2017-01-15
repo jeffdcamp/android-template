@@ -1,12 +1,12 @@
 package org.jdc.template.model.database;
 
-import android.util.Log;
-
 import org.dbtools.android.domain.AndroidDatabase;
 import org.dbtools.android.domain.config.DatabaseConfig;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import timber.log.Timber;
 
 
 @Singleton
@@ -38,7 +38,7 @@ public class DatabaseManager extends DatabaseBaseManager {
         try {
             getWritableDatabase(DatabaseManagerConst.MAIN_DATABASE_NAME);
         } catch (Exception e) {
-            Log.e(TAG, "Failed to open database... attempting to recreate database", e);
+            Timber.e(e, "Failed to open database... attempting to recreate database");
             cleanAllDatabases();
             getWritableDatabase(DatabaseManagerConst.MAIN_DATABASE_NAME);
         }

@@ -9,8 +9,8 @@ import org.dbtools.android.domain.database.AndroidDatabaseWrapper;
 import org.dbtools.android.domain.database.DatabaseWrapper;
 import org.dbtools.android.domain.database.contentvalues.AndroidDBToolsContentValues;
 import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues;
-import org.dbtools.android.domain.log.DBToolsAndroidLogger;
 import org.dbtools.android.domain.log.DBToolsLogger;
+import org.jdc.template.log.DBToolsTimberLogger;
 
 import java.util.Collections;
 
@@ -42,6 +42,6 @@ public class AppDatabaseConfig implements DatabaseConfig {
 
     @Override
     public DBToolsLogger createNewDBToolsLogger() {
-        return new DBToolsAndroidLogger();
+        return new DBToolsTimberLogger();
     }
 }

@@ -5,7 +5,6 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
@@ -17,13 +16,12 @@ import org.jdc.template.BusRegistry;
 import org.jdc.template.model.database.AppDatabaseConfig;
 import org.jdc.template.model.webservice.ServiceModule;
 
-import java.util.Map;
-
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 import pocketbus.Bus;
+import timber.log.Timber;
 
 @Module(includes = {
         ServiceModule.class
@@ -56,13 +54,7 @@ public class AppModule {
     public Analytics provideAnalytics() {
         // Only send analytics to Google Analytics with versions of the app that are NOT debuggable (such as BETA or RELEASE)
         if (BuildConfig.DEBUG) {
-            return new Analytics() {
-                @Override
-                public void send(Map<String, String> params) {
-                    Log.d(TAG, String.valueOf(params));
-                }
-            };
-
+            return params -> Timber.d(String.valueOf(params));
         }
 
         GoogleAnalytics googleAnalytics = GoogleAnalytics.getInstance(application);

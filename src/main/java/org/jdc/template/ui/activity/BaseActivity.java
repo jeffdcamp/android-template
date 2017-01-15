@@ -9,7 +9,7 @@ import javax.annotation.Nonnull;
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     @Nonnull
     private CompositeSubscription compositeSubscription = new CompositeSubscription();

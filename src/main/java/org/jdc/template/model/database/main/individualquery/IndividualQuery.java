@@ -9,7 +9,6 @@
 package org.jdc.template.model.database.main.individualquery;
 
 import android.database.Cursor;
-import android.util.Log;
 
 import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues;
 import org.dbtools.query.sql.SQLQueryBuilder;
@@ -26,8 +25,6 @@ public class IndividualQuery extends IndividualQueryBaseRecord {
                 .field(IndividualConst.FULL_C_FIRST_NAME, IndividualQueryConst.C_NAME)
                 .table(IndividualConst.TABLE)
                 .toString();
-
-        Log.e("ldst", "QUERY: " + QUERY);
     }
 
     public IndividualQuery(IndividualQuery record) {

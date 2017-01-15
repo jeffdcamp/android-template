@@ -5,8 +5,6 @@ import com.google.android.gms.analytics.Tracker;
 import java.util.Map;
 
 public interface Analytics {
-    public static final String TAG = App.createTag(Analytics.class);
-
     // Categories
     public String CATEGORY_APP = "App";
     public String CATEGORY_INDIVIDUAL = "Individual";

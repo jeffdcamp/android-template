@@ -3,34 +3,49 @@ package org.jdc.template;
 import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
-import android.util.Log;
 
 import com.bluelinelabs.logansquare.LoganSquare;
 import com.evernote.android.job.JobManager;
 
 import org.jdc.template.inject.Injector;
 import org.jdc.template.job.AppJobCreator;
+import org.jdc.template.log.DebugTree;
+import org.jdc.template.log.ReleaseTree;
 import org.jdc.template.model.webservice.DateTimeTypeConverter;
 import org.threeten.bp.LocalDateTime;
 
 import pocketbus.Registry;
+import timber.log.Timber;
 
 @Registry // PocketBus Registry
 public class App extends Application {
-    public static final String TAG = App.createTag(App.class);
-
-    // TODO change this for your app (pick a name similar to package name... get both raw log AND tag logs)
-    public static final String DEFAULT_TAG_PREFIX = "company.";
-    public static final int MAX_TAG_LENGTH = 23; // if over: IllegalArgumentException: Log tag "xxx" exceeds limit of 23 characters
-
     @Override
     public void onCreate() {
         super.onCreate();
         Injector.init(this);
         JobManager.create(this).addJobCreator(new AppJobCreator());
 
+        setupLogging();
+
         // register json global converters
         registerJsonConverters();
+    }
+
+    private void setupLogging() {
+        // Always register Crashltyics (even if CrashlyticsTree is not planted)
+//        Fabric.with(this, new Crashlytics());
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new DebugTree());
+        } else {
+            Timber.plant(new ReleaseTree());
+        }
+
+        if (!BuildConfig.BUILD_TYPE.equals("debug")) {
+            // Plant Crashlytics
+            // Log.e(...) will log a non-fatal crash in Crashlytics
+            // Timber.plant(new CrashlyticsTree());
+        }
     }
 
     @Override
@@ -42,17 +57,8 @@ public class App extends Application {
             // During app install it might have experienced "INSTALL_FAILED_DEXOPT" (reinstall is the only known work-around)
             // https://code.google.com/p/android/issues/detail?id=8886
             String message = getString(R.string.app_name) + " is in a bad state, please uninstall/reinstall";
-            Log.e(TAG, message);
+            Timber.e(message);
         }
-    }
-
-    public static String createTag(String name) {
-        String fullName = DEFAULT_TAG_PREFIX + name;
-        return fullName.length() > MAX_TAG_LENGTH ? fullName.substring(0, MAX_TAG_LENGTH) : fullName;
-    }
-
-    public static String createTag(Class clazz) {
-        return createTag(clazz.getSimpleName());
     }
 
     private void registerJsonConverters() {

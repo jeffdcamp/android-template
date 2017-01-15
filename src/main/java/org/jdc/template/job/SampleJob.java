@@ -1,11 +1,11 @@
 package org.jdc.template.job;
 
-import android.util.Log;
-
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobRequest;
 
 import javax.annotation.Nonnull;
+
+import timber.log.Timber;
 
 public class SampleJob extends Job {
     public static final String TAG = "SampleJob";
@@ -13,7 +13,7 @@ public class SampleJob extends Job {
     @Override
     @Nonnull
     protected Result onRunJob(Params params) {
-        Log.e(TAG, "onRunJob: **************************** RUNNING!!! *******************************************  [" + Thread.currentThread().getName() + "]");
+        Timber.i("onRunJob: **************************** RUNNING!!! *******************************************  [%s]", Thread.currentThread().getName());
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
