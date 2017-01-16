@@ -17,7 +17,7 @@ public class SampleJob extends Job {
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Timber.e("Sleep Failure");
         }
 
         // run your job

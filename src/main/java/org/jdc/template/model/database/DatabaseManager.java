@@ -25,7 +25,7 @@ public class DatabaseManager extends DatabaseBaseManager {
 
     public void onUpgrade(AndroidDatabase androidDatabase, int oldVersion, int newVersion) {
         String databaseName = androidDatabase.getName();
-        getLogger().i(TAG, "Upgrading database [" + databaseName + "] from version " + oldVersion + " to " + newVersion);
+        Timber.i("Upgrading database [%s] from version %d to %d", databaseName, oldVersion, newVersion);
         if (oldVersion < newVersion) {
             // todo implement database migration??
             deleteDatabase(androidDatabase);
@@ -34,7 +34,7 @@ public class DatabaseManager extends DatabaseBaseManager {
     }
 
     public void initDatabaseConnection() {
-        getLogger().i(TAG, "Initializing Database connection: ");
+        Timber.i("Initializing Database connection: ");
         try {
             getWritableDatabase(DatabaseManagerConst.MAIN_DATABASE_NAME);
         } catch (Exception e) {
