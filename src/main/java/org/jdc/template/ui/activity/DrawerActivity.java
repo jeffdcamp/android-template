@@ -40,7 +40,7 @@ public abstract class DrawerActivity extends BaseActivity {
         init(toolbar, titleResId);
 
         // set the back arrow in the toolbar
-        enableActionBarBackArrow(true);
+        enableActionBarBackArrow();
     }
 
     public void setupDrawerWithDrawerButton(@Nonnull Toolbar toolbar, @StringRes int titleResId) {

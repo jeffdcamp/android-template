@@ -39,11 +39,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         return true;
     }
 
-    public void enableActionBarBackArrow(boolean enable) {
+    public void enableActionBarBackArrow() {
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setHomeButtonEnabled(enable);
-            actionBar.setDisplayHomeAsUpEnabled(enable);
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
         }
     }
 }

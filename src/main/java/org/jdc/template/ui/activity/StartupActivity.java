@@ -25,7 +25,7 @@ public class StartupActivity extends Activity {
     @Inject
     DatabaseManager databaseManager;
 
-    private Class startupActivityClass = DirectoryActivity.class;
+    private final Class startupActivityClass = DirectoryActivity.class;
     private long perfTime = 0;
 
     public StartupActivity() {

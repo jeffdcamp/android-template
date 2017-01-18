@@ -9,7 +9,7 @@ import javax.inject.Singleton;
 public final class Prefs {
     public static final String PREF_SOMETHING = "pref_enable_something_id";
 
-    private SharedPreferences preferences;
+    private final SharedPreferences preferences;
 
     @Inject
     public Prefs(SharedPreferences preferences) {

@@ -6,17 +6,17 @@ import java.util.Map;
 
 public interface Analytics {
     // Categories
-    public String CATEGORY_APP = "App";
-    public String CATEGORY_INDIVIDUAL = "Individual";
-    public String CATEGORY_ABOUT = "About";
-    public String CATEGORY_SETTINGS = "Settings";
+    String CATEGORY_APP = "App";
+    String CATEGORY_INDIVIDUAL = "Individual";
+    String CATEGORY_ABOUT = "About";
+    String CATEGORY_SETTINGS = "Settings";
 
     // Actions
-    public String ACTION_APP_LAUNCH = "Launch";
-    public String ACTION_NEW = "New";
-    public String ACTION_VIEW = "View";
-    public String ACTION_EDIT = "Edit";
-    public String ACTION_DELETE = "Delete";
+    String ACTION_APP_LAUNCH = "Launch";
+    String ACTION_NEW = "New";
+    String ACTION_VIEW = "View";
+    String ACTION_EDIT = "Edit";
+    String ACTION_DELETE = "Delete";
 
     // Variables
     String VARIABLE_BUILD_TYPE = "Build Type";

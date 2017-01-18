@@ -26,14 +26,11 @@ public class DrawerMenu {
         this.parentActivity = parentActivity;
 
         navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        menuItem.setChecked(true);
-                        onDrawerItemSelected(menuItem);
-                        drawerLayout.closeDrawers();
-                        return true;
-                    }
+                menuItem -> {
+                    menuItem.setChecked(true);
+                    onDrawerItemSelected(menuItem);
+                    drawerLayout.closeDrawers();
+                    return true;
                 });
     }
 

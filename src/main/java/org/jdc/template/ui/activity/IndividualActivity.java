@@ -1,7 +1,6 @@
 package org.jdc.template.ui.activity;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
@@ -109,18 +108,15 @@ public class IndividualActivity extends DrawerActivity {
     private void deleteIndividual() {
         new AlertDialog.Builder(this)
                 .setMessage(R.string.delete_individual_confirm)
-                .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        individualManager.delete(individualId);
+                .setPositiveButton(R.string.delete, (dialog, which) -> {
+                    individualManager.delete(individualId);
 
-                        analytics.send(new HitBuilders.EventBuilder()
-                                .setCategory(Analytics.CATEGORY_INDIVIDUAL)
-                                .setAction(Analytics.ACTION_DELETE)
-                                .build());
+                    analytics.send(new HitBuilders.EventBuilder()
+                            .setCategory(Analytics.CATEGORY_INDIVIDUAL)
+                            .setAction(Analytics.ACTION_DELETE)
+                            .build());
 
-                        finish();
-                    }
+                    finish();
                 })
                 .setNegativeButton(R.string.cancel, null)
                 .show();

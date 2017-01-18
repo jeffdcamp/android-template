@@ -10,8 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.DatePicker;
-import android.widget.TimePicker;
 
 import com.google.android.gms.analytics.HitBuilders;
 
@@ -84,7 +82,7 @@ public class IndividualEditActivity extends BaseActivity {
         PocketKnife.bindExtras(this);
 
         setSupportActionBar(toolbar);
-        enableActionBarBackArrow(true);
+        enableActionBarBackArrow();
 
         setupActionBar();
 
@@ -130,12 +128,9 @@ public class IndividualEditActivity extends BaseActivity {
         if (birthDatePickerDialog == null) {
 
             LocalDate date = individual.getBirthDate() != null ? individual.getBirthDate() : LocalDate.now();
-            birthDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                    individual.setBirthDate(LocalDate.of(year, monthOfYear + 1, dayOfMonth)); // + 1 because cord Java Date is 0 based
-                    showBirthDate();
-                }
+            birthDatePickerDialog = new DatePickerDialog(this, (view, year, monthOfYear, dayOfMonth) -> {
+                individual.setBirthDate(LocalDate.of(year, monthOfYear + 1, dayOfMonth)); // + 1 because cord Java Date is 0 based
+                showBirthDate();
             }, date.getYear(), date.getMonthValue() - 1, date.getDayOfMonth()); // - 1 because cord Java Date is 0 based
         }
 
@@ -147,13 +142,9 @@ public class IndividualEditActivity extends BaseActivity {
         if (alarmTimePickerDialog == null) {
 
             LocalTime time = individual.getAlarmTime() != null ? individual.getAlarmTime() : LocalTime.now();
-            alarmTimePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
-                @Override
-                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                    individual.setAlarmTime(LocalTime.of(hourOfDay, minute));
-                    showAlarmTime();
-                }
-
+            alarmTimePickerDialog = new TimePickerDialog(this, (view, hourOfDay, minute) -> {
+                individual.setAlarmTime(LocalTime.of(hourOfDay, minute));
+                showAlarmTime();
             }, time.getHour(), time.getMinute(), false);
         }
 

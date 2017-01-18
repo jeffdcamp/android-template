@@ -9,7 +9,6 @@ import org.jdc.template.BuildConfig;
 import org.jdc.template.auth.MyAccountInterceptor;
 import org.jdc.template.model.webservice.colors.ColorService;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.concurrent.TimeUnit;
 
@@ -19,10 +18,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 
@@ -34,7 +31,7 @@ public class ServiceModule {
     private static final String USER_AGENT;
 
     // Log level
-    private HttpLoggingInterceptor.Level serviceLogLevel = HttpLoggingInterceptor.Level.BASIC;
+    private final HttpLoggingInterceptor.Level serviceLogLevel = HttpLoggingInterceptor.Level.BASIC;
 
     static {
         USER_AGENT = BuildConfig.USER_AGENT_APP_NAME + " " + BuildConfig.VERSION_NAME + " / " + "Android " + Build.VERSION.RELEASE + " " +
@@ -68,14 +65,11 @@ public class ServiceModule {
         clientBuilder.connectTimeout(DEFAULT_TIMEOUT_MINUTES, TimeUnit.MINUTES);
         clientBuilder.readTimeout(DEFAULT_TIMEOUT_MINUTES, TimeUnit.MINUTES);
 
-        clientBuilder.addInterceptor(new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request.Builder requestBuilder = chain.request().newBuilder();
-                requestBuilder.addHeader("http.useragent", USER_AGENT);
-                requestBuilder.addHeader("Accept", "application/json");
-                return chain.proceed(requestBuilder.build());
-            }
+        clientBuilder.addInterceptor(chain -> {
+            Request.Builder requestBuilder = chain.request().newBuilder();
+            requestBuilder.addHeader("http.useragent", USER_AGENT);
+            requestBuilder.addHeader("Accept", "application/json");
+            return chain.proceed(requestBuilder.build());
         });
 
         clientBuilder.addInterceptor(new HttpLoggingInterceptor().setLevel(serviceLogLevel));
@@ -87,13 +81,10 @@ public class ServiceModule {
             final String auth = "Basic " + Base64.encodeToString(basicAuthCredentials.getBytes("UTF-8"), Base64.NO_WRAP);
 
 
-            clientBuilder.addInterceptor(new Interceptor() {
-                @Override
-                public Response intercept(Chain chain) throws IOException {
-                    Request.Builder builder = chain.request().newBuilder();
-                    builder.addHeader("Authorization", auth);
-                    return chain.proceed(builder.build());
-                }
+            clientBuilder.addInterceptor(chain -> {
+                Request.Builder builder = chain.request().newBuilder();
+                builder.addHeader("Authorization", auth);
+                return chain.proceed(builder.build());
             });
         } catch (UnsupportedEncodingException e) {
             throw new IllegalStateException("Error encoding auth", e);

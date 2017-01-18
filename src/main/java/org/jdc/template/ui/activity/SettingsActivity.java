@@ -19,7 +19,7 @@ public class SettingsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_fragment_no_toolbar);
 
-        enableActionBarBackArrow(true);
+        enableActionBarBackArrow();
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().add(R.id.fragment_pos1, SettingsFragment.newInstance()).commit();

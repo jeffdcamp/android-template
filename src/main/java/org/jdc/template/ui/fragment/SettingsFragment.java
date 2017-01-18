@@ -20,19 +20,8 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState); // must be done after inject(this) so that onCreatePreferences(...) can use injected variables
-    }
-
-    @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.preferences);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        // avoids potentially leaked intent receiver
     }
 
     @Override

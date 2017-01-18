@@ -11,7 +11,6 @@ import android.widget.Toast;
 import com.google.android.gms.analytics.HitBuilders;
 
 import org.apache.commons.io.FileUtils;
-import org.dbtools.android.domain.DBToolsTableChangeListener;
 import org.dbtools.android.domain.DatabaseTableChange;
 import org.dbtools.android.domain.database.DatabaseWrapper;
 import org.jdc.template.Analytics;
@@ -95,7 +94,7 @@ public class AboutActivity extends BaseActivity {
                 .build());
 
         setSupportActionBar(toolbar);
-        enableActionBarBackArrow(true);
+        enableActionBarBackArrow();
 
         versionTextView.setText(getVersionName());
     }
@@ -499,12 +498,7 @@ public class AboutActivity extends BaseActivity {
                 .subscribe(changeType -> handleRxIndividualTableChange(changeType));
 
         // Standard Listener
-        individualManager.addTableChangeListener(new DBToolsTableChangeListener() {
-            @Override
-            public void onTableChange(DatabaseTableChange tableChange) {
-                handleIndividualTableChange(tableChange);
-            }
-        });
+        individualManager.addTableChangeListener(tableChange -> handleIndividualTableChange(tableChange));
 
         // Make some changes
         String originalName;

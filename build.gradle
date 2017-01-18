@@ -19,10 +19,6 @@ buildscript {
     configurations.classpath.exclude group: 'com.android.tools.external.lombok'
 }
 
-plugins {
-    id "org.sonarqube" version "2.1" // https://plugins.gradle.org/plugin/org.sonarqube
-}
-
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'dbtools'
@@ -173,7 +169,7 @@ android {
     }
 
     lintOptions {
-        abortOnError false
+        abortOnError true
         disable 'InvalidPackage'
     }
 
@@ -232,37 +228,6 @@ android {
     sourceSets {
         // add dagger generated files (works only with debug build)
 //        test.java.srcDirs += ['build/generated/source/apt/test/debug']
-    }
-}
-
-sonarqube {
-    properties {
-        if (!project.hasProperty('mySonarHostUrl')) {
-            println '!!!! Sonar properties must be set in your gradle.properties !!!!'
-            return
-        }
-
-        // Project Information
-        property 'sonar.projectKey', 'AndroidTemplate'
-        property 'sonar.projectName', 'Android Template'
-        property "sonar.projectVersion", versionMajorMinorPatchBuild
-
-        property 'sonar.links.homepage', 'https://github.com/jeffdcamp/android-template'
-        property 'sonar.links.issue', 'https://github.com/jeffdcamp/android-template/issues'
-        property 'sonar.links.scm', 'https://github.com/jeffdcamp/android-template.git'
-
-        // Sonar Information (defined in gradle.properties)
-        property "sonar.host.url", mySonarHostUrl
-
-        // Android
-        property "sonar.sources", "src/main/java"
-        property "sonar.java.binaries", "build/intermediates/classes/debug"
-        property "sonar.test", "src/testDebug/java"
-        property "sonar.java.test.binaries", "build/intermediates/classes/test/debug"
-        property "sonar.junit.reportsPath", "build/test-results/debug/"
-        property "sonar.java.coveragePlugin", "jacoco"
-        property "sonar.jacoco.reportPath", "build/jacoco/testDebugUnitTest.exec"
-        property "sonar.android.lint.report", "build/outputs/lint-results-debug.xml" // for use with the Sonar version of Android Lint plugin
     }
 }
 

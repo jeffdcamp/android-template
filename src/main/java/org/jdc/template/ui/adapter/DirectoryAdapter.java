@@ -17,7 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class DirectoryAdapter extends RecyclerListAdapter<DirectoryAdapter.ViewHolder, Individual> {
-    private LayoutInflater inflater;
+    private final LayoutInflater inflater;
 
     private OnItemClickListener listener;
     private long lastSelectedItemId = 0;
@@ -59,12 +59,7 @@ public class DirectoryAdapter extends RecyclerListAdapter<DirectoryAdapter.ViewH
         holder.text1TextView.setText(individual.getFullName());
 
         // Click listener
-        holder.listItemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onItemClicked(itemId);
-            }
-        });
+        holder.listItemView.setOnClickListener(v -> onItemClicked(itemId));
     }
 
     private void onItemClicked(long selectedItemId) {

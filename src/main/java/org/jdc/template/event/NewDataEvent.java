@@ -1,7 +1,7 @@
 package org.jdc.template.event;
 
 public class NewDataEvent {
-    private boolean success;
+    private final boolean success;
     private Throwable throwable;
 
     public NewDataEvent(boolean success) {

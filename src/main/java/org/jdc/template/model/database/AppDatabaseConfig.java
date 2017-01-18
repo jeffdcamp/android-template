@@ -15,7 +15,7 @@ import org.jdc.template.log.DBToolsTimberLogger;
 import java.util.Collections;
 
 public class AppDatabaseConfig implements DatabaseConfig {
-    private Application application;
+    private final Application application;
 
     public AppDatabaseConfig(Application application) {
         this.application = application;
