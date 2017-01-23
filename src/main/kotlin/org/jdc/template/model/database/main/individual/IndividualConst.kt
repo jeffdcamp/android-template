@@ -14,6 +14,7 @@ import android.database.Cursor
 import org.jdc.template.model.database.main.individualtype.IndividualType
 
 
+@Suppress("LeakingThis", "unused", "RemoveEmptySecondaryConstructorBody")
 @SuppressWarnings("all")
 object IndividualConst {
 
@@ -167,7 +168,7 @@ object IndividualConst {
     }
 
     fun isAvailable(cursor: Cursor) : Boolean {
-        return if (cursor.getInt(cursor.getColumnIndexOrThrow(C_AVAILABLE)) != 0) true else false
+        return cursor.getInt(cursor.getColumnIndexOrThrow(C_AVAILABLE)) != 0
     }
 
     fun getAmount1(cursor: Cursor) : Float {
@@ -179,7 +180,7 @@ object IndividualConst {
     }
 
     fun isEnabled(cursor: Cursor) : Boolean {
-        return if (cursor.getInt(cursor.getColumnIndexOrThrow(C_ENABLED)) != 0) true else false
+        return cursor.getInt(cursor.getColumnIndexOrThrow(C_ENABLED)) != 0
     }
 
     fun getSpouseIndividualId(cursor: Cursor) : Long? {

@@ -9,15 +9,11 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.0-beta2'
-        classpath "org.dbtools:gradle-dbtools-plugin:$dbtoolsVersion"
+        classpath "org.dbtools:gradle-dbtools-plugin:7.2.2"
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.13.0' // version plugin support
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
     }
-}
-
-plugins {
-    id "org.sonarqube" version "2.1" // https://plugins.gradle.org/plugin/org.sonarqube
 }
 
 apply plugin: 'com.android.application'
@@ -81,7 +77,7 @@ dependencies {
     compile 'com.evernote:android-job:1.1.4'
     compile "com.vikingsen:pocketbus:$pocketBusVersion"
     kapt "com.vikingsen:pocketbus-compiler:$pocketBusVersion"
-    compile 'com.jakewharton.timber:timber:4.5.0'
+    compile 'com.jakewharton.timber:timber:4.5.1'
 
     // Network
     compile "com.squareup.okhttp3:okhttp:$okhttpVersion"
@@ -120,7 +116,7 @@ dependencies {
 
     // Test (Unit)
     testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.6.2'
+    testCompile 'org.mockito:mockito-core:2.6.5'
     testCompile 'org.threeten:threetenbp:1.3.3'
     testCompile 'org.xerial:sqlite-jdbc:3.16.1'
     kaptTest "com.google.dagger:dagger-compiler:${daggerVersion}"
@@ -174,7 +170,7 @@ android {
     }
 
     lintOptions {
-        abortOnError false
+        abortOnError true
         disable 'InvalidPackage'
     }
 
@@ -233,37 +229,6 @@ android {
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
         test.java.srcDirs += 'src/test/kotlin'
-    }
-}
-
-sonarqube {
-    properties {
-        if (!project.hasProperty('mySonarHostUrl')) {
-            println '!!!! Sonar properties must be set in your gradle.properties !!!!'
-            return
-        }
-
-        // Project Information
-        property 'sonar.projectKey', 'AndroidTemplateKotlin'
-        property 'sonar.projectName', 'Android Template Kotlin'
-        property "sonar.projectVersion", versionMajorMinorPatchBuild
-
-        property 'sonar.links.homepage', 'https://github.com/jeffdcamp/android-template'
-        property 'sonar.links.issue', 'https://github.com/jeffdcamp/android-template/issues'
-        property 'sonar.links.scm', 'https://github.com/jeffdcamp/android-template.git'
-
-        // Sonar Information (defined in gradle.properties)
-        property "sonar.host.url", mySonarHostUrl
-
-        // Android
-        property "sonar.sources", "src/main/kotlin"
-        property "sonar.java.binaries", "build/intermediates/classes/debug"
-        property "sonar.test", "src/testDebug/java"
-        property "sonar.java.test.binaries", "build/intermediates/classes/test/debug"
-        property "sonar.junit.reportsPath", "build/test-results/debug/"
-        property "sonar.java.coveragePlugin", "jacoco"
-        property "sonar.jacoco.reportPath", "build/jacoco/testDebugUnitTest.exec"
-        property "sonar.android.lint.report", "build/outputs/lint-results-debug.xml" // for use with the Sonar version of Android Lint plugin
     }
 }
 

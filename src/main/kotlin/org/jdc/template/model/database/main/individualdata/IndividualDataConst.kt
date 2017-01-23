@@ -13,6 +13,7 @@ package org.jdc.template.model.database.main.individualdata
 import android.database.Cursor
 
 
+@Suppress("LeakingThis", "unused", "RemoveEmptySecondaryConstructorBody")
 @SuppressWarnings("all")
 object IndividualDataConst {
 

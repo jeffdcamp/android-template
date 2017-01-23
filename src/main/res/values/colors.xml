@@ -10,23 +10,6 @@
     <color name="startup_background_end">#7faacaFF</color>
 
     <!-- Application -->
-    <color name="app_theme_color">#ffaa913e</color>
     <color name="default_background">#ffffffff</color>
-    <color name="default_text">#000000</color>
-    <color name="default_text_light">#ffffffff</color>
     <color name="window_background">#ececec</color>
-
-    <!-- Lists -->
-    <color name="list_header_text">@color/app_theme_color</color>
-    <color name="list_header_line">@color/app_theme_color</color>
-    <color name="list_item_title">@color/default_text</color>
-    <color name="list_item_subtitle">#ff6a6b6d</color>
-    <color name="list_selected_item_background">#7faacaFF</color>
-
-    <!-- FAB (floating action button) -->
-    <color name="fab_normal">#ffcc0000</color>
-    <color name="fab_pressed">#ffff4444</color>
-
-    <!-- TV -->
-    <color name="tv_default_background">#ff3d3d3d</color>
 </resources>

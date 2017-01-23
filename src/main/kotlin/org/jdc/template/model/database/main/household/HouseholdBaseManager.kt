@@ -9,11 +9,12 @@
 
 package org.jdc.template.model.database.main.household
 
-import org.jdc.template.model.database.DatabaseManager
-import org.dbtools.android.domain.database.DatabaseWrapper
 import org.dbtools.android.domain.RxKotlinAndroidBaseManagerWritable
+import org.dbtools.android.domain.database.DatabaseWrapper
+import org.jdc.template.model.database.DatabaseManager
 
 
+@Suppress("unused", "ConvertSecondaryConstructorToPrimary")
 @SuppressWarnings("all")
 abstract class HouseholdBaseManager : RxKotlinAndroidBaseManagerWritable<Household> {
 
@@ -60,7 +61,7 @@ abstract class HouseholdBaseManager : RxKotlinAndroidBaseManagerWritable<Househo
     }
 
     override fun getDatabaseConfig() : org.dbtools.android.domain.config.DatabaseConfig {
-        return databaseManager.getDatabaseConfig()
+        return databaseManager.databaseConfig
     }
 
     override fun getPrimaryKey() : String {

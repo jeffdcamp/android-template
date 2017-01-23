@@ -14,6 +14,7 @@ import org.dbtools.android.domain.database.DatabaseWrapper
 import org.dbtools.android.domain.RxKotlinAndroidBaseManagerReadOnly
 
 
+@Suppress("unused", "ConvertSecondaryConstructorToPrimary")
 @SuppressWarnings("all")
 abstract class CrossDatabaseQueryBaseManager : RxKotlinAndroidBaseManagerReadOnly<CrossDatabaseQuery> {
 
@@ -56,7 +57,7 @@ abstract class CrossDatabaseQueryBaseManager : RxKotlinAndroidBaseManagerReadOnl
     }
 
     override fun getDatabaseConfig() : org.dbtools.android.domain.config.DatabaseConfig {
-        return databaseManager.getDatabaseConfig()
+        return databaseManager.databaseConfig
     }
 
     abstract fun getQuery() : String

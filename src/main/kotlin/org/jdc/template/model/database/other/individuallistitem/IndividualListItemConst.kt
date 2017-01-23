@@ -13,6 +13,7 @@ package org.jdc.template.model.database.other.individuallistitem
 import android.database.Cursor
 
 
+@Suppress("LeakingThis", "unused", "RemoveEmptySecondaryConstructorBody")
 @SuppressWarnings("all")
 object IndividualListItemConst {
 

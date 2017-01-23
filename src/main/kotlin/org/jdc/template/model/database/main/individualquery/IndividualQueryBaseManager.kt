@@ -9,11 +9,12 @@
 
 package org.jdc.template.model.database.main.individualquery
 
-import org.dbtools.android.domain.RxKotlinAndroidBaseManagerReadOnly
-import org.dbtools.android.domain.database.DatabaseWrapper
 import org.jdc.template.model.database.DatabaseManager
+import org.dbtools.android.domain.database.DatabaseWrapper
+import org.dbtools.android.domain.RxKotlinAndroidBaseManagerReadOnly
 
 
+@Suppress("unused", "ConvertSecondaryConstructorToPrimary")
 @SuppressWarnings("all")
 abstract class IndividualQueryBaseManager : RxKotlinAndroidBaseManagerReadOnly<IndividualQuery> {
 
@@ -56,7 +57,7 @@ abstract class IndividualQueryBaseManager : RxKotlinAndroidBaseManagerReadOnly<I
     }
 
     override fun getDatabaseConfig() : org.dbtools.android.domain.config.DatabaseConfig {
-        return databaseManager.getDatabaseConfig()
+        return databaseManager.databaseConfig
     }
 
     abstract fun getQuery() : String

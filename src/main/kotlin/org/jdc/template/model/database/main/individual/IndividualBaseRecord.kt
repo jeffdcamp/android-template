@@ -17,6 +17,7 @@ import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues
 import android.database.Cursor
 
 
+@Suppress("LeakingThis", "unused", "RemoveEmptySecondaryConstructorBody")
 @SuppressWarnings("all")
 abstract class IndividualBaseRecord : AndroidBaseRecord {
 
@@ -245,10 +246,10 @@ abstract class IndividualBaseRecord : AndroidBaseRecord {
         sampleTimestamp = if (!cursor.isNull(cursor.getColumnIndexOrThrow(IndividualConst.C_SAMPLE_TIMESTAMP))) org.dbtools.android.domain.date.DBToolsThreeTenFormatter.longToLocalDateTime(cursor.getLong(cursor.getColumnIndexOrThrow(IndividualConst.C_SAMPLE_TIMESTAMP))) else null
         phone = cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_PHONE))
         email = cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_EMAIL))
-        available = if (cursor.getInt(cursor.getColumnIndexOrThrow(IndividualConst.C_AVAILABLE)) != 0) true else false
+        available = cursor.getInt(cursor.getColumnIndexOrThrow(IndividualConst.C_AVAILABLE)) != 0
         amount1 = cursor.getFloat(cursor.getColumnIndexOrThrow(IndividualConst.C_AMOUNT1))
         amount2 = cursor.getDouble(cursor.getColumnIndexOrThrow(IndividualConst.C_AMOUNT2))
-        enabled = if (cursor.getInt(cursor.getColumnIndexOrThrow(IndividualConst.C_ENABLED)) != 0) true else false
+        enabled = cursor.getInt(cursor.getColumnIndexOrThrow(IndividualConst.C_ENABLED)) != 0
         spouseIndividualId = if (!cursor.isNull(cursor.getColumnIndexOrThrow(IndividualConst.C_SPOUSE_INDIVIDUAL_ID))) cursor.getLong(cursor.getColumnIndexOrThrow(IndividualConst.C_SPOUSE_INDIVIDUAL_ID)) else null
     }
 

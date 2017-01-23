@@ -13,7 +13,7 @@ class WebServiceUtil
 @Inject
 constructor() {
     fun saveResponseToFile(response: Response<ResponseBody>, outputFile: File): Boolean {
-        Timber.d("Saving response [${response.raw().request().url().url().toString()}] to file [${outputFile.absolutePath}]...")
+        Timber.d("Saving response [${response.raw().request().url().url()}] to file [${outputFile.absolutePath}]...")
         outputFile.copyInputStreamToFile(response.body().byteStream())
         return outputFile.exists()
     }

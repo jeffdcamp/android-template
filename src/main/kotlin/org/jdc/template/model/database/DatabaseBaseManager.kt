@@ -16,6 +16,7 @@ import org.dbtools.android.domain.AndroidDatabaseManager
 import org.dbtools.android.domain.config.DatabaseConfig
 
 
+@Suppress("unused", "ConvertSecondaryConstructorToPrimary", "RemoveEmptySecondaryConstructorBody")
 @SuppressWarnings("all")
 abstract class DatabaseBaseManager : AndroidDatabaseManager {
 
@@ -66,7 +67,7 @@ abstract class DatabaseBaseManager : AndroidDatabaseManager {
     }
 
     override fun onCreate(androidDatabase: AndroidDatabase) {
-        getLogger().i(TAG, "Creating database: ${androidDatabase.name}")
+        logger.i(TAG, "Creating database: ${androidDatabase.name}")
         if (androidDatabase.name == DatabaseManagerConst.MAIN_DATABASE_NAME) {
             createMainTables(androidDatabase)
         }
@@ -101,14 +102,14 @@ abstract class DatabaseBaseManager : AndroidDatabaseManager {
     }
 
     override fun onCreateViews(androidDatabase: AndroidDatabase) {
-        getLogger().i(TAG, "Creating database views: ${androidDatabase.name}")
+        logger.i(TAG, "Creating database views: ${androidDatabase.name}")
         if (androidDatabase.name == DatabaseManagerConst.MAIN_DATABASE_NAME) {
             createMainViews(androidDatabase)
         }
     }
 
     override fun onDropViews(androidDatabase: AndroidDatabase) {
-        getLogger().i(TAG, "Dropping database views: ${androidDatabase.name}")
+        logger.i(TAG, "Dropping database views: ${androidDatabase.name}")
         if (androidDatabase.name == DatabaseManagerConst.MAIN_DATABASE_NAME) {
             dropMainViews(androidDatabase)
         }

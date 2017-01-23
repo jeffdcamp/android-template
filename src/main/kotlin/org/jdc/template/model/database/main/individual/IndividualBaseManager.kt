@@ -14,6 +14,7 @@ import org.dbtools.android.domain.database.DatabaseWrapper
 import org.dbtools.android.domain.RxKotlinAndroidBaseManagerWritable
 
 
+@Suppress("unused", "ConvertSecondaryConstructorToPrimary")
 @SuppressWarnings("all")
 abstract class IndividualBaseManager : RxKotlinAndroidBaseManagerWritable<Individual> {
 
@@ -60,7 +61,7 @@ abstract class IndividualBaseManager : RxKotlinAndroidBaseManagerWritable<Indivi
     }
 
     override fun getDatabaseConfig() : org.dbtools.android.domain.config.DatabaseConfig {
-        return databaseManager.getDatabaseConfig()
+        return databaseManager.databaseConfig
     }
 
     override fun getPrimaryKey() : String {

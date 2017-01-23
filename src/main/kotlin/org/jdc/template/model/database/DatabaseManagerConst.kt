@@ -11,6 +11,7 @@
 package org.jdc.template.model.database
 
 
+@Suppress("unused", "ConvertSecondaryConstructorToPrimary", "RemoveEmptySecondaryConstructorBody")
 @SuppressWarnings("all")
 object DatabaseManagerConst {
 

@@ -25,35 +25,7 @@
         <item name="android:transitionName" tools:targetApi="lollipop">actionBar</item>
     </style>
 
-    <!-- General -->
-    <style name="NoContent">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/list_item_subtitle</item>
-        <item name="android:textSize">20sp</item>
-        <item name="android:paddingTop">5dp</item>
-        <item name="android:paddingBottom">5dp</item>
-        <item name="android:layout_centerHorizontal">true</item>
-    </style>
-
     <!-- Lists -->
-    <style name="ListViewHeader">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:textColor">@color/list_header_text</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:paddingLeft">5dp</item>
-        <item name="android:paddingBottom">5dp</item>
-        <item name="android:paddingTop">10dp</item>
-    </style>
-    <style name="ListViewHeaderLine">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">1dp</item>
-        <item name="android:background">@color/list_header_line</item>
-        <item name="android:paddingBottom">10dp</item>
-    </style>
     <style name="ListItemLayout">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">?attr/listPreferredItemHeight</item>

@@ -16,6 +16,7 @@ import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues
 import android.database.Cursor
 
 
+@Suppress("LeakingThis", "unused", "RemoveEmptySecondaryConstructorBody")
 @SuppressWarnings("all")
 abstract class IndividualQueryBaseRecord : AndroidBaseRecord {
 

@@ -2,7 +2,7 @@
 <manifest
     package="org.jdc.template"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    >
 
     <!-- Permissions -->
     <uses-permission android:name="android.permission.INTERNET"/>
