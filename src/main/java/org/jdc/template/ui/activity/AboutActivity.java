@@ -1,6 +1,5 @@
 package org.jdc.template.ui.activity;
 
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
@@ -12,7 +11,6 @@ import com.google.android.gms.analytics.HitBuilders;
 
 import org.apache.commons.io.FileUtils;
 import org.dbtools.android.domain.DatabaseTableChange;
-import org.dbtools.android.domain.database.DatabaseWrapper;
 import org.jdc.template.Analytics;
 import org.jdc.template.BuildConfig;
 import org.jdc.template.R;
@@ -22,23 +20,18 @@ import org.jdc.template.job.SampleJob;
 import org.jdc.template.model.database.AppDatabaseConfig;
 import org.jdc.template.model.database.DatabaseManager;
 import org.jdc.template.model.database.DatabaseManagerConst;
-import org.jdc.template.model.database.attached.crossdatabasequery.CrossDatabaseQuery;
 import org.jdc.template.model.database.attached.crossdatabasequery.CrossDatabaseQueryManager;
 import org.jdc.template.model.database.main.household.Household;
 import org.jdc.template.model.database.main.household.HouseholdManager;
 import org.jdc.template.model.database.main.individual.Individual;
-import org.jdc.template.model.database.main.individual.IndividualConst;
 import org.jdc.template.model.database.main.individual.IndividualManager;
-import org.jdc.template.model.database.main.individualdata.IndividualData;
 import org.jdc.template.model.database.main.individualdata.IndividualDataManager;
-import org.jdc.template.model.database.main.individualquery.IndividualQuery;
 import org.jdc.template.model.database.main.individualquery.IndividualQueryManager;
-import org.jdc.template.model.database.main.individualtype.IndividualType;
 import org.jdc.template.model.database.other.individuallist.IndividualList;
 import org.jdc.template.model.database.other.individuallist.IndividualListManager;
 import org.jdc.template.model.database.other.individuallistitem.IndividualListItem;
-import org.jdc.template.model.database.other.individuallistitem.IndividualListItemConst;
 import org.jdc.template.model.database.other.individuallistitem.IndividualListItemManager;
+import org.jdc.template.model.type.IndividualType;
 import org.jdc.template.model.webservice.colors.ColorService;
 import org.jdc.template.model.webservice.colors.dto.DtoColor;
 import org.jdc.template.model.webservice.colors.dto.DtoColors;
@@ -49,8 +42,6 @@ import org.threeten.bp.LocalTime;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -78,6 +69,29 @@ public class AboutActivity extends BaseActivity {
     Analytics analytics;
     @Inject
     Bus bus;
+    @Inject
+    DatabaseManager databaseManager;
+    @Inject
+    IndividualManager individualManager;
+    @Inject
+    HouseholdManager householdManager;
+    @Inject
+    IndividualListManager individualListManager;
+    @Inject
+    IndividualListItemManager individualListItemManager;
+
+    @Inject
+    IndividualQueryManager individualQueryManager;
+    @Inject
+    CrossDatabaseQueryManager crossDatabaseQueryManager;
+
+    @Inject
+    ColorService colorService;
+    @Inject
+    WebServiceUtil webServiceUtil;
+
+    @Inject
+    IndividualDataManager individualDataManager;
 
     public AboutActivity() {
         Injector.get().inject(this);
@@ -134,31 +148,14 @@ public class AboutActivity extends BaseActivity {
         createSampleData();
     }
 
-    private boolean useInjection = true;
-
     private void createSampleData() {
-        if (useInjection) {
-            createSampleDataWithInjection();
-        } else {
-            createSampleDataNoInjection();
-        }
+        createSampleDataWithInjection();
+//        createSampleDataNoInjection();
     }
 
-    @Inject
-    DatabaseManager databaseManager;
-
-    @Inject
-    IndividualManager individualManager;
-
-    @Inject
-    HouseholdManager householdManager;
-
-    @Inject
-    IndividualListManager individualListManager;
-
-    @Inject
-    IndividualListItemManager individualListItemManager;
-
+    /**
+     * Creates sample data WITH using injection
+     */
     private void createSampleDataWithInjection() {
         // clear any existing items
         individualManager.deleteAll();
@@ -208,7 +205,9 @@ public class AboutActivity extends BaseActivity {
         individualListManager.endTransaction(true);
     }
 
-
+    /**
+     * Creates sample data WITHOUT using injection
+     */
     private void createSampleDataNoInjection() {
         DatabaseManager noInjectionDatabaseManager = new DatabaseManager(new AppDatabaseConfig(getApplication()));
 
@@ -218,12 +217,11 @@ public class AboutActivity extends BaseActivity {
         IndividualListItemManager individualListItemManager = new IndividualListItemManager(noInjectionDatabaseManager);
 
         // Main Database
-        DatabaseWrapper db = noInjectionDatabaseManager.getWritableDatabase(DatabaseManagerConst.MAIN_DATABASE_NAME);
         noInjectionDatabaseManager.beginTransaction(DatabaseManagerConst.MAIN_DATABASE_NAME);
 
         Household household = new Household();
         household.setName("Campbell");
-        householdManager.save(db, household);
+        householdManager.save(DatabaseManagerConst.MAIN_DATABASE_NAME, household);
 
         Individual individual1 = new Individual();
         individual1.setFirstName("Jeff");
@@ -234,7 +232,7 @@ public class AboutActivity extends BaseActivity {
         individual1.setAmount1(19.95F);
         individual1.setAmount2(1000000000.25D);
         individual1.setEnabled(true);
-        individualManager.save(db, individual1);
+        individualManager.save(DatabaseManagerConst.MAIN_DATABASE_NAME, individual1);
 
         Individual individual2 = new Individual();
         individual2.setFirstName("Tanner");
@@ -244,128 +242,31 @@ public class AboutActivity extends BaseActivity {
         individual2.setAmount1(21.95F);
         individual2.setAmount2(2000000000.25D);
         individual2.setEnabled(false);
-        individualManager.save(db, individual2);
+        individualManager.save(DatabaseManagerConst.MAIN_DATABASE_NAME, individual2);
         noInjectionDatabaseManager.endTransaction(DatabaseManagerConst.MAIN_DATABASE_NAME, true);
 
 
         // Other Database
         noInjectionDatabaseManager.beginTransaction(DatabaseManagerConst.OTHER_DATABASE_NAME);
 
-        DatabaseWrapper otherDb = noInjectionDatabaseManager.getWritableDatabase(DatabaseManagerConst.MAIN_DATABASE_NAME);
         IndividualList newList = new IndividualList();
         newList.setName("My List");
-        individualListManager.save(otherDb, newList);
+        individualListManager.save(DatabaseManagerConst.MAIN_DATABASE_NAME, newList);
 
         IndividualListItem newListItem = new IndividualListItem();
         newListItem.setListId(newList.getId());
         newListItem.setIndividualId(individual1.getId());
-        individualListItemManager.save(otherDb, newListItem);
+        individualListItemManager.save(DatabaseManagerConst.MAIN_DATABASE_NAME, newListItem);
 
         noInjectionDatabaseManager.endTransaction(DatabaseManagerConst.OTHER_DATABASE_NAME, true);
 
         Toast.makeText(this, "Database created", Toast.LENGTH_SHORT).show();
     }
 
-    public static final String ATTACH_DATABASE_QUERY = "SELECT " + IndividualConst.C_FIRST_NAME +
-            " FROM " + IndividualConst.TABLE +
-            " JOIN " + IndividualListItemConst.TABLE + " ON " + IndividualConst.FULL_C_ID + " = " + IndividualListItemConst.FULL_C_INDIVIDUAL_ID;
-
-    private void testDatabaseWithInjection() {
-        // (Optional) attach databases on demand (instead of in the DatabaseManager)
-//        databaseManager.identifyDatabases(); // NOSONAR
-//        databaseManager.addAttachedDatabase(DatabaseManager.ATTACH_DATABASE_NAME, DatabaseManager.MAIN_DATABASE_NAME, Arrays.asList(DatabaseManager.OTHER_DATABASE_NAME)); // NOSONAR
-
-        List<String> names = findAllStringByRawQuery(databaseManager, DatabaseManagerConst.ATTACHED_DATABASE_NAME, ATTACH_DATABASE_QUERY, null);
-        for (String name : names) {
-            Timber.i("Attached Database Item Name: %s", name);
-        }
-    }
-
-    public List<String> findAllStringByRawQuery(DatabaseManager dbManager, String databaseName, String rawQuery, String[] selectionArgs) {
-        List<String> foundItems;
-
-        Cursor cursor = dbManager.getWritableDatabase(databaseName).rawQuery(rawQuery, selectionArgs);
-        if (cursor != null) {
-            foundItems = new ArrayList<>(cursor.getCount());
-            if (cursor.moveToFirst()) {
-                do {
-                    foundItems.add(cursor.getString(0));
-                } while (cursor.moveToNext());
-            }
-            cursor.close();
-        } else {
-            foundItems = new ArrayList<>();
-        }
-
-        return foundItems;
-    }
-
-    @Inject
-    IndividualQueryManager individualQueryManager;
-
-    @Inject
-    CrossDatabaseQueryManager crossDatabaseQueryManager;
-
-    //    @OnClick(R.id.test_button)
-    public void testQuery() {
-        // OBJECTS
-//        List<IndividualQuery> items = individualQueryManager.findAllByRawQuery(IndividualQuery.QUERY_RAW, new String[]{"Buddy"});
-        List<IndividualQuery> items = individualQueryManager.findAll();
-        Timber.i("List Count: %d", items.size());
-
-        // show results
-        for (IndividualQuery item : items) {
-            Timber.i("Item Name: %s", item.getName());
-        }
-
-        // CURSORS
-        Cursor cursor = individualQueryManager.findCursorAll();
-
-        // create new item
-        IndividualQuery newInd = new IndividualQuery();
-        newInd.setName("bubba");
-
-        // add item to cursor
-        Cursor newCursor = individualQueryManager.addAllToCursorTop(cursor, newInd, newInd);
-        Timber.i("Count: %d", newCursor.getCount());
-
-        // show results
-        if (newCursor.moveToFirst()) {
-            do {
-                IndividualQuery cursorIndividual = new IndividualQuery(newCursor);
-                Timber.i("Cursor Individual: %s", cursorIndividual.getName());
-            } while (newCursor.moveToNext());
-        }
-        newCursor.close();
-
-    }
-
-    //    @OnClick(R.id.test)
-    public void test2() {
-        Timber.i("Cross database");
-        long s = System.currentTimeMillis();
-        Cursor allCrossCursor = crossDatabaseQueryManager.findCursorAll();
-        Timber.i("Cross db query time: %d", (System.currentTimeMillis() - s));
-        if (allCrossCursor != null) {
-            if (allCrossCursor.moveToFirst()) {
-                do {
-                    CrossDatabaseQuery obj = new CrossDatabaseQuery(allCrossCursor);
-                    Timber.i("Cursor Individual: %s", obj.getName());
-                } while (allCrossCursor.moveToNext());
-            }
-            allCrossCursor.close();
-        }
-
-        Timber.i("Cross db query time FINISH: %d", (System.currentTimeMillis() - s));
-    }
-
-    @Inject
-    ColorService colorService;
-
-    @Inject
-    WebServiceUtil webServiceUtil;
-
-//    @OnClick(R.id.rest_test_button)
+    /**
+     * Simple web service call
+     */
+    //    @OnClick(R.id.rest_test_button)
     public void testQueryWebServiceCall() {
         Call<DtoColors> call = colorService.colors();
 
@@ -382,6 +283,9 @@ public class AboutActivity extends BaseActivity {
         });
     }
 
+    /**
+     * Simple web service call using Rx
+     */
     @OnClick(R.id.rest_test_button)
     public void testQueryWebServiceCallRx() {
         RxUtil.toRetrofitObservable(colorService.colors())
@@ -392,12 +296,18 @@ public class AboutActivity extends BaseActivity {
                 .subscribe(dtoColors -> processColorsResponse(dtoColors), throwable -> bus.post(new NewDataEvent(false, throwable)), () -> bus.post(new NewDataEvent(true)));
     }
 
+    /**
+     * Bus event example (when rest call finishes)
+     */
     @Subscribe
     public void handle(NewDataEvent event) {
         Timber.i(event.getThrowable(), "Rest Service finished [%b]", event.isSuccess());
     }
 
-//    @OnClick(R.id.rest_test_button)
+    /**
+     * Simple web service call using the full url (instead of just an endpoint)
+     */
+    //    @OnClick(R.id.rest_test_button)
     public void testFullUrlQueryWebServiceCall() {
         Call<DtoColors> call = colorService.colorsByFullUrl(ColorService.FULL_URL);
 
@@ -414,7 +324,10 @@ public class AboutActivity extends BaseActivity {
         });
     }
 
-//    @OnClick(R.id.rest_test_button)
+    /**
+     * Web service call that saves response to file, then processes the file (best for large JSON payloads)
+     */
+    //    @OnClick(R.id.rest_test_button)
     public void testSaveQueryWebServiceCall() {
         Call<ResponseBody> call = colorService.colorsToFile();
 
@@ -461,20 +374,9 @@ public class AboutActivity extends BaseActivity {
         }
     }
 
-    @Inject
-    IndividualDataManager individualDataManager;
-
-    @OnClick(R.id.test_button)
-    public void testNoPrimaryKeyAndUnique() {
-        IndividualData data = new IndividualData();
-        data.setExternalId(555);
-        data.setExternalId(1);
-        data.setName("Foo");
-        individualDataManager.save(data);
-
-        Timber.i("findAll count (should always be 1): %d", individualDataManager.findAll().size());
-    }
-
+    /**
+     * Sample for creating a scheduled job
+     */
     @OnClick(R.id.job_test_button)
     public void jobTest() {
         SampleJob.schedule();
@@ -488,17 +390,17 @@ public class AboutActivity extends BaseActivity {
         SampleJob.schedule();
     }
 
+    /**
+     * Rx and Table change listener tests
+     */
     @OnClick(R.id.rx_test_button)
     public void testRx() {
         // Sample tests for Rx
-        // RxTest.testConcurrentPeople();
-
         // Rx Subscribe
-        Subscription tableChangeSubscription = individualManager.tableChanges()
-                .subscribe(changeType -> handleRxIndividualTableChange(changeType));
+        Subscription tableChangeSubscription = individualManager.tableChanges().subscribe(changeType -> handleRxIndividualTableChange(changeType));
 
         // Standard Listener
-        individualManager.addTableChangeListener(tableChange -> handleIndividualTableChange(tableChange));
+        individualManager.addTableChangeListener(this::handleIndividualTableChange);
 
         // Make some changes
         String originalName;

@@ -8,30 +8,7 @@
 
 package org.jdc.template.model.database.main.individual;
 
-import android.database.Cursor;
-
-import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues;
-
-
 public class Individual extends IndividualBaseRecord {
-
-    public Individual(Individual record) {
-        super(record);
-    }
-
-    public Individual(Cursor cursor) {
-        setContent(cursor);
-    }
-
-    public Individual(DBToolsContentValues values) {
-        setContent(values);
-    }
-
-    public Individual() {
-    }
-
-
-
     public String getFullName() {
         return getFirstName() + " " + getLastName();
     }

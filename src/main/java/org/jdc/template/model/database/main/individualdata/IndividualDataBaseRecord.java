@@ -23,12 +23,6 @@ public abstract class IndividualDataBaseRecord extends AndroidBaseRecord {
     private int typeId = 0;
     private String name = "";
 
-    public IndividualDataBaseRecord(IndividualData record) {
-        this.externalId = record.getExternalId();
-        this.typeId = record.getTypeId();
-        this.name = record.getName();
-    }
-
     public IndividualDataBaseRecord() {
     }
 

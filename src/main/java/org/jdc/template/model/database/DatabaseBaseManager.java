@@ -29,7 +29,6 @@ public abstract class DatabaseBaseManager extends AndroidDatabaseManager {
         database.beginTransaction();
         
         // Enum Tables
-        AndroidBaseManager.createTable(database, org.jdc.template.model.database.main.individualtype.IndividualTypeConst.CREATE_TABLE);
         
         // Tables
         AndroidBaseManager.createTable(database, org.jdc.template.model.database.main.household.HouseholdConst.CREATE_TABLE);
@@ -84,7 +83,7 @@ public abstract class DatabaseBaseManager extends AndroidDatabaseManager {
         database.beginTransaction();
         
         // Views
-        AndroidBaseManager.createTable(database, org.jdc.template.model.database.main.phonelistview.PhoneListView.CREATE_VIEW);
+        AndroidBaseManager.createTable(database, org.jdc.template.model.database.main.phonelistview.PhoneListViewManager.CREATE_VIEW);
         
         database.setTransactionSuccessful();
         database.endTransaction();
@@ -95,7 +94,7 @@ public abstract class DatabaseBaseManager extends AndroidDatabaseManager {
         database.beginTransaction();
         
         // Views
-        AndroidBaseManager.dropTable(database, org.jdc.template.model.database.main.phonelistview.PhoneListView.DROP_VIEW);
+        AndroidBaseManager.dropTable(database, org.jdc.template.model.database.main.phonelistview.PhoneListViewManager.DROP_VIEW);
         
         database.setTransactionSuccessful();
         database.endTransaction();

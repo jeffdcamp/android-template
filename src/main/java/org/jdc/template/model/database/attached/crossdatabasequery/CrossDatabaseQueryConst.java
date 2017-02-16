@@ -43,8 +43,8 @@ public class CrossDatabaseQueryConst {
         return cursor.getString(cursor.getColumnIndexOrThrow(C_NAME));
     }
 
-    public static LocationType getType(Cursor cursor) {
-        return LocationType.values()[cursor.getInt(cursor.getColumnIndexOrThrow(C_TYPE))];
+    public static org.jdc.template.model.type.LocationType getType(Cursor cursor) {
+        return org.dbtools.android.domain.util.EnumUtil.ordinalToEnum(org.jdc.template.model.type.LocationType.class, cursor.getInt(cursor.getColumnIndexOrThrow(C_TYPE)), org.jdc.template.model.type.LocationType.HOME);
     }
 
 

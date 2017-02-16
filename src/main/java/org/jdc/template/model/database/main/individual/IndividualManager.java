@@ -30,7 +30,7 @@ public class IndividualManager extends IndividualBaseManager {
             return false;
         }
 
-        if (individual.getBirthDate() != null && individual.getAlarmTime() != null) {
+        if (individual.getBirthDate() != null) {
             individual.setSampleDateTime(LocalDateTime.of(individual.getBirthDate(),  individual.getAlarmTime()));
         }
 

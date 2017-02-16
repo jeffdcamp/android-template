@@ -23,11 +23,6 @@ public abstract class IndividualListItemBaseRecord extends AndroidBaseRecord {
     private long listId = 0;
     private long individualId = 0;
 
-    public IndividualListItemBaseRecord(IndividualListItem record) {
-        this.listId = record.getListId();
-        this.individualId = record.getIndividualId();
-    }
-
     public IndividualListItemBaseRecord() {
     }
 

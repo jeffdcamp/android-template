@@ -1,25 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dbSchema xmlns='https://github.com/jeffdcamp/dbtools-gen'
-          xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-          xsi:schemaLocation='https://github.com/jeffdcamp/dbtools-gen dbschema.xsd'>
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='https://github.com/jeffdcamp/dbtools-gen dbschema.xsd'>
     <database name="main" fieldsDefaultNotNull="true">
         <table name="HOUSEHOLD">
             <field name="_id" jdbcDataType="BIGINT" increment="true" primaryKey="true"/>
             <field name="NAME" jdbcDataType="VARCHAR"/>
         </table>
 
-        <table name="INDIVIDUAL_TYPE" className="IndividualType" enumerations="HEAD,SPOUSE,CHILD">
-            <field name="_id" jdbcDataType="BIGINT" increment="true" primaryKey="true"/>
-            <field name="NAME" jdbcDataType="VARCHAR" unique="true"/>
-        </table>
-
         <table name="INDIVIDUAL">
             <field name="_id" jdbcDataType="BIGINT" increment="true" primaryKey="true"/>
             <field name="HOUSEHOLD_ID" jdbcDataType="BIGINT" foreignKeyTable="HOUSEHOLD" foreignKeyField="_id"/>
-            <field name="INDIVIDUAL_TYPE_ID" jdbcDataType="INTEGER" varName="individualType" foreignKeyTable="INDIVIDUAL_TYPE" foreignKeyField="_id" foreignKeyType="ENUM" enumerationDefault="HEAD"/>
+            <field name="INDIVIDUAL_TYPE" jdbcDataType="INTEGER" enumerationClass="org.jdc.template.model.type.IndividualType" enumerationDefault="HEAD"/>
             <field name="FIRST_NAME" jdbcDataType="VARCHAR"/>
             <field name="LAST_NAME" jdbcDataType="VARCHAR"/>
-            <field name="IMAGE_URL" jdbcDataType="VARCHAR"/>
             <field name="BIRTH_DATE" jdbcDataType="DATE" notNull="false"/>
             <field name="ALARM_TIME" jdbcDataType="TIME"/>
             <field name="LAST_MODIFIED" jdbcDataType="TIMESTAMP"/> <!-- non-null long -->
@@ -69,8 +63,8 @@
         <query name="CROSS_DATABASE_QUERY" >
             <field name="_id" jdbcDataType="BIGINT"/>
             <field name="NAME" jdbcDataType="VARCHAR"/>
-            <field name="TYPE" jdbcDataType="INTEGER" enumerationClass="LocationType" enumerationDefault="HOME"/>
+            <field name="TYPE" jdbcDataType="INTEGER" enumerationClass="org.jdc.template.model.type.LocationType" enumerationDefault="HOME"/>
         </query>
     </database>
-    
+
 </dbSchema>

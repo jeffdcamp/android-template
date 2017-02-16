@@ -1,46 +1,15 @@
 /*
  * IndividualQuery.java
  *
- * Created: 09/17/2014 03:15:27
+ * Created: 02/11/2017 07:35:18
  */
 
 
 
 package org.jdc.template.model.database.main.individualquery;
 
-import android.database.Cursor;
-
-import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues;
-import org.dbtools.query.sql.SQLQueryBuilder;
-import org.jdc.template.model.database.main.individual.IndividualConst;
-
 public class IndividualQuery extends IndividualQueryBaseRecord {
 
-    public static final String QUERY;
-
-    static {
-
-        QUERY = new SQLQueryBuilder()
-                .field(IndividualConst.FULL_C_ID, IndividualQueryConst.C_ID)
-                .field(IndividualConst.FULL_C_FIRST_NAME, IndividualQueryConst.C_NAME)
-                .table(IndividualConst.TABLE)
-                .toString();
-    }
-
-    public IndividualQuery(IndividualQuery record) {
-        super(record);
-    }
-
-    public IndividualQuery(Cursor cursor) {
-        setContent(cursor);
-    }
-
-    public IndividualQuery(DBToolsContentValues values) {
-        setContent(values);
-    }
-
-    public IndividualQuery() {
-    }
 
 
 }

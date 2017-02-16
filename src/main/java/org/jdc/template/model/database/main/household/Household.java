@@ -8,27 +8,6 @@
 
 package org.jdc.template.model.database.main.household;
 
-import android.database.Cursor;
-
-import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues;
-
-
 public class Household extends HouseholdBaseRecord {
-
-    public Household(Household record) {
-        super(record);
-    }
-
-    public Household(Cursor cursor) {
-        setContent(cursor);
-    }
-
-    public Household(DBToolsContentValues values) {
-        setContent(values);
-    }
-
-    public Household() {
-    }
-
 
 }

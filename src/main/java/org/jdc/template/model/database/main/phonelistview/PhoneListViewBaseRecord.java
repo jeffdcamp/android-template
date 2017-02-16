@@ -22,11 +22,6 @@ public abstract class PhoneListViewBaseRecord extends AndroidBaseRecord {
     private long id = 0;
     private String name = "";
 
-    public PhoneListViewBaseRecord(PhoneListView record) {
-        this.id = record.getId();
-        this.name = record.getName();
-    }
-
     public PhoneListViewBaseRecord() {
     }
 

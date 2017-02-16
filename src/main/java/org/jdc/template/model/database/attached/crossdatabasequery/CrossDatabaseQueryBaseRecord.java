@@ -10,10 +10,11 @@
 
 package org.jdc.template.model.database.attached.crossdatabasequery;
 
-import org.dbtools.android.domain.AndroidBaseRecord;
-import org.dbtools.android.domain.database.statement.StatementWrapper;
-import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues;
 import android.database.Cursor;
+
+import org.dbtools.android.domain.AndroidBaseRecord;
+import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues;
+import org.dbtools.android.domain.database.statement.StatementWrapper;
 
 
 @SuppressWarnings("all")
@@ -21,13 +22,7 @@ public abstract class CrossDatabaseQueryBaseRecord extends AndroidBaseRecord {
 
     private long id = 0;
     private String name = "";
-    private LocationType type = LocationType.HOME;
-
-    public CrossDatabaseQueryBaseRecord(CrossDatabaseQuery record) {
-        this.id = record.getId();
-        this.name = record.getName();
-        this.type = record.getType();
-    }
+    private org.jdc.template.model.type.LocationType type = org.jdc.template.model.type.LocationType.HOME;
 
     public CrossDatabaseQueryBaseRecord() {
     }
@@ -97,14 +92,14 @@ public abstract class CrossDatabaseQueryBaseRecord extends AndroidBaseRecord {
     public void setContent(DBToolsContentValues values) {
         id = values.getAsLong(CrossDatabaseQueryConst.C_ID);
         name = values.getAsString(CrossDatabaseQueryConst.C_NAME);
-        type = LocationType.values()[values.getAsInteger(CrossDatabaseQueryConst.C_TYPE)];
+        type = org.dbtools.android.domain.util.EnumUtil.ordinalToEnum(org.jdc.template.model.type.LocationType.class, values.getAsInteger(CrossDatabaseQueryConst.C_TYPE), org.jdc.template.model.type.LocationType.HOME);
     }
 
     @Override
     public void setContent(Cursor cursor) {
         id = cursor.getLong(cursor.getColumnIndexOrThrow(CrossDatabaseQueryConst.C_ID));
         name = cursor.getString(cursor.getColumnIndexOrThrow(CrossDatabaseQueryConst.C_NAME));
-        type = LocationType.values()[cursor.getInt(cursor.getColumnIndexOrThrow(CrossDatabaseQueryConst.C_TYPE))];
+        type = org.dbtools.android.domain.util.EnumUtil.ordinalToEnum(org.jdc.template.model.type.LocationType.class, cursor.getInt(cursor.getColumnIndexOrThrow(CrossDatabaseQueryConst.C_TYPE)), org.jdc.template.model.type.LocationType.HOME);
     }
 
     public boolean isNewRecord() {
@@ -129,11 +124,11 @@ public abstract class CrossDatabaseQueryBaseRecord extends AndroidBaseRecord {
     }
 
     @javax.annotation.Nonnull
-    public LocationType getType() {
+    public org.jdc.template.model.type.LocationType getType() {
         return type;
     }
 
-    public void setType(@javax.annotation.Nonnull LocationType type) {
+    public void setType(@javax.annotation.Nonnull org.jdc.template.model.type.LocationType type) {
         this.type = type;
     }
 

@@ -74,17 +74,17 @@ public abstract class PhoneListViewBaseManager extends RxAndroidBaseManagerReadO
 
     @javax.annotation.Nonnull
     public String getPrimaryKey() {
-        return null;
+        return "<NO_PRIMARY_KEY_ON_VIEWS>";
     }
 
     @javax.annotation.Nonnull
     public String getDropSql() {
-        return PhoneListView.DROP_VIEW;
+        return PhoneListViewManager.DROP_VIEW;
     }
 
     @javax.annotation.Nonnull
     public String getCreateSql() {
-        return PhoneListView.CREATE_VIEW;
+        return PhoneListViewManager.CREATE_VIEW;
     }
 
     @javax.annotation.Nonnull

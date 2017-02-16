@@ -76,7 +76,7 @@ public abstract class CrossDatabaseQueryBaseManager extends RxAndroidBaseManager
 
     @javax.annotation.Nonnull
     public String getPrimaryKey() {
-        return null;
+        return "<NO_PRIMARY_KEY_ON_QUERIES>";
     }
 
     @javax.annotation.Nonnull
