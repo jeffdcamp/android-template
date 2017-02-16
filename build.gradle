@@ -1,6 +1,6 @@
 buildscript {
     ext.kotlin_version = '1.0.5-3'
-    ext.dbtoolsVersion = '7.2.1'
+    ext.dbtoolsVersion = '8.0.0'
 
     repositories {
         mavenLocal()
@@ -8,8 +8,8 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0-beta2'
-        classpath "org.dbtools:gradle-dbtools-plugin:7.2.2"
+        classpath 'com.android.tools.build:gradle:2.3.0-beta3'
+        classpath "org.dbtools:gradle-dbtools-plugin:$dbtoolsVersion"
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.13.0' // version plugin support
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
@@ -116,7 +116,7 @@ dependencies {
 
     // Test (Unit)
     testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.6.5'
+    testCompile 'org.mockito:mockito-core:2.6.5' // be sure to add src/test/resources/mockito-extensions (so you don't have to 'open' all of your classes
     testCompile 'org.threeten:threetenbp:1.3.3'
     testCompile 'org.xerial:sqlite-jdbc:3.16.1'
     kaptTest "com.google.dagger:dagger-compiler:${daggerVersion}"
@@ -243,7 +243,7 @@ dbtools {
     jsr305Support true
     includeDatabaseNameInPackage true
     dateType 'JSR-310'
-    sqlQueryBuilderSupport true
+    sqlQueryBuilderSupport false
     rxJavaSupport true
 }
 

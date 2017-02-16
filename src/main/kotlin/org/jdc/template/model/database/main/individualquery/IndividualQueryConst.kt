@@ -13,19 +13,19 @@ package org.jdc.template.model.database.main.individualquery
 import android.database.Cursor
 
 
-@Suppress("LeakingThis", "unused", "RemoveEmptySecondaryConstructorBody")
+@Suppress("LeakingThis", "unused", "RemoveEmptySecondaryConstructorBody", "ConvertSecondaryConstructorToPrimary")
 @SuppressWarnings("all")
-object IndividualQueryConst {
+object IndividualQueryConst  {
 
-    const val DATABASE = "main"
-    const val C_ID = "ID"
-    const val FULL_C_ID = "INDIVIDUAL_QUERY.ID"
-    const val C_NAME = "NAME"
-    const val FULL_C_NAME = "INDIVIDUAL_QUERY.NAME"
-    val ALL_COLUMNS = arrayOf(
+     const val DATABASE = "main"
+     const val C_ID = "ID"
+     const val FULL_C_ID = "INDIVIDUAL_QUERY.ID"
+     const val C_NAME = "NAME"
+     const val FULL_C_NAME = "INDIVIDUAL_QUERY.NAME"
+     val ALL_COLUMNS = arrayOf(
         C_ID,
         C_NAME)
-    val ALL_COLUMNS_FULL = arrayOf(
+     val ALL_COLUMNS_FULL = arrayOf(
         FULL_C_ID,
         FULL_C_NAME)
 

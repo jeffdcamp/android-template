@@ -108,10 +108,9 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener, Dire
     }
 
     fun loadList() {
-        val observable = individualManager.findAllBySelectionRx(null, null, IndividualConst.C_FIRST_NAME + ", " + IndividualConst.C_LAST_NAME)
+        val observable = individualManager.findAllBySelectionRx(orderBy = "${IndividualConst.C_FIRST_NAME}, ${IndividualConst.C_LAST_NAME}")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-
         addSubscription(observable.subscribe { data -> dataLoaded(data) })
     }
 

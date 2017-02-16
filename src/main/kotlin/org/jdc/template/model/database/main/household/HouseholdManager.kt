@@ -10,15 +10,10 @@
 package org.jdc.template.model.database.main.household
 
 import org.jdc.template.model.database.DatabaseManager
+import javax.inject.Inject
 
 
 @javax.inject.Singleton
-class HouseholdManager : HouseholdBaseManager {
-
-
-    @javax.inject.Inject
-    constructor(databaseManager: DatabaseManager): super(databaseManager) {
-    }
-
+class HouseholdManager @Inject constructor(databaseManager: DatabaseManager) : HouseholdBaseManager(databaseManager) {
 
 }

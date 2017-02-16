@@ -11,12 +11,12 @@ import javax.inject.Singleton
 class DatabaseManager : DatabaseBaseManager {
 
     companion object {
-        val mainTablesVersion = 1
-        val mainViewsVersion = 1
-        val otherTablesVersion = 1
-        val otherViewsVersion = 1
-        val attachedTablesVersion = 1
-        val attachedViewsVersion = 1
+        const val mainTablesVersion = 1
+        const val mainViewsVersion = 1
+        const val otherTablesVersion = 1
+        const val otherViewsVersion = 1
+        const val attachedTablesVersion = 1
+        const val attachedViewsVersion = 1
     }
 
     @javax.inject.Inject

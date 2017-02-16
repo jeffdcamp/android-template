@@ -8,6 +8,7 @@ import com.google.android.gms.analytics.HitBuilders
 import kotlinx.android.synthetic.main.activity_about.*
 import kotlinx.android.synthetic.main.toolbar_actionbar.*
 import okhttp3.ResponseBody
+import org.dbtools.android.domain.DBToolsTableChangeListener
 import org.dbtools.android.domain.DatabaseTableChange
 import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
@@ -18,23 +19,18 @@ import org.jdc.template.job.SampleJob
 import org.jdc.template.model.database.AppDatabaseConfig
 import org.jdc.template.model.database.DatabaseManager
 import org.jdc.template.model.database.DatabaseManagerConst
-import org.jdc.template.model.database.attached.crossdatabasequery.CrossDatabaseQuery
 import org.jdc.template.model.database.attached.crossdatabasequery.CrossDatabaseQueryManager
 import org.jdc.template.model.database.main.household.Household
 import org.jdc.template.model.database.main.household.HouseholdManager
 import org.jdc.template.model.database.main.individual.Individual
-import org.jdc.template.model.database.main.individual.IndividualConst
 import org.jdc.template.model.database.main.individual.IndividualManager
-import org.jdc.template.model.database.main.individualdata.IndividualData
 import org.jdc.template.model.database.main.individualdata.IndividualDataManager
-import org.jdc.template.model.database.main.individualquery.IndividualQuery
 import org.jdc.template.model.database.main.individualquery.IndividualQueryManager
-import org.jdc.template.model.database.main.individualtype.IndividualType
 import org.jdc.template.model.database.other.individuallist.IndividualList
 import org.jdc.template.model.database.other.individuallist.IndividualListManager
 import org.jdc.template.model.database.other.individuallistitem.IndividualListItem
-import org.jdc.template.model.database.other.individuallistitem.IndividualListItemConst
 import org.jdc.template.model.database.other.individuallistitem.IndividualListItemManager
+import org.jdc.template.model.type.IndividualType
 import org.jdc.template.model.webservice.colors.ColorService
 import org.jdc.template.model.webservice.colors.dto.DtoColors
 import org.jdc.template.util.RxUtil
@@ -50,7 +46,6 @@ import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 import timber.log.Timber
 import java.io.File
-import java.util.*
 import javax.inject.Inject
 
 class AboutActivity : BaseActivity() {
@@ -94,14 +89,17 @@ class AboutActivity : BaseActivity() {
         setSupportActionBar(ab_toolbar)
         enableActionBarBackArrow(true)
 
-        versionTextView.text = versionName
+        versionTextView.text = getVersionName()
 
         createDatabaseButton.setOnClickListener {
-            onCreateDatabaseButtonClick()
+            createSampleDataWithInjection()
+//            createSampleDataNoInjection()
         }
         restTestButton.setOnClickListener {
+//            testQueryWebServiceCall() // simple rest call
             testQueryWebServiceCallRx() // use Rx to make the call
 //            testSaveQueryWebServiceCall() // write the response to file, the read the file to show results
+//            testFullUrlQueryWebServiceCall() //  simple call using the full URL instead of an endpoint
         }
         jobTestButton.setOnClickListener {
             jobTest()
@@ -110,13 +108,7 @@ class AboutActivity : BaseActivity() {
             testRx()
         }
         testButton.setOnClickListener {
-            val data = IndividualData()
-            data.externalId = 555
-            data.typeId = 1
-            data.name = "Foo"
-            individualDataManager.save(data)
-
-            Timber.i("findAll count (should always be 1): ${individualDataManager.findAll().size}")
+//            testQuery()
         }
     }
 
@@ -140,28 +132,14 @@ class AboutActivity : BaseActivity() {
         }
     }
 
-    private val versionName: String
-        get() {
-            var versionString = BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")"
-            versionString += "\n" + DateUtils.formatDateTime(this, BuildConfig.BUILD_TIME, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_TIME or DateUtils.FORMAT_SHOW_YEAR)
-
-            return versionString
-        }
-
-    fun onCreateDatabaseButtonClick() {
-        createSampleData()
+    private fun getVersionName(): String {
+        val formattedDateTime = DateUtils.formatDateTime(this, BuildConfig.BUILD_TIME, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_TIME or DateUtils.FORMAT_SHOW_YEAR)
+        return "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})\n${formattedDateTime}"
     }
 
-    private val useInjection = true
-
-    private fun createSampleData() {
-        if (useInjection) {
-            createSampleDataWithInjection()
-        } else {
-            createSampleDataNoInjection()
-        }
-    }
-
+    /**
+     * Creates sample data WITH using injection
+     */
     private fun createSampleDataWithInjection() {
         // clear any existing items
         individualManager.deleteAll()
@@ -217,7 +195,9 @@ class AboutActivity : BaseActivity() {
         individualListManager.endTransaction(true)
     }
 
-
+    /**
+     * Creates sample data WITHOUT using injection
+     */
     private fun createSampleDataNoInjection() {
         val noInjectionDatabaseManager = DatabaseManager(AppDatabaseConfig(application))
 
@@ -227,12 +207,12 @@ class AboutActivity : BaseActivity() {
         val individualListItemManager = IndividualListItemManager(noInjectionDatabaseManager)
 
         // Main Database
-        val db = noInjectionDatabaseManager.getWritableDatabase(DatabaseManagerConst.MAIN_DATABASE_NAME)
+        val dbName = DatabaseManagerConst.MAIN_DATABASE_NAME
         noInjectionDatabaseManager.beginTransaction(DatabaseManagerConst.MAIN_DATABASE_NAME)
 
         val household = Household()
         household.name = "Campbell"
-        householdManager.save(db, household)
+        householdManager.save(household, dbName)
 
         val individual1 = Individual()
         individual1.firstName = "Jeff"
@@ -240,119 +220,38 @@ class AboutActivity : BaseActivity() {
         individual1.phone = "000-555-1234"
         individual1.individualType = IndividualType.HEAD
         individual1.householdId = household.id
-        individualManager.save(db, individual1)
+        individualManager.save(individual1, dbName)
 
         val individual2 = Individual()
         individual2.firstName = "Tanner"
         individual2.lastName = "Campbell"
         individual2.individualType = IndividualType.CHILD
         individual2.householdId = household.id
-        individualManager.save(db, individual2)
+        individualManager.save(individual2, dbName)
         noInjectionDatabaseManager.endTransaction(DatabaseManagerConst.MAIN_DATABASE_NAME, true)
 
 
         // Other Database
         noInjectionDatabaseManager.beginTransaction(DatabaseManagerConst.OTHER_DATABASE_NAME)
 
-        val otherDb = noInjectionDatabaseManager.getWritableDatabase(DatabaseManagerConst.MAIN_DATABASE_NAME)
+        val otherDb = DatabaseManagerConst.MAIN_DATABASE_NAME
         val newList = IndividualList()
         newList.name = "My List"
-        individualListManager.save(otherDb, newList)
+        individualListManager.save(newList, otherDb)
 
         val newListItem = IndividualListItem()
         newListItem.listId = newList.id
         newListItem.individualId = individual1.id
-        individualListItemManager.save(otherDb, newListItem)
+        individualListItemManager.save(newListItem, otherDb)
 
         noInjectionDatabaseManager.endTransaction(DatabaseManagerConst.OTHER_DATABASE_NAME, true)
 
         Toast.makeText(this, "Database created", Toast.LENGTH_SHORT).show()
     }
 
-    private fun testDatabaseWithInjection() {
-        // (Optional) attach databases on demand (instead of in the DatabaseManager)
-        //        databaseManager.identifyDatabases(); // NOSONAR
-        //        databaseManager.addAttachedDatabase(DatabaseManager.ATTACH_DATABASE_NAME, DatabaseManager.MAIN_DATABASE_NAME, Arrays.asList(DatabaseManager.OTHER_DATABASE_NAME)); // NOSONAR
-
-        val names = findAllStringByRawQuery(databaseManager, DatabaseManagerConst.ATTACHED_DATABASE_NAME, ATTACH_DATABASE_QUERY, null)
-        for (name in names) {
-            Timber.i("Attached Database Item Name: %s", name)
-        }
-    }
-
-    fun findAllStringByRawQuery(dbManager: DatabaseManager, databaseName: String, rawQuery: String, selectionArgs: Array<String>?): List<String> {
-        val foundItems: MutableList<String>
-
-        val cursor = dbManager.getWritableDatabase(databaseName).rawQuery(rawQuery, selectionArgs)
-        if (cursor != null) {
-            foundItems = ArrayList<String>(cursor.count)
-            if (cursor.moveToFirst()) {
-                do {
-                    foundItems.add(cursor.getString(0))
-                } while (cursor.moveToNext())
-            }
-            cursor.close()
-        } else {
-            foundItems = ArrayList<String>()
-        }
-
-        return foundItems
-    }
-
-
-    //    @OnClick(R.id.test_button)
-    fun testQuery() {
-        // OBJECTS
-        //        List<IndividualQuery> items = individualQueryManager.findAllByRawQuery(IndividualQuery.QUERY_RAW, new String[]{"Buddy"});
-        val items = individualQueryManager.findAll()
-        Timber.i("List Count: %d", items.size)
-
-        // show results
-        for (item in items) {
-            Timber.i("Item Name: %s", item.name)
-        }
-
-        // CURSORS
-        val cursor = individualQueryManager.findCursorAll()
-
-        // create new item
-        val newInd = IndividualQuery()
-        newInd.name = "bubba"
-
-        // add item to cursor
-        val newCursor = individualQueryManager.addAllToCursorTop(cursor, newInd, newInd)
-        Timber.i("Count: %d", newCursor.count)
-
-        // show results
-        if (newCursor.moveToFirst()) {
-            do {
-                val cursorIndividual = IndividualQuery(newCursor)
-                Timber.i("Cursor Individual: %s", cursorIndividual.name)
-            } while (newCursor.moveToNext())
-        }
-        newCursor.close()
-
-    }
-
-    //    @OnClick(R.id.test)
-    fun test2() {
-        Timber.i("Cross database")
-        val s = System.currentTimeMillis()
-        val allCrossCursor = crossDatabaseQueryManager.findCursorAll()
-        Timber.i("Cross db query time: %d", (System.currentTimeMillis() - s))
-        if (allCrossCursor != null) {
-            if (allCrossCursor.moveToFirst()) {
-                do {
-                    val obj = CrossDatabaseQuery(allCrossCursor)
-                    Timber.i("Cursor Individual: %s", obj.name)
-                } while (allCrossCursor.moveToNext())
-            }
-            allCrossCursor.close()
-        }
-
-        Timber.i("Cross db query time FINISH: %d", (System.currentTimeMillis() - s))
-    }
-
+    /**
+     * Simple web service call
+     */
     //    @OnClick(R.id.rest_test_button)
     fun testQueryWebServiceCall() {
         val call = colorService.colors()
@@ -368,6 +267,9 @@ class AboutActivity : BaseActivity() {
         })
     }
 
+    /**
+     * Simple web service call using Rx
+     */
     fun testQueryWebServiceCallRx() {
         RxUtil.toRetrofitObservable(colorService.colors())
                 .subscribeOn(Schedulers.io())
@@ -377,14 +279,20 @@ class AboutActivity : BaseActivity() {
                 })
                 .filter({ dtoSearchResponse -> dtoSearchResponse != null }) // don't continue if null
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ dtoSearchResponse -> processSearchResponse(dtoSearchResponse!!) }, { throwable -> bus.post(NewDataEvent(false, null)) }, {bus.post(NewDataEvent(true, null))})
+                .subscribe({ dtoSearchResponse -> processSearchResponse(dtoSearchResponse!!) }, { throwable -> bus.post(NewDataEvent(false, null)) }, { bus.post(NewDataEvent(true, null)) })
     }
 
+    /**
+     * Bus event example (when rest call finishes)
+     */
     @Subscribe
     fun handle(event: NewDataEvent) {
         Timber.i(event.throwable, "Rest Service finished [%b]", event.isSuccess)
     }
 
+    /**
+     * Simple web service call using the full url (instead of just an endpoint)
+     */
     fun testFullUrlQueryWebServiceCall() {
         val call = colorService.colorsByFullUrl(ColorService.FULL_URL)
 
@@ -399,6 +307,9 @@ class AboutActivity : BaseActivity() {
         })
     }
 
+    /**
+     * Web service call that saves response to file, then processes the file (best for large JSON payloads)
+     */
     fun testSaveQueryWebServiceCall() {
         val call = colorService.colorsToFile()
 
@@ -439,6 +350,9 @@ class AboutActivity : BaseActivity() {
         }
     }
 
+    /**
+     * Sample for creating a scheduled job
+     */
     fun jobTest() {
         SampleJob.schedule()
         SampleJob.schedule()
@@ -451,6 +365,9 @@ class AboutActivity : BaseActivity() {
         SampleJob.schedule()
     }
 
+    /**
+     * Rx and Table change listener tests
+     */
     fun testRx() {
         // Sample tests for Rx
         if (individualManager.findCount() == 0L) {
@@ -462,13 +379,14 @@ class AboutActivity : BaseActivity() {
         val tableChangeSubscription = individualManager.tableChanges().subscribe { change -> handleRxIndividualTableChange(change) }
 
         // Standard Listener
-        individualManager.addTableChangeListener({ change -> handleIndividualTableChange(change) })
+        individualManager.addTableChangeListener(DBToolsTableChangeListener { change -> handleIndividualTableChange(change) })
 
         // Make some changes
         val originalName: String
 
-        val individual = individualManager.findAll()[0]
-        if (individual != null) {
+        val individualList = individualManager.findAll()
+        if (individualList.isNotEmpty()) {
+            val individual = individualList[0]
             originalName = individual.firstName
             Timber.i("ORIGINAL NAME = %s", originalName)
 
@@ -501,11 +419,5 @@ class AboutActivity : BaseActivity() {
             change.isUpdate -> Timber.i("Individual Table had update for table: [${change.table}] rowId: [${change.rowId}]")
             change.isDelete -> Timber.i("Individual Table had delete for table: [${change.table}] rowId: [${change.rowId}]")
         }
-    }
-
-    companion object {
-        val ATTACH_DATABASE_QUERY = "SELECT " + IndividualConst.C_FIRST_NAME +
-                " FROM " + IndividualConst.TABLE +
-                " JOIN " + IndividualListItemConst.TABLE + " ON " + IndividualConst.FULL_C_ID + " = " + IndividualListItemConst.FULL_C_INDIVIDUAL_ID
     }
 }

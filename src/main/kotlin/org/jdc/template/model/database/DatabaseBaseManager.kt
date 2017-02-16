@@ -10,15 +10,15 @@
 
 package org.jdc.template.model.database
 
-import org.dbtools.android.domain.AndroidBaseManager
 import org.dbtools.android.domain.AndroidDatabase
+import org.dbtools.android.domain.AndroidBaseManager
 import org.dbtools.android.domain.AndroidDatabaseManager
 import org.dbtools.android.domain.config.DatabaseConfig
 
 
 @Suppress("unused", "ConvertSecondaryConstructorToPrimary", "RemoveEmptySecondaryConstructorBody")
 @SuppressWarnings("all")
-abstract class DatabaseBaseManager : AndroidDatabaseManager {
+abstract class DatabaseBaseManager  : AndroidDatabaseManager {
 
 
     constructor(databaseConfig: DatabaseConfig) : super(databaseConfig) {
@@ -29,12 +29,11 @@ abstract class DatabaseBaseManager : AndroidDatabaseManager {
         database.beginTransaction()
         
         // Enum Tables
-        AndroidBaseManager.createTable(database, org.jdc.template.model.database.main.individualtype.IndividualTypeConst.CREATE_TABLE)
         
         // Tables
         AndroidBaseManager.createTable(database, org.jdc.template.model.database.main.household.HouseholdConst.CREATE_TABLE)
-        AndroidBaseManager.createTable(database, org.jdc.template.model.database.main.individualdata.IndividualDataConst.CREATE_TABLE)
         AndroidBaseManager.createTable(database, org.jdc.template.model.database.main.individual.IndividualConst.CREATE_TABLE)
+        AndroidBaseManager.createTable(database, org.jdc.template.model.database.main.individualdata.IndividualDataConst.CREATE_TABLE)
         
         database.setTransactionSuccessful()
         database.endTransaction()
@@ -84,7 +83,7 @@ abstract class DatabaseBaseManager : AndroidDatabaseManager {
         database.beginTransaction()
         
         // Views
-        AndroidBaseManager.createTable(database, org.jdc.template.model.database.main.phonelistview.PhoneListView.CREATE_VIEW)
+        AndroidBaseManager.createTable(database, org.jdc.template.model.database.main.phonelistview.PhoneListViewManager.CREATE_VIEW)
         
         database.setTransactionSuccessful()
         database.endTransaction()
@@ -95,7 +94,7 @@ abstract class DatabaseBaseManager : AndroidDatabaseManager {
         database.beginTransaction()
         
         // Views
-        AndroidBaseManager.dropTable(database, org.jdc.template.model.database.main.phonelistview.PhoneListView.DROP_VIEW)
+        AndroidBaseManager.dropTable(database, org.jdc.template.model.database.main.phonelistview.PhoneListViewManager.DROP_VIEW)
         
         database.setTransactionSuccessful()
         database.endTransaction()

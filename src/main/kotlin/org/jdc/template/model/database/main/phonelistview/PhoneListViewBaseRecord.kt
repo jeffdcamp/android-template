@@ -16,17 +16,12 @@ import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues
 import android.database.Cursor
 
 
-@Suppress("LeakingThis", "unused", "RemoveEmptySecondaryConstructorBody")
+@Suppress("LeakingThis", "unused", "RemoveEmptySecondaryConstructorBody", "ConvertSecondaryConstructorToPrimary")
 @SuppressWarnings("all")
-abstract class PhoneListViewBaseRecord : AndroidBaseRecord {
+abstract class PhoneListViewBaseRecord  : AndroidBaseRecord {
 
      open var id: Long = 0
      open var name: String = ""
-
-    constructor(record: PhoneListView) {
-        this.id = record.id
-        this.name = record.name
-    }
 
     constructor() {
     }
@@ -68,11 +63,13 @@ abstract class PhoneListViewBaseRecord : AndroidBaseRecord {
         return copy
     }
 
+    @Suppress("UNNECESSARY_NOT_NULL_ASSERTION")
     override fun bindInsertStatement(statement: StatementWrapper) {
         statement.bindLong(1, id)
         statement.bindString(2, name)
     }
 
+    @Suppress("UNNECESSARY_NOT_NULL_ASSERTION")
     override fun bindUpdateStatement(statement: StatementWrapper) {
         statement.bindLong(1, id)
         statement.bindString(2, name)

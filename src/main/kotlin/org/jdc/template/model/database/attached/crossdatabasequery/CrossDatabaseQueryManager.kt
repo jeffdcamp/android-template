@@ -1,7 +1,7 @@
 /*
  * CrossDatabaseQueryManager.kt
  *
- * Generated on: 02/14/2016 07:02:10
+ * Generated on: 02/11/2017 07:44:23
  *
  */
 
@@ -10,19 +10,20 @@
 package org.jdc.template.model.database.attached.crossdatabasequery
 
 import org.jdc.template.model.database.DatabaseManager
-
+import javax.inject.Inject
 
 @javax.inject.Singleton
-class CrossDatabaseQueryManager : CrossDatabaseQueryBaseManager {
+class CrossDatabaseQueryManager @Inject constructor(databaseManager: DatabaseManager) : CrossDatabaseQueryBaseManager(databaseManager) {
 
-
-    @javax.inject.Inject
-    constructor(databaseManager: DatabaseManager): super(databaseManager) {
+    companion object {
+        val QUERY =  "SELECT " +
+            CrossDatabaseQueryConst.FULL_C_ID + " AS " + CrossDatabaseQueryConst.C_ID + ", " +
+            CrossDatabaseQueryConst.FULL_C_NAME + " AS " + CrossDatabaseQueryConst.C_NAME + ", " +
+            CrossDatabaseQueryConst.FULL_C_TYPE + " AS " + CrossDatabaseQueryConst.C_TYPE +
+            " FROM SOME TABLE(S)"
     }
 
-    override fun getQuery(): String {
-        return CrossDatabaseQuery.QUERY
+    override fun getQuery() : String {
+        return QUERY
     }
-
-
 }

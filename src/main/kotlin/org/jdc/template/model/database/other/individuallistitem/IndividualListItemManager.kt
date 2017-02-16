@@ -10,15 +10,10 @@
 package org.jdc.template.model.database.other.individuallistitem
 
 import org.jdc.template.model.database.DatabaseManager
+import javax.inject.Inject
 
 
 @javax.inject.Singleton
-class IndividualListItemManager : IndividualListItemBaseManager {
-
-
-    @javax.inject.Inject
-    constructor(databaseManager: DatabaseManager): super(databaseManager) {
-    }
-
+class IndividualListItemManager @Inject constructor(databaseManager: DatabaseManager) : IndividualListItemBaseManager(databaseManager) {
 
 }

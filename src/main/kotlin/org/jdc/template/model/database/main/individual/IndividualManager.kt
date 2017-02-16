@@ -11,17 +11,14 @@ package org.jdc.template.model.database.main.individual
 
 import org.jdc.template.model.database.DatabaseManager
 import org.threeten.bp.LocalDateTime
+import javax.inject.Inject
 
 
 @javax.inject.Singleton
-class IndividualManager : IndividualBaseManager {
+class IndividualManager @Inject constructor(databaseManager: DatabaseManager) : IndividualBaseManager(databaseManager) {
 
 
-    @javax.inject.Inject
-    constructor(databaseManager: DatabaseManager): super(databaseManager) {
-    }
-
-    override fun save(databaseName: String, individual: Individual?): Boolean {
+    override fun save(individual: Individual?, databaseName: String): Boolean {
         if (individual == null) {
             return false
         }
@@ -31,6 +28,6 @@ class IndividualManager : IndividualBaseManager {
         }
 
         individual.lastModified = LocalDateTime.now()
-        return super.save(databaseName, individual)
+        return super.save(individual, databaseName)
     }
 }

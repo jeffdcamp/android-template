@@ -13,21 +13,21 @@ package org.jdc.template.model.database.other.individuallistitem
 import android.database.Cursor
 
 
-@Suppress("LeakingThis", "unused", "RemoveEmptySecondaryConstructorBody")
+@Suppress("LeakingThis", "unused", "RemoveEmptySecondaryConstructorBody", "ConvertSecondaryConstructorToPrimary")
 @SuppressWarnings("all")
-object IndividualListItemConst {
+object IndividualListItemConst  {
 
-    const val DATABASE = "other"
-    const val TABLE = "INDIVIDUAL_LIST_ITEM"
-    const val FULL_TABLE = "other.INDIVIDUAL_LIST_ITEM"
-    const val PRIMARY_KEY_COLUMN = "_id"
-    const val C_ID = "_id"
-    const val FULL_C_ID = "INDIVIDUAL_LIST_ITEM._id"
-    const val C_LIST_ID = "LIST_ID"
-    const val FULL_C_LIST_ID = "INDIVIDUAL_LIST_ITEM.LIST_ID"
-    const val C_INDIVIDUAL_ID = "INDIVIDUAL_ID"
-    const val FULL_C_INDIVIDUAL_ID = "INDIVIDUAL_LIST_ITEM.INDIVIDUAL_ID"
-    const val CREATE_TABLE = "CREATE TABLE IF NOT EXISTS INDIVIDUAL_LIST_ITEM (" + 
+     const val DATABASE = "other"
+     const val TABLE = "INDIVIDUAL_LIST_ITEM"
+     const val FULL_TABLE = "other.INDIVIDUAL_LIST_ITEM"
+     const val PRIMARY_KEY_COLUMN = "_id"
+     const val C_ID = "_id"
+     const val FULL_C_ID = "INDIVIDUAL_LIST_ITEM._id"
+     const val C_LIST_ID = "LIST_ID"
+     const val FULL_C_LIST_ID = "INDIVIDUAL_LIST_ITEM.LIST_ID"
+     const val C_INDIVIDUAL_ID = "INDIVIDUAL_ID"
+     const val FULL_C_INDIVIDUAL_ID = "INDIVIDUAL_LIST_ITEM.INDIVIDUAL_ID"
+     const val CREATE_TABLE = "CREATE TABLE IF NOT EXISTS INDIVIDUAL_LIST_ITEM (" + 
         "_id INTEGER PRIMARY KEY  AUTOINCREMENT," + 
         "LIST_ID INTEGER NOT NULL," + 
         "INDIVIDUAL_ID INTEGER NOT NULL," + 
@@ -35,14 +35,14 @@ object IndividualListItemConst {
         ");" + 
         "" + 
         ""
-    const val DROP_TABLE = "DROP TABLE IF EXISTS INDIVIDUAL_LIST_ITEM;"
-    const val INSERT_STATEMENT = "INSERT INTO INDIVIDUAL_LIST_ITEM (LIST_ID,INDIVIDUAL_ID) VALUES (?,?)"
-    const val UPDATE_STATEMENT = "UPDATE INDIVIDUAL_LIST_ITEM SET LIST_ID=?, INDIVIDUAL_ID=? WHERE _id = ?"
-    val ALL_COLUMNS = arrayOf(
+     const val DROP_TABLE = "DROP TABLE IF EXISTS INDIVIDUAL_LIST_ITEM;"
+     const val INSERT_STATEMENT = "INSERT INTO INDIVIDUAL_LIST_ITEM (LIST_ID,INDIVIDUAL_ID) VALUES (?,?)"
+     const val UPDATE_STATEMENT = "UPDATE INDIVIDUAL_LIST_ITEM SET LIST_ID=?, INDIVIDUAL_ID=? WHERE _id = ?"
+     val ALL_COLUMNS = arrayOf(
         C_ID,
         C_LIST_ID,
         C_INDIVIDUAL_ID)
-    val ALL_COLUMNS_FULL = arrayOf(
+     val ALL_COLUMNS_FULL = arrayOf(
         FULL_C_ID,
         FULL_C_LIST_ID,
         FULL_C_INDIVIDUAL_ID)

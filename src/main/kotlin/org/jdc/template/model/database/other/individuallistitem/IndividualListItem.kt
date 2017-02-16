@@ -8,26 +8,8 @@
 
 package org.jdc.template.model.database.other.individuallistitem
 
-import android.database.Cursor
-import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues
 
-
-class IndividualListItem : IndividualListItemBaseRecord {
-
-
-    constructor() {
-    }
-
-    constructor(record: IndividualListItem) : super(record) {
-    }
-
-    constructor(cursor: Cursor) {
-        setContent(cursor)
-    }
-
-    constructor(values: DBToolsContentValues<*>) {
-        setContent(values)
-    }
+class IndividualListItem : IndividualListItemBaseRecord() {
 
 
 }

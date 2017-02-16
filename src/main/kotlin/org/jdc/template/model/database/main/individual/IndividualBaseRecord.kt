@@ -12,18 +12,17 @@ package org.jdc.template.model.database.main.individual
 
 import org.dbtools.android.domain.AndroidBaseRecord
 import org.dbtools.android.domain.database.statement.StatementWrapper
-import org.jdc.template.model.database.main.individualtype.IndividualType
 import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues
 import android.database.Cursor
 
 
-@Suppress("LeakingThis", "unused", "RemoveEmptySecondaryConstructorBody")
+@Suppress("LeakingThis", "unused", "RemoveEmptySecondaryConstructorBody", "ConvertSecondaryConstructorToPrimary")
 @SuppressWarnings("all")
-abstract class IndividualBaseRecord : AndroidBaseRecord {
+abstract class IndividualBaseRecord  : AndroidBaseRecord {
 
      open var id: Long = 0
      open var householdId: Long = 0
-     open var individualType: IndividualType = IndividualType.HEAD
+     open var individualType: org.jdc.template.model.type.IndividualType = org.jdc.template.model.type.IndividualType.HEAD
      open var firstName: String = ""
      open var lastName: String = ""
      open var birthDate: org.threeten.bp.LocalDate? = null
@@ -37,26 +36,7 @@ abstract class IndividualBaseRecord : AndroidBaseRecord {
      open var amount1: Float = 0.0f
      open var amount2: Double = 0.0
      open var enabled: Boolean = false
-     open var spouseIndividualId: Long? = 0
-
-    constructor(record: Individual) {
-        this.householdId = record.householdId
-        this.individualType = record.individualType
-        this.firstName = record.firstName
-        this.lastName = record.lastName
-        this.birthDate = record.birthDate
-        this.alarmTime = record.alarmTime
-        this.lastModified = record.lastModified
-        this.sampleDateTime = record.sampleDateTime
-        this.sampleTimestamp = record.sampleTimestamp
-        this.phone = record.phone
-        this.email = record.email
-        this.available = record.available
-        this.amount1 = record.amount1
-        this.amount2 = record.amount2
-        this.enabled = record.enabled
-        this.spouseIndividualId = record.spouseIndividualId
-    }
+     open var spouseIndividualId: Long? = null
 
     constructor() {
     }
@@ -143,6 +123,7 @@ abstract class IndividualBaseRecord : AndroidBaseRecord {
         return copy
     }
 
+    @Suppress("UNNECESSARY_NOT_NULL_ASSERTION")
     override fun bindInsertStatement(statement: StatementWrapper) {
         statement.bindLong(1, householdId)
         statement.bindLong(2, individualType.ordinal.toLong())
@@ -178,6 +159,7 @@ abstract class IndividualBaseRecord : AndroidBaseRecord {
         }
     }
 
+    @Suppress("UNNECESSARY_NOT_NULL_ASSERTION")
     override fun bindUpdateStatement(statement: StatementWrapper) {
         statement.bindLong(1, householdId)
         statement.bindLong(2, individualType.ordinal.toLong())
@@ -216,7 +198,7 @@ abstract class IndividualBaseRecord : AndroidBaseRecord {
 
     override fun setContent(values: DBToolsContentValues<*>) {
         householdId = values.getAsLong(IndividualConst.C_HOUSEHOLD_ID)
-        individualType = IndividualType.values()[values.getAsInteger(IndividualConst.C_INDIVIDUAL_TYPE)]
+        individualType = org.dbtools.android.domain.util.EnumUtil.ordinalToEnum(org.jdc.template.model.type.IndividualType::class.java, values.getAsInteger(IndividualConst.C_INDIVIDUAL_TYPE), org.jdc.template.model.type.IndividualType.HEAD)
         firstName = values.getAsString(IndividualConst.C_FIRST_NAME)
         lastName = values.getAsString(IndividualConst.C_LAST_NAME)
         birthDate = org.dbtools.android.domain.date.DBToolsThreeTenFormatter.dbStringToLocalDate(values.getAsString(IndividualConst.C_BIRTH_DATE))
@@ -236,7 +218,7 @@ abstract class IndividualBaseRecord : AndroidBaseRecord {
     override fun setContent(cursor: Cursor) {
         id = cursor.getLong(cursor.getColumnIndexOrThrow(IndividualConst.C_ID))
         householdId = cursor.getLong(cursor.getColumnIndexOrThrow(IndividualConst.C_HOUSEHOLD_ID))
-        individualType = IndividualType.values()[cursor.getInt(cursor.getColumnIndexOrThrow(IndividualConst.C_INDIVIDUAL_TYPE))]
+        individualType = org.dbtools.android.domain.util.EnumUtil.ordinalToEnum(org.jdc.template.model.type.IndividualType::class.java, cursor.getInt(cursor.getColumnIndexOrThrow(IndividualConst.C_INDIVIDUAL_TYPE)), org.jdc.template.model.type.IndividualType.HEAD)
         firstName = cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_FIRST_NAME))
         lastName = cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_LAST_NAME))
         birthDate = org.dbtools.android.domain.date.DBToolsThreeTenFormatter.dbStringToLocalDate(cursor.getString(cursor.getColumnIndexOrThrow(IndividualConst.C_BIRTH_DATE)))

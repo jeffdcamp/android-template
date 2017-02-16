@@ -8,23 +8,9 @@
 
 package org.jdc.template.model.database.main.household
 
-import android.database.Cursor
-import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues
 
+class Household() : HouseholdBaseRecord() {
 
-class Household : HouseholdBaseRecord {
-
-
-    constructor() {
-    }
-
-    constructor(cursor: Cursor) {
-        setContent(cursor)
-    }
-
-    constructor(values: DBToolsContentValues<*>) {
-        setContent(values)
-    }
 
 
 }

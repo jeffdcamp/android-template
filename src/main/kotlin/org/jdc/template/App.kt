@@ -24,6 +24,8 @@ class App : Application() {
         Injector.init(this)
         JobManager.create(this).addJobCreator(AppJobCreator())
 
+        setupLogging()
+
         // register json global converters
         registerJsonConverters()
     }

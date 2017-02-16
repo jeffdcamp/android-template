@@ -8,26 +8,8 @@
 
 package org.jdc.template.model.database.main.individual
 
-import android.database.Cursor
-import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues
 
-
-class Individual : IndividualBaseRecord {
-
-
-    constructor() {
-    }
-
-    constructor(record: Individual) : super(record) {
-    }
-
-    constructor(cursor: Cursor) {
-        setContent(cursor)
-    }
-
-    constructor(values: DBToolsContentValues<*>) {
-        setContent(values)
-    }
+class Individual : IndividualBaseRecord() {
 
     fun getFullName(): String {
         return firstName + " " + lastName

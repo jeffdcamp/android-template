@@ -43,7 +43,7 @@ class IndividualManagerTest {
         individual.firstName = "Jeffery"
         individualManager.save(individual)
 
-        val dbFirstName = individualManager.findValueBySelection(String::class.java, IndividualConst.C_FIRST_NAME, IndividualConst.C_ID + " = " + individual.id, null, "")
+        val dbFirstName = individualManager.findValueBySelection(valueType = String::class.java, column = IndividualConst.C_FIRST_NAME, selection = "${IndividualConst.C_ID} = ${individual.id}", defaultValue = "")
         assertEquals("Jeffery", dbFirstName)
 
         // === DELETE ===

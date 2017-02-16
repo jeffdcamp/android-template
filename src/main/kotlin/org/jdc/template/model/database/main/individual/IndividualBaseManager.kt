@@ -9,15 +9,24 @@
 
 package org.jdc.template.model.database.main.individual
 
-import org.jdc.template.model.database.DatabaseManager
-import org.dbtools.android.domain.database.DatabaseWrapper
+import org.dbtools.android.domain.AndroidBaseRecord
 import org.dbtools.android.domain.RxKotlinAndroidBaseManagerWritable
+import org.dbtools.android.domain.database.DatabaseWrapper
+import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues
+import org.jdc.template.model.database.DatabaseManager
 
 
 @Suppress("unused", "ConvertSecondaryConstructorToPrimary")
 @SuppressWarnings("all")
-abstract class IndividualBaseManager : RxKotlinAndroidBaseManagerWritable<Individual> {
+abstract class IndividualBaseManager  : RxKotlinAndroidBaseManagerWritable<Individual> {
 
+     override val tableName = IndividualConst.TABLE
+     override val allColumns: Array<String> = IndividualConst.ALL_COLUMNS
+     override val primaryKey = IndividualConst.PRIMARY_KEY_COLUMN
+     override val dropSql = IndividualConst.DROP_TABLE
+     override val createSql = IndividualConst.CREATE_TABLE
+     override val insertSql = IndividualConst.INSERT_STATEMENT
+     override val updateSql = IndividualConst.UPDATE_STATEMENT
      var databaseManager: DatabaseManager
 
     constructor(databaseManager: DatabaseManager) {
@@ -32,27 +41,11 @@ abstract class IndividualBaseManager : RxKotlinAndroidBaseManagerWritable<Indivi
         return Individual()
     }
 
-    override fun getTableName() : String {
-        return IndividualConst.TABLE
-    }
-
-    override fun getAllColumns() : Array<String> {
-        return IndividualConst.ALL_COLUMNS
-    }
-
-    override fun getReadableDatabase(@javax.annotation.Nonnull databaseName: String) : DatabaseWrapper<*, *> {
+    override fun getReadableDatabase(@javax.annotation.Nonnull databaseName: String) : DatabaseWrapper<in AndroidBaseRecord, in DBToolsContentValues<*>> {
         return databaseManager.getReadableDatabase(databaseName)
     }
 
-    fun getReadableDatabase() : DatabaseWrapper<*, *> {
-        return databaseManager.getReadableDatabase(databaseName)
-    }
-
-    override fun getWritableDatabase(@javax.annotation.Nonnull databaseName: String) : DatabaseWrapper<*, *> {
-        return databaseManager.getWritableDatabase(databaseName)
-    }
-
-    fun getWritableDatabase() : DatabaseWrapper<*, *> {
+    override fun getWritableDatabase(@javax.annotation.Nonnull databaseName: String) : DatabaseWrapper<in AndroidBaseRecord, in DBToolsContentValues<*>> {
         return databaseManager.getWritableDatabase(databaseName)
     }
 
@@ -62,26 +55,6 @@ abstract class IndividualBaseManager : RxKotlinAndroidBaseManagerWritable<Indivi
 
     override fun getDatabaseConfig() : org.dbtools.android.domain.config.DatabaseConfig {
         return databaseManager.databaseConfig
-    }
-
-    override fun getPrimaryKey() : String {
-        return IndividualConst.PRIMARY_KEY_COLUMN
-    }
-
-    override fun getDropSql() : String {
-        return IndividualConst.DROP_TABLE
-    }
-
-    override fun getCreateSql() : String {
-        return IndividualConst.CREATE_TABLE
-    }
-
-    override fun getInsertSql() : String {
-        return IndividualConst.INSERT_STATEMENT
-    }
-
-    override fun getUpdateSql() : String {
-        return IndividualConst.UPDATE_STATEMENT
     }
 
 

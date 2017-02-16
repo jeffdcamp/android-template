@@ -8,34 +8,6 @@
 
 package org.jdc.template.model.database.attached.crossdatabasequery
 
-import android.database.Cursor
-import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues
-import org.dbtools.query.sql.SQLQueryBuilder
-
-class CrossDatabaseQuery : CrossDatabaseQueryBaseRecord {
-
-    companion object {
-        val QUERY: String = SQLQueryBuilder()
-                .field(CrossDatabaseQueryConst.FULL_C_ID, CrossDatabaseQueryConst.C_ID)
-                .field(CrossDatabaseQueryConst.FULL_C_NAME, CrossDatabaseQueryConst.C_NAME)
-                .field(CrossDatabaseQueryConst.FULL_C_TYPE, CrossDatabaseQueryConst.C_TYPE)
-                .table("FROM SOME TABLE(S)")
-                .buildQuery()
-    }
-
-    constructor() {
-    }
-
-    constructor(record: CrossDatabaseQuery) : super(record) {
-    }
-
-    constructor(cursor: Cursor) {
-        setContent(cursor)
-    }
-
-    constructor(values: DBToolsContentValues<*>) {
-        setContent(values)
-    }
-
+class CrossDatabaseQuery : CrossDatabaseQueryBaseRecord() {
 
 }

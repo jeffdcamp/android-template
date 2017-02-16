@@ -29,4 +29,10 @@ constructor(private val preferences: SharedPreferences) {
     companion object {
         val PREF_SOMETHING = "pref_enable_something_id"
     }
+
+    inline fun SharedPreferences.edit(func: SharedPreferences.Editor.() -> Unit) {
+        val editor = edit()
+        editor.func()
+        editor.apply()
+    }
 }

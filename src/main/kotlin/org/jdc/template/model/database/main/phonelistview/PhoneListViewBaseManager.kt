@@ -12,12 +12,21 @@ package org.jdc.template.model.database.main.phonelistview
 import org.jdc.template.model.database.DatabaseManager
 import org.dbtools.android.domain.database.DatabaseWrapper
 import org.dbtools.android.domain.RxKotlinAndroidBaseManagerReadOnly
+import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues
+import org.dbtools.android.domain.AndroidBaseRecord
 
 
 @Suppress("unused", "ConvertSecondaryConstructorToPrimary")
 @SuppressWarnings("all")
-abstract class PhoneListViewBaseManager : RxKotlinAndroidBaseManagerReadOnly<PhoneListView> {
+abstract class PhoneListViewBaseManager  : RxKotlinAndroidBaseManagerReadOnly<PhoneListView> {
 
+     override val tableName = PhoneListViewConst.TABLE
+     override val allColumns: Array<String> = PhoneListViewConst.ALL_COLUMNS
+     override val primaryKey = "<NO_PRIMARY_KEY_ON_VIEWS>"
+     override val dropSql = PhoneListViewManager.DROP_VIEW
+     override val createSql = PhoneListViewManager.CREATE_VIEW
+     override val insertSql = ""
+     override val updateSql = ""
      var databaseManager: DatabaseManager
 
     constructor(databaseManager: DatabaseManager) {
@@ -32,27 +41,11 @@ abstract class PhoneListViewBaseManager : RxKotlinAndroidBaseManagerReadOnly<Pho
         return PhoneListView()
     }
 
-    override fun getTableName() : String {
-        return PhoneListViewConst.TABLE
-    }
-
-    override fun getAllColumns() : Array<String> {
-        return PhoneListViewConst.ALL_COLUMNS
-    }
-
-    override fun getReadableDatabase(@javax.annotation.Nonnull databaseName: String) : DatabaseWrapper<*, *> {
+    override fun getReadableDatabase(@javax.annotation.Nonnull databaseName: String) : DatabaseWrapper<in AndroidBaseRecord, in DBToolsContentValues<*>> {
         return databaseManager.getReadableDatabase(databaseName)
     }
 
-    fun getReadableDatabase() : DatabaseWrapper<*, *> {
-        return databaseManager.getReadableDatabase(databaseName)
-    }
-
-    override fun getWritableDatabase(@javax.annotation.Nonnull databaseName: String) : DatabaseWrapper<*, *> {
-        return databaseManager.getWritableDatabase(databaseName)
-    }
-
-    fun getWritableDatabase() : DatabaseWrapper<*, *> {
+    override fun getWritableDatabase(@javax.annotation.Nonnull databaseName: String) : DatabaseWrapper<in AndroidBaseRecord, in DBToolsContentValues<*>> {
         return databaseManager.getWritableDatabase(databaseName)
     }
 
@@ -62,26 +55,6 @@ abstract class PhoneListViewBaseManager : RxKotlinAndroidBaseManagerReadOnly<Pho
 
     override fun getDatabaseConfig() : org.dbtools.android.domain.config.DatabaseConfig {
         return databaseManager.databaseConfig
-    }
-
-    override fun getPrimaryKey() : String {
-        return ""
-    }
-
-    override fun getDropSql() : String {
-        return PhoneListView.DROP_VIEW
-    }
-
-    override fun getCreateSql() : String {
-        return PhoneListView.CREATE_VIEW
-    }
-
-    override fun getInsertSql() : String {
-        return ""
-    }
-
-    override fun getUpdateSql() : String {
-        return ""
     }
 
 

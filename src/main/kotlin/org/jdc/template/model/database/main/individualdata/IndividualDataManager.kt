@@ -10,15 +10,11 @@
 package org.jdc.template.model.database.main.individualdata
 
 import org.jdc.template.model.database.DatabaseManager
+import javax.inject.Inject
 
 
 @javax.inject.Singleton
-class IndividualDataManager : IndividualDataBaseManager {
-
-
-    @javax.inject.Inject
-    constructor(databaseManager: DatabaseManager) : super(databaseManager) {
-    }
+class IndividualDataManager @Inject constructor(databaseManager: DatabaseManager) : IndividualDataBaseManager(databaseManager) {
 
 
 }
