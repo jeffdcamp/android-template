@@ -10,11 +10,10 @@
 
 package org.jdc.template.model.database.attached.crossdatabasequery;
 
-import android.database.Cursor;
-
 import org.dbtools.android.domain.AndroidBaseRecord;
-import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues;
 import org.dbtools.android.domain.database.statement.StatementWrapper;
+import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues;
+import android.database.Cursor;
 
 
 @SuppressWarnings("all")

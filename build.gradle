@@ -7,10 +7,10 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0-beta3'
-        classpath 'me.tatarka:gradle-retrolambda:3.4.0'
+        classpath 'com.android.tools.build:gradle:2.3.0-beta4'
+        classpath 'me.tatarka:gradle-retrolambda:3.5.0'
         classpath "org.dbtools:gradle-dbtools-plugin:$dbtoolsVersion"
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.13.0' // version plugin support
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.14.0' // version plugin support
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath 'me.tatarka.retrolambda.projectlombok:lombok.ast:0.2.3.a2' // work-around for retrolambda and lint issues (remove when retrolambda is
     }
@@ -44,13 +44,13 @@ repositories {
 
 ext {
     // versions for libraries that multiple dependencies
-    supportLibVersion = '25.1.0'
-    daggerVersion = '2.8'
+    supportLibVersion = '25.1.1'
+    daggerVersion = '2.9'
     loganSquareVersion = '1.3.7'
-    okhttpVersion = '3.5.0'
+    okhttpVersion = '3.6.0'
     pocketKnifeVersion = '3.2.1'
     pocketBusVersion = '1.1.0'
-    butterKnifeVersion = '8.4.0'
+    butterKnifeVersion = '8.5.1'
 }
 
 dependencies {
@@ -62,7 +62,7 @@ dependencies {
     compile "com.android.support:percent:${supportLibVersion}"
     compile "com.android.support:support-annotations:${supportLibVersion}" // includes support-v4
     compile 'com.android.support:multidex:1.0.1'
-    compile 'com.google.android.gms:play-services-analytics:10.0.1'
+    compile 'com.google.android.gms:play-services-analytics:10.2.0'
 
     // UI
     compile "com.vikingsen:pocketknife-core:${pocketKnifeVersion}"
@@ -76,11 +76,11 @@ dependencies {
     compile "org.dbtools:dbtools-android:$dbtoolsVersion"
     compile 'org.apache.commons:commons-lang3:3.5'
     compile 'commons-io:commons-io:2.5'
-    compile 'com.devbrackets.android:recyclerext:2.0.1'
-    compile 'com.evernote:android-job:1.1.4'
+    compile 'com.devbrackets.android:recyclerext:2.1.0'
+    compile 'com.evernote:android-job:1.1.6'
     compile "com.vikingsen:pocketbus:$pocketBusVersion"
     annotationProcessor "com.vikingsen:pocketbus-compiler:$pocketBusVersion"
-    compile 'com.jakewharton.timber:timber:4.5.0'
+    compile 'com.jakewharton.timber:timber:4.5.1'
 
     // Network
     compile "com.squareup.okhttp3:okhttp:$okhttpVersion"
@@ -98,7 +98,7 @@ dependencies {
 
     // RxJava
     compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'io.reactivex:rxjava:1.2.5'
+    compile 'io.reactivex:rxjava:1.2.6'
 
     // Custom SQLite databasethreetenbp
 //    compile 'org.sqlite:sqlite-android:3.8.9.0-20150415'
@@ -119,7 +119,7 @@ dependencies {
 
     // Test (Unit)
     testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.6.2'
+    testCompile 'org.mockito:mockito-core:2.7.6'
     testCompile 'org.threeten:threetenbp:1.3.3' // required for DBTools java junit tests
     testCompile 'org.xerial:sqlite-jdbc:3.16.1'
     testAnnotationProcessor "com.google.dagger:dagger-compiler:${daggerVersion}"
