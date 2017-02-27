@@ -3,13 +3,13 @@ package org.jdc.template.ui.activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 import com.google.android.gms.analytics.HitBuilders;
 
@@ -40,24 +40,24 @@ public class IndividualEditActivity extends BaseActivity {
     @BindExtra(EXTRA_ID)
     long individualId;
 
-    @BindView(R.id.ab_toolbar)
+    @BindView(R.id.mainToolBar)
     Toolbar toolbar;
-    @BindView(R.id.first_name_layout)
+    @BindView(R.id.firstNameLayout)
     TextInputLayout firstNameLayout;
-    @BindView(R.id.alarm_time_layout)
+    @BindView(R.id.alarmTimeLayout)
     TextInputLayout alarmTimeLayout;
-    @BindView(R.id.first_name)
-    TextInputEditText firstNameEditText;
-    @BindView(R.id.last_name)
-    TextInputEditText lastNameEditText;
-    @BindView(R.id.phone)
-    TextInputEditText phoneEditText;
-    @BindView(R.id.email)
-    TextInputEditText emailEditText;
-    @BindView(R.id.birth_date)
-    TextInputEditText birthDateEditText;
-    @BindView(R.id.alarm_time)
-    TextInputEditText alarmTimeEditText;
+    @BindView(R.id.firstNameEditText)
+    EditText firstNameEditText;
+    @BindView(R.id.lastNameEditText)
+    EditText lastNameEditText;
+    @BindView(R.id.phoneEditText)
+    EditText phoneEditText;
+    @BindView(R.id.emailEditText)
+    EditText emailEditText;
+    @BindView(R.id.birthDateEditText)
+    EditText birthDateEditText;
+    @BindView(R.id.alarmTimeEditText)
+    EditText alarmTimeEditText;
 
     @Inject
     IndividualManager individualManager;
@@ -121,7 +121,7 @@ public class IndividualEditActivity extends BaseActivity {
     }
 
 
-    @OnClick(R.id.birth_date)
+    @OnClick(R.id.birthDateEditText)
     public void onBirthdayClick() {
         if (birthDatePickerDialog == null) {
 
@@ -135,7 +135,7 @@ public class IndividualEditActivity extends BaseActivity {
         birthDatePickerDialog.show();
     }
 
-    @OnClick(R.id.alarm_time)
+    @OnClick(R.id.alarmTimeEditText)
     public void onAlarmClick() {
         if (alarmTimePickerDialog == null) {
 

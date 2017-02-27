@@ -45,9 +45,9 @@ public class DirectoryActivity extends DrawerActivity implements SearchView.OnQu
     @Inject
     IndividualManager individualManager;
 
-    @BindView(R.id.ab_toolbar)
+    @BindView(R.id.abMainToolbar)
     Toolbar toolbar;
-    @BindView(R.id.recycler_list)
+    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
     @SaveState
@@ -144,7 +144,7 @@ public class DirectoryActivity extends DrawerActivity implements SearchView.OnQu
         return false;
     }
 
-    @OnClick(R.id.fab_new_item)
+    @OnClick(R.id.newFloatingActionButton)
     public void onNewItemClick() {
         analytics.send(new HitBuilders.EventBuilder()
                 .setCategory(Analytics.CATEGORY_INDIVIDUAL)

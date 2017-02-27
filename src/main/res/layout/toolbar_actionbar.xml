@@ -6,14 +6,13 @@
     android:layout_height="wrap_content"
     >
 
-<android.support.v7.widget.Toolbar
-    android:id="@+id/ab_toolbar"
-    android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/abMainToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
 
-    style="@style/Toolbar"
-    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-    />
+        style="@style/MainToolbar"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        />
 </android.support.design.widget.AppBarLayout>
-

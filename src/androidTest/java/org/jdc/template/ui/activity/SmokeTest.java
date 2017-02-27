@@ -5,6 +5,7 @@ import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
+import org.jdc.template.R;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,19 +43,19 @@ public class SmokeTest {
         appCompatTextView.perform(click());
 
         ViewInteraction appCompatButton = onView(
-                allOf(withId(org.jdc.template.R.id.create_database_button), withText("Create Database"), isDisplayed()));
+                allOf(withId(R.id.createDatabaseButton), withText("Create Database"), isDisplayed()));
         appCompatButton.perform(click());
 
         pressBack();
 
         ViewInteraction recyclerView = onView(
-                allOf(withId(org.jdc.template.R.id.recycler_list), isDisplayed()));
+                allOf(withId(R.id.recyclerView), isDisplayed()));
 
         recyclerView.check(matches(recyclerViewWithItemCount(2)));
         recyclerView.perform(actionOnItemAtPosition(0, click()));
 
         ViewInteraction textView = onView(
-                allOf(withId(org.jdc.template.R.id.individual_name), withText("Jeff Campbell"), isDisplayed()));
+                allOf(withId(R.id.nameTextView), withText("Jeff Campbell"), isDisplayed()));
         textView.check(matches(withText("Jeff Campbell")));
 
         ViewInteraction actionMenuItemView = onView(
@@ -62,11 +63,13 @@ public class SmokeTest {
         actionMenuItemView.perform(click());
 
         ViewInteraction appCompatEditText = onView(
-                allOf(withId(org.jdc.template.R.id.first_name), withText("Jeff"), isDisplayed()));
+                allOf(withId(R.id.firstNameEditText), withText("Jeff"),
+                        isDisplayed()));
         appCompatEditText.perform(click());
 
         ViewInteraction appCompatEditText2 = onView(
-                allOf(withId(org.jdc.template.R.id.first_name), withText("Jeff"), isDisplayed()));
+                allOf(withId(org.jdc.template.R.id.firstNameEditText), withText("Jeff"),
+                        isDisplayed()));
         appCompatEditText2.perform(replaceText("Jeffery"));
 
         ViewInteraction actionMenuItemView2 = onView(
@@ -74,25 +77,23 @@ public class SmokeTest {
         actionMenuItemView2.perform(click());
 
         ViewInteraction textView2 = onView(
-                allOf(withId(org.jdc.template.R.id.individual_name), withText("Jeffery Campbell"), isDisplayed()));
+                allOf(withId(R.id.nameTextView), withText("Jeffery Campbell"), isDisplayed()));
         textView2.check(matches(withText("Jeffery Campbell")));
 
         ViewInteraction imageButton = onView(
-                allOf(withContentDescription("Navigate up"),
-                        withParent(allOf(withId(org.jdc.template.R.id.ab_toolbar),
-                                withParent(withId(org.jdc.template.R.id.appbar)))),
+                allOf(withContentDescription("Navigate up"),withParent(allOf(withId(R.id.mainToolBar), isDisplayed())),
                         isDisplayed()));
         imageButton.perform(click());
 
         ViewInteraction textView3 = onView(
                 allOf(withId(org.jdc.template.R.id.text1), withText("Jeffery Campbell"),
                         withParent(allOf(withId(org.jdc.template.R.id.list_item),
-                                withParent(withId(org.jdc.template.R.id.recycler_list)))),
+                                withParent(withId(R.id.recyclerView)))),
                         isDisplayed()));
         textView3.check(matches(withText("Jeffery Campbell")));
 
         ViewInteraction recyclerView3 = onView(
-                allOf(withId(org.jdc.template.R.id.recycler_list), isDisplayed()));
+                allOf(withId(org.jdc.template.R.id.recyclerView), isDisplayed()));
         recyclerView3.perform(actionOnItemAtPosition(1, click()));
 
         ViewInteraction actionMenuItemView3 = onView(
@@ -107,7 +108,7 @@ public class SmokeTest {
         appCompatButton2.perform(click());
 
         ViewInteraction recyclerView4 = onView(
-                allOf(withId(org.jdc.template.R.id.recycler_list), isDisplayed()));
+                allOf(withId(org.jdc.template.R.id.recyclerView), isDisplayed()));
 
 
         recyclerView4.check(matches(recyclerViewWithItemCount(1)));

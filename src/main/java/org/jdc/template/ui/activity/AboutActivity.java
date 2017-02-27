@@ -57,9 +57,11 @@ import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class AboutActivity extends BaseActivity {
-    @BindView(R.id.version_info)
+    @BindView(R.id.versionTextView)
     TextView versionTextView;
-    @BindView(R.id.ab_toolbar)
+    @BindView(R.id.versionDateTextView)
+    TextView versionDateTextView;
+    @BindView(R.id.mainToolBar)
     Toolbar toolbar;
 
     @Inject
@@ -97,7 +99,8 @@ public class AboutActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         enableActionBarBackArrow();
 
-        versionTextView.setText(getVersionName());
+        versionTextView.setText(BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")");
+        versionDateTextView.setText(DateUtils.formatDateTime(this, BuildConfig.BUILD_TIME, DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_YEAR));
     }
 
     @Override
@@ -123,14 +126,7 @@ public class AboutActivity extends BaseActivity {
         }
     }
 
-    private String getVersionName() {
-        String versionString = BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")";
-        versionString += "\n" + DateUtils.formatDateTime(this, BuildConfig.BUILD_TIME, DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_YEAR);
-
-        return versionString;
-    }
-
-    @OnClick(R.id.create_database_button)
+    @OnClick(R.id.createDatabaseButton)
     public void onCreateDatabaseButtonClick() {
         createSampleData();
     }
@@ -273,7 +269,7 @@ public class AboutActivity extends BaseActivity {
     /**
      * Simple web service call using Rx
      */
-    @OnClick(R.id.rest_test_button)
+    @OnClick(R.id.restTestButton)
     public void testQueryWebServiceCallRx() {
         RxUtil.toRetrofitObservable(colorService.colors())
                 .subscribeOn(Schedulers.io())
@@ -364,7 +360,7 @@ public class AboutActivity extends BaseActivity {
     /**
      * Sample for creating a scheduled job
      */
-    @OnClick(R.id.job_test_button)
+    @OnClick(R.id.jobTestButton)
     public void jobTest() {
         SampleJob.schedule();
         SampleJob.schedule();
@@ -380,7 +376,7 @@ public class AboutActivity extends BaseActivity {
     /**
      * Rx and Table change listener tests
      */
-    @OnClick(R.id.rx_test_button)
+    @OnClick(R.id.rxTestButton)
     public void testRx() {
         // Sample tests for Rx
         // Rx Subscribe

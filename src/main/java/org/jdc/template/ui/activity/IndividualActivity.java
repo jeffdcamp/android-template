@@ -2,6 +2,7 @@ package org.jdc.template.ui.activity;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
 import android.view.Menu;
@@ -32,23 +33,23 @@ import pocketknife.PocketKnife;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class IndividualActivity extends DrawerActivity {
+public class IndividualActivity extends BaseActivity {
 
     public static final String EXTRA_ID = "INDIVIDUAL_ID";
 
-    @BindView(R.id.ab_toolbar)
+    @BindView(R.id.mainToolBar)
     Toolbar toolbar;
-    @BindView(R.id.individual_name)
+    @BindView(R.id.nameTextView)
     TextView nameTextView;
-    @BindView(R.id.individual_phone)
+    @BindView(R.id.phoneTextView)
     TextView phoneTextView;
-    @BindView(R.id.individual_email)
+    @BindView(R.id.emailTextView)
     TextView emailTextView;
-    @BindView(R.id.birth_date)
-    TextView birthDateEditText;
-    @BindView(R.id.alarm_time)
-    TextView alarmTimeEditText;
-    @BindView(R.id.sample_datetime)
+    @BindView(R.id.birthDateTextView)
+    TextView birthDateTextView;
+    @BindView(R.id.alarmTimeTextView)
+    TextView alarmTimeTextView;
+    @BindView(R.id.sampleDateTimeTextView)
     TextView sampleDateTimeEditText;
 
     @BindExtra(EXTRA_ID)
@@ -74,9 +75,19 @@ public class IndividualActivity extends DrawerActivity {
 
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 
-        setupDrawerWithBackButton(toolbar, R.string.individual);
+        setupActionBar();
 
         showIndividual();
+    }
+
+    private void setupActionBar() {
+        setSupportActionBar(toolbar);
+        enableActionBarBackArrow();
+        ActionBar actionBar = getSupportActionBar();
+
+        if (actionBar != null) {
+            actionBar.setTitle(R.string.individual);
+        }
     }
 
     @Override
@@ -155,7 +166,7 @@ public class IndividualActivity extends DrawerActivity {
 
         LocalDate date = individual.getBirthDate();
         long millis = DBToolsThreeTenFormatter.localDateTimeToLong(date.atStartOfDay(ZoneId.systemDefault()).toLocalDateTime());
-        birthDateEditText.setText(DateUtils.formatDateTime(this, millis, DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR));
+        birthDateTextView.setText(DateUtils.formatDateTime(this, millis, DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR));
     }
 
     private void showAlarmTime(Individual individual) {
@@ -165,7 +176,7 @@ public class IndividualActivity extends DrawerActivity {
 
         LocalTime time = individual.getAlarmTime();
         long millis = DBToolsThreeTenFormatter.localDateTimeToLong(time.atDate(LocalDate.now()));
-        alarmTimeEditText.setText(DateUtils.formatDateTime(this, millis, DateUtils.FORMAT_SHOW_TIME));
+        alarmTimeTextView.setText(DateUtils.formatDateTime(this, millis, DateUtils.FORMAT_SHOW_TIME));
     }
 
     private void showSampleDateTime(Individual individual) {
