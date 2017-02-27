@@ -4,7 +4,7 @@ import android.support.annotation.StringRes
 import android.support.v4.view.GravityCompat
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
-import kotlinx.android.synthetic.main.fragment_drawer_single.*
+import kotlinx.android.synthetic.main.activity_directory.*
 import org.jdc.template.R
 import org.jdc.template.ui.menu.DrawerMenu
 import javax.inject.Inject
