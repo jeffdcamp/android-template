@@ -1,6 +1,5 @@
 package org.jdc.template.ui.activity
 
-import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
@@ -8,8 +7,7 @@ import android.text.format.DateUtils
 import android.view.Menu
 import android.view.MenuItem
 import com.google.android.gms.analytics.HitBuilders
-import kotlinx.android.synthetic.main.individual_edit.*
-import kotlinx.android.synthetic.main.toolbar_actionbar.*
+import kotlinx.android.synthetic.main.activity_individual_edit.*
 import org.dbtools.android.domain.date.DBToolsThreeTenFormatter
 import org.jdc.template.Analytics
 import org.jdc.template.R
@@ -47,11 +45,6 @@ class IndividualEditActivity : BaseActivity() {
         setContentView(R.layout.activity_individual_edit)
         PocketKnife.bindExtras(this)
 
-        setSupportActionBar(ab_toolbar)
-        enableActionBarBackArrow(true)
-
-        setDefaultKeyMode(Activity.DEFAULT_KEYS_SEARCH_LOCAL)
-
         setupActionBar()
 
         alarmTimeEditText.setOnClickListener {
@@ -63,14 +56,12 @@ class IndividualEditActivity : BaseActivity() {
         }
 
         showIndividual()
-
     }
 
     private fun setupActionBar() {
-        setSupportActionBar(ab_toolbar)
-        val actionBar = supportActionBar
-
-        actionBar?.setTitle(R.string.individual)
+        setSupportActionBar(mainToolBar)
+        enableActionBarBackArrow(true)
+        supportActionBar?.setTitle(R.string.individual)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

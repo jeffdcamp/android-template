@@ -26,7 +26,6 @@
             app:layout_widthPercent="@fraction/fragment_width"
             android:layout_below="@+id/appbar"
             android:layout_centerHorizontal="true"
-            android:background="@color/default_background"
             android:elevation="@dimen/fragment_elevation"
             tools:targetApi="lollipop">
             <include layout="@layout/directory"/>

@@ -81,9 +81,7 @@ public class SmokeTest {
         textView2.check(matches(withText("Jeffery Campbell")));
 
         ViewInteraction imageButton = onView(
-                allOf(withContentDescription("Navigate up"),
-                        withParent(allOf(withId(org.jdc.template.R.id.ab_toolbar),
-                                withParent(withId(org.jdc.template.R.id.appbar)))),
+                allOf(withContentDescription("Navigate up"),withParent(allOf(withId(R.id.mainToolBar), isDisplayed())),
                         isDisplayed()));
         imageButton.perform(click());
 

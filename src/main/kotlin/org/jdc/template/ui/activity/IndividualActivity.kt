@@ -6,8 +6,7 @@ import android.text.format.DateUtils
 import android.view.Menu
 import android.view.MenuItem
 import com.google.android.gms.analytics.HitBuilders
-import kotlinx.android.synthetic.main.individual.*
-import kotlinx.android.synthetic.main.toolbar_actionbar.*
+import kotlinx.android.synthetic.main.activity_individual.*
 import org.dbtools.android.domain.date.DBToolsThreeTenFormatter
 import org.jdc.template.Analytics
 import org.jdc.template.InternalIntents
@@ -24,7 +23,7 @@ import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 import javax.inject.Inject
 
-class IndividualActivity : DrawerActivity() {
+class IndividualActivity : BaseActivity() {
 
     @BindExtra(EXTRA_ID)
     var individualId = 0L
@@ -45,9 +44,15 @@ class IndividualActivity : DrawerActivity() {
         setContentView(activity_individual)
         PocketKnife.bindExtras(this)
 
-        setupDrawerWithBackButton(ab_toolbar, R.string.individual)
+        setupActionBar()
 
         showIndividual()
+    }
+
+    private fun setupActionBar() {
+        setSupportActionBar(mainToolBar)
+        enableActionBarBackArrow(true)
+        supportActionBar?.setTitle(R.string.individual)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

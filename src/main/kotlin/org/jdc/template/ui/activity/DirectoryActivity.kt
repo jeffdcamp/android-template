@@ -53,7 +53,7 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener, Dire
 
         setDefaultKeyMode(Activity.DEFAULT_KEYS_SEARCH_LOCAL)
 
-        super.setupDrawerWithDrawerButton(ab_toolbar, R.string.drawer_main)
+        super.setupDrawerWithDrawerButton(abMainToolbar, R.string.drawer_main)
 
 
         newFloatingActionButton.setOnClickListener {

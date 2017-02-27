@@ -6,7 +6,6 @@ import android.view.MenuItem
 import android.widget.Toast
 import com.google.android.gms.analytics.HitBuilders
 import kotlinx.android.synthetic.main.activity_about.*
-import kotlinx.android.synthetic.main.toolbar_actionbar.*
 import okhttp3.ResponseBody
 import org.dbtools.android.domain.DBToolsTableChangeListener
 import org.dbtools.android.domain.DatabaseTableChange
@@ -86,10 +85,11 @@ class AboutActivity : BaseActivity() {
 
         analytics.send(HitBuilders.EventBuilder().setCategory(Analytics.CATEGORY_ABOUT).build())
 
-        setSupportActionBar(ab_toolbar)
+        setSupportActionBar(mainToolBar)
         enableActionBarBackArrow(true)
 
-        versionTextView.text = getVersionName()
+        versionTextView.text = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
+        versionDateTextView.text = DateUtils.formatDateTime(this, BuildConfig.BUILD_TIME, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_TIME or DateUtils.FORMAT_SHOW_YEAR)
 
         createDatabaseButton.setOnClickListener {
             createSampleDataWithInjection()

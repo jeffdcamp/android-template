@@ -4,12 +4,9 @@
     <color name="primary">#F1433C</color>
     <color name="primary_dark">#D03033</color>
     <color name="accent">#027bc7</color>
+    <color name="window_background">#ffffffff</color>
 
     <!-- Splash -->
     <color name="startup_background_start">#cfe1edFF</color>
     <color name="startup_background_end">#7faacaFF</color>
-
-    <!-- Application -->
-    <color name="default_background">#ffffffff</color>
-    <color name="window_background">#ececec</color>
 </resources>

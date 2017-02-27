@@ -1,4 +1,9 @@
 <resources>
     <dimen name="fragment_elevation">0dp</dimen>
     <fraction name="fragment_width">100%</fraction>
+
+
+    <!-- todo Temp work around for constraint layout and TextImputLayout issue (https://code.google.com/p/android/issues/detail?id=230766)-->
+    <item name = "visible" type = "id" />
+    <item name = "masked" type = "id" />
 </resources>

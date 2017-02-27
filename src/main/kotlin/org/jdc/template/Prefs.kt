@@ -6,28 +6,20 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class Prefs
-@Inject
-constructor(private val preferences: SharedPreferences) {
-
-    fun reset() {
-        // clear ALL preferences
-        val editor = preferences.edit()
-        editor.clear()
-        editor.apply()
-    }
-
-    val prefSomething: String
+class Prefs @Inject constructor(private val preferences: SharedPreferences) {
+    var prefSomething: String
         get() = preferences.getString(PREF_SOMETHING, "")
+        set(value) = preferences.edit { putString(PREF_SOMETHING, value) }
 
-    fun savePromptDatabaseUpdated(value: String) {
-        val editor = preferences.edit()
-        editor.putString(PREF_SOMETHING, value)
-        editor.apply()
+    /**
+     * Clear All preferences
+     */
+    fun reset() {
+        preferences.edit { clear() }
     }
 
     companion object {
-        val PREF_SOMETHING = "pref_enable_something_id"
+        private const val PREF_SOMETHING = "PREF_SOMETHING"
     }
 
     inline fun SharedPreferences.edit(func: SharedPreferences.Editor.() -> Unit) {
