@@ -20,13 +20,10 @@ import org.jdc.template.job.SampleJob;
 import org.jdc.template.model.database.AppDatabaseConfig;
 import org.jdc.template.model.database.DatabaseManager;
 import org.jdc.template.model.database.DatabaseManagerConst;
-import org.jdc.template.model.database.attached.crossdatabasequery.CrossDatabaseQueryManager;
 import org.jdc.template.model.database.main.household.Household;
 import org.jdc.template.model.database.main.household.HouseholdManager;
 import org.jdc.template.model.database.main.individual.Individual;
 import org.jdc.template.model.database.main.individual.IndividualManager;
-import org.jdc.template.model.database.main.individualdata.IndividualDataManager;
-import org.jdc.template.model.database.main.individualquery.IndividualQueryManager;
 import org.jdc.template.model.database.other.individuallist.IndividualList;
 import org.jdc.template.model.database.other.individuallist.IndividualListManager;
 import org.jdc.template.model.database.other.individuallistitem.IndividualListItem;
@@ -70,8 +67,6 @@ public class AboutActivity extends BaseActivity {
     @Inject
     Bus bus;
     @Inject
-    DatabaseManager databaseManager;
-    @Inject
     IndividualManager individualManager;
     @Inject
     HouseholdManager householdManager;
@@ -81,17 +76,9 @@ public class AboutActivity extends BaseActivity {
     IndividualListItemManager individualListItemManager;
 
     @Inject
-    IndividualQueryManager individualQueryManager;
-    @Inject
-    CrossDatabaseQueryManager crossDatabaseQueryManager;
-
-    @Inject
     ColorService colorService;
     @Inject
     WebServiceUtil webServiceUtil;
-
-    @Inject
-    IndividualDataManager individualDataManager;
 
     public AboutActivity() {
         Injector.get().inject(this);

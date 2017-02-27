@@ -81,9 +81,6 @@ public class IndividualEditActivity extends BaseActivity {
         ButterKnife.bind(this);
         PocketKnife.bindExtras(this);
 
-        setSupportActionBar(toolbar);
-        enableActionBarBackArrow();
-
         setupActionBar();
 
         showIndividual();
@@ -91,6 +88,7 @@ public class IndividualEditActivity extends BaseActivity {
 
     private void setupActionBar() {
         setSupportActionBar(toolbar);
+        enableActionBarBackArrow();
         ActionBar actionBar = getSupportActionBar();
 
         if (actionBar != null) {
