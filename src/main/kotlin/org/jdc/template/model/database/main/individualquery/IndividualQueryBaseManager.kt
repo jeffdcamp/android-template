@@ -21,7 +21,6 @@ import org.dbtools.android.domain.AndroidBaseRecord
 abstract class IndividualQueryBaseManager  : RxKotlinAndroidBaseManagerReadOnly<IndividualQuery> {
 
      override val allColumns: Array<String> = IndividualQueryConst.ALL_COLUMNS
-     override val tableName = getQuery()
      override val primaryKey = "<NO_PRIMARY_KEY_ON_QUERIES>"
      override val dropSql = ""
      override val createSql = ""
@@ -58,6 +57,10 @@ abstract class IndividualQueryBaseManager  : RxKotlinAndroidBaseManagerReadOnly<
     }
 
     abstract fun getQuery() : String
+
+    override fun getTableName() : String {
+        return getQuery()
+    }
 
 
 }

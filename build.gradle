@@ -1,6 +1,6 @@
 buildscript {
-    ext.kotlin_version = '1.0.5-3'
-    ext.dbtoolsVersion = '8.1.0'
+    ext.kotlin_version = '1.1.0'
+    ext.dbtoolsVersion = '8.1.1'
 
     repositories {
         mavenLocal()
@@ -233,8 +233,8 @@ android {
     }
 }
 
+// Regenerate DBTools Database classes: ./gradlew dbtools-genclasses
 dbtools {
-    // debug: ./gradlew dbtools-genclasses --no-daemon -Dorg.gradle.debug=true
     type 'ANDROID-KOTLIN'
 
     basePackageName 'org.jdc.template.model.database'

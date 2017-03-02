@@ -20,7 +20,6 @@ import org.dbtools.android.domain.AndroidBaseRecord
 @SuppressWarnings("all")
 abstract class PhoneListViewBaseManager  : RxKotlinAndroidBaseManagerReadOnly<PhoneListView> {
 
-     override val tableName = PhoneListViewConst.TABLE
      override val allColumns: Array<String> = PhoneListViewConst.ALL_COLUMNS
      override val primaryKey = "<NO_PRIMARY_KEY_ON_VIEWS>"
      override val dropSql = PhoneListViewManager.DROP_VIEW
@@ -39,6 +38,10 @@ abstract class PhoneListViewBaseManager  : RxKotlinAndroidBaseManagerReadOnly<Ph
 
     override fun newRecord() : PhoneListView {
         return PhoneListView()
+    }
+
+    override fun getTableName() : String {
+        return PhoneListViewConst.TABLE
     }
 
     override fun getReadableDatabase(@javax.annotation.Nonnull databaseName: String) : DatabaseWrapper<in AndroidBaseRecord, in DBToolsContentValues<*>> {

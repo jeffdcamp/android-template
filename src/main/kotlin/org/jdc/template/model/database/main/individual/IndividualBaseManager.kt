@@ -9,18 +9,17 @@
 
 package org.jdc.template.model.database.main.individual
 
-import org.dbtools.android.domain.AndroidBaseRecord
-import org.dbtools.android.domain.RxKotlinAndroidBaseManagerWritable
-import org.dbtools.android.domain.database.DatabaseWrapper
-import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues
 import org.jdc.template.model.database.DatabaseManager
+import org.dbtools.android.domain.database.DatabaseWrapper
+import org.dbtools.android.domain.RxKotlinAndroidBaseManagerWritable
+import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues
+import org.dbtools.android.domain.AndroidBaseRecord
 
 
 @Suppress("unused", "ConvertSecondaryConstructorToPrimary")
 @SuppressWarnings("all")
 abstract class IndividualBaseManager  : RxKotlinAndroidBaseManagerWritable<Individual> {
 
-     override val tableName = IndividualConst.TABLE
      override val allColumns: Array<String> = IndividualConst.ALL_COLUMNS
      override val primaryKey = IndividualConst.PRIMARY_KEY_COLUMN
      override val dropSql = IndividualConst.DROP_TABLE
@@ -39,6 +38,10 @@ abstract class IndividualBaseManager  : RxKotlinAndroidBaseManagerWritable<Indiv
 
     override fun newRecord() : Individual {
         return Individual()
+    }
+
+    override fun getTableName() : String {
+        return IndividualConst.TABLE
     }
 
     override fun getReadableDatabase(@javax.annotation.Nonnull databaseName: String) : DatabaseWrapper<in AndroidBaseRecord, in DBToolsContentValues<*>> {

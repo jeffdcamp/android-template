@@ -20,7 +20,6 @@ import org.dbtools.android.domain.AndroidBaseRecord
 @SuppressWarnings("all")
 abstract class HouseholdBaseManager  : RxKotlinAndroidBaseManagerWritable<Household> {
 
-     override val tableName = HouseholdConst.TABLE
      override val allColumns: Array<String> = HouseholdConst.ALL_COLUMNS
      override val primaryKey = HouseholdConst.PRIMARY_KEY_COLUMN
      override val dropSql = HouseholdConst.DROP_TABLE
@@ -39,6 +38,10 @@ abstract class HouseholdBaseManager  : RxKotlinAndroidBaseManagerWritable<Househ
 
     override fun newRecord() : Household {
         return Household()
+    }
+
+    override fun getTableName() : String {
+        return HouseholdConst.TABLE
     }
 
     override fun getReadableDatabase(@javax.annotation.Nonnull databaseName: String) : DatabaseWrapper<in AndroidBaseRecord, in DBToolsContentValues<*>> {

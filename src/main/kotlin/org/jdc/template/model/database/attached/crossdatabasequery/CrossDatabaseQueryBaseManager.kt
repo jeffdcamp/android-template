@@ -9,11 +9,11 @@
 
 package org.jdc.template.model.database.attached.crossdatabasequery
 
-import org.jdc.template.model.database.DatabaseManager
-import org.dbtools.android.domain.database.DatabaseWrapper
-import org.dbtools.android.domain.RxKotlinAndroidBaseManagerReadOnly
-import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues
 import org.dbtools.android.domain.AndroidBaseRecord
+import org.dbtools.android.domain.RxKotlinAndroidBaseManagerReadOnly
+import org.dbtools.android.domain.database.DatabaseWrapper
+import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues
+import org.jdc.template.model.database.DatabaseManager
 
 
 @Suppress("unused", "ConvertSecondaryConstructorToPrimary")
@@ -21,7 +21,6 @@ import org.dbtools.android.domain.AndroidBaseRecord
 abstract class CrossDatabaseQueryBaseManager  : RxKotlinAndroidBaseManagerReadOnly<CrossDatabaseQuery> {
 
      override val allColumns: Array<String> = CrossDatabaseQueryConst.ALL_COLUMNS
-     override val tableName = getQuery()
      override val primaryKey = "<NO_PRIMARY_KEY_ON_QUERIES>"
      override val dropSql = ""
      override val createSql = ""
@@ -58,6 +57,10 @@ abstract class CrossDatabaseQueryBaseManager  : RxKotlinAndroidBaseManagerReadOn
     }
 
     abstract fun getQuery() : String
+
+    override fun getTableName() : String {
+        return getQuery()
+    }
 
 
 }

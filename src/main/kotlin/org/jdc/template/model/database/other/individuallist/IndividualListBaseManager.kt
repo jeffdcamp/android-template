@@ -20,7 +20,6 @@ import org.dbtools.android.domain.AndroidBaseRecord
 @SuppressWarnings("all")
 abstract class IndividualListBaseManager  : RxKotlinAndroidBaseManagerWritable<IndividualList> {
 
-     override val tableName = IndividualListConst.TABLE
      override val allColumns: Array<String> = IndividualListConst.ALL_COLUMNS
      override val primaryKey = IndividualListConst.PRIMARY_KEY_COLUMN
      override val dropSql = IndividualListConst.DROP_TABLE
@@ -39,6 +38,10 @@ abstract class IndividualListBaseManager  : RxKotlinAndroidBaseManagerWritable<I
 
     override fun newRecord() : IndividualList {
         return IndividualList()
+    }
+
+    override fun getTableName() : String {
+        return IndividualListConst.TABLE
     }
 
     override fun getReadableDatabase(@javax.annotation.Nonnull databaseName: String) : DatabaseWrapper<in AndroidBaseRecord, in DBToolsContentValues<*>> {
