@@ -86,8 +86,8 @@ public class SmokeTest {
         imageButton.perform(click());
 
         ViewInteraction textView3 = onView(
-                allOf(withId(org.jdc.template.R.id.text1), withText("Jeffery Campbell"),
-                        withParent(allOf(withId(org.jdc.template.R.id.list_item),
+                allOf(withId(org.jdc.template.R.id.listItemTextView), withText("Jeffery Campbell"),
+                        withParent(allOf(withId(org.jdc.template.R.id.listItemLayout),
                                 withParent(withId(R.id.recyclerView)))),
                         isDisplayed()));
         textView3.check(matches(withText("Jeffery Campbell")));

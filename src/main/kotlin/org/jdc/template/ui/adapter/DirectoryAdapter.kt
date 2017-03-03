@@ -1,55 +1,48 @@
 package org.jdc.template.ui.adapter
 
-import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import com.devbrackets.android.recyclerext.adapter.RecyclerListAdapter
 import kotlinx.android.synthetic.main.list_item.view.*
 import org.jdc.template.R
 import org.jdc.template.model.database.main.individual.Individual
 
-class DirectoryAdapter(context: Context) : RecyclerListAdapter<DirectoryAdapter.ViewHolder, Individual>() {
+class DirectoryAdapter : RecyclerView.Adapter<DirectoryAdapter.ViewHolder>() {
 
-    private val inflater: LayoutInflater
+    var list: List<Individual> = listOf()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
-    // dual pane variables
-    var lastSelectedItemId: Long = 0
-    var listener: OnItemClickListener? = null
+    var itemClickListener: (Individual) -> Unit = {}
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun setText(text: String) {
-            itemView.text1.text = text
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder(parent).apply {
+            clickListener = { itemClickListener(list[it.adapterPosition]) }
         }
     }
 
-    init {
-        this.inflater = LayoutInflater.from(context)
-    }
-
-    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
-        val view = inflater.inflate(R.layout.list_item, viewGroup, false)
-        return ViewHolder(view)
-    }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val individual = getItem(position) ?: return
-
-        val itemId = individual.id
+        val individual = list[position]
 
         // bind data to view holder
-        holder.itemView.text1.text = individual.getFullName()
-        // Click listener
-        holder.itemView.list_item.setOnClickListener { onItemClicked(holder, itemId) }
+        holder.listItemTextView.text = individual.getFullName()
     }
 
-    private fun onItemClicked(holder: ViewHolder, selectedItemId: Long) {
-        this.lastSelectedItemId = selectedItemId
-        listener?.onItemClick(selectedItemId)
+    override fun getItemCount(): Int {
+        return list.size
     }
 
-    interface OnItemClickListener {
-        fun onItemClick(selectedItemId: Long)
+    class ViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)) {
+        // Store views here, because synthetics are not cached on views (https://youtrack.jetbrains.com/issue/KT-10542)
+        val listItemTextView = itemView.listItemTextView
+
+        init {
+            itemView.setOnClickListener { this@ViewHolder.clickListener(this@ViewHolder) }
+        }
+
+        var clickListener: (ViewHolder) -> Unit = {}
     }
 }

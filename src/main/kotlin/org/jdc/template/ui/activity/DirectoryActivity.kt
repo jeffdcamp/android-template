@@ -21,12 +21,11 @@ import org.jdc.template.model.database.main.individual.IndividualManager
 import org.jdc.template.ui.adapter.DirectoryAdapter
 import org.jdc.template.ui.menu.CommonMenu
 import pocketknife.PocketKnife
-import pocketknife.SaveState
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 import javax.inject.Inject
 
-class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener, DirectoryAdapter.OnItemClickListener {
+class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener {
     @Inject
     lateinit var analytics: Analytics
     @Inject
@@ -35,9 +34,6 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener, Dire
     lateinit var internalIntents: InternalIntents
     @Inject
     lateinit var individualManager: IndividualManager
-
-    @SaveState
-    var lastSelectedId = 0L
 
     lateinit var adapter: DirectoryAdapter
 
@@ -64,8 +60,10 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener, Dire
     }
 
     private fun setupRecyclerView() {
-        adapter = DirectoryAdapter(this)
-        adapter.listener = this
+        adapter = DirectoryAdapter()
+        adapter.itemClickListener = { individual ->
+            onItemClick(individual)
+        }
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
     }
@@ -93,9 +91,6 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener, Dire
 
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
-
-        lastSelectedId = adapter.lastSelectedItemId
-
         PocketKnife.saveInstanceState(this, outState)
     }
 
@@ -115,7 +110,7 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener, Dire
     }
 
     fun dataLoaded(data: List<Individual>) {
-        adapter.set(data)
+        adapter.list = data
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
@@ -126,8 +121,8 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener, Dire
         throw UnsupportedOperationException()
     }
 
-    override fun onItemClick(selectedItemId: Long) {
-        internalIntents.showIndividual(this, selectedItemId)
+    fun onItemClick(individual: Individual) {
+        internalIntents.showIndividual(this, individual.id)
     }
 
     fun onNewItemClick() {
