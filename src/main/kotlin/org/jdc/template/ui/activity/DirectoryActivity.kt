@@ -96,8 +96,8 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener {
 
     override fun onStart() {
         super.onStart()
-        if (modelTs != individualManager.lastTableModifiedTs) {
-            modelTs = individualManager.lastTableModifiedTs
+        if (modelTs != individualManager.getLastTableModifiedTs()) {
+            modelTs = individualManager.getLastTableModifiedTs()
             loadList()
         }
     }

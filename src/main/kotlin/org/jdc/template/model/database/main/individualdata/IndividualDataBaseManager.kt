@@ -10,15 +10,12 @@
 package org.jdc.template.model.database.main.individualdata
 
 import org.jdc.template.model.database.DatabaseManager
-import org.dbtools.android.domain.database.DatabaseWrapper
 import org.dbtools.android.domain.RxKotlinAndroidBaseManagerWritable
-import org.dbtools.android.domain.database.contentvalues.DBToolsContentValues
-import org.dbtools.android.domain.AndroidBaseRecord
 
 
-@Suppress("unused", "ConvertSecondaryConstructorToPrimary")
+@Suppress("unused")
 @SuppressWarnings("all")
-abstract class IndividualDataBaseManager  : RxKotlinAndroidBaseManagerWritable<IndividualData> {
+abstract class IndividualDataBaseManager (databaseManager: DatabaseManager) : RxKotlinAndroidBaseManagerWritable<IndividualData>(databaseManager) {
 
      override val allColumns: Array<String> = IndividualDataConst.ALL_COLUMNS
      override val primaryKey = "NO_PRIMARY_KEY"
@@ -26,11 +23,6 @@ abstract class IndividualDataBaseManager  : RxKotlinAndroidBaseManagerWritable<I
      override val createSql = IndividualDataConst.CREATE_TABLE
      override val insertSql = IndividualDataConst.INSERT_STATEMENT
      override val updateSql = IndividualDataConst.UPDATE_STATEMENT
-     var databaseManager: DatabaseManager
-
-    constructor(databaseManager: DatabaseManager) {
-        this.databaseManager = databaseManager
-    }
 
     override fun getDatabaseName() : String {
         return IndividualDataConst.DATABASE
@@ -42,22 +34,6 @@ abstract class IndividualDataBaseManager  : RxKotlinAndroidBaseManagerWritable<I
 
     override fun getTableName() : String {
         return IndividualDataConst.TABLE
-    }
-
-    override fun getReadableDatabase(@javax.annotation.Nonnull databaseName: String) : DatabaseWrapper<in AndroidBaseRecord, in DBToolsContentValues<*>> {
-        return databaseManager.getReadableDatabase(databaseName)
-    }
-
-    override fun getWritableDatabase(@javax.annotation.Nonnull databaseName: String) : DatabaseWrapper<in AndroidBaseRecord, in DBToolsContentValues<*>> {
-        return databaseManager.getWritableDatabase(databaseName)
-    }
-
-    override fun getAndroidDatabase(@javax.annotation.Nonnull databaseName: String) : org.dbtools.android.domain.AndroidDatabase? {
-        return databaseManager.getDatabase(databaseName)
-    }
-
-    override fun getDatabaseConfig() : org.dbtools.android.domain.config.DatabaseConfig {
-        return databaseManager.databaseConfig
     }
 
 
