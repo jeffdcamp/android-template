@@ -40,7 +40,7 @@ class DirectoryAdapter : RecyclerView.Adapter<DirectoryAdapter.ViewHolder>() {
         val listItemTextView = itemView.listItemTextView
 
         init {
-            itemView.setOnClickListener { this@ViewHolder.clickListener(this@ViewHolder) }
+            itemView.setOnClickListener { clickListener(this) }
         }
 
         var clickListener: (ViewHolder) -> Unit = {}

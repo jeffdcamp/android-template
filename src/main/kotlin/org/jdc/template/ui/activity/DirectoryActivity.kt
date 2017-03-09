@@ -35,7 +35,9 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener {
     @Inject
     lateinit var individualManager: IndividualManager
 
-    lateinit var adapter: DirectoryAdapter
+    val adapter = DirectoryAdapter().apply {
+        itemClickListener = { onItemClick(it) }
+    }
 
     var modelTs = 0L
 
@@ -60,14 +62,9 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener {
     }
 
     private fun setupRecyclerView() {
-        adapter = DirectoryAdapter()
-        adapter.itemClickListener = { individual ->
-            onItemClick(individual)
-        }
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.directory_menu, menu)
