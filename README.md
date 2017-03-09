@@ -25,7 +25,6 @@ NOTE: For the 100% Kotlin version check out the Kotlin branch
 * Firebase Analytics
 * Multidex
 * apt
-* jack
 
 
 License
