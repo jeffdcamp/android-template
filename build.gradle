@@ -1,6 +1,6 @@
 buildscript {
     ext.kotlin_version = '1.1.0'
-    ext.dbtoolsVersion = '8.2.0'
+    ext.dbtoolsVersion = '8.2.1'
 
     repositories {
         mavenLocal()
@@ -117,7 +117,7 @@ dependencies {
 
     // Test (Unit)
     testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.7.13' // be sure to add src/test/resources/mockito-extensions (so you don't have to 'open' all of your classes
+    testCompile 'org.mockito:mockito-core:2.7.17' // be sure to add src/test/resources/mockito-extensions (so you don't have to 'open' all of your classes
     testCompile 'org.threeten:threetenbp:1.3.3'
     testCompile 'org.xerial:sqlite-jdbc:3.16.1'
     kaptTest "com.google.dagger:dagger-compiler:${daggerVersion}"

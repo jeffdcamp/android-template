@@ -242,6 +242,17 @@
                                                 </xsd:attribute>
                                             </xsd:complexType>
                                         </xsd:element>
+                                        <xsd:element name="index" minOccurs="0" maxOccurs="unbounded">
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+                                                    <xsd:element name="indexField" maxOccurs="unbounded">
+                                                        <xsd:complexType>
+                                                            <xsd:attribute name="name" type="xsd:string" use="required" />
+                                                        </xsd:complexType>
+                                                    </xsd:element>
+                                                </xsd:sequence>
+                                            </xsd:complexType>
+                                        </xsd:element>
                                     </xsd:sequence>
                                     <xsd:attribute name="name" type="xsd:string" use="required" >
                                         <xsd:annotation>
