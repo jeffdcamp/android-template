@@ -132,7 +132,7 @@ class IndividualActivity : BaseActivity() {
     }
 
     private fun deleteIndividual() {
-        AlertDialog.Builder(this).setMessage(R.string.delete_individual_confirm).setPositiveButton(R.string.delete) { dialog, which ->
+        AlertDialog.Builder(this).setMessage(R.string.delete_individual_confirm).setPositiveButton(R.string.delete) { _, _ ->
             individualManager.delete(individualId)
 
             analytics.send(HitBuilders.EventBuilder().setCategory(Analytics.CATEGORY_INDIVIDUAL).setAction(Analytics.ACTION_DELETE).build())

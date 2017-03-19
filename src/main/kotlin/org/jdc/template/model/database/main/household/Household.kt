@@ -9,8 +9,4 @@
 package org.jdc.template.model.database.main.household
 
 
-class Household() : HouseholdBaseRecord() {
-
-
-
-}
+class Household : HouseholdBaseRecord()

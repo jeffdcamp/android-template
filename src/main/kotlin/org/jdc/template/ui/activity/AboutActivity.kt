@@ -133,11 +133,6 @@ class AboutActivity : BaseActivity() {
         }
     }
 
-    private fun getVersionName(): String {
-        val formattedDateTime = DateUtils.formatDateTime(this, BuildConfig.BUILD_TIME, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_TIME or DateUtils.FORMAT_SHOW_YEAR)
-        return "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})\n${formattedDateTime}"
-    }
-
     /**
      * Creates sample data WITH using injection
      */
@@ -280,7 +275,7 @@ class AboutActivity : BaseActivity() {
                 })
                 .filter({ dtoSearchResponse -> dtoSearchResponse != null }) // don't continue if null
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ dtoSearchResponse -> processSearchResponse(dtoSearchResponse!!) }, { throwable -> bus.post(NewDataEvent(false, null)) }, { bus.post(NewDataEvent(true, null)) })
+                .subscribe({ dtoSearchResponse -> processSearchResponse(dtoSearchResponse!!) }, { _ -> bus.post(NewDataEvent(false, null)) }, { bus.post(NewDataEvent(true, null)) })
     }
 
     /**

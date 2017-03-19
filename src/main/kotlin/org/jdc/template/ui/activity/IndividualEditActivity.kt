@@ -90,7 +90,7 @@ class IndividualEditActivity : BaseActivity() {
 
             val date = if (individual.birthDate != null) individual.birthDate else LocalDate.now()
             if (date != null) {
-                birthDatePickerDialog = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                birthDatePickerDialog = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                     individual.birthDate = LocalDate.of(year, monthOfYear + 1, dayOfMonth) // + 1 because cord Java Date is 0 based
                     showBirthDate()
                 }, date.year, date.monthValue - 1, date.dayOfMonth) // - 1 because cord Java Date is 0 based
@@ -102,8 +102,8 @@ class IndividualEditActivity : BaseActivity() {
 
     fun onAlarmClick() {
         if (alarmTimePickerDialog == null) {
-            val time = if (individual.alarmTime != null) individual.alarmTime else LocalTime.now()
-            alarmTimePickerDialog = TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+            val time = individual.alarmTime
+            alarmTimePickerDialog = TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
                 individual.alarmTime = LocalTime.of(hourOfDay, minute)
                 showAlarmTime()
             }, time.hour, time.minute, false)
@@ -145,10 +145,6 @@ class IndividualEditActivity : BaseActivity() {
     }
 
     private fun showAlarmTime() {
-        if (individual.alarmTime == null) {
-            return
-        }
-
         val time = individual.alarmTime
         val millis = DBToolsThreeTenFormatter.localDateTimeToLong(time.atDate(LocalDate.now()))
         alarmTimeEditText.setText(DateUtils.formatDateTime(this, millis!!, DateUtils.FORMAT_SHOW_TIME))
@@ -157,11 +153,6 @@ class IndividualEditActivity : BaseActivity() {
     private fun saveIndividual() {
         if (firstNameEditText.text.isBlank()) {
             firstNameLayout.error = getString(R.string.required)
-            return
-        }
-
-        if (individual.alarmTime == null) {
-            alarmTimeLayout.error = getString(R.string.required)
             return
         }
 

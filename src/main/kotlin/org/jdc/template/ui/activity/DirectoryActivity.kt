@@ -128,6 +128,6 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener {
                 .setAction(Analytics.ACTION_NEW)
                 .build())
 
-        internalIntents.editIndividual(this, -1)
+        internalIntents.newIndividual(this)
     }
 }

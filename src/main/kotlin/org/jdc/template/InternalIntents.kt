@@ -22,9 +22,7 @@ constructor() {
     }
 
     fun newIndividual(activity: Activity) {
-        val intent = Intent(activity, IndividualEditActivity::class.java)
-        intent.putExtra(IndividualEditActivity.EXTRA_ID, -1)
-        activity.startActivity(intent)
+        editIndividual(activity, -1)
     }
 
     fun editIndividual(activity: Activity, individualId: Long) {

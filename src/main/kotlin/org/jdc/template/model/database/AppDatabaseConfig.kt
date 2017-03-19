@@ -13,18 +13,12 @@ import org.dbtools.android.domain.log.DBToolsAndroidLogger
 import org.dbtools.android.domain.log.DBToolsLogger
 
 
-class AppDatabaseConfig : DatabaseConfig {
-
-    val application: Application
-
-    constructor(application: Application) {
-        this.application = application
-    }
+class AppDatabaseConfig(val application: Application) : DatabaseConfig {
 
     override fun identifyDatabases(databaseManager: AndroidDatabaseBaseManager) {
-        databaseManager.addDatabase(application, DatabaseManagerConst.MAIN_DATABASE_NAME, DatabaseManager.mainTablesVersion, DatabaseManager.mainViewsVersion)
-        databaseManager.addDatabase(application, DatabaseManagerConst.OTHER_DATABASE_NAME, DatabaseManager.otherTablesVersion, DatabaseManager.otherViewsVersion)
-        databaseManager.addDatabase(application, DatabaseManagerConst.ATTACHED_DATABASE_NAME, DatabaseManager.attachedTablesVersion, DatabaseManager.attachedViewsVersion)
+        databaseManager.addDatabase(application, DatabaseManagerConst.MAIN_DATABASE_NAME, DatabaseManager.MAIN_TABLES_VERSION, DatabaseManager.MAIN_VIEWS_VERSION)
+        databaseManager.addDatabase(application, DatabaseManagerConst.OTHER_DATABASE_NAME, DatabaseManager.OTHER_TABLES_VERSION, DatabaseManager.OTHER_VIEWS_VERSION)
+        databaseManager.addDatabase(application, DatabaseManagerConst.ATTACHED_DATABASE_NAME, DatabaseManager.ATTACHED_TABLES_VERSION, DatabaseManager.ATTACHED_VIEWS_VERSION)
     }
 
     override fun createNewDatabaseWrapper(androidDatabase: AndroidDatabase): DatabaseWrapper<*, *> {

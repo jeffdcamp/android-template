@@ -4,23 +4,20 @@ package org.jdc.template.model.database
 import org.dbtools.android.domain.AndroidDatabase
 import org.dbtools.android.domain.config.DatabaseConfig
 import timber.log.Timber
+import javax.inject.Inject
 import javax.inject.Singleton
 
 
 @Singleton
-class DatabaseManager : DatabaseBaseManager {
+class DatabaseManager@Inject constructor(databaseConfig: DatabaseConfig)  : DatabaseBaseManager(databaseConfig) {
 
     companion object {
-        const val mainTablesVersion = 1
-        const val mainViewsVersion = 1
-        const val otherTablesVersion = 1
-        const val otherViewsVersion = 1
-        const val attachedTablesVersion = 1
-        const val attachedViewsVersion = 1
-    }
-
-    @javax.inject.Inject
-    constructor(databaseConfig: DatabaseConfig) : super(databaseConfig) {
+         const val MAIN_TABLES_VERSION = 1
+         const val MAIN_VIEWS_VERSION = 1
+         const val OTHER_TABLES_VERSION = 1
+         const val OTHER_VIEWS_VERSION = 1
+         const val ATTACHED_TABLES_VERSION = 1
+         const val ATTACHED_VIEWS_VERSION = 1
     }
 
     override fun onUpgrade(androidDatabase: AndroidDatabase, oldVersion: Int, newVersion: Int) {
@@ -43,4 +40,6 @@ class DatabaseManager : DatabaseBaseManager {
             getWritableDatabase(DatabaseManagerConst.MAIN_DATABASE_NAME)
         }
     }
+
+
 }

@@ -40,7 +40,7 @@ class StartupActivity : Activity() {
                 .subscribeOn(Schedulers.io())
                 //.filter(success -> success) // bail on fail?
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { success -> postStartup(success) }
+                .subscribe { _ -> postStartup() }
     }
 
     private fun startup(): Boolean {
@@ -49,7 +49,7 @@ class StartupActivity : Activity() {
         return true
     }
 
-    private fun postStartup(success: Boolean) {
+    private fun postStartup() {
         Timber.d("Startup Elapsed Time: ${(System.currentTimeMillis() - perfTime)}ms")
 
         val i = Intent(this, startupActivityClass)
