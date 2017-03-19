@@ -35,7 +35,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
     }
 
     companion object {
-
         fun newInstance(): SettingsFragment {
             return SettingsFragment()
         }

@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.google.android.gms.analytics.HitBuilders
 import kotlinx.android.synthetic.main.activity_individual_edit.*
+import kotlinx.android.synthetic.main.toolbar_actionbar.*
 import org.dbtools.android.domain.date.DBToolsThreeTenFormatter
 import org.jdc.template.Analytics
 import org.jdc.template.R
@@ -59,7 +60,7 @@ class IndividualEditActivity : BaseActivity() {
     }
 
     private fun setupActionBar() {
-        setSupportActionBar(mainToolBar)
+        setSupportActionBar(mainToolbar)
         enableActionBarBackArrow(true)
         supportActionBar?.setTitle(R.string.individual)
     }

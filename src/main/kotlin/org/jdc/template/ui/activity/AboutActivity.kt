@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import com.google.android.gms.analytics.HitBuilders
 import kotlinx.android.synthetic.main.activity_about.*
+import kotlinx.android.synthetic.main.toolbar_actionbar.*
 import okhttp3.ResponseBody
 import org.dbtools.android.domain.DBToolsTableChangeListener
 import org.dbtools.android.domain.DatabaseTableChange
@@ -85,7 +86,7 @@ class AboutActivity : BaseActivity() {
 
         analytics.send(HitBuilders.EventBuilder().setCategory(Analytics.CATEGORY_ABOUT).build())
 
-        setSupportActionBar(mainToolBar)
+        setSupportActionBar(mainToolbar)
         enableActionBarBackArrow(true)
 
         versionTextView.text = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
