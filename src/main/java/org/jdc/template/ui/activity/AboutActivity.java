@@ -61,7 +61,7 @@ public class AboutActivity extends BaseActivity {
     TextView versionTextView;
     @BindView(R.id.versionDateTextView)
     TextView versionDateTextView;
-    @BindView(R.id.mainToolBar)
+    @BindView(R.id.mainToolbar)
     Toolbar toolbar;
 
     @Inject

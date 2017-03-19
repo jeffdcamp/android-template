@@ -40,7 +40,7 @@ public class IndividualEditActivity extends BaseActivity {
     @BindExtra(EXTRA_ID)
     long individualId;
 
-    @BindView(R.id.mainToolBar)
+    @BindView(R.id.mainToolbar)
     Toolbar toolbar;
     @BindView(R.id.firstNameLayout)
     TextInputLayout firstNameLayout;

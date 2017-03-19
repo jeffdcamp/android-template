@@ -45,7 +45,7 @@ public class DirectoryActivity extends DrawerActivity implements SearchView.OnQu
     @Inject
     IndividualManager individualManager;
 
-    @BindView(R.id.abMainToolbar)
+    @BindView(R.id.mainToolbar)
     Toolbar toolbar;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;

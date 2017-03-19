@@ -37,7 +37,7 @@ public class IndividualActivity extends BaseActivity {
 
     public static final String EXTRA_ID = "INDIVIDUAL_ID";
 
-    @BindView(R.id.mainToolBar)
+    @BindView(R.id.mainToolbar)
     Toolbar toolbar;
     @BindView(R.id.nameTextView)
     TextView nameTextView;

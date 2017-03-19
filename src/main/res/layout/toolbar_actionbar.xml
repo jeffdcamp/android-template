@@ -7,12 +7,11 @@
     >
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/abMainToolbar"
+        android:id="@+id/mainToolbar"
+        style="@style/MainToolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-
-        style="@style/MainToolbar"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         />
 </android.support.design.widget.AppBarLayout>
