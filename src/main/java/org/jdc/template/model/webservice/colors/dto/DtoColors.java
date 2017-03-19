@@ -1,13 +1,11 @@
 package org.jdc.template.model.webservice.colors.dto;
 
-import com.bluelinelabs.logansquare.annotation.JsonField;
-import com.bluelinelabs.logansquare.annotation.JsonObject;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.List;
 
-@JsonObject
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class DtoColors {
-    @JsonField
     private List<DtoColor> colors;
 
     public List<DtoColor> getColors() {

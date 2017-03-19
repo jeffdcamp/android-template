@@ -3,8 +3,6 @@ package org.jdc.template.model.webservice;
 import android.os.Build;
 import android.util.Base64;
 
-import com.github.aurae.retrofit2.LoganSquareConverterFactory;
-
 import org.jdc.template.BuildConfig;
 import org.jdc.template.auth.MyAccountInterceptor;
 import org.jdc.template.model.webservice.colors.ColorService;
@@ -22,6 +20,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 @Module
 public class ServiceModule {
@@ -93,11 +92,11 @@ public class ServiceModule {
 
     @Provides
     @Singleton
-    public ColorService getColorService(@Nonnull @Named(STANDARD_CLIENT) OkHttpClient client) {
+    public ColorService getColorService(@Nonnull @Named(STANDARD_CLIENT) OkHttpClient client, JacksonConverterFactory jacksonConverterFactory) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ColorService.BASE_URL)
                 .client(client)
-                .addConverterFactory(LoganSquareConverterFactory.create())
+                .addConverterFactory(jacksonConverterFactory)
                 .build();
 
         return retrofit.create(ColorService.class);

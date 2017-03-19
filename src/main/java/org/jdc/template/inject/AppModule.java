@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 
@@ -14,13 +16,17 @@ import org.jdc.template.Analytics;
 import org.jdc.template.BuildConfig;
 import org.jdc.template.BusRegistry;
 import org.jdc.template.model.database.AppDatabaseConfig;
+import org.jdc.template.json.DateTimeStringDeserializer;
+import org.jdc.template.json.DateTimeStringSerializer;
 import org.jdc.template.model.webservice.ServiceModule;
+import org.threeten.bp.LocalDateTime;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 import pocketbus.Bus;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 import timber.log.Timber;
 
 @Module(includes = {
@@ -77,4 +83,21 @@ public class AppModule {
         bus.setRegistry(new BusRegistry());
         return bus;
     }
+
+    @Provides
+    @Singleton
+    public ObjectMapper provideObjectMapper() {
+        SimpleModule module = new SimpleModule("Jackson MODULE");
+        module.addSerializer(LocalDateTime.class, new DateTimeStringSerializer())
+                .addDeserializer(LocalDateTime.class, new DateTimeStringDeserializer());
+
+        return new ObjectMapper().registerModule(module);
+    }
+
+    @Provides
+    @Singleton
+    public JacksonConverterFactory provideJacksonConverterFactory(ObjectMapper objectMapper) {
+        return JacksonConverterFactory.create(objectMapper);
+    }
+
 }

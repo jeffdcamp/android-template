@@ -1,13 +1,10 @@
 package org.jdc.template.model.webservice.colors.dto;
 
-import com.bluelinelabs.logansquare.annotation.JsonField;
-import com.bluelinelabs.logansquare.annotation.JsonObject;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonObject
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class DtoColor {
-    @JsonField
     private String colorName;
-    @JsonField
     private String hexValue;
 
     public String getColorName() {
