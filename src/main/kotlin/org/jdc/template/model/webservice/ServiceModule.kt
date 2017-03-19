@@ -2,7 +2,6 @@ package org.jdc.template.model.webservice
 
 import android.os.Build
 import android.util.Base64
-import com.github.aurae.retrofit2.LoganSquareConverterFactory
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -11,6 +10,7 @@ import org.jdc.template.BuildConfig
 import org.jdc.template.auth.MyAccountInterceptor
 import org.jdc.template.model.webservice.colors.ColorService
 import retrofit2.Retrofit
+import retrofit2.converter.jackson.JacksonConverterFactory
 import java.io.UnsupportedEncodingException
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
@@ -77,8 +77,12 @@ class ServiceModule {
 
     @Provides
     @Singleton
-    fun getSearchService(@Named(STANDARD_CLIENT) client: OkHttpClient): ColorService {
-        val retrofit = Retrofit.Builder().baseUrl(ColorService.BASE_URL).client(client).addConverterFactory(LoganSquareConverterFactory.create()).build()
+    fun getSearchService(@Named(STANDARD_CLIENT) client: OkHttpClient, jacksonConverterFactory: JacksonConverterFactory): ColorService {
+        val retrofit = Retrofit.Builder()
+                .baseUrl(ColorService.BASE_URL)
+                .client(client)
+                .addConverterFactory(jacksonConverterFactory)
+                .build()
 
         return retrofit.create(ColorService::class.java)
     }

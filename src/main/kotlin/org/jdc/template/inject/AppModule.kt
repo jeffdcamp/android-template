@@ -6,6 +6,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import android.util.Log
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.module.SimpleModule
 import com.google.android.gms.analytics.GoogleAnalytics
 import dagger.Module
 import dagger.Provides
@@ -13,9 +15,13 @@ import org.dbtools.android.domain.config.DatabaseConfig
 import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
 import org.jdc.template.BusRegistry
+import org.jdc.template.json.DateTimeStringDeserializer
+import org.jdc.template.json.DateTimeStringSerializer
 import org.jdc.template.model.database.AppDatabaseConfig
 import org.jdc.template.model.webservice.ServiceModule
+import org.threeten.bp.LocalDateTime
 import pocketbus.Bus
+import retrofit2.converter.jackson.JacksonConverterFactory
 import javax.inject.Singleton
 
 @Module(includes = arrayOf(ServiceModule::class))
@@ -69,5 +75,21 @@ class AppModule(private val application: Application) {
                 .build()
         bus.setRegistry(BusRegistry())
         return bus
+    }
+
+    @Provides
+    @Singleton
+    fun provideObjectMapper(): ObjectMapper {
+        val module = SimpleModule("Jackson MODULE")
+        module.addSerializer(LocalDateTime::class.java, DateTimeStringSerializer())
+                .addDeserializer(LocalDateTime::class.java, DateTimeStringDeserializer())
+
+        return ObjectMapper().registerModule(module)
+    }
+
+    @Provides
+    @Singleton
+    fun provideJacksonConverterFactory(objectMapper: ObjectMapper): JacksonConverterFactory {
+        return JacksonConverterFactory.create(objectMapper)
     }
 }
