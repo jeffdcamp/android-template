@@ -51,6 +51,7 @@ ext {
     loganSquareVersion = '1.3.7'
     pocketKnifeVersion = '3.2.1'
     pocketBusVersion = '1.1.0'
+    jacksonVersion = '2.8.7'
 }
 
 dependencies {
@@ -85,7 +86,7 @@ dependencies {
     compile "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
 
     // JSON Parsing
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.8.7'
+    compile "com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion"
     compile 'com.squareup.retrofit2:converter-jackson:2.2.0'
 
     // Dagger 2

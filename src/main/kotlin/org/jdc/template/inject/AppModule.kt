@@ -8,6 +8,7 @@ import android.preference.PreferenceManager
 import android.util.Log
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.module.SimpleModule
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.google.android.gms.analytics.GoogleAnalytics
 import dagger.Module
 import dagger.Provides
@@ -84,7 +85,10 @@ class AppModule(private val application: Application) {
         module.addSerializer(LocalDateTime::class.java, DateTimeStringSerializer())
                 .addDeserializer(LocalDateTime::class.java, DateTimeStringDeserializer())
 
-        return ObjectMapper().registerModule(module)
+        val mapper = jacksonObjectMapper()
+        mapper.registerModule(module)
+
+        return mapper
     }
 
     @Provides
