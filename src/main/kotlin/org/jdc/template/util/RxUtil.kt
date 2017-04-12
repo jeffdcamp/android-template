@@ -1,31 +1,18 @@
 package org.jdc.template.util
 
 
+import io.reactivex.Single
 import retrofit2.Call
 import retrofit2.Response
-import rx.Observable
 import timber.log.Timber
 import java.io.IOException
 
 object RxUtil {
-    /**
-     * Simple call to make any method a deferred Observable call
-     */
-    fun <T> just(func: () -> T): Observable<T> {
-        return Observable.defer { Observable.just(func()) }
-    }
-
-    /**
-     * Simple call to make any method a deferred Observable that emitts each item from an Iterable
-     */
-    fun <T> from(func: () -> Iterable<T>): Observable<T> {
-        return Observable.defer { Observable.from(func()) }
-    }
 
     // ***** Retrofit *****
 
-    fun <T> toRetrofitObservable(call: Call<T>): Observable<Response<T>> {
-        return Observable.defer { Observable.just<Response<T>>(callRetrofit(call)) }
+    fun <T> toRetrofitObservable(call: Call<T>): Single<Response<T>> {
+        return Single.defer { Single.just<Response<T>>(callRetrofit(call)) }
     }
 
     fun <T> callRetrofit(call: Call<T>): Response<T>? {

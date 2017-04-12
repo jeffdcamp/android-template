@@ -6,6 +6,8 @@ import android.text.format.DateUtils
 import android.view.Menu
 import android.view.MenuItem
 import com.google.android.gms.analytics.HitBuilders
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_individual.*
 import kotlinx.android.synthetic.main.toolbar_actionbar.*
 import org.dbtools.android.domain.date.DBToolsThreeTenFormatter
@@ -20,8 +22,6 @@ import org.threeten.bp.LocalDate
 import org.threeten.bp.ZoneId
 import pocketknife.BindExtra
 import pocketknife.PocketKnife
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
 import javax.inject.Inject
 
 class IndividualActivity : BaseActivity() {

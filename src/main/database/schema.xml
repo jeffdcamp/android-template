@@ -12,6 +12,7 @@
             <field name="_id" jdbcDataType="BIGINT" increment="true" primaryKey="true"/>
             <field name="HOUSEHOLD_ID" jdbcDataType="BIGINT" foreignKeyTable="HOUSEHOLD" foreignKeyField="_id"/>
             <field name="INDIVIDUAL_TYPE" jdbcDataType="INTEGER" enumerationClass="org.jdc.template.model.type.IndividualType" enumerationDefault="HEAD"/>
+            <field name="INDIVIDUAL_TYPE_TEXT" jdbcDataType="VARCHAR" enumerationClass="org.jdc.template.model.type.IndividualType" enumerationDefault="HEAD"/>
             <field name="FIRST_NAME" jdbcDataType="VARCHAR"/>
             <field name="LAST_NAME" jdbcDataType="VARCHAR"/>
             <field name="BIRTH_DATE" jdbcDataType="DATE" notNull="false"/>

@@ -27,6 +27,8 @@ object IndividualConst  {
      const val FULL_C_HOUSEHOLD_ID = "INDIVIDUAL.HOUSEHOLD_ID"
      const val C_INDIVIDUAL_TYPE = "INDIVIDUAL_TYPE"
      const val FULL_C_INDIVIDUAL_TYPE = "INDIVIDUAL.INDIVIDUAL_TYPE"
+     const val C_INDIVIDUAL_TYPE_TEXT = "INDIVIDUAL_TYPE_TEXT"
+     const val FULL_C_INDIVIDUAL_TYPE_TEXT = "INDIVIDUAL.INDIVIDUAL_TYPE_TEXT"
      const val C_FIRST_NAME = "FIRST_NAME"
      const val FULL_C_FIRST_NAME = "INDIVIDUAL.FIRST_NAME"
      const val C_LAST_NAME = "LAST_NAME"
@@ -59,6 +61,7 @@ object IndividualConst  {
         "_id INTEGER PRIMARY KEY  AUTOINCREMENT," + 
         "HOUSEHOLD_ID INTEGER NOT NULL," + 
         "INDIVIDUAL_TYPE INTEGER NOT NULL," + 
+        "INDIVIDUAL_TYPE_TEXT TEXT NOT NULL," + 
         "FIRST_NAME TEXT NOT NULL," + 
         "LAST_NAME TEXT NOT NULL," + 
         "BIRTH_DATE TEXT," + 
@@ -78,12 +81,13 @@ object IndividualConst  {
         "" + 
         ""
      const val DROP_TABLE = "DROP TABLE IF EXISTS INDIVIDUAL;"
-     const val INSERT_STATEMENT = "INSERT INTO INDIVIDUAL (HOUSEHOLD_ID,INDIVIDUAL_TYPE,FIRST_NAME,LAST_NAME,BIRTH_DATE,ALARM_TIME,LAST_MODIFIED,SAMPLE_DATE_TIME,SAMPLE_TIMESTAMP,PHONE,EMAIL,AVAILABLE,AMOUNT1,AMOUNT2,ENABLED,SPOUSE_INDIVIDUAL_ID) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
-     const val UPDATE_STATEMENT = "UPDATE INDIVIDUAL SET HOUSEHOLD_ID=?, INDIVIDUAL_TYPE=?, FIRST_NAME=?, LAST_NAME=?, BIRTH_DATE=?, ALARM_TIME=?, LAST_MODIFIED=?, SAMPLE_DATE_TIME=?, SAMPLE_TIMESTAMP=?, PHONE=?, EMAIL=?, AVAILABLE=?, AMOUNT1=?, AMOUNT2=?, ENABLED=?, SPOUSE_INDIVIDUAL_ID=? WHERE _id = ?"
+     const val INSERT_STATEMENT = "INSERT INTO INDIVIDUAL (HOUSEHOLD_ID,INDIVIDUAL_TYPE,INDIVIDUAL_TYPE_TEXT,FIRST_NAME,LAST_NAME,BIRTH_DATE,ALARM_TIME,LAST_MODIFIED,SAMPLE_DATE_TIME,SAMPLE_TIMESTAMP,PHONE,EMAIL,AVAILABLE,AMOUNT1,AMOUNT2,ENABLED,SPOUSE_INDIVIDUAL_ID) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+     const val UPDATE_STATEMENT = "UPDATE INDIVIDUAL SET HOUSEHOLD_ID=?, INDIVIDUAL_TYPE=?, INDIVIDUAL_TYPE_TEXT=?, FIRST_NAME=?, LAST_NAME=?, BIRTH_DATE=?, ALARM_TIME=?, LAST_MODIFIED=?, SAMPLE_DATE_TIME=?, SAMPLE_TIMESTAMP=?, PHONE=?, EMAIL=?, AVAILABLE=?, AMOUNT1=?, AMOUNT2=?, ENABLED=?, SPOUSE_INDIVIDUAL_ID=? WHERE _id = ?"
      val ALL_COLUMNS = arrayOf(
         C_ID,
         C_HOUSEHOLD_ID,
         C_INDIVIDUAL_TYPE,
+        C_INDIVIDUAL_TYPE_TEXT,
         C_FIRST_NAME,
         C_LAST_NAME,
         C_BIRTH_DATE,
@@ -102,6 +106,7 @@ object IndividualConst  {
         FULL_C_ID,
         FULL_C_HOUSEHOLD_ID,
         FULL_C_INDIVIDUAL_TYPE,
+        FULL_C_INDIVIDUAL_TYPE_TEXT,
         FULL_C_FIRST_NAME,
         FULL_C_LAST_NAME,
         FULL_C_BIRTH_DATE,
@@ -127,6 +132,10 @@ object IndividualConst  {
 
     fun getIndividualType(cursor: Cursor) : org.jdc.template.model.type.IndividualType {
         return org.dbtools.android.domain.util.EnumUtil.ordinalToEnum(org.jdc.template.model.type.IndividualType::class.java, cursor.getInt(cursor.getColumnIndexOrThrow(C_INDIVIDUAL_TYPE)), org.jdc.template.model.type.IndividualType.HEAD)
+    }
+
+    fun getIndividualTypeText(cursor: Cursor) : org.jdc.template.model.type.IndividualType {
+        return org.dbtools.android.domain.util.EnumUtil.stringToEnum(org.jdc.template.model.type.IndividualType::class.java, cursor.getString(cursor.getColumnIndexOrThrow(C_INDIVIDUAL_TYPE_TEXT)), org.jdc.template.model.type.IndividualType.HEAD)
     }
 
     fun getFirstName(cursor: Cursor) : String {

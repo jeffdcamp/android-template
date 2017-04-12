@@ -5,6 +5,8 @@ import android.text.format.DateUtils
 import android.view.MenuItem
 import android.widget.Toast
 import com.google.android.gms.analytics.HitBuilders
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_about.*
 import kotlinx.android.synthetic.main.toolbar_actionbar.*
 import okhttp3.ResponseBody
@@ -42,8 +44,6 @@ import pocketbus.Subscribe
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
 import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
@@ -154,6 +154,7 @@ class AboutActivity : BaseActivity() {
         individual1.lastName = "Campbell"
         individual1.phone = "801-555-0000"
         individual1.individualType = IndividualType.HEAD
+        individual1.individualTypeText = IndividualType.HEAD
         individual1.householdId = household.id
         individual1.birthDate = LocalDate.of(1970, 1, 1)
         individual1.alarmTime = LocalTime.of(7, 0)
@@ -167,6 +168,7 @@ class AboutActivity : BaseActivity() {
         individual2.lastName = "Miller"
         individual2.phone = "303-555-1111"
         individual2.individualType = IndividualType.CHILD
+        individual2.individualTypeText = IndividualType.CHILD
         individual2.householdId = household.id
         individual1.birthDate = LocalDate.of(1970, 1, 2)
         individual2.alarmTime = LocalTime.of(6, 0)
@@ -215,6 +217,7 @@ class AboutActivity : BaseActivity() {
         individual1.lastName = "Campbell"
         individual1.phone = "000-555-1234"
         individual1.individualType = IndividualType.HEAD
+        individual1.individualTypeText = IndividualType.HEAD
         individual1.householdId = household.id
         individualManager.save(individual1, dbName)
 
@@ -222,6 +225,7 @@ class AboutActivity : BaseActivity() {
         individual2.firstName = "Tanner"
         individual2.lastName = "Campbell"
         individual2.individualType = IndividualType.CHILD
+        individual2.individualTypeText = IndividualType.CHILD
         individual2.householdId = household.id
         individualManager.save(individual2, dbName)
         noInjectionDatabaseManager.endTransaction(DatabaseManagerConst.MAIN_DATABASE_NAME, true)
@@ -341,7 +345,7 @@ class AboutActivity : BaseActivity() {
     }
 
     private fun processSearchResponse(dtoColors: DtoColors) {
-        for (dtoResult in dtoColors.colors!!) {
+        for (dtoResult in dtoColors.colors) {
             Timber.i("Result: %s", dtoResult.colorName)
         }
     }
@@ -398,7 +402,7 @@ class AboutActivity : BaseActivity() {
         }
 
         // Unsubscribe
-        tableChangeSubscription.unsubscribe()
+        tableChangeSubscription.dispose()
     }
 
     fun handleRxIndividualTableChange(change: DatabaseTableChange) {

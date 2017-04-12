@@ -2,23 +2,23 @@ package org.jdc.template.ui.activity
 
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
-import rx.Subscription
-import rx.subscriptions.CompositeSubscription
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 
 open class BaseActivity : AppCompatActivity() {
 
-    private var compositeSubscription = CompositeSubscription()
+    private var compositeDisposable = CompositeDisposable()
 
     override fun onStop() {
-        compositeSubscription.unsubscribe()
+        compositeDisposable.dispose()
         super.onStop()
     }
 
-    fun addSubscription(subscription: Subscription) {
-        if (compositeSubscription.isUnsubscribed) {
-            compositeSubscription = CompositeSubscription()
+    fun addDisposable(disposable: Disposable) {
+        if (compositeDisposable.isDisposed) {
+            compositeDisposable = CompositeDisposable()
         }
-        compositeSubscription.add(subscription)
+        compositeDisposable.add(disposable)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

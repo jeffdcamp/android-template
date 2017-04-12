@@ -5,12 +5,12 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import rx.Subscription
-import rx.subscriptions.CompositeSubscription
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 
 abstract class BaseFragment : Fragment() {
 
-    private var compositeSubscription = CompositeSubscription()
+    private var compositeDisposable = CompositeDisposable()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
@@ -25,14 +25,14 @@ abstract class BaseFragment : Fragment() {
     }
 
     override fun onStop() {
-        compositeSubscription.unsubscribe()
+        compositeDisposable.dispose()
         super.onStop()
     }
 
-    fun addSubscription(subscription: Subscription) {
-        if (compositeSubscription.isUnsubscribed) {
-            compositeSubscription = CompositeSubscription()
+    fun addDisposable(disposable: Disposable) {
+        if (compositeDisposable.isDisposed) {
+            compositeDisposable = CompositeDisposable()
         }
-        compositeSubscription.add(subscription)
+        compositeDisposable.add(disposable)
     }
 }

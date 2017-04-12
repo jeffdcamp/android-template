@@ -4,14 +4,14 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import com.google.android.gms.analytics.HitBuilders
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
 import org.jdc.template.R
 import org.jdc.template.inject.Injector
 import org.jdc.template.model.database.DatabaseManager
-import org.jdc.template.util.RxUtil
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -36,11 +36,11 @@ class StartupActivity : Activity() {
         analytics.send(HitBuilders.EventBuilder().setCategory(Analytics.CATEGORY_APP).setAction(Analytics.ACTION_APP_LAUNCH).setLabel(BuildConfig.BUILD_TYPE).build())
 
 
-        RxUtil.just { startup() }
+        Single.defer<Any> { Single.just(startup()) }
                 .subscribeOn(Schedulers.io())
-                //.filter(success -> success) // bail on fail?
+                //                .filter(success -> success) // bail on fail?
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { _ -> postStartup() }
+                .subscribe { success -> postStartup() }
     }
 
     private fun startup(): Boolean {

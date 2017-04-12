@@ -8,6 +8,8 @@ import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
 import com.google.android.gms.analytics.HitBuilders
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.directory.*
 import kotlinx.android.synthetic.main.toolbar_actionbar.*
 import org.jdc.template.Analytics
@@ -21,8 +23,6 @@ import org.jdc.template.model.database.main.individual.IndividualManager
 import org.jdc.template.ui.adapter.DirectoryAdapter
 import org.jdc.template.ui.menu.CommonMenu
 import pocketknife.PocketKnife
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
 import javax.inject.Inject
 
 class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener {
@@ -100,10 +100,10 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener {
     }
 
     fun loadList() {
-        val observable = individualManager.findAllBySelectionRx(orderBy = "${IndividualConst.C_FIRST_NAME}, ${IndividualConst.C_LAST_NAME}")
+        val single = individualManager.findAllBySelectionRx(orderBy = "${IndividualConst.C_FIRST_NAME}, ${IndividualConst.C_LAST_NAME}")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-        addSubscription(observable.subscribe { data -> dataLoaded(data) })
+        addDisposable(single.subscribe { data -> dataLoaded(data) })
     }
 
     fun dataLoaded(data: List<Individual>) {
