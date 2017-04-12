@@ -9,7 +9,7 @@ NOTE: For the 100% Kotlin version check out the Kotlin branch
 
 * Dagger 2.0 dependency injection
 * ButterKnife
-* RxJava
+* RxJava 2.0
 * DBTools database ORM
 * ThreeTenBp
 * Constraint Layout
