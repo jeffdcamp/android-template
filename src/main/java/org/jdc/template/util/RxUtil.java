@@ -7,34 +7,19 @@ import java.io.IOException;
 
 import javax.annotation.Nonnull;
 
+import io.reactivex.Single;
 import retrofit2.Call;
 import retrofit2.Response;
-import rx.Observable;
-import rx.functions.Func0;
 import timber.log.Timber;
 
 public final class RxUtil {
     private RxUtil() {
     }
 
-    /**
-     * Simple call to make any method a deferred Observable call
-     */
-    public static <T> Observable<T> just(Func0<T> func) {
-        return Observable.defer(() -> Observable.just(func.call()));
-    }
-
-    /**
-     * Simple call to make any method a deferred Observable that emitts each item from an Iterable
-     */
-    public static <T> Observable<T> from(Func0<Iterable<T>> func) {
-        return Observable.defer(() -> Observable.from(func.call()));
-    }
-
     // ***** Retrofit *****
 
-    public static <T> Observable<Response<T>> toRetrofitObservable(Call<T> call) {
-        return Observable.defer(() -> Observable.just(callRetrofit(call)));
+    public static <T> Single<Response<T>> toRetrofitObservable(Call<T> call) {
+        return Single.defer(() -> Single.just(callRetrofit(call)));
     }
 
     @Nullable

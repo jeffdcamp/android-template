@@ -6,25 +6,25 @@ import android.view.MenuItem;
 
 import javax.annotation.Nonnull;
 
-import rx.Subscription;
-import rx.subscriptions.CompositeSubscription;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
     @Nonnull
-    private CompositeSubscription compositeSubscription = new CompositeSubscription();
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Override
     protected void onStop() {
-        compositeSubscription.unsubscribe();
+        compositeDisposable.dispose();
         super.onStop();
     }
 
-    public void addSubscription(@Nonnull Subscription subscription) {
-        if (compositeSubscription.isUnsubscribed()) {
-            compositeSubscription = new CompositeSubscription();
+    public void addSubscription(@Nonnull Disposable disposable) {
+        if (compositeDisposable.isDisposed()) {
+            compositeDisposable = new CompositeDisposable();
         }
-        compositeSubscription.add(subscription);
+        compositeDisposable.add(disposable);
     }
 
     @Override

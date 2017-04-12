@@ -11,12 +11,12 @@ import org.jdc.template.BuildConfig;
 import org.jdc.template.R;
 import org.jdc.template.inject.Injector;
 import org.jdc.template.model.database.DatabaseManager;
-import org.jdc.template.util.RxUtil;
 
 import javax.inject.Inject;
 
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class StartupActivity extends Activity {
@@ -43,12 +43,14 @@ public class StartupActivity extends Activity {
                 .setLabel(BuildConfig.BUILD_TYPE)
                 .build());
 
-        RxUtil.just(() -> startup())
+
+        Single.defer(() -> Single.just(startup()))
                 .subscribeOn(Schedulers.io())
 //                .filter(success -> success) // bail on fail?
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(success -> postStartup(success));
     }
+
 
     private boolean startup() {
         perfTime = System.currentTimeMillis();

@@ -45,15 +45,15 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 import pocketbus.Bus;
 import pocketbus.Subscribe;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class AboutActivity extends BaseActivity {
@@ -157,6 +157,7 @@ public class AboutActivity extends BaseActivity {
         individual1.setLastName("Campbell");
         individual1.setPhone("801-555-0000");
         individual1.setIndividualType(IndividualType.HEAD);
+        individual1.setIndividualTypeText(IndividualType.HEAD);
         individual1.setHouseholdId(household.getId());
         individual1.setBirthDate(LocalDate.of(1970, 1, 1));
         individual1.setAlarmTime(LocalTime.of(7, 0));
@@ -167,6 +168,7 @@ public class AboutActivity extends BaseActivity {
         individual2.setLastName("Miller");
         individual2.setPhone("303-555-1111");
         individual2.setIndividualType(IndividualType.CHILD);
+        individual2.setIndividualTypeText(IndividualType.CHILD);
         individual2.setHouseholdId(household.getId());
         individual1.setBirthDate(LocalDate.of(1970, 1, 2));
         individual2.setAlarmTime(LocalTime.of(6, 0));
@@ -211,6 +213,7 @@ public class AboutActivity extends BaseActivity {
         individual1.setLastName("Campbell");
         individual1.setPhone("000-555-1234");
         individual1.setIndividualType(IndividualType.HEAD);
+        individual1.setIndividualTypeText(IndividualType.HEAD);
         individual1.setHouseholdId(household.getId());
         individual1.setAmount1(19.95F);
         individual1.setAmount2(1000000000.25D);
@@ -221,6 +224,7 @@ public class AboutActivity extends BaseActivity {
         individual2.setFirstName("Tanner");
         individual2.setLastName("Campbell");
         individual2.setIndividualType(IndividualType.CHILD);
+        individual2.setIndividualTypeText(IndividualType.CHILD);
         individual2.setHouseholdId(household.getId());
         individual2.setAmount1(21.95F);
         individual2.setAmount2(2000000000.25D);
@@ -380,7 +384,7 @@ public class AboutActivity extends BaseActivity {
     public void testRx() {
         // Sample tests for Rx
         // Rx Subscribe
-        Subscription tableChangeSubscription = individualManager.tableChanges().subscribe(changeType -> handleRxIndividualTableChange(changeType));
+        Disposable disposable = individualManager.tableChanges().subscribe(changeType -> handleRxIndividualTableChange(changeType));
 
         // Standard Listener
         individualManager.addTableChangeListener(this::handleIndividualTableChange);
@@ -405,7 +409,7 @@ public class AboutActivity extends BaseActivity {
         }
 
         // Unsubscribe
-        tableChangeSubscription.unsubscribe();
+        disposable.dispose();
     }
 
     public void handleIndividualTableChange(DatabaseTableChange change) {

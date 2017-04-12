@@ -28,11 +28,11 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import pocketknife.PocketKnife;
 import pocketknife.SaveState;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class DirectoryActivity extends DrawerActivity implements SearchView.OnQueryTextListener {
 
@@ -106,7 +106,7 @@ public class DirectoryActivity extends DrawerActivity implements SearchView.OnQu
 
     public void loadList() {
         modelTs = individualManager.getLastTableModifiedTs();
-        Observable<List<Individual>> observable = individualManager.findAllBySelectionRx(null, null, IndividualConst.C_FIRST_NAME + ", " + IndividualConst.C_LAST_NAME)
+        Single<List<Individual>> observable = individualManager.findAllBySelectionRx(null, null, IndividualConst.C_FIRST_NAME + ", " + IndividualConst.C_LAST_NAME)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
 

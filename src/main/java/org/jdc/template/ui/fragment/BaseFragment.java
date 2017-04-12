@@ -11,13 +11,13 @@ import javax.annotation.Nonnull;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import rx.Subscription;
-import rx.subscriptions.CompositeSubscription;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 public abstract class BaseFragment extends Fragment {
 
     @Nonnull
-    private CompositeSubscription compositeSubscription = new CompositeSubscription();
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private Unbinder butterkifeUnbinder;
 
     @Override
@@ -37,7 +37,7 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
     public void onStop() {
-        compositeSubscription.unsubscribe();
+        compositeDisposable.dispose();
         super.onStop();
     }
 
@@ -47,10 +47,10 @@ public abstract class BaseFragment extends Fragment {
         super.onDestroyView();
     }
 
-    public void addSubscription(@Nonnull Subscription subscription) {
-        if (compositeSubscription.isUnsubscribed()) {
-            compositeSubscription = new CompositeSubscription();
+    public void addSubscription(@Nonnull Disposable disposable) {
+        if (compositeDisposable.isDisposed()) {
+            compositeDisposable = new CompositeDisposable();
         }
-        compositeSubscription.add(subscription);
+        compositeDisposable.add(disposable);
     }
 }
