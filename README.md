@@ -3,10 +3,11 @@ Android Template
 
 Sample Android app that utilizes common best practices
 
-NOTE: For the 100% Kotlin version check out the Kotlin branch
+NOTE: For the 100% Kotlin version check out the Kotlin branch (includes support Kotlin Coroutines)
 
 **Features**
 
+* MVP
 * Dagger 2.0 dependency injection
 * ButterKnife
 * RxJava 2.0
