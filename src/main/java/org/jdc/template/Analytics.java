@@ -16,6 +16,7 @@ public interface Analytics {
     String ACTION_NEW = "New";
     String ACTION_VIEW = "View";
     String ACTION_EDIT = "Edit";
+    String ACTION_EDIT_SAVE = "Edit Save";
     String ACTION_DELETE = "Delete";
 
     // Variables

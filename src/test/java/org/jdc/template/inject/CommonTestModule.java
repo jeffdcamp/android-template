@@ -5,10 +5,12 @@ import android.app.Application;
 import org.dbtools.android.domain.AndroidDatabase;
 import org.dbtools.android.domain.config.DatabaseConfig;
 import org.dbtools.android.domain.database.JdbcSqliteDatabaseWrapper;
+import org.jdc.template.Analytics;
 import org.jdc.template.TestFilesystem;
 import org.jdc.template.model.database.DatabaseManager;
 
 import java.io.File;
+import java.util.Map;
 
 import javax.inject.Singleton;
 
@@ -28,6 +30,17 @@ import static org.mockito.Mockito.when;
 
 @Module
 public class CommonTestModule {
+    @Provides
+    @Singleton
+    Analytics provideAnalytics() {
+        return new Analytics() {
+            @Override
+            public void send(Map<String, String> params) {
+                System.out.println(params.toString());
+            }
+        };
+    }
+
     // ========== ANDROID ==========
     @Provides
     @Singleton

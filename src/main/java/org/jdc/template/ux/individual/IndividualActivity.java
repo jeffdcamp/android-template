@@ -1,4 +1,4 @@
-package org.jdc.template.ui.activity;
+package org.jdc.template.ux.individual;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
@@ -9,15 +9,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.google.android.gms.analytics.HitBuilders;
-
 import org.dbtools.android.domain.date.DBToolsThreeTenFormatter;
-import org.jdc.template.Analytics;
 import org.jdc.template.InternalIntents;
 import org.jdc.template.R;
 import org.jdc.template.inject.Injector;
 import org.jdc.template.model.database.main.individual.Individual;
-import org.jdc.template.model.database.main.individual.IndividualManager;
+import org.jdc.template.ui.activity.BaseActivity;
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.LocalTime;
@@ -28,14 +25,8 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-import pocketknife.BindExtra;
-import pocketknife.PocketKnife;
 
-public class IndividualActivity extends BaseActivity {
-
-    public static final String EXTRA_ID = "INDIVIDUAL_ID";
+public class IndividualActivity extends BaseActivity implements IndividualContract.View {
 
     @BindView(R.id.mainToolbar)
     Toolbar toolbar;
@@ -52,15 +43,11 @@ public class IndividualActivity extends BaseActivity {
     @BindView(R.id.sampleDateTimeTextView)
     TextView sampleDateTimeEditText;
 
-    @BindExtra(EXTRA_ID)
-    long individualId;
-
     @Inject
     InternalIntents internalIntents;
+
     @Inject
-    IndividualManager individualManager;
-    @Inject
-    Analytics analytics;
+    IndividualPresenter presenter;
 
     public IndividualActivity() {
         Injector.get().inject(this);
@@ -71,13 +58,14 @@ public class IndividualActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_individual);
         ButterKnife.bind(this);
-        PocketKnife.bindExtras(this);
 
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 
         setupActionBar();
 
-        showIndividual();
+        long individualId = getIntent().getLongExtra(IndividualContract.Extras.EXTRA_ID, 0L);
+        presenter.init(this, individualId);
+        presenter.load();
     }
 
     private void setupActionBar() {
@@ -100,10 +88,10 @@ public class IndividualActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_edit:
-                internalIntents.editIndividual(this, individualId);
+                presenter.editIndividualClicked();
                 return true;
             case R.id.menu_item_delete:
-                deleteIndividual();
+                presenter.deleteIndividualClicked();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -113,50 +101,36 @@ public class IndividualActivity extends BaseActivity {
     @Override
     public void onResume() {
         super.onResume();
-        showIndividual();
+        presenter.reload(false);
     }
 
-    private void deleteIndividual() {
+    public void promptDeleteIndividual() {
         new AlertDialog.Builder(this)
                 .setMessage(R.string.delete_individual_confirm)
                 .setPositiveButton(R.string.delete, (dialog, which) -> {
-                    individualManager.delete(individualId);
-
-                    analytics.send(new HitBuilders.EventBuilder()
-                            .setCategory(Analytics.CATEGORY_INDIVIDUAL)
-                            .setAction(Analytics.ACTION_DELETE)
-                            .build());
-
-                    finish();
+                    presenter.deleteIndividual();
                 })
                 .setNegativeButton(R.string.cancel, null)
                 .show();
     }
 
-    private void showIndividual() {
-        if (individualId <= 0) { // || !this.isVisible() || getActivity() == null) {
-            return;
-        }
-
-        individualManager.findByRowIdRx(individualId)
-                .subscribeOn(Schedulers.io())
-                .filter(individual -> individual != null)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(individual -> setUi(individual));
-    }
-
-    private void setUi(@Nonnull Individual individual) {
-        analytics.send(new HitBuilders.EventBuilder()
-                .setCategory(Analytics.CATEGORY_INDIVIDUAL)
-                .setAction(Analytics.ACTION_VIEW)
-                .build());
-
+    public void showIndividual(@Nonnull Individual individual) {
         nameTextView.setText(individual.getFullName());
         phoneTextView.setText(individual.getPhone());
         emailTextView.setText(individual.getEmail());
         showBirthDate(individual);
         showAlarmTime(individual);
         showSampleDateTime(individual);
+    }
+
+    @Override
+    public void close() {
+        finish();
+    }
+
+    @Override
+    public void showEditIndividual(long individualId) {
+        internalIntents.editIndividual(this, individualId);
     }
 
     private void showBirthDate(Individual individual) {

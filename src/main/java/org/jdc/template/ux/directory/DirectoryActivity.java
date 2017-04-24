@@ -1,4 +1,4 @@
-package org.jdc.template.ui.activity;
+package org.jdc.template.ux.directory;
 
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
@@ -9,16 +9,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.google.android.gms.analytics.HitBuilders;
-
-import org.jdc.template.Analytics;
 import org.jdc.template.InternalIntents;
 import org.jdc.template.R;
 import org.jdc.template.inject.Injector;
 import org.jdc.template.model.database.main.individual.Individual;
-import org.jdc.template.model.database.main.individual.IndividualConst;
-import org.jdc.template.model.database.main.individual.IndividualManager;
-import org.jdc.template.ui.adapter.DirectoryAdapter;
+import org.jdc.template.ui.activity.DrawerActivity;
 import org.jdc.template.ui.menu.CommonMenu;
 
 import java.util.List;
@@ -28,33 +23,22 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-import pocketknife.PocketKnife;
-import pocketknife.SaveState;
 
-public class DirectoryActivity extends DrawerActivity implements SearchView.OnQueryTextListener {
+public class DirectoryActivity extends DrawerActivity implements SearchView.OnQueryTextListener, DirectoryContract.View {
 
-    @Inject
-    Analytics analytics;
     @Inject
     CommonMenu commonMenu;
     @Inject
     InternalIntents internalIntents;
     @Inject
-    IndividualManager individualManager;
+    DirectoryPresenter presenter;
 
     @BindView(R.id.mainToolbar)
     Toolbar toolbar;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
-    @SaveState
-    long lastSelectedId = 0;
-
     private DirectoryAdapter adapter;
-    private long modelTs = 0;
 
     public DirectoryActivity() {
         Injector.get().inject(this);
@@ -69,6 +53,8 @@ public class DirectoryActivity extends DrawerActivity implements SearchView.OnQu
         super.setupDrawerWithDrawerButton(toolbar, R.string.drawer_main);
 
         setupRecyclerView();
+
+        presenter.init(this);
     }
 
     private void setupRecyclerView() {
@@ -76,13 +62,6 @@ public class DirectoryActivity extends DrawerActivity implements SearchView.OnQu
         adapter.setListener(selectedItemId -> internalIntents.showIndividual(DirectoryActivity.this, selectedItemId));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        lastSelectedId = adapter.getLastSelectedItemId();
-        PocketKnife.saveInstanceState(this, outState);
     }
 
     @Override
@@ -99,29 +78,13 @@ public class DirectoryActivity extends DrawerActivity implements SearchView.OnQu
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        reloadData();
+    protected void onResume() {
+        super.onResume();
+        presenter.reload(false);
     }
 
-    public void loadList() {
-        modelTs = individualManager.getLastTableModifiedTs();
-        Single<List<Individual>> observable = individualManager.findAllBySelectionRx(null, null, IndividualConst.C_FIRST_NAME + ", " + IndividualConst.C_LAST_NAME)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
-
-        addSubscription(observable.subscribe(data -> dataLoaded(data)));
-    }
-
-    public void reloadData() {
-        if (modelTs != individualManager.getLastTableModifiedTs()) {
-            modelTs = individualManager.getLastTableModifiedTs();
-            adapter.clear();
-            loadList();
-        }
-    }
-
-    public void dataLoaded(List<Individual> data) {
+    @Override
+    public void showIndividualList(List<Individual> data) {
         adapter.set(data);
     }
 
@@ -144,13 +107,18 @@ public class DirectoryActivity extends DrawerActivity implements SearchView.OnQu
         return false;
     }
 
+    @Override
+    public void showNewIndividual() {
+        internalIntents.newIndividual(this);
+    }
+
+    @Override
+    public void showIndividual(long individualId) {
+        internalIntents.showIndividual(this, individualId);
+    }
+
     @OnClick(R.id.newFloatingActionButton)
     public void onNewItemClick() {
-        analytics.send(new HitBuilders.EventBuilder()
-                .setCategory(Analytics.CATEGORY_INDIVIDUAL)
-                .setAction(Analytics.ACTION_NEW)
-                .build());
-
-        internalIntents.editIndividual(this, -1);
+        presenter.newItemClicked();
     }
 }

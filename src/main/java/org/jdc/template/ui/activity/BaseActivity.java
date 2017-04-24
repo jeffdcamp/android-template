@@ -20,7 +20,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onStop();
     }
 
-    public void addSubscription(@Nonnull Disposable disposable) {
+    public void addDisposable(@Nonnull Disposable disposable) {
         if (compositeDisposable.isDisposed()) {
             compositeDisposable = new CompositeDisposable();
         }

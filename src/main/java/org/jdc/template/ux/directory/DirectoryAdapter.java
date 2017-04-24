@@ -1,4 +1,4 @@
-package org.jdc.template.ui.adapter;
+package org.jdc.template.ux.directory;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

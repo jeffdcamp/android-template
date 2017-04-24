@@ -3,13 +3,13 @@ package org.jdc.template.inject;
 import android.app.Application;
 
 import org.jdc.template.App;
-import org.jdc.template.ui.activity.AboutActivity;
-import org.jdc.template.ui.activity.DirectoryActivity;
-import org.jdc.template.ui.activity.IndividualActivity;
-import org.jdc.template.ui.activity.IndividualEditActivity;
+import org.jdc.template.ux.about.AboutActivity;
+import org.jdc.template.ux.directory.DirectoryActivity;
+import org.jdc.template.ux.individual.IndividualActivity;
+import org.jdc.template.ux.individualedit.IndividualEditActivity;
 import org.jdc.template.ui.activity.SettingsActivity;
-import org.jdc.template.ui.activity.StartupActivity;
-import org.jdc.template.ui.adapter.DirectoryAdapter;
+import org.jdc.template.ux.startup.StartupActivity;
+import org.jdc.template.ux.directory.DirectoryAdapter;
 import org.jdc.template.ui.fragment.SettingsFragment;
 
 import javax.inject.Singleton;

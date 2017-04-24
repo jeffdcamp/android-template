@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
-import org.jdc.template.ui.activity.AboutActivity;
-import org.jdc.template.ui.activity.IndividualActivity;
-import org.jdc.template.ui.activity.IndividualEditActivity;
+import org.jdc.template.ux.about.AboutActivity;
+import org.jdc.template.ux.individual.IndividualActivity;
+import org.jdc.template.ux.individual.IndividualContract;
+import org.jdc.template.ux.individualedit.IndividualEditActivity;
 import org.jdc.template.ui.activity.SettingsActivity;
+import org.jdc.template.ux.individualedit.IndividualEditContract;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
@@ -22,19 +24,19 @@ public class InternalIntents {
 
     public void showIndividual(@Nonnull Activity activity, long individualId) {
         Intent intent = new Intent(activity, IndividualActivity.class);
-        intent.putExtra(IndividualActivity.EXTRA_ID, individualId);
+        intent.putExtra(IndividualContract.Extras.EXTRA_ID, individualId);
         activity.startActivity(intent);
     }
 
     public void newIndividual(@Nonnull Activity activity) {
         Intent intent = new Intent(activity, IndividualEditActivity.class);
-        intent.putExtra(IndividualEditActivity.EXTRA_ID, -1);
+        intent.putExtra(IndividualEditContract.Extras.EXTRA_ID, -1);
         activity.startActivity(intent);
     }
 
     public void editIndividual(@Nonnull Activity activity, long individualId) {
         Intent intent = new Intent(activity, IndividualEditActivity.class);
-        intent.putExtra(IndividualEditActivity.EXTRA_ID, individualId);
+        intent.putExtra(IndividualEditContract.Extras.EXTRA_ID, individualId);
         activity.startActivity(intent);
     }
 

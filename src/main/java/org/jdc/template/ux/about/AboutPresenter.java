@@ -1,21 +1,13 @@
-package org.jdc.template.ui.activity;
+package org.jdc.template.ux.about;
 
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.text.format.DateUtils;
-import android.view.MenuItem;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.app.Application;
 
 import com.google.android.gms.analytics.HitBuilders;
 
 import org.apache.commons.io.FileUtils;
 import org.dbtools.android.domain.DatabaseTableChange;
 import org.jdc.template.Analytics;
-import org.jdc.template.BuildConfig;
-import org.jdc.template.R;
 import org.jdc.template.event.NewDataEvent;
-import org.jdc.template.inject.Injector;
 import org.jdc.template.job.SampleJob;
 import org.jdc.template.model.database.AppDatabaseConfig;
 import org.jdc.template.model.database.DatabaseManager;
@@ -32,6 +24,7 @@ import org.jdc.template.model.type.IndividualType;
 import org.jdc.template.model.webservice.colors.ColorService;
 import org.jdc.template.model.webservice.colors.dto.DtoColor;
 import org.jdc.template.model.webservice.colors.dto.DtoColors;
+import org.jdc.template.ui.mvp.BasePresenter;
 import org.jdc.template.util.RxUtil;
 import org.jdc.template.util.WebServiceUtil;
 import org.threeten.bp.LocalDate;
@@ -42,9 +35,6 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -56,82 +46,57 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
-public class AboutActivity extends BaseActivity {
-    @BindView(R.id.versionTextView)
-    TextView versionTextView;
-    @BindView(R.id.versionDateTextView)
-    TextView versionDateTextView;
-    @BindView(R.id.mainToolbar)
-    Toolbar toolbar;
+public class AboutPresenter extends BasePresenter {
+
+    private final Application application;
+    private final Analytics analytics;
+    private final Bus bus;
+    private final IndividualManager individualManager;
+    private final HouseholdManager householdManager;
+    private final IndividualListManager individualListManager;
+    private final IndividualListItemManager individualListItemManager;
+    private final ColorService colorService;
+    private final WebServiceUtil webServiceUtil;
+    private AboutContract.View view;
 
     @Inject
-    Analytics analytics;
-    @Inject
-    Bus bus;
-    @Inject
-    IndividualManager individualManager;
-    @Inject
-    HouseholdManager householdManager;
-    @Inject
-    IndividualListManager individualListManager;
-    @Inject
-    IndividualListItemManager individualListItemManager;
+    public AboutPresenter(Application application, Analytics analytics, Bus bus, IndividualManager individualManager,
+                          HouseholdManager householdManager, IndividualListManager individualListManager,
+                          IndividualListItemManager individualListItemManager, ColorService colorService, WebServiceUtil webServiceUtil) {
+        this.application = application;
+        this.analytics = analytics;
+        this.bus = bus;
+        this.individualManager = individualManager;
+        this.householdManager = householdManager;
+        this.individualListManager = individualListManager;
+        this.individualListItemManager = individualListItemManager;
+        this.colorService = colorService;
+        this.webServiceUtil = webServiceUtil;
+    }
 
-    @Inject
-    ColorService colorService;
-    @Inject
-    WebServiceUtil webServiceUtil;
 
-    public AboutActivity() {
-        Injector.get().inject(this);
+    public void init(AboutContract.View view) {
+        this.view = view;
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
-        ButterKnife.bind(this);
-
+    public void load() {
         analytics.send(new HitBuilders.EventBuilder()
                 .setCategory(Analytics.CATEGORY_ABOUT)
                 .build());
-
-        setSupportActionBar(toolbar);
-        enableActionBarBackArrow();
-
-        versionTextView.setText(BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")");
-        versionDateTextView.setText(DateUtils.formatDateTime(this, BuildConfig.BUILD_TIME, DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_YEAR));
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    public void register() {
         bus.register(this);
     }
 
     @Override
-    protected void onStop() {
+    public void unregister() {
         bus.unregister(this);
-        super.onStop();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    @OnClick(R.id.createDatabaseButton)
-    public void onCreateDatabaseButtonClick() {
-        createSampleData();
-    }
-
-    private void createSampleData() {
+    public void createSampleData() {
         createSampleDataWithInjection();
 //        createSampleDataNoInjection();
     }
@@ -139,7 +104,7 @@ public class AboutActivity extends BaseActivity {
     /**
      * Creates sample data WITH using injection
      */
-    private void createSampleDataWithInjection() {
+    public void createSampleDataWithInjection() {
         // clear any existing items
         individualManager.deleteAll();
         householdManager.deleteAll();
@@ -188,13 +153,15 @@ public class AboutActivity extends BaseActivity {
         individualListItemManager.save(newListItem);
 
         individualListManager.endTransaction(true);
+
+        view.showMessage("Database created");
     }
 
     /**
      * Creates sample data WITHOUT using injection
      */
-    private void createSampleDataNoInjection() {
-        DatabaseManager noInjectionDatabaseManager = new DatabaseManager(new AppDatabaseConfig(getApplication()));
+    public void createSampleDataNoInjection() {
+        DatabaseManager noInjectionDatabaseManager = new DatabaseManager(new AppDatabaseConfig(application));
 
         HouseholdManager householdManager = new HouseholdManager(noInjectionDatabaseManager);
         IndividualManager individualManager = new IndividualManager(noInjectionDatabaseManager);
@@ -246,14 +213,11 @@ public class AboutActivity extends BaseActivity {
         individualListItemManager.save(DatabaseManagerConst.MAIN_DATABASE_NAME, newListItem);
 
         noInjectionDatabaseManager.endTransaction(DatabaseManagerConst.OTHER_DATABASE_NAME, true);
-
-        Toast.makeText(this, "Database created", Toast.LENGTH_SHORT).show();
     }
 
     /**
      * Simple web service call
      */
-    //    @OnClick(R.id.rest_test_button)
     public void testQueryWebServiceCall() {
         Call<DtoColors> call = colorService.colors();
 
@@ -273,7 +237,6 @@ public class AboutActivity extends BaseActivity {
     /**
      * Simple web service call using Rx
      */
-    @OnClick(R.id.restTestButton)
     public void testQueryWebServiceCallRx() {
         RxUtil.toRetrofitObservable(colorService.colors())
                 .subscribeOn(Schedulers.io())
@@ -294,7 +257,6 @@ public class AboutActivity extends BaseActivity {
     /**
      * Simple web service call using the full url (instead of just an endpoint)
      */
-    //    @OnClick(R.id.rest_test_button)
     public void testFullUrlQueryWebServiceCall() {
         Call<DtoColors> call = colorService.colorsByFullUrl(ColorService.FULL_URL);
 
@@ -314,7 +276,6 @@ public class AboutActivity extends BaseActivity {
     /**
      * Web service call that saves response to file, then processes the file (best for large JSON payloads)
      */
-    //    @OnClick(R.id.rest_test_button)
     public void testSaveQueryWebServiceCall() {
         Call<ResponseBody> call = colorService.colorsToFile();
 
@@ -322,7 +283,7 @@ public class AboutActivity extends BaseActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 // delete any existing file
-                File outputFile = new File(getExternalCacheDir(), "ws-out.json");
+                File outputFile = new File(application.getExternalCacheDir(), "ws-out.json");
                 if (outputFile.exists()) {
                     outputFile.delete();
                 }
@@ -346,7 +307,7 @@ public class AboutActivity extends BaseActivity {
         });
     }
 
-    private void processColorsResponse(Response<DtoColors> response) {
+    public void processColorsResponse(Response<DtoColors> response) {
         if (response.isSuccessful()) {
             Timber.i("Search SUCCESS");
             processColorsResponse(response.body());
@@ -355,7 +316,7 @@ public class AboutActivity extends BaseActivity {
         }
     }
 
-    private void processColorsResponse(DtoColors dtoColors) {
+    public void processColorsResponse(DtoColors dtoColors) {
         for (DtoColor dtoColor : dtoColors.getColors()) {
             Timber.i("Result: %s", dtoColor.getColorName());
         }
@@ -364,7 +325,6 @@ public class AboutActivity extends BaseActivity {
     /**
      * Sample for creating a scheduled job
      */
-    @OnClick(R.id.jobTestButton)
     public void jobTest() {
         SampleJob.schedule();
         SampleJob.schedule();
@@ -380,7 +340,6 @@ public class AboutActivity extends BaseActivity {
     /**
      * Rx and Table change listener tests
      */
-    @OnClick(R.id.rxTestButton)
     public void testRx() {
         // Sample tests for Rx
         // Rx Subscribe
@@ -431,5 +390,4 @@ public class AboutActivity extends BaseActivity {
             Timber.i("Rx Individual Table Delete");
         }
     }
-
 }
