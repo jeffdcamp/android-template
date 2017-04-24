@@ -20,6 +20,7 @@ import org.jdc.template.json.DateTimeStringDeserializer
 import org.jdc.template.json.DateTimeStringSerializer
 import org.jdc.template.model.database.AppDatabaseConfig
 import org.jdc.template.model.webservice.ServiceModule
+import org.jdc.template.util.CoroutineContextProvider
 import org.threeten.bp.LocalDateTime
 import pocketbus.Bus
 import retrofit2.converter.jackson.JacksonConverterFactory
@@ -95,5 +96,11 @@ class AppModule(private val application: Application) {
     @Singleton
     fun provideJacksonConverterFactory(objectMapper: ObjectMapper): JacksonConverterFactory {
         return JacksonConverterFactory.create(objectMapper)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCoroutineContextProvider(): CoroutineContextProvider {
+        return CoroutineContextProvider.MainCoroutineContextProvider
     }
 }

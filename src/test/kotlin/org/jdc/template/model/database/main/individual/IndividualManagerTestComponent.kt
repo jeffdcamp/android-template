@@ -5,7 +5,7 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = arrayOf(IndividualManagerTestModule::class))
+@Component(modules = arrayOf(IndividualManagerTest.IndividualManagerTestModule::class))
 interface IndividualManagerTestComponent {
     fun inject(target: IndividualManagerTest)
 }

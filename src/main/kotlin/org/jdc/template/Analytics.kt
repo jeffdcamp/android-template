@@ -16,6 +16,7 @@ interface Analytics {
     companion object {
         // Categories
         val CATEGORY_APP = "App"
+        val CATEGORY_DIRECTORY = "Individual"
         val CATEGORY_INDIVIDUAL = "Individual"
         val CATEGORY_ABOUT = "About"
         val CATEGORY_SETTINGS = "Settings"
@@ -25,6 +26,7 @@ interface Analytics {
         val ACTION_NEW = "New"
         val ACTION_VIEW = "View"
         val ACTION_EDIT = "Edit"
+        val ACTION_EDIT_SAVE = "Edit Save"
         val ACTION_DELETE = "Delete"
 
         // Variables

@@ -1,5 +1,7 @@
 package org.jdc.template.model.database.main.individual
 
+import dagger.Module
+import dagger.Provides
 import org.dbtools.android.domain.config.DatabaseConfig
 import org.jdc.template.log.JavaTree
 import org.jdc.template.model.database.TestMainDatabaseConfig
@@ -9,6 +11,7 @@ import org.junit.Test
 import org.threeten.bp.LocalTime
 import timber.log.Timber
 import javax.inject.Inject
+import javax.inject.Singleton
 
 class IndividualManagerTest {
     @Inject
@@ -49,5 +52,14 @@ class IndividualManagerTest {
         // === DELETE ===
         individualManager.delete(individual)
         assertEquals(0, individualManager.findCount())
+    }
+
+    @Module
+    class IndividualManagerTestModule {
+        @Provides
+        @Singleton
+        internal fun provideDatabaseConfig(): DatabaseConfig {
+            return TestMainDatabaseConfig.instance
+        }
     }
 }

@@ -1,45 +1,36 @@
-package org.jdc.template.ui.activity
+package org.jdc.template.ux.directory
 
-import android.app.Activity
 import android.os.Bundle
 import android.support.v4.view.MenuItemCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
-import com.google.android.gms.analytics.HitBuilders
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.directory.*
 import kotlinx.android.synthetic.main.toolbar_actionbar.*
-import org.jdc.template.Analytics
 import org.jdc.template.InternalIntents
 import org.jdc.template.R
 import org.jdc.template.R.layout.activity_directory
 import org.jdc.template.inject.Injector
 import org.jdc.template.model.database.main.individual.Individual
-import org.jdc.template.model.database.main.individual.IndividualConst
-import org.jdc.template.model.database.main.individual.IndividualManager
-import org.jdc.template.ui.adapter.DirectoryAdapter
+import org.jdc.template.ui.activity.DrawerActivity
 import org.jdc.template.ui.menu.CommonMenu
 import pocketknife.PocketKnife
 import javax.inject.Inject
 
-class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener {
-    @Inject
-    lateinit var analytics: Analytics
+class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener, DirectoryContract.View {
     @Inject
     lateinit var commonMenu: CommonMenu
     @Inject
     lateinit var internalIntents: InternalIntents
     @Inject
-    lateinit var individualManager: IndividualManager
+    lateinit var presenter: DirectoryPresenter;
 
     val adapter = DirectoryAdapter().apply {
-        itemClickListener = { onItemClick(it) }
+        itemClickListener = {
+            presenter.individualClicked(it.id)
+        }
     }
-
-    var modelTs = 0L
 
     init {
         Injector.get().inject(this)
@@ -49,16 +40,16 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener {
         super.onCreate(savedInstanceState)
         setContentView(activity_directory)
 
-        setDefaultKeyMode(Activity.DEFAULT_KEYS_SEARCH_LOCAL)
-
         super.setupDrawerWithDrawerButton(mainToolbar, R.string.drawer_main)
 
-
         newFloatingActionButton.setOnClickListener {
-            onNewItemClick()
+            presenter.newItemClicked()
         }
 
         setupRecyclerView()
+
+        presenter.init(this)
+        presenter.load()
     }
 
     private fun setupRecyclerView() {
@@ -91,23 +82,18 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener {
         PocketKnife.saveInstanceState(this, outState)
     }
 
-    override fun onStart() {
-        super.onStart()
-        if (modelTs != individualManager.getLastTableModifiedTs()) {
-            modelTs = individualManager.getLastTableModifiedTs()
-            loadList()
-        }
+    override fun onResume() {
+        super.onResume()
+        presenter.reload()
     }
 
-    fun loadList() {
-        val single = individualManager.findAllBySelectionRx(orderBy = "${IndividualConst.C_FIRST_NAME}, ${IndividualConst.C_LAST_NAME}")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-        addDisposable(single.subscribe { data -> dataLoaded(data) })
+    override fun onStop() {
+        presenter.unregister()
+        super.onStop()
     }
 
-    fun dataLoaded(data: List<Individual>) {
-        adapter.list = data
+    override fun showIndividualList(list: List<Individual>) {
+        adapter.list = list
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
@@ -118,16 +104,11 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener {
         throw UnsupportedOperationException()
     }
 
-    fun onItemClick(individual: Individual) {
-        internalIntents.showIndividual(this, individual.id)
+    override fun showNewIndividual() {
+        internalIntents.newIndividual(this)
     }
 
-    fun onNewItemClick() {
-        analytics.send(HitBuilders.EventBuilder()
-                .setCategory(Analytics.CATEGORY_INDIVIDUAL)
-                .setAction(Analytics.ACTION_NEW)
-                .build())
-
-        internalIntents.newIndividual(this)
+    override fun showIndividual(individualId: Long) {
+        internalIntents.showIndividual(this, individualId)
     }
 }

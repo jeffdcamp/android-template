@@ -3,13 +3,14 @@ package org.jdc.template.inject
 import android.app.Application
 import dagger.Module
 import dagger.Provides
-import org.dbtools.android.domain.AndroidDatabase
 import org.dbtools.android.domain.config.DatabaseConfig
 import org.dbtools.android.domain.database.JdbcSqliteDatabaseWrapper
+import org.jdc.template.Analytics
+import org.jdc.template.MockitoKotlinHelper
 import org.jdc.template.TestFilesystem
 import org.jdc.template.model.database.DatabaseManager
+import org.jdc.template.util.CoroutineContextProvider
 import org.mockito.AdditionalMatchers.or
-import org.mockito.ArgumentMatchers.any
 import org.mockito.ArgumentMatchers.anyInt
 import org.mockito.ArgumentMatchers.anyString
 import org.mockito.ArgumentMatchers.isNull
@@ -23,6 +24,16 @@ import javax.inject.Singleton
 
 @Module
 class CommonTestModule {
+    @Provides
+    @Singleton
+    fun provideAnalytics(): Analytics {
+        return object : Analytics {
+            override fun send(params: Map<String, String>) {
+                println(params.toString())
+            }
+        }
+    }
+
     // ========== ANDROID ==========
     @Provides
     @Singleton
@@ -49,10 +60,16 @@ class CommonTestModule {
         val databaseManager = spy(DatabaseManager(databaseConfig))
 
         // don't allow the database to be upgraded
-        doNothing().`when`(databaseManager).onUpgrade(any(AndroidDatabase::class.java), anyInt(), anyInt())
+        doNothing().`when`(databaseManager).onUpgrade(MockitoKotlinHelper.any(), anyInt(), anyInt())
 
         JdbcSqliteDatabaseWrapper.setEnableLogging(true)
 
         return databaseManager
+    }
+
+    @Provides
+    @Singleton
+    fun provideCoroutineContextProvider(): CoroutineContextProvider {
+        return CoroutineContextProvider.TestCoroutineContextProvider
     }
 }

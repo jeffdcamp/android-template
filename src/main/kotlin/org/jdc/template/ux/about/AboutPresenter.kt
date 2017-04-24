@@ -1,33 +1,24 @@
-package org.jdc.template.ui.activity
+package org.jdc.template.ux.about
 
-import android.os.Bundle
-import android.text.format.DateUtils
-import android.view.MenuItem
+import android.app.Application
 import android.widget.Toast
 import com.google.android.gms.analytics.HitBuilders
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_about.*
-import kotlinx.android.synthetic.main.toolbar_actionbar.*
+import kotlinx.coroutines.experimental.Job
 import okhttp3.ResponseBody
 import org.dbtools.android.domain.DBToolsTableChangeListener
 import org.dbtools.android.domain.DatabaseTableChange
 import org.jdc.template.Analytics
-import org.jdc.template.BuildConfig
-import org.jdc.template.R.layout.activity_about
-import org.jdc.template.event.NewDataEvent
-import org.jdc.template.inject.Injector
+import org.jdc.template.event.SampleEvent
 import org.jdc.template.job.SampleJob
 import org.jdc.template.model.database.AppDatabaseConfig
 import org.jdc.template.model.database.DatabaseManager
 import org.jdc.template.model.database.DatabaseManagerConst
-import org.jdc.template.model.database.attached.crossdatabasequery.CrossDatabaseQueryManager
 import org.jdc.template.model.database.main.household.Household
 import org.jdc.template.model.database.main.household.HouseholdManager
 import org.jdc.template.model.database.main.individual.Individual
 import org.jdc.template.model.database.main.individual.IndividualManager
-import org.jdc.template.model.database.main.individualdata.IndividualDataManager
-import org.jdc.template.model.database.main.individualquery.IndividualQueryManager
 import org.jdc.template.model.database.other.individuallist.IndividualList
 import org.jdc.template.model.database.other.individuallist.IndividualListManager
 import org.jdc.template.model.database.other.individuallistitem.IndividualListItem
@@ -35,6 +26,7 @@ import org.jdc.template.model.database.other.individuallistitem.IndividualListIt
 import org.jdc.template.model.type.IndividualType
 import org.jdc.template.model.webservice.colors.ColorService
 import org.jdc.template.model.webservice.colors.dto.DtoColors
+import org.jdc.template.ui.mvp.BasePresenter
 import org.jdc.template.util.RxUtil
 import org.jdc.template.util.WebServiceUtil
 import org.threeten.bp.LocalDate
@@ -48,95 +40,41 @@ import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
 
-class AboutActivity : BaseActivity() {
+class AboutPresenter @Inject
+constructor(private val analytics: Analytics,
+            private val bus: Bus,
+            private val application: Application,
+            private val householdManager: HouseholdManager,
+            private val individualManager: IndividualManager,
+            private val individualListManager: IndividualListManager,
+            private val individualListItemManager: IndividualListItemManager,
+            private val colorService: ColorService,
+            private val webServiceUtil: WebServiceUtil): BasePresenter() {
 
-    @Inject
-    lateinit var analytics: Analytics
-    @Inject
-    lateinit var bus: Bus
-    @Inject
-    lateinit var databaseManager: DatabaseManager
-    @Inject
-    lateinit var individualManager: IndividualManager
-    @Inject
-    lateinit var householdManager: HouseholdManager
-    @Inject
-    lateinit var individualListManager: IndividualListManager
-    @Inject
-    lateinit var individualListItemManager: IndividualListItemManager
-    @Inject
-    lateinit var individualQueryManager: IndividualQueryManager
-    @Inject
-    lateinit var crossDatabaseQueryManager: CrossDatabaseQueryManager
-    @Inject
-    lateinit var individualDataManager: IndividualDataManager
+    private lateinit var view: AboutContract.View
 
-    @Inject
-    lateinit var colorService: ColorService
-    @Inject
-    lateinit var webServiceUtil: WebServiceUtil
-
-    init {
-        Injector.get().inject(this)
+    fun init(view: AboutContract.View) {
+        this.view = view;
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(activity_about)
-
+    override fun load(): Job? {
         analytics.send(HitBuilders.EventBuilder().setCategory(Analytics.CATEGORY_ABOUT).build())
-
-        setSupportActionBar(mainToolbar)
-        enableActionBarBackArrow(true)
-
-        versionTextView.text = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
-        versionDateTextView.text = DateUtils.formatDateTime(this, BuildConfig.BUILD_TIME, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_TIME or DateUtils.FORMAT_SHOW_YEAR)
-
-        createDatabaseButton.setOnClickListener {
-            createSampleDataWithInjection()
-//            createSampleDataNoInjection()
-        }
-        restTestButton.setOnClickListener {
-//            testQueryWebServiceCall() // simple rest call
-            testQueryWebServiceCallRx() // use Rx to make the call
-//            testSaveQueryWebServiceCall() // write the response to file, the read the file to show results
-//            testFullUrlQueryWebServiceCall() //  simple call using the full URL instead of an endpoint
-        }
-        jobTestButton.setOnClickListener {
-            jobTest()
-        }
-        rxTestButton.setOnClickListener {
-            testRx()
-        }
-        testButton.setOnClickListener {
-//            testQuery()
-        }
+        return null
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun register() {
         bus.register(this)
     }
 
-    override fun onStop() {
+    override fun unregister() {
+        super.unregister()
         bus.unregister(this)
-        super.onStop()
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-                return true
-            }
-            else -> return super.onOptionsItemSelected(item)
-        }
     }
 
     /**
      * Creates sample data WITH using injection
      */
-    private fun createSampleDataWithInjection() {
+    fun createSampleDataWithInjection() {
         // clear any existing items
         individualManager.deleteAll()
         householdManager.deleteAll()
@@ -196,7 +134,7 @@ class AboutActivity : BaseActivity() {
     /**
      * Creates sample data WITHOUT using injection
      */
-    private fun createSampleDataNoInjection() {
+    fun createSampleDataNoInjection() {
         val noInjectionDatabaseManager = DatabaseManager(AppDatabaseConfig(application))
 
         val householdManager = HouseholdManager(noInjectionDatabaseManager)
@@ -246,7 +184,7 @@ class AboutActivity : BaseActivity() {
 
         noInjectionDatabaseManager.endTransaction(DatabaseManagerConst.OTHER_DATABASE_NAME, true)
 
-        Toast.makeText(this, "Database created", Toast.LENGTH_SHORT).show()
+        Toast.makeText(application, "Database created", Toast.LENGTH_SHORT).show()
     }
 
     /**
@@ -279,14 +217,16 @@ class AboutActivity : BaseActivity() {
                 })
                 .filter({ dtoSearchResponse -> dtoSearchResponse != null }) // don't continue if null
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ dtoSearchResponse -> processSearchResponse(dtoSearchResponse!!) }, { _ -> bus.post(NewDataEvent(false, null)) }, { bus.post(NewDataEvent(true, null)) })
+                .subscribe({ dtoSearchResponse -> processSearchResponse(dtoSearchResponse!!) },
+                        { _ -> bus.post(SampleEvent(false, null)) },
+                        { bus.post(SampleEvent(true, null)) })
     }
 
     /**
      * Bus event example (when rest call finishes)
      */
     @Subscribe
-    fun handle(event: NewDataEvent) {
+    fun handle(event: SampleEvent) {
         Timber.i(event.throwable, "Rest Service finished [%b]", event.isSuccess)
     }
 
@@ -316,7 +256,7 @@ class AboutActivity : BaseActivity() {
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 // delete any existing file
-                val outputFile = File(externalCacheDir, "ws-out.json")
+                val outputFile = File(application.externalCacheDir, "ws-out.json")
                 if (outputFile.exists()) {
                     outputFile.delete()
                 }

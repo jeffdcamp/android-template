@@ -18,22 +18,26 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
         >
+        <!-- support 18:9 form factors -->
+        <meta-data android:name="android.max_aspect"
+                   android:value="2.1"/>
+
         <!-- Activities -->
         <activity
-            android:name=".ui.activity.StartupActivity"
+            android:name=".ux.startup.StartupActivity"
             android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.DirectoryActivity">
+        <activity android:name=".ux.directory.DirectoryActivity">
             <!-- Split support for ActionBarCompat -->
             <!--<meta-data android:name="android.support.UI_OPTIONS" android:value="splitActionBarWhenNarrow"/> -->
         </activity>
-        <activity android:name=".ui.activity.IndividualActivity"/>
-        <activity android:name=".ui.activity.IndividualEditActivity"/>
-        <activity android:name=".ui.activity.AboutActivity"/>
+        <activity android:name=".ux.individual.IndividualActivity"/>
+        <activity android:name=".ux.individualedit.IndividualEditActivity"/>
+        <activity android:name=".ux.about.AboutActivity"/>
 
         <activity
             android:name=".ui.activity.SettingsActivity"
