@@ -1,5 +1,9 @@
 package org.jdc.template.ux.individualedit
 
+import android.content.Intent
+import me.eugeniomarletti.extras.ActivityCompanion
+import me.eugeniomarletti.extras.intent.IntentExtra
+import me.eugeniomarletti.extras.intent.base.Long
 import org.jdc.template.model.database.main.individual.Individual
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalTime
@@ -16,7 +20,9 @@ class IndividualEditContract {
         fun showBirthDate(date: LocalDate)
     }
 
-    object Extras {
-        const val EXTRA_ID = "INDIVIDUAL_ID"
+    companion object : ActivityCompanion<IntentOptions>(IntentOptions, IndividualEditActivity::class)
+
+    object IntentOptions {
+        var Intent.individualId by IntentExtra.Long(defaultValue = -1L)
     }
 }

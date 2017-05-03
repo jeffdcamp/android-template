@@ -1,5 +1,6 @@
 package org.jdc.template.ux.directory
 
+import me.eugeniomarletti.extras.ActivityCompanion
 import org.jdc.template.model.database.main.individual.Individual
 
 class DirectoryContract {
@@ -9,6 +10,9 @@ class DirectoryContract {
         fun showIndividual(individualId: Long)
     }
 
-    object Extras {
-    }
+    companion object : ActivityCompanion<IntentOptions>(IntentOptions, DirectoryActivity::class)
+
+    object IntentOptions
+
+    object SaveStateOptions
 }

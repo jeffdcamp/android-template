@@ -16,7 +16,6 @@ import org.jdc.template.ui.activity.BaseActivity
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalTime
 import org.threeten.bp.ZoneId
-import pocketknife.PocketKnife
 import javax.inject.Inject
 
 class IndividualEditActivity : BaseActivity(), IndividualEditContract.View {
@@ -31,7 +30,6 @@ class IndividualEditActivity : BaseActivity(), IndividualEditContract.View {
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_individual_edit)
-        PocketKnife.bindExtras(this)
 
         setupActionBar()
 
@@ -43,9 +41,10 @@ class IndividualEditActivity : BaseActivity(), IndividualEditContract.View {
             presenter.birthdayClicked()
         }
 
+        with(IndividualEditContract.IntentOptions) {
+            presenter.init(this@IndividualEditActivity, intent.individualId)
+        }
 
-        val individualId = intent.getLongExtra(IndividualEditContract.Extras.EXTRA_ID, 0L)
-        presenter.init(this, individualId)
         presenter.load()
     }
 

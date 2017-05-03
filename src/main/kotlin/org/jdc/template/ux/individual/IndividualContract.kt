@@ -1,5 +1,9 @@
 package org.jdc.template.ux.individual
 
+import android.content.Intent
+import me.eugeniomarletti.extras.ActivityCompanion
+import me.eugeniomarletti.extras.intent.IntentExtra
+import me.eugeniomarletti.extras.intent.base.Long
 import org.jdc.template.model.database.main.individual.Individual
 
 class IndividualContract {
@@ -10,7 +14,9 @@ class IndividualContract {
         fun promptDeleteIndividual()
     }
 
-    object Extras {
-        const val EXTRA_ID = "INDIVIDUAL_ID"
+    companion object : ActivityCompanion<IntentOptions>(IntentOptions, IndividualActivity::class)
+
+    object IntentOptions {
+        var Intent.individualId by IntentExtra.Long(defaultValue = 0L)
     }
 }

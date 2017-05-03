@@ -4,10 +4,8 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import org.jdc.template.ui.activity.SettingsActivity
-import org.jdc.template.ux.about.AboutActivity
-import org.jdc.template.ux.individual.IndividualActivity
+import org.jdc.template.ux.about.AboutContract
 import org.jdc.template.ux.individual.IndividualContract
-import org.jdc.template.ux.individualedit.IndividualEditActivity
 import org.jdc.template.ux.individualedit.IndividualEditContract
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -18,19 +16,19 @@ class InternalIntents
 constructor() {
 
     fun showIndividual(activity: Activity, individualId: Long) {
-        val intent = Intent(activity, IndividualActivity::class.java)
-        intent.putExtra(IndividualContract.Extras.EXTRA_ID, individualId)
-        activity.startActivity(intent)
+        IndividualContract.start(activity) {
+            it.individualId = individualId
+        }
     }
 
     fun newIndividual(activity: Activity) {
-        editIndividual(activity, -1)
+        IndividualEditContract.start(activity)
     }
 
     fun editIndividual(activity: Activity, individualId: Long) {
-        val intent = Intent(activity, IndividualEditActivity::class.java)
-        intent.putExtra(IndividualEditContract.Extras.EXTRA_ID, individualId)
-        activity.startActivity(intent)
+        IndividualEditContract.start(activity) {
+            it.individualId = individualId
+        }
     }
 
     fun showSettings(context: Context) {
@@ -39,7 +37,6 @@ constructor() {
     }
 
     fun showHelp(context: Context) {
-        val aboutIntent = Intent(context, AboutActivity::class.java)
-        context.startActivity(aboutIntent)
+        AboutContract.start(context)
     }
 }

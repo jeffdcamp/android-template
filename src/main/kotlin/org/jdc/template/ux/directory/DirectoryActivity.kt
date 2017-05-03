@@ -15,7 +15,6 @@ import org.jdc.template.inject.Injector
 import org.jdc.template.model.database.main.individual.Individual
 import org.jdc.template.ui.activity.DrawerActivity
 import org.jdc.template.ui.menu.CommonMenu
-import pocketknife.PocketKnife
 import javax.inject.Inject
 
 class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener, DirectoryContract.View {
@@ -75,11 +74,6 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener, Dire
 
     override fun allowFinishOnHome(): Boolean {
         return false
-    }
-
-    override fun onSaveInstanceState(outState: Bundle?) {
-        super.onSaveInstanceState(outState)
-        PocketKnife.saveInstanceState(this, outState)
     }
 
     override fun onResume() {

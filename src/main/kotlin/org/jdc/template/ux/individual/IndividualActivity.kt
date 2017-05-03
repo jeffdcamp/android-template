@@ -15,7 +15,6 @@ import org.jdc.template.model.database.main.individual.Individual
 import org.jdc.template.ui.activity.BaseActivity
 import org.threeten.bp.LocalDate
 import org.threeten.bp.ZoneId
-import pocketknife.PocketKnife
 import javax.inject.Inject
 
 class IndividualActivity : BaseActivity(), IndividualContract.View {
@@ -32,12 +31,13 @@ class IndividualActivity : BaseActivity(), IndividualContract.View {
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(activity_individual)
-        PocketKnife.bindExtras(this)
 
         setupActionBar()
 
-        val individualId = intent.getLongExtra(IndividualContract.Extras.EXTRA_ID, -1)
-        presenter.init(this, individualId)
+        with(IndividualContract.IntentOptions) {
+            presenter.init(this@IndividualActivity, intent.individualId)
+        }
+
         presenter.load()
     }
 
