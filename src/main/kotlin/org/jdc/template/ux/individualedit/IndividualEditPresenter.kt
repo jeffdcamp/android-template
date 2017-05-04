@@ -33,6 +33,11 @@ constructor(private val analytics: Analytics,
 
     private fun loadIndividual(): Job {
         val job = launch(UI) {
+            if (individualId <= 0L) {
+                individual = Individual()
+                return@launch
+            }
+
             individual = run(context + CommonPool) {
                 individualManager.findByRowId(individualId)
             }
