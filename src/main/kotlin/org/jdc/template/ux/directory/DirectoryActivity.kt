@@ -15,6 +15,7 @@ import org.jdc.template.inject.Injector
 import org.jdc.template.model.database.main.individual.Individual
 import org.jdc.template.ui.activity.DrawerActivity
 import org.jdc.template.ui.menu.CommonMenu
+import org.jdc.template.util.getScrollPosition
 import javax.inject.Inject
 
 class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener, DirectoryContract.View {
@@ -48,6 +49,9 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener, Dire
         setupRecyclerView()
 
         presenter.init(this)
+
+        savedInstanceState?.let { restoreState(it) }
+
         presenter.load()
     }
 
@@ -81,6 +85,11 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener, Dire
         presenter.reload()
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        saveState(outState)
+    }
+
     override fun onStop() {
         presenter.unregister()
         super.onStop()
@@ -104,5 +113,25 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener, Dire
 
     override fun showIndividual(individualId: Long) {
         internalIntents.showIndividual(this, individualId)
+    }
+
+    override fun scrollToPosition(scrollPosition: Int) {
+        recyclerView.scrollToPosition(scrollPosition)
+    }
+
+    override fun getListScrollPosition(): Int {
+        return recyclerView.getScrollPosition()
+    }
+
+    private fun restoreState(bundle: Bundle) {
+        with(DirectoryContract.SaveStateOptions) {
+            presenter.scrollPosition = bundle.scrollPosition!!
+        }
+    }
+
+    private fun saveState(bundle: Bundle) {
+        with(DirectoryContract.SaveStateOptions) {
+            bundle.scrollPosition = getListScrollPosition()
+        }
     }
 }

@@ -14,10 +14,11 @@ import javax.inject.Inject
 
 class DirectoryPresenter @Inject
 constructor(private val analytics: Analytics,
-            private val individualManager: IndividualManager): BasePresenter() {
+            private val individualManager: IndividualManager) : BasePresenter() {
 
     private lateinit var view: DirectoryContract.View
     private var modelTs = 0L
+    var scrollPosition: Int = 0
 
     fun init(view: DirectoryContract.View) {
         this.view = view
@@ -45,6 +46,7 @@ constructor(private val analytics: Analytics,
             }
 
             view.showIndividualList(list)
+            view.scrollToPosition(scrollPosition)
         }
         compositeJob.add(job)
         return job
@@ -62,4 +64,5 @@ constructor(private val analytics: Analytics,
     fun individualClicked(individualId: Long) {
         view.showIndividual(individualId)
     }
+
 }
