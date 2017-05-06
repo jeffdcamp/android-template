@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.1.2-2'
+    ext.kotlin_version = '1.1.2-3'
     ext.dbtoolsVersion = '9.0.0'
 
     repositories {
@@ -66,8 +66,8 @@ dependencies {
 
     // Code
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.14.1"
-    compile 'com.google.code.findbugs:jsr305:3.0.1'
+    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    compile "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.15"
     compile 'com.jakewharton.threetenabp:threetenabp:1.0.5'
     compile "org.dbtools:dbtools-android:$dbtoolsVersion"
     compile 'com.devbrackets.android:recyclerext:2.1.1'
@@ -116,6 +116,13 @@ dependencies {
     testCompile 'org.threeten:threetenbp:1.3.3'
     testCompile 'org.xerial:sqlite-jdbc:3.16.1'
     kaptTest "com.google.dagger:dagger-compiler:${daggerVersion}"
+}
+
+// todo JetBrains has indicated that coroutines are stable, but the kotlinx-coroutines designs may change ... remove this when kotlinx-coroutines are no longer experimental
+kotlin {
+    experimental {
+        coroutines 'enable' // temp disable warnings
+    }
 }
 
 android {
