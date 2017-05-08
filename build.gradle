@@ -32,7 +32,6 @@ def versionMajor = 1
 def versionMinor = 0
 def versionPatch = 0
 def versionBuild = 0
-def versionMajorMinorPatch = "${versionMajor}.${versionMinor}.${versionPatch}"
 def versionMajorMinorPatchBuild = "${versionMajor}.${versionMinor}.${versionPatch}.${versionBuild}"
 def buildTime = new Date().getTime()
 
@@ -68,6 +67,7 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     compile "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.15"
+    compile 'me.eugeniomarletti:android-extras-delegates:1.0.4'
     compile 'com.jakewharton.threetenabp:threetenabp:1.0.5'
     compile "org.dbtools:dbtools-android:$dbtoolsVersion"
     compile 'com.devbrackets.android:recyclerext:2.1.1'
@@ -75,7 +75,6 @@ dependencies {
     compile "com.vikingsen:pocketbus:$pocketBusVersion"
     kapt "com.vikingsen:pocketbus-compiler:$pocketBusVersion"
     compile 'com.jakewharton.timber:timber:4.5.1'
-    compile 'me.eugeniomarletti:android-extras-delegates:1.0.4'
 
     // Network
     compile "com.squareup.okhttp3:okhttp:$okhttpVersion"
@@ -138,7 +137,7 @@ android {
         }
 
         versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
-        versionName versionMajorMinorPatch
+        versionName versionMajorMinorPatchBuild
         buildConfigField "String", "USER_AGENT_APP_NAME", "\"AndroidTemplate\""
         buildConfigField "String", "ANALYTICS_KEY", "\"${getAnalyticsKey()}\""
 
@@ -191,14 +190,12 @@ android {
         debug {
             versionNameSuffix '-DEV'
             applicationIdSuffix '.dev'
-            buildConfigField "String", "VERSION_NAME_FULL", "\"${versionMajorMinorPatchBuild}-DEV\""
             buildConfigField "long", "BUILD_TIME", "0l" // to improve build times, do allow change on every build
         }
         alpha {
             initWith(buildTypes.release)
             versionNameSuffix '-ALPHA'
             applicationIdSuffix '.dev'
-            buildConfigField "String", "VERSION_NAME_FULL", "\"${versionMajorMinorPatchBuild}-ALPHA\""
             buildConfigField "long", "BUILD_TIME", "${buildTime}l"
             debuggable true
             signingConfig signingConfigs.prodConfig
@@ -206,12 +203,10 @@ android {
         beta {
             initWith(buildTypes.release)
             versionNameSuffix '-BETA'
-            buildConfigField "String", "VERSION_NAME_FULL", "\"${versionMajorMinorPatchBuild}-BETA\""
             buildConfigField "long", "BUILD_TIME", "${buildTime}l"
             signingConfig signingConfigs.prodConfig
         }
         release {
-            buildConfigField "String", "VERSION_NAME_FULL", "\"${versionMajorMinorPatchBuild}\""
             buildConfigField "long", "BUILD_TIME", "${buildTime}l"
             versionNameSuffix ''
             minifyEnabled true
