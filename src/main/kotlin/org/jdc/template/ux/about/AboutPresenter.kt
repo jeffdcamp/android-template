@@ -278,7 +278,9 @@ constructor(private val analytics: Analytics,
     private fun processWebServiceResponse(response: Response<DtoColors>) {
         if (response.isSuccessful) {
             Timber.i("Search SUCCESS")
-            processSearchResponse(response.body())
+            response.body()?.let {
+                processSearchResponse(it)
+            }
         } else {
             Timber.e("Search FAILURE: code (%d)", response.code())
         }
