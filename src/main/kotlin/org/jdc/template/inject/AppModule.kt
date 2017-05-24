@@ -2,6 +2,7 @@ package org.jdc.template.inject
 
 import android.app.Application
 import android.app.NotificationManager
+import android.arch.persistence.room.Room
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
@@ -12,14 +13,15 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.google.android.gms.analytics.GoogleAnalytics
 import dagger.Module
 import dagger.Provides
-import org.dbtools.android.domain.config.DatabaseConfig
 import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
 import org.jdc.template.BusRegistry
+import org.jdc.template.datasource.database.main.MainDatabase
+import org.jdc.template.datasource.database.main.household.HouseholdDao
+import org.jdc.template.datasource.database.main.individual.IndividualDao
+import org.jdc.template.datasource.webservice.ServiceModule
 import org.jdc.template.json.DateTimeStringDeserializer
 import org.jdc.template.json.DateTimeStringSerializer
-import org.jdc.template.model.database.AppDatabaseConfig
-import org.jdc.template.model.webservice.ServiceModule
 import org.jdc.template.util.CoroutineContextProvider
 import org.threeten.bp.LocalDateTime
 import pocketbus.Bus
@@ -66,12 +68,6 @@ class AppModule(private val application: Application) {
 
     @Provides
     @Singleton
-    fun provideDatabaseConfig(application: Application): DatabaseConfig {
-        return AppDatabaseConfig(application)
-    }
-
-    @Provides
-    @Singleton
     internal fun provideEventBus(): Bus {
         val bus = Bus.Builder()
                 .build()
@@ -102,5 +98,28 @@ class AppModule(private val application: Application) {
     @Singleton
     fun provideCoroutineContextProvider(): CoroutineContextProvider {
         return CoroutineContextProvider.MainCoroutineContextProvider
+    }
+
+    @Provides
+    @Singleton
+    fun provideMainDatabase(application: Application): MainDatabase {
+        return Room.databaseBuilder(application, MainDatabase::class.java, MainDatabase.DATABASE_NAME)
+//                .addMigrations(object: Migration(1, 2) {
+//                    override fun migrate(p0: SupportSQLiteDatabase?) {
+//                    }
+//                })
+                .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideIndividualDao(mainDatabase: MainDatabase): IndividualDao {
+        return mainDatabase.individualDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideHouseholdDao(mainDatabase: MainDatabase): HouseholdDao {
+        return mainDatabase.householdDao()
     }
 }

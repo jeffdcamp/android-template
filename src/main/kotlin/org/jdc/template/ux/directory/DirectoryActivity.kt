@@ -1,5 +1,7 @@
 package org.jdc.template.ux.directory
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.view.MenuItemCompat
 import android.support.v7.widget.LinearLayoutManager
@@ -8,27 +10,29 @@ import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.directory.*
 import kotlinx.android.synthetic.main.toolbar_actionbar.*
+import me.eugeniomarletti.extras.ActivityCompanion
+import me.eugeniomarletti.extras.bundle.BundleExtra
+import me.eugeniomarletti.extras.bundle.base.Int
 import org.jdc.template.InternalIntents
 import org.jdc.template.R
 import org.jdc.template.R.layout.activity_directory
 import org.jdc.template.inject.Injector
-import org.jdc.template.model.database.main.individual.Individual
 import org.jdc.template.ui.activity.DrawerActivity
 import org.jdc.template.ui.menu.CommonMenu
 import org.jdc.template.util.getScrollPosition
 import javax.inject.Inject
 
-class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener, DirectoryContract.View {
+class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener {
     @Inject
     lateinit var commonMenu: CommonMenu
     @Inject
     lateinit var internalIntents: InternalIntents
-    @Inject
-    lateinit var presenter: DirectoryPresenter;
+
+    private lateinit var directoryViewModel: DirectoryViewModel
 
     val adapter = DirectoryAdapter().apply {
         itemClickListener = {
-            presenter.individualClicked(it.id)
+            showIndividual(it.id)
         }
     }
 
@@ -43,16 +47,19 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener, Dire
         super.setupDrawerWithDrawerButton(mainToolbar, R.string.drawer_main)
 
         newFloatingActionButton.setOnClickListener {
-            presenter.newItemClicked()
+            showNewIndividual()
         }
 
         setupRecyclerView()
 
-        presenter.init(this)
-
         savedInstanceState?.let { restoreState(it) }
 
-        presenter.load()
+        directoryViewModel = ViewModelProviders.of(this).get(DirectoryViewModel::class.java)
+        directoryViewModel.getDirectoryListItemsLive().observe(this, Observer { list ->
+            list?.let {
+                adapter.list = it
+            }
+        })
     }
 
     private fun setupRecyclerView() {
@@ -80,23 +87,9 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener, Dire
         return false
     }
 
-    override fun onResume() {
-        super.onResume()
-        presenter.reload()
-    }
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         saveState(outState)
-    }
-
-    override fun onStop() {
-        presenter.unregister()
-        super.onStop()
-    }
-
-    override fun showIndividualList(list: List<Individual>) {
-        adapter.list = list
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
@@ -107,31 +100,39 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener, Dire
         throw UnsupportedOperationException()
     }
 
-    override fun showNewIndividual() {
+    fun showNewIndividual() {
         internalIntents.newIndividual(this)
     }
 
-    override fun showIndividual(individualId: Long) {
+    fun showIndividual(individualId: Long) {
         internalIntents.showIndividual(this, individualId)
     }
 
-    override fun scrollToPosition(scrollPosition: Int) {
+    fun scrollToPosition(scrollPosition: Int) {
         recyclerView.scrollToPosition(scrollPosition)
     }
 
-    override fun getListScrollPosition(): Int {
+    fun getListScrollPosition(): Int {
         return recyclerView.getScrollPosition()
     }
 
     private fun restoreState(bundle: Bundle) {
-        with(DirectoryContract.SaveStateOptions) {
-            presenter.scrollPosition = bundle.scrollPosition!!
+        with(SaveStateOptions) {
+            scrollToPosition(bundle.scrollPosition!!)
         }
     }
 
     private fun saveState(bundle: Bundle) {
-        with(DirectoryContract.SaveStateOptions) {
+        with(SaveStateOptions) {
             bundle.scrollPosition = getListScrollPosition()
         }
+    }
+
+    companion object : ActivityCompanion<IntentOptions>(IntentOptions, DirectoryActivity::class)
+
+    object IntentOptions
+
+    object SaveStateOptions {
+        var Bundle.scrollPosition by BundleExtra.Int()
     }
 }

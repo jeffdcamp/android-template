@@ -2,26 +2,36 @@ package org.jdc.template.ux.individualedit
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.text.format.DateUtils
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_individual_edit.*
 import kotlinx.android.synthetic.main.toolbar_actionbar.*
+import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.experimental.run
+import me.eugeniomarletti.extras.ActivityCompanion
+import me.eugeniomarletti.extras.intent.IntentExtra
+import me.eugeniomarletti.extras.intent.base.Long
 import org.dbtools.android.domain.date.DBToolsThreeTenFormatter
 import org.jdc.template.R
+import org.jdc.template.datasource.database.main.individual.Individual
 import org.jdc.template.inject.Injector
-import org.jdc.template.model.database.main.individual.Individual
 import org.jdc.template.ui.activity.BaseActivity
+import org.jdc.template.util.CoroutineContextProvider
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalTime
 import org.threeten.bp.ZoneId
 import javax.inject.Inject
 
-class IndividualEditActivity : BaseActivity(), IndividualEditContract.View {
+class IndividualEditActivity : BaseActivity() {
 
     @Inject
-    lateinit var presenter: IndividualEditPresenter
+    lateinit var cc: CoroutineContextProvider
+
+    private lateinit var individualEditViewModel: IndividualEditViewModel
 
     init {
         Injector.get().inject(this)
@@ -30,27 +40,31 @@ class IndividualEditActivity : BaseActivity(), IndividualEditContract.View {
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_individual_edit)
+        individualEditViewModel = ViewModelProviders.of(this).get(IndividualEditViewModel::class.java)
 
         setupActionBar()
 
         alarmTimeEditText.setOnClickListener {
-            presenter.alarmTimeClicked()
+            showAlarmTimeSelector(individualEditViewModel.individual?.alarmTime ?: LocalTime.now())
         }
 
         birthDateEditText.setOnClickListener {
-            presenter.birthdayClicked()
+            showBirthDateSelector(individualEditViewModel.individual?.birthDate ?: LocalDate.now())
         }
 
-        with(IndividualEditContract.IntentOptions) {
-            presenter.init(this@IndividualEditActivity, intent.individualId)
-        }
-
-        presenter.load()
+        loadIndividual()
     }
 
-    override fun onStop() {
-        presenter.unregister()
-        super.onStop()
+    private fun loadIndividual() {
+        addJob(launch(cc.ui) {
+            val individual = run(context + cc.commonPool) {
+                with(IntentOptions) {
+                    individualEditViewModel.loadIndividual(intent.individualId)
+                }
+            }
+
+            showIndividual(individual)
+        })
     }
 
     private fun setupActionBar() {
@@ -71,7 +85,7 @@ class IndividualEditActivity : BaseActivity(), IndividualEditContract.View {
                 return true
             }
             R.id.menu_item_save -> {
-                presenter.saveIndividual()
+                saveIndividual()
                 return true
             }
 
@@ -79,33 +93,39 @@ class IndividualEditActivity : BaseActivity(), IndividualEditContract.View {
         }
     }
 
-    override fun showBirthDateSelector(date: LocalDate) {
+    fun showBirthDateSelector(date: LocalDate) {
         val birthDatePickerDialog = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-            presenter.birthDateSelected(LocalDate.of(year, monthOfYear + 1, dayOfMonth)) // + 1 because cord Java Date is 0 based
+            individualEditViewModel.individual?.let {
+                it.birthDate = LocalDate.of(year, monthOfYear + 1, dayOfMonth) // + 1 because cord Java Date is 0 based
+            }
         }, date.year, date.monthValue - 1, date.dayOfMonth) // - 1 because cord Java Date is 0 based
 
         birthDatePickerDialog.show()
     }
 
-    override fun showBirthDate(date: LocalDate) {
+    fun showBirthDate(date: LocalDate) {
         val millis = DBToolsThreeTenFormatter.localDateTimeToLong(date.atStartOfDay(ZoneId.systemDefault()).toLocalDateTime())
         birthDateEditText.setText(DateUtils.formatDateTime(this, millis!!, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_YEAR))
     }
 
-    override fun showAlarmTimeSelector(time: LocalTime) {
+    fun showAlarmTimeSelector(time: LocalTime) {
         val alarmTimePickerDialog = TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-            presenter.alarmTimeSelected(LocalTime.of(hourOfDay, minute))
+            individualEditViewModel.individual?.let {
+                it.alarmTime = LocalTime.of(hourOfDay, minute)
+            }
         }, time.hour, time.minute, false)
 
         alarmTimePickerDialog.show()
     }
 
-    override fun showAlarmTime(time: LocalTime) {
+    fun showAlarmTime(time: LocalTime) {
         val millis = DBToolsThreeTenFormatter.localDateTimeToLong(time.atDate(LocalDate.now()))
         alarmTimeEditText.setText(DateUtils.formatDateTime(this, millis!!, DateUtils.FORMAT_SHOW_TIME))
     }
 
-    override fun showIndividual(individual: Individual) {
+    fun showIndividual(individual: Individual?) {
+        individual ?: return
+
         firstNameEditText.setText(individual.firstName)
         lastNameEditText.setText(individual.lastName)
         emailEditText.setText(individual.email)
@@ -118,7 +138,7 @@ class IndividualEditActivity : BaseActivity(), IndividualEditContract.View {
         showAlarmTime(individual.alarmTime)
     }
 
-    override fun validateIndividualData(): Boolean {
+    fun validateIndividualData(): Boolean {
         if (firstNameEditText.text.isBlank()) {
             firstNameLayout.error = getString(R.string.required)
             return false
@@ -127,14 +147,30 @@ class IndividualEditActivity : BaseActivity(), IndividualEditContract.View {
         return true
     }
 
-    override fun getIndividualDataFromUi(individual: Individual) {
-        individual.firstName = firstNameEditText.text.toString()
-        individual.lastName = lastNameEditText.text.toString()
-        individual.phone = phoneEditText.text.toString()
-        individual.email = emailEditText.text.toString()
+    fun saveIndividual() {
+        addJob(launch(cc.ui) {
+            if (!validateIndividualData()) {
+                return@launch
+            }
+
+            individualEditViewModel.individual?.let { individual ->
+                individual.firstName = firstNameEditText.text.toString()
+                individual.lastName = lastNameEditText.text.toString()
+                individual.phone = phoneEditText.text.toString()
+                individual.email = emailEditText.text.toString()
+
+                run(context + cc.commonPool) {
+                    individualEditViewModel.saveIndividual()
+                }
+
+                finish()
+            }
+        })
     }
 
-    override fun close() {
-        finish()
+    companion object : ActivityCompanion<IntentOptions>(IntentOptions, IndividualEditActivity::class)
+
+    object IntentOptions {
+        var Intent.individualId by IntentExtra.Long(defaultValue = -1L)
     }
 }

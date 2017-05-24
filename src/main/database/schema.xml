@@ -10,9 +10,9 @@
 
         <table name="INDIVIDUAL">
             <field name="_id" jdbcDataType="BIGINT" increment="true" primaryKey="true"/>
-            <field name="HOUSEHOLD_ID" jdbcDataType="BIGINT" foreignKeyTable="HOUSEHOLD" foreignKeyField="_id"/>
-            <field name="INDIVIDUAL_TYPE" jdbcDataType="INTEGER" enumerationClass="org.jdc.template.model.type.IndividualType" enumerationDefault="HEAD"/>
-            <field name="INDIVIDUAL_TYPE_TEXT" jdbcDataType="VARCHAR" enumerationClass="org.jdc.template.model.type.IndividualType" enumerationDefault="HEAD"/>
+            <field name="HOUSEHOLD_ID" jdbcDataType="BIGINT"/>
+            <field name="INDIVIDUAL_TYPE" jdbcDataType="INTEGER" enumerationClass="org.jdc.template.datasource.database.main.type.IndividualType" enumerationDefault="HEAD"/>
+            <field name="INDIVIDUAL_TYPE_TEXT" jdbcDataType="VARCHAR" enumerationClass="org.jdc.template.datasource.database.main.type.IndividualType" enumerationDefault="HEAD"/>
             <field name="FIRST_NAME" jdbcDataType="VARCHAR"/>
             <field name="LAST_NAME" jdbcDataType="VARCHAR"/>
             <field name="BIRTH_DATE" jdbcDataType="DATE" notNull="false"/>
@@ -27,6 +27,7 @@
             <field name="AMOUNT2" jdbcDataType="DOUBLE"/>
             <field name="ENABLED" jdbcDataType="BOOLEAN"/>
             <field name="SPOUSE_INDIVIDUAL_ID" jdbcDataType="BIGINT" notNull="false"/> <!-- test nullable field -->
+            <field name="DATA" jdbcDataType="BLOB" notNull="false"/>
         </table>
 
         <!-- Sample table without a primary key -->
@@ -64,7 +65,7 @@
         <query name="CROSS_DATABASE_QUERY" >
             <field name="_id" jdbcDataType="BIGINT"/>
             <field name="NAME" jdbcDataType="VARCHAR"/>
-            <field name="TYPE" jdbcDataType="INTEGER" enumerationClass="org.jdc.template.model.type.LocationType" enumerationDefault="HOME"/>
+            <field name="TYPE" jdbcDataType="INTEGER" enumerationClass="org.jdc.template.datasource.database.main.type.LocationType" enumerationDefault="HOME"/>
         </query>
     </database>
     

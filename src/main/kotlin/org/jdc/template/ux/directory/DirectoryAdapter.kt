@@ -5,17 +5,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.list_item.view.*
 import org.jdc.template.R
-import org.jdc.template.model.database.main.individual.Individual
+import org.jdc.template.datasource.database.main.individual.IndividualDao
 
 class DirectoryAdapter : RecyclerView.Adapter<DirectoryAdapter.ViewHolder>() {
 
-    var list: List<Individual> = listOf()
+    var list: List<IndividualDao.DirectoryListItem> = listOf()
         set(value) {
             field = value
             notifyDataSetChanged()
         }
 
-    var itemClickListener: (Individual) -> Unit = {}
+    var itemClickListener: (IndividualDao.DirectoryListItem) -> Unit = {}
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

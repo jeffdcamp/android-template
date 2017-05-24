@@ -1,28 +1,39 @@
 package org.jdc.template.ux.individual
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.text.format.DateUtils
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_individual.*
 import kotlinx.android.synthetic.main.toolbar_actionbar.*
+import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.experimental.run
+import me.eugeniomarletti.extras.ActivityCompanion
+import me.eugeniomarletti.extras.intent.IntentExtra
+import me.eugeniomarletti.extras.intent.base.Long
 import org.dbtools.android.domain.date.DBToolsThreeTenFormatter
 import org.jdc.template.InternalIntents
 import org.jdc.template.R
 import org.jdc.template.R.layout.activity_individual
+import org.jdc.template.datasource.database.main.individual.Individual
 import org.jdc.template.inject.Injector
-import org.jdc.template.model.database.main.individual.Individual
 import org.jdc.template.ui.activity.BaseActivity
+import org.jdc.template.util.CoroutineContextProvider
 import org.threeten.bp.LocalDate
 import org.threeten.bp.ZoneId
 import javax.inject.Inject
 
-class IndividualActivity : BaseActivity(), IndividualContract.View {
+class IndividualActivity : BaseActivity() {
 
     @Inject
-    lateinit var internalIntents: InternalIntents
+    lateinit var cc: CoroutineContextProvider
     @Inject
-    lateinit var presenter: IndividualPresenter
+    lateinit var internalIntents: InternalIntents
+
+    private lateinit var individualViewModel: IndividualViewModel
 
     init {
         Injector.get().inject(this)
@@ -31,14 +42,15 @@ class IndividualActivity : BaseActivity(), IndividualContract.View {
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(activity_individual)
+        individualViewModel = ViewModelProviders.of(this).get(IndividualViewModel::class.java)
 
         setupActionBar()
 
-        with(IndividualContract.IntentOptions) {
-            presenter.init(this@IndividualActivity, intent.individualId)
+        with(IntentOptions) {
+            individualViewModel.getIndividual(intent.individualId).observe(this@IndividualActivity, Observer { individual ->
+                showIndividual(individual)
+            })
         }
-
-        presenter.load()
     }
 
     private fun setupActionBar() {
@@ -55,50 +67,39 @@ class IndividualActivity : BaseActivity(), IndividualContract.View {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_item_edit -> {
-                presenter.editIndividualClicked()
+                showEditIndividual()
                 return true
             }
             R.id.menu_item_delete -> {
-                presenter.deleteIndividualClicked()
+                promptDeleteIndividual()
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
         }
     }
 
-    override fun promptDeleteIndividual() {
+    fun promptDeleteIndividual() {
         android.support.v7.app.AlertDialog.Builder(this)
                 .setMessage(R.string.delete_individual_confirm)
-                .setPositiveButton(R.string.delete) { _, _ -> presenter.deleteIndividual() }
+                .setPositiveButton(R.string.delete) { _, _ -> deleteIndividual() }
                 .setNegativeButton(R.string.cancel, null)
                 .show()
     }
 
-    override fun onResume() {
-        super.onResume()
-        presenter.reload()
-    }
+    fun showIndividual(individual: Individual?) {
+        individual ?: return
 
-    override fun onStop() {
-        presenter.unregister()
-        super.onStop()
-    }
-
-    override fun close() {
-        finish()
-    }
-
-    override fun showIndividual(individual: Individual) {
         nameTextView.text = individual.getFullName()
         phoneTextView.text = individual.phone
         emailTextView.text = individual.email
         showBirthDate(individual)
         showAlarmTime(individual)
-        showSampleDateTime(individual)
     }
 
-    override fun showEditIndividual(individualId: Long) {
-        internalIntents.editIndividual(this, individualId)
+    fun showEditIndividual() {
+        with(IntentOptions) {
+            internalIntents.editIndividual(this@IndividualActivity, intent.individualId)
+        }
     }
 
     private fun showBirthDate(individual: Individual) {
@@ -120,16 +121,21 @@ class IndividualActivity : BaseActivity(), IndividualContract.View {
         alarmTimeTextView.text = DateUtils.formatDateTime(this, millis!!, DateUtils.FORMAT_SHOW_TIME)
     }
 
-    private fun showSampleDateTime(individual: Individual) {
-        if (individual.sampleDateTime == null) {
-            return
-        }
+    private fun deleteIndividual() {
+        launch(cc.ui) {
+            run(context + cc.commonPool) {
+                with(IntentOptions) {
+                    individualViewModel.deleteIndividual(intent.individualId)
+                }
+            }
 
-        val dateTime = individual.sampleDateTime
-
-        if (dateTime != null) {
-            val millis = DBToolsThreeTenFormatter.localDateTimeToLong(dateTime)
-            sampleDateTimeTextView.text = DateUtils.formatDateTime(this, millis!!, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_YEAR or DateUtils.FORMAT_SHOW_TIME)
+            finish()
         }
+    }
+
+    companion object : ActivityCompanion<IntentOptions>(IntentOptions, IndividualActivity::class)
+
+    object IntentOptions {
+        var Intent.individualId by IntentExtra.Long(defaultValue = 0L)
     }
 }

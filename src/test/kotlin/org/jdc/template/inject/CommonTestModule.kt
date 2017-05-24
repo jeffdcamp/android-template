@@ -3,22 +3,15 @@ package org.jdc.template.inject
 import android.app.Application
 import dagger.Module
 import dagger.Provides
-import org.dbtools.android.domain.config.DatabaseConfig
-import org.dbtools.android.domain.database.JdbcSqliteDatabaseWrapper
 import org.jdc.template.Analytics
-import org.jdc.template.MockitoKotlinHelper
 import org.jdc.template.TestFilesystem
-import org.jdc.template.model.database.DatabaseManager
 import org.jdc.template.util.CoroutineContextProvider
 import org.mockito.AdditionalMatchers.or
-import org.mockito.ArgumentMatchers.anyInt
 import org.mockito.ArgumentMatchers.anyString
 import org.mockito.ArgumentMatchers.isNull
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.doAnswer
-import org.mockito.Mockito.doNothing
 import org.mockito.Mockito.mock
-import org.mockito.Mockito.spy
 import java.io.File
 import javax.inject.Singleton
 
@@ -54,18 +47,18 @@ class CommonTestModule {
         return application
     }
 
-    @Provides
-    @Singleton
-    internal fun provideDatabaseManager(databaseConfig: DatabaseConfig): DatabaseManager {
-        val databaseManager = spy(DatabaseManager(databaseConfig))
-
-        // don't allow the database to be upgraded
-        doNothing().`when`(databaseManager).onUpgrade(MockitoKotlinHelper.any(), anyInt(), anyInt())
-
-        JdbcSqliteDatabaseWrapper.setEnableLogging(true)
-
-        return databaseManager
-    }
+//    @Provides
+//    @Singleton
+//    internal fun provideDatabaseManager(databaseConfig: DatabaseConfig): DatabaseManager {
+//        val databaseManager = spy(DatabaseManager(databaseConfig))
+//
+//        // don't allow the database to be upgraded
+//        doNothing().`when`(databaseManager).onUpgrade(MockitoKotlinHelper.any(), anyInt(), anyInt())
+//
+//        JdbcSqliteDatabaseWrapper.setEnableLogging(true)
+//
+//        return databaseManager
+//    }
 
     @Provides
     @Singleton

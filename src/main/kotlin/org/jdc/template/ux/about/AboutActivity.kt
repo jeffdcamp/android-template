@@ -1,21 +1,27 @@
 package org.jdc.template.ux.about
 
 import android.R
+import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.text.format.DateUtils
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_about.*
 import kotlinx.android.synthetic.main.toolbar_actionbar.*
+import me.eugeniomarletti.extras.ActivityCompanion
 import org.jdc.template.BuildConfig
 import org.jdc.template.R.layout.activity_about
+import org.jdc.template.datasource.database.main.individual.IndividualDao
 import org.jdc.template.inject.Injector
 import org.jdc.template.ui.activity.BaseActivity
+import timber.log.Timber
 import javax.inject.Inject
 
-class AboutActivity : BaseActivity(), AboutContract.View {
+class AboutActivity : BaseActivity() {
 
     @Inject
-    lateinit var presenter: AboutPresenter
+    lateinit var controller: AboutController
+    @Inject
+    lateinit var individualDao: IndividualDao
 
     init {
         Injector.get().inject(this)
@@ -24,7 +30,6 @@ class AboutActivity : BaseActivity(), AboutContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(activity_about)
-        presenter.init(this)
 
         setSupportActionBar(mainToolbar)
         enableActionBarBackArrow(true)
@@ -33,35 +38,42 @@ class AboutActivity : BaseActivity(), AboutContract.View {
         versionDateTextView.text = DateUtils.formatDateTime(this, BuildConfig.BUILD_TIME, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_TIME or DateUtils.FORMAT_SHOW_YEAR)
 
         createDatabaseButton.setOnClickListener {
-            presenter.createSampleDataWithInjection()
+            controller.createSampleDataWithInjection()
 
             // OR
-//            presenter.createSampleDataNoInjection()
+//            controller.createSampleDataNoInjection()
         }
         restTestButton.setOnClickListener {
-//            presenter.testQueryWebServiceCall() // simple rest call
-            presenter.testQueryWebServiceCallRx() // use Rx to make the call
-//            presenter.testSaveQueryWebServiceCall() // write the response to file, the read the file to show results
-//            presenter.testFullUrlQueryWebServiceCall() //  simple call using the full URL instead of an endpoint
+//            controller.testQueryWebServiceCall() // simple rest call
+            controller.testQueryWebServiceCallRx() // use Rx to make the call
+//            controller.testSaveQueryWebServiceCall() // write the response to file, the read the file to show results
+//            controller.testFullUrlQueryWebServiceCall() //  simple call using the full URL instead of an endpoint
         }
         jobTestButton.setOnClickListener {
-            presenter.jobTest()
+            controller.jobTest()
         }
-        rxTestButton.setOnClickListener {
-            presenter.testRx()
+        textTableChangeButton.setOnClickListener {
+            controller.testTableChange()
         }
         testButton.setOnClickListener {
-//            testQuery()
         }
+
+        individualDao.findAllLive().observe(this, Observer { list ->
+            Timber.i("==== Individual Table Changed ====")
+            list?.forEach { individual ->
+                Timber.i("Individual [${individual.getFullName()}]")
+            }
+        })
+
     }
 
     override fun onStart() {
         super.onStart()
-        presenter.register()
+        controller.register()
     }
 
     override fun onStop() {
-        presenter.unregister()
+        controller.unregister()
         super.onStop()
     }
 
@@ -74,4 +86,8 @@ class AboutActivity : BaseActivity(), AboutContract.View {
             else -> return super.onOptionsItemSelected(item)
         }
     }
+
+    companion object : ActivityCompanion<IntentOptions>(IntentOptions, AboutActivity::class)
+
+    object IntentOptions
 }

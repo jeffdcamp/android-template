@@ -1,14 +1,15 @@
 buildscript {
-    ext.kotlin_version = '1.1.2-3'
+    ext.kotlin_version = '1.1.2-4'
     ext.dbtoolsVersion = '9.0.0'
 
     repositories {
         mavenLocal()
         mavenCentral()
         jcenter()
+        maven { url 'https://maven.google.com' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.1'
+        classpath 'com.android.tools.build:gradle:3.0.0-alpha1'
         classpath "org.dbtools:gradle-dbtools-plugin:$dbtoolsVersion"
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.14.0' // version plugin support
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
@@ -25,6 +26,10 @@ apply plugin: 'dbtools'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.ben-manes.versions' // ./gradlew dependencyUpdates -Drevision=release
 
+//kapt {
+//    generateStubs = true
+//}
+
 def artOnly = false; // enable a fast build supported ONLY by Android 5.0+
 
 // Manifest version information
@@ -39,6 +44,8 @@ repositories {
     mavenLocal()
     mavenCentral()
     jcenter()
+    maven { url 'https://maven.google.com' }
+    maven { url 'https://code.lds.org/nexus/content/groups/mobile/' }
 }
 
 ext {
@@ -49,6 +56,8 @@ ext {
     loganSquareVersion = '1.3.7'
     pocketBusVersion = '1.2.0'
     jacksonVersion = '2.8.7'
+    archLifecycleVersion = '1.0.0-alpha1'
+    archRoomVersion = '1.0.0-alpha1'
 }
 
 dependencies {
@@ -62,6 +71,12 @@ dependencies {
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.google.android.gms:play-services-analytics:10.2.6'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    compile "android.arch.lifecycle:runtime:$archLifecycleVersion"
+    compile "android.arch.lifecycle:extensions:$archLifecycleVersion"
+    compile "android.arch.persistence.room:runtime:$archRoomVersion"
+    kapt "android.arch.lifecycle:compiler:$archLifecycleVersion"
+    kapt "android.arch.persistence.room:compiler:$archRoomVersion"
 
     // Code
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -92,7 +107,9 @@ dependencies {
     compile 'io.reactivex.rxjava2:rxjava:2.1.0'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
-    // Custom SQLite databasethreetenbp
+    // Custom SQLite database
+    compile 'org.sqlite.sqliteX:sqlite-android:3.15.2'
+
 //    compile 'org.sqlite:sqlite-android:3.8.9.0-20150415'
 //    compile 'net.sqlcipher:sqlcipher-aar:3.1.0.20140823'
 
@@ -149,8 +166,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     packagingOptions {
@@ -218,6 +235,7 @@ android {
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
         test.java.srcDirs += 'src/test/kotlin'
+        androidTest.assets.srcDirs += files("$projectDir/schemas".toString()) // Room schemas
     }
 }
 

@@ -4,9 +4,9 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import org.jdc.template.ui.activity.SettingsActivity
-import org.jdc.template.ux.about.AboutContract
-import org.jdc.template.ux.individual.IndividualContract
-import org.jdc.template.ux.individualedit.IndividualEditContract
+import org.jdc.template.ux.about.AboutActivity
+import org.jdc.template.ux.individual.IndividualActivity
+import org.jdc.template.ux.individualedit.IndividualEditActivity
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -16,17 +16,17 @@ class InternalIntents
 constructor() {
 
     fun showIndividual(activity: Activity, individualId: Long) {
-        IndividualContract.start(activity) {
+        IndividualActivity.start(activity) {
             it.individualId = individualId
         }
     }
 
     fun newIndividual(activity: Activity) {
-        IndividualEditContract.start(activity)
+        IndividualEditActivity.start(activity)
     }
 
     fun editIndividual(activity: Activity, individualId: Long) {
-        IndividualEditContract.start(activity) {
+        IndividualEditActivity.start(activity) {
             it.individualId = individualId
         }
     }
@@ -37,6 +37,6 @@ constructor() {
     }
 
     fun showHelp(context: Context) {
-        AboutContract.start(context)
+        AboutActivity.start(context)
     }
 }
