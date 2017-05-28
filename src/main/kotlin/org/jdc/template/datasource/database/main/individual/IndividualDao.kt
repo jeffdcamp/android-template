@@ -4,7 +4,10 @@ import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.Query
+import android.arch.persistence.room.TypeConverters
 import android.arch.persistence.room.Update
+import org.jdc.template.datasource.database.converter.DateTimeLongConverter
+import org.threeten.bp.LocalDateTime
 
 @Dao
 interface IndividualDao {
@@ -37,6 +40,10 @@ interface IndividualDao {
 
     @Query("DELETE FROM individual WHERE id = :p0")
     fun deleteById(p0: Long)
+
+    @Query("SELECT lastModified FROM individual WHERE id = :p0")
+    @TypeConverters(DateTimeLongConverter::class)
+    fun findLastModified(p0: Long): LocalDateTime?
 
     data class DirectoryListItem(val id: Long, val firstName: String, val lastName: String) {
         fun getFullName() = firstName + " " + lastName

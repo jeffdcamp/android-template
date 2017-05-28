@@ -1,6 +1,5 @@
 buildscript {
     ext.kotlin_version = '1.1.2-4'
-    ext.dbtoolsVersion = '9.0.0'
 
     repositories {
         mavenLocal()
@@ -10,7 +9,6 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.0-alpha1'
-        classpath "org.dbtools:gradle-dbtools-plugin:$dbtoolsVersion"
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.14.0' // version plugin support
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
@@ -22,7 +20,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'dbtools'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.ben-manes.versions' // ./gradlew dependencyUpdates -Drevision=release
 
@@ -45,7 +42,6 @@ repositories {
     mavenCentral()
     jcenter()
     maven { url 'https://maven.google.com' }
-    maven { url 'https://code.lds.org/nexus/content/groups/mobile/' }
 }
 
 ext {
@@ -84,7 +80,6 @@ dependencies {
     compile "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.15"
     compile 'me.eugeniomarletti:android-extras-delegates:1.0.5'
     compile 'com.jakewharton.threetenabp:threetenabp:1.0.5'
-    compile "org.dbtools:dbtools-android:$dbtoolsVersion"
     compile 'com.devbrackets.android:recyclerext:2.1.1'
     compile 'com.evernote:android-job:1.1.10'
     compile "com.vikingsen:pocketbus:$pocketBusVersion"
@@ -237,21 +232,6 @@ android {
         test.java.srcDirs += 'src/test/kotlin'
         androidTest.assets.srcDirs += files("$projectDir/schemas".toString()) // Room schemas
     }
-}
-
-// Regenerate DBTools Database classes: ./gradlew dbtools-genclasses
-dbtools {
-    type 'ANDROID-KOTLIN'
-
-    basePackageName 'org.jdc.template.model.database'
-    outputSrcDir 'src/main/kotlin/org/jdc/template/model/database'
-
-    injectionSupport true
-    jsr305Support true
-    includeDatabaseNameInPackage true
-    dateType 'JSR-310'
-    sqlQueryBuilderSupport false
-    rxJavaSupport true
 }
 
 // ===== TEST TASKS =====
