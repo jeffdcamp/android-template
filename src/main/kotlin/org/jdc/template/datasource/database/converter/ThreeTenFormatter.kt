@@ -9,9 +9,6 @@ import org.threeten.bp.ZoneOffset
 import org.threeten.bp.format.DateTimeFormatter
 
 object ThreeTenFormatter {
-    // There is no DateTimeFormatter that has ms precision... hence this ISO format
-    private var DB_DATETIME_FORMATTER310: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS")
-
     // ========== JSR 310 ==========
     // JSR 310 LocalDateTime - long
     fun localDateTimeToLong(d: LocalDateTime?): Long? {
@@ -54,7 +51,7 @@ object ThreeTenFormatter {
     // Date and Time
     fun localDateTimeToDBString(d: LocalDateTime?): String? {
         if (d != null) {
-            return DB_DATETIME_FORMATTER310.format(d)
+            return DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(d)
         } else {
             return null
         }
@@ -63,7 +60,7 @@ object ThreeTenFormatter {
     fun dbStringToLocalDateTime(text: String?): LocalDateTime? {
         if (text != null && text.isNotEmpty() && text != "null") {
             try {
-                return LocalDateTime.parse(text, DB_DATETIME_FORMATTER310)
+                return LocalDateTime.parse(text, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
             } catch (ex: Exception) {
                 throw IllegalArgumentException("Cannot parse date time text: " + text, ex)
             }
