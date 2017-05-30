@@ -14,10 +14,10 @@ import kotlinx.coroutines.experimental.run
 import me.eugeniomarletti.extras.ActivityCompanion
 import me.eugeniomarletti.extras.intent.IntentExtra
 import me.eugeniomarletti.extras.intent.base.Long
-import org.dbtools.android.domain.date.DBToolsThreeTenFormatter
 import org.jdc.template.InternalIntents
 import org.jdc.template.R
 import org.jdc.template.R.layout.activity_individual
+import org.jdc.template.datasource.database.converter.ThreeTenFormatter
 import org.jdc.template.datasource.database.main.individual.Individual
 import org.jdc.template.inject.Injector
 import org.jdc.template.ui.activity.BaseActivity
@@ -110,14 +110,14 @@ class IndividualActivity : BaseActivity() {
         val date = individual.birthDate
 
         if (date != null) {
-            val millis = DBToolsThreeTenFormatter.localDateTimeToLong(date.atStartOfDay(ZoneId.systemDefault()).toLocalDateTime())
+            val millis = ThreeTenFormatter.localDateTimeToLong(date.atStartOfDay(ZoneId.systemDefault()).toLocalDateTime())
             birthDateTextView.text = DateUtils.formatDateTime(this, millis!!, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_YEAR)
         }
     }
 
     private fun showAlarmTime(individual: Individual) {
         val time = individual.alarmTime
-        val millis = DBToolsThreeTenFormatter.localDateTimeToLong(time.atDate(LocalDate.now()))
+        val millis = ThreeTenFormatter.localDateTimeToLong(time.atDate(LocalDate.now()))
         alarmTimeTextView.text = DateUtils.formatDateTime(this, millis!!, DateUtils.FORMAT_SHOW_TIME)
     }
 
