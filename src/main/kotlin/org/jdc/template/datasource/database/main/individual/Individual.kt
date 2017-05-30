@@ -2,8 +2,6 @@ package org.jdc.template.datasource.database.main.individual
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
-import android.arch.persistence.room.TypeConverters
-import org.jdc.template.datasource.database.converter.DateTimeLongConverter
 import org.jdc.template.datasource.database.main.type.IndividualType
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalDateTime
@@ -19,7 +17,6 @@ class Individual {
     var lastName: String = ""
     var birthDate: LocalDate? = null
     var alarmTime: LocalTime = LocalTime.now()
-    @TypeConverters(DateTimeLongConverter::class)
     var lastModified: LocalDateTime = LocalDateTime.now()
     var phone: String = ""
     var email: String = ""
