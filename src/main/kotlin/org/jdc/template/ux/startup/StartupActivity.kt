@@ -3,6 +3,7 @@ package org.jdc.template.ux.startup
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import com.afollestad.materialdialogs.MaterialDialog
 import com.google.android.gms.analytics.HitBuilders
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.android.UI
@@ -23,6 +24,8 @@ class StartupActivity : Activity() {
 
     private val compositeJob = CompositeJob()
 
+    private val debugStartup = false
+
     init {
         Injector.get().inject(this)
     }
@@ -31,7 +34,11 @@ class StartupActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        startUp()
+        if (debugStartup) {
+            devPauseStartup()
+        } else {
+            startUp()
+        }
     }
 
     override fun onStop() {
@@ -58,5 +65,13 @@ class StartupActivity : Activity() {
         startActivity(intent)
         finish()
         overridePendingTransition(R.anim.fade_in, R.anim.nothing) // no animation
+    }
+
+    private fun devPauseStartup() {
+        MaterialDialog.Builder(this)
+                .content("Paused for debugger attachment")
+                .positiveText("OK")
+                .onPositive { _, _ -> startUp() }
+                .show()
     }
 }
