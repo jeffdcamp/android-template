@@ -44,8 +44,8 @@ class AboutActivity : BaseActivity() {
 //            controller.createSampleDataNoInjection()
         }
         restTestButton.setOnClickListener {
-//            controller.testQueryWebServiceCall() // simple rest call
-            controller.testQueryWebServiceCallRx() // use Rx to make the call
+            controller.testQueryWebServiceCall() // simple rest call
+//            controller.testQueryWebServiceCallRx() // use Rx to make the call
 //            controller.testSaveQueryWebServiceCall() // write the response to file, the read the file to show results
 //            controller.testFullUrlQueryWebServiceCall() //  simple call using the full URL instead of an endpoint
         }

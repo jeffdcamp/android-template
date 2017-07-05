@@ -122,7 +122,7 @@ constructor(private val analytics: Analytics,
         RxUtil.toRetrofitObservable(colorService.colors())
                 .subscribeOn(Schedulers.io())
                 .map({ response ->
-                    RxUtil.verifyRetrofitResponse(response)
+                    RxUtil.verifyRetrofitResponse(response)!!
 
                 })
                 .filter({ dtoSearchResponse -> dtoSearchResponse != null }) // don't continue if null
