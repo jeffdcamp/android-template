@@ -18,13 +18,11 @@ import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.is;
 import static org.jdc.template.CustomMatchers.recyclerViewWithItemCount;
 
 @RunWith(AndroidJUnit4.class)
@@ -101,11 +99,7 @@ public class SmokeTest {
                 allOf(withId(org.jdc.template.R.id.menu_item_delete), withContentDescription("Delete"), isDisplayed()));
         actionMenuItemView3.perform(click());
 
-        ViewInteraction appCompatButton2 = onView(
-                allOf(withId(android.R.id.button1), withText("Delete"),
-                        withParent(allOf(withClassName(is("com.android.internal.widget.ButtonBarLayout")),
-                                withParent(withClassName(is("android.widget.LinearLayout"))))),
-                        isDisplayed()));
+        ViewInteraction appCompatButton2 = onView(allOf(withText("Delete"), isDisplayed()));
         appCompatButton2.perform(click());
 
         ViewInteraction recyclerView4 = onView(
