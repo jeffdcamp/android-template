@@ -8,7 +8,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-alpha5'
+        classpath 'com.android.tools.build:gradle:3.0.0-alpha6'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0' // version plugin support
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
@@ -68,7 +68,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.16"
     implementation 'me.eugeniomarletti:android-extras-delegates:1.0.5'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.0.5'
-    implementation 'com.evernote:android-job:1.1.10'
+    implementation 'com.evernote:android-job:1.1.11'
     implementation "com.vikingsen:pocketbus:$pocketBusVersion"
     kapt "com.vikingsen:pocketbus-compiler:$pocketBusVersion"
     implementation 'com.jakewharton.timber:timber:4.5.1'
@@ -118,7 +118,7 @@ dependencies {
     // Test (Unit)
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.8.47' // be sure to add src/test/resources/mockito-extensions (so you don't have to 'open' all of your classes
-    testImplementation 'org.threeten:threetenbp:1.3.5'
+    testImplementation 'org.threeten:threetenbp:1.3.6'
     testImplementation 'org.xerial:sqlite-jdbc:3.19.3'
     kaptTest "com.google.dagger:dagger-compiler:${daggerVersion}"
 }
