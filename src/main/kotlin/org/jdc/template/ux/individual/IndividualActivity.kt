@@ -123,7 +123,7 @@ class IndividualActivity : BaseActivity() {
 
     private fun deleteIndividual() {
         launch(cc.ui) {
-            run(context + cc.commonPool) {
+            run(coroutineContext + cc.commonPool) {
                 with(IntentOptions) {
                     individualViewModel.deleteIndividual(intent.individualId)
                 }

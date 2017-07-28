@@ -22,6 +22,9 @@ class App : Application() {
         JobManager.create(this).addJobCreator(AppJobCreator())
 
         setupLogging()
+
+        // register notification channels
+        NotificationChannels.registerAllChannels(this)
     }
 
     private fun setupLogging() {

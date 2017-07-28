@@ -58,5 +58,5 @@
     <string name="alarm_time">Alarm Time</string>
     <string name="combined_date_time">Combinded Date and Time</string>
 
-
+    <string name="notification_channel_general">General Notifications</string>
 </resources>

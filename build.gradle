@@ -8,7 +8,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-alpha6'
+        classpath 'com.android.tools.build:gradle:3.0.0-alpha8'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0' // version plugin support
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
@@ -40,14 +40,13 @@ repositories {
 
 ext {
     // versions for libraries that multiple dependencies
-    supportLibVersion = '25.4.0'
+    supportLibVersion = '26.0.0'
     daggerVersion = '2.11'
     okhttpVersion = '3.8.1'
     loganSquareVersion = '1.3.7'
     pocketBusVersion = '1.2.0'
     jacksonVersion = '2.8.7'
-    archLifecycleVersion = '1.0.0-alpha3'
-    archRoomVersion = '1.0.0-alpha3'
+    archVersion = '1.0.0-alpha7'
 }
 
 dependencies {
@@ -58,14 +57,16 @@ dependencies {
     implementation "com.android.support:design:${supportLibVersion}"
     implementation "com.android.support:percent:${supportLibVersion}"
     implementation "com.android.support:support-annotations:${supportLibVersion}" // includes support-v4
-    implementation 'com.android.support:multidex:1.0.1'
-    implementation 'com.google.android.gms:play-services-analytics:11.0.2'
+    implementation "com.android.support:support-v13:${supportLibVersion}" // needed by material dialogs (depending on older version)
+    implementation 'com.android.support:multidex:1.0.2'
+    implementation 'com.android.support:multidex-instrumentation:1.0.2'
+    implementation 'com.google.android.gms:play-services-analytics:11.0.4'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
     // Code
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.16"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.17"
     implementation 'me.eugeniomarletti:android-extras-delegates:1.0.5'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.0.5'
     implementation 'com.evernote:android-job:1.1.11'
@@ -78,11 +79,11 @@ dependencies {
     implementation 'com.devbrackets.android:recyclerext:2.1.1'
 
     // Room Database
-    implementation "android.arch.lifecycle:runtime:$archLifecycleVersion"
-    implementation "android.arch.lifecycle:extensions:$archLifecycleVersion"
-    implementation "android.arch.persistence.room:runtime:$archRoomVersion"
-    kapt "android.arch.lifecycle:compiler:$archLifecycleVersion"
-    kapt "android.arch.persistence.room:compiler:$archRoomVersion"
+    implementation "android.arch.lifecycle:runtime:$archVersion"
+    implementation "android.arch.lifecycle:extensions:$archVersion"
+    implementation "android.arch.persistence.room:runtime:$archVersion"
+    kapt "android.arch.lifecycle:compiler:$archVersion"
+    kapt "android.arch.persistence.room:compiler:$archVersion"
 
     // Network
     implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
@@ -104,13 +105,12 @@ dependencies {
 
     // Test (Integration)
     // Espresso core dependencies
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2'
-    androidTestImplementation 'com.android.support.test:runner:0.5'
-    androidTestImplementation 'com.google.code.findbugs:jsr305:3.0.1' // fix conflicting issue with jsr305 annotations
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.0'
+    androidTestImplementation 'com.android.support.test:runner:1.0.0'
     androidTestImplementation "com.android.support:support-annotations:${supportLibVersion}" // fix dependency conflict warning
 
     // Espresso contrib dependencies
-    androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:2.2.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.0'
     androidTestImplementation "com.android.support:appcompat-v7:${supportLibVersion}"
     androidTestImplementation "com.android.support:recyclerview-v7:${supportLibVersion}"
     androidTestImplementation "com.android.support:design:${supportLibVersion}"
@@ -132,7 +132,7 @@ kotlin {
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '26.0.0'
+    buildToolsVersion '26.0.1'
 
     defaultConfig {
         minSdkVersion 15

@@ -72,7 +72,7 @@ public class SmokeTest {
         appCompatEditText2.perform(replaceText("Jeffery"));
 
         ViewInteraction actionMenuItemView2 = onView(
-                allOf(withId(org.jdc.template.R.id.menu_item_save), withText("Save"), withContentDescription("Save"), isDisplayed()));
+                allOf(withId(org.jdc.template.R.id.menu_item_save), withText("Save"), isDisplayed()));
         actionMenuItemView2.perform(click());
 
         ViewInteraction textView2 = onView(

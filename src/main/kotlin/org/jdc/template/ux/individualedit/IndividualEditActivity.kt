@@ -57,7 +57,7 @@ class IndividualEditActivity : BaseActivity() {
 
     private fun loadIndividual() {
         addJob(launch(cc.ui) {
-            val individual = run(context + cc.commonPool) {
+            val individual = run(coroutineContext + cc.commonPool) {
                 with(IntentOptions) {
                     individualEditViewModel.loadIndividual(intent.individualId)
                 }
@@ -159,7 +159,7 @@ class IndividualEditActivity : BaseActivity() {
                 individual.phone = phoneEditText.text.toString()
                 individual.email = emailEditText.text.toString()
 
-                run(context + cc.commonPool) {
+                run(coroutineContext + cc.commonPool) {
                     individualEditViewModel.saveIndividual()
                 }
 

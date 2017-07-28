@@ -127,7 +127,7 @@ constructor(private val analytics: Analytics,
                 })
                 .filter({ dtoSearchResponse -> dtoSearchResponse != null }) // don't continue if null
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ dtoSearchResponse -> processSearchResponse(dtoSearchResponse!!) },
+                .subscribe({ dtoSearchResponse -> processSearchResponse(dtoSearchResponse) },
                         { _ -> bus.post(SampleEvent(false, null)) },
                         { bus.post(SampleEvent(true, null)) })
     }
