@@ -28,7 +28,7 @@ class DirectoryAdapter : RecyclerView.Adapter<DirectoryAdapter.ViewHolder>() {
         val individual = list[position]
 
         // bind data to view holder
-        holder.listItemTextView.text = individual.getFullName()
+        holder.itemView.listItemTextView.text = individual.getFullName()
     }
 
     override fun getItemCount(): Int {
@@ -36,9 +36,6 @@ class DirectoryAdapter : RecyclerView.Adapter<DirectoryAdapter.ViewHolder>() {
     }
 
     class ViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)) {
-        // Store views here, because synthetics are not cached on views (https://youtrack.jetbrains.com/issue/KT-10542)
-        val listItemTextView = itemView.listItemTextView
-
         init {
             itemView.setOnClickListener { clickListener(this) }
         }
