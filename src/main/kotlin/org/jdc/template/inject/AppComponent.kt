@@ -6,6 +6,7 @@ import dagger.Component
 import org.jdc.template.App
 import org.jdc.template.ui.activity.SettingsActivity
 import org.jdc.template.ui.fragment.SettingsFragment
+import org.jdc.template.ux.ViewModelModule
 import org.jdc.template.ux.about.AboutActivity
 import org.jdc.template.ux.directory.DirectoryActivity
 import org.jdc.template.ux.directory.DirectoryViewModel
@@ -17,7 +18,7 @@ import org.jdc.template.ux.startup.StartupActivity
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = arrayOf(AppModule::class))
+@Component(modules = arrayOf(AppModule::class, ViewModelModule::class))
 interface AppComponent {
     // UI
     fun inject(application: App)

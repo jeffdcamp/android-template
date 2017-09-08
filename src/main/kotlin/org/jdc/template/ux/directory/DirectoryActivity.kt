@@ -1,6 +1,7 @@
 package org.jdc.template.ux.directory
 
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.view.MenuItemCompat
@@ -27,10 +28,12 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener {
     lateinit var commonMenu: CommonMenu
     @Inject
     lateinit var internalIntents: InternalIntents
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var directoryViewModel: DirectoryViewModel
 
-    val adapter = DirectoryAdapter().apply {
+    private val adapter = DirectoryAdapter().apply {
         itemClickListener = {
             showIndividual(it.id)
         }
@@ -54,7 +57,7 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener {
 
         savedInstanceState?.let { restoreState(it) }
 
-        directoryViewModel = ViewModelProviders.of(this).get(DirectoryViewModel::class.java)
+        directoryViewModel = ViewModelProviders.of(this, viewModelFactory).get(DirectoryViewModel::class.java)
         directoryViewModel.getDirectoryListItemsLive().observe(this, Observer { list ->
             list?.let {
                 adapter.list = it
