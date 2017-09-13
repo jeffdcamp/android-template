@@ -2,6 +2,7 @@ package org.jdc.template.ux.individualedit
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
@@ -30,8 +31,10 @@ class IndividualEditActivity : BaseActivity() {
 
     @Inject
     lateinit var cc: CoroutineContextProvider
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private lateinit var individualEditViewModel: IndividualEditViewModel
+    private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(IndividualEditViewModel::class.java) }
 
     init {
         Injector.get().inject(this)
@@ -40,27 +43,30 @@ class IndividualEditActivity : BaseActivity() {
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_individual_edit)
-        individualEditViewModel = ViewModelProviders.of(this).get(IndividualEditViewModel::class.java)
 
         setupActionBar()
 
+        setupClickListeners()
+
+        with(IntentOptions) {
+            loadIndividual(intent.individualId)
+        }
+    }
+
+    private fun setupClickListeners() {
         alarmTimeEditText.setOnClickListener {
-            showAlarmTimeSelector(individualEditViewModel.individual?.alarmTime ?: LocalTime.now())
+            showAlarmTimeSelector(viewModel.individual?.alarmTime ?: LocalTime.now())
         }
 
         birthDateEditText.setOnClickListener {
-            showBirthDateSelector(individualEditViewModel.individual?.birthDate ?: LocalDate.now())
+            showBirthDateSelector(viewModel.individual?.birthDate ?: LocalDate.now())
         }
-
-        loadIndividual()
     }
 
-    private fun loadIndividual() {
+    private fun loadIndividual(individualId: Long) {
         addJob(launch(cc.ui) {
             val individual = run(coroutineContext + cc.commonPool) {
-                with(IntentOptions) {
-                    individualEditViewModel.loadIndividual(intent.individualId)
-                }
+                viewModel.loadIndividual(individualId)
             }
 
             showIndividual(individual)
@@ -79,23 +85,23 @@ class IndividualEditActivity : BaseActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+        return when (item.itemId) {
             android.R.id.home -> {
                 finish()
-                return true
+                true
             }
             R.id.menu_item_save -> {
                 saveIndividual()
-                return true
+                true
             }
 
-            else -> return super.onOptionsItemSelected(item)
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
-    fun showBirthDateSelector(date: LocalDate) {
+    private fun showBirthDateSelector(date: LocalDate) {
         val birthDatePickerDialog = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-            individualEditViewModel.individual?.let {
+            viewModel.individual?.let {
                 it.birthDate = LocalDate.of(year, monthOfYear + 1, dayOfMonth) // + 1 because cord Java Date is 0 based
             }
         }, date.year, date.monthValue - 1, date.dayOfMonth) // - 1 because cord Java Date is 0 based
@@ -103,14 +109,14 @@ class IndividualEditActivity : BaseActivity() {
         birthDatePickerDialog.show()
     }
 
-    fun showBirthDate(date: LocalDate) {
+    private fun showBirthDate(date: LocalDate) {
         val millis = ThreeTenFormatter.localDateTimeToLong(date.atStartOfDay(ZoneId.systemDefault()).toLocalDateTime())
         birthDateEditText.setText(DateUtils.formatDateTime(this, millis!!, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_YEAR))
     }
 
-    fun showAlarmTimeSelector(time: LocalTime) {
+    private fun showAlarmTimeSelector(time: LocalTime) {
         val alarmTimePickerDialog = TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-            individualEditViewModel.individual?.let {
+            viewModel.individual?.let {
                 it.alarmTime = LocalTime.of(hourOfDay, minute)
             }
         }, time.hour, time.minute, false)
@@ -118,12 +124,12 @@ class IndividualEditActivity : BaseActivity() {
         alarmTimePickerDialog.show()
     }
 
-    fun showAlarmTime(time: LocalTime) {
+    private fun showAlarmTime(time: LocalTime) {
         val millis = ThreeTenFormatter.localDateTimeToLong(time.atDate(LocalDate.now()))
         alarmTimeEditText.setText(DateUtils.formatDateTime(this, millis!!, DateUtils.FORMAT_SHOW_TIME))
     }
 
-    fun showIndividual(individual: Individual?) {
+    private fun showIndividual(individual: Individual?) {
         individual ?: return
 
         firstNameEditText.setText(individual.firstName)
@@ -138,7 +144,7 @@ class IndividualEditActivity : BaseActivity() {
         showAlarmTime(individual.alarmTime)
     }
 
-    fun validateIndividualData(): Boolean {
+    private fun validateIndividualData(): Boolean {
         if (firstNameEditText.text.isBlank()) {
             firstNameLayout.error = getString(R.string.required)
             return false
@@ -147,20 +153,20 @@ class IndividualEditActivity : BaseActivity() {
         return true
     }
 
-    fun saveIndividual() {
+    private fun saveIndividual() {
         addJob(launch(cc.ui) {
             if (!validateIndividualData()) {
                 return@launch
             }
 
-            individualEditViewModel.individual?.let { individual ->
+            viewModel.individual?.let { individual ->
                 individual.firstName = firstNameEditText.text.toString()
                 individual.lastName = lastNameEditText.text.toString()
                 individual.phone = phoneEditText.text.toString()
                 individual.email = emailEditText.text.toString()
 
                 run(coroutineContext + cc.commonPool) {
-                    individualEditViewModel.saveIndividual()
+                    viewModel.saveIndividual()
                 }
 
                 finish()

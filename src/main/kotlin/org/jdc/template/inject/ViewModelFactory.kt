@@ -14,13 +14,13 @@ class ViewModelFactory
         modelClass ?: error("Model class cannot be null")
         var provider = providers[modelClass]
         if (provider == null) {
-            provider = providers.filter { (key, value) -> modelClass.isAssignableFrom(key) }
+            provider = providers.filter { (key, _) -> modelClass.isAssignableFrom(key) }
                     .map { it.value }
                     .firstOrNull()
         }
         try {
             @Suppress("UNCHECKED_CAST")
-            return provider?.get() as? T ?: error("Unknown model class $modelClass")
+            return provider?.get() as? T ?: error("Unknown model class $modelClass:  Make $modelClass has a Provider in your Dagger ViewModel module")
         } catch (e: Exception) {
             throw RuntimeException(e)
         }

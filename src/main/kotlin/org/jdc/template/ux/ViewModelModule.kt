@@ -8,6 +8,8 @@ import dagger.multibindings.IntoMap
 import org.jdc.template.inject.ViewModelFactory
 import org.jdc.template.inject.ViewModelKey
 import org.jdc.template.ux.directory.DirectoryViewModel
+import org.jdc.template.ux.individual.IndividualViewModel
+import org.jdc.template.ux.individualedit.IndividualEditViewModel
 
 @Module
 abstract class ViewModelModule {
@@ -18,5 +20,15 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(DirectoryViewModel::class)
     internal abstract fun bindDirectoryViewModel(viewModel: DirectoryViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(IndividualViewModel::class)
+    internal abstract fun bindIndividualViewModel(viewModel: IndividualViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(IndividualEditViewModel::class)
+    internal abstract fun bindIndividualEditViewModel(viewModel: IndividualEditViewModel): ViewModel
 }
 

@@ -1,6 +1,7 @@
 package org.jdc.template.ux.individual
 
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
@@ -32,8 +33,10 @@ class IndividualActivity : BaseActivity() {
     lateinit var cc: CoroutineContextProvider
     @Inject
     lateinit var internalIntents: InternalIntents
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private lateinit var individualViewModel: IndividualViewModel
+    private val viewModel: IndividualViewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(IndividualViewModel::class.java) }
 
     init {
         Injector.get().inject(this)
@@ -42,14 +45,15 @@ class IndividualActivity : BaseActivity() {
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(activity_individual)
-        individualViewModel = ViewModelProviders.of(this).get(IndividualViewModel::class.java)
 
         setupActionBar()
 
+        viewModel.individual.observe(this@IndividualActivity, Observer { individual ->
+            showIndividual(individual)
+        })
+
         with(IntentOptions) {
-            individualViewModel.getIndividual(intent.individualId).observe(this@IndividualActivity, Observer { individual ->
-                showIndividual(individual)
-            })
+            viewModel.setIndividualId(intent.individualId)
         }
     }
 
@@ -65,20 +69,20 @@ class IndividualActivity : BaseActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+        return when (item.itemId) {
             R.id.menu_item_edit -> {
                 showEditIndividual()
-                return true
+                true
             }
             R.id.menu_item_delete -> {
                 promptDeleteIndividual()
-                return true
+                true
             }
-            else -> return super.onOptionsItemSelected(item)
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
-    fun promptDeleteIndividual() {
+    private fun promptDeleteIndividual() {
         android.support.v7.app.AlertDialog.Builder(this)
                 .setMessage(R.string.delete_individual_confirm)
                 .setPositiveButton(R.string.delete) { _, _ -> deleteIndividual() }
@@ -86,7 +90,7 @@ class IndividualActivity : BaseActivity() {
                 .show()
     }
 
-    fun showIndividual(individual: Individual?) {
+    private fun showIndividual(individual: Individual?) {
         individual ?: return
 
         nameTextView.text = individual.getFullName()
@@ -96,7 +100,7 @@ class IndividualActivity : BaseActivity() {
         showAlarmTime(individual)
     }
 
-    fun showEditIndividual() {
+    private fun showEditIndividual() {
         with(IntentOptions) {
             internalIntents.editIndividual(this@IndividualActivity, intent.individualId)
         }
@@ -125,7 +129,7 @@ class IndividualActivity : BaseActivity() {
         launch(cc.ui) {
             run(coroutineContext + cc.commonPool) {
                 with(IntentOptions) {
-                    individualViewModel.deleteIndividual(intent.individualId)
+                    viewModel.deleteIndividual(intent.individualId)
                 }
             }
 

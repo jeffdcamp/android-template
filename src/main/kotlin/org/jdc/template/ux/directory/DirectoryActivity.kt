@@ -31,7 +31,7 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private lateinit var directoryViewModel: DirectoryViewModel
+    private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(DirectoryViewModel::class.java) }
 
     private val adapter = DirectoryAdapter().apply {
         itemClickListener = {
@@ -57,11 +57,10 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener {
 
         savedInstanceState?.let { restoreState(it) }
 
-        directoryViewModel = ViewModelProviders.of(this, viewModelFactory).get(DirectoryViewModel::class.java)
-        directoryViewModel.getDirectoryListItemsLive().observe(this, Observer { list ->
-            list?.let {
-                adapter.list = it
-            }
+        viewModel.getDirectoryListItemsLive().observe(this, Observer { list ->
+            list ?: return@Observer
+
+            adapter.list = list
         })
     }
 
