@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 
 abstract class BaseFragment : Fragment() {
 
@@ -14,8 +13,7 @@ abstract class BaseFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        val view = inflater!!.inflate(layoutResourceId, container, false)
-        return view
+        return inflater!!.inflate(layoutResourceId, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -31,12 +29,5 @@ abstract class BaseFragment : Fragment() {
     override fun onStop() {
         compositeDisposable.dispose()
         super.onStop()
-    }
-
-    fun addDisposable(disposable: Disposable) {
-        if (compositeDisposable.isDisposed) {
-            compositeDisposable = CompositeDisposable()
-        }
-        compositeDisposable.add(disposable)
     }
 }

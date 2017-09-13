@@ -12,12 +12,12 @@ import java.io.IOException
 class DateTimeStringDeserializer : JsonDeserializer<LocalDateTime>() {
 
     @Throws(IOException::class)
-    override fun deserialize(jsonParser: JsonParser, ctxt: DeserializationContext): LocalDateTime? {
+    override fun deserialize(jsonParser: JsonParser, context: DeserializationContext): LocalDateTime? {
         val dateString = jsonParser.getValueAsString(null)
-        if (dateString != null) {
-            return LocalDateTime.parse(jsonParser.text, FORMATTER)
+        return if (dateString != null) {
+            LocalDateTime.parse(jsonParser.text, FORMATTER)
         } else {
-            return null
+            null
         }
     }
 

@@ -19,8 +19,8 @@ enum class NotificationChannels constructor(val channelId: String,
                 val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
                 NotificationChannels.values().forEach {
-                    val channel = NotificationChannel(it.channelId, context.getString(it.textResId), it.importance);
-                    notificationManager.createNotificationChannel(channel);
+                    val channel = NotificationChannel(it.channelId, context.getString(it.textResId), it.importance)
+                    notificationManager.createNotificationChannel(channel)
                 }
             }
         }

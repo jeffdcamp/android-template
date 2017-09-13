@@ -234,12 +234,6 @@ tasks.withType(Test) {
     }
 }
 
-// Define coverage source.
-// If you have rs/aidl etc... add them here.
-def coverageSourceDirs = [
-        'src/main/java',
-]
-
 // Rename and place "myAnalyticsKey" in global gradle.properties
 def getAnalyticsKey() {
     return hasProperty('myAnalyticsKey') ? myAnalyticsKey : ''

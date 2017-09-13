@@ -34,6 +34,7 @@ class StartupActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
+        @Suppress("ConstantConditionIf") // used for debugging
         if (debugStartup) {
             devPauseStartup()
         } else {
@@ -50,7 +51,7 @@ class StartupActivity : Activity() {
         analytics.send(HitBuilders.EventBuilder().setCategory(Analytics.CATEGORY_APP).setAction(Analytics.ACTION_APP_LAUNCH).setLabel(BuildConfig.BUILD_TYPE).build())
 
         compositeJob.add(launch(UI) {
-            run(context + CommonPool) {
+            run(coroutineContext + CommonPool) {
                 // do some startup stuff
             }
 

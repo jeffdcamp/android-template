@@ -102,19 +102,19 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener {
         throw UnsupportedOperationException()
     }
 
-    fun showNewIndividual() {
+    private fun showNewIndividual() {
         internalIntents.newIndividual(this)
     }
 
-    fun showIndividual(individualId: Long) {
+    private fun showIndividual(individualId: Long) {
         internalIntents.showIndividual(this, individualId)
     }
 
-    fun scrollToPosition(scrollPosition: Int) {
+    private fun scrollToPosition(scrollPosition: Int) {
         recyclerView.scrollToPosition(scrollPosition)
     }
 
-    fun getListScrollPosition(): Int {
+    private fun getListScrollPosition(): Int {
         return recyclerView.getScrollPosition()
     }
 

@@ -38,6 +38,7 @@ class App : Application() {
             Timber.plant(ReleaseTree())
         }
 
+        @Suppress("ConstantConditionIf") // set in build.gradle file
         if (BuildConfig.BUILD_TYPE != "debug") {
             // Plant Crashlytics
             // Log.e(...) will log a non-fatal crash in Crashlytics
