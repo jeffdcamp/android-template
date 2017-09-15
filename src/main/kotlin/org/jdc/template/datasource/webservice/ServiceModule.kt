@@ -10,7 +10,7 @@ import org.jdc.template.BuildConfig
 import org.jdc.template.auth.MyAccountInterceptor
 import org.jdc.template.datasource.webservice.colors.ColorService
 import retrofit2.Retrofit
-import retrofit2.converter.jackson.JacksonConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import java.io.UnsupportedEncodingException
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
@@ -77,11 +77,11 @@ class ServiceModule {
 
     @Provides
     @Singleton
-    fun getSearchService(@Named(STANDARD_CLIENT) client: OkHttpClient, jacksonConverterFactory: JacksonConverterFactory): ColorService {
+    fun getSearchService(@Named(STANDARD_CLIENT) client: OkHttpClient, converterFactory: GsonConverterFactory): ColorService {
         val retrofit = Retrofit.Builder()
                 .baseUrl(ColorService.Companion.BASE_URL)
                 .client(client)
-                .addConverterFactory(jacksonConverterFactory)
+                .addConverterFactory(converterFactory)
                 .build()
 
         return retrofit.create(ColorService::class.java)

@@ -14,7 +14,7 @@ Sample Android app that utilizes common best practices
 * Constraint Layout
 * RecyclerView / RecyclerExt / ViewHolder
 * Retrofit / Okhttp3
-* Jackson
+* Gson
 * PocketBus
 * Android-Job
 * Espresso Tests

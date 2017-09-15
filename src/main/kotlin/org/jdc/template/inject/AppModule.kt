@@ -7,10 +7,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import android.util.Log
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.databind.module.SimpleModule
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.google.android.gms.analytics.GoogleAnalytics
+import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import org.jdc.template.Analytics
@@ -20,12 +18,9 @@ import org.jdc.template.datasource.database.main.MainDatabase
 import org.jdc.template.datasource.database.main.household.HouseholdDao
 import org.jdc.template.datasource.database.main.individual.IndividualDao
 import org.jdc.template.datasource.webservice.ServiceModule
-import org.jdc.template.json.DateTimeStringDeserializer
-import org.jdc.template.json.DateTimeStringSerializer
 import org.jdc.template.util.CoroutineContextProvider
-import org.threeten.bp.LocalDateTime
 import pocketbus.Bus
-import retrofit2.converter.jackson.JacksonConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module(includes = arrayOf(ServiceModule::class))
@@ -75,23 +70,17 @@ class AppModule(private val application: Application) {
         return bus
     }
 
+
     @Provides
     @Singleton
-    fun provideObjectMapper(): ObjectMapper {
-        val module = SimpleModule("Jackson MODULE")
-        module.addSerializer(LocalDateTime::class.java, DateTimeStringSerializer())
-                .addDeserializer(LocalDateTime::class.java, DateTimeStringDeserializer())
-
-        val mapper = jacksonObjectMapper()
-        mapper.registerModule(module)
-
-        return mapper
+    fun provideGson(): Gson {
+        return Gson()
     }
 
     @Provides
     @Singleton
-    fun provideJacksonConverterFactory(objectMapper: ObjectMapper): JacksonConverterFactory {
-        return JacksonConverterFactory.create(objectMapper)
+    fun provideConverterFactory(gson: Gson): GsonConverterFactory {
+        return GsonConverterFactory.create(gson)
     }
 
     @Provides
