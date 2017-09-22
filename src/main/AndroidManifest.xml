@@ -44,6 +44,12 @@
             android:label="@string/pref_title"
             android:theme="@style/SettingsTheme"/>
 
+        <!-- set theme so that the actionbar is visible -->
+        <activity android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"
+                  android:theme="@style/SettingsTheme"/>
+
+        <activity android:name="com.google.android.gms.oss.licenses.OssLicensesActivity"
+                  android:theme="@style/SettingsTheme"/>
         <!-- Android TV -->
 
         <!-- Google Play Services -->
