@@ -47,9 +47,7 @@ ext {
     playServicesVersion = '11.4.0'
     daggerVersion = '2.11'
     okhttpVersion = '3.9.0'
-    loganSquareVersion = '1.3.7'
     pocketBusVersion = '1.2.0'
-    glideVersion = '4.0.0'
 }
 
 dependencies {

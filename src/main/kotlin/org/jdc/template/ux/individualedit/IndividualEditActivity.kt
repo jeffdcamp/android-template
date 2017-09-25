@@ -48,8 +48,13 @@ class IndividualEditActivity : BaseActivity() {
 
         setupClickListeners()
 
-        with(IntentOptions) {
-            loadIndividual(intent.individualId)
+        val individual = viewModel.individual
+        if (savedInstanceState == null || individual == null) {
+            with(IntentOptions) {
+                loadIndividual(intent.individualId)
+            }
+        } else {
+            showIndividual(individual)
         }
     }
 
@@ -129,9 +134,7 @@ class IndividualEditActivity : BaseActivity() {
         alarmTimeEditText.setText(DateUtils.formatDateTime(this, millis!!, DateUtils.FORMAT_SHOW_TIME))
     }
 
-    private fun showIndividual(individual: Individual?) {
-        individual ?: return
-
+    private fun showIndividual(individual: Individual) {
         firstNameEditText.setText(individual.firstName)
         lastNameEditText.setText(individual.lastName)
         emailEditText.setText(individual.email)

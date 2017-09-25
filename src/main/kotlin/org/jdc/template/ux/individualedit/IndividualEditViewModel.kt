@@ -12,20 +12,28 @@ class IndividualEditViewModel
 
     var individual: Individual? = null
 
-    fun loadIndividual(individualId: Long): Individual? {
+    fun loadIndividual(individualId: Long): Individual {
         individual?.let { return it }
 
 
-        individualDao.findById(individualId)?.let {
-            individual = it
+        if (individualId <= 0) {
+            individual = Individual()
+        } else {
+            individualDao.findById(individualId)?.let {
+                individual = it
+            }
         }
 
-        return individual
+        return individual ?: Individual()
     }
 
     fun saveIndividual() {
         individual?.let {
-            individualDao.update(it)
+            if (it.id <= 0) {
+                individualDao.insert(it)
+            } else {
+                individualDao.update(it)
+            }
         }
     }
 }
