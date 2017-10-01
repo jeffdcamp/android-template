@@ -15,7 +15,6 @@ Sample Android app that utilizes common best practices
 * RecyclerView / RecyclerExt / ViewHolder
 * Retrofit / Okhttp3
 * Gson
-* PocketBus
 * Android-Job
 * Espresso Tests
 * JUnit tests / mockito

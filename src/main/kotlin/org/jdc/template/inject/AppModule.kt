@@ -13,13 +13,11 @@ import dagger.Module
 import dagger.Provides
 import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
-import org.jdc.template.BusRegistry
 import org.jdc.template.datasource.database.main.MainDatabase
 import org.jdc.template.datasource.database.main.household.HouseholdDao
 import org.jdc.template.datasource.database.main.individual.IndividualDao
 import org.jdc.template.datasource.webservice.ServiceModule
 import org.jdc.template.util.CoroutineContextProvider
-import pocketbus.Bus
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
@@ -60,16 +58,6 @@ class AppModule(private val application: Application) {
         // tracker.setSessionTimeout(300); // default is 30 seconds
         return Analytics.GoogleAnalytics(tracker)
     }
-
-    @Provides
-    @Singleton
-    internal fun provideEventBus(): Bus {
-        val bus = Bus.Builder()
-                .build()
-        bus.setRegistry(BusRegistry())
-        return bus
-    }
-
 
     @Provides
     @Singleton

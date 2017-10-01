@@ -47,7 +47,6 @@ ext {
     playServicesVersion = '11.4.0'
     daggerVersion = '2.11'
     okhttpVersion = '3.9.0'
-    pocketBusVersion = '1.2.0'
 }
 
 dependencies {
@@ -72,8 +71,6 @@ dependencies {
     implementation 'me.eugeniomarletti:android-extras-delegates:1.0.5'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.0.5'
     implementation 'com.evernote:android-job:1.1.11'
-    implementation "com.vikingsen:pocketbus:$pocketBusVersion"
-    kapt "com.vikingsen:pocketbus-compiler:$pocketBusVersion"
     implementation 'com.jakewharton.timber:timber:4.5.1'
 
     // UI

@@ -2,8 +2,6 @@ package org.jdc.template.ux.about
 
 import android.app.Application
 import com.google.android.gms.analytics.HitBuilders
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.launch
 import okhttp3.ResponseBody
@@ -16,16 +14,12 @@ import org.jdc.template.datasource.database.main.individual.IndividualDao
 import org.jdc.template.datasource.database.main.type.IndividualType
 import org.jdc.template.datasource.webservice.colors.ColorService
 import org.jdc.template.datasource.webservice.colors.dto.DtoColors
-import org.jdc.template.event.SampleEvent
 import org.jdc.template.job.SampleJob
 import org.jdc.template.ui.BaseController
 import org.jdc.template.util.CoroutineContextProvider
-import org.jdc.template.util.RxUtil
 import org.jdc.template.util.WebServiceUtil
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalTime
-import pocketbus.Bus
-import pocketbus.Subscribe
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -35,7 +29,6 @@ import javax.inject.Inject
 
 class AboutController @Inject
 constructor(private val analytics: Analytics,
-            private val bus: Bus,
             private val application: Application,
             private val cc: CoroutineContextProvider,
             private val mainDatabase: MainDatabase,
@@ -47,15 +40,6 @@ constructor(private val analytics: Analytics,
     override fun load(): Job? {
         analytics.send(HitBuilders.EventBuilder().setCategory(Analytics.CATEGORY_ABOUT).build())
         return null
-    }
-
-    override fun register() {
-        bus.register(this)
-    }
-
-    override fun unregister() {
-        super.unregister()
-        bus.unregister(this)
     }
 
     /**
@@ -113,31 +97,6 @@ constructor(private val analytics: Analytics,
                 Timber.e(t, "Search FAILED")
             }
         })
-    }
-
-    /**
-     * Simple web service call using Rx
-     */
-    fun testQueryWebServiceCallRx() {
-        RxUtil.toRetrofitObservable(colorService.colors())
-                .subscribeOn(Schedulers.io())
-                .map({ response ->
-                    RxUtil.verifyRetrofitResponse(response)!!
-
-                })
-                .filter({ dtoSearchResponse -> dtoSearchResponse != null }) // don't continue if null
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ dtoSearchResponse -> processSearchResponse(dtoSearchResponse) },
-                        { _ -> bus.post(SampleEvent(false, null)) },
-                        { bus.post(SampleEvent(true, null)) })
-    }
-
-    /**
-     * Bus event example (when rest call finishes)
-     */
-    @Subscribe
-    fun handle(event: SampleEvent) {
-        Timber.i(event.throwable, "Rest Service finished [%b]", event.isSuccess)
     }
 
     /**

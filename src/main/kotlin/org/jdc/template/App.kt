@@ -10,10 +10,8 @@ import org.jdc.template.job.AppJobCreator
 import org.jdc.template.log.DebugTree
 import org.jdc.template.log.ReleaseTree
 import org.jdc.template.ui.notifications.NotificationChannels
-import pocketbus.Registry
 import timber.log.Timber
 
-@Registry // PocketBus Registry
 class App : Application() {
 
     override fun onCreate() {
