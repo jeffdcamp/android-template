@@ -7,15 +7,15 @@ import org.jdc.template.util.CompositeJob
 
 open class BaseActivity : AppCompatActivity() {
 
-    private val compositeFuture = CompositeJob()
+    private val compositeJob = CompositeJob()
 
     override fun onStop() {
-        compositeFuture.cancelAndClearAll()
+        compositeJob.cancelAndClearAll()
         super.onStop()
     }
 
     fun addJob(job: Job) {
-        compositeFuture.add(job)
+        compositeJob.add(job)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

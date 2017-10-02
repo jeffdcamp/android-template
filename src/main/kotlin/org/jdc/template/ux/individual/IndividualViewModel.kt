@@ -19,7 +19,6 @@ class IndividualViewModel
     private val individualId = MutableLiveData<Long>()
     val individual: LiveData<Individual>
 
-
     init {
         individual = AbsentLiveData.switchMap(individualId) {
             loadIndividual(it)
