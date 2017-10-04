@@ -8,11 +8,11 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-beta6'
+        classpath 'com.android.tools.build:gradle:3.0.0-beta7'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0' // version plugin support
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
-        classpath 'com.google.gms:oss-licenses:0.9.0'
+        classpath 'com.google.gms:oss-licenses:0.9.1'
     }
 }
 
@@ -44,7 +44,7 @@ ext {
     supportLibVersion = '26.1.0'
     archVersion = '1.0.0'
     archVersionEA = '1.0.0-beta1'
-    playServicesVersion = '11.4.0'
+    playServicesVersion = '11.4.2'
     daggerVersion = '2.11'
     okhttpVersion = '3.9.0'
 }

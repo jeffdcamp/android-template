@@ -1,116 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:layout_editor_absoluteY="25dp"
-    tools:layout_editor_absoluteX="0dp">
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+    >
 
     <include
         android:id="@+id/appbar"
         layout="@layout/toolbar_actionbar"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="0dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        />
 
-    <TextView
-        android:id="@+id/nameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        tools:text="Jeff Campbell"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="12dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/appbar" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/phoneTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        tools:text="801-555-1234"
-        app:layout_constraintLeft_toLeftOf="@+id/nameTextView"
-        android:layout_marginTop="4dp"
-        app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="25dp">
 
-    <TextView
-        android:id="@+id/emailTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        tools:text="bob@bob.com"
-        app:layout_constraintLeft_toLeftOf="@+id/phoneTextView"
-        android:layout_marginTop="4dp"
-        app:layout_constraintTop_toBottomOf="@+id/phoneTextView" />
+            <TextView
+                android:id="@+id/nameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Jeff Campbell"/>
 
+            <TextView
+                android:id="@+id/phoneTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="@+id/nameTextView"
+                app:layout_constraintTop_toBottomOf="@+id/nameTextView"
+                tools:text="801-555-1234"/>
 
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:text="@string/birth_date"
-        android:id="@+id/linearLayout3"
-        app:layout_constraintLeft_toLeftOf="@+id/emailTextView"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/emailTextView" />
-
-    <TextView
-        android:id="@+id/birthDateTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        tools:text="1/1/70"
-        app:layout_constraintLeft_toLeftOf="@+id/linearLayout3"
-        android:layout_marginTop="4dp"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+            <TextView
+                android:id="@+id/emailTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="@+id/phoneTextView"
+                app:layout_constraintTop_toBottomOf="@+id/phoneTextView"
+                tools:text="bob@bob.com"/>
 
 
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:text="@string/alarm_time"
-        app:layout_constraintLeft_toLeftOf="@+id/birthDateTextView"
-        android:id="@+id/textView"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/birthDateTextView" />
+            <TextView
+                android:id="@+id/linearLayout3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/birth_date"
+                android:textSize="12sp"
+                app:layout_constraintLeft_toLeftOf="@+id/emailTextView"
+                app:layout_constraintTop_toBottomOf="@+id/emailTextView"/>
 
-    <TextView
-        android:id="@+id/alarmTimeTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        tools:text="12:00 PM"
-        tools:layout_conversion_absoluteX="10dp"
-        tools:layout_conversion_absoluteY="151dp"
-        tools:layout_conversion_absoluteWidth="84dp"
-        tools:layout_conversion_absoluteHeight="24dp"
-        app:layout_constraintLeft_toLeftOf="@+id/textView"
-        android:layout_marginTop="4dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+            <TextView
+                android:id="@+id/birthDateTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="@+id/linearLayout3"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+                tools:text="1/1/70"/>
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:text="@string/combined_date_time"
-        tools:layout_conversion_absoluteX="10dp"
-        tools:layout_conversion_absoluteY="183dp"
-        tools:layout_conversion_absoluteWidth="159dp"
-        tools:layout_conversion_absoluteHeight="14dp"
-        app:layout_constraintLeft_toLeftOf="@+id/alarmTimeTextView"
-        android:id="@+id/textView2"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/alarmTimeTextView" />
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/alarm_time"
+                android:textSize="12sp"
+                app:layout_constraintLeft_toLeftOf="@+id/birthDateTextView"
+                app:layout_constraintTop_toBottomOf="@+id/birthDateTextView"/>
 
-</android.support.constraint.ConstraintLayout>
+            <TextView
+                android:id="@+id/alarmTimeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                tools:layout_conversion_absoluteHeight="24dp"
+                tools:layout_conversion_absoluteWidth="84dp"
+                tools:layout_conversion_absoluteX="10dp"
+                tools:layout_conversion_absoluteY="151dp"
+                tools:text="12:00 PM"/>
+
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/combined_date_time"
+                android:textSize="12sp"
+                app:layout_constraintLeft_toLeftOf="@+id/alarmTimeTextView"
+                app:layout_constraintTop_toBottomOf="@+id/alarmTimeTextView"
+                tools:layout_conversion_absoluteHeight="14dp"
+                tools:layout_conversion_absoluteWidth="159dp"
+                tools:layout_conversion_absoluteX="10dp"
+                tools:layout_conversion_absoluteY="183dp"/>
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+</LinearLayout>
