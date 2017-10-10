@@ -9,6 +9,7 @@ import android.preference.PreferenceManager
 import android.util.Log
 import com.google.android.gms.analytics.GoogleAnalytics
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import org.jdc.template.Analytics
@@ -17,7 +18,9 @@ import org.jdc.template.datasource.database.main.MainDatabase
 import org.jdc.template.datasource.database.main.household.HouseholdDao
 import org.jdc.template.datasource.database.main.individual.IndividualDao
 import org.jdc.template.datasource.webservice.ServiceModule
+import org.jdc.template.json.LocalDateTimeTypeConverter
 import org.jdc.template.util.CoroutineContextProvider
+import org.threeten.bp.LocalDateTime
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
@@ -62,7 +65,10 @@ class AppModule(private val application: Application) {
     @Provides
     @Singleton
     fun provideGson(): Gson {
-        return Gson()
+        val builder = GsonBuilder()
+//                .setPrettyPrinting()
+                .registerTypeAdapter(LocalDateTime::class.java, LocalDateTimeTypeConverter())
+        return builder.create()
     }
 
     @Provides
