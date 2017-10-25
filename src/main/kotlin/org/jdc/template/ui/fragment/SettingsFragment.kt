@@ -13,17 +13,8 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
         Injector.get().inject(this)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState) // must be done after inject(this) so that onCreatePreferences(...) can use injected variables
-    }
-
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.preferences)
-    }
-
-    override fun onSaveInstanceState(outState: Bundle?) {
-        super.onSaveInstanceState(outState)
-        // avoids potentially leaked intent receiver
     }
 
     override fun onPreferenceClick(preference: Preference): Boolean {

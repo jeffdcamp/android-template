@@ -10,8 +10,7 @@ import javax.inject.Singleton
 class ViewModelFactory
 @Inject constructor(private val providers: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>) : ViewModelProvider.Factory {
 
-    override fun <T : ViewModel> create(modelClass: Class<T>?): T {
-        modelClass ?: error("Model class cannot be null")
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         var provider = providers[modelClass]
         if (provider == null) {
             provider = providers.filter { (key, _) -> modelClass.isAssignableFrom(key) }
