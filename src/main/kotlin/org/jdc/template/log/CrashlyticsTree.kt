@@ -5,12 +5,11 @@ import android.util.Log
 import timber.log.Timber
 
 class CrashlyticsTree : Timber.Tree() {
-
     override fun isLoggable(tag: String?, priority: Int): Boolean {
         return priority == Log.ERROR
     }
 
-    override fun log(priority: Int, tag: String, message: String, t: Throwable?) {
+    override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
         if (priority == Log.ERROR) {
             if (t != null) {
 //                Crashlytics.log(1, "message", message)
