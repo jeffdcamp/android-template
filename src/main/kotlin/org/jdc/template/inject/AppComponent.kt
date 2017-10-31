@@ -9,11 +9,8 @@ import org.jdc.template.ui.fragment.SettingsFragment
 import org.jdc.template.ux.ViewModelModule
 import org.jdc.template.ux.about.AboutActivity
 import org.jdc.template.ux.directory.DirectoryActivity
-import org.jdc.template.ux.directory.DirectoryViewModel
 import org.jdc.template.ux.individual.IndividualActivity
-import org.jdc.template.ux.individual.IndividualViewModel
 import org.jdc.template.ux.individualedit.IndividualEditActivity
-import org.jdc.template.ux.individualedit.IndividualEditViewModel
 import org.jdc.template.ux.startup.StartupActivity
 import javax.inject.Singleton
 
@@ -30,9 +27,6 @@ interface AppComponent {
     fun inject(target: AboutActivity)
     fun inject(target: IndividualActivity)
     fun inject(target: SettingsFragment)
-    fun inject(target: DirectoryViewModel)
-    fun inject(target: IndividualViewModel)
-    fun inject(target: IndividualEditViewModel)
 
     // Exported for child-components.
     fun application(): Application
