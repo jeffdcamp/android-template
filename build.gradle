@@ -42,8 +42,8 @@ repositories {
 ext {
     // versions for libraries that multiple dependencies
     supportLibVersion = '27.0.0'
-    archVersion = '1.0.3'
-    archVersionEA = '1.0.0-rc1'
+    archVersion = '1.0.0'
+    archVersionLifecycleRT = '1.0.3'
     playServicesVersion = '11.4.2'
     daggerVersion = '2.12'
     okhttpVersion = '3.9.0'
@@ -78,11 +78,11 @@ dependencies {
     implementation 'com.devbrackets.android:recyclerext:2.1.1'
 
     // Android Architecture Components
-    implementation "android.arch.lifecycle:runtime:$archVersion"
-    implementation "android.arch.lifecycle:extensions:$archVersionEA"
-    implementation "android.arch.persistence.room:runtime:$archVersionEA"
-    kapt "android.arch.lifecycle:compiler:$archVersionEA"
-    kapt "android.arch.persistence.room:compiler:$archVersionEA"
+    implementation "android.arch.lifecycle:runtime:$archVersionLifecycleRT"
+    implementation "android.arch.lifecycle:extensions:$archVersion"
+    implementation "android.arch.persistence.room:runtime:$archVersion"
+    kapt "android.arch.lifecycle:compiler:$archVersion"
+    kapt "android.arch.persistence.room:compiler:$archVersion"
 
     // Network
     implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
@@ -130,12 +130,12 @@ kotlin {
 }
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     buildToolsVersion '26.0.2'
 
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 26
+        targetSdkVersion 27
 
         versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
         versionName versionMajorMinorPatchBuild
