@@ -1,10 +1,9 @@
 package org.jdc.template.ui
 
 import kotlinx.coroutines.experimental.Job
-import org.jdc.template.util.CompositeJob
 
 abstract class BaseController {
-    val compositeJob = CompositeJob()
+    val compositeJob: Job? = null
 
     // use init() function to pass the VIEW and all other variables to initialize the controller
     // fun init(view, id) { }
@@ -37,6 +36,6 @@ abstract class BaseController {
      * Usually called in onStop() to have the controller unregister event bus, listeners, observables, etc
      */
     open fun unregister() {
-        compositeJob.cancelAndClearAll()
+        compositeJob?.cancel()
     }
 }

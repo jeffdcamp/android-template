@@ -3,19 +3,22 @@ package org.jdc.template.ui.activity
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import kotlinx.coroutines.experimental.Job
-import org.jdc.template.util.CompositeJob
 
-open class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
 
-    private val compositeJob = CompositeJob()
+    private var compositeJob: Job? = null
 
     override fun onStop() {
-        compositeJob.cancelAndClearAll()
+        compositeJob?.cancel()
+        compositeJob = null
         super.onStop()
     }
 
     fun addJob(job: Job) {
-        compositeJob.add(job)
+        if (compositeJob == null) {
+            compositeJob = Job()
+        }
+        compositeJob?.attachChild(job)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

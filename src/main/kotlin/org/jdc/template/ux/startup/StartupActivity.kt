@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.afollestad.materialdialogs.MaterialDialog
 import com.google.android.gms.analytics.HitBuilders
 import kotlinx.coroutines.experimental.CommonPool
+import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 import kotlinx.coroutines.experimental.run
@@ -13,7 +14,6 @@ import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
 import org.jdc.template.R
 import org.jdc.template.inject.Injector
-import org.jdc.template.util.CompositeJob
 import org.jdc.template.ux.directory.DirectoryActivity
 import javax.inject.Inject
 
@@ -22,7 +22,7 @@ class StartupActivity : Activity() {
     @Inject
     lateinit var analytics: Analytics
 
-    private val compositeJob = CompositeJob()
+    private val compositeJob = Job()
 
     private val debugStartup = false
 
@@ -43,14 +43,14 @@ class StartupActivity : Activity() {
     }
 
     override fun onStop() {
-        compositeJob.cancelAndClearAll()
+        compositeJob.cancel()
         super.onStop()
     }
 
     private fun startUp() {
         analytics.send(HitBuilders.EventBuilder().setCategory(Analytics.CATEGORY_APP).setAction(Analytics.ACTION_APP_LAUNCH).setLabel(BuildConfig.BUILD_TYPE).build())
 
-        compositeJob.add(launch(UI) {
+        compositeJob.attachChild(launch(UI) {
             run(coroutineContext + CommonPool) {
                 // do some startup stuff
             }
@@ -59,7 +59,7 @@ class StartupActivity : Activity() {
         })
     }
 
-    fun showStartActivity() {
+    private fun showStartActivity() {
         val intent = Intent(application, DirectoryActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
 
