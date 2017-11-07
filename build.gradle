@@ -44,7 +44,7 @@ ext {
     supportLibVersion = '27.0.0'
     archVersion = '1.0.0'
     archVersionLifecycleRT = '1.0.3'
-    playServicesVersion = '11.4.2'
+    playServicesVersion = '11.6.0'
     daggerVersion = '2.12'
     okhttpVersion = '3.9.0'
 }
