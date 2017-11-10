@@ -1,8 +1,8 @@
 package org.jdc.template.ux.about
 
 import android.app.Application
+import android.arch.lifecycle.ViewModel
 import com.google.android.gms.analytics.HitBuilders
-import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.launch
 import okhttp3.ResponseBody
 import org.jdc.template.Analytics
@@ -15,7 +15,6 @@ import org.jdc.template.datasource.database.main.type.IndividualType
 import org.jdc.template.datasource.webservice.colors.ColorService
 import org.jdc.template.datasource.webservice.colors.dto.DtoColors
 import org.jdc.template.job.SampleJob
-import org.jdc.template.ui.BaseController
 import org.jdc.template.util.CoroutineContextProvider
 import org.jdc.template.util.WebServiceUtil
 import org.threeten.bp.LocalDate
@@ -27,7 +26,7 @@ import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
 
-class AboutController @Inject
+class AboutViewModel @Inject
 constructor(private val analytics: Analytics,
             private val application: Application,
             private val cc: CoroutineContextProvider,
@@ -35,11 +34,10 @@ constructor(private val analytics: Analytics,
             private val householdDao: HouseholdDao,
             private val individualDao: IndividualDao,
             private val colorService: ColorService,
-            private val webServiceUtil: WebServiceUtil): BaseController() {
+            private val webServiceUtil: WebServiceUtil): ViewModel() {
 
-    override fun load(): Job? {
+    fun logAnalytics() {
         analytics.send(HitBuilders.EventBuilder().setCategory(Analytics.CATEGORY_ABOUT).build())
-        return null
     }
 
     /**
@@ -84,7 +82,6 @@ constructor(private val analytics: Analytics,
     /**
      * Simple web service call
      */
-    //    @OnClick(R.id.rest_test_button)
     fun testQueryWebServiceCall() {
         val call = colorService.colors()
 

@@ -1,10 +1,9 @@
 package org.jdc.template.ui.activity
 
-import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import kotlinx.coroutines.experimental.Job
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : LiveDataObserverActivity() {
 
     private var compositeJob: Job? = null
 

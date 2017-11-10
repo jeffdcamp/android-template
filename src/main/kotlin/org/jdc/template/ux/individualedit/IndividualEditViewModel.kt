@@ -1,38 +1,54 @@
 package org.jdc.template.ux.individualedit
 
-import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.ViewModel
+import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.experimental.run
 import org.jdc.template.datasource.database.main.individual.Individual
 import org.jdc.template.datasource.database.main.individual.IndividualDao
+import org.jdc.template.livedata.AbsentLiveData
+import org.jdc.template.livedata.SingleLiveEvent
+import org.jdc.template.util.CoroutineContextProvider
 import javax.inject.Inject
 
 class IndividualEditViewModel
-@Inject constructor(application: Application,
-                    private val individualDao: IndividualDao) : AndroidViewModel(application) {
+@Inject constructor(private val cc: CoroutineContextProvider,
+                    private val individualDao: IndividualDao) : ViewModel() {
 
-    var individual: Individual? = null
+    private val individualId = MutableLiveData<Long>()
+    val individual: LiveData<Individual>
 
-    fun loadIndividual(individualId: Long): Individual {
-        individual?.let { return it }
+    val onIndividualSavedEvent = SingleLiveEvent<Void>()
 
-
-        if (individualId <= 0) {
-            individual = Individual()
-        } else {
-            individualDao.findById(individualId)?.let {
-                individual = it
-            }
+    init {
+        individual = AbsentLiveData.switchMap(individualId) {
+            loadIndividual(it)
         }
+    }
 
-        return individual ?: Individual()
+    fun setIndividualId(individualId: Long) {
+        if (individualId != this.individualId.value) {
+            this.individualId.value = individualId
+        }
+    }
+
+    private fun loadIndividual(individualId: Long): LiveData<Individual> {
+        return individualDao.findByIdLive(individualId)
     }
 
     fun saveIndividual() {
-        individual?.let {
-            if (it.id <= 0) {
-                individualDao.insert(it)
-            } else {
-                individualDao.update(it)
+        individual.value?.let {
+            launch(cc.ui) {
+                run(coroutineContext + cc.commonPool) {
+                    if (it.id <= 0) {
+                        individualDao.insert(it)
+                    } else {
+                        individualDao.update(it)
+                    }
+                }
+
+                onIndividualSavedEvent.call()
             }
         }
     }

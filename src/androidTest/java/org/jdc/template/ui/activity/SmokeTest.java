@@ -98,7 +98,7 @@ public class SmokeTest {
         ViewInteraction actionMenuItemView3 = onView(allOf(withId(org.jdc.template.R.id.menu_item_delete), withContentDescription("Delete"), isDisplayed()));
         actionMenuItemView3.perform(click());
 
-        ViewInteraction appCompatButton2 = onView(allOf(withId(android.R.id.button1), withText("Delete"), isDisplayed()));
+        ViewInteraction appCompatButton2 = onView(allOf(withId(R.id.md_buttonDefaultPositive), withText("Delete"), isDisplayed()));
         appCompatButton2.perform(click());
 
         ViewInteraction recyclerView4 = onView(

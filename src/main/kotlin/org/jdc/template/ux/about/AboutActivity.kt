@@ -1,6 +1,8 @@
 package org.jdc.template.ux.about
 
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import android.text.format.DateUtils
@@ -22,9 +24,11 @@ import javax.inject.Inject
 class AboutActivity : BaseActivity() {
 
     @Inject
-    lateinit var controller: AboutController
-    @Inject
     lateinit var individualDao: IndividualDao
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(AboutViewModel::class.java) }
 
     init {
         Injector.get().inject(this)
@@ -33,6 +37,7 @@ class AboutActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(activity_about)
+        viewModel.logAnalytics()
 
         setSupportActionBar(mainToolbar)
         enableActionBarBackArrow(true)
@@ -41,22 +46,22 @@ class AboutActivity : BaseActivity() {
         versionDateTextView.text = DateUtils.formatDateTime(this, BuildConfig.BUILD_TIME, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_TIME or DateUtils.FORMAT_SHOW_YEAR)
 
         createDatabaseButton.setOnClickListener {
-            controller.createSampleDataWithInjection()
+            viewModel.createSampleDataWithInjection()
 
             // OR
-//            controller.createSampleDataNoInjection()
+//            viewModel.createSampleDataNoInjection()
         }
         restTestButton.setOnClickListener {
-            controller.testQueryWebServiceCall() // simple rest call
-//            controller.testQueryWebServiceCallRx() // use Rx to make the call
-//            controller.testSaveQueryWebServiceCall() // write the response to file, the read the file to show results
-//            controller.testFullUrlQueryWebServiceCall() //  simple call using the full URL instead of an endpoint
+            viewModel.testQueryWebServiceCall() // simple rest call
+//            viewModel.testQueryWebServiceCallRx() // use Rx to make the call
+//            viewModel.testSaveQueryWebServiceCall() // write the response to file, the read the file to show results
+//            viewModel.testFullUrlQueryWebServiceCall() //  simple call using the full URL instead of an endpoint
         }
         jobTestButton.setOnClickListener {
-            controller.jobTest()
+            viewModel.jobTest()
         }
         textTableChangeButton.setOnClickListener {
-            controller.testTableChange()
+            viewModel.testTableChange()
         }
         testButton.setOnClickListener {
         }
@@ -68,16 +73,6 @@ class AboutActivity : BaseActivity() {
             }
         })
 
-    }
-
-    override fun onStart() {
-        super.onStart()
-        controller.register()
-    }
-
-    override fun onStop() {
-        controller.unregister()
-        super.onStop()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

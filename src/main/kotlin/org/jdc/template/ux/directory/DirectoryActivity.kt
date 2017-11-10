@@ -1,6 +1,5 @@
 package org.jdc.template.ux.directory
 
-import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -50,18 +49,25 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener {
         super.setupDrawerWithDrawerButton(mainToolbar, R.string.drawer_main)
 
         newFloatingActionButton.setOnClickListener {
-            showNewIndividual()
+            viewModel.addIndividual()
         }
 
         setupRecyclerView()
 
         savedInstanceState?.let { restoreState(it) }
 
-        viewModel.getDirectoryListItemsLive().observe(this, Observer { list ->
-            list ?: return@Observer
+        setupViewModelObservers()
+    }
 
+    private fun setupViewModelObservers() {
+        viewModel.getDirectoryListItemsLive().observeNotNull { list ->
             adapter.list = list
-        })
+        }
+
+        // Events
+        viewModel.onNewIndividualEvent.observe {
+            showNewIndividual()
+        }
     }
 
     private fun setupRecyclerView() {

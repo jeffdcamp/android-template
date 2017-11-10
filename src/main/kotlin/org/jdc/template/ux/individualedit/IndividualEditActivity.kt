@@ -11,8 +11,6 @@ import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_individual_edit.*
 import kotlinx.android.synthetic.main.toolbar_actionbar.*
-import kotlinx.coroutines.experimental.launch
-import kotlinx.coroutines.experimental.run
 import me.eugeniomarletti.extras.ActivityCompanion
 import me.eugeniomarletti.extras.intent.IntentExtra
 import me.eugeniomarletti.extras.intent.base.Long
@@ -21,7 +19,6 @@ import org.jdc.template.datasource.database.converter.ThreeTenFormatter
 import org.jdc.template.datasource.database.main.individual.Individual
 import org.jdc.template.inject.Injector
 import org.jdc.template.ui.activity.BaseActivity
-import org.jdc.template.util.CoroutineContextProvider
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalTime
 import org.threeten.bp.ZoneId
@@ -29,8 +26,6 @@ import javax.inject.Inject
 
 class IndividualEditActivity : BaseActivity() {
 
-    @Inject
-    lateinit var cc: CoroutineContextProvider
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -48,34 +43,32 @@ class IndividualEditActivity : BaseActivity() {
 
         setupClickListeners()
 
-        val individual = viewModel.individual
-        if (savedInstanceState == null || individual == null) {
-            with(IntentOptions) {
-                loadIndividual(intent.individualId)
-            }
-        } else {
+        setupViewModelObservers()
+
+        with(IntentOptions) {
+            viewModel.setIndividualId(intent.individualId)
+        }
+    }
+
+    private fun setupViewModelObservers() {
+        viewModel.individual.observeNotNull { individual ->
             showIndividual(individual)
+        }
+
+        // Events
+        viewModel.onIndividualSavedEvent.observe {
+            finish()
         }
     }
 
     private fun setupClickListeners() {
         alarmTimeEditText.setOnClickListener {
-            showAlarmTimeSelector(viewModel.individual?.alarmTime ?: LocalTime.now())
+            showAlarmTimeSelector(viewModel.individual.value?.alarmTime ?: LocalTime.now())
         }
 
         birthDateEditText.setOnClickListener {
-            showBirthDateSelector(viewModel.individual?.birthDate ?: LocalDate.now())
+            showBirthDateSelector(viewModel.individual.value?.birthDate ?: LocalDate.now())
         }
-    }
-
-    private fun loadIndividual(individualId: Long) {
-        addJob(launch(cc.ui) {
-            val individual = run(coroutineContext + cc.commonPool) {
-                viewModel.loadIndividual(individualId)
-            }
-
-            showIndividual(individual)
-        })
     }
 
     private fun setupActionBar() {
@@ -106,7 +99,7 @@ class IndividualEditActivity : BaseActivity() {
 
     private fun showBirthDateSelector(date: LocalDate) {
         val birthDatePickerDialog = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-            viewModel.individual?.let {
+            viewModel.individual.value?.let {
                 it.birthDate = LocalDate.of(year, monthOfYear + 1, dayOfMonth) // + 1 because cord Java Date is 0 based
             }
         }, date.year, date.monthValue - 1, date.dayOfMonth) // - 1 because cord Java Date is 0 based
@@ -121,7 +114,7 @@ class IndividualEditActivity : BaseActivity() {
 
     private fun showAlarmTimeSelector(time: LocalTime) {
         val alarmTimePickerDialog = TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-            viewModel.individual?.let {
+            viewModel.individual.value?.let {
                 it.alarmTime = LocalTime.of(hourOfDay, minute)
             }
         }, time.hour, time.minute, false)
@@ -157,24 +150,18 @@ class IndividualEditActivity : BaseActivity() {
     }
 
     private fun saveIndividual() {
-        addJob(launch(cc.ui) {
-            if (!validateIndividualData()) {
-                return@launch
-            }
+        if (!validateIndividualData()) {
+            return
+        }
 
-            viewModel.individual?.let { individual ->
-                individual.firstName = firstNameEditText.text.toString()
-                individual.lastName = lastNameEditText.text.toString()
-                individual.phone = phoneEditText.text.toString()
-                individual.email = emailEditText.text.toString()
+        viewModel.individual.value?.let { individual ->
+            individual.firstName = firstNameEditText.text.toString()
+            individual.lastName = lastNameEditText.text.toString()
+            individual.phone = phoneEditText.text.toString()
+            individual.email = emailEditText.text.toString()
+        }
 
-                run(coroutineContext + cc.commonPool) {
-                    viewModel.saveIndividual()
-                }
-
-                finish()
-            }
-        })
+        viewModel.saveIndividual()
     }
 
     companion object : ActivityCompanion<IntentOptions>(IntentOptions, IndividualEditActivity::class)

@@ -1,6 +1,5 @@
 package org.jdc.template.ux.individual
 
-import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
@@ -8,10 +7,9 @@ import android.os.Bundle
 import android.text.format.DateUtils
 import android.view.Menu
 import android.view.MenuItem
+import com.afollestad.materialdialogs.MaterialDialog
 import kotlinx.android.synthetic.main.activity_individual.*
 import kotlinx.android.synthetic.main.toolbar_actionbar.*
-import kotlinx.coroutines.experimental.launch
-import kotlinx.coroutines.experimental.run
 import me.eugeniomarletti.extras.ActivityCompanion
 import me.eugeniomarletti.extras.intent.IntentExtra
 import me.eugeniomarletti.extras.intent.base.Long
@@ -22,15 +20,12 @@ import org.jdc.template.datasource.database.converter.ThreeTenFormatter
 import org.jdc.template.datasource.database.main.individual.Individual
 import org.jdc.template.inject.Injector
 import org.jdc.template.ui.activity.BaseActivity
-import org.jdc.template.util.CoroutineContextProvider
 import org.threeten.bp.LocalDate
 import org.threeten.bp.ZoneId
 import javax.inject.Inject
 
 class IndividualActivity : BaseActivity() {
 
-    @Inject
-    lateinit var cc: CoroutineContextProvider
     @Inject
     lateinit var internalIntents: InternalIntents
     @Inject
@@ -48,12 +43,24 @@ class IndividualActivity : BaseActivity() {
 
         setupActionBar()
 
-        viewModel.individual.observe(this@IndividualActivity, Observer { individual ->
-            showIndividual(individual)
-        })
+        setupViewModelObservers()
 
         with(IntentOptions) {
             viewModel.setIndividualId(intent.individualId)
+        }
+    }
+
+    private fun setupViewModelObservers() {
+        viewModel.individual.observeNotNull { individual ->
+            showIndividual(individual)
+        }
+
+        // Events
+        viewModel.onEditIndividualEvent.observeNotNull { individualId ->
+            internalIntents.editIndividual(this@IndividualActivity, individualId)
+        }
+        viewModel.onIndividualDeletedEvent.observe {
+            finish()
         }
     }
 
@@ -71,7 +78,7 @@ class IndividualActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_item_edit -> {
-                showEditIndividual()
+                viewModel.editTask()
                 true
             }
             R.id.menu_item_delete -> {
@@ -83,16 +90,15 @@ class IndividualActivity : BaseActivity() {
     }
 
     private fun promptDeleteIndividual() {
-        android.support.v7.app.AlertDialog.Builder(this)
-                .setMessage(R.string.delete_individual_confirm)
-                .setPositiveButton(R.string.delete) { _, _ -> deleteIndividual() }
-                .setNegativeButton(R.string.cancel, null)
+        MaterialDialog.Builder(this)
+                .content(R.string.delete_individual_confirm)
+                .positiveText(R.string.delete)
+                .onPositive({_,_ -> viewModel.deleteTask()})
+                .negativeText(R.string.cancel)
                 .show()
     }
 
-    private fun showIndividual(individual: Individual?) {
-        individual ?: return
-
+    private fun showIndividual(individual: Individual) {
         nameTextView.text = individual.getFullName()
         phoneTextView.text = individual.phone
         emailTextView.text = individual.email
@@ -100,40 +106,18 @@ class IndividualActivity : BaseActivity() {
         showAlarmTime(individual)
     }
 
-    private fun showEditIndividual() {
-        with(IntentOptions) {
-            internalIntents.editIndividual(this@IndividualActivity, intent.individualId)
-        }
-    }
-
     private fun showBirthDate(individual: Individual) {
-        if (individual.birthDate == null) {
-            return
-        }
-
-        val date = individual.birthDate
-
-        if (date != null) {
-            val millis = ThreeTenFormatter.localDateTimeToLong(date.atStartOfDay(ZoneId.systemDefault()).toLocalDateTime())
-            birthDateTextView.text = DateUtils.formatDateTime(this, millis!!, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_YEAR)
+        individual.birthDate?.let { date ->
+            ThreeTenFormatter.localDateTimeToLong(date.atStartOfDay(ZoneId.systemDefault()).toLocalDateTime())?.let { millis ->
+                birthDateTextView.text = DateUtils.formatDateTime(this, millis, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_YEAR)
+            }
         }
     }
 
     private fun showAlarmTime(individual: Individual) {
         val time = individual.alarmTime
-        val millis = ThreeTenFormatter.localDateTimeToLong(time.atDate(LocalDate.now()))
-        alarmTimeTextView.text = DateUtils.formatDateTime(this, millis!!, DateUtils.FORMAT_SHOW_TIME)
-    }
-
-    private fun deleteIndividual() {
-        launch(cc.ui) {
-            run(coroutineContext + cc.commonPool) {
-                with(IntentOptions) {
-                    viewModel.deleteIndividual(intent.individualId)
-                }
-            }
-
-            finish()
+        ThreeTenFormatter.localDateTimeToLong(time.atDate(LocalDate.now()))?.let { millis ->
+            alarmTimeTextView.text = DateUtils.formatDateTime(this, millis, DateUtils.FORMAT_SHOW_TIME)
         }
     }
 

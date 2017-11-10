@@ -1,23 +1,28 @@
 package org.jdc.template.ux.individual
 
-import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.ViewModel
 import com.google.android.gms.analytics.HitBuilders
+import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.experimental.run
 import org.jdc.template.Analytics
 import org.jdc.template.datasource.database.main.individual.Individual
 import org.jdc.template.datasource.database.main.individual.IndividualDao
 import org.jdc.template.livedata.AbsentLiveData
+import org.jdc.template.livedata.SingleLiveEvent
+import org.jdc.template.util.CoroutineContextProvider
 import javax.inject.Inject
 
 class IndividualViewModel
-@Inject constructor(application: Application,
+@Inject constructor(private val cc: CoroutineContextProvider,
                     private val analytics: Analytics,
-                    private val individualDao: IndividualDao) : AndroidViewModel(application) {
+                    private val individualDao: IndividualDao) : ViewModel() {
 
     private val individualId = MutableLiveData<Long>()
     val individual: LiveData<Individual>
+    val onEditIndividualEvent = SingleLiveEvent<Long>() // individualId
+    val onIndividualDeletedEvent = SingleLiveEvent<Void>()
 
     init {
         individual = AbsentLiveData.switchMap(individualId) {
@@ -36,8 +41,20 @@ class IndividualViewModel
         return individualDao.findByIdLive(individualId)
     }
 
-    fun deleteIndividual(individualId: Long) {
-        individualDao.deleteById(individualId)
-        analytics.send(HitBuilders.EventBuilder().setCategory(Analytics.CATEGORY_INDIVIDUAL).setAction(Analytics.ACTION_DELETE).build())
+    fun deleteTask() {
+        individualId.value?.let { id ->
+            launch(cc.ui) {
+                run(coroutineContext + cc.commonPool) {
+                    individualDao.deleteById(id)
+                    analytics.send(HitBuilders.EventBuilder().setCategory(Analytics.CATEGORY_INDIVIDUAL).setAction(Analytics.ACTION_DELETE).build())
+                }
+
+                onIndividualDeletedEvent.call()
+            }
+        }
+    }
+
+    fun editTask() {
+        onEditIndividualEvent.value = individualId.value
     }
 }

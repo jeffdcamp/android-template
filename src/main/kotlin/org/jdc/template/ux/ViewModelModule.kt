@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package org.jdc.template.ux
 
 import android.arch.lifecycle.ViewModel
@@ -7,6 +9,7 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 import org.jdc.template.inject.ViewModelFactory
 import org.jdc.template.inject.ViewModelKey
+import org.jdc.template.ux.about.AboutViewModel
 import org.jdc.template.ux.directory.DirectoryViewModel
 import org.jdc.template.ux.individual.IndividualViewModel
 import org.jdc.template.ux.individualedit.IndividualEditViewModel
@@ -30,5 +33,10 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(IndividualEditViewModel::class)
     internal abstract fun bindIndividualEditViewModel(viewModel: IndividualEditViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AboutViewModel::class)
+    internal abstract fun bindAboutViewModel(viewModel: AboutViewModel): ViewModel
 }
 
