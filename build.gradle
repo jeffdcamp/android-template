@@ -41,7 +41,7 @@ repositories {
 
 ext {
     // versions for libraries that multiple dependencies
-    supportLibVersion = '27.0.0'
+    supportLibVersion = '27.0.1'
     archVersion = '1.0.0'
     archVersionLifecycleRT = '1.0.3'
     playServicesVersion = '11.6.0'

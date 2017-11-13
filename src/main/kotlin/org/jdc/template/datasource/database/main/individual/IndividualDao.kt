@@ -23,27 +23,27 @@ interface IndividualDao {
     @Query("SELECT count(1) FROM individual")
     fun findCount(): Long
 
-    @Query("SELECT * FROM individual WHERE id = :p0")
-    fun findById(p0: Long): Individual?
+    @Query("SELECT * FROM individual WHERE id = :id")
+    fun findById(id: Long): Individual?
 
-    @Query("SELECT * FROM individual WHERE id = :p0")
-    fun findByIdLive(p0: Long): LiveData<Individual>
+    @Query("SELECT * FROM individual WHERE id = :id")
+    fun findByIdLiveData(id: Long): LiveData<Individual>
 
     @Query("SELECT * FROM individual")
     fun findAll(): List<Individual>
 
     @Query("SELECT * FROM individual")
-    fun findAllLive(): LiveData<List<Individual>>
+    fun findAllLiveData(): LiveData<List<Individual>>
 
     @Query("SELECT id, lastName, firstName FROM individual ORDER BY lastName, firstName")
-    fun findAllDirectListItemsLive(): LiveData<List<DirectoryListItem>>
+    fun findAllDirectListItemsLiveData(): LiveData<List<DirectoryListItem>>
 
-    @Query("DELETE FROM individual WHERE id = :p0")
-    fun deleteById(p0: Long)
+    @Query("DELETE FROM individual WHERE id = :id")
+    fun deleteById(id: Long)
 
-    @Query("SELECT lastModified FROM individual WHERE id = :p0")
+    @Query("SELECT lastModified FROM individual WHERE id = :id")
     @TypeConverters(DateTimeLongConverter::class)
-    fun findLastModified(p0: Long): LocalDateTime?
+    fun findLastModified(id: Long): LocalDateTime?
 
     data class DirectoryListItem(val id: Long, val firstName: String, val lastName: String) {
         fun getFullName() = firstName + " " + lastName

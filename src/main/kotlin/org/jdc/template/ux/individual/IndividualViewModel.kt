@@ -38,7 +38,7 @@ class IndividualViewModel
 
     private fun loadIndividual(individualId: Long): LiveData<Individual> {
         analytics.send(HitBuilders.EventBuilder().setCategory(Analytics.CATEGORY_INDIVIDUAL).setAction(Analytics.ACTION_VIEW).build())
-        return individualDao.findByIdLive(individualId)
+        return individualDao.findByIdLiveData(individualId)
     }
 
     fun deleteTask() {

@@ -66,7 +66,7 @@ class AboutActivity : BaseActivity() {
         testButton.setOnClickListener {
         }
 
-        individualDao.findAllLive().observe(this, Observer { list ->
+        individualDao.findAllLiveData().observe(this, Observer { list ->
             Timber.i("==== Individual Table Changed ====")
             list?.forEach { individual ->
                 Timber.i("Individual [${individual.getFullName()}]")

@@ -60,7 +60,7 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener {
     }
 
     private fun setupViewModelObservers() {
-        viewModel.getDirectoryListItemsLive().observeNotNull { list ->
+        viewModel.directoryList.observeNotNull { list ->
             adapter.list = list
         }
 

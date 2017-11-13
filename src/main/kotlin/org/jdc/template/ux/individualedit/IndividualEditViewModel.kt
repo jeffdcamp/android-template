@@ -34,7 +34,7 @@ class IndividualEditViewModel
     }
 
     private fun loadIndividual(individualId: Long): LiveData<Individual> {
-        return individualDao.findByIdLive(individualId)
+        return individualDao.findByIdLiveData(individualId)
     }
 
     fun saveIndividual() {
