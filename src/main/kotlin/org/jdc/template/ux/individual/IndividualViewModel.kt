@@ -44,7 +44,7 @@ class IndividualViewModel
     fun deleteTask() {
         individualId.value?.let { id ->
             launch(cc.ui) {
-                run(coroutineContext + cc.commonPool) {
+                run(cc.commonPool) {
                     individualDao.deleteById(id)
                     analytics.send(HitBuilders.EventBuilder().setCategory(Analytics.CATEGORY_INDIVIDUAL).setAction(Analytics.ACTION_DELETE).build())
                 }

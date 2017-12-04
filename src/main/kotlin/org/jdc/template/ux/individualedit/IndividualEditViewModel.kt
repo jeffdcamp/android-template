@@ -40,7 +40,7 @@ class IndividualEditViewModel
     fun saveIndividual() {
         individual.value?.let {
             launch(cc.ui) {
-                run(coroutineContext + cc.commonPool) {
+                run(cc.commonPool) {
                     if (it.id <= 0) {
                         individualDao.insert(it)
                     } else {

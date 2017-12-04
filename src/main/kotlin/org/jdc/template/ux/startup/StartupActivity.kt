@@ -50,13 +50,13 @@ class StartupActivity : Activity() {
     private fun startUp() {
         analytics.send(HitBuilders.EventBuilder().setCategory(Analytics.CATEGORY_APP).setAction(Analytics.ACTION_APP_LAUNCH).setLabel(BuildConfig.BUILD_TYPE).build())
 
-        compositeJob.attachChild(launch(UI) {
-            run(coroutineContext + CommonPool) {
+        launch(UI, parent = compositeJob) {
+            run(CommonPool) {
                 // do some startup stuff
             }
 
             showStartActivity()
-        })
+        }
     }
 
     private fun showStartActivity() {
