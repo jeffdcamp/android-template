@@ -1,24 +1,8 @@
 package org.jdc.template.ui.activity
 
 import android.view.MenuItem
-import kotlinx.coroutines.experimental.Job
 
 abstract class BaseActivity : LiveDataObserverActivity() {
-
-    private var compositeJob: Job? = null
-
-    override fun onStop() {
-        compositeJob?.cancel()
-        compositeJob = null
-        super.onStop()
-    }
-
-    fun addJob(job: Job) {
-        if (compositeJob == null) {
-            compositeJob = Job()
-        }
-        compositeJob?.attachChild(job)
-    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (allowFinishOnHome() && item.itemId == android.R.id.home) {
