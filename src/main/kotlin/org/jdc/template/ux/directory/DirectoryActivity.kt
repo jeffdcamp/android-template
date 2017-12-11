@@ -32,9 +32,11 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener {
 
     private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(DirectoryViewModel::class.java) }
 
-    private val adapter = DirectoryAdapter().apply {
-        itemClickListener = {
-            showIndividual(it.id)
+    private val adapter by lazy {
+        DirectoryAdapter().apply {
+            itemClickListener = {
+                showIndividual(it.id)
+            }
         }
     }
 
@@ -61,7 +63,7 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener {
 
     private fun setupViewModelObservers() {
         viewModel.directoryList.observeNotNull { list ->
-            adapter.list = list
+            adapter.items = list
         }
 
         // Events

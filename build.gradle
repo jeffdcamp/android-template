@@ -119,7 +119,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.13.0' // be sure to add src/test/resources/mockito-extensions (so you don't have to 'open' all of your classes)
     testImplementation 'org.threeten:threetenbp:1.3.6'
-    testImplementation 'org.xerial:sqlite-jdbc:3.21.0.1'
+    testImplementation 'org.xerial:sqlite-jdbc:3.21.0'
     kaptTest "com.google.dagger:dagger-compiler:${daggerVersion}"
 }
 

@@ -6,40 +6,33 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.list_item.view.*
 import org.jdc.template.R
 import org.jdc.template.datasource.database.main.individual.IndividualDao
+import org.jdc.template.ui.recycleview.RecyclerViewDiffAdapter
+import org.jdc.template.ui.recycleview.setOnClickListener
 
-class DirectoryAdapter : RecyclerView.Adapter<DirectoryAdapter.ViewHolder>() {
-
-    var list: List<IndividualDao.DirectoryListItem> = listOf()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+class DirectoryAdapter : RecyclerViewDiffAdapter<IndividualDao.DirectoryListItem, DirectoryAdapter.ViewHolder>() {
 
     var itemClickListener: (IndividualDao.DirectoryListItem) -> Unit = {}
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(parent).apply {
-            clickListener = { itemClickListener(list[it.adapterPosition]) }
+            setOnClickListener { position -> itemClickListener(items[position]) }
         }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val individual = list[position]
+        val individual = items[position]
 
         // bind data to view holder
         holder.itemView.listItemTextView.text = individual.getFullName()
     }
 
-    override fun getItemCount(): Int {
-        return list.size
+    override fun areItemsTheSame(oldItem: IndividualDao.DirectoryListItem, newItem: IndividualDao.DirectoryListItem): Boolean {
+        return oldItem.id == newItem.id
     }
 
-    class ViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)) {
-        init {
-            itemView.setOnClickListener { clickListener(this) }
-        }
-
-        var clickListener: (ViewHolder) -> Unit = {}
+    override fun areContentsTheSame(oldItem: IndividualDao.DirectoryListItem, newItem: IndividualDao.DirectoryListItem): Boolean {
+        return oldItem.id == newItem.id && oldItem.firstName == newItem.firstName && oldItem.lastName == newItem.lastName
     }
+
+    class ViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false))
 }
