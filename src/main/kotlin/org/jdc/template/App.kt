@@ -9,10 +9,15 @@ import org.jdc.template.inject.Injector
 import org.jdc.template.job.AppJobCreator
 import org.jdc.template.log.DebugTree
 import org.jdc.template.log.ReleaseTree
+import org.jdc.template.prefs.base.PrefsManager
 import org.jdc.template.ui.notifications.NotificationChannels
 import timber.log.Timber
 
 class App : Application() {
+
+    init {
+        PrefsManager.init(this)
+    }
 
     override fun onCreate() {
         super.onCreate()
