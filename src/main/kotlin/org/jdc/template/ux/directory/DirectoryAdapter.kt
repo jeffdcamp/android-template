@@ -23,7 +23,9 @@ class DirectoryAdapter : RecyclerViewDiffAdapter<IndividualDao.DirectoryListItem
         val individual = items[position]
 
         // bind data to view holder
-        holder.itemView.listItemTextView.text = individual.getFullName()
+        holder.itemView.apply {
+            listItemTextView.text = individual.getFullName()
+        }
     }
 
     override fun areItemsTheSame(oldItem: IndividualDao.DirectoryListItem, newItem: IndividualDao.DirectoryListItem): Boolean {
