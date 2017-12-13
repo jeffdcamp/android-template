@@ -4,6 +4,7 @@ import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
 import android.support.annotation.MainThread
+import android.support.annotation.WorkerThread
 import timber.log.Timber
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -49,5 +50,13 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
     @MainThread
     fun call() {
         value = null
+    }
+
+    /**
+     * Used for cases where T is Void, to make calls cleaner.
+     */
+    @WorkerThread
+    fun postCall() {
+        postValue(null)
     }
 }

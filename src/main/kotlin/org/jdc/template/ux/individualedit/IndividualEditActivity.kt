@@ -16,7 +16,6 @@ import me.eugeniomarletti.extras.intent.IntentExtra
 import me.eugeniomarletti.extras.intent.base.Long
 import org.jdc.template.R
 import org.jdc.template.datasource.database.converter.ThreeTenFormatter
-import org.jdc.template.datasource.database.main.individual.Individual
 import org.jdc.template.inject.Injector
 import org.jdc.template.ui.activity.BaseActivity
 import org.threeten.bp.LocalDate
@@ -46,13 +45,13 @@ class IndividualEditActivity : BaseActivity() {
         setupViewModelObservers()
 
         with(IntentOptions) {
-            viewModel.setIndividualId(intent.individualId)
+            viewModel.loadIndividual(intent.individualId)
         }
     }
 
     private fun setupViewModelObservers() {
-        viewModel.individual.observeNotNull { individual ->
-            showIndividual(individual)
+        viewModel.onIndividualLoadedEvent.observe {
+            showIndividual()
         }
 
         // Events
@@ -63,11 +62,11 @@ class IndividualEditActivity : BaseActivity() {
 
     private fun setupClickListeners() {
         alarmTimeEditText.setOnClickListener {
-            showAlarmTimeSelector(viewModel.individual.value?.alarmTime ?: LocalTime.now())
+            showAlarmTimeSelector(viewModel.individual.alarmTime)
         }
 
         birthDateEditText.setOnClickListener {
-            showBirthDateSelector(viewModel.individual.value?.birthDate ?: LocalDate.now())
+            showBirthDateSelector(viewModel.individual.birthDate ?: LocalDate.now())
         }
     }
 
@@ -99,8 +98,10 @@ class IndividualEditActivity : BaseActivity() {
 
     private fun showBirthDateSelector(date: LocalDate) {
         val birthDatePickerDialog = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-            viewModel.individual.value?.let {
-                it.birthDate = LocalDate.of(year, monthOfYear + 1, dayOfMonth) // + 1 because cord Java Date is 0 based
+            val birthDate = LocalDate.of(year, monthOfYear + 1, dayOfMonth) // + 1 because cord Java Date is 0 based
+            viewModel.individual.birthDate = birthDate
+            if (birthDate != null) {
+                showBirthDate(birthDate)
             }
         }, date.year, date.monthValue - 1, date.dayOfMonth) // - 1 because cord Java Date is 0 based
 
@@ -114,9 +115,9 @@ class IndividualEditActivity : BaseActivity() {
 
     private fun showAlarmTimeSelector(time: LocalTime) {
         val alarmTimePickerDialog = TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-            viewModel.individual.value?.let {
-                it.alarmTime = LocalTime.of(hourOfDay, minute)
-            }
+            val alarmTime = LocalTime.of(hourOfDay, minute)
+            viewModel.individual.alarmTime = alarmTime
+            showAlarmTime(alarmTime)
         }, time.hour, time.minute, false)
 
         alarmTimePickerDialog.show()
@@ -127,17 +128,19 @@ class IndividualEditActivity : BaseActivity() {
         alarmTimeEditText.setText(DateUtils.formatDateTime(this, millis!!, DateUtils.FORMAT_SHOW_TIME))
     }
 
-    private fun showIndividual(individual: Individual) {
-        firstNameEditText.setText(individual.firstName)
-        lastNameEditText.setText(individual.lastName)
-        emailEditText.setText(individual.email)
-        phoneEditText.setText(individual.phone)
+    private fun showIndividual() {
+        viewModel.individual.let { individual ->
+            firstNameEditText.setText(individual.firstName)
+            lastNameEditText.setText(individual.lastName)
+            emailEditText.setText(individual.email)
+            phoneEditText.setText(individual.phone)
 
-        individual.birthDate?.let {
-            showBirthDate(it)
+            individual.birthDate?.let {
+                showBirthDate(it)
+            }
+
+            showAlarmTime(individual.alarmTime)
         }
-
-        showAlarmTime(individual.alarmTime)
     }
 
     private fun validateIndividualData(): Boolean {
@@ -154,11 +157,11 @@ class IndividualEditActivity : BaseActivity() {
             return
         }
 
-        viewModel.individual.value?.let { individual ->
-            individual.firstName = firstNameEditText.text.toString()
-            individual.lastName = lastNameEditText.text.toString()
-            individual.phone = phoneEditText.text.toString()
-            individual.email = emailEditText.text.toString()
+        viewModel.individual.apply {
+            firstName = firstNameEditText.text.toString()
+            lastName = lastNameEditText.text.toString()
+            phone = phoneEditText.text.toString()
+            email = emailEditText.text.toString()
         }
 
         viewModel.saveIndividual()
