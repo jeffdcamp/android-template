@@ -30,10 +30,10 @@
                 android:id="@+id/nameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
+                android:layout_marginStart="12dp"
                 android:layout_marginTop="8dp"
                 android:textSize="20sp"
-                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Jeff Campbell"/>
 
@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:textSize="20sp"
-                app:layout_constraintLeft_toLeftOf="@+id/nameTextView"
+                app:layout_constraintStart_toStartOf="@+id/nameTextView"
                 app:layout_constraintTop_toBottomOf="@+id/nameTextView"
                 tools:text="801-555-1234"/>
 
@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:textSize="20sp"
-                app:layout_constraintLeft_toLeftOf="@+id/phoneTextView"
+                app:layout_constraintStart_toStartOf="@+id/phoneTextView"
                 app:layout_constraintTop_toBottomOf="@+id/phoneTextView"
                 tools:text="bob@bob.com"/>
 
@@ -65,7 +65,7 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/birth_date"
                 android:textSize="12sp"
-                app:layout_constraintLeft_toLeftOf="@+id/emailTextView"
+                app:layout_constraintStart_toStartOf="@+id/emailTextView"
                 app:layout_constraintTop_toBottomOf="@+id/emailTextView"/>
 
             <TextView
@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:textSize="20sp"
-                app:layout_constraintLeft_toLeftOf="@+id/linearLayout3"
+                app:layout_constraintStart_toStartOf="@+id/linearLayout3"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
                 tools:text="1/1/70"/>
 
@@ -86,7 +86,7 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/alarm_time"
                 android:textSize="12sp"
-                app:layout_constraintLeft_toLeftOf="@+id/birthDateTextView"
+                app:layout_constraintStart_toStartOf="@+id/birthDateTextView"
                 app:layout_constraintTop_toBottomOf="@+id/birthDateTextView"/>
 
             <TextView
@@ -95,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:textSize="20sp"
-                app:layout_constraintLeft_toLeftOf="@+id/textView"
+                app:layout_constraintStart_toStartOf="@+id/textView"
                 app:layout_constraintTop_toBottomOf="@+id/textView"
                 tools:layout_conversion_absoluteHeight="24dp"
                 tools:layout_conversion_absoluteWidth="84dp"
@@ -111,7 +111,7 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/combined_date_time"
                 android:textSize="12sp"
-                app:layout_constraintLeft_toLeftOf="@+id/alarmTimeTextView"
+                app:layout_constraintStart_toStartOf="@+id/alarmTimeTextView"
                 app:layout_constraintTop_toBottomOf="@+id/alarmTimeTextView"
                 tools:layout_conversion_absoluteHeight="14dp"
                 tools:layout_conversion_absoluteWidth="159dp"

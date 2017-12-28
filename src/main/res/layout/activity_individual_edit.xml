@@ -26,11 +26,11 @@
                 android:id="@+id/firstNameLayout"
                 android:layout_width="0dp"
                 android:layout_height="52dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginTop="16dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <EditText
@@ -46,8 +46,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                app:layout_constraintLeft_toLeftOf="@+id/firstNameLayout"
-                app:layout_constraintRight_toRightOf="@+id/firstNameLayout"
+                app:layout_constraintStart_toStartOf="@+id/firstNameLayout"
+                app:layout_constraintEnd_toEndOf="@+id/firstNameLayout"
                 app:layout_constraintTop_toBottomOf="@+id/firstNameLayout">
 
                 <EditText
@@ -63,8 +63,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                app:layout_constraintLeft_toLeftOf="@+id/lastNameLayout"
-                app:layout_constraintRight_toRightOf="@+id/lastNameLayout"
+                app:layout_constraintStart_toStartOf="@+id/lastNameLayout"
+                app:layout_constraintEnd_toEndOf="@+id/lastNameLayout"
                 app:layout_constraintTop_toBottomOf="@+id/lastNameLayout">
 
                 <EditText
@@ -81,8 +81,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                app:layout_constraintLeft_toLeftOf="@+id/phoneLayout"
-                app:layout_constraintRight_toRightOf="@+id/phoneLayout"
+                app:layout_constraintStart_toStartOf="@+id/phoneLayout"
+                app:layout_constraintEnd_toEndOf="@+id/phoneLayout"
                 app:layout_constraintTop_toBottomOf="@+id/phoneLayout"
                 >
 
@@ -100,8 +100,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                app:layout_constraintLeft_toLeftOf="@+id/emailLayout"
-                app:layout_constraintRight_toRightOf="@+id/emailLayout"
+                app:layout_constraintStart_toStartOf="@+id/emailLayout"
+                app:layout_constraintEnd_toEndOf="@+id/emailLayout"
                 app:layout_constraintTop_toBottomOf="@+id/emailLayout"
                 >
 
@@ -119,8 +119,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                app:layout_constraintLeft_toLeftOf="@+id/birthDateLayout"
-                app:layout_constraintRight_toRightOf="@+id/birthDateLayout"
+                app:layout_constraintStart_toStartOf="@+id/birthDateLayout"
+                app:layout_constraintEnd_toEndOf="@+id/birthDateLayout"
                 app:layout_constraintTop_toBottomOf="@+id/birthDateLayout"
                 >
 
