@@ -13,12 +13,18 @@ import org.jdc.template.ux.about.AboutViewModel
 import org.jdc.template.ux.directory.DirectoryViewModel
 import org.jdc.template.ux.individual.IndividualViewModel
 import org.jdc.template.ux.individualedit.IndividualEditViewModel
+import org.jdc.template.ux.startup.StartupViewModel
 
 @Module
 abstract class ViewModelModule {
     @Binds
     internal abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
     
+    @Binds
+    @IntoMap
+    @ViewModelKey(StartupViewModel::class)
+    internal abstract fun bindStartupViewModel(viewModel: StartupViewModel): ViewModel
+
     @Binds
     @IntoMap
     @ViewModelKey(DirectoryViewModel::class)

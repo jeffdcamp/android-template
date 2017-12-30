@@ -1,28 +1,22 @@
 package org.jdc.template.ux.startup
 
-import android.app.Activity
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import com.afollestad.materialdialogs.MaterialDialog
-import com.google.android.gms.analytics.HitBuilders
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.Job
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.launch
-import kotlinx.coroutines.experimental.run
-import org.jdc.template.Analytics
-import org.jdc.template.BuildConfig
 import org.jdc.template.R
 import org.jdc.template.inject.Injector
+import org.jdc.template.ui.activity.LiveDataObserverActivity
 import org.jdc.template.ux.directory.DirectoryActivity
 import javax.inject.Inject
 
-class StartupActivity : Activity() {
+class StartupActivity : LiveDataObserverActivity() {
 
     @Inject
-    lateinit var analytics: Analytics
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val compositeJob = Job()
+    private val viewModel: StartupViewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(StartupViewModel::class.java) }
 
     private val debugStartup = false
 
@@ -33,28 +27,19 @@ class StartupActivity : Activity() {
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+        setupViewModelObservers()
 
         @Suppress("ConstantConditionIf") // used for debugging
         if (debugStartup) {
             devPauseStartup()
         } else {
-            startUp()
+            viewModel.startup()
         }
     }
 
-    override fun onStop() {
-        compositeJob.cancel()
-        super.onStop()
-    }
-
-    private fun startUp() {
-        analytics.send(HitBuilders.EventBuilder().setCategory(Analytics.CATEGORY_APP).setAction(Analytics.ACTION_APP_LAUNCH).setLabel(BuildConfig.BUILD_TYPE).build())
-
-        launch(UI, parent = compositeJob) {
-            run(CommonPool) {
-                // do some startup stuff
-            }
-
+    private fun setupViewModelObservers() {
+        // Events
+        viewModel.onStartupFinishedEvent.observe {
             showStartActivity()
         }
     }
@@ -72,7 +57,7 @@ class StartupActivity : Activity() {
         MaterialDialog.Builder(this)
                 .content("Paused for debugger attachment")
                 .positiveText("OK")
-                .onPositive { _, _ -> startUp() }
+                .onPositive { _, _ -> viewModel.startup() }
                 .show()
     }
 }
