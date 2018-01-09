@@ -31,14 +31,14 @@ interface CoroutineContextProvider {
     }
 
     object TestJDBCCoroutineContextProvider : CoroutineContextProvider {
-        private val singleTreadCoroutineContext = newSingleThreadContext("Test Context")
+        private val singleThreadCoroutineContext = newSingleThreadContext("Test Context")
 
         override val ui: CoroutineContext
-            get() = singleTreadCoroutineContext
+            get() = singleThreadCoroutineContext
         override val network: CoroutineContext
-            get() = singleTreadCoroutineContext
+            get() = singleThreadCoroutineContext
         override val commonPool: CoroutineContext
-            get() = singleTreadCoroutineContext
+            get() = singleThreadCoroutineContext
     }
 }
 

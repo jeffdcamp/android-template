@@ -24,7 +24,7 @@ import org.threeten.bp.LocalDateTime
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-@Module(includes = arrayOf(ServiceModule::class))
+@Module(includes = [ServiceModule::class])
 class AppModule(private val application: Application) {
 
     @Provides

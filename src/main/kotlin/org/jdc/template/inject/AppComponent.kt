@@ -15,7 +15,7 @@ import org.jdc.template.ux.startup.StartupActivity
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = arrayOf(AppModule::class, ViewModelModule::class))
+@Component(modules = [AppModule::class, ViewModelModule::class])
 interface AppComponent {
     // UI
     fun inject(application: App)
