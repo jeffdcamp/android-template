@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
-    package="org.jdc.template"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.jdc.template"
     >
 
     <!-- Permissions -->
@@ -19,13 +19,13 @@
         android:theme="@style/AppTheme"
         >
         <!-- support 18:9 form factors -->
-        <meta-data android:name="android.max_aspect"
-                   android:value="2.1"/>
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.1"/>
 
         <!-- Activities -->
         <activity
-            android:name=".ux.startup.StartupActivity"
-            android:theme="@android:style/Theme.NoTitleBar">
+            android:name=".ux.startup.StartupActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -45,11 +45,13 @@
             android:theme="@style/SettingsTheme"/>
 
         <!-- set theme so that the actionbar is visible -->
-        <activity android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"
-                  android:theme="@style/SettingsTheme"/>
+        <activity
+            android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"
+            android:theme="@style/SettingsTheme"/>
 
-        <activity android:name="com.google.android.gms.oss.licenses.OssLicensesActivity"
-                  android:theme="@style/SettingsTheme"/>
+        <activity
+            android:name="com.google.android.gms.oss.licenses.OssLicensesActivity"
+            android:theme="@style/SettingsTheme"/>
         <!-- Android TV -->
 
         <!-- Google Play Services -->

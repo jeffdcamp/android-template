@@ -48,6 +48,7 @@ ext {
     playServicesVersion = '11.8.0'
     daggerVersion = '2.14.1'
     okhttpVersion = '3.9.1'
+    dbtoolsRoomVersion = '1.2.0'
 }
 
 dependencies {
@@ -74,6 +75,10 @@ dependencies {
     implementation 'com.jakewharton.threetenabp:threetenabp:1.0.5'
     implementation 'com.evernote:android-job:1.2.1'
     implementation 'com.jakewharton.timber:timber:4.6.0'
+
+    // Database (for use of SqliteOrgSQLiteOpenHelperFactory in AppModule.kt)
+//    implementation "org.dbtools:dbtools-room:$dbtoolsRoomVersion"
+//    implementation "org.dbtools:dbtools-room-sqliteorg:$dbtoolsRoomVersion"
 
     // UI
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
@@ -132,7 +137,7 @@ kotlin {
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.2'
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         minSdkVersion 17

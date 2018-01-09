@@ -91,8 +91,11 @@ class AppModule(private val application: Application) {
 //                    override fun migrate(p0: SupportSQLiteDatabase?) {
 //                    }
 //                })
+//                .openHelperFactory(SqliteOrgSQLiteOpenHelperFactory())
                 .build()
     }
+
+
 
     @Provides
     @Singleton
