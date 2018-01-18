@@ -1,8 +1,6 @@
 package org.jdc.template
 
-import android.app.Application
-import android.content.Context
-import android.support.multidex.MultiDex
+import android.support.multidex.MultiDexApplication
 import com.evernote.android.job.JobManager
 import com.jakewharton.threetenabp.AndroidThreeTen
 import org.jdc.template.inject.Injector
@@ -13,7 +11,7 @@ import org.jdc.template.prefs.base.PrefsManager
 import org.jdc.template.ui.notifications.NotificationChannels
 import timber.log.Timber
 
-class App : Application() {
+class App : MultiDexApplication() {
 
     init {
         PrefsManager.init(this)
@@ -46,18 +44,6 @@ class App : Application() {
             // Plant Crashlytics
             // Log.e(...) will log a non-fatal crash in Crashlytics
             // Timber.plant(new CrashlyticsTree());
-        }
-    }
-
-    override fun attachBaseContext(base: Context) {
-        super.attachBaseContext(base)
-        if (filesDir != null) {
-            MultiDex.install(this)
-        } else {
-            // During app install it might have experienced "INSTALL_FAILED_DEXOPT" (reinstall is the only known work-around)
-            // https://code.google.com/p/android/issues/detail?id=8886
-            val message = getString(R.string.app_name) + " is in a bad state, please uninstall/reinstall"
-            Timber.e(message)
         }
     }
 }
