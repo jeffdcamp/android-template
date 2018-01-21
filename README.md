@@ -7,12 +7,12 @@ Sample Android app that utilizes common best practices
 
 * Kotlin
 * Android Architecture Components (ViewModel, LiveData, Room ORM Database)
+* Android DataBinding
 * Dagger 2.0 dependency injection
-* Kotlin Android Extensions
 * Kotlin Coroutines
 * ThreeTenBp
 * Constraint Layout
-* RecyclerView / RecyclerExt / ViewHolder
+* RecyclerView / RecyclerDiffAdapter / ViewHolder
 * Retrofit / Okhttp3
 * Gson
 * Android-Job
