@@ -2,20 +2,19 @@ package org.jdc.template.ux.directory
 
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.view.MenuItemCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
-import kotlinx.android.synthetic.main.directory.*
-import kotlinx.android.synthetic.main.toolbar_actionbar.*
 import me.eugeniomarletti.extras.ActivityCompanion
 import me.eugeniomarletti.extras.bundle.BundleExtra
 import me.eugeniomarletti.extras.bundle.base.Int
 import org.jdc.template.InternalIntents
 import org.jdc.template.R
-import org.jdc.template.R.layout.activity_directory
+import org.jdc.template.databinding.DirectoryActivityBinding
 import org.jdc.template.inject.Injector
 import org.jdc.template.ui.activity.DrawerActivity
 import org.jdc.template.ui.menu.CommonMenu
@@ -31,9 +30,10 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(DirectoryViewModel::class.java) }
+    private lateinit var binding: DirectoryActivityBinding
 
     private val adapter by lazy {
-        DirectoryAdapter().apply {
+        DirectoryAdapter(viewModel).apply {
             itemClickListener = {
                 showIndividual(it.id)
             }
@@ -46,11 +46,14 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener {
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(activity_directory)
+        binding = DataBindingUtil.setContentView(this, R.layout.directory_activity)
+        binding.apply {
+            viewModel = this@DirectoryActivity.viewModel
+            setLifecycleOwner(this@DirectoryActivity)
+        }
+        super.setupDrawerWithDrawerButton(findViewById(R.id.mainToolbar), R.string.drawer_main)
 
-        super.setupDrawerWithDrawerButton(mainToolbar, R.string.drawer_main)
-
-        newFloatingActionButton.setOnClickListener {
+        binding.newFloatingActionButton.setOnClickListener {
             viewModel.addIndividual()
         }
 
@@ -62,19 +65,22 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener {
     }
 
     private fun setupViewModelObservers() {
-        viewModel.directoryList.observeNotNull { list ->
-            adapter.items = list
-        }
+//        viewModel.directoryList.observeNotNull { list ->
+//            adapter.items = list
+//        }
 
         // Events
         viewModel.onNewIndividualEvent.observe {
             showNewIndividual()
         }
+        viewModel.showIndividualEvent.observeNotNull {
+            showIndividual(it)
+        }
     }
 
     private fun setupRecyclerView() {
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.adapter = adapter
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -119,11 +125,11 @@ class DirectoryActivity : DrawerActivity(), SearchView.OnQueryTextListener {
     }
 
     private fun scrollToPosition(scrollPosition: Int) {
-        recyclerView.scrollToPosition(scrollPosition)
+        binding.recyclerView.scrollToPosition(scrollPosition)
     }
 
     private fun getListScrollPosition(): Int {
-        return recyclerView.getScrollPosition()
+        return binding.recyclerView.getScrollPosition()
     }
 
     private fun restoreState(bundle: Bundle) {

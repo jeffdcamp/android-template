@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="org.jdc.template.ux.about.AboutViewModel"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/appbar"
+            layout="@layout/toolbar_actionbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/appNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/about_title"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appbar"/>
+
+        <TextView
+            android:id="@+id/versionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="1dp"
+            android:layout_marginTop="4dp"
+            android:gravity="center_horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/appNameTextView"
+            app:layout_constraintTop_toBottomOf="@+id/appNameTextView"
+            tools:layout_conversion_absoluteHeight="16dp"
+            tools:layout_conversion_absoluteWidth="93dp"
+            tools:layout_conversion_absoluteX="145dp"
+            tools:layout_conversion_absoluteY="140dp"
+            tools:text="Version 1.0.0.0"/>
+
+        <TextView
+            android:id="@+id/versionDateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="0dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintEnd_toEndOf="@+id/versionTextView"
+            app:layout_constraintTop_toBottomOf="@+id/versionTextView"/>
+
+        <Button
+            android:id="@+id/createDatabaseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Create Database"
+            android:onClick="@{() -> viewModel.createSampleDataWithInjection()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/versionDateTextView"
+            tools:layout_conversion_absoluteHeight="48dp"
+            tools:layout_conversion_absoluteWidth="150dp"
+            tools:layout_conversion_absoluteX="116dp"
+            tools:layout_conversion_absoluteY="157dp"/>
+
+        <Button
+            android:id="@+id/restTestButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Test REST Call"
+            android:onClick="@{() -> viewModel.testQueryWebServiceCall()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/createDatabaseButton"
+            tools:layout_conversion_absoluteHeight="48dp"
+            tools:layout_conversion_absoluteWidth="131dp"
+            tools:layout_conversion_absoluteX="126dp"
+            tools:layout_conversion_absoluteY="205dp"/>
+
+        <Button
+            android:id="@+id/textTableChangeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Test Table Changes"
+            android:onClick="@{() -> viewModel.testTableChange()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/restTestButton"
+            tools:layout_conversion_absoluteHeight="48dp"
+            tools:layout_conversion_absoluteWidth="88dp"
+            tools:layout_conversion_absoluteX="148dp"
+            tools:layout_conversion_absoluteY="253dp"/>
+
+        <Button
+            android:id="@+id/jobTestButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Test Job Scheduler Call"
+            android:onClick="@{() -> viewModel.jobTest()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textTableChangeButton"
+            tools:layout_conversion_absoluteHeight="48dp"
+            tools:layout_conversion_absoluteWidth="205dp"
+            tools:layout_conversion_absoluteX="89dp"
+            tools:layout_conversion_absoluteY="301dp"/>
+
+        <Button
+            android:id="@+id/testButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Test"
+            android:onClick="@{() -> viewModel.testTableChange()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/jobTestButton"
+            tools:layout_conversion_absoluteHeight="48dp"
+            tools:layout_conversion_absoluteWidth="88dp"
+            tools:layout_conversion_absoluteX="148dp"
+            tools:layout_conversion_absoluteY="349dp"/>
+
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

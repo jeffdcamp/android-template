@@ -3,29 +3,28 @@ package org.jdc.template.ux.directory
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.list_item.view.*
-import org.jdc.template.R
+import org.jdc.template.BR
+import org.jdc.template.databinding.ListItemBinding
 import org.jdc.template.datasource.database.main.individual.IndividualDao
 import org.jdc.template.ui.recycleview.RecyclerViewDiffAdapter
-import org.jdc.template.ui.recycleview.setOnClickListener
 
-class DirectoryAdapter : RecyclerViewDiffAdapter<IndividualDao.DirectoryListItem, DirectoryAdapter.ViewHolder>() {
+class DirectoryAdapter(private val viewModel: DirectoryViewModel) : RecyclerViewDiffAdapter<IndividualDao.DirectoryListItem, DirectoryAdapter.ViewHolder>() {
 
     var itemClickListener: (IndividualDao.DirectoryListItem) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(parent).apply {
-            setOnClickListener { position -> itemClickListener(items[position]) }
+            binding.setVariable(BR.viewModel, viewModel)
+
+//            setOnClickListener { position -> itemClickListener(items[position]) }
         }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val individual = items[position]
 
-        // bind data to view holder
-        holder.itemView.apply {
-            listItemTextView.text = individual.getFullName()
-        }
+        holder.binding.setVariable(BR.directoryItem, individual)
+        holder.binding.executePendingBindings()
     }
 
     override fun areItemsTheSame(oldItem: IndividualDao.DirectoryListItem, newItem: IndividualDao.DirectoryListItem): Boolean {
@@ -36,5 +35,5 @@ class DirectoryAdapter : RecyclerViewDiffAdapter<IndividualDao.DirectoryListItem
         return oldItem.id == newItem.id && oldItem.firstName == newItem.firstName && oldItem.lastName == newItem.lastName
     }
 
-    class ViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false))
+    class ViewHolder(parent: ViewGroup, val binding: ListItemBinding = ListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)) : RecyclerView.ViewHolder(binding.listItemLayout)
 }

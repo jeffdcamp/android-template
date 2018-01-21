@@ -11,9 +11,7 @@ abstract class BaseActivity : LiveDataObserverActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    protected open fun allowFinishOnHome(): Boolean {
-        return true
-    }
+    protected open fun allowFinishOnHome() = true
 
     fun enableActionBarBackArrow(enable: Boolean) {
         val actionBar = supportActionBar

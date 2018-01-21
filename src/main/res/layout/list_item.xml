@@ -1,13 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/listItemLayout"
-    style="@style/ListItemLayout"
-    android:layout_weight="1"
-    android:orientation="horizontal">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/listItemTextView"
-        style="@style/ListItemText"
-        tools:text="Item Name" />
-</LinearLayout>
+    <data>
+
+        <!--<import type="org.jdc.template.datasource.database.main.individualI"-->
+
+        <variable
+            name="directoryItem"
+            type="org.jdc.template.datasource.database.main.individual.IndividualDao.DirectoryListItem"/>
+
+        <variable name="viewModel" type="org.jdc.template.ux.directory.DirectoryViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:id="@+id/listItemLayout"
+        style="@style/ListItemLayout"
+        android:orientation="horizontal"
+        android:onClick="@{() -> viewModel.onDirectoryIndividualClicked(directoryItem)}"
+        >
+
+        <TextView
+            android:id="@+id/listItemTextView"
+            style="@style/ListItemText"
+            android:text="@{directoryItem.fullName}"
+            tools:text="Item Name"/>
+    </LinearLayout>
+</layout>

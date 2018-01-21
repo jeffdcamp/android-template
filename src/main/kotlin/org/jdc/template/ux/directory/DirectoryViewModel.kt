@@ -10,6 +10,7 @@ class DirectoryViewModel
 @Inject constructor(private val individualDao: IndividualDao) : ViewModel() {
 
     val onNewIndividualEvent = SingleLiveEvent<Void>()
+    val showIndividualEvent = SingleLiveEvent<Long>()
 
     val directoryList: LiveData<List<IndividualDao.DirectoryListItem>>
 
@@ -23,5 +24,9 @@ class DirectoryViewModel
 
     fun addIndividual() {
         onNewIndividualEvent.call()
+    }
+
+    fun onDirectoryIndividualClicked(directoryListItem: IndividualDao.DirectoryListItem) {
+        showIndividualEvent.value = directoryListItem.id
     }
 }

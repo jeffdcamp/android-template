@@ -26,7 +26,7 @@ class StartupActivity : LiveDataObserverActivity() {
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
+        setContentView(R.layout.splash_activity)
         setupViewModelObservers()
 
         @Suppress("ConstantConditionIf") // used for debugging

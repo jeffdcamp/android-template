@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 
 @Suppress("MemberVisibilityCanPrivate", "unused")
-abstract class RecyclerViewDiffAdapter<T, VH : RecyclerView.ViewHolder>() : RecyclerView.Adapter<VH>() {
+abstract class RecyclerViewDiffAdapter<T, VH : RecyclerView.ViewHolder> : RecyclerView.Adapter<VH>() {
 
     private var backingItems = mutableListOf<T>()
     var items: List<T>
