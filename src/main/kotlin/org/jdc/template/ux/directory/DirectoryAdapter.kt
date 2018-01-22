@@ -3,7 +3,6 @@ package org.jdc.template.ux.directory
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import org.jdc.template.BR
 import org.jdc.template.databinding.ListItemBinding
 import org.jdc.template.datasource.database.main.individual.IndividualDao
 import org.jdc.template.ui.recycleview.RecyclerViewDiffAdapter
@@ -14,17 +13,13 @@ class DirectoryAdapter(private val viewModel: DirectoryViewModel) : RecyclerView
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(parent).apply {
-            binding.setVariable(BR.viewModel, viewModel)
-
-//            setOnClickListener { position -> itemClickListener(items[position]) }
+            binding.viewModel = viewModel
         }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val individual = items[position]
-
-        holder.binding.setVariable(BR.directoryItem, individual)
-        holder.binding.executePendingBindings()
+        holder.binding.directoryItem = individual
     }
 
     override fun areItemsTheSame(oldItem: IndividualDao.DirectoryListItem, newItem: IndividualDao.DirectoryListItem): Boolean {

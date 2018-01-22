@@ -40,6 +40,7 @@
             android:layout_marginEnd="1dp"
             android:layout_marginTop="4dp"
             android:gravity="center_horizontal"
+            android:text="@{viewModel.appVersion}"
             app:layout_constraintEnd_toEndOf="@+id/appNameTextView"
             app:layout_constraintTop_toBottomOf="@+id/appNameTextView"
             tools:layout_conversion_absoluteHeight="16dp"
@@ -54,6 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="0dp"
             android:layout_marginTop="4dp"
+            app:buildTimeText="@{viewModel.appBuildDateTime}"
             app:layout_constraintEnd_toEndOf="@+id/versionTextView"
             app:layout_constraintTop_toBottomOf="@+id/versionTextView"/>
 

@@ -30,7 +30,7 @@ class IndividualEditViewModel
 
     // Events
     val onIndividualSavedEvent = SingleLiveEvent<Void>()
-    val onValidationSaveErrorEvent = SingleLiveEvent<RequiredField>()
+    val onValidationSaveErrorEvent = SingleLiveEvent<FieldValidationError>()
     val onShowBirthDateSelectionEvent = SingleLiveEvent<LocalDate>()
     val onShowAlarmTimeSelectionEvent = SingleLiveEvent<LocalTime>()
 
@@ -70,7 +70,7 @@ class IndividualEditViewModel
 
     private fun validate(): Boolean {
         if (firstName.get().isNullOrBlank()) {
-            onValidationSaveErrorEvent.postValue(RequiredField.FIRST_NAME)
+            onValidationSaveErrorEvent.postValue(FieldValidationError.FIRST_NAME_REQUIRED)
             return false
         }
 
@@ -85,7 +85,7 @@ class IndividualEditViewModel
         onShowAlarmTimeSelectionEvent.postValue(alarmTime.get() ?: LocalTime.now())
     }
 
-    enum class RequiredField(val errorMessageId: Int) {
-        FIRST_NAME(R.string.required),
+    enum class FieldValidationError(val errorMessageId: Int) {
+        FIRST_NAME_REQUIRED(R.string.required),
     }
 }

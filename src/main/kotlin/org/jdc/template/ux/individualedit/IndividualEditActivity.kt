@@ -56,10 +56,10 @@ class IndividualEditActivity : BaseActivity() {
 
         viewModel.onValidationSaveErrorEvent.observeNotNull {
             when (it) {
-                IndividualEditViewModel.RequiredField.FIRST_NAME -> binding.firstNameLayout.error = getString(it.errorMessageId)
+                IndividualEditViewModel.FieldValidationError.FIRST_NAME_REQUIRED -> binding.firstNameLayout.error = getString(it.errorMessageId)
+                else -> { }
             }
         }
-
     }
 
     private fun setupActionBar() {

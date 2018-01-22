@@ -43,4 +43,11 @@ object CustomBinders {
         val adapter = recyclerView.adapter as? RecyclerViewDiffAdapter<T, VH> ?: error("Must use a RecyclerViewDiffAdapter for app:items")
         adapter.items = items
     }
+
+    @JvmStatic
+    @BindingAdapter("app:buildTimeText")
+    fun setAppBuildTimeText(view: TextView, millis: Long) {
+        val dateText = DateUtils.formatDateTime(view.context, millis, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_TIME or DateUtils.FORMAT_SHOW_YEAR)
+        view.text = dateText
+    }
 }

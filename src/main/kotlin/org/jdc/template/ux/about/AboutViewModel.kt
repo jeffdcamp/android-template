@@ -6,6 +6,7 @@ import com.google.android.gms.analytics.HitBuilders
 import kotlinx.coroutines.experimental.launch
 import okhttp3.ResponseBody
 import org.jdc.template.Analytics
+import org.jdc.template.BuildConfig
 import org.jdc.template.datasource.database.main.MainDatabase
 import org.jdc.template.datasource.database.main.household.Household
 import org.jdc.template.datasource.database.main.household.HouseholdDao
@@ -35,6 +36,9 @@ constructor(private val analytics: Analytics,
             private val individualDao: IndividualDao,
             private val colorService: ColorService,
             private val webServiceUtil: WebServiceUtil): ViewModel() {
+
+    var appVersion = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
+    var appBuildDateTime = BuildConfig.BUILD_TIME
 
     fun logAnalytics() {
         analytics.send(HitBuilders.EventBuilder().setCategory(Analytics.CATEGORY_ABOUT).build())
