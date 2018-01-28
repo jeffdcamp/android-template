@@ -1,7 +1,7 @@
 buildscript {
-    ext.kotlin_version = '1.2.20'
+    ext.kotlin_version = '1.2.21'
 //    ext.gradlePluginVersion = '3.0.1'
-    ext.gradlePluginVersion = '3.1.0-alpha08'
+    ext.gradlePluginVersion = '3.1.0-alpha09'
 
     repositories {
         mavenLocal()
@@ -42,8 +42,9 @@ repositories {
 ext {
     // versions for libraries that multiple dependencies
     supportLibVersion = '27.0.2'
-    archVersion = '1.0.0'
-    archVersionLifecycleRT = '1.0.3'
+    archLifecycleVersion = '1.1.0'
+    archRoomVersion = '1.0.0'
+//    archRoomVersion = '1.1.0-alpha1'
     playServicesVersion = '11.8.0'
     daggerVersion = '2.14.1'
     okhttpVersion = '3.9.1'
@@ -69,7 +70,7 @@ dependencies {
     // Code
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.21.2"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.22"
     implementation 'me.eugeniomarletti:android-extras-delegates:1.0.5'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.0.5'
     implementation 'com.evernote:android-job:1.2.2'
@@ -83,11 +84,11 @@ dependencies {
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
 
     // Android Architecture Components
-    implementation "android.arch.lifecycle:runtime:$archVersionLifecycleRT"
-    implementation "android.arch.lifecycle:extensions:$archVersion"
-    implementation "android.arch.persistence.room:runtime:$archVersion"
-    kapt "android.arch.lifecycle:compiler:$archVersion"
-    kapt "android.arch.persistence.room:compiler:$archVersion"
+    implementation "android.arch.lifecycle:runtime:$archLifecycleVersion"
+    implementation "android.arch.lifecycle:extensions:$archLifecycleVersion"
+    implementation "android.arch.persistence.room:runtime:$archRoomVersion"
+    kapt "android.arch.lifecycle:compiler:$archLifecycleVersion"
+    kapt "android.arch.persistence.room:compiler:$archRoomVersion"
     kapt "com.android.databinding:compiler:$gradlePluginVersion"
 
     // Network
