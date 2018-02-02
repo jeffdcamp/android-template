@@ -21,7 +21,7 @@ class AboutActivity : BaseActivity() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(AboutViewModel::class.java) }
-    private lateinit var binding: AboutActivityBinding
+    private val binding by lazy { DataBindingUtil.setContentView<AboutActivityBinding>(this, R.layout.about_activity) }
 
     init {
         Injector.get().inject(this)
@@ -29,7 +29,6 @@ class AboutActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.about_activity)
         binding.apply {
             viewModel = this@AboutActivity.viewModel
             setLifecycleOwner(this@AboutActivity)
@@ -37,7 +36,7 @@ class AboutActivity : BaseActivity() {
 
         viewModel.logAnalytics()
 
-        setSupportActionBar(findViewById(R.id.mainToolbar))
+        setSupportActionBar(binding.appbar.mainToolbar)
         enableActionBarBackArrow(true)
     }
 

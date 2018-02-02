@@ -71,7 +71,9 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:srcCompat="@drawable/ic_add_24dp"
                     tools:layout_constraintBottom_creator="1"
-                    tools:layout_constraintEnd_creator="1"/>
+                    tools:layout_constraintEnd_creator="1"
+                    android:onClick="@{() -> viewModel.addIndividual()}"
+                    />
             </android.support.constraint.ConstraintLayout>
         </android.support.percent.PercentRelativeLayout>
 

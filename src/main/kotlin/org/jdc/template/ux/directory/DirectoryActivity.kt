@@ -28,15 +28,8 @@ class DirectoryActivity : DrawerActivity() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(DirectoryViewModel::class.java) }
-    private lateinit var binding: DirectoryActivityBinding
-
-    private val adapter by lazy {
-        DirectoryAdapter(viewModel).apply {
-            itemClickListener = {
-                showIndividual(it.id)
-            }
-        }
-    }
+    private val binding by lazy { DataBindingUtil.setContentView<DirectoryActivityBinding>(this, R.layout.directory_activity) }
+    private val adapter by lazy { DirectoryAdapter(viewModel) }
 
     init {
         Injector.get().inject(this)
@@ -44,16 +37,12 @@ class DirectoryActivity : DrawerActivity() {
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.directory_activity)
         binding.apply {
             viewModel = this@DirectoryActivity.viewModel
             setLifecycleOwner(this@DirectoryActivity)
         }
-        super.setupDrawerWithDrawerButton(findViewById(R.id.mainToolbar), R.string.drawer_main)
 
-        binding.newFloatingActionButton.setOnClickListener {
-            viewModel.addIndividual()
-        }
+        super.setupDrawerWithDrawerButton(binding.appbar.mainToolbar, R.string.drawer_main)
 
         setupRecyclerView()
 

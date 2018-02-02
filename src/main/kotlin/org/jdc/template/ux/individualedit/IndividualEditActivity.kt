@@ -26,7 +26,7 @@ class IndividualEditActivity : BaseActivity() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(IndividualEditViewModel::class.java) }
-    private lateinit var binding: IndividualEditActivityBinding
+    private val binding by lazy { DataBindingUtil.setContentView<IndividualEditActivityBinding>(this, R.layout.individual_edit_activity) }
 
     init {
         Injector.get().inject(this)
@@ -34,7 +34,6 @@ class IndividualEditActivity : BaseActivity() {
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.individual_edit_activity)
         binding.apply {
             viewModel = this@IndividualEditActivity.viewModel
         }
@@ -63,7 +62,7 @@ class IndividualEditActivity : BaseActivity() {
     }
 
     private fun setupActionBar() {
-        setSupportActionBar(findViewById(R.id.mainToolbar))
+        setSupportActionBar(binding.appbar.mainToolbar)
         enableActionBarBackArrow(true)
         supportActionBar?.setTitle(R.string.individual)
     }

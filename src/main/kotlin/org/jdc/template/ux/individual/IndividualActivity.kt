@@ -26,7 +26,7 @@ class IndividualActivity : BaseActivity() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val viewModel: IndividualViewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(IndividualViewModel::class.java) }
-    private lateinit var binding: IndividualActivityBinding
+    private val binding by lazy { DataBindingUtil.setContentView<IndividualActivityBinding>(this, R.layout.individual_activity) }
 
     init {
         Injector.get().inject(this)
@@ -34,7 +34,6 @@ class IndividualActivity : BaseActivity() {
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.individual_activity)
         binding.apply {
             viewModel = this@IndividualActivity.viewModel
             setLifecycleOwner(this@IndividualActivity)
@@ -60,7 +59,7 @@ class IndividualActivity : BaseActivity() {
     }
 
     private fun setupActionBar() {
-        setSupportActionBar(findViewById(R.id.mainToolbar))
+        setSupportActionBar(binding.appbar.mainToolbar)
         enableActionBarBackArrow(true)
         supportActionBar?.setTitle(R.string.individual)
     }
