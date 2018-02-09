@@ -1,11 +1,16 @@
 package org.jdc.template.job
 
+import android.support.annotation.WorkerThread
 import com.evernote.android.job.Job
-import com.evernote.android.job.JobRequest
 import timber.log.Timber
+import javax.inject.Inject
 
-class SampleJob : Job() {
+class SampleJob
+@Inject constructor(
 
+) : Job() {
+
+    @WorkerThread
     override fun onRunJob(params: Job.Params): Job.Result {
         Timber.e("onRunJob: **************************** RUNNING!!! *******************************************  [" + Thread.currentThread().name + "]")
         try {
@@ -19,17 +24,7 @@ class SampleJob : Job() {
     }
 
     companion object {
-        val TAG = "SampleJob"
-
-        fun schedule() {
-            JobRequest.Builder(TAG)
-                    .setRequirementsEnforced(true)
-                    .setRequiredNetworkType(JobRequest.NetworkType.CONNECTED)
-                    .setExecutionWindow(1000L, 2000L)
-                    .setUpdateCurrent(true)
-                    .build()
-                    .schedule()
-        }
+        const val TAG = "SampleJob"
     }
 
 }

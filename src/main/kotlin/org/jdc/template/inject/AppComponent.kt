@@ -17,9 +17,9 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [AppModule::class, ViewModelModule::class])
 interface AppComponent {
-    // UI
     fun inject(application: App)
 
+    // UI
     fun inject(target: StartupActivity)
     fun inject(target: DirectoryActivity)
     fun inject(target: IndividualEditActivity)

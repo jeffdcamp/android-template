@@ -15,7 +15,7 @@ import org.jdc.template.datasource.database.main.individual.IndividualDao
 import org.jdc.template.datasource.database.main.type.IndividualType
 import org.jdc.template.datasource.webservice.colors.ColorService
 import org.jdc.template.datasource.webservice.colors.dto.DtoColors
-import org.jdc.template.job.SampleJob
+import org.jdc.template.job.AppJobScheduler
 import org.jdc.template.util.CoroutineContextProvider
 import org.jdc.template.util.WebServiceUtil
 import org.threeten.bp.LocalDate
@@ -35,7 +35,9 @@ constructor(private val analytics: Analytics,
             private val householdDao: HouseholdDao,
             private val individualDao: IndividualDao,
             private val colorService: ColorService,
-            private val webServiceUtil: WebServiceUtil): ViewModel() {
+            private val webServiceUtil: WebServiceUtil,
+            private val appJobScheduler: AppJobScheduler
+) : ViewModel() {
 
     var appVersion = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
     var appBuildDateTime = BuildConfig.BUILD_TIME
@@ -166,15 +168,15 @@ constructor(private val analytics: Analytics,
      * Sample for creating a scheduled job
      */
     fun jobTest() {
-        SampleJob.schedule()
-        SampleJob.schedule()
+        appJobScheduler.scheduleSampleJob()
+        appJobScheduler.scheduleSampleJob()
         try {
             Thread.sleep(3000)
         } catch (e: InterruptedException) {
             e.printStackTrace()
         }
 
-        SampleJob.schedule()
+        appJobScheduler.scheduleSampleJob()
     }
 
     /**

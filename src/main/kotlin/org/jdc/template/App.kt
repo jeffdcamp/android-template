@@ -10,18 +10,25 @@ import org.jdc.template.log.ReleaseTree
 import org.jdc.template.prefs.base.PrefsManager
 import org.jdc.template.ui.notifications.NotificationChannels
 import timber.log.Timber
+import javax.inject.Inject
 
 class App : MultiDexApplication() {
 
+    @Inject
+    lateinit var appJobCreator: AppJobCreator
+
     init {
+        Injector.init(this)
         PrefsManager.init(this)
     }
 
     override fun onCreate() {
         super.onCreate()
         AndroidThreeTen.init(this)
-        Injector.init(this)
-        JobManager.create(this).addJobCreator(AppJobCreator())
+        // Initialize dependency injection
+        Injector.get().inject(this)
+
+        JobManager.create(this).addJobCreator(appJobCreator)
 
         setupLogging()
 
