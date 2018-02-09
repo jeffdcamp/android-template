@@ -25,7 +25,7 @@ class IndividualActivity : BaseActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val viewModel: IndividualViewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(IndividualViewModel::class.java) }
+    private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(IndividualViewModel::class.java) }
     private val binding by lazy { DataBindingUtil.setContentView<IndividualActivityBinding>(this, R.layout.individual_activity) }
 
     init {

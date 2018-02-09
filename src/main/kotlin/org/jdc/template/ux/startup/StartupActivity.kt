@@ -16,7 +16,7 @@ class StartupActivity : LiveDataObserverActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val viewModel: StartupViewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(StartupViewModel::class.java) }
+    private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(StartupViewModel::class.java) }
 
     private val debugStartup = false
 
