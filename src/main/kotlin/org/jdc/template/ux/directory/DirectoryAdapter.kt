@@ -9,7 +9,9 @@ import org.jdc.template.databinding.ListItemBinding
 import org.jdc.template.datasource.database.main.individual.IndividualDao
 import org.jdc.template.ui.recycleview.RecyclerViewDiffAdapter
 
-class DirectoryAdapter(private val viewModel: DirectoryViewModel) : RecyclerViewDiffAdapter<IndividualDao.DirectoryListItem, DirectoryAdapter.ViewHolder>() {
+class DirectoryAdapter(
+        private val viewModel: DirectoryViewModel
+) : RecyclerViewDiffAdapter<IndividualDao.DirectoryListItem, DirectoryAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(parent).apply {
@@ -17,9 +19,8 @@ class DirectoryAdapter(private val viewModel: DirectoryViewModel) : RecyclerView
         }
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val individual = items[position]
-        holder.binding.directoryItem = individual
+    override fun onBindViewHolder(holder: ViewHolder, item: IndividualDao.DirectoryListItem, position: Int) {
+        holder.binding.directoryItem = item
     }
 
     override fun areItemsTheSame(oldItem: IndividualDao.DirectoryListItem, newItem: IndividualDao.DirectoryListItem): Boolean {
