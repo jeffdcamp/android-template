@@ -15,9 +15,9 @@ import org.jdc.template.datasource.database.main.individual.IndividualDao
 import org.jdc.template.datasource.database.main.type.IndividualType
 import org.jdc.template.datasource.webservice.colors.ColorService
 import org.jdc.template.datasource.webservice.colors.dto.DtoColors
+import org.jdc.template.ext.saveBodyToFile
 import org.jdc.template.job.AppJobScheduler
 import org.jdc.template.util.CoroutineContextProvider
-import org.jdc.template.util.WebServiceUtil
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalTime
 import retrofit2.Call
@@ -35,7 +35,6 @@ constructor(private val analytics: Analytics,
             private val householdDao: HouseholdDao,
             private val individualDao: IndividualDao,
             private val colorService: ColorService,
-            private val webServiceUtil: WebServiceUtil,
             private val appJobScheduler: AppJobScheduler
 ) : ViewModel() {
 
@@ -134,7 +133,7 @@ constructor(private val analytics: Analytics,
                 }
 
                 // save the response body to file
-                webServiceUtil.saveResponseToFile(response, outputFile)
+                response.saveBodyToFile(outputFile)
 
                 // show the output of the file
                 val fileContents = outputFile.readText()

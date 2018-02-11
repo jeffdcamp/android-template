@@ -16,7 +16,7 @@ import org.jdc.template.databinding.DirectoryActivityBinding
 import org.jdc.template.inject.Injector
 import org.jdc.template.ui.activity.DrawerActivity
 import org.jdc.template.ui.menu.CommonMenu
-import org.jdc.template.util.getScrollPosition
+import org.jdc.template.ext.getScrollPosition
 import javax.inject.Inject
 
 class DirectoryActivity : DrawerActivity() {
