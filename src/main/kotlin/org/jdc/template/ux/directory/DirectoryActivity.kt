@@ -13,10 +13,10 @@ import me.eugeniomarletti.extras.bundle.base.Int
 import org.jdc.template.InternalIntents
 import org.jdc.template.R
 import org.jdc.template.databinding.DirectoryActivityBinding
+import org.jdc.template.ext.getScrollPosition
 import org.jdc.template.inject.Injector
 import org.jdc.template.ui.activity.DrawerActivity
 import org.jdc.template.ui.menu.CommonMenu
-import org.jdc.template.ext.getScrollPosition
 import javax.inject.Inject
 
 class DirectoryActivity : DrawerActivity() {
@@ -28,7 +28,7 @@ class DirectoryActivity : DrawerActivity() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(DirectoryViewModel::class.java) }
-    private val binding by lazy { DataBindingUtil.setContentView<DirectoryActivityBinding>(this, R.layout.directory_activity) }
+    private lateinit var binding: DirectoryActivityBinding
     private val adapter by lazy { DirectoryAdapter(viewModel) }
 
     init {
@@ -37,6 +37,7 @@ class DirectoryActivity : DrawerActivity() {
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = DataBindingUtil.setContentView(this, R.layout.directory_activity)
         binding.apply {
             viewModel = this@DirectoryActivity.viewModel
             setLifecycleOwner(this@DirectoryActivity)

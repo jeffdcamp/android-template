@@ -26,7 +26,7 @@ class IndividualActivity : BaseActivity() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(IndividualViewModel::class.java) }
-    private val binding by lazy { DataBindingUtil.setContentView<IndividualActivityBinding>(this, R.layout.individual_activity) }
+    private lateinit var binding: IndividualActivityBinding
 
     init {
         Injector.get().inject(this)
@@ -34,6 +34,7 @@ class IndividualActivity : BaseActivity() {
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = DataBindingUtil.setContentView(this, R.layout.individual_activity)
         binding.apply {
             viewModel = this@IndividualActivity.viewModel
             setLifecycleOwner(this@IndividualActivity)
