@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- ...and here we setting appcompat’s color theme attrs -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
@@ -20,8 +19,8 @@
 
     <!-- ActionBar / ToolBar -->
     <style name="MainToolbar">
-        <item name="android:background">?attr/colorPrimary</item>
-        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="android:background">?android:attr/colorPrimary</item>
+        <item name="android:minHeight">?android:attr/actionBarSize</item>
         <item name="android:elevation" tools:targetApi="lollipop">4dp</item>
         <item name="android:transitionName" tools:targetApi="lollipop">actionBar</item>
     </style>
@@ -29,24 +28,24 @@
     <!-- Lists -->
     <style name="ListItemLayout">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">?attr/listPreferredItemHeight</item>
+        <item name="android:layout_height">?android:attr/listPreferredItemHeight</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">16dp</item>
         <item name="android:paddingTop">8dp</item>
         <item name="android:paddingBottom">8dp</item>
-        <item name="android:background">?attr/selectableItemBackground</item> <!-- background will not highlight when row is tapped without this -->
+        <item name="android:background">?android:attr/selectableItemBackground</item> <!-- background will not highlight when row is tapped without this -->
         <item name="android:gravity">center_vertical</item>
     </style>
     <style name="ListItemText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textAppearance">?attr/textAppearanceListItem</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceListItem</item>
     </style>
     <style name="ListItemTitle" parent="@android:style/TextAppearance.Medium">
-        <item name="android:textAppearance">?attr/textAppearanceListItem</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceListItem</item>
     </style>
     <style name="ListItemSubtitle" parent="@android:style/TextAppearance.Small">
-        <item name="android:textAppearance">?attr/textAppearanceListItem</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceListItem</item>
     </style>
 
     <!-- This is needed because the default PreferenceCategory appearance doesn't use bold text style -->

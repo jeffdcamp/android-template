@@ -31,5 +31,5 @@ class DirectoryAdapter(
         return oldItem.firstName == newItem.firstName && oldItem.lastName == newItem.lastName
     }
 
-    class ViewHolder(parent: ViewGroup, val binding: ListItemBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.list_item, parent, false)) : RecyclerView.ViewHolder(binding.listItemLayout)
+    class ViewHolder(parent: ViewGroup, val binding: ListItemBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.list_item, parent, false)) : RecyclerView.ViewHolder(binding.root)
 }
