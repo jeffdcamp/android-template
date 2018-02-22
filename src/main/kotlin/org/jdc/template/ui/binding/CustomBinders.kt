@@ -40,6 +40,8 @@ object CustomBinders {
     @BindingAdapter("app:items")
     fun <T, VH : RecyclerView.ViewHolder> setItems(recyclerView: RecyclerView, items: List<T>?) {
         items ?: return
+
+        @Suppress("UNCHECKED_CAST")
         val adapter = recyclerView.adapter as? RecyclerViewDiffAdapter<T, VH> ?: error("Must use a RecyclerViewDiffAdapter for app:items")
         adapter.items = items
     }
