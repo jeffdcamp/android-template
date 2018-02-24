@@ -1,4 +1,3 @@
 <resources>
     <dimen name="fragment_elevation">2dp</dimen>
-    <fraction name="fragment_width">75%</fraction>
 </resources>
