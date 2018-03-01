@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlinVersion = '1.2.21'
+    ext.kotlinVersion = '1.2.30'
     ext.gradlePluginVersion = '3.1.0-beta4'
 
     repositories {
@@ -39,13 +39,13 @@ repositories {
 
 ext {
     // versions for libraries that multiple dependencies
-    supportLibVersion = '27.0.2'
+    supportLibVersion = '27.1.0'
     archLifecycleVersion = '1.1.0'
     archRoomVersion = '1.0.0'
 //    archRoomVersion = '1.1.0-alpha1'
     playServicesVersion = '11.8.0'
     daggerVersion = '2.14.1'
-    okhttpVersion = '3.9.1'
+    okhttpVersion = '3.10.0'
     dbtoolsRoomVersion = '1.2.0'
 }
 
@@ -57,8 +57,8 @@ dependencies {
     implementation "com.android.support:design:${supportLibVersion}"
     implementation "com.android.support:support-annotations:${supportLibVersion}" // includes support-v4
     implementation "com.android.support:support-v13:${supportLibVersion}" // needed by material dialogs (depending on older version)
-    implementation 'com.android.support:multidex:1.0.2'
-    implementation 'com.android.support:multidex-instrumentation:1.0.2'
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.android.support:multidex-instrumentation:1.0.3'
     implementation "com.google.android.gms:play-services-analytics:${playServicesVersion}"
     implementation "com.google.android.gms:play-services-oss-licenses:${playServicesVersion}"
     implementation 'com.android.support.constraint:constraint-layout:1.1.0-beta5'
