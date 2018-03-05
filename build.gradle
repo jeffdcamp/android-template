@@ -1,6 +1,6 @@
 buildscript {
     ext.kotlinVersion = '1.2.30'
-    ext.gradlePluginVersion = '3.1.0-beta4'
+    ext.gradlePluginVersion = '3.1.0-rc01'
 
     repositories {
         mavenLocal()
@@ -42,7 +42,7 @@ ext {
     supportLibVersion = '27.1.0'
     archLifecycleVersion = '1.1.0'
     archRoomVersion = '1.0.0'
-//    archRoomVersion = '1.1.0-alpha1'
+//    archRoomVersion = '1.1.0-alpha3'
     playServicesVersion = '11.8.0'
     daggerVersion = '2.14.1'
     okhttpVersion = '3.10.0'

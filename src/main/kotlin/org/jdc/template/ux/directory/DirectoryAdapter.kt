@@ -19,7 +19,7 @@ class DirectoryAdapter(
         }
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, item: IndividualDao.DirectoryListItem, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, item: IndividualDao.DirectoryListItem) {
         holder.binding.directoryItem = item
     }
 

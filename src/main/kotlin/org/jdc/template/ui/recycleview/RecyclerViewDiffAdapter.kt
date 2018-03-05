@@ -77,8 +77,10 @@ abstract class RecyclerViewDiffAdapter<T, VH : RecyclerView.ViewHolder> : Recycl
      */
     protected open fun getChangePayload(oldItem: T, newItem: T): Any? = null
 
+    abstract fun onBindViewHolder(holder: VH, item: T)
+
     override fun onBindViewHolder(holder: VH, position: Int, payloads: List<Any>) {
-        onBindViewHolder(holder, items[position], position, payloads)
+        onBindViewHolder(holder, items[position], payloads)
     }
 
     @Deprecated("This method is unreachable for RecyclerViewDiffAdapter override onBindViewHolder(holder: VH, item: T) OR override onBindViewHolder(holder: VH, position: Int, payloads: List<Any>)", ReplaceWith(""))
@@ -86,11 +88,9 @@ abstract class RecyclerViewDiffAdapter<T, VH : RecyclerView.ViewHolder> : Recycl
         error("This method is unreachable")
     }
 
-    protected open fun onBindViewHolder(holder: VH, item: T, position: Int, payloads: List<Any>) {
-        onBindViewHolder(holder, item, position)
+    protected open fun onBindViewHolder(holder: VH, item: T, payloads: List<Any>) {
+        onBindViewHolder(holder, item)
     }
-
-    protected open fun onBindViewHolder(holder: VH, item: T, position: Int) {}
 
     override fun getItemCount() = items.size
 
