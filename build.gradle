@@ -44,7 +44,7 @@ ext {
     archRoomVersion = '1.0.0'
 //    archRoomVersion = '1.1.0-alpha3'
     playServicesVersion = '11.8.0'
-    daggerVersion = '2.14.1'
+    daggerVersion = '2.15'
     okhttpVersion = '3.10.0'
     dbtoolsRoomVersion = '1.2.0'
 }
@@ -65,7 +65,7 @@ dependencies {
 
     // Code
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.22.3"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.22.5"
     implementation 'me.eugeniomarletti:android-extras-delegates:1.0.5'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.0.5'
     implementation 'com.evernote:android-job:1.2.4'
