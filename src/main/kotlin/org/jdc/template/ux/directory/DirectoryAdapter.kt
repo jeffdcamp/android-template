@@ -1,12 +1,10 @@
 package org.jdc.template.ux.directory
 
-import android.databinding.DataBindingUtil
-import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import org.jdc.template.R
 import org.jdc.template.databinding.ListItemBinding
 import org.jdc.template.datasource.database.main.individual.IndividualDao
+import org.jdc.template.ui.recycleview.BindingViewHolder
 import org.jdc.template.ui.recycleview.RecyclerViewDiffAdapter
 
 class DirectoryAdapter(
@@ -31,5 +29,5 @@ class DirectoryAdapter(
         return oldItem.firstName == newItem.firstName && oldItem.lastName == newItem.lastName
     }
 
-    class ViewHolder(parent: ViewGroup, val binding: ListItemBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.list_item, parent, false)) : RecyclerView.ViewHolder(binding.root)
+    class ViewHolder(parent: ViewGroup) : BindingViewHolder<ListItemBinding>(R.layout.list_item, parent)
 }
