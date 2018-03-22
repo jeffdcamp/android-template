@@ -12,7 +12,7 @@ import org.threeten.bp.ZoneId
 
 object CustomBinders {
     @JvmStatic
-    @BindingAdapter("app:textDate")
+    @BindingAdapter("textDate")
     fun setTextDate(view: TextView, date: LocalDate?) {
         var text = ""
         date?.let {
@@ -25,7 +25,7 @@ object CustomBinders {
     }
 
     @JvmStatic
-    @BindingAdapter("app:textTime")
+    @BindingAdapter("textTime")
     fun setTextTime(view: TextView, time: LocalTime?) {
         var text = ""
         time?.let {
@@ -37,7 +37,7 @@ object CustomBinders {
     }
 
     @JvmStatic
-    @BindingAdapter("app:items")
+    @BindingAdapter("items")
     fun <T, VH : RecyclerView.ViewHolder> setItems(recyclerView: RecyclerView, items: List<T>?) {
         items ?: return
 
@@ -47,7 +47,7 @@ object CustomBinders {
     }
 
     @JvmStatic
-    @BindingAdapter("app:buildTimeText")
+    @BindingAdapter("buildTimeText")
     fun setAppBuildTimeText(view: TextView, millis: Long) {
         val dateText = DateUtils.formatDateTime(view.context, millis, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_TIME or DateUtils.FORMAT_SHOW_YEAR)
         view.text = dateText
