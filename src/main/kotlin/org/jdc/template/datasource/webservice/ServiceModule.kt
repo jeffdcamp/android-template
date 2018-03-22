@@ -77,9 +77,9 @@ class ServiceModule {
 
     @Provides
     @Singleton
-    fun getSearchService(@Named(STANDARD_CLIENT) client: OkHttpClient, converterFactory: GsonConverterFactory): ColorService {
+    fun getColorService(@Named(STANDARD_CLIENT) client: OkHttpClient, converterFactory: GsonConverterFactory): ColorService {
         val retrofit = Retrofit.Builder()
-                .baseUrl(ColorService.Companion.BASE_URL)
+                .baseUrl(ColorService.BASE_URL)
                 .client(client)
                 .addConverterFactory(converterFactory)
                 .build()

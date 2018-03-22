@@ -1,6 +1,6 @@
 buildscript {
     ext.kotlinVersion = '1.2.30'
-    ext.gradlePluginVersion = '3.1.0-rc02'
+    ext.gradlePluginVersion = '3.1.0-rc03'
 
     repositories {
         mavenLocal()
@@ -40,10 +40,9 @@ repositories {
 ext {
     // versions for libraries that multiple dependencies
     supportLibVersion = '27.1.0'
-    archLifecycleVersion = '1.1.0'
-    archRoomVersion = '1.0.0'
-//    archRoomVersion = '1.1.0-alpha3'
-    playServicesVersion = '11.8.0'
+    archLifecycleVersion = '1.1.1'
+    archRoomVersion = '1.1.0-beta1'
+    playServicesVersion = '12.0.0'
     daggerVersion = '2.15'
     okhttpVersion = '3.10.0'
     dbtoolsRoomVersion = '1.2.0'
@@ -61,14 +60,14 @@ dependencies {
     implementation 'com.android.support:multidex-instrumentation:1.0.3'
     implementation "com.google.android.gms:play-services-analytics:${playServicesVersion}"
     implementation "com.google.android.gms:play-services-oss-licenses:${playServicesVersion}"
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0-beta5'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0-beta6'
 
     // Code
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.22.5"
     implementation 'me.eugeniomarletti:android-extras-delegates:1.0.5'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.0.5'
-    implementation 'com.evernote:android-job:1.2.4'
+    implementation 'com.evernote:android-job:1.2.5'
     implementation 'com.jakewharton.timber:timber:4.6.1'
 
     // UI
