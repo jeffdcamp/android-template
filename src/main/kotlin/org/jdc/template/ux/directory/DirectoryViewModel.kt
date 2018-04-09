@@ -2,12 +2,15 @@ package org.jdc.template.ux.directory
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
+import org.jdc.template.datasource.database.main.MainDatabase
 import org.jdc.template.datasource.database.main.individual.IndividualDao
 import org.jdc.template.livedata.SingleLiveEvent
 import javax.inject.Inject
 
 class DirectoryViewModel
-@Inject constructor(private val individualDao: IndividualDao) : ViewModel() {
+@Inject constructor(
+    private val mainDatabase: MainDatabase
+) : ViewModel() {
 
     val onNewIndividualEvent = SingleLiveEvent<Void>()
     val showIndividualEvent = SingleLiveEvent<Long>()
@@ -19,7 +22,7 @@ class DirectoryViewModel
     }
 
     private fun loadDirectoryList(): LiveData<List<IndividualDao.DirectoryListItem>> {
-        return individualDao.findAllDirectListItemsLiveData()
+        return mainDatabase.individualDao().findAllDirectListItemsLiveData()
     }
 
     fun addIndividual() {

@@ -15,8 +15,6 @@ import dagger.Provides
 import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
 import org.jdc.template.datasource.database.main.MainDatabase
-import org.jdc.template.datasource.database.main.household.HouseholdDao
-import org.jdc.template.datasource.database.main.individual.IndividualDao
 import org.jdc.template.datasource.webservice.ServiceModule
 import org.jdc.template.json.LocalDateTimeTypeConverter
 import org.jdc.template.util.CoroutineContextProvider
@@ -93,19 +91,5 @@ class AppModule(private val application: Application) {
 //                })
 //                .openHelperFactory(SqliteOrgSQLiteOpenHelperFactory())
                 .build()
-    }
-
-
-
-    @Provides
-    @Singleton
-    fun provideIndividualDao(mainDatabase: MainDatabase): IndividualDao {
-        return mainDatabase.individualDao()
-    }
-
-    @Provides
-    @Singleton
-    fun provideHouseholdDao(mainDatabase: MainDatabase): HouseholdDao {
-        return mainDatabase.householdDao()
     }
 }

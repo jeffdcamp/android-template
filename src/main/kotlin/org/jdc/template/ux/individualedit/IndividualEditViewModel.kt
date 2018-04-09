@@ -4,8 +4,8 @@ import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
 import kotlinx.coroutines.experimental.launch
 import org.jdc.template.R
+import org.jdc.template.datasource.database.main.MainDatabase
 import org.jdc.template.datasource.database.main.individual.Individual
-import org.jdc.template.datasource.database.main.individual.IndividualDao
 import org.jdc.template.livedata.SingleLiveEvent
 import org.jdc.template.util.CoroutineContextProvider
 import org.threeten.bp.LocalDate
@@ -15,7 +15,7 @@ import javax.inject.Inject
 class IndividualEditViewModel
 @Inject constructor(
         private val cc: CoroutineContextProvider,
-        private val individualDao: IndividualDao
+        private val mainDatabase: MainDatabase
 ) : ViewModel() {
 
     var individual = Individual()
@@ -35,7 +35,7 @@ class IndividualEditViewModel
     val onShowAlarmTimeSelectionEvent = SingleLiveEvent<LocalTime>()
 
     fun loadIndividual(individualId: Long) = launch(cc.commonPool) {
-        individualDao.findById(individualId)?.let {
+        mainDatabase.individualDao().findById(individualId)?.let {
             individual = it
 
             firstName.set(it.firstName)
@@ -59,6 +59,7 @@ class IndividualEditViewModel
         individual.birthDate = birthDate.get()
         individual.alarmTime = alarmTime.get() ?: LocalTime.now()
 
+        val individualDao = mainDatabase.individualDao()
         if (individual.id <= 0) {
             individualDao.insert(individual)
         } else {

@@ -9,9 +9,7 @@ import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
 import org.jdc.template.datasource.database.main.MainDatabase
 import org.jdc.template.datasource.database.main.household.Household
-import org.jdc.template.datasource.database.main.household.HouseholdDao
 import org.jdc.template.datasource.database.main.individual.Individual
-import org.jdc.template.datasource.database.main.individual.IndividualDao
 import org.jdc.template.datasource.database.main.type.IndividualType
 import org.jdc.template.datasource.webservice.colors.ColorService
 import org.jdc.template.datasource.webservice.colors.dto.DtoColors
@@ -27,15 +25,14 @@ import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
 
-class AboutViewModel @Inject
-constructor(private val analytics: Analytics,
-            private val application: Application,
-            private val cc: CoroutineContextProvider,
-            private val mainDatabase: MainDatabase,
-            private val householdDao: HouseholdDao,
-            private val individualDao: IndividualDao,
-            private val colorService: ColorService,
-            private val appJobScheduler: AppJobScheduler
+class AboutViewModel
+@Inject constructor(
+    private val analytics: Analytics,
+    private val application: Application,
+    private val cc: CoroutineContextProvider,
+    private val mainDatabase: MainDatabase,
+    private val colorService: ColorService,
+    private val appJobScheduler: AppJobScheduler
 ) : ViewModel() {
 
     var appVersion = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
@@ -49,6 +46,9 @@ constructor(private val analytics: Analytics,
      * Creates sample data WITH using injection
      */
     fun createSampleDataWithInjection() = launch(cc.commonPool) {
+        val individualDao = mainDatabase.individualDao()
+        val householdDao = mainDatabase.householdDao()
+
         // clear any existing items
         individualDao.deleteAll()
         householdDao.deleteAll()
@@ -182,6 +182,8 @@ constructor(private val analytics: Analytics,
      * Table change listener tests
      */
     fun testTableChange() = launch(cc.commonPool) {
+        val individualDao = mainDatabase.individualDao()
+
         // Sample tests for Rx
         if (individualDao.findCount() == 0L) {
             Timber.e("No data.. cannot perform test")
