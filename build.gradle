@@ -39,10 +39,10 @@ repositories {
 
 ext {
     // versions for libraries that multiple dependencies
-    supportLibVersion = '27.1.0'
+    supportLibVersion = '27.1.1'
     archLifecycleVersion = '1.1.1'
     archRoomVersion = '1.1.0-beta2'
-    playServicesVersion = '12.0.1'
+    playServicesVersion = '15.0.0'
     daggerVersion = '2.15'
     okhttpVersion = '3.10.0'
     dbtoolsRoomVersion = '1.2.0'
@@ -60,7 +60,7 @@ dependencies {
     implementation 'com.android.support:multidex-instrumentation:1.0.3'
     implementation "com.google.android.gms:play-services-analytics:${playServicesVersion}"
     implementation "com.google.android.gms:play-services-oss-licenses:${playServicesVersion}"
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0-beta6'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
 
     // Code
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
