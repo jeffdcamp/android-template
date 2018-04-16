@@ -12,12 +12,12 @@ buildscript {
         classpath "com.android.tools.build:gradle:$gradlePluginVersion"
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.17.0' // version plugin support
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        classpath 'com.google.gms:oss-licenses:0.9.1'
+//        classpath 'com.google.gms:oss-licenses:0.9.1'
     }
 }
 
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.oss.licenses.plugin'
+//apply plugin: 'com.google.gms.oss.licenses.plugin' // removed because this now shows more than run-time libraries and potentially has compile issue between 0.9.1 and 0.9.2
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.github.ben-manes.versions' // ./gradlew dependencyUpdates -Drevision=release
@@ -59,7 +59,7 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.android.support:multidex-instrumentation:1.0.3'
     implementation "com.google.android.gms:play-services-analytics:${playServicesVersion}"
-    implementation "com.google.android.gms:play-services-oss-licenses:${playServicesVersion}"
+//    implementation "com.google.android.gms:play-services-oss-licenses:${playServicesVersion}"
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
 
     // Code
