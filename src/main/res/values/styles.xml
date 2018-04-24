@@ -19,8 +19,8 @@
 
     <!-- ActionBar / ToolBar -->
     <style name="MainToolbar">
-        <item name="android:background">?android:attr/colorPrimary</item>
-        <item name="android:minHeight">?android:attr/actionBarSize</item>
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
         <item name="android:elevation" tools:targetApi="lollipop">4dp</item>
         <item name="android:transitionName" tools:targetApi="lollipop">actionBar</item>
     </style>
