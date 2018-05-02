@@ -34,15 +34,14 @@ class ServiceModule {
         return builder.build()
     }
 
-    val standardClient: OkHttpClient
-        @Provides
-        @Named(STANDARD_CLIENT)
-        get() {
-            val builder = OkHttpClient.Builder()
-            setupClient(builder)
+    @Provides
+    @Named(STANDARD_CLIENT)
+    fun getStandardClient(): OkHttpClient {
+        val builder = OkHttpClient.Builder()
+        setupClient(builder)
 
-            return builder.build()
-        }
+        return builder.build()
+    }
 
     private fun setupClient(clientBuilder: OkHttpClient.Builder) {
         clientBuilder.connectTimeout(DEFAULT_TIMEOUT_MINUTES.toLong(), TimeUnit.MINUTES)
