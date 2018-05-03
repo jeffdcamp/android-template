@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlinVersion = '1.2.31'
+    ext.kotlinVersion = '1.2.41'
     ext.gradlePluginVersion = '3.1.2'
 
     repositories {
@@ -30,6 +30,18 @@ def versionBuild = 0
 def versionMajorMinorPatchBuild = "${versionMajor}.${versionMinor}.${versionPatch}.${versionBuild}"
 def buildTime = new Date().getTime()
 
+// work-around for Kotlin compile crash issue with 1.2.40 and 1.2.41 (https://youtrack.jetbrains.com/oauth?state=%2Fissue%2FKT-23902)
+configurations.all {
+    resolutionStrategy {
+        eachDependency { DependencyResolveDetails details ->
+            if (details.requested.name == 'kotlin-compiler-embeddable') {
+                details.useVersion "1.2.30"
+            }
+        }
+    }
+}
+
+
 repositories {
     mavenLocal()
     mavenCentral()
@@ -41,8 +53,8 @@ ext {
     // versions for libraries that multiple dependencies
     supportLibVersion = '27.1.1'
     archLifecycleVersion = '1.1.1'
-    archRoomVersion = '1.1.0-beta3'
-    playServicesVersion = '15.0.0'
+    archRoomVersion = '1.1.0-rc1'
+    playServicesVersion = '15.0.2'
     daggerVersion = '2.15'
     okhttpVersion = '3.10.0'
     dbtoolsRoomVersion = '1.2.0'
@@ -90,7 +102,7 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
 
     // JSON Parsing
-    implementation "com.google.code.gson:gson:2.8.2"
+    implementation "com.google.code.gson:gson:2.8.4"
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
 
     // Dagger 2
@@ -110,12 +122,13 @@ dependencies {
 
     // Test (Integration)
     // Espresso core dependencies
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation "com.android.support:support-annotations:${supportLibVersion}" // fix dependency conflict warning
 
     // Espresso contrib dependencies
-    androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2'
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
     androidTestImplementation "com.android.support:appcompat-v7:${supportLibVersion}"
     androidTestImplementation "com.android.support:recyclerview-v7:${supportLibVersion}"
     androidTestImplementation "com.android.support:design:${supportLibVersion}"
