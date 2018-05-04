@@ -57,7 +57,7 @@ ext {
     playServicesVersion = '15.0.2'
     daggerVersion = '2.15'
     okhttpVersion = '3.10.0'
-    dbtoolsRoomVersion = '1.2.0'
+    dbtoolsRoomVersion = '1.5.4'
 }
 
 dependencies {
