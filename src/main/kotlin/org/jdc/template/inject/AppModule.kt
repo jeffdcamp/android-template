@@ -6,7 +6,6 @@ import android.arch.persistence.room.Room
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
-import android.util.Log
 import com.google.android.gms.analytics.GoogleAnalytics
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -20,6 +19,7 @@ import org.jdc.template.json.LocalDateTimeTypeConverter
 import org.jdc.template.util.CoroutineContextProvider
 import org.threeten.bp.LocalDateTime
 import retrofit2.converter.gson.GsonConverterFactory
+import timber.log.Timber
 import javax.inject.Singleton
 
 @Module(includes = [ServiceModule::class])
@@ -48,10 +48,9 @@ class AppModule(private val application: Application) {
         if (BuildConfig.DEBUG) {
             return object : Analytics {
                 override fun send(params: Map<String, String>) {
-                    Log.d("Analytics", params.toString())
+                    Timber.d("Analytics Params [${params.toString()}]")
                 }
             }
-
         }
 
         val googleAnalytics = GoogleAnalytics.getInstance(application)

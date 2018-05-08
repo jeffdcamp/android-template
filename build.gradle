@@ -1,6 +1,5 @@
 buildscript {
     ext.kotlinVersion = '1.2.41'
-    ext.gradlePluginVersion = '3.1.2'
 
     repositories {
         mavenLocal()
@@ -9,7 +8,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:$gradlePluginVersion"
+        classpath "com.android.tools.build:gradle:3.2.0-alpha14"
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.17.0' // version plugin support
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
 //        classpath 'com.google.gms:oss-licenses:0.9.1'
@@ -53,11 +52,11 @@ ext {
     // versions for libraries that multiple dependencies
     supportLibVersion = '27.1.1'
     archLifecycleVersion = '1.1.1'
-    archRoomVersion = '1.1.0-rc1'
+    archRoomVersion = '1.1.0'
     playServicesVersion = '15.0.2'
-    daggerVersion = '2.15'
+    daggerVersion = '2.16'
     okhttpVersion = '3.10.0'
-    dbtoolsRoomVersion = '1.5.4'
+    dbtoolsRoomVersion = '2.0.0'
 }
 
 dependencies {
@@ -93,9 +92,6 @@ dependencies {
     // Database
     implementation "android.arch.persistence.room:runtime:$archRoomVersion"
     kapt "android.arch.persistence.room:compiler:$archRoomVersion"
-
-    // Databind (needed to support Kotlin)
-    kapt "com.android.databinding:compiler:$gradlePluginVersion"
 
     // Network
     implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
@@ -163,6 +159,13 @@ android {
 
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
+
+        // used by Room, to test migrations
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schema".toString()]
+            }
+        }
 
         // Espresso
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
