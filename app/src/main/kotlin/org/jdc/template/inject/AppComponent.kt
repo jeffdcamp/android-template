@@ -4,13 +4,12 @@ package org.jdc.template.inject
 import android.app.Application
 import dagger.Component
 import org.jdc.template.App
-import org.jdc.template.ui.activity.SettingsActivity
 import org.jdc.template.ui.fragment.SettingsFragment
 import org.jdc.template.ux.ViewModelModule
-import org.jdc.template.ux.about.AboutActivity
-import org.jdc.template.ux.directory.DirectoryActivity
-import org.jdc.template.ux.individual.IndividualActivity
-import org.jdc.template.ux.individualedit.IndividualEditActivity
+import org.jdc.template.ux.about.AboutFragment
+import org.jdc.template.ux.directory.DirectoryFragment
+import org.jdc.template.ux.individual.IndividualFragment
+import org.jdc.template.ux.individualedit.IndividualEditFragment
 import org.jdc.template.ux.startup.StartupActivity
 import javax.inject.Singleton
 
@@ -21,11 +20,10 @@ interface AppComponent {
 
     // UI
     fun inject(target: StartupActivity)
-    fun inject(target: DirectoryActivity)
-    fun inject(target: IndividualEditActivity)
-    fun inject(target: SettingsActivity)
-    fun inject(target: AboutActivity)
-    fun inject(target: IndividualActivity)
+    fun inject(target: DirectoryFragment)
+    fun inject(target: IndividualEditFragment)
+    fun inject(target: AboutFragment)
+    fun inject(target: IndividualFragment)
     fun inject(target: SettingsFragment)
 
     // Exported for child-components.

@@ -5,16 +5,7 @@
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
         <item name="android:windowBackground">@color/window_background</item>
-    </style>
-
-    <style name="SettingsTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primary_dark</item>
-        <item name="colorAccent">@color/accent</item>
-        <!-- work around for https://code.google.com/p/android/issues/detail?id=183376 -->
-        <!-- http://stackoverflow.com/questions/32070670/preferencefragmentcompat-requires-preferencetheme-to-be-set -->
-        <!--<item name="preferenceTheme">@style/PreferenceThemeOverlay</item>-->
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item> <!-- see styles_base.xml for work-around issues -->
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
 
     <!-- ActionBar / ToolBar -->

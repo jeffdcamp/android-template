@@ -1,0 +1,30 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="ux.main.MainActivity">
+
+        <include
+            android:id="@+id/appbar"
+            layout="@layout/toolbar_actionbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+        <fragment
+            android:id="@+id/main_nav_host_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:defaultNavHost="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appbar"
+            app:navGraph="@navigation/nav_graph"/>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

@@ -4,53 +4,62 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
-import me.eugeniomarletti.extras.ActivityCompanion
-import me.eugeniomarletti.extras.intent.IntentExtra
-import me.eugeniomarletti.extras.intent.base.Long
+import android.view.View
+import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import org.jdc.template.R
-import org.jdc.template.databinding.IndividualEditActivityBinding
+import org.jdc.template.databinding.IndividualEditBinding
 import org.jdc.template.inject.Injector
-import org.jdc.template.ui.activity.BaseActivity
+import org.jdc.template.ui.fragment.LiveDataObserverFragment
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalTime
 import javax.inject.Inject
 
-class IndividualEditActivity : BaseActivity() {
+class IndividualEditFragment : LiveDataObserverFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(IndividualEditViewModel::class.java) }
-    private lateinit var binding: IndividualEditActivityBinding
+    private lateinit var binding: IndividualEditBinding
 
     init {
         Injector.get().inject(this)
+        setHasOptionsMenu(true)
     }
 
-    public override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.individual_edit_activity)
-        binding.apply {
-            viewModel = this@IndividualEditActivity.viewModel
-        }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = DataBindingUtil.inflate(inflater, R.layout.individual_edit, container, false)
+        return binding.root
+    }
 
-        setupActionBar()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.apply {
+            viewModel = this@IndividualEditFragment.viewModel
+        }
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        activity?.setTitle(R.string.individual)
 
         setupViewModelObservers()
 
-        with(IntentOptions) {
-            viewModel.loadIndividual(intent.individualId)
-        }
+        val args = IndividualEditFragmentArgs.fromBundle(arguments)
+
+        viewModel.loadIndividual(args.individualId.toLongOrNull() ?: 0L)
     }
 
     private fun setupViewModelObservers() {
         // Events
-        viewModel.onIndividualSavedEvent.observe { finish() }
+        viewModel.onIndividualSavedEvent.observe { this@IndividualEditFragment.findNavController().popBackStack() }
         viewModel.onShowBirthDateSelectionEvent.observeNotNull { showBirthDateSelector(it) }
         viewModel.onShowAlarmTimeSelectionEvent.observeNotNull { showAlarmTimeSelector(it) }
 
@@ -62,15 +71,9 @@ class IndividualEditActivity : BaseActivity() {
         }
     }
 
-    private fun setupActionBar() {
-        setSupportActionBar(binding.appbar.mainToolbar)
-        enableActionBarBackArrow(true)
-        supportActionBar?.setTitle(R.string.individual)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.individual_edit_menu, menu)
-        return super.onCreateOptionsMenu(menu)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.individual_edit_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -85,7 +88,7 @@ class IndividualEditActivity : BaseActivity() {
     }
 
     private fun showBirthDateSelector(date: LocalDate) {
-        val birthDatePickerDialog = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+        val birthDatePickerDialog = DatePickerDialog(requireActivity(), DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
             viewModel.birthDate.set(LocalDate.of(year, monthOfYear + 1, dayOfMonth)) // + 1 because cord Java Date is 0 based
         }, date.year, date.monthValue - 1, date.dayOfMonth) // - 1 because cord Java Date is 0 based
 
@@ -93,16 +96,16 @@ class IndividualEditActivity : BaseActivity() {
     }
 
     private fun showAlarmTimeSelector(time: LocalTime) {
-        val alarmTimePickerDialog = TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
+        val alarmTimePickerDialog = TimePickerDialog(requireActivity(), TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
             viewModel.alarmTime.set(LocalTime.of(hourOfDay, minute))
         }, time.hour, time.minute, false)
 
         alarmTimePickerDialog.show()
     }
 
-    companion object : ActivityCompanion<IntentOptions>(IntentOptions, IndividualEditActivity::class)
-
-    object IntentOptions {
-        var Intent.individualId by IntentExtra.Long(defaultValue = -1L)
-    }
+//    companion object : ActivityCompanion<IntentOptions>(IntentOptions, IndividualEditFragment::class)
+//
+//    object IntentOptions {
+//        var Intent.individualId by IntentExtra.Long(defaultValue = -1L)
+//    }
 }

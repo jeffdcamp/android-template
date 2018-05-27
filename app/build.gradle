@@ -1,8 +1,26 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+        google()
+    }
+    dependencies {
+//        As specified from Google Sample Project
+//        https://github.com/googlesamples/android-architecture-components/blob/master/NavigationBasicSample/versions.gradle
+        classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:1.0.0-alpha01"
+//        As specified from https://developer.android.com/topic/libraries/architecture/adding-components
+//        FAILS: Could not find.... wait for AndroidX???
+//        classpath "androidx.navigation:safe-args-gradle-plugin:1.0.0-alpha01"
+    }
+}
+
 apply plugin: 'com.android.application'
 //apply plugin: 'com.google.gms.oss.licenses.plugin' // removed because this now shows more than run-time libraries and potentially has compile issue between 0.9.1 and 0.9.2
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.github.ben-manes.versions' // ./gradlew dependencyUpdates -Drevision=release
+apply plugin: 'androidx.navigation.safeargs'
 
 // Manifest version information
 def versionMajor = 1
@@ -17,7 +35,7 @@ ext {
     supportLibVersion = '27.1.1'
     archLifecycleVersion = '1.1.1'
     archRoomVersion = '1.1.0'
-    playServicesVersion = '15.0.2'
+    playServicesVersion = '16.0.0'
     daggerVersion = '2.16'
     okhttpVersion = '3.10.0'
     dbtoolsRoomVersion = '2.0.0'
@@ -36,6 +54,7 @@ dependencies {
     implementation "com.google.android.gms:play-services-analytics:${playServicesVersion}"
 //    implementation "com.google.android.gms:play-services-oss-licenses:${playServicesVersion}"
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation 'androidx.core:core-ktx:0.3'
 
     // Code
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
@@ -53,6 +72,9 @@ dependencies {
     implementation "android.arch.lifecycle:runtime:$archLifecycleVersion"
     kapt "android.arch.lifecycle:compiler:$archLifecycleVersion"
 
+    implementation 'android.arch.navigation:navigation-fragment-ktx:1.0.0-alpha01'
+    implementation 'android.arch.navigation:navigation-ui-ktx:1.0.0-alpha01'
+
     // Database
     implementation "android.arch.persistence.room:runtime:$archRoomVersion"
     kapt "android.arch.persistence.room:compiler:$archRoomVersion"
@@ -62,7 +84,7 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
 
     // JSON Parsing
-    implementation "com.google.code.gson:gson:2.8.4"
+    implementation "com.google.code.gson:gson:2.8.5"
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
 
     // Dagger 2

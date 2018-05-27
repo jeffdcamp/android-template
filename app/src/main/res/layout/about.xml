@@ -12,13 +12,9 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <include
-            android:id="@+id/appbar"
-            layout="@layout/toolbar_actionbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+        android:orientation="vertical"
+        tools:context="org.jdc.template.ux.about.AboutFragment"
+        >
 
         <TextView
             android:id="@+id/appNameTextView"

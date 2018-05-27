@@ -8,7 +8,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import org.jdc.template.R
 import org.jdc.template.inject.Injector
 import org.jdc.template.ui.activity.LiveDataObserverActivity
-import org.jdc.template.ux.directory.DirectoryActivity
+import org.jdc.template.ux.main.MainActivity
 import javax.inject.Inject
 
 class StartupActivity : LiveDataObserverActivity() {
@@ -45,7 +45,7 @@ class StartupActivity : LiveDataObserverActivity() {
     }
 
     private fun showStartActivity() {
-        val intent = Intent(application, DirectoryActivity::class.java)
+        val intent = Intent(application, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
 
         startActivity(intent)
