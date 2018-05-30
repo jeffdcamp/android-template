@@ -22,7 +22,8 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
@@ -38,7 +39,7 @@
                     android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:text="@{viewModel.individual.getFullName()}"
+                    android:text='@{viewModel.individual.getFullName()}'
                     tools:text="Jeff Campbell"/>
 
                 <TextView
@@ -49,7 +50,7 @@
                     android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="@+id/nameTextView"
                     app:layout_constraintTop_toBottomOf="@+id/nameTextView"
-                    android:text="@{viewModel.individual.phone}"
+                    android:text='@{viewModel.individual.phone}'
                     tools:text="801-555-1234"/>
 
                 <TextView
@@ -60,7 +61,7 @@
                     android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="@+id/phoneTextView"
                     app:layout_constraintTop_toBottomOf="@+id/phoneTextView"
-                    android:text="@{viewModel.individual.email}"
+                    android:text='@{viewModel.individual.email}'
                     tools:text="bob@bob.com"/>
 
 
@@ -82,7 +83,7 @@
                     android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="@+id/linearLayout3"
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
-                    app:textDate="@{viewModel.individual.birthDate}"
+                    app:textDate='@{viewModel.individual.birthDate}'
                     tools:text="1/1/70"/>
 
 
@@ -108,7 +109,7 @@
                     tools:layout_conversion_absoluteWidth="84dp"
                     tools:layout_conversion_absoluteX="10dp"
                     tools:layout_conversion_absoluteY="151dp"
-                    app:textTime="@{viewModel.individual.alarmTime}"
+                    app:textTime='@{viewModel.individual.alarmTime}'
                     tools:text="12:00 PM"/>
 
 
@@ -129,14 +130,16 @@
                 <ImageView
                     android:id="@+id/profileUrl"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
                     app:layout_constraintStart_toStartOf="@+id/textView2"
                     app:layout_constraintTop_toBottomOf="@+id/textView2"
                     tools:layout_conversion_absoluteHeight="200dp"
                     tools:layout_conversion_absoluteWidth="159dp"
                     tools:layout_conversion_absoluteX="10dp"
                     tools:layout_conversion_absoluteY="183dp"
-                    android:background="@color/profilearea"
+                    app:loadThumbnail='@{viewModel.individual.profileUrl}'
                     />
             </android.support.constraint.ConstraintLayout>
         </ScrollView>

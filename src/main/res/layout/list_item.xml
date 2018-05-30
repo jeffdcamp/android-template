@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools">
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
     <data>
+        <import type="org.jdc.template.ux.ImageUtil"/>
 
         <variable
             name="directoryItem"
@@ -15,7 +18,7 @@
         android:id="@+id/listItemLayout"
         style="@style/ListItemLayout"
         android:orientation="horizontal"
-        android:onClick="@{() -> viewModel.onDirectoryIndividualClicked(directoryItem)}"
+        android:onClick='@{() -> viewModel.onDirectoryIndividualClicked(directoryItem)}'
         >
 
         <RelativeLayout
@@ -25,9 +28,9 @@
             >
             <ImageView
                 android:id="@+id/profileUrl"
-                android:layout_width="?android:attr/listPreferredItemHeight"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:background="@color/profilearea"
+                app:loadThumbnail="@{directoryItem.profileUrl}"
                 />
             <TextView
                 android:id="@+id/listItemTextView"
@@ -36,7 +39,7 @@
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:layout_centerVertical="true"
-                android:text="@{directoryItem.fullName}"
+                android:text='@{directoryItem.fullName}'
                 tools:text="Item Name"/>
         </RelativeLayout>
     </LinearLayout>

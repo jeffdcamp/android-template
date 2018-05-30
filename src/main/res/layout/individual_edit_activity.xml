@@ -160,7 +160,9 @@
                 <ImageView
                     android:id="@+id/profileUrl"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
                     app:layout_constraintEnd_toEndOf="@+id/alarmTimeLayout"
                     app:layout_constraintStart_toStartOf="@+id/alarmTimeLayout"
                     app:layout_constraintTop_toBottomOf="@+id/alarmTimeLayout"
@@ -168,7 +170,7 @@
                     tools:layout_conversion_absoluteWidth="159dp"
                     tools:layout_conversion_absoluteX="10dp"
                     tools:layout_conversion_absoluteY="183dp"
-                    android:background="@color/profilearea"
+                    app:loadThumbnail='@{viewModel.individual.profileUrl}'
                     />
 
             </android.support.constraint.ConstraintLayout>
