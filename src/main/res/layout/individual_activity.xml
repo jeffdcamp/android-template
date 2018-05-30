@@ -126,6 +126,18 @@
                     tools:layout_conversion_absoluteX="10dp"
                     tools:layout_conversion_absoluteY="183dp"/>
 
+                <ImageView
+                    android:id="@+id/profileUrl"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    app:layout_constraintStart_toStartOf="@+id/textView2"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2"
+                    tools:layout_conversion_absoluteHeight="200dp"
+                    tools:layout_conversion_absoluteWidth="159dp"
+                    tools:layout_conversion_absoluteX="10dp"
+                    tools:layout_conversion_absoluteY="183dp"
+                    android:background="@color/profilearea"
+                    />
             </android.support.constraint.ConstraintLayout>
         </ScrollView>
     </LinearLayout>

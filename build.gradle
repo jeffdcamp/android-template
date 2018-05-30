@@ -105,6 +105,10 @@ dependencies {
     implementation "com.google.dagger:dagger:${daggerVersion}"
     kapt "com.google.dagger:dagger-compiler:${daggerVersion}"
 
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
+
     // Custom SQLite database
 
     // (for use of SqliteOrgSQLiteOpenHelperFactory in AppModule.kt)

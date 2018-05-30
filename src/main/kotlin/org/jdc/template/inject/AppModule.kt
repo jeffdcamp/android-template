@@ -2,7 +2,10 @@ package org.jdc.template.inject
 
 import android.app.Application
 import android.app.NotificationManager
+import android.arch.persistence.db.SupportSQLiteDatabase
 import android.arch.persistence.room.Room
+import android.arch.persistence.room.RoomMasterTable.TABLE_NAME
+import android.arch.persistence.room.migration.Migration
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
@@ -84,6 +87,12 @@ class AppModule(private val application: Application) {
     @Singleton
     fun provideMainDatabase(application: Application): MainDatabase {
         return Room.databaseBuilder(application, MainDatabase::class.java, MainDatabase.DATABASE_NAME)
+//                .addMigrations(object: Migration(1, 2) {
+//                    override fun migrate(database: SupportSQLiteDatabase) {
+//                        database.execSQL("DROP TABLE `${TABLE_NAME}`")
+//                        database.execSQL("CREATE TABLE `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `householdId` INTEGER NOT NULL, `individualType` TEXT NOT NULL, `firstName` TEXT NOT NULL, `lastName` TEXT NOT NULL, `birthDate` TEXT, `alarmTime` TEXT NOT NULL, `lastModified` TEXT NOT NULL, `phone` TEXT NOT NULL, `email` TEXT NOT NULL, `available` INTEGER NOT NULL, `profileUrl` TEXT NOT NULL)")
+//                    }
+//                })
 //                .addMigrations(object: Migration(1, 2) {
 //                    override fun migrate(p0: SupportSQLiteDatabase?) {
 //                    }

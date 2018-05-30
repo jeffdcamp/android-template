@@ -18,10 +18,26 @@
         android:onClick="@{() -> viewModel.onDirectoryIndividualClicked(directoryItem)}"
         >
 
-        <TextView
-            android:id="@+id/listItemTextView"
-            style="@style/ListItemText"
-            android:text="@{directoryItem.fullName}"
-            tools:text="Item Name"/>
+        <RelativeLayout
+            android:id="@+id/profileLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <ImageView
+                android:id="@+id/profileUrl"
+                android:layout_width="?android:attr/listPreferredItemHeight"
+                android:layout_height="match_parent"
+                android:background="@color/profilearea"
+                />
+            <TextView
+                android:id="@+id/listItemTextView"
+                style="@style/ListItemText"
+                android:layout_toEndOf="@+id/profileUrl"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:layout_centerVertical="true"
+                android:text="@{directoryItem.fullName}"
+                tools:text="Item Name"/>
+        </RelativeLayout>
     </LinearLayout>
 </layout>

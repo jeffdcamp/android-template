@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+    >
 
     <data>
 
@@ -48,6 +50,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/first_name"
+                        android:inputType="text"
                         android:imeOptions="flagNoExtractUi"
                         android:text="@={viewModel.firstName}"/>
                 </android.support.design.widget.TextInputLayout>
@@ -66,6 +69,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/last_name"
+                        android:inputType="text"
                         android:imeOptions="flagNoExtractUi"
                         android:text="@={viewModel.lastName}"/>
                 </android.support.design.widget.TextInputLayout>
@@ -126,6 +130,7 @@
                         android:layout_height="wrap_content"
                         android:focusable="false"
                         android:hint="@string/birth_date"
+                        android:inputType="date"
                         android:onClick="@{() -> viewModel.onBirthDateClicked()}"
                         app:textDate="@{viewModel.birthDate}"
                         />
@@ -147,10 +152,24 @@
                         android:layout_height="wrap_content"
                         android:focusable="false"
                         android:hint="@string/alarm_time"
+                        android:inputType="time"
                         android:onClick="@{() -> viewModel.onAlarmTimeClicked()}"
                         app:textTime="@{viewModel.alarmTime}"
                         />
                 </android.support.design.widget.TextInputLayout>
+                <ImageView
+                    android:id="@+id/profileUrl"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    app:layout_constraintEnd_toEndOf="@+id/alarmTimeLayout"
+                    app:layout_constraintStart_toStartOf="@+id/alarmTimeLayout"
+                    app:layout_constraintTop_toBottomOf="@+id/alarmTimeLayout"
+                    tools:layout_conversion_absoluteHeight="200dp"
+                    tools:layout_conversion_absoluteWidth="159dp"
+                    tools:layout_conversion_absoluteX="10dp"
+                    tools:layout_conversion_absoluteY="183dp"
+                    android:background="@color/profilearea"
+                    />
 
             </android.support.constraint.ConstraintLayout>
         </ScrollView>
