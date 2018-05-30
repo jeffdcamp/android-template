@@ -47,7 +47,6 @@
 
     <!-- Individual -->
     <string name="delete_individual_confirm">Are you sure you want to delete this individual?</string>
-    <string name="defaultProfileUrl">https://edge.ldscdn.org/mobile/interview/06.png</string>
 
     <!-- About -->
     <string name="about_title">@string/app_name</string>
@@ -61,4 +60,5 @@
     <string name="combined_date_time">Combined Date and Time</string>
 
     <string name="notification_channel_general">General Notifications</string>
+  <string name="click_on_this">Click on this</string>
 </resources>

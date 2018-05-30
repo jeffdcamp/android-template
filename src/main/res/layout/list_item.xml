@@ -5,8 +5,6 @@
     >
 
     <data>
-        <import type="org.jdc.template.ux.ImageUtil"/>
-
         <variable
             name="directoryItem"
             type="org.jdc.template.datasource.database.main.individual.IndividualDao.DirectoryListItem"/>
@@ -28,8 +26,9 @@
             >
             <ImageView
                 android:id="@+id/profileUrl"
-                android:layout_width="wrap_content"
+                android:layout_width="?android:listPreferredItemHeight"
                 android:layout_height="match_parent"
+                android:src="@drawable/init"
                 app:loadThumbnail="@{directoryItem.profileUrl}"
                 />
             <TextView

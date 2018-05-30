@@ -149,6 +149,25 @@
             tools:layout_conversion_absoluteX="148dp"
             tools:layout_conversion_absoluteY="349dp"/>
 
+        <ImageView
+            android:id="@+id/test"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/testButton"
+            android:background="@drawable/loading_image"
+            android:onClick="changeAnmation"
+            />
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/test"
+            android:text="@string/click_on_this"
+            />
 
     </android.support.constraint.ConstraintLayout>
 </layout>

@@ -171,6 +171,7 @@
                     tools:layout_conversion_absoluteX="10dp"
                     tools:layout_conversion_absoluteY="183dp"
                     app:loadThumbnail='@{viewModel.individual.profileUrl}'
+                    android:src="@drawable/init"
                     />
 
             </android.support.constraint.ConstraintLayout>

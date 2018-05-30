@@ -62,7 +62,7 @@ class IndividualEditViewModel
         individual.email = email.get() ?: ""
         individual.birthDate = birthDate.get()
         individual.alarmTime = alarmTime.get() ?: LocalTime.now()
-        individual.profileUrl = profileUrl.get() ?: application.resources.getString(R.string.defaultProfileUrl)
+        individual.profileUrl = profileUrl.get() ?: ""
 
         val individualDao = mainDatabase.individualDao()
         if (individual.id <= 0) {

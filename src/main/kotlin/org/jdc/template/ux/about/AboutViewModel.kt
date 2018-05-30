@@ -72,7 +72,7 @@ class AboutViewModel
         individual1.householdId = household.id
         individual1.birthDate = LocalDate.of(1970, 1, 1)
         individual1.alarmTime = LocalTime.of(7, 0)
-        individual1.profileUrl = application.resources.getString(R.string.defaultProfileUrl)
+        individual1.profileUrl = ""
         individualDao.insert(individual1)
 
         val individual2 = Individual()
@@ -83,7 +83,7 @@ class AboutViewModel
         individual2.householdId = household.id
         individual2.birthDate = LocalDate.of(1970, 1, 2)
         individual2.alarmTime = LocalTime.of(6, 0)
-        individual2.profileUrl = application.resources.getString(R.string.defaultProfileUrl)
+        individual2.profileUrl = ""
         individualDao.insert(individual2)
 
         mainDatabase.setTransactionSuccessful()
