@@ -1,5 +1,6 @@
 package org.jdc.template.ux.individualedit
 
+import android.app.Application
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
 import kotlinx.coroutines.experimental.launch
@@ -14,6 +15,7 @@ import javax.inject.Inject
 
 class IndividualEditViewModel
 @Inject constructor(
+        private val application: Application,
         private val cc: CoroutineContextProvider,
         private val mainDatabase: MainDatabase
 ) : ViewModel() {
@@ -27,6 +29,7 @@ class IndividualEditViewModel
     val email = ObservableField<String>()
     val birthDate = ObservableField<LocalDate?>()
     val alarmTime = ObservableField<LocalTime>()
+    val profileUrl = ObservableField<String>()
 
     // Events
     val onIndividualSavedEvent = SingleLiveEvent<Void>()
@@ -44,6 +47,7 @@ class IndividualEditViewModel
             email.set(it.email)
             birthDate.set(it.birthDate)
             alarmTime.set(it.alarmTime)
+            profileUrl.set(it.profileUrl)
         }
     }
 
@@ -58,6 +62,7 @@ class IndividualEditViewModel
         individual.email = email.get() ?: ""
         individual.birthDate = birthDate.get()
         individual.alarmTime = alarmTime.get() ?: LocalTime.now()
+        individual.profileUrl = profileUrl.get() ?: ""
 
         val individualDao = mainDatabase.individualDao()
         if (individual.id <= 0) {

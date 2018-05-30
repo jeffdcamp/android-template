@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools">
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
     <data>
-
         <variable
             name="directoryItem"
             type="org.jdc.template.datasource.database.main.individual.IndividualDao.DirectoryListItem"/>
@@ -15,13 +16,30 @@
         android:id="@+id/listItemLayout"
         style="@style/ListItemLayout"
         android:orientation="horizontal"
-        android:onClick="@{() -> viewModel.onDirectoryIndividualClicked(directoryItem)}"
+        android:onClick='@{() -> viewModel.onDirectoryIndividualClicked(directoryItem)}'
         >
 
-        <TextView
-            android:id="@+id/listItemTextView"
-            style="@style/ListItemText"
-            android:text="@{directoryItem.fullName}"
-            tools:text="Item Name"/>
+        <RelativeLayout
+            android:id="@+id/profileLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <ImageView
+                android:id="@+id/profileUrl"
+                android:layout_width="?android:listPreferredItemHeight"
+                android:layout_height="match_parent"
+                android:src="@drawable/init"
+                app:loadThumbnail="@{directoryItem.profileUrl}"
+                />
+            <TextView
+                android:id="@+id/listItemTextView"
+                style="@style/ListItemText"
+                android:layout_toEndOf="@+id/profileUrl"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:layout_centerVertical="true"
+                android:text='@{directoryItem.fullName}'
+                tools:text="Item Name"/>
+        </RelativeLayout>
     </LinearLayout>
 </layout>

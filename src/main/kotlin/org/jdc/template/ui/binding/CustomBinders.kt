@@ -2,8 +2,12 @@ package org.jdc.template.ui.binding
 
 import android.databinding.BindingAdapter
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils.isEmpty
 import android.text.format.DateUtils
+import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
+import org.jdc.template.R
 import org.jdc.template.datasource.database.converter.ThreeTenFormatter
 import org.jdc.template.ui.recycleview.RecyclerViewDiffAdapter
 import org.threeten.bp.LocalDate
@@ -11,6 +15,19 @@ import org.threeten.bp.LocalTime
 import org.threeten.bp.ZoneId
 
 object CustomBinders {
+    @JvmStatic
+    @BindingAdapter("loadThumbnail")
+    fun loadThumbnail(view: ImageView, url: String?) {
+        if (isEmpty(url)) {
+            view.setImageResource(R.drawable.init)
+        } else {
+            Glide
+                    .with(view.context)
+                    .load(url)
+                    .into(view)
+        }
+    }
+
     @JvmStatic
     @BindingAdapter("textDate")
     fun setTextDate(view: TextView, date: LocalDate?) {

@@ -5,12 +5,14 @@ import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
 import me.eugeniomarletti.extras.ActivityCompanion
 import org.jdc.template.R
 import org.jdc.template.databinding.AboutActivityBinding
 import org.jdc.template.inject.Injector
 import org.jdc.template.ui.activity.BaseActivity
 import javax.inject.Inject
+import android.graphics.drawable.AnimationDrawable
 
 class AboutActivity : BaseActivity() {
 
@@ -53,6 +55,15 @@ class AboutActivity : BaseActivity() {
 //            else -> return super.onOptionsItemSelected(item)
 //        }
 //    }
+
+    fun changeAnmation(view: View) {
+        val frameAnimation = view.background as AnimationDrawable
+        if (frameAnimation.isRunning) {
+            frameAnimation.stop()
+        } else {
+            frameAnimation.start()
+        }
+    }
 
     companion object : ActivityCompanion<IntentOptions>(IntentOptions, AboutActivity::class)
 

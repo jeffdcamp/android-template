@@ -1,5 +1,6 @@
 package org.jdc.template.ux.about
 
+import org.jdc.template.datasource.webservice.individuals.dto.DtoIndividuals
 import android.app.Application
 import android.arch.lifecycle.ViewModel
 import com.google.android.gms.analytics.HitBuilders
@@ -7,12 +8,14 @@ import kotlinx.coroutines.experimental.launch
 import okhttp3.ResponseBody
 import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
+import org.jdc.template.R
 import org.jdc.template.datasource.database.main.MainDatabase
 import org.jdc.template.datasource.database.main.household.Household
 import org.jdc.template.datasource.database.main.individual.Individual
 import org.jdc.template.datasource.database.main.type.IndividualType
 import org.jdc.template.datasource.webservice.colors.ColorService
 import org.jdc.template.datasource.webservice.colors.dto.DtoColors
+import org.jdc.template.datasource.webservice.individuals.IndividualService
 import org.jdc.template.ext.saveBodyToFile
 import org.jdc.template.job.AppJobScheduler
 import org.jdc.template.util.CoroutineContextProvider
@@ -32,6 +35,7 @@ class AboutViewModel
     private val cc: CoroutineContextProvider,
     private val mainDatabase: MainDatabase,
     private val colorService: ColorService,
+    private val individualService: IndividualService,
     private val appJobScheduler: AppJobScheduler
 ) : ViewModel() {
 
@@ -68,6 +72,7 @@ class AboutViewModel
         individual1.householdId = household.id
         individual1.birthDate = LocalDate.of(1970, 1, 1)
         individual1.alarmTime = LocalTime.of(7, 0)
+        individual1.profileUrl = ""
         individualDao.insert(individual1)
 
         val individual2 = Individual()
@@ -76,8 +81,9 @@ class AboutViewModel
         individual2.phone = "303-555-1111"
         individual2.individualType = IndividualType.CHILD
         individual2.householdId = household.id
-        individual1.birthDate = LocalDate.of(1970, 1, 2)
+        individual2.birthDate = LocalDate.of(1970, 1, 2)
         individual2.alarmTime = LocalTime.of(6, 0)
+        individual2.profileUrl = ""
         individualDao.insert(individual2)
 
         mainDatabase.setTransactionSuccessful()
@@ -99,6 +105,82 @@ class AboutViewModel
                 Timber.e(t, "Search FAILED")
             }
         })
+    }
+
+    /**
+     * Individual web service call
+     */
+    fun testIndividualServiceCall() {
+        val call = individualService.individuals()
+
+        call.enqueue(object : Callback<DtoIndividuals> {
+            override fun onResponse(call: Call<DtoIndividuals>, response: Response<DtoIndividuals>) {
+                processWebIndividualServiceResponse(response)
+            }
+
+            override fun onFailure(call: Call<DtoIndividuals>, t: Throwable?) {
+                Timber.e(t, "Individual Search FAILED")
+            }
+        })
+    }
+
+    private fun processWebIndividualServiceResponse(response: Response<DtoIndividuals>) {
+        if (response.isSuccessful) {
+            Timber.i("Individual Search SUCCESS")
+            response.body()?.let {
+                processIndividualSearchResponse(it)
+            }
+        } else {
+            Timber.e("Search FAILURE: code (%d)", response.code())
+        }
+    }
+
+    private fun processIndividualSearchResponse(dtoIndividuals: DtoIndividuals) = launch(cc.commonPool) {
+        val list : MutableList<Individual> = mutableListOf()
+        val result : List<Individual> = list
+
+        val household = Household()
+        household.name = "Shan"
+
+        for (ind in dtoIndividuals.individuals) {
+
+            val thisIndividual = Individual()
+            thisIndividual.id = ind.id
+            thisIndividual.firstName = ind.firstName
+            thisIndividual.lastName = ind.lastName
+            thisIndividual.phone = "801-555-0000"
+            thisIndividual.individualType = IndividualType.HEAD
+            thisIndividual.householdId = household.id
+            val parts = ind.birthdate.split("-")
+            thisIndividual.birthDate = LocalDate.of(parts[0].toInt(), parts[1].toInt(), parts[2].toInt())
+            thisIndividual.alarmTime = LocalTime.of(7, 0)
+            thisIndividual.profileUrl = ind.profilePicture
+            list.add(thisIndividual)
+            Timber.i("Result: %s - %s", thisIndividual.firstName, thisIndividual.profileUrl)
+        }
+        persistIndividuals(result, household)
+    }
+
+    private fun persistIndividuals(individuals : List<Individual>, household: Household) {
+        val individualDao = mainDatabase.individualDao()
+        val householdDao = mainDatabase.householdDao()
+
+        // clear any existing items
+        individualDao.deleteAll()
+        householdDao.deleteAll()
+
+        // MAIN Database
+        mainDatabase.beginTransaction()
+
+        householdDao.insert(household)
+
+        for (ind in individuals) {
+            individualDao.insert(ind)
+            Timber.i(ind.getFullData())
+        }
+
+        mainDatabase.setTransactionSuccessful()
+        mainDatabase.endTransaction()
     }
 
     /**
