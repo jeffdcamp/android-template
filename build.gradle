@@ -57,6 +57,7 @@ ext {
     daggerVersion = '2.16'
     okhttpVersion = '3.10.0'
     dbtoolsRoomVersion = '2.0.0'
+    glideVersion = '4.7.1'
 }
 
 dependencies {
@@ -106,8 +107,8 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:${daggerVersion}"
 
     // Glide
-    implementation 'com.github.bumptech.glide:glide:4.7.1'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
+    implementation "com.github.bumptech.glide:glide:${glideVersion}"
+    kapt "com.github.bumptech.glide:compiler:${glideVersion}"
 
     // Custom SQLite database
 
