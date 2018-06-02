@@ -49,41 +49,44 @@ class AboutViewModel
         val individualDao = mainDatabase.individualDao()
         val householdDao = mainDatabase.householdDao()
 
-        // clear any existing items
-        individualDao.deleteAll()
-        householdDao.deleteAll()
+        try {
+            // MAIN Database
+            mainDatabase.beginTransaction()
 
-        // MAIN Database
-        mainDatabase.beginTransaction()
+            // clear any existing items
+            individualDao.deleteAll()
+            householdDao.deleteAll()
 
-        val household = Household()
-        household.name = "Campbell"
-        householdDao.insert(household)
+            val household = Household()
+            household.name = "Campbell"
+            householdDao.insert(household)
 
-        val individual1 = Individual()
-        individual1.firstName = "Jeff"
-        individual1.lastName = "Campbell"
-        individual1.phone = "801-555-0000"
-        individual1.individualType = IndividualType.HEAD
-        individual1.householdId = household.id
-        individual1.birthDate = LocalDate.of(1970, 1, 1)
-        individual1.alarmTime = LocalTime.of(7, 0)
-        individual1.profileUrl = ""
-        individualDao.insert(individual1)
+            val individual1 = Individual()
+            individual1.firstName = "Jeff"
+            individual1.lastName = "Campbell"
+            individual1.phone = "801-555-0000"
+            individual1.individualType = IndividualType.HEAD
+            individual1.householdId = household.id
+            individual1.birthDate = LocalDate.of(1970, 1, 1)
+            individual1.alarmTime = LocalTime.of(7, 0)
+            individual1.profileUrl = ""
+            individualDao.insert(individual1)
 
-        val individual2 = Individual()
-        individual2.firstName = "John"
-        individual2.lastName = "Miller"
-        individual2.phone = "303-555-1111"
-        individual2.individualType = IndividualType.CHILD
-        individual2.householdId = household.id
-        individual2.birthDate = LocalDate.of(1970, 1, 2)
-        individual2.alarmTime = LocalTime.of(6, 0)
-        individual2.profileUrl = ""
-        individualDao.insert(individual2)
+            val individual2 = Individual()
+            individual2.firstName = "John"
+            individual2.lastName = "Miller"
+            individual2.phone = "303-555-1111"
+            individual2.individualType = IndividualType.CHILD
+            individual2.householdId = household.id
+            individual2.birthDate = LocalDate.of(1970, 1, 2)
+            individual2.alarmTime = LocalTime.of(6, 0)
+            individual2.profileUrl = ""
+            individualDao.insert(individual2)
 
-        mainDatabase.setTransactionSuccessful()
-        mainDatabase.endTransaction()
+            mainDatabase.setTransactionSuccessful()
+        } finally {
+            mainDatabase.endTransaction()
+        }
     }
 
     /**

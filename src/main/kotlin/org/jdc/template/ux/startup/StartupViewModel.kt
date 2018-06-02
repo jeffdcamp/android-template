@@ -115,22 +115,25 @@ class StartupViewModel
         val individualDao = mainDatabase.individualDao()
         val householdDao = mainDatabase.householdDao()
 
-        // clear any existing items
-        individualDao.deleteAll()
-        householdDao.deleteAll()
+        try {
+            // MAIN Database
+            mainDatabase.beginTransaction()
 
-        // MAIN Database
-        mainDatabase.beginTransaction()
+            // clear any existing items
+            individualDao.deleteAll()
+            householdDao.deleteAll()
 
-        householdDao.insert(household)
+            householdDao.insert(household)
 
-        for (ind in individuals) {
-            individualDao.insert(ind)
-            Timber.i(ind.getFullData())
+            for (ind in individuals) {
+                individualDao.insert(ind)
+                Timber.i(ind.getFullData())
+            }
+
+            mainDatabase.setTransactionSuccessful()
+        } finally {
+            mainDatabase.endTransaction()
         }
-
-        mainDatabase.setTransactionSuccessful()
-        mainDatabase.endTransaction()
     }
 
     companion object {
