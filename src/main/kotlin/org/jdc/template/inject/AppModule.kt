@@ -87,12 +87,7 @@ class AppModule(private val application: Application) {
     @Singleton
     fun provideMainDatabase(application: Application): MainDatabase {
         return Room.databaseBuilder(application, MainDatabase::class.java, MainDatabase.DATABASE_NAME)
-//                .addMigrations(object: Migration(1, 2) {
-//                    override fun migrate(database: SupportSQLiteDatabase) {
-//                        database.execSQL("DROP TABLE `${TABLE_NAME}`")
-//                        database.execSQL("CREATE TABLE `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `householdId` INTEGER NOT NULL, `individualType` TEXT NOT NULL, `firstName` TEXT NOT NULL, `lastName` TEXT NOT NULL, `birthDate` TEXT, `alarmTime` TEXT NOT NULL, `lastModified` TEXT NOT NULL, `phone` TEXT NOT NULL, `email` TEXT NOT NULL, `available` INTEGER NOT NULL, `profileUrl` TEXT NOT NULL)")
-//                    }
-//                })
+                .addMigrations(MIGRATION_1_2)
 //                .addMigrations(object: Migration(1, 2) {
 //                    override fun migrate(p0: SupportSQLiteDatabase?) {
 //                    }
@@ -100,4 +95,20 @@ class AppModule(private val application: Application) {
 //                .openHelperFactory(SqliteOrgSQLiteOpenHelperFactory())
                 .build()
     }
+
+    // The docs say: Caution: To keep your migration logic functioning as expected, use full queries
+    // instead of referencing constants that represent the queries.
+    // It seems we have chosen to use the constants.  At least that is what is in the json and the
+    // commented code above.
+
+    val MIGRATION_1_2: Migration = object : Migration(1, 2) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            try {
+                database.execSQL("ALTER TABLE ${TABLE_NAME} ADD COLUMN profileUrl TEXT NOT NULL DEFAULT ''")
+            } catch (ex : Exception) {
+                Timber.e(ex.message)
+            }
+        }
+    }
 }
+
