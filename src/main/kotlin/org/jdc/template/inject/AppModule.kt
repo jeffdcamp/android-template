@@ -2,7 +2,10 @@ package org.jdc.template.inject
 
 import android.app.Application
 import android.app.NotificationManager
+import android.arch.persistence.db.SupportSQLiteDatabase
 import android.arch.persistence.room.Room
+import android.arch.persistence.room.RoomMasterTable.TABLE_NAME
+import android.arch.persistence.room.migration.Migration
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
@@ -84,6 +87,7 @@ class AppModule(private val application: Application) {
     @Singleton
     fun provideMainDatabase(application: Application): MainDatabase {
         return Room.databaseBuilder(application, MainDatabase::class.java, MainDatabase.DATABASE_NAME)
+                .addMigrations(MIGRATION_1_2)
 //                .addMigrations(object: Migration(1, 2) {
 //                    override fun migrate(p0: SupportSQLiteDatabase?) {
 //                    }
@@ -91,4 +95,20 @@ class AppModule(private val application: Application) {
 //                .openHelperFactory(SqliteOrgSQLiteOpenHelperFactory())
                 .build()
     }
+
+    // The docs say: Caution: To keep your migration logic functioning as expected, use full queries
+    // instead of referencing constants that represent the queries.
+    // It seems we have chosen to use the constants.  At least that is what is in the json and the
+    // commented code above.
+
+    val MIGRATION_1_2: Migration = object : Migration(1, 2) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            try {
+                database.execSQL("ALTER TABLE ${TABLE_NAME} ADD COLUMN profileUrl TEXT NOT NULL DEFAULT ''")
+            } catch (ex : Exception) {
+                Timber.e(ex.message)
+            }
+        }
+    }
 }
+

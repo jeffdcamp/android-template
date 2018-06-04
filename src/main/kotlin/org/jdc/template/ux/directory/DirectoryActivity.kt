@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
@@ -63,7 +64,11 @@ class DirectoryActivity : DrawerActivity() {
     }
 
     private fun setupRecyclerView() {
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        if (resources.getBoolean(R.bool.isTablet)) {
+            binding.recyclerView.layoutManager = GridLayoutManager(this, 3)
+        } else {
+            binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        }
         binding.recyclerView.adapter = adapter
     }
 

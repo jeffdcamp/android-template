@@ -5,6 +5,7 @@
     <color name="primary_dark">#D03033</color>
     <color name="accent">#027bc7</color>
     <color name="window_background">#ffffffff</color>
+    <color name="profilearea">#00ff00</color>
 
     <!-- Splash -->
     <color name="startup_background_start">#cfe1edFF</color>

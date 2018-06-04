@@ -60,4 +60,5 @@
     <string name="combined_date_time">Combined Date and Time</string>
 
     <string name="notification_channel_general">General Notifications</string>
+  <string name="click_on_this">Click on this</string>
 </resources>

@@ -21,6 +21,9 @@ class Individual {
     var phone: String = ""
     var email: String = ""
     var available: Boolean = false
+    var profileUrl: String = ""
 
     fun getFullName() = "$firstName $lastName"
+
+    fun getFullData() = "$id $householdId $individualType $firstName $lastName $birthDate $alarmTime $lastModified $phone $email $available $profileUrl"
 }

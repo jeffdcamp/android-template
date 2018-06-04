@@ -11,7 +11,7 @@ import org.jdc.template.datasource.database.main.household.HouseholdDao
 import org.jdc.template.datasource.database.main.individual.Individual
 import org.jdc.template.datasource.database.main.individual.IndividualDao
 
-@Database(entities = [Individual::class, Household::class], version = 1)
+@Database(entities = [Individual::class, Household::class], version = 2)
 @TypeConverters(MainDatabaseConverters::class, DateTimeTextConverter::class, DateTextConverters::class)
 abstract class MainDatabase : RoomDatabase() {
 

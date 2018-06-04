@@ -1,0 +1,11 @@
+<!-- Animation frames are phase*.png files inside the
+ res/drawable/ folder -->
+<animation-list android:id="@+id/selected"
+                android:oneshot="false"
+                xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:drawable="@drawable/init" android:duration="300" />
+  <item android:drawable="@drawable/one" android:duration="300" />
+  <item android:drawable="@drawable/two" android:duration="300" />
+  <item android:drawable="@drawable/three" android:duration="300" />
+  <item android:drawable="@drawable/four" android:duration="300" />
+</animation-list>

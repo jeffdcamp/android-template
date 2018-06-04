@@ -5,4 +5,7 @@
     <!-- todo Temp work around for constraint layout and TextImputLayout issue (https://code.google.com/p/android/issues/detail?id=230766)-->
     <item name = "visible" type = "id" />
     <item name = "masked" type = "id" />
+
+    <bool name="isTablet">false</bool>
+
 </resources>
