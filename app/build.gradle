@@ -8,7 +8,7 @@ buildscript {
     dependencies {
 //        As specified from Google Sample Project
 //        https://github.com/googlesamples/android-architecture-components/blob/master/NavigationBasicSample/versions.gradle
-        classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:1.0.0-alpha01"
+        classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:1.0.0-alpha02"
 //        As specified from https://developer.android.com/topic/libraries/architecture/adding-components
 //        FAILS: Could not find.... wait for AndroidX???
 //        classpath "androidx.navigation:safe-args-gradle-plugin:1.0.0-alpha01"
@@ -53,7 +53,7 @@ dependencies {
     implementation 'com.android.support:multidex-instrumentation:1.0.3'
     implementation "com.google.android.gms:play-services-analytics:${playServicesVersion}"
 //    implementation "com.google.android.gms:play-services-oss-licenses:${playServicesVersion}"
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.1'
     implementation 'androidx.core:core-ktx:0.3'
 
     // Code
@@ -72,8 +72,8 @@ dependencies {
     implementation "android.arch.lifecycle:runtime:$archLifecycleVersion"
     kapt "android.arch.lifecycle:compiler:$archLifecycleVersion"
 
-    implementation 'android.arch.navigation:navigation-fragment-ktx:1.0.0-alpha01'
-    implementation 'android.arch.navigation:navigation-ui-ktx:1.0.0-alpha01'
+    implementation 'android.arch.navigation:navigation-fragment-ktx:1.0.0-alpha02'
+    implementation 'android.arch.navigation:navigation-ui-ktx:1.0.0-alpha02'
 
     // Database
     implementation "android.arch.persistence.room:runtime:$archRoomVersion"
