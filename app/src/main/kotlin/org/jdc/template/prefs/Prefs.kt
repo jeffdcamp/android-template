@@ -18,7 +18,7 @@ class Prefs @Inject constructor() : PrefsContainer(PrefsManager.COMMON_NAMESPACE
     var sort by EnumPref(Sort.ALPHA, key = PREF_SORT, liveData = _sortLiveData)
 
     init {
-        _sortLiveData.value = sort
+        _sortLiveData.postValue(sort)
     }
 
     fun toggleDeveloperMode(): Boolean {

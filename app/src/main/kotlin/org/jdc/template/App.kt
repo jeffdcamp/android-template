@@ -1,21 +1,15 @@
 package org.jdc.template
 
 import android.support.multidex.MultiDexApplication
-import com.evernote.android.job.JobManager
 import com.jakewharton.threetenabp.AndroidThreeTen
 import org.jdc.template.inject.Injector
-import org.jdc.template.job.AppJobCreator
 import org.jdc.template.log.DebugTree
 import org.jdc.template.log.ReleaseTree
 import org.jdc.template.prefs.base.PrefsManager
 import org.jdc.template.ui.notifications.NotificationChannels
 import timber.log.Timber
-import javax.inject.Inject
 
 class App : MultiDexApplication() {
-
-    @Inject
-    lateinit var appJobCreator: AppJobCreator
 
     init {
         Injector.init(this)
@@ -27,8 +21,6 @@ class App : MultiDexApplication() {
         AndroidThreeTen.init(this)
         // Initialize dependency injection
         Injector.get().inject(this)
-
-        JobManager.create(this).addJobCreator(appJobCreator)
 
         setupLogging()
 

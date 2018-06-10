@@ -6,8 +6,13 @@ Sample Android app that utilizes common best practices
 **Features**
 
 * Kotlin
-* Android Architecture Components (ViewModel, LiveData, Room ORM Database)
-* Android DataBinding
+* Android Architecture Components
+    * ViewModel
+    * LiveData
+    * Room
+    * Navigation
+    * WorkManager
+    * Data Binding
 * Dagger 2.0 dependency injection
 * Kotlin Coroutines
 * ThreeTenBp
@@ -15,7 +20,6 @@ Sample Android app that utilizes common best practices
 * RecyclerView / RecyclerDiffAdapter / ViewHolder
 * Retrofit / Okhttp3
 * Gson
-* Android-Job
 * Espresso Tests
 * JUnit tests / mockito
 * Timber
@@ -26,7 +30,7 @@ Sample Android app that utilizes common best practices
 License
 =======
 
-    Copyright 2014 Jeff Campbell
+    Copyright 2014-2018 Jeff Campbell
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

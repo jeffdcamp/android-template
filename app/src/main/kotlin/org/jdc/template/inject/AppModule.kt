@@ -6,6 +6,7 @@ import android.arch.persistence.room.Room
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
+import androidx.work.WorkManager
 import com.google.android.gms.analytics.GoogleAnalytics
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -90,5 +91,11 @@ class AppModule(private val application: Application) {
 //                })
 //                .openHelperFactory(SqliteOrgSQLiteOpenHelperFactory())
                 .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideWorkManager(): WorkManager {
+        return WorkManager.getInstance()
     }
 }

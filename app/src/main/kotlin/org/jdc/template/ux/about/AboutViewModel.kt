@@ -14,7 +14,7 @@ import org.jdc.template.datasource.database.main.type.IndividualType
 import org.jdc.template.datasource.webservice.colors.ColorService
 import org.jdc.template.datasource.webservice.colors.dto.DtoColors
 import org.jdc.template.ext.saveBodyToFile
-import org.jdc.template.job.AppJobScheduler
+import org.jdc.template.job.AppWorkScheduler
 import org.jdc.template.util.CoroutineContextProvider
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalTime
@@ -32,7 +32,7 @@ class AboutViewModel
     private val cc: CoroutineContextProvider,
     private val mainDatabase: MainDatabase,
     private val colorService: ColorService,
-    private val appJobScheduler: AppJobScheduler
+    private val appWorkScheduler: AppWorkScheduler
 ) : ViewModel() {
 
     var appVersion = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
@@ -164,18 +164,33 @@ class AboutViewModel
     }
 
     /**
-     * Sample for creating a scheduled job
+     * Sample for creating a scheduled simple worker
      */
-    fun jobTest() {
-        appJobScheduler.scheduleSampleJob()
-        appJobScheduler.scheduleSampleJob()
+    fun workManagerSimpleTest() {
+        appWorkScheduler.scheduleSimpleWork("test1")
+        appWorkScheduler.scheduleSimpleWork("test2")
         try {
             Thread.sleep(3000)
         } catch (e: InterruptedException) {
             e.printStackTrace()
         }
 
-        appJobScheduler.scheduleSampleJob()
+        appWorkScheduler.scheduleSimpleWork("test3")
+    }
+
+    /**
+     * Sample for creating a scheduled sync worker
+     */
+    fun workManagerSyncTest() {
+        appWorkScheduler.scheduleSync()
+        appWorkScheduler.scheduleSync(true)
+        try {
+            Thread.sleep(3000)
+        } catch (e: InterruptedException) {
+            e.printStackTrace()
+        }
+
+        appWorkScheduler.scheduleSync()
     }
 
     /**

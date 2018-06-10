@@ -6,12 +6,7 @@ buildscript {
         google()
     }
     dependencies {
-//        As specified from Google Sample Project
-//        https://github.com/googlesamples/android-architecture-components/blob/master/NavigationBasicSample/versions.gradle
         classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:1.0.0-alpha02"
-//        As specified from https://developer.android.com/topic/libraries/architecture/adding-components
-//        FAILS: Could not find.... wait for AndroidX???
-//        classpath "androidx.navigation:safe-args-gradle-plugin:1.0.0-alpha01"
     }
 }
 
@@ -35,6 +30,8 @@ ext {
     supportLibVersion = '27.1.1'
     archLifecycleVersion = '1.1.1'
     archRoomVersion = '1.1.1-rc1'
+    archNavigationVersion = '1.0.0-alpha02'
+    archWorkVersion = '1.0.0-alpha02'
     playServicesVersion = '16.0.0'
     daggerVersion = '2.16'
     okhttpVersion = '3.10.0'
@@ -61,7 +58,6 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.22.5"
     implementation 'me.eugeniomarletti:android-extras-delegates:1.0.5'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.1.0'
-    implementation 'com.evernote:android-job:1.2.5'
     implementation 'com.jakewharton.timber:timber:4.7.0'
 
     // UI
@@ -72,8 +68,10 @@ dependencies {
     implementation "android.arch.lifecycle:runtime:$archLifecycleVersion"
     kapt "android.arch.lifecycle:compiler:$archLifecycleVersion"
 
-    implementation 'android.arch.navigation:navigation-fragment-ktx:1.0.0-alpha02'
-    implementation 'android.arch.navigation:navigation-ui-ktx:1.0.0-alpha02'
+    implementation "android.arch.navigation:navigation-fragment-ktx:$archNavigationVersion"
+    implementation "android.arch.navigation:navigation-ui-ktx:$archNavigationVersion"
+
+    implementation "android.arch.work:work-runtime-ktx:$archWorkVersion"
 
     // Database
     implementation "android.arch.persistence.room:runtime:$archRoomVersion"
