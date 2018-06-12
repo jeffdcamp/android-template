@@ -55,7 +55,7 @@ dependencies {
 
     // Code
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.22.5"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.23.1"
     implementation 'me.eugeniomarletti:android-extras-delegates:1.0.5'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.1.0'
     implementation 'com.jakewharton.timber:timber:4.7.0'
@@ -171,6 +171,7 @@ android {
         exclude 'META-INF/NOTICE.txt'
         exclude 'META-INF/services/javax.annotation.processing.Processor'
         exclude 'LICENSE.txt'
+        exclude '/META-INF/main.kotlin_module' // todo temp work-around for fix in Kotlin 1.2.50+ (https://youtrack.jetbrains.com/issue/KT-23695)
     }
 
     lintOptions {
