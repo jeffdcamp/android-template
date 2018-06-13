@@ -2,8 +2,8 @@ package org.jdc.template.ux.directory
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
-import org.jdc.template.datasource.database.main.MainDatabase
-import org.jdc.template.datasource.database.main.individual.IndividualDao
+import org.jdc.template.model.db.main.MainDatabase
+import org.jdc.template.model.db.main.individual.IndividualDao
 import org.jdc.template.livedata.SingleLiveEvent
 import javax.inject.Inject
 

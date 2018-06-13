@@ -3,7 +3,7 @@ package org.jdc.template.ux.directory
 import android.view.ViewGroup
 import org.jdc.template.R
 import org.jdc.template.databinding.ListItemBinding
-import org.jdc.template.datasource.database.main.individual.IndividualDao
+import org.jdc.template.model.db.main.individual.IndividualDao
 import org.jdc.template.ui.recycleview.BindingViewHolder
 import org.jdc.template.ui.recycleview.RecyclerViewDiffAdapter
 

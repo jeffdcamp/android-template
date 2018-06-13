@@ -4,8 +4,8 @@ import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
 import kotlinx.coroutines.experimental.launch
 import org.jdc.template.R
-import org.jdc.template.datasource.database.main.MainDatabase
-import org.jdc.template.datasource.database.main.individual.Individual
+import org.jdc.template.model.db.main.MainDatabase
+import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.livedata.SingleLiveEvent
 import org.jdc.template.util.CoroutineContextProvider
 import org.threeten.bp.LocalDate

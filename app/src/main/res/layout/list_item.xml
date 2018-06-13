@@ -6,7 +6,7 @@
 
         <variable
             name="directoryItem"
-            type="org.jdc.template.datasource.database.main.individual.IndividualDao.DirectoryListItem"/>
+            type="org.jdc.template.model.db.main.individual.IndividualDao.DirectoryListItem"/>
 
         <variable name="viewModel" type="org.jdc.template.ux.directory.DirectoryViewModel"/>
     </data>

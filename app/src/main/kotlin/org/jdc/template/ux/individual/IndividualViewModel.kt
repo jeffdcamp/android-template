@@ -6,8 +6,8 @@ import android.arch.lifecycle.ViewModel
 import com.google.android.gms.analytics.HitBuilders
 import kotlinx.coroutines.experimental.launch
 import org.jdc.template.Analytics
-import org.jdc.template.datasource.database.main.MainDatabase
-import org.jdc.template.datasource.database.main.individual.Individual
+import org.jdc.template.model.db.main.MainDatabase
+import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.livedata.AbsentLiveData
 import org.jdc.template.livedata.SingleLiveEvent
 import org.jdc.template.util.CoroutineContextProvider

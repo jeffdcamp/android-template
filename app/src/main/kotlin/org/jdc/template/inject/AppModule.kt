@@ -14,8 +14,8 @@ import dagger.Module
 import dagger.Provides
 import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
-import org.jdc.template.datasource.database.main.MainDatabase
-import org.jdc.template.datasource.webservice.ServiceModule
+import org.jdc.template.model.db.main.MainDatabase
+import org.jdc.template.model.webservice.ServiceModule
 import org.jdc.template.json.LocalDateTimeTypeConverter
 import org.jdc.template.util.CoroutineContextProvider
 import org.threeten.bp.LocalDateTime
