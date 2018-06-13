@@ -1,5 +1,6 @@
 buildscript {
     ext.kotlinVersion = '1.2.41'
+    // ext.gradlePluginVersion = '3.2.0-alpha18' (may be needed for the databinding and kapt)
 
     repositories {
         mavenLocal()

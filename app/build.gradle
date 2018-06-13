@@ -50,7 +50,7 @@ dependencies {
     implementation 'com.android.support:multidex-instrumentation:1.0.3'
     implementation "com.google.android.gms:play-services-analytics:${playServicesVersion}"
 //    implementation "com.google.android.gms:play-services-oss-licenses:${playServicesVersion}"
-    implementation 'com.android.support.constraint:constraint-layout:1.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     implementation 'androidx.core:core-ktx:0.3'
 
     // Code
@@ -63,15 +63,20 @@ dependencies {
     // UI
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
 
-    // Android Architecture Components
+    // === Android Architecture Components ===
     implementation "android.arch.lifecycle:extensions:$archLifecycleVersion"
     implementation "android.arch.lifecycle:runtime:$archLifecycleVersion"
     kapt "android.arch.lifecycle:compiler:$archLifecycleVersion"
 
+    // Navigation
     implementation "android.arch.navigation:navigation-fragment-ktx:$archNavigationVersion"
     implementation "android.arch.navigation:navigation-ui-ktx:$archNavigationVersion"
 
+    // WorkManager
     implementation "android.arch.work:work-runtime-ktx:$archWorkVersion"
+
+    // Databind (needed to support Kotlin)
+    // kapt "androidx.databinding:databinding-compiler-common:$gradlePluginVersion"
 
     // Database
     implementation "android.arch.persistence.room:runtime:$archRoomVersion"
