@@ -12,7 +12,7 @@ import org.threeten.bp.LocalDateTime
 @Dao
 interface IndividualDao {
     @Insert
-    fun insert(individual: Individual)
+    fun insert(individual: Individual): Long
 
     @Update
     fun update(individual: Individual)

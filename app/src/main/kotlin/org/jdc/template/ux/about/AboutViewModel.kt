@@ -7,14 +7,13 @@ import kotlinx.coroutines.experimental.launch
 import okhttp3.ResponseBody
 import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
-import org.jdc.template.model.db.main.MainDatabase
-import org.jdc.template.model.db.main.household.Household
-import org.jdc.template.model.db.main.individual.Individual
-import org.jdc.template.model.db.main.type.IndividualType
-import org.jdc.template.model.webservice.colors.ColorService
-import org.jdc.template.model.webservice.colors.dto.DtoColors
 import org.jdc.template.ext.saveBodyToFile
 import org.jdc.template.job.AppWorkScheduler
+import org.jdc.template.model.db.main.individual.Individual
+import org.jdc.template.model.db.main.type.IndividualType
+import org.jdc.template.model.repository.IndividualRepository
+import org.jdc.template.model.webservice.colors.ColorService
+import org.jdc.template.model.webservice.colors.dto.DtoColors
 import org.jdc.template.util.CoroutineContextProvider
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalTime
@@ -30,7 +29,7 @@ class AboutViewModel
     private val analytics: Analytics,
     private val application: Application,
     private val cc: CoroutineContextProvider,
-    private val mainDatabase: MainDatabase,
+    private val individualRepository: IndividualRepository,
     private val colorService: ColorService,
     private val appWorkScheduler: AppWorkScheduler
 ) : ViewModel() {
@@ -46,42 +45,26 @@ class AboutViewModel
      * Creates sample data WITH using injection
      */
     fun createSampleDataWithInjection() = launch(cc.commonPool) {
-        val individualDao = mainDatabase.individualDao()
-        val householdDao = mainDatabase.householdDao()
-
         // clear any existing items
-        individualDao.deleteAll()
-        householdDao.deleteAll()
-
-        // MAIN Database
-        mainDatabase.beginTransaction()
-
-        val household = Household()
-        household.name = "Campbell"
-        householdDao.insert(household)
+        individualRepository.deleteAllIndividuals()
 
         val individual1 = Individual()
         individual1.firstName = "Jeff"
         individual1.lastName = "Campbell"
         individual1.phone = "801-555-0000"
         individual1.individualType = IndividualType.HEAD
-        individual1.householdId = household.id
         individual1.birthDate = LocalDate.of(1970, 1, 1)
         individual1.alarmTime = LocalTime.of(7, 0)
-        individualDao.insert(individual1)
 
         val individual2 = Individual()
         individual2.firstName = "John"
         individual2.lastName = "Miller"
         individual2.phone = "303-555-1111"
         individual2.individualType = IndividualType.CHILD
-        individual2.householdId = household.id
         individual1.birthDate = LocalDate.of(1970, 1, 2)
         individual2.alarmTime = LocalTime.of(6, 0)
-        individualDao.insert(individual2)
 
-        mainDatabase.setTransactionSuccessful()
-        mainDatabase.endTransaction()
+        individualRepository.saveNewHousehold("Campbell", listOf(individual1, individual2))
     }
 
     /**
@@ -197,10 +180,8 @@ class AboutViewModel
      * Table change listener tests
      */
     fun testTableChange() = launch(cc.commonPool) {
-        val individualDao = mainDatabase.individualDao()
-
-        // Sample tests for Rx
-        if (individualDao.findCount() == 0L) {
+        // Sample tests
+        if (individualRepository.getIndividualCount() == 0L) {
             Timber.e("No data.. cannot perform test")
             return@launch
         }
@@ -208,7 +189,7 @@ class AboutViewModel
         // Make some changes
         val originalName: String
 
-        val individualList = individualDao.findAll()
+        val individualList = individualRepository.getAllIndividuals()
         if (individualList.isNotEmpty()) {
             val individual = individualList[0]
             originalName = individual.firstName
@@ -216,11 +197,11 @@ class AboutViewModel
 
             // change name
             individual.firstName = "Bobby"
-            individualDao.update(individual)
+            individualRepository.saveIndividual(individual)
 
             // restore name
             individual.firstName = originalName
-            individualDao.update(individual)
+            individualRepository.saveIndividual(individual)
         } else {
             Timber.e("Cannot find individual")
         }

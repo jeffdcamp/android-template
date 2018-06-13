@@ -6,10 +6,10 @@ import android.arch.lifecycle.ViewModel
 import com.google.android.gms.analytics.HitBuilders
 import kotlinx.coroutines.experimental.launch
 import org.jdc.template.Analytics
-import org.jdc.template.model.db.main.MainDatabase
-import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.livedata.AbsentLiveData
 import org.jdc.template.livedata.SingleLiveEvent
+import org.jdc.template.model.db.main.individual.Individual
+import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.util.CoroutineContextProvider
 import javax.inject.Inject
 
@@ -17,7 +17,7 @@ class IndividualViewModel
 @Inject constructor(
         private val cc: CoroutineContextProvider,
         private val analytics: Analytics,
-        private val mainDatabase: MainDatabase
+        private val individualRepository: IndividualRepository
 ) : ViewModel() {
 
     private val individualId = MutableLiveData<Long>()
@@ -39,14 +39,14 @@ class IndividualViewModel
 
     private fun loadIndividual(individualId: Long): LiveData<Individual> {
         analytics.send(HitBuilders.EventBuilder().setCategory(Analytics.CATEGORY_INDIVIDUAL).setAction(Analytics.ACTION_VIEW).build())
-        return mainDatabase.individualDao().findByIdLiveData(individualId)
+        return individualRepository.getIndividualLiveData(individualId)
     }
 
     fun deleteTask() {
         individualId.value?.let { id ->
             launch(cc.commonPool) {
                 analytics.send(HitBuilders.EventBuilder().setCategory(Analytics.CATEGORY_INDIVIDUAL).setAction(Analytics.ACTION_DELETE).build())
-                mainDatabase.individualDao().deleteById(id)
+                individualRepository.deleteIndividual(id)
 
                 onIndividualDeletedEvent.postCall()
             }

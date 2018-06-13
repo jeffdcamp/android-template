@@ -7,7 +7,7 @@ import android.arch.persistence.room.Query
 @Dao
 interface HouseholdDao {
     @Insert
-    fun insert(vararg household: Household)
+    fun insert(household: Household): Long
 
     @Insert
     fun update(household: Household)

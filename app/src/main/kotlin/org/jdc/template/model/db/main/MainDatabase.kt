@@ -15,8 +15,8 @@ import org.jdc.template.model.db.main.individual.IndividualDao
 @TypeConverters(MainDatabaseConverters::class, DateTimeTextConverter::class, DateTextConverters::class)
 abstract class MainDatabase : RoomDatabase() {
 
-    abstract fun individualDao(): IndividualDao
-    abstract fun householdDao(): HouseholdDao
+    abstract val individualDao: IndividualDao
+    abstract val householdDao: HouseholdDao
 
     companion object {
         const val DATABASE_NAME = "main"
