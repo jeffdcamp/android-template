@@ -8,7 +8,7 @@ import okhttp3.ResponseBody
 import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
 import org.jdc.template.ext.saveBodyToFile
-import org.jdc.template.job.AppWorkScheduler
+import org.jdc.template.work.WorkScheduler
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.db.main.type.IndividualType
 import org.jdc.template.model.repository.IndividualRepository
@@ -31,7 +31,7 @@ class AboutViewModel
     private val cc: CoroutineContextProvider,
     private val individualRepository: IndividualRepository,
     private val colorService: ColorService,
-    private val appWorkScheduler: AppWorkScheduler
+    private val workScheduler: WorkScheduler
 ) : ViewModel() {
 
     var appVersion = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
@@ -150,30 +150,30 @@ class AboutViewModel
      * Sample for creating a scheduled simple worker
      */
     fun workManagerSimpleTest() {
-        appWorkScheduler.scheduleSimpleWork("test1")
-        appWorkScheduler.scheduleSimpleWork("test2")
+        workScheduler.scheduleSimpleWork("test1")
+        workScheduler.scheduleSimpleWork("test2")
         try {
             Thread.sleep(3000)
         } catch (e: InterruptedException) {
             e.printStackTrace()
         }
 
-        appWorkScheduler.scheduleSimpleWork("test3")
+        workScheduler.scheduleSimpleWork("test3")
     }
 
     /**
      * Sample for creating a scheduled sync worker
      */
     fun workManagerSyncTest() {
-        appWorkScheduler.scheduleSync()
-        appWorkScheduler.scheduleSync(true)
+        workScheduler.scheduleSync()
+        workScheduler.scheduleSync(true)
         try {
             Thread.sleep(3000)
         } catch (e: InterruptedException) {
             e.printStackTrace()
         }
 
-        appWorkScheduler.scheduleSync()
+        workScheduler.scheduleSync()
     }
 
     /**

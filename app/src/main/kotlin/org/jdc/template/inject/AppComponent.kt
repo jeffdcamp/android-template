@@ -4,7 +4,7 @@ package org.jdc.template.inject
 import android.app.Application
 import dagger.Component
 import org.jdc.template.App
-import org.jdc.template.job.SyncWorker
+import org.jdc.template.work.SyncWorker
 import org.jdc.template.ui.fragment.SettingsFragment
 import org.jdc.template.ux.ViewModelModule
 import org.jdc.template.ux.about.AboutFragment

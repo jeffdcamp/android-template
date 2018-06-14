@@ -1,4 +1,4 @@
-package org.jdc.template.job
+package org.jdc.template.work
 
 
 import androidx.work.Constraints
@@ -11,7 +11,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class AppWorkScheduler
+class WorkScheduler
 @Inject constructor(
     private val workManager: WorkManager
 ) {

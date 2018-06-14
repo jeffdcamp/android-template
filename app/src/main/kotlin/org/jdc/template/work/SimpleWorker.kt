@@ -1,4 +1,4 @@
-package org.jdc.template.job
+package org.jdc.template.work
 
 import android.support.annotation.WorkerThread
 import androidx.work.Data
