@@ -44,7 +44,7 @@ class AppWorkScheduler
 
         val workRequest = workRequestBuilder.build()
 
-        workManager.beginUniqueWork(SyncWorker.TAG, ExistingWorkPolicy.REPLACE, workRequest)
+        workManager.beginUniqueWork(SyncWorker.UNIQUE_WORK_NAME, ExistingWorkPolicy.REPLACE, workRequest)
             .enqueue()
     }
 }

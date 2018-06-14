@@ -55,6 +55,6 @@ class SyncWorker : Worker() {
     }
 
     companion object {
-        const val TAG = "SyncWorker"
+        const val UNIQUE_WORK_NAME = "SyncWorker"
     }
 }

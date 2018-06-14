@@ -29,7 +29,6 @@ class SimpleWorker : Worker() {
     }
 
     companion object {
-        const val TAG = "SimpleWorker"
         private const val KEY_TEXT = "TEXT"
 
         fun createInputData(
