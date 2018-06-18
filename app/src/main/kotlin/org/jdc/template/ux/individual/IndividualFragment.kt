@@ -90,7 +90,7 @@ class IndividualFragment : BaseFragment() {
         MaterialDialog.Builder(requireActivity())
                 .content(R.string.delete_individual_confirm)
                 .positiveText(R.string.delete)
-                .onPositive({_,_ -> viewModel.deleteTask()})
+                .onPositive { _, _ -> viewModel.deleteTask()}
                 .negativeText(R.string.cancel)
                 .show()
     }
