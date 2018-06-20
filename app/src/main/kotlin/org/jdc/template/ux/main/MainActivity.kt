@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.Menu
 import androidx.navigation.findNavController
+import androidx.navigation.ui.setupActionBarWithNavController
 import org.jdc.template.R
 import org.jdc.template.databinding.MainActivityBinding
 import org.jdc.template.ui.activity.LiveDataObserverActivity
@@ -11,6 +12,7 @@ import org.jdc.template.ui.activity.LiveDataObserverActivity
 class MainActivity : LiveDataObserverActivity() {
 
     private lateinit var binding: MainActivityBinding
+    private val navController by lazy { findNavController(R.id.main_nav_host_fragment) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,9 +24,11 @@ class MainActivity : LiveDataObserverActivity() {
             setHomeButtonEnabled(true)
             setDisplayHomeAsUpEnabled(true)
         }
+
+        setupActionBarWithNavController(navController)
     }
 
-    override fun onSupportNavigateUp() = findNavController(R.id.main_nav_host_fragment).navigateUp()
+    override fun onSupportNavigateUp() = navController.navigateUp()
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.common_menu, menu)
