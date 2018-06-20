@@ -26,7 +26,7 @@ class SyncWorker : Worker() {
     }
 
     @WorkerThread
-    override fun doWork(): WorkerResult {
+    override fun doWork(): Result {
         logProgress("RUNNING")
 
         // simulate some work...
@@ -35,9 +35,9 @@ class SyncWorker : Worker() {
         Thread.sleep(5000)
         logProgress("WORK1-FINISHED")
 
-        if (isStopped) {
+        if (isCancelled) {
             logProgress("WORK2-SKIPPED")
-            return WorkerResult.SUCCESS
+            return Result.SUCCESS
         }
 
         // simulate some work...
@@ -47,7 +47,7 @@ class SyncWorker : Worker() {
 
         logProgress("FINISHED")
         // return result
-        return WorkerResult.SUCCESS
+        return Result.SUCCESS
     }
 
     private fun logProgress(progress: String) {

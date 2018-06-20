@@ -10,7 +10,7 @@ import timber.log.Timber
  */
 class SimpleWorker : Worker() {
     @WorkerThread
-    override fun doWork(): WorkerResult {
+    override fun doWork(): Result {
         val inputText = inputData.getString(KEY_TEXT, "")
 
         logProgress("RUNNING: Text: [$inputText]")
@@ -21,7 +21,7 @@ class SimpleWorker : Worker() {
         }
 
         // return result
-        return WorkerResult.SUCCESS
+        return Result.SUCCESS
     }
 
     private fun logProgress(progress: String) {

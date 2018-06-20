@@ -28,9 +28,9 @@ ext {
     // versions for libraries that multiple dependencies
     supportLibVersion = '27.1.1'
     archLifecycleVersion = '1.1.1'
-    archRoomVersion = '1.1.1-rc1'
+    archRoomVersion = '1.1.1'
     archNavigationVersion = '1.0.0-alpha02'
-    archWorkVersion = '1.0.0-alpha02'
+    archWorkVersion = '1.0.0-alpha03'
     playServicesVersion = '16.0.1'
     daggerVersion = '2.16'
     okhttpVersion = '3.10.0'
