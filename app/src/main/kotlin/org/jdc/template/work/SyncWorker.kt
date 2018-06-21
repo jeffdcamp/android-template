@@ -35,7 +35,7 @@ class SyncWorker : Worker() {
         Thread.sleep(5000)
         logProgress("WORK1-FINISHED")
 
-        if (isCancelled) {
+        if (isStopped) {
             logProgress("WORK2-SKIPPED")
             return Result.SUCCESS
         }
