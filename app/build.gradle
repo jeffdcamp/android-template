@@ -30,7 +30,7 @@ ext {
     archLifecycleVersion = '1.1.1'
     archRoomVersion = '1.1.1'
     archNavigationVersion = '1.0.0-alpha02'
-    archWorkVersion = '1.0.0-alpha03'
+    archWorkVersion = '1.0.0-alpha04'
     playServicesVersion = '16.0.1'
     daggerVersion = '2.16'
     okhttpVersion = '3.10.0'
@@ -53,7 +53,7 @@ dependencies {
     implementation 'androidx.core:core-ktx:0.3'
 
     // Code
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.23.3"
     implementation 'me.eugeniomarletti:android-extras-delegates:1.0.5'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.1.0'

@@ -14,9 +14,9 @@ import dagger.Module
 import dagger.Provides
 import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
+import org.jdc.template.json.LocalDateTimeTypeConverter
 import org.jdc.template.model.db.main.MainDatabase
 import org.jdc.template.model.webservice.ServiceModule
-import org.jdc.template.json.LocalDateTimeTypeConverter
 import org.jdc.template.util.CoroutineContextProvider
 import org.threeten.bp.LocalDateTime
 import retrofit2.converter.gson.GsonConverterFactory
@@ -96,6 +96,6 @@ class AppModule(private val application: Application) {
     @Provides
     @Singleton
     fun provideWorkManager(): WorkManager {
-        return WorkManager.getInstance()
+        return WorkManager.getInstance()!!
     }
 }

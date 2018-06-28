@@ -50,67 +50,67 @@ object ThreeTenFormatter {
 
     // Date and Time
     fun localDateTimeToDBString(d: LocalDateTime?): String? {
-        if (d != null) {
-            return DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(d)
+        return if (d != null) {
+            DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(d)
         } else {
-            return null
+            null
         }
     }
 
     fun dbStringToLocalDateTime(text: String?): LocalDateTime? {
-        if (text != null && text.isNotEmpty() && text != "null") {
+        return if (text != null && text.isNotEmpty() && text != "null") {
             try {
-                return LocalDateTime.parse(text, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+                LocalDateTime.parse(text, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
             } catch (ex: Exception) {
-                throw IllegalArgumentException("Cannot parse date time text: " + text, ex)
+                throw IllegalArgumentException("Cannot parse date time text: $text", ex)
             }
 
         } else {
-            return null
+            null
         }
     }
 
     // Date only
     fun localDateToDBString(d: LocalDate?): String? {
-        if (d != null) {
-            return DateTimeFormatter.ISO_LOCAL_DATE.format(d)
+        return if (d != null) {
+            DateTimeFormatter.ISO_LOCAL_DATE.format(d)
         } else {
-            return null
+            null
         }
     }
 
     fun dbStringToLocalDate(text: String?): LocalDate? {
-        if (text != null && text.isNotEmpty() && text != "null") {
+        return if (text != null && text.isNotEmpty() && text != "null") {
             try {
-                return LocalDate.parse(text, DateTimeFormatter.ISO_LOCAL_DATE)
+                LocalDate.parse(text, DateTimeFormatter.ISO_LOCAL_DATE)
             } catch (ex: Exception) {
-                throw IllegalArgumentException("Cannot parse date text: " + text, ex)
+                throw IllegalArgumentException("Cannot parse date text: $text", ex)
             }
 
         } else {
-            return null
+            null
         }
     }
 
     // Time only
     fun localTimeToDBString(d: LocalTime?): String? {
-        if (d != null) {
-            return DateTimeFormatter.ISO_LOCAL_TIME.format(d)
+        return if (d != null) {
+            DateTimeFormatter.ISO_LOCAL_TIME.format(d)
         } else {
-            return null
+            null
         }
     }
 
     fun dbStringToLocalTime(text: String?): LocalTime? {
-        if (text != null && text.isNotEmpty() && text != "null") {
+        return if (text != null && text.isNotEmpty() && text != "null") {
             try {
-                return LocalTime.parse(text, DateTimeFormatter.ISO_LOCAL_TIME)
+                LocalTime.parse(text, DateTimeFormatter.ISO_LOCAL_TIME)
             } catch (ex: Exception) {
-                throw IllegalArgumentException("Cannot parse time text: " + text, ex)
+                throw IllegalArgumentException("Cannot parse time text: $text", ex)
             }
 
         } else {
-            return null
+            null
         }
     }
 }
