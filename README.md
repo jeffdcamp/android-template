@@ -17,7 +17,7 @@ Sample Android app that utilizes common best practices
 * Kotlin Coroutines
 * ThreeTenBp
 * Constraint Layout
-* RecyclerView / RecyclerDiffAdapter / ViewHolder
+* RecyclerView / ListAdapter / ViewHolder
 * Retrofit / Okhttp3
 * Gson
 * Espresso Tests
