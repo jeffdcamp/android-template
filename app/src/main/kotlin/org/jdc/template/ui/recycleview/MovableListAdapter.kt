@@ -11,7 +11,8 @@ abstract class MovableListAdapter<T, VH : RecyclerView.ViewHolder>(diffCallback:
 
     private val asyncListDiffer = AsyncListDiffer(AdapterListUpdateCallback(this), AsyncDifferConfig.Builder(diffCallback).build())
 
-    private val lock = Any()
+    @Suppress("MemberVisibilityCanBePrivate") // allow override for a subclass
+    protected val lock = Any()
 
     /**
      * Submits a new list to be diffed, and displayed.

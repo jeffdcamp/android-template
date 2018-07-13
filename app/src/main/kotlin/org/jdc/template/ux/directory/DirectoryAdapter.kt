@@ -25,7 +25,7 @@ class DirectoryAdapter(
     class ViewHolder(parent: ViewGroup) : BindingViewHolder<ListItemBinding>(R.layout.list_item, parent)
 
     companion object {
-        val DIFF_CALLBACK: DiffUtil.ItemCallback<IndividualDao.DirectoryListItem> = object : DiffUtil.ItemCallback<IndividualDao.DirectoryListItem>() {
+        private val DIFF_CALLBACK: DiffUtil.ItemCallback<IndividualDao.DirectoryListItem> = object : DiffUtil.ItemCallback<IndividualDao.DirectoryListItem>() {
             override fun areItemsTheSame(oldItem: IndividualDao.DirectoryListItem, newItem: IndividualDao.DirectoryListItem): Boolean {
                 return oldItem.id == newItem.id
             }

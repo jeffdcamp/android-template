@@ -33,7 +33,7 @@ ext {
     archWorkVersion = '1.0.0-alpha04'
     playServicesVersion = '16.0.1'
     daggerVersion = '2.16'
-    okhttpVersion = '3.10.0'
+    okhttpVersion = '3.11.0'
     dbtoolsRoomVersion = '2.0.0'
 }
 
