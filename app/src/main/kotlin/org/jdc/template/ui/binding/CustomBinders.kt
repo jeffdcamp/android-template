@@ -1,11 +1,12 @@
 package org.jdc.template.ui.binding
 
 import android.databinding.BindingAdapter
+import android.support.v7.recyclerview.extensions.ListAdapter
 import android.support.v7.widget.RecyclerView
 import android.text.format.DateUtils
 import android.widget.TextView
 import org.jdc.template.model.db.converter.ThreeTenFormatter
-import org.jdc.template.ui.recycleview.RecyclerViewDiffAdapter
+import org.jdc.template.ui.recycleview.MovableListAdapter
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalTime
 import org.threeten.bp.ZoneId
@@ -37,13 +38,22 @@ object CustomBinders {
     }
 
     @JvmStatic
-    @BindingAdapter("items")
-    fun <T, VH : RecyclerView.ViewHolder> setItems(recyclerView: RecyclerView, items: List<T>?) {
-        items ?: return
+    @BindingAdapter("list")
+    fun <T, VH : RecyclerView.ViewHolder> setItems(recyclerView: RecyclerView, list: List<T>?) {
+        list ?: return
 
         @Suppress("UNCHECKED_CAST")
-        val adapter = recyclerView.adapter as? RecyclerViewDiffAdapter<T, VH> ?: error("Must use a RecyclerViewDiffAdapter for app:items")
-        adapter.items = items
+        when {
+            recyclerView.adapter is ListAdapter<*, *> -> {
+                val adapter = recyclerView.adapter as ListAdapter<T, VH>
+                adapter.submitList(list)
+            }
+            recyclerView.adapter is MovableListAdapter<*, *> -> {
+                val adapter = recyclerView.adapter as MovableListAdapter<T, VH>
+                adapter.submitList(list)
+            }
+            else -> error("Must use a ListAdapter or MovableListAdapter for app:adapterList")
+        }
     }
 
     @JvmStatic

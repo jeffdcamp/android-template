@@ -182,6 +182,7 @@ fun <R : RecyclerView> R.setupDragDrop(
 
 /**
  * Usage:
+ * === LONG-PRESS (default) ===
  * recyclerView.setupDragDrop(onMove = {originalPosition, endPosition -> adapter.move(originalPosition, endPosition)) {
  *     // code that happens when drag is finished
  *     saveOrder(adapter.items)
