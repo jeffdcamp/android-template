@@ -6,7 +6,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:1.0.0-alpha02"
+        classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:1.0.0-alpha03"
     }
 }
 
@@ -29,7 +29,7 @@ ext {
     supportLibVersion = '27.1.1'
     archLifecycleVersion = '1.1.1'
     archRoomVersion = '1.1.1'
-    archNavigationVersion = '1.0.0-alpha02'
+    archNavigationVersion = '1.0.0-alpha03'
     archWorkVersion = '1.0.0-alpha04'
     playServicesVersion = '16.0.1'
     daggerVersion = '2.16'

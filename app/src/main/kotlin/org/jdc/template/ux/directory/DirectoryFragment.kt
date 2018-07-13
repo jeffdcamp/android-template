@@ -100,7 +100,7 @@ class DirectoryFragment : BaseFragment() {
     }
 
     private fun showIndividual(individualId: Long) {
-        val directions = DirectoryFragmentDirections.showIndividual(individualId.toString())
+        val directions = DirectoryFragmentDirections.showIndividual(individualId)
         findNavController().navigate(directions)
     }
 

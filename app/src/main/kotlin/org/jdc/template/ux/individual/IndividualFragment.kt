@@ -52,14 +52,14 @@ class IndividualFragment : BaseFragment() {
         setupViewModelObservers()
 
         val args = IndividualFragmentArgs.fromBundle(arguments)
-        viewModel.setIndividualId(args.individualId.toLongOrNull() ?: 0L)
+        viewModel.setIndividualId(args.individualId)
     }
 
     private fun setupViewModelObservers() {
         // Events
         viewModel.onEditIndividualEvent.observeNotNull { individualId ->
             val directions = IndividualFragmentDirections.editIndividual()
-            directions.setIndividualId(individualId.toString())
+            directions.setIndividualId(individualId)
             this@IndividualFragment.findNavController().navigate(directions)
         }
         viewModel.onIndividualDeletedEvent.observe {

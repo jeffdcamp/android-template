@@ -54,7 +54,7 @@ class IndividualEditFragment : LiveDataObserverFragment() {
 
         val args = IndividualEditFragmentArgs.fromBundle(arguments)
 
-        viewModel.loadIndividual(args.individualId.toLongOrNull() ?: 0L)
+        viewModel.loadIndividual(args.individualId)
     }
 
     private fun setupViewModelObservers() {
@@ -102,10 +102,4 @@ class IndividualEditFragment : LiveDataObserverFragment() {
 
         alarmTimePickerDialog.show()
     }
-
-//    companion object : ActivityCompanion<IntentOptions>(IntentOptions, IndividualEditFragment::class)
-//
-//    object IntentOptions {
-//        var Intent.individualId by IntentExtra.Long(defaultValue = -1L)
-//    }
 }
