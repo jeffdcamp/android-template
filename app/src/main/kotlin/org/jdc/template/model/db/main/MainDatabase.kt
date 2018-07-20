@@ -18,6 +18,6 @@ abstract class MainDatabase : RoomDatabase() {
     abstract val householdDao: HouseholdDao
 
     companion object {
-        const val DATABASE_NAME = "main"
+        const val DATABASE_NAME = "main.db"
     }
 }
