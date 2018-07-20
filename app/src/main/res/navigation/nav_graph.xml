@@ -31,7 +31,7 @@
             app:destination="@id/individualEditFragment"/>
         <argument
             android:name="individualId"
-            app:type="long"/>
+            app:argType="long"/>
     </fragment>
     <fragment
         android:id="@+id/individualEditFragment"
@@ -41,7 +41,7 @@
         <argument
             android:name="individualId"
             android:defaultValue="0L"
-            app:type="long"/>
+            app:argType="long"/>
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
