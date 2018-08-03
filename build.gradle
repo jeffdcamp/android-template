@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlinVersion = '1.2.51'
+    ext.kotlinVersion = '1.2.60'
     // ext.gradlePluginVersion = '3.2.0-alpha18' (may be needed for the databinding and kapt)
 
     repositories {
