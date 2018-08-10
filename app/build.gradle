@@ -24,19 +24,6 @@ def versionBuild = 0
 def versionMajorMinorPatchBuild = "${versionMajor}.${versionMinor}.${versionPatch}.${versionBuild}"
 def buildTime = new Date().getTime()
 
-ext {
-    // versions for libraries that multiple dependencies
-    supportLibVersion = '27.1.1'
-    archLifecycleVersion = '1.1.1'
-    archRoomVersion = '1.1.1'
-    archNavigationVersion = '1.0.0-alpha04'
-    archWorkVersion = '1.0.0-alpha05'
-    playServicesVersion = '16.0.1'
-    daggerVersion = '2.16'
-    okhttpVersion = '3.11.0'
-    dbtoolsRoomVersion = '2.0.0'
-}
-
 dependencies {
     // Android
     implementation "com.android.support:appcompat-v7:${supportLibVersion}"
@@ -45,22 +32,22 @@ dependencies {
     implementation "com.android.support:design:${supportLibVersion}"
     implementation "com.android.support:support-annotations:${supportLibVersion}" // includes support-v4
     implementation "com.android.support:support-v13:${supportLibVersion}" // needed by material dialogs (depending on older version)
-    implementation 'com.android.support:multidex:1.0.3'
-    implementation 'com.android.support:multidex-instrumentation:1.0.3'
+    implementation "com.android.support:multidex:$multiDexVersion"
+    implementation "com.android.support:multidex-instrumentation:$multiDexVersion"
     implementation "com.google.android.gms:play-services-analytics:${playServicesVersion}"
-//    implementation "com.google.android.gms:play-services-oss-licenses:${playServicesVersion}"
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-    implementation 'androidx.core:core-ktx:0.3'
+//    implementation "com.google.android.gms:play-services-oss-licenses:$playServicesVersion"
+    implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
+    implementation "androidx.core:core-ktx:$coreKtxVersion"
 
     // Code
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.24.0"
-    implementation 'me.eugeniomarletti:android-extras-delegates:1.0.5'
-    implementation 'com.jakewharton.threetenabp:threetenabp:1.1.0'
-    implementation 'com.jakewharton.timber:timber:4.7.1'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
+    implementation "me.eugeniomarletti:android-extras-delegates:$delegatesVersion"
+    implementation "com.jakewharton.threetenabp:threetenabp:$threeTenABpVersion"
+    implementation "com.jakewharton.timber:timber:$timberVersion"
 
     // UI
-    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
+    implementation "com.afollestad.material-dialogs:core:$materialDialogsVersion"
 
     // === Android Architecture Components ===
     implementation "android.arch.lifecycle:extensions:$archLifecycleVersion"
@@ -74,9 +61,6 @@ dependencies {
     // WorkManager
     implementation "android.arch.work:work-runtime-ktx:$archWorkVersion"
 
-    // Databind (needed to support Kotlin)
-    // kapt "androidx.databinding:databinding-compiler-common:$gradlePluginVersion"
-
     // Database
     implementation "android.arch.persistence.room:runtime:$archRoomVersion"
     kapt "android.arch.persistence.room:compiler:$archRoomVersion"
@@ -86,12 +70,12 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
 
     // JSON Parsing
-    implementation "com.google.code.gson:gson:2.8.5"
-    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation "com.google.code.gson:gson:$gsonVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
 
     // Dagger 2
-    implementation "com.google.dagger:dagger:${daggerVersion}"
-    kapt "com.google.dagger:dagger-compiler:${daggerVersion}"
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
 
     // Custom SQLite database
 
@@ -99,33 +83,33 @@ dependencies {
 //    implementation "org.dbtools:dbtools-room:$dbtoolsRoomVersion"
 //    implementation "org.dbtools:dbtools-room-sqliteorg:$dbtoolsRoomVersion"
 
-//    implementation 'org.sqlite.sqliteX:sqlite-android:3.15.2'
+//    implementation "org.sqlite.sqliteX:sqlite-android:3.15.2"
 
-//    implementation 'org.sqlite:sqlite-android:3.8.9.0-20150415'
-//    implementation 'net.sqlcipher:sqlcipher-aar:3.1.0.20140823'
+//    implementation "org.sqlite:sqlite-android:3.8.9.0-20150415"
+//    implementation "net.sqlcipher:sqlcipher-aar:3.1.0.20140823"
 
     // Test (Integration)
     // Espresso core dependencies
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation "com.android.support:support-annotations:${supportLibVersion}" // fix dependency conflict warning
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoVersion"
+    androidTestImplementation "com.android.support.test:runner:$testRunnerVersion"
+    androidTestImplementation "com.android.support:support-annotations:$supportLibVersion" // fix dependency conflict warning
 
     // Espresso contrib dependencies
-    androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2'
-    androidTestImplementation 'com.android.support.test:rules:1.0.2'
-    androidTestImplementation "com.android.support:appcompat-v7:${supportLibVersion}"
-    androidTestImplementation "com.android.support:recyclerview-v7:${supportLibVersion}"
-    androidTestImplementation "com.android.support:design:${supportLibVersion}"
+    androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$espressoVersion"
+    androidTestImplementation "com.android.support.test:rules:$testRunnerVersion"
+    androidTestImplementation "com.android.support:appcompat-v7:$supportLibVersion"
+    androidTestImplementation "com.android.support:recyclerview-v7:$supportLibVersion"
+    androidTestImplementation "com.android.support:design:$supportLibVersion"
 
     // Test (Unit)
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-core:2.21.0' // be sure to add src/test/resources/mockito-extensions (so you don't have to 'open' all of your classes)
+    testImplementation "junit:junit:$junitVersion"
+    testImplementation "org.mockito:mockito-core:$mockitoVersion" // be sure to add src/test/resources/mockito-extensions (so you don't have to 'open' all of your classes)
     testImplementation "com.squareup.okhttp3:mockwebserver:$okhttpVersion"
-    testImplementation 'org.threeten:threetenbp:1.3.6'
-    testImplementation 'org.xerial:sqlite-jdbc:3.23.1'
+    testImplementation "org.threeten:threetenbp:$threeTenBpVersion"
+    testImplementation "org.xerial:sqlite-jdbc:$xerialVersion"
     testImplementation "android.arch.persistence.room:testing:$archRoomVersion"
     testImplementation "org.dbtools:dbtools-room-jdbc:$dbtoolsRoomVersion"
-    kaptTest "com.google.dagger:dagger-compiler:${daggerVersion}"
+    kaptTest "com.google.dagger:dagger-compiler:$daggerVersion"
 }
 
 // todo JetBrains has indicated that coroutines are stable, but the kotlinx-coroutines designs may change ... remove this when kotlinx-coroutines are no longer experimental
@@ -143,12 +127,12 @@ kapt {
 }
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    compileSdkVersion project.compileSdk
+    buildToolsVersion project.buildTools
 
     defaultConfig {
-        minSdkVersion 17
-        targetSdkVersion 27
+        minSdkVersion project.minSdk
+        targetSdkVersion project.targetSdk
 
         versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
         versionName versionMajorMinorPatchBuild
