@@ -3,18 +3,18 @@ package org.jdc.template
 import java.io.File
 
 object TestFilesystem {
-    val FILESYSTEM_DIR_PATH = "build/test-filesystem"
+    const val FILESYSTEM_DIR_PATH = "build/test-filesystem"
     val FILESYSTEM_DIR = File(FILESYSTEM_DIR_PATH)
-    val INTERNAL_DIR_PATH = FILESYSTEM_DIR_PATH + "/internal"
+    const val INTERNAL_DIR_PATH = "$FILESYSTEM_DIR_PATH/internal"
     val INTERNAL_DIR = File(INTERNAL_DIR_PATH)
-    val EXTERNAL_DIR_PATH = FILESYSTEM_DIR_PATH + "/external"
+    const val EXTERNAL_DIR_PATH = "$FILESYSTEM_DIR_PATH/external"
     val EXTERNAL_DIR = File(EXTERNAL_DIR_PATH)
 
-    val INTERNAL_FILES_DIR_PATH = INTERNAL_DIR_PATH + "/files"
+    const val INTERNAL_FILES_DIR_PATH = "$INTERNAL_DIR_PATH/files"
     val INTERNAL_FILES_DIR = File(INTERNAL_FILES_DIR_PATH)
-    val INTERNAL_DATABASES_DIR_PATH = INTERNAL_DIR_PATH + "/databases"
+    const val INTERNAL_DATABASES_DIR_PATH = "$INTERNAL_DIR_PATH/databases"
 
-    val EXTERNAL_FILES_DIR_PATH = EXTERNAL_DIR_PATH + "/files"
+    const val EXTERNAL_FILES_DIR_PATH = "$EXTERNAL_DIR_PATH/files"
     val EXTERNAL_FILES_DIR = File(EXTERNAL_FILES_DIR_PATH)
 
     fun deleteFilesystem() {
@@ -36,6 +36,5 @@ object TestFilesystem {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
     }
 }

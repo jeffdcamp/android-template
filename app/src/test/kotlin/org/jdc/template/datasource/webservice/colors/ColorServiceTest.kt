@@ -1,25 +1,36 @@
 package org.jdc.template.datasource.webservice.colors
 
+import dagger.Component
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
-import org.jdc.template.inject.TestInjector
+import org.jdc.template.inject.CommonTestModule
+import org.jdc.template.log.JavaTree
+import org.jdc.template.model.repository.IndividualRepositoryTestModule
 import org.jdc.template.model.webservice.colors.ColorService
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
+import org.mockito.MockitoAnnotations
+import timber.log.Timber
 import java.net.SocketTimeoutException
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+import javax.inject.Singleton
 
 class ColorServiceTest {
 
-    @Inject lateinit var colorService: ColorService
-    @Inject lateinit var mockWebServer: MockWebServer
+    @Inject
+    lateinit var colorService: ColorService
+    @Inject
+    lateinit var mockWebServer: MockWebServer
 
     @Before
     fun setup() {
-        TestInjector.init()
-        TestInjector.get().inject(this)
+        MockitoAnnotations.initMocks(this)
+        Timber.plant(JavaTree())
+
+        val component = DaggerColorServiceTestComponent.builder().build()
+        component.inject(this)
     }
 
     @Test
@@ -67,4 +78,10 @@ class ColorServiceTest {
             }
         """
     }
+}
+
+@Singleton
+@Component(modules = [CommonTestModule::class, IndividualRepositoryTestModule::class])
+interface ColorServiceTestComponent {
+    fun inject(test: ColorServiceTest)
 }

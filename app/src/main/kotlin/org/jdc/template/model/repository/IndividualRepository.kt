@@ -19,6 +19,7 @@ class IndividualRepository
     fun getIndividualLiveData(individualId: Long) = individualDao().findByIdLiveData(individualId)
     fun getAllIndividuals() = individualDao().findAll()
     fun getIndividualCount() = individualDao().findCount()
+    fun getIndividualFirstName(individualId: Long) = individualDao().findFirstName(individualId)
 
     fun saveIndividual(individual: Individual) {
         if (individual.id <= 0) {

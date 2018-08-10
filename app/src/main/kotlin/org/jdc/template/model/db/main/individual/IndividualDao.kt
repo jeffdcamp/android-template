@@ -45,6 +45,9 @@ interface IndividualDao {
     @TypeConverters(DateTimeLongConverter::class)
     fun findLastModified(id: Long): LocalDateTime?
 
+    @Query("SELECT firstName FROM individual WHERE id = :id")
+    fun findFirstName(id: Long): String?
+
     data class DirectoryListItem(val id: Long, val firstName: String, val lastName: String) {
         fun getFullName() = firstName + " " + lastName
     }

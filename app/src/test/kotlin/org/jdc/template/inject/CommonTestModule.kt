@@ -10,9 +10,7 @@ import org.jdc.template.Analytics
 import org.jdc.template.TestFilesystem
 import org.jdc.template.model.webservice.colors.ColorService
 import org.jdc.template.util.CoroutineContextProvider
-import org.mockito.AdditionalMatchers.or
 import org.mockito.ArgumentMatchers.anyString
-import org.mockito.ArgumentMatchers.isNull
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.doAnswer
 import org.mockito.Mockito.mock
@@ -49,23 +47,10 @@ class CommonTestModule {
             } else {
                 return@doAnswer TestFilesystem.EXTERNAL_FILES_DIR
             }
-        }.`when`(application).getExternalFilesDir(or(isNull(String::class.java), anyString()))
+        }.`when`(application).getExternalFilesDir(anyString())
 
         return application
     }
-
-//    @Provides
-//    @Singleton
-//    internal fun provideDatabaseManager(databaseConfig: DatabaseConfig): DatabaseManager {
-//        val databaseManager = spy(DatabaseManager(databaseConfig))
-//
-//        // don't allow the database to be upgraded
-//        doNothing().`when`(databaseManager).onUpgrade(MockitoKotlinHelper.any(), anyInt(), anyInt())
-//
-//        JdbcSqliteDatabaseWrapper.setEnableLogging(true)
-//
-//        return databaseManager
-//    }
 
     @Provides
     @Singleton

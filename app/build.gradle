@@ -123,6 +123,8 @@ dependencies {
     testImplementation "com.squareup.okhttp3:mockwebserver:$okhttpVersion"
     testImplementation 'org.threeten:threetenbp:1.3.6'
     testImplementation 'org.xerial:sqlite-jdbc:3.23.1'
+    testImplementation "android.arch.persistence.room:testing:$archRoomVersion"
+    testImplementation "org.dbtools:dbtools-room-jdbc:$dbtoolsRoomVersion"
     kaptTest "com.google.dagger:dagger-compiler:${daggerVersion}"
 }
 
