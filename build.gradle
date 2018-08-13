@@ -50,7 +50,7 @@ ext {
     coreKtxVersion = '0.3'
     archLifecycleVersion = '1.1.1'
     archRoomVersion = '1.1.1'
-    archNavigationVersion = '1.0.0-alpha04'
+    archNavigationVersion = '1.0.0-alpha05'
     archWorkVersion = '1.0.0-alpha06'
     playServicesVersion = '16.0.1'
     constraintLayoutVersion = '1.1.2'
