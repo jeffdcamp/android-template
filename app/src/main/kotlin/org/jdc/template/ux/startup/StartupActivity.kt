@@ -54,10 +54,9 @@ class StartupActivity : LiveDataObserverActivity() {
     }
 
     private fun devPauseStartup() {
-        MaterialDialog.Builder(this)
-                .content("Paused for debugger attachment")
-                .positiveText("OK")
-                .onPositive { _, _ -> viewModel.startup() }
-                .show()
+        MaterialDialog(this).show {
+            message(text = "Paused for debugger attachment")
+            positiveButton(text = "OK") { viewModel.startup() }
+        }
     }
 }

@@ -25,18 +25,18 @@ allprojects {
     apply plugin: 'com.github.ben-manes.versions' // ./gradlew dependencyUpdates -Drevision=release
 
     // exclude alpha, beta, etc versions in dependency report
-    dependencyUpdates.resolutionStrategy {
-        componentSelection { rules ->
-            rules.all { ComponentSelection selection ->
-                boolean rejected = ['alpha', 'beta'].any { qualifier ->
-                    selection.candidate.version ==~ /(?i).*[.-]${qualifier}[.\d-]*/
-                }
-                if (rejected) {
-                    selection.reject('Release candidate')
-                }
-            }
-        }
-    }
+//    dependencyUpdates.resolutionStrategy {
+//        componentSelection { rules ->
+//            rules.all { ComponentSelection selection ->
+//                boolean rejected = ['alpha', 'beta'].any { qualifier ->
+//                    selection.candidate.version ==~ /(?i).*[.-]${qualifier}[.\d-]*/
+//                }
+//                if (rejected) {
+//                    selection.reject('Release candidate')
+//                }
+//            }
+//        }
+//    }
 }
 
 ext {

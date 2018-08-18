@@ -87,11 +87,12 @@ class IndividualFragment : BaseFragment() {
     }
 
     private fun promptDeleteIndividual() {
-        MaterialDialog.Builder(requireActivity())
-                .content(R.string.delete_individual_confirm)
-                .positiveText(R.string.delete)
-                .onPositive { _, _ -> viewModel.deleteTask()}
-                .negativeText(R.string.cancel)
-                .show()
+        MaterialDialog(requireActivity()).show {
+            message(R.string.delete_individual_confirm)
+            positiveButton(R.string.delete) {
+                viewModel.deleteTask()
+            }
+            negativeButton(R.string.cancel)
+        }
     }
 }
