@@ -86,7 +86,7 @@ class SmokeTest {
         val deleteMenuItemView = onView(allOf<View>(withId(org.jdc.template.R.id.menu_item_delete), withContentDescription("Delete"), isDisplayed()))
         deleteMenuItemView.perform(click())
 
-        val deleteDialogButton = onView(allOf<View>(withId(R.id.md_buttonDefaultPositive), withText("Delete"), isDisplayed()))
+        val deleteDialogButton = onView(allOf<View>(withId(R.id.md_button_positive), withText("Delete"), isDisplayed()))
         deleteDialogButton.perform(click())
 
         val directoryRecyclerView3 = onView(allOf<View>(withId(org.jdc.template.R.id.recyclerView), isDisplayed()))
