@@ -17,12 +17,10 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs'
 
 // Manifest version information
-def versionMajor = 1
-def versionMinor = 0
-def versionPatch = 0
-def versionBuild = 0
-def versionMajorMinorPatchBuild = "${versionMajor}.${versionMinor}.${versionPatch}.${versionBuild}"
 def buildTime = new Date().getTime()
+def appVersionName = '1.0.0'
+ext.versionCodeAppName = 'android-template'
+ext.minVersionCode = 1000
 
 dependencies {
     // Android
@@ -134,8 +132,10 @@ android {
         minSdkVersion project.minSdk
         targetSdkVersion project.targetSdk
 
-        versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
-        versionName versionMajorMinorPatchBuild
+        versionCode readVersionCode()
+        versionName appVersionName
+
+        buildConfigField "String", "BUILD_NUMBER", "\"${System.getProperty("BUILD_NUMBER")}\""
         buildConfigField "String", "USER_AGENT_APP_NAME", "\"AndroidTemplate\""
         buildConfigField "String", "ANALYTICS_KEY", "\"${getAnalyticsKey()}\""
 
@@ -222,8 +222,8 @@ android {
         release {
             buildConfigField "long", "BUILD_TIME", "${buildTime}l"
             versionNameSuffix ''
-            minifyEnabled true
-            shrinkResources true
+            //minifyEnabled true
+            //shrinkResources true
             signingConfig signingConfigs.prodConfig
         }
     }
@@ -247,4 +247,65 @@ tasks.withType(Test) {
 // Rename and place "myAnalyticsKey" in global gradle.properties
 def getAnalyticsKey() {
     return hasProperty('myAnalyticsKey') ? myAnalyticsKey : ''
+}
+
+/**
+ * Read the versionCode for a specific app.
+ *
+ * Be sure to define the following ABOVE defaultConfig {...}:
+ * ext.versionCodeAppName = 'my-app'
+ * ext.minVersionCode = 100
+ *
+ * Set versionCode in defaultConfig {...}:
+ * versionCode readVersionCode()
+ *
+ * @param increment Increments the version code (NOTE: This will increment AFTER configuration is executed (after defaultConfig {...}) (next build will have the incremented value)
+ * @return current versionCode
+ */
+def readVersionCode(Boolean increment = false) {
+    def versionsFilename = "${versionCodeAppName.toString()}.properties"
+    def versionCodesDirname = "${System.getProperty("user.home")}/.app-version-codes"
+
+    // prepare directory
+    def versionsDir = new File(versionCodesDirname)
+    if (!versionsDir.exists() && !versionsDir.mkdirs()) {
+        throw new IllegalStateException("Cannot create versions directory [${versionsDir.absolutePath}]")
+    }
+
+    // read existing versions file (create if does not exist)
+    def versionPropsFile = new File(versionsDir, versionsFilename)
+    Properties versionProps = new Properties()
+    if (versionPropsFile.canRead()) {
+        versionProps.load(new FileInputStream(versionPropsFile))
+    } else {
+        println("Failed to read properties file [${versionPropsFile.absolutePath}]")
+        versionProps['VERSION_CODE'] = "$minVersionCode"
+    }
+
+    // get the existing version
+    def versionCode = versionProps['VERSION_CODE'].toInteger()
+
+    // make sure the version code is GREATER THAN the minVersionCode
+    if (versionCode < minVersionCode) {
+        versionCode = minVersionCode
+    }
+
+    println("Current build will use versionCode [$versionCode]")
+
+    if (increment) {
+        // increment version code
+        versionCode++
+
+        // write updated version code
+        versionProps['VERSION_CODE'] = versionCode.toString()
+        versionProps.store(versionPropsFile.newWriter(), null)
+
+        println("Incremented versionCode to [$versionCode]")
+    }
+
+    return versionCode
+}
+
+task('incrementVersionCode') << {
+    readVersionCode(true)
 }
