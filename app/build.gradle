@@ -126,7 +126,6 @@ kapt {
 
 android {
     compileSdkVersion project.compileSdk
-    buildToolsVersion project.buildTools
 
     defaultConfig {
         minSdkVersion project.minSdk
