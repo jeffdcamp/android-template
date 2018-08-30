@@ -275,7 +275,9 @@ def readVersionCode(Boolean increment = false) {
     def versionPropsFile = new File(versionsDir, versionsFilename)
     Properties versionProps = new Properties()
     if (versionPropsFile.canRead()) {
-        versionProps.load(new FileInputStream(versionPropsFile))
+        def reader = new FileInputStream(versionPropsFile)
+        versionProps.load(reader)
+        reader.close()
     } else {
         println("Failed to read properties file [${versionPropsFile.absolutePath}]")
         versionProps['VERSION_CODE'] = "$minVersionCode"
@@ -297,7 +299,9 @@ def readVersionCode(Boolean increment = false) {
 
         // write updated version code
         versionProps['VERSION_CODE'] = versionCode.toString()
-        versionProps.store(versionPropsFile.newWriter(), null)
+        def writer = versionPropsFile.newWriter()
+        versionProps.store(writer, null)
+        writer.close()
 
         println("Incremented versionCode to [$versionCode]")
     }
