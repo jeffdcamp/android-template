@@ -50,7 +50,7 @@ ext {
     archLifecycleVersion = '1.1.1'
     archRoomVersion = '1.1.1'
     archNavigationVersion = '1.0.0-alpha05'
-    archWorkVersion = '1.0.0-alpha07'
+    archWorkVersion = '1.0.0-alpha08'
     playServicesVersion = '16.0.3'
     constraintLayoutVersion = '1.1.2'
     multiDexVersion = '1.0.3'
