@@ -56,7 +56,7 @@ ext {
     multiDexVersion = '1.0.3'
 
     // Code
-    coroutinesVersion = '0.24.0'
+    coroutinesVersion = '0.25.3'
     delegatesVersion = '1.0.5'
     daggerVersion = '2.17'
     okhttpVersion = '3.11.0'
