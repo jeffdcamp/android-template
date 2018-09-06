@@ -6,6 +6,9 @@
         <item name="colorAccent">@color/accent</item>
         <item name="android:windowBackground">@color/window_background</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+
+        <!-- Remove all window annimations -->
+        <item name="android:windowAnimationStyle">@null</item>
     </style>
 
     <!-- ActionBar / ToolBar -->
