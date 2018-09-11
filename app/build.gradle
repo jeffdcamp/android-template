@@ -18,9 +18,10 @@ apply plugin: 'androidx.navigation.safeargs'
 
 // Manifest version information
 def buildTime = new Date().getTime()
-def appVersionName = '1.0.0'
 ext.versionCodeAppName = 'android-template'
 ext.minVersionCode = 1000
+def appVersionCode = readVersionCode()
+def appVersionName = "1.0.0 ($appVersionCode.$System.env.BUILD_NUMBER)"
 
 dependencies {
     // Android
@@ -131,7 +132,7 @@ android {
         minSdkVersion project.minSdk
         targetSdkVersion project.targetSdk
 
-        versionCode readVersionCode()
+        versionCode appVersionCode
         versionName appVersionName
 
         buildConfigField "String", "BUILD_NUMBER", "\"${System.getProperty("BUILD_NUMBER")}\""
@@ -200,13 +201,13 @@ android {
 
     buildTypes {
         debug {
-            versionNameSuffix '-DEV'
+            versionNameSuffix ' DEV'
             applicationIdSuffix '.dev'
             buildConfigField "long", "BUILD_TIME", "0l" // to improve build times, do allow change on every build
         }
         alpha {
             initWith(buildTypes.release)
-            versionNameSuffix '-ALPHA'
+            versionNameSuffix ' ALPHA'
             applicationIdSuffix '.dev'
             buildConfigField "long", "BUILD_TIME", "${buildTime}l"
             debuggable true
@@ -214,7 +215,7 @@ android {
         }
         beta {
             initWith(buildTypes.release)
-            versionNameSuffix '-BETA'
+            versionNameSuffix ' BETA'
             buildConfigField "long", "BUILD_TIME", "${buildTime}l"
             signingConfig signingConfigs.prodConfig
         }

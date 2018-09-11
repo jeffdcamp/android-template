@@ -8,13 +8,13 @@ import okhttp3.ResponseBody
 import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
 import org.jdc.template.ext.saveBodyToFile
-import org.jdc.template.work.WorkScheduler
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.db.main.type.IndividualType
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.model.webservice.colors.ColorService
 import org.jdc.template.model.webservice.colors.dto.DtoColors
 import org.jdc.template.util.CoroutineContextProvider
+import org.jdc.template.work.WorkScheduler
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalTime
 import retrofit2.Call
@@ -34,7 +34,7 @@ class AboutViewModel
     private val workScheduler: WorkScheduler
 ) : ViewModel() {
 
-    var appVersion = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
+    var appVersion = BuildConfig.VERSION_NAME
     var appBuildDateTime = BuildConfig.BUILD_TIME
 
     fun logAnalytics() {
