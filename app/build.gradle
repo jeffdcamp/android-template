@@ -111,13 +111,6 @@ dependencies {
     kaptTest "com.google.dagger:dagger-compiler:$daggerVersion"
 }
 
-// todo JetBrains has indicated that coroutines are stable, but the kotlinx-coroutines designs may change ... remove this when kotlinx-coroutines are no longer experimental
-kotlin {
-    experimental {
-        coroutines 'enable' // temp disable warnings
-    }
-}
-
 kapt {
     javacOptions {
         // Increase the max count of errors from annotation processors. (Default is 100)

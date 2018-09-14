@@ -1,12 +1,12 @@
 package org.jdc.template.ux.individualedit
 
-import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
 import kotlinx.coroutines.experimental.launch
 import org.jdc.template.R
 import org.jdc.template.livedata.SingleLiveEvent
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.repository.IndividualRepository
+import org.jdc.template.ui.viewmodel.BaseViewModel
 import org.jdc.template.util.CoroutineContextProvider
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalTime
@@ -14,9 +14,9 @@ import javax.inject.Inject
 
 class IndividualEditViewModel
 @Inject constructor(
-        private val cc: CoroutineContextProvider,
-        private val individualRepository: IndividualRepository
-) : ViewModel() {
+    cc: CoroutineContextProvider,
+    private val individualRepository: IndividualRepository
+) : BaseViewModel(cc) {
 
     var individual = Individual()
 
@@ -34,7 +34,7 @@ class IndividualEditViewModel
     val onShowBirthDateSelectionEvent = SingleLiveEvent<LocalDate>()
     val onShowAlarmTimeSelectionEvent = SingleLiveEvent<LocalTime>()
 
-    fun loadIndividual(individualId: Long) = launch(cc.commonPool) {
+    fun loadIndividual(individualId: Long) = launch {
         individualRepository.getIndividual(individualId)?.let {
             individual = it
 
@@ -47,7 +47,7 @@ class IndividualEditViewModel
         }
     }
 
-    fun saveIndividual() = launch(cc.commonPool) {
+    fun saveIndividual() = launch {
         if (!validate()) {
             return@launch
         }

@@ -2,7 +2,6 @@ package org.jdc.template.ux.individual
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
 import com.google.android.gms.analytics.HitBuilders
 import kotlinx.coroutines.experimental.launch
 import org.jdc.template.Analytics
@@ -10,15 +9,16 @@ import org.jdc.template.livedata.AbsentLiveData
 import org.jdc.template.livedata.SingleLiveEvent
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.repository.IndividualRepository
+import org.jdc.template.ui.viewmodel.BaseViewModel
 import org.jdc.template.util.CoroutineContextProvider
 import javax.inject.Inject
 
 class IndividualViewModel
 @Inject constructor(
-        private val cc: CoroutineContextProvider,
+        cc: CoroutineContextProvider,
         private val analytics: Analytics,
         private val individualRepository: IndividualRepository
-) : ViewModel() {
+) : BaseViewModel(cc) {
 
     private val individualId = MutableLiveData<Long>()
     val individual: LiveData<Individual>
@@ -44,7 +44,7 @@ class IndividualViewModel
 
     fun deleteTask() {
         individualId.value?.let { id ->
-            launch(cc.commonPool) {
+            launch {
                 analytics.send(HitBuilders.EventBuilder().setCategory(Analytics.CATEGORY_INDIVIDUAL).setAction(Analytics.ACTION_DELETE).build())
                 individualRepository.deleteIndividual(id)
 

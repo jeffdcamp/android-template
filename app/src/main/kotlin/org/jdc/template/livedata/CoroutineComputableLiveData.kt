@@ -2,8 +2,10 @@ package org.jdc.template.livedata
 
 import android.arch.lifecycle.MutableLiveData
 import android.support.annotation.WorkerThread
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.CoroutineScope
+import kotlinx.coroutines.experimental.Dispatchers
+import kotlinx.coroutines.experimental.GlobalScope
+import kotlinx.coroutines.experimental.android.Main
 import kotlinx.coroutines.experimental.launch
 import kotlinx.coroutines.experimental.withContext
 import org.jdc.template.util.CoroutineContextProvider
@@ -46,11 +48,11 @@ import kotlin.coroutines.experimental.CoroutineContext
  * @param <T> The type of the live data
  */
 abstract class CoroutineComputableLiveData<T>(
-        private val workerThreadContext: CoroutineContext = CommonPool,
-        private val mainThreadContext: CoroutineContext = UI
-) {
+    private val workerThreadContext: CoroutineContext = Dispatchers.Default,
+    private val mainThreadContext: CoroutineContext = Dispatchers.Main
+) : CoroutineScope {
 
-    constructor(cc: CoroutineContextProvider) : this(cc.commonPool, cc.ui)
+    constructor(cc: CoroutineContextProvider) : this(cc.default, cc.main)
 
     var liveData: MutableLiveData<T>
         private set
@@ -68,7 +70,7 @@ abstract class CoroutineComputableLiveData<T>(
     init {
         liveData = object : MutableLiveData<T>() {
             override fun onActive() {
-                launch(workerThreadContext) {
+                GlobalScope.launch(workerThreadContext) {
                     refresh()
                 }
             }
@@ -113,7 +115,7 @@ abstract class CoroutineComputableLiveData<T>(
      *
      * When there are active observers, this will trigger a call to [.compute].
      */
-    fun invalidate() = launch(mainThreadContext) {
+    fun invalidate() = GlobalScope.launch(mainThreadContext) {
         val isActive = liveData.hasActiveObservers()
         if (invalid.compareAndSet(false, true)) {
             if (isActive) {

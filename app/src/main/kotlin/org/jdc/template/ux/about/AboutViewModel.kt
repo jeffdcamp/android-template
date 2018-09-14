@@ -1,7 +1,6 @@
 package org.jdc.template.ux.about
 
 import android.app.Application
-import android.arch.lifecycle.ViewModel
 import com.google.android.gms.analytics.HitBuilders
 import kotlinx.coroutines.experimental.launch
 import okhttp3.ResponseBody
@@ -13,6 +12,7 @@ import org.jdc.template.model.db.main.type.IndividualType
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.model.webservice.colors.ColorService
 import org.jdc.template.model.webservice.colors.dto.DtoColors
+import org.jdc.template.ui.viewmodel.BaseViewModel
 import org.jdc.template.util.CoroutineContextProvider
 import org.jdc.template.work.WorkScheduler
 import org.threeten.bp.LocalDate
@@ -26,13 +26,13 @@ import javax.inject.Inject
 
 class AboutViewModel
 @Inject constructor(
+    cc: CoroutineContextProvider,
     private val analytics: Analytics,
     private val application: Application,
-    private val cc: CoroutineContextProvider,
     private val individualRepository: IndividualRepository,
     private val colorService: ColorService,
     private val workScheduler: WorkScheduler
-) : ViewModel() {
+) : BaseViewModel(cc) {
 
     var appVersion = BuildConfig.VERSION_NAME
     var appBuildDateTime = BuildConfig.BUILD_TIME
@@ -44,7 +44,7 @@ class AboutViewModel
     /**
      * Creates sample data WITH using injection
      */
-    fun createSampleDataWithInjection() = launch(cc.commonPool) {
+    fun createSampleDataWithInjection() = launch {
         // clear any existing items
         individualRepository.deleteAllIndividuals()
 
@@ -179,7 +179,7 @@ class AboutViewModel
     /**
      * Table change listener tests
      */
-    fun testTableChange() = launch(cc.commonPool) {
+    fun testTableChange() = launch {
         // Sample tests
         if (individualRepository.getIndividualCount() == 0L) {
             Timber.e("No data.. cannot perform test")

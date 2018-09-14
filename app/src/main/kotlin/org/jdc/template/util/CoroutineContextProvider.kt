@@ -1,43 +1,42 @@
 package org.jdc.template.util
 
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.newFixedThreadPoolContext
+import kotlinx.coroutines.experimental.Dispatchers
+import kotlinx.coroutines.experimental.IO
+import kotlinx.coroutines.experimental.android.Main
 import kotlinx.coroutines.experimental.newSingleThreadContext
 import kotlin.coroutines.experimental.CoroutineContext
 
 interface CoroutineContextProvider {
-    val ui: CoroutineContext
-    val network: CoroutineContext
-    val commonPool: CoroutineContext
+    val main: CoroutineContext // Android Main/UI thread
+    val default: CoroutineContext // Normal non-blocking background work
+    val io: CoroutineContext // Blocking background work (network calls, heavy blocking database operations, etc)
 
     object MainCoroutineContextProvider : CoroutineContextProvider {
-        override val ui: CoroutineContext
-            get() = UI
-        override val network: CoroutineContext
-            get() = newFixedThreadPoolContext(2, "network-context")
-        override val commonPool: CoroutineContext
-            get() = CommonPool
-
+        override val main: CoroutineContext
+            get() = Dispatchers.Main
+        override val default: CoroutineContext
+            get() = Dispatchers.Default
+        override val io: CoroutineContext
+            get() = Dispatchers.IO
     }
 
     object TestCoroutineContextProvider : CoroutineContextProvider {
-        override val ui: CoroutineContext
-            get() = CommonPool
-        override val network: CoroutineContext
-            get() = CommonPool
-        override val commonPool: CoroutineContext
-            get() = CommonPool
+        override val main: CoroutineContext
+            get() = Dispatchers.Default
+        override val default: CoroutineContext
+            get() = Dispatchers.Default
+        override val io: CoroutineContext
+            get() = Dispatchers.Default
     }
 
     object TestJDBCCoroutineContextProvider : CoroutineContextProvider {
         private val singleThreadCoroutineContext = newSingleThreadContext("Test Context")
 
-        override val ui: CoroutineContext
+        override val main: CoroutineContext
             get() = singleThreadCoroutineContext
-        override val network: CoroutineContext
+        override val default: CoroutineContext
             get() = singleThreadCoroutineContext
-        override val commonPool: CoroutineContext
+        override val io: CoroutineContext
             get() = singleThreadCoroutineContext
     }
 }

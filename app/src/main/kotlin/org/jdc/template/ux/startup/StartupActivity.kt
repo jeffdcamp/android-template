@@ -7,11 +7,11 @@ import android.os.Bundle
 import com.afollestad.materialdialogs.MaterialDialog
 import org.jdc.template.R
 import org.jdc.template.inject.Injector
-import org.jdc.template.ui.activity.LiveDataObserverActivity
+import org.jdc.template.ui.activity.BaseActivity
 import org.jdc.template.ux.main.MainActivity
 import javax.inject.Inject
 
-class StartupActivity : LiveDataObserverActivity() {
+class StartupActivity : BaseActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory

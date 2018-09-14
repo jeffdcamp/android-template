@@ -1,17 +1,16 @@
 package org.jdc.template.ui.activity
 
-import android.view.MenuItem
+import kotlinx.coroutines.experimental.CoroutineScope
+import kotlinx.coroutines.experimental.Dispatchers
+import kotlinx.coroutines.experimental.Job
+import kotlinx.coroutines.experimental.android.Main
+import kotlin.coroutines.experimental.CoroutineContext
 
-abstract class BaseActivity : LiveDataObserverActivity() {
+abstract class BaseActivity : LiveDataObserverActivity(), CoroutineScope {
+    private val baseActivityJob = Job() // create a job as a parent for coroutines
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (allowFinishOnHome() && item.itemId == android.R.id.home) {
-            finish()
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    protected open fun allowFinishOnHome() = true
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + baseActivityJob
 
     fun enableActionBarBackArrow(enable: Boolean) {
         val actionBar = supportActionBar
@@ -19,5 +18,10 @@ abstract class BaseActivity : LiveDataObserverActivity() {
             actionBar.setHomeButtonEnabled(enable)
             actionBar.setDisplayHomeAsUpEnabled(enable)
         }
+    }
+
+    override fun onDestroy() {
+        baseActivityJob.cancel()
+        super.onDestroy()
     }
 }

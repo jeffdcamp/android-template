@@ -7,9 +7,9 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import org.jdc.template.R
 import org.jdc.template.databinding.MainActivityBinding
-import org.jdc.template.ui.activity.LiveDataObserverActivity
+import org.jdc.template.ui.activity.BaseActivity
 
-class MainActivity : LiveDataObserverActivity() {
+class MainActivity : BaseActivity() {
 
     private lateinit var binding: MainActivityBinding
     private val navController by lazy { findNavController(R.id.main_nav_host_fragment) }
