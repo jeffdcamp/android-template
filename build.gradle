@@ -60,7 +60,7 @@ ext {
     delegatesVersion = '1.0.5'
     daggerVersion = '2.17'
     okhttpVersion = '3.11.0'
-    dbtoolsRoomVersion = '2.5.0'
+    dbtoolsRoomVersion = '2.5.2'
     gsonVersion = '2.8.5'
     retrofitVersion = '2.4.0'
     threeTenABpVersion = '1.1.0'
@@ -68,7 +68,7 @@ ext {
     timberVersion = '4.7.1'
 
     // UI
-    materialDialogsVersion = '2.0.0-alpha09'
+    materialDialogsVersion = '2.0.0-alpha10'
 
     // Test
     junitVersion = '4.12'
