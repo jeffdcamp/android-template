@@ -68,7 +68,7 @@ ext {
     timberVersion = '4.7.1'
 
     // UI
-    materialDialogsVersion = '2.0.0-alpha10'
+    materialDialogsVersion = '2.0.0-alpha11'
 
     // Test
     junitVersion = '4.12'
