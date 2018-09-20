@@ -163,6 +163,7 @@ android {
         exclude 'META-INF/services/javax.annotation.processing.Processor'
         exclude 'LICENSE.txt'
         exclude '/META-INF/main.kotlin_module' // todo temp work-around for fix in Kotlin 1.2.50+ (https://youtrack.jetbrains.com/issue/KT-23695)
+        exclude 'META-INF/proguard/androidx-annotations.pro' // todo temp workaround for issue with WorkManager 1.0.0-alpha09
     }
 
     lintOptions {

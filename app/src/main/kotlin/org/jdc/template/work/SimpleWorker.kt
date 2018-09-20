@@ -1,14 +1,16 @@
 package org.jdc.template.work
 
+import android.content.Context
 import android.support.annotation.WorkerThread
 import androidx.work.Data
 import androidx.work.Worker
+import androidx.work.WorkerParameters
 import timber.log.Timber
 
 /**
  * Example simple worker... one that should execute every time it is called
  */
-class SimpleWorker : Worker() {
+class SimpleWorker(context: Context, params: WorkerParameters) : Worker(context, params) {
     @WorkerThread
     override fun doWork(): Result {
         val inputText = inputData.getString(KEY_TEXT)

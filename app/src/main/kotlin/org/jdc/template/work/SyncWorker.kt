@@ -1,7 +1,9 @@
 package org.jdc.template.work
 
+import android.content.Context
 import android.support.annotation.WorkerThread
 import androidx.work.Worker
+import androidx.work.WorkerParameters
 import org.jdc.template.inject.Injector
 import org.jdc.template.prefs.Prefs
 import timber.log.Timber
@@ -16,7 +18,7 @@ import javax.inject.Inject
  * - Replace any existing scheduled (if there is a pending sync request... remove it and reset delay for 30 seconds)
  * - Require network connection
  */
-class SyncWorker : Worker() {
+class SyncWorker(context: Context, params: WorkerParameters) : Worker(context, params) {
 
     @Inject
     lateinit var prefs: Prefs
