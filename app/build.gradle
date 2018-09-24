@@ -304,6 +304,8 @@ def readVersionCode(Boolean increment = false) {
     return versionCode
 }
 
-task('incrementVersionCode') << {
-    readVersionCode(true)
+task incrementVersionCode {
+    doLast {
+        readVersionCode(true)
+    }
 }
