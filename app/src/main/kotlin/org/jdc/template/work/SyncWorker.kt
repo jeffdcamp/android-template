@@ -1,7 +1,7 @@
 package org.jdc.template.work
 
 import android.content.Context
-import android.support.annotation.WorkerThread
+import androidx.annotation.WorkerThread
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import org.jdc.template.inject.Injector

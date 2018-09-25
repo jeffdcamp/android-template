@@ -1,6 +1,6 @@
 package org.jdc.template
 
-import android.support.multidex.MultiDexApplication
+import androidx.multidex.MultiDexApplication
 import com.jakewharton.threetenabp.AndroidThreeTen
 import org.jdc.template.inject.Injector
 import org.jdc.template.log.DebugTree

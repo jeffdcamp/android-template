@@ -1,6 +1,6 @@
 package org.jdc.template.ux.directory
 
-import android.arch.lifecycle.LiveData
+import androidx.lifecycle.LiveData
 import org.jdc.template.livedata.SingleLiveEvent
 import org.jdc.template.model.db.main.individual.IndividualDao
 import org.jdc.template.model.repository.IndividualRepository

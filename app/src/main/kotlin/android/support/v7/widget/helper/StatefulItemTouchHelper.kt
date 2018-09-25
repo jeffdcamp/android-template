@@ -1,6 +1,6 @@
-package android.support.v7.widget.helper
+package androidx.recyclerview.widget
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 
 class StatefulItemTouchHelper(callback: ItemTouchHelper.Callback) : ItemTouchHelper(callback) {
 

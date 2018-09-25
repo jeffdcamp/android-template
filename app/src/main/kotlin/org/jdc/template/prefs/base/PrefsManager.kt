@@ -3,7 +3,7 @@
 package org.jdc.template.prefs.base
 
 import android.annotation.SuppressLint
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager

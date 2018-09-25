@@ -2,9 +2,9 @@ package org.jdc.template.ux.individualedit
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
-import android.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import androidx.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -47,7 +47,6 @@ class IndividualEditFragment : LiveDataObserverFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         activity?.setTitle(R.string.individual)
 
         setupViewModelObservers()

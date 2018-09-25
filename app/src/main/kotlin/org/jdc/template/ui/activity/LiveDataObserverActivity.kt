@@ -1,8 +1,8 @@
 package org.jdc.template.ui.activity
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.Observer
-import android.support.v7.app.AppCompatActivity
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import androidx.appcompat.app.AppCompatActivity
 
 abstract class LiveDataObserverActivity : AppCompatActivity() {
     protected inline fun <T> LiveData<T>.observe(crossinline block: (T?) -> Unit) {

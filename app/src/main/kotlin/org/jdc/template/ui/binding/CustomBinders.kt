@@ -1,8 +1,8 @@
 package org.jdc.template.ui.binding
 
-import android.databinding.BindingAdapter
-import android.support.v7.recyclerview.extensions.ListAdapter
-import android.support.v7.widget.RecyclerView
+import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import android.text.format.DateUtils
 import android.widget.TextView
 import org.jdc.template.model.db.converter.ThreeTenFormatter

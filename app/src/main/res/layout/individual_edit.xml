@@ -14,12 +14,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/firstNameLayout"
                 android:layout_width="0dp"
                 android:layout_height="52dp"
@@ -37,9 +37,9 @@
                     android:hint="@string/first_name"
                     android:imeOptions="flagNoExtractUi"
                     android:text="@={viewModel.firstName}"/>
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/lastNameLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -55,9 +55,9 @@
                     android:hint="@string/last_name"
                     android:imeOptions="flagNoExtractUi"
                     android:text="@={viewModel.lastName}"/>
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/phoneLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -74,9 +74,9 @@
                     android:imeOptions="flagNoExtractUi"
                     android:inputType="phone"
                     android:text="@={viewModel.phone}"/>
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/emailLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -95,9 +95,9 @@
                     android:inputType="textEmailAddress"
                     android:text="@={viewModel.email}"
                     />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/birthDateLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -116,9 +116,9 @@
                     android:onClick="@{() -> viewModel.onBirthDateClicked()}"
                     app:textDate="@{viewModel.birthDate}"
                     />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/alarmTimeLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -137,8 +137,8 @@
                     android:onClick="@{() -> viewModel.onAlarmTimeClicked()}"
                     app:textTime="@{viewModel.alarmTime}"
                     />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

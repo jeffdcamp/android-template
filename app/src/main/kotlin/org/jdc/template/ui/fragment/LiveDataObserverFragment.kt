@@ -1,8 +1,8 @@
 package org.jdc.template.ui.fragment
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.Observer
-import android.support.v4.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
 
 abstract class LiveDataObserverFragment : Fragment() {
     protected inline fun <T> LiveData<T>.observe(crossinline block: (T?) -> Unit) {

@@ -1,11 +1,11 @@
 package org.jdc.template.ext
 
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.Observer
-import android.support.annotation.AnyThread
-import android.support.annotation.MainThread
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import androidx.annotation.AnyThread
+import androidx.annotation.MainThread
 
 /**
  * Observe for Activity or Fragment

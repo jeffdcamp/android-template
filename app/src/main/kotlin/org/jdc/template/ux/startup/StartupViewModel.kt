@@ -1,6 +1,6 @@
 package org.jdc.template.ux.startup
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.analytics.HitBuilders
 import kotlinx.coroutines.experimental.launch
 import org.jdc.template.Analytics

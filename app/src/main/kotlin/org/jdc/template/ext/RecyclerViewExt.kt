@@ -1,12 +1,12 @@
 package org.jdc.template.ext
 
-import android.support.annotation.MenuRes
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.PopupMenu
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.helper.ItemTouchHelper
-import android.support.v7.widget.helper.StatefulItemTouchHelper
+import androidx.annotation.MenuRes
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.appcompat.widget.PopupMenu
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.StatefulItemTouchHelper
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -92,9 +92,9 @@ fun <T : RecyclerView.ViewHolder> T.setOnLongClickListener(view: View = itemView
  *     }
  */
 fun <T : RecyclerView.ViewHolder> T.setOnMenuClickListener(view: View,
-                                                           @MenuRes menuResourceId: Int,
-                                                           onPreparePopupMenu: (position: Int, menu: Menu) -> Unit = { _, _ ->},
-                                                           block: (position: Int, menuItem: MenuItem) -> Boolean) {
+                                                                                        @MenuRes menuResourceId: Int,
+                                                                                        onPreparePopupMenu: (position: Int, menu: Menu) -> Unit = { _, _ ->},
+                                                                                        block: (position: Int, menuItem: MenuItem) -> Boolean) {
     view.setOnClickListener {
         executeOnValidPosition { position ->
             val popupMenu = PopupMenu(view.context, view)
@@ -118,13 +118,13 @@ fun <T : RecyclerView.ViewHolder> T.setOnMenuClickListener(view: View,
 }
 
 fun <T : RecyclerView.ViewHolder> T.executeOnValidPosition(block: (position: Int) -> Unit) {
-    if (adapterPosition != android.support.v7.widget.RecyclerView.NO_POSITION) {
+    if (adapterPosition != RecyclerView.NO_POSITION) {
         block(adapterPosition)
     }
 }
 
 fun <T : RecyclerView.ViewHolder> T.executeOnValidPositionBoolean(defaultReturn: Boolean = false, block: (position: Int) -> Boolean): Boolean {
-    if (adapterPosition != android.support.v7.widget.RecyclerView.NO_POSITION) {
+    if (adapterPosition != RecyclerView.NO_POSITION) {
         return block(adapterPosition)
     }
 

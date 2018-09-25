@@ -1,6 +1,6 @@
 package org.jdc.template.ui.viewmodel
 
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.experimental.CoroutineScope
 import kotlinx.coroutines.experimental.Job
 import org.jdc.template.util.CoroutineContextProvider

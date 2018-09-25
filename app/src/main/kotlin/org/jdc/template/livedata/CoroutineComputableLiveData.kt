@@ -1,7 +1,7 @@
 package org.jdc.template.livedata
 
-import android.arch.lifecycle.MutableLiveData
-import android.support.annotation.WorkerThread
+import androidx.lifecycle.MutableLiveData
+import androidx.annotation.WorkerThread
 import kotlinx.coroutines.experimental.CoroutineScope
 import kotlinx.coroutines.experimental.Dispatchers
 import kotlinx.coroutines.experimental.GlobalScope

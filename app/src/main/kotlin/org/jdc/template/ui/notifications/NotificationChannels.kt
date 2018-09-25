@@ -4,8 +4,8 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
-import android.support.annotation.StringRes
-import android.support.v4.app.NotificationManagerCompat
+import androidx.annotation.StringRes
+import androidx.core.app.NotificationManagerCompat
 import org.jdc.template.R
 
 enum class NotificationChannels constructor(val channelId: String,

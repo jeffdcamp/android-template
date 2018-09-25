@@ -1,6 +1,6 @@
 package org.jdc.template.ux.individualedit
 
-import android.databinding.ObservableField
+import androidx.databinding.ObservableField
 import kotlinx.coroutines.experimental.launch
 import org.jdc.template.R
 import org.jdc.template.livedata.SingleLiveEvent

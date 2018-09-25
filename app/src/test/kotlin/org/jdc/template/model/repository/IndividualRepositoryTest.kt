@@ -1,7 +1,7 @@
 package org.jdc.template.model.repository
 
 import android.app.Application
-import android.arch.persistence.room.Room
+import androidx.room.Room
 import dagger.Component
 import dagger.Module
 import dagger.Provides

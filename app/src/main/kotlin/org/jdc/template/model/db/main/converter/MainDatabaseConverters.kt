@@ -1,6 +1,6 @@
 package org.jdc.template.model.db.main.converter
 
-import android.arch.persistence.room.TypeConverter
+import androidx.room.TypeConverter
 import org.jdc.template.model.db.converter.ConverterUtil
 import org.jdc.template.model.db.main.type.IndividualType
 

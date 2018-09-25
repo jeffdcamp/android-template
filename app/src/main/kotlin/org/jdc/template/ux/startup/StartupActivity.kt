@@ -1,7 +1,7 @@
 package org.jdc.template.ux.startup
 
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import com.afollestad.materialdialogs.MaterialDialog

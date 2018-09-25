@@ -25,52 +25,51 @@ def appVersionName = "1.0.0 ($appVersionCode.$System.env.BUILD_NUMBER)"
 
 dependencies {
     // Android
-    implementation "com.android.support:appcompat-v7:${supportLibVersion}"
-    implementation "com.android.support:recyclerview-v7:${supportLibVersion}"
-    implementation "com.android.support:preference-v14:${supportLibVersion}"
-    implementation "com.android.support:design:${supportLibVersion}"
-    implementation "com.android.support:support-annotations:${supportLibVersion}" // includes support-v4
-    implementation "com.android.support:support-v13:${supportLibVersion}" // needed by material dialogs (depending on older version)
-    implementation "com.android.support:multidex:$multiDexVersion"
-    implementation "com.android.support:multidex-instrumentation:$multiDexVersion"
-    implementation "com.google.android.gms:play-services-analytics:${playServicesVersion}"
+    implementation "androidx.appcompat:appcompat:1.0.0"
+    implementation "androidx.recyclerview:recyclerview:1.0.0"
+    implementation "androidx.preference:preference-ktx:1.0.0"
+    implementation "com.google.android.material:material:1.0.0"
+    implementation "androidx.annotation:annotation:1.0.0" // includes support-v4
+    implementation "androidx.multidex:multidex:2.0.0"
+    implementation "androidx.multidex:multidex-instrumentation:2.0.0"
+    implementation "com.google.android.gms:play-services-analytics:16.0.3"
 //    implementation "com.google.android.gms:play-services-oss-licenses:$playServicesVersion"
-    implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
-    implementation "androidx.core:core-ktx:$coreKtxVersion"
+    implementation "androidx.constraintlayout:constraintlayout:1.1.3"
+    implementation "androidx.core:core-ktx:1.0.0"
 
     // Code
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
-    implementation "me.eugeniomarletti:android-extras-delegates:$delegatesVersion"
-    implementation "com.jakewharton.threetenabp:threetenabp:$threeTenABpVersion"
-    implementation "com.jakewharton.timber:timber:$timberVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.26.1"
+    implementation "me.eugeniomarletti:android-extras-delegates:1.0.5"
+    implementation "com.jakewharton.threetenabp:threetenabp:1.1.0"
+    implementation "com.jakewharton.timber:timber:4.7.1"
 
     // UI
-    implementation "com.afollestad.material-dialogs:core:$materialDialogsVersion"
+    implementation "com.afollestad.material-dialogs:core:2.0.0-beta2"
 
     // === Android Architecture Components ===
-    implementation "android.arch.lifecycle:extensions:$archLifecycleVersion"
-    implementation "android.arch.lifecycle:runtime:$archLifecycleVersion"
-    kapt "android.arch.lifecycle:compiler:$archLifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
+    implementation "androidx.lifecycle:lifecycle-runtime:2.0.0"
+    kapt "androidx.lifecycle:lifecycle-compiler:2.0.0"
 
     // Navigation
     implementation "android.arch.navigation:navigation-fragment-ktx:$archNavigationVersion"
     implementation "android.arch.navigation:navigation-ui-ktx:$archNavigationVersion"
 
     // WorkManager
-    implementation "android.arch.work:work-runtime-ktx:$archWorkVersion"
+    implementation "android.arch.work:work-runtime-ktx:1.0.0-alpha09"
 
     // Database
-    implementation "android.arch.persistence.room:runtime:$archRoomVersion"
-    kapt "android.arch.persistence.room:compiler:$archRoomVersion"
+    implementation "androidx.room:room-runtime:$archRoomVersion"
+    kapt "androidx.room:room-compiler:$archRoomVersion"
 
     // Network
     implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
 
     // JSON Parsing
-    implementation "com.google.code.gson:gson:$gsonVersion"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.google.code.gson:gson:2.8.5"
+    implementation "com.squareup.retrofit2:converter-gson:2.4.0"
 
     // Dagger 2
     implementation "com.google.dagger:dagger:$daggerVersion"
@@ -89,24 +88,24 @@ dependencies {
 
     // Test (Integration)
     // Espresso core dependencies
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoVersion"
-    androidTestImplementation "com.android.support.test:runner:$testRunnerVersion"
-    androidTestImplementation "com.android.support:support-annotations:$supportLibVersion" // fix dependency conflict warning
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+    androidTestImplementation "androidx.test:runner:$testRunnerVersion"
+    androidTestImplementation "androidx.annotation:annotation:1.0.0" // fix dependency conflict warning
 
     // Espresso contrib dependencies
-    androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$espressoVersion"
-    androidTestImplementation "com.android.support.test:rules:$testRunnerVersion"
-    androidTestImplementation "com.android.support:appcompat-v7:$supportLibVersion"
-    androidTestImplementation "com.android.support:recyclerview-v7:$supportLibVersion"
-    androidTestImplementation "com.android.support:design:$supportLibVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
+    androidTestImplementation "androidx.test:rules:$testRunnerVersion"
+    androidTestImplementation "androidx.appcompat:appcompat:1.0.0"
+    androidTestImplementation "androidx.recyclerview:recyclerview:1.0.0"
+    androidTestImplementation "com.google.android.material:material:1.0.0"
 
     // Test (Unit)
     testImplementation "junit:junit:$junitVersion"
     testImplementation "org.mockito:mockito-core:$mockitoVersion" // be sure to add src/test/resources/mockito-extensions (so you don't have to 'open' all of your classes)
     testImplementation "com.squareup.okhttp3:mockwebserver:$okhttpVersion"
-    testImplementation "org.threeten:threetenbp:$threeTenBpVersion"
-    testImplementation "org.xerial:sqlite-jdbc:$xerialVersion"
-    testImplementation "android.arch.persistence.room:testing:$archRoomVersion"
+    testImplementation "org.threeten:threetenbp:1.3.7"
+    testImplementation "org.xerial:sqlite-jdbc:3.23.1"
+    testImplementation "androidx.room:room-testing:$archRoomVersion"
     testImplementation "org.dbtools:dbtools-room-jdbc:$dbtoolsRoomVersion"
     kaptTest "com.google.dagger:dagger-compiler:$daggerVersion"
 }
@@ -143,7 +142,7 @@ android {
         }
 
         // Espresso
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {

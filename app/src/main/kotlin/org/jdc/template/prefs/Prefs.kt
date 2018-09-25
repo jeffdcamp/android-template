@@ -1,7 +1,7 @@
 package org.jdc.template.prefs
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import org.jdc.template.prefs.base.PrefsContainer
 import org.jdc.template.prefs.base.PrefsManager
 import javax.inject.Inject

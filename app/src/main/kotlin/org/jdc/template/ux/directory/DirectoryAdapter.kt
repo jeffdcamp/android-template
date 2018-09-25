@@ -1,7 +1,7 @@
 package org.jdc.template.ux.directory
 
-import android.support.v7.recyclerview.extensions.ListAdapter
-import android.support.v7.util.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import android.view.ViewGroup
 import org.jdc.template.R
 import org.jdc.template.databinding.ListItemBinding
