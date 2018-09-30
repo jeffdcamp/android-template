@@ -39,7 +39,7 @@ dependencies {
 
     // Code
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.26.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.30.0"
     implementation "me.eugeniomarletti:android-extras-delegates:1.0.5"
     implementation "com.jakewharton.threetenabp:threetenabp:1.1.0"
     implementation "com.jakewharton.timber:timber:4.7.1"
