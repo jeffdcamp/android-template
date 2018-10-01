@@ -45,7 +45,7 @@ ext {
     targetSdk = 28
 
     // Android
-    archRoomVersion = '2.0.0-rc01'
+    archRoomVersion = '2.0.0'
     archNavigationVersion = '1.0.0-alpha06'
 
     // Code
@@ -56,7 +56,6 @@ ext {
     // Test
     junitVersion = '4.12'
     mockitoVersion = '2.22.0'
-    xerialVersion = '3.23.1'
     espressoVersion = '3.1.0-alpha4'
     testRunnerVersion = '1.1.0-alpha4'
 }
