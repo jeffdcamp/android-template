@@ -8,7 +8,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.0-alpha12'
+        classpath 'com.android.tools.build:gradle:3.3.0-alpha13'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.20.0' // version plugin support
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
 //        classpath 'com.google.gms:oss-licenses:0.9.1'
@@ -55,9 +55,9 @@ ext {
 
     // Test
     junitVersion = '4.12'
-    mockitoVersion = '2.22.0'
-    espressoVersion = '3.1.0-alpha4'
-    testRunnerVersion = '1.1.0-alpha4'
+    mockitoVersion = '2.23.0'
+    espressoVersion = '3.1.0-beta01'
+    testRunnerVersion = '1.1.0-beta01'
 }
 
 task clean(type: Delete) {
