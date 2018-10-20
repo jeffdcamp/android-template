@@ -41,11 +41,11 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.27.0" // 0.30.0 has Pool issues
     implementation "me.eugeniomarletti:android-extras-delegates:1.0.5"
-    implementation "com.jakewharton.threetenabp:threetenabp:1.1.0"
+    implementation "com.jakewharton.threetenabp:threetenabp:1.1.1"
     implementation "com.jakewharton.timber:timber:4.7.1"
 
     // UI
-    implementation "com.afollestad.material-dialogs:core:2.0.0-beta3"
+    implementation "com.afollestad.material-dialogs:core:2.0.0-beta4"
 
     // === Android Architecture Components ===
     implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
@@ -57,7 +57,7 @@ dependencies {
     implementation "android.arch.navigation:navigation-ui-ktx:$archNavigationVersion"
 
     // WorkManager
-    implementation "android.arch.work:work-runtime-ktx:1.0.0-alpha09"
+    implementation "android.arch.work:work-runtime-ktx:1.0.0-alpha10"
 
     // Database
     implementation "androidx.room:room-runtime:$archRoomVersion"
@@ -98,6 +98,7 @@ dependencies {
     androidTestImplementation "androidx.appcompat:appcompat:1.0.0"
     androidTestImplementation "androidx.recyclerview:recyclerview:1.0.0"
     androidTestImplementation "com.google.android.material:material:1.0.0"
+    androidTestImplementation 'androidx.test.ext:junit:1.0.0-beta02'
 
     // Test (Unit)
     testImplementation "junit:junit:$junitVersion"
