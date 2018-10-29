@@ -1,10 +1,8 @@
 package org.jdc.template.util
 
-import kotlinx.coroutines.experimental.Dispatchers
-import kotlinx.coroutines.experimental.IO
-import kotlinx.coroutines.experimental.android.Main
-import kotlinx.coroutines.experimental.newSingleThreadContext
-import kotlin.coroutines.experimental.CoroutineContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.newSingleThreadContext
+import kotlin.coroutines.CoroutineContext
 
 interface CoroutineContextProvider {
     val main: CoroutineContext // Android Main/UI thread

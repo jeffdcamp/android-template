@@ -1,10 +1,10 @@
 package org.jdc.template.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.experimental.CoroutineScope
-import kotlinx.coroutines.experimental.Job
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import org.jdc.template.util.CoroutineContextProvider
-import kotlin.coroutines.experimental.CoroutineContext
+import kotlin.coroutines.CoroutineContext
 
 abstract class BaseViewModel(
     protected val cc: CoroutineContextProvider,

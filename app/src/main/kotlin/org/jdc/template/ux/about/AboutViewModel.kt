@@ -2,7 +2,7 @@ package org.jdc.template.ux.about
 
 import android.app.Application
 import com.google.android.gms.analytics.HitBuilders
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
 import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig

@@ -3,7 +3,7 @@ package org.jdc.template.ux.individual
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.analytics.HitBuilders
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.launch
 import org.jdc.template.Analytics
 import org.jdc.template.livedata.AbsentLiveData
 import org.jdc.template.livedata.SingleLiveEvent
