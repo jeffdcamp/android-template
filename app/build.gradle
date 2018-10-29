@@ -35,7 +35,7 @@ dependencies {
     implementation "com.google.android.gms:play-services-analytics:16.0.4"
 //    implementation "com.google.android.gms:play-services-oss-licenses:$playServicesVersion"
     implementation "androidx.constraintlayout:constraintlayout:1.1.3"
-    implementation "androidx.core:core-ktx:1.0.0"
+    implementation 'androidx.core:core-ktx:1.0.0'
 
     // Code
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
@@ -50,6 +50,7 @@ dependencies {
     // === Android Architecture Components ===
     implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
     implementation "androidx.lifecycle:lifecycle-runtime:2.0.0"
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0'
     kapt "androidx.lifecycle:lifecycle-compiler:2.0.0"
 
     // Navigation
@@ -88,21 +89,21 @@ dependencies {
 
     // Test (Integration)
     // Espresso core dependencies
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
-    androidTestImplementation "androidx.test:runner:$testRunnerVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.1.0"
+    androidTestImplementation "androidx.test:runner:1.1.0"
     androidTestImplementation "androidx.annotation:annotation:1.0.0" // fix dependency conflict warning
 
     // Espresso contrib dependencies
-    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
-    androidTestImplementation "androidx.test:rules:$testRunnerVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:3.1.0"
+    androidTestImplementation "androidx.test:rules:1.1.0"
     androidTestImplementation "androidx.appcompat:appcompat:1.0.0"
     androidTestImplementation "androidx.recyclerview:recyclerview:1.0.0"
     androidTestImplementation "com.google.android.material:material:1.0.0"
-    androidTestImplementation 'androidx.test.ext:junit:1.0.0-beta02'
+    androidTestImplementation 'androidx.test.ext:junit:1.0.0'
 
     // Test (Unit)
-    testImplementation "junit:junit:$junitVersion"
-    testImplementation "org.mockito:mockito-core:$mockitoVersion" // be sure to add src/test/resources/mockito-extensions (so you don't have to 'open' all of your classes)
+    testImplementation "junit:junit:4.12"
+    testImplementation "org.mockito:mockito-core:2.23.0" // be sure to add src/test/resources/mockito-extensions (so you don't have to 'open' all of your classes)
     testImplementation "com.squareup.okhttp3:mockwebserver:$okhttpVersion"
     testImplementation "org.threeten:threetenbp:1.3.7"
     testImplementation "org.xerial:sqlite-jdbc:3.25.2"

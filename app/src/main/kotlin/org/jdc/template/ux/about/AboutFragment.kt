@@ -1,12 +1,13 @@
 package org.jdc.template.ux.about
 
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import androidx.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.get
 import org.jdc.template.R
 import org.jdc.template.databinding.AboutBinding
 import org.jdc.template.inject.Injector
@@ -18,7 +19,7 @@ class AboutFragment : BaseFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(AboutViewModel::class.java) }
+    private val viewModel by lazy<AboutViewModel> { ViewModelProviders.of(this, viewModelFactory).get() }
     private lateinit var binding: AboutBinding
 
     init {

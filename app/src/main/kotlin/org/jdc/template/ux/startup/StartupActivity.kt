@@ -1,9 +1,10 @@
 package org.jdc.template.ux.startup
 
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.get
 import com.afollestad.materialdialogs.MaterialDialog
 import org.jdc.template.R
 import org.jdc.template.inject.Injector
@@ -16,7 +17,7 @@ class StartupActivity : BaseActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(StartupViewModel::class.java) }
+    private val viewModel by lazy<StartupViewModel> { ViewModelProviders.of(this, viewModelFactory).get() }
 
     private val debugStartup = false
 

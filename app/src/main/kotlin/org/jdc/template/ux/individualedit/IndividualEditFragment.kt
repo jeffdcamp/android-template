@@ -2,9 +2,6 @@ package org.jdc.template.ux.individualedit
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import androidx.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -12,6 +9,10 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.get
 import androidx.navigation.fragment.findNavController
 import org.jdc.template.R
 import org.jdc.template.databinding.IndividualEditBinding
@@ -26,7 +27,7 @@ class IndividualEditFragment : LiveDataObserverFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(IndividualEditViewModel::class.java) }
+    private val viewModel by lazy<IndividualEditViewModel> { ViewModelProviders.of(this, viewModelFactory).get() }
     private lateinit var binding: IndividualEditBinding
 
     init {

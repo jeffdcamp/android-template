@@ -1,11 +1,9 @@
 package org.jdc.template.inject
 
 import android.app.Application
-import android.app.NotificationManager
-import androidx.room.Room
-import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
+import androidx.room.Room
 import androidx.work.WorkManager
 import com.google.android.gms.analytics.GoogleAnalytics
 import com.google.gson.Gson
@@ -38,18 +36,13 @@ class AppModule(private val application: Application) {
     }
 
     @Provides
-    fun provideNotificationManager(application: Application): NotificationManager {
-        return application.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-    }
-
-    @Provides
     @Singleton
     fun provideAnalytics(): Analytics {
         // Only send analytics to Google Analytics with versions of the app that are NOT debuggable (such as BETA or RELEASE)
         if (BuildConfig.DEBUG) {
             return object : Analytics {
                 override fun send(params: Map<String, String>) {
-                    Timber.d("Analytics Params [${params.toString()}]")
+                    Timber.d("Analytics Params [$params]")
                 }
             }
         }
@@ -65,7 +58,7 @@ class AppModule(private val application: Application) {
     fun provideGson(): Gson {
         val builder = GsonBuilder()
 //                .setPrettyPrinting()
-                .registerTypeAdapter(LocalDateTime::class.java, LocalDateTimeTypeConverter())
+            .registerTypeAdapter(LocalDateTime::class.java, LocalDateTimeTypeConverter())
         return builder.create()
     }
 
@@ -90,7 +83,7 @@ class AppModule(private val application: Application) {
 //                    }
 //                })
 //                .openHelperFactory(SqliteOrgSQLiteOpenHelperFactory())
-                .build()
+            .build()
     }
 
     @Provides

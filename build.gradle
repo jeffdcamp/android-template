@@ -51,13 +51,7 @@ ext {
     // Code
     daggerVersion = '2.18'
     okhttpVersion = '3.11.0'
-    dbtoolsRoomVersion = '3.3.2'
-
-    // Test
-    junitVersion = '4.12'
-    mockitoVersion = '2.23.0'
-    espressoVersion = '3.1.0-beta02'
-    testRunnerVersion = '1.1.0-beta02'
+    dbtoolsRoomVersion = '3.3.4'
 }
 
 task clean(type: Delete) {
