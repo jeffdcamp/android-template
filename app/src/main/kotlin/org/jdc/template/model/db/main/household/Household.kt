@@ -4,8 +4,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "household")
-class Household {
+data class Household(
     @PrimaryKey(autoGenerate = true)
-    var id: Long = 0
+    var id: Long = 0,
     var name: String = ""
-}
+)
