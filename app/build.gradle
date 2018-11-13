@@ -25,7 +25,7 @@ def appVersionName = "1.0.0 ($appVersionCode.$System.env.BUILD_NUMBER)"
 
 dependencies {
     // Android
-    implementation "androidx.appcompat:appcompat:1.0.1"
+    implementation "androidx.appcompat:appcompat:1.0.2"
     implementation "androidx.recyclerview:recyclerview:1.0.0"
     implementation "androidx.preference:preference-ktx:1.0.0"
     implementation "com.google.android.material:material:1.0.0"
@@ -39,13 +39,13 @@ dependencies {
 
     // Code
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.1"
     implementation "me.eugeniomarletti:android-extras-delegates:1.0.5"
     implementation "com.jakewharton.threetenabp:threetenabp:1.1.1"
     implementation "com.jakewharton.timber:timber:4.7.1"
 
     // UI
-    implementation "com.afollestad.material-dialogs:core:2.0.0-beta4"
+    implementation "com.afollestad.material-dialogs:core:2.0.0-beta5"
 
     // === Android Architecture Components ===
     implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
@@ -58,7 +58,7 @@ dependencies {
     implementation "android.arch.navigation:navigation-ui-ktx:$archNavigationVersion"
 
     // WorkManager
-    implementation "android.arch.work:work-runtime-ktx:1.0.0-alpha10"
+    implementation "android.arch.work:work-runtime-ktx:1.0.0-alpha11"
 
     // Database
     implementation "androidx.room:room-runtime:$archRoomVersion"
@@ -96,7 +96,7 @@ dependencies {
     // Espresso contrib dependencies
     androidTestImplementation "androidx.test.espresso:espresso-contrib:3.1.0"
     androidTestImplementation "androidx.test:rules:1.1.0"
-    androidTestImplementation "androidx.appcompat:appcompat:1.0.0"
+    androidTestImplementation "androidx.appcompat:appcompat:1.0.2"
     androidTestImplementation "androidx.recyclerview:recyclerview:1.0.0"
     androidTestImplementation "com.google.android.material:material:1.0.0"
     androidTestImplementation 'androidx.test.ext:junit:1.0.0'
@@ -163,8 +163,6 @@ android {
         exclude 'META-INF/NOTICE.txt'
         exclude 'META-INF/services/javax.annotation.processing.Processor'
         exclude 'LICENSE.txt'
-        exclude '/META-INF/main.kotlin_module' // todo temp work-around for fix in Kotlin 1.2.50+ (https://youtrack.jetbrains.com/issue/KT-23695)
-        exclude 'META-INF/proguard/androidx-annotations.pro' // todo temp workaround for issue with WorkManager 1.0.0-alpha09
     }
 
     lintOptions {

@@ -2,17 +2,17 @@ package org.jdc.template.work
 
 import android.content.Context
 import androidx.annotation.WorkerThread
+import androidx.work.CoroutineWorker
 import androidx.work.Data
-import androidx.work.Worker
 import androidx.work.WorkerParameters
 import timber.log.Timber
 
 /**
  * Example simple worker... one that should execute every time it is called
  */
-class SimpleWorker(context: Context, params: WorkerParameters) : Worker(context, params) {
+class SimpleWorker(context: Context, params: WorkerParameters) : CoroutineWorker(context, params) {
     @WorkerThread
-    override fun doWork(): Result {
+    override suspend fun doWork(): Payload {
         val inputText = inputData.getString(KEY_TEXT)
 
         logProgress("RUNNING: Text: [$inputText]")
@@ -23,7 +23,7 @@ class SimpleWorker(context: Context, params: WorkerParameters) : Worker(context,
         }
 
         // return result
-        return Result.SUCCESS
+        return Payload(Result.SUCCESS)
     }
 
     private fun logProgress(progress: String) {
