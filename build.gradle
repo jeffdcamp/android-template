@@ -45,13 +45,13 @@ ext {
     targetSdk = 28
 
     // Android
-    archRoomVersion = '2.0.0'
+    archRoomVersion = '2.1.0-alpha02'
     archNavigationVersion = '1.0.0-alpha07'
 
     // Code
     daggerVersion = '2.19'
     okhttpVersion = '3.11.0'
-    dbtoolsRoomVersion = '4.0.0'
+    dbtoolsRoomVersion = '4.1.0'
 }
 
 task clean(type: Delete) {

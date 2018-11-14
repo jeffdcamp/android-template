@@ -49,6 +49,7 @@ class AboutViewModel
         individualRepository.deleteAllIndividuals()
 
         val individual1 = Individual()
+        individual1.householdId = 1
         individual1.firstName = "Jeff"
         individual1.lastName = "Campbell"
         individual1.phone = "801-555-0000"
@@ -56,15 +57,26 @@ class AboutViewModel
         individual1.birthDate = LocalDate.of(1970, 1, 1)
         individual1.alarmTime = LocalTime.of(7, 0)
 
+        val individual1a = Individual()
+        individual1a.householdId = 1
+        individual1a.firstName = "Ty"
+        individual1a.lastName = "Campbell"
+        individual1a.phone = "801-555-0001"
+        individual1a.individualType = IndividualType.HEAD
+        individual1a.birthDate = LocalDate.of(1970, 1, 1)
+        individual1a.alarmTime = LocalTime.of(7, 0)
+
         val individual2 = Individual()
+        individual2.householdId = 2
         individual2.firstName = "John"
         individual2.lastName = "Miller"
         individual2.phone = "303-555-1111"
         individual2.individualType = IndividualType.CHILD
-        individual1.birthDate = LocalDate.of(1970, 1, 2)
+        individual2.birthDate = LocalDate.of(1970, 1, 2)
         individual2.alarmTime = LocalTime.of(6, 0)
 
-        individualRepository.saveNewHousehold("Campbell", listOf(individual1, individual2))
+        individualRepository.saveNewHousehold("Campbell", listOf(individual1, individual1a))
+        individualRepository.saveNewHousehold("Miller", listOf(individual2))
     }
 
     /**
@@ -204,6 +216,12 @@ class AboutViewModel
             individualRepository.saveIndividual(individual)
         } else {
             Timber.e("Cannot find individual")
+        }
+    }
+
+    fun testStuff() = launch {
+        individualRepository.getAllMembers().forEach {
+            Timber.i("Member Info: $it")
         }
     }
 }

@@ -1,6 +1,8 @@
 package org.jdc.template.ui.activity
 
 
+import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.action.ViewActions.click
@@ -12,10 +14,8 @@ import androidx.test.espresso.matcher.ViewMatchers.withContentDescription
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withParent
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import androidx.test.rule.ActivityTestRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.recyclerview.widget.RecyclerView
-import android.view.View
+import androidx.test.rule.ActivityTestRule
 import org.hamcrest.Matchers.allOf
 import org.jdc.template.CustomMatchers.recyclerViewWithItemCount
 import org.jdc.template.R
@@ -46,7 +46,7 @@ class SmokeTest {
 
         val directoryRecyclerView = onView(allOf<View>(withId(R.id.recyclerView), isDisplayed()))
 
-        directoryRecyclerView.check(matches(recyclerViewWithItemCount(2)))
+        directoryRecyclerView.check(matches(recyclerViewWithItemCount(3)))
         directoryRecyclerView.perform(actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
 
         val nameTextView = onView(allOf<View>(withId(R.id.nameTextView), withText("Jeff Campbell"), isDisplayed()))
@@ -81,7 +81,7 @@ class SmokeTest {
 
         val directoryRecyclerView2 = onView(
                 allOf<View>(withId(org.jdc.template.R.id.recyclerView), isDisplayed()))
-        directoryRecyclerView2.perform(actionOnItemAtPosition<RecyclerView.ViewHolder>(1, click()))
+        directoryRecyclerView2.perform(actionOnItemAtPosition<RecyclerView.ViewHolder>(2, click()))
 
         val deleteMenuItemView = onView(allOf<View>(withId(org.jdc.template.R.id.menu_item_delete), withContentDescription("Delete"), isDisplayed()))
         deleteMenuItemView.perform(click())
@@ -90,6 +90,6 @@ class SmokeTest {
         deleteDialogButton.perform(click())
 
         val directoryRecyclerView3 = onView(allOf<View>(withId(org.jdc.template.R.id.recyclerView), isDisplayed()))
-        directoryRecyclerView3.check(matches(recyclerViewWithItemCount(1)))
+        directoryRecyclerView3.check(matches(recyclerViewWithItemCount(2)))
     }
 }

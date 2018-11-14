@@ -63,6 +63,7 @@ dependencies {
     // Database
     implementation "androidx.room:room-runtime:$archRoomVersion"
     kapt "androidx.room:room-compiler:$archRoomVersion"
+    implementation "org.dbtools:dbtools-room:$dbtoolsRoomVersion"
 
     // Network
     implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"

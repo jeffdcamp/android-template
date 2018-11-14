@@ -3,7 +3,6 @@ package org.jdc.template.inject
 import android.app.Application
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
-import androidx.room.Room
 import androidx.work.WorkManager
 import com.google.android.gms.analytics.GoogleAnalytics
 import com.google.gson.Gson
@@ -13,7 +12,6 @@ import dagger.Provides
 import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
 import org.jdc.template.json.LocalDateTimeTypeConverter
-import org.jdc.template.model.db.main.MainDatabase
 import org.jdc.template.model.webservice.ServiceModule
 import org.jdc.template.util.CoroutineContextProvider
 import org.threeten.bp.LocalDateTime
@@ -72,18 +70,6 @@ class AppModule(private val application: Application) {
     @Singleton
     fun provideCoroutineContextProvider(): CoroutineContextProvider {
         return CoroutineContextProvider.MainCoroutineContextProvider
-    }
-
-    @Provides
-    @Singleton
-    fun provideMainDatabase(application: Application): MainDatabase {
-        return Room.databaseBuilder(application, MainDatabase::class.java, MainDatabase.DATABASE_NAME)
-//                .addMigrations(object: Migration(1, 2) {
-//                    override fun migrate(p0: SupportSQLiteDatabase?) {
-//                    }
-//                })
-//                .openHelperFactory(SqliteOrgSQLiteOpenHelperFactory())
-            .build()
     }
 
     @Provides

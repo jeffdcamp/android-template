@@ -131,15 +131,30 @@
             tools:layout_conversion_absoluteY="301dp"/>
 
         <Button
-            android:id="@+id/testButton"
+            android:id="@+id/testTableChangeButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:onClick="@{() -> viewModel.testTableChange()}"
-            android:text="Test"
+            android:text="Test Table Change"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/work2TestButton"
+            tools:layout_conversion_absoluteHeight="48dp"
+            tools:layout_conversion_absoluteWidth="88dp"
+            tools:layout_conversion_absoluteX="148dp"
+            tools:layout_conversion_absoluteY="349dp"/>
+
+        <Button
+            android:id="@+id/testButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:onClick="@{() -> viewModel.testStuff()}"
+            android:text="Test"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/testTableChangeButton"
             tools:layout_conversion_absoluteHeight="48dp"
             tools:layout_conversion_absoluteWidth="88dp"
             tools:layout_conversion_absoluteX="148dp"

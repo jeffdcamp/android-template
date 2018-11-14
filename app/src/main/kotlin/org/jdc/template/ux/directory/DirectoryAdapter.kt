@@ -1,16 +1,16 @@
 package org.jdc.template.ux.directory
 
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.DiffUtil
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import org.jdc.template.R
 import org.jdc.template.databinding.ListItemBinding
-import org.jdc.template.model.db.main.individual.IndividualDao
+import org.jdc.template.model.db.main.directoryitem.DirectoryItem
 import org.jdc.template.ui.recycleview.BindingViewHolder
 
 class DirectoryAdapter(
         private val viewModel: DirectoryViewModel
-) : ListAdapter<IndividualDao.DirectoryListItem, DirectoryAdapter.ViewHolder>(DIFF_CALLBACK) {
+) : ListAdapter<DirectoryItem, DirectoryAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(parent).apply {
@@ -25,12 +25,12 @@ class DirectoryAdapter(
     class ViewHolder(parent: ViewGroup) : BindingViewHolder<ListItemBinding>(R.layout.list_item, parent)
 
     companion object {
-        private val DIFF_CALLBACK: DiffUtil.ItemCallback<IndividualDao.DirectoryListItem> = object : DiffUtil.ItemCallback<IndividualDao.DirectoryListItem>() {
-            override fun areItemsTheSame(oldItem: IndividualDao.DirectoryListItem, newItem: IndividualDao.DirectoryListItem): Boolean {
+        private val DIFF_CALLBACK: DiffUtil.ItemCallback<DirectoryItem> = object : DiffUtil.ItemCallback<DirectoryItem>() {
+            override fun areItemsTheSame(oldItem: DirectoryItem, newItem: DirectoryItem): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: IndividualDao.DirectoryListItem, newItem: IndividualDao.DirectoryListItem): Boolean {
+            override fun areContentsTheSame(oldItem: DirectoryItem, newItem: DirectoryItem): Boolean {
                 return oldItem.firstName == newItem.firstName && oldItem.lastName == newItem.lastName
             }
         }

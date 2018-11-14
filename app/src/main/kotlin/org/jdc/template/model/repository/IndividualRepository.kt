@@ -1,6 +1,6 @@
 package org.jdc.template.model.repository
 
-import org.jdc.template.model.db.main.MainDatabase
+import org.jdc.template.model.db.main.MainDatabaseWrapper
 import org.jdc.template.model.db.main.household.Household
 import org.jdc.template.model.db.main.individual.Individual
 import javax.inject.Inject
@@ -9,12 +9,15 @@ import javax.inject.Singleton
 @Singleton
 class IndividualRepository
 @Inject constructor(
-    private val mainDatabase: MainDatabase
+    private val mainDatabaseWrapper: MainDatabaseWrapper
 ){
-    private fun individualDao() = mainDatabase.individualDao
-    private fun householdDao() = mainDatabase.householdDao
+    private fun mainDatabase() = mainDatabaseWrapper.getDatabase()
 
-    fun getDirectoryListLiveData() = individualDao().findAllDirectListItemsLiveData()
+    private fun individualDao() = mainDatabase().individualDao
+    private fun householdDao() = mainDatabase().householdDao
+    private fun directoryItemDao() = mainDatabase().directoryItemDao
+
+    fun getDirectoryListLiveData() = directoryItemDao().findAllDirectItemsLiveData()
     fun getIndividual(individualId: Long) = individualDao().findById(individualId)
     fun getIndividualLiveData(individualId: Long) = individualDao().findByIdLiveData(individualId)
     fun getAllIndividuals() = individualDao().findAll()
@@ -40,7 +43,7 @@ class IndividualRepository
     }
 
     fun saveNewHousehold(lastName: String, individuals: List<Individual>) {
-        mainDatabase.runInTransaction {
+        mainDatabase().runInTransaction {
             val household = Household()
             household.name = lastName
             saveHousehold(household)
@@ -55,9 +58,11 @@ class IndividualRepository
     fun deleteIndividual(individualId: Long) = individualDao().deleteById(individualId)
 
     fun deleteAllIndividuals() {
-        mainDatabase.runInTransaction {
+        mainDatabase().runInTransaction {
             individualDao().deleteAll()
             householdDao().deleteAll()
         }
     }
+
+    fun getAllMembers() = householdDao().findAllMembers()
 }

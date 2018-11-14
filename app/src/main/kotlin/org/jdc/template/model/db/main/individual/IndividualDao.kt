@@ -35,9 +35,6 @@ interface IndividualDao {
     @Query("SELECT * FROM individual")
     fun findAllLiveData(): LiveData<List<Individual>>
 
-    @Query("SELECT id, lastName, firstName FROM individual ORDER BY lastName, firstName")
-    fun findAllDirectListItemsLiveData(): LiveData<List<DirectoryListItem>>
-
     @Query("DELETE FROM individual WHERE id = :id")
     fun deleteById(id: Long)
 
@@ -48,7 +45,6 @@ interface IndividualDao {
     @Query("SELECT firstName FROM individual WHERE id = :id")
     fun findFirstName(id: Long): String?
 
-    data class DirectoryListItem(val id: Long, val firstName: String, val lastName: String) {
-        fun getFullName() = firstName + " " + lastName
-    }
+    @Query("UPDATE individual SET firstName = :firstName WHERE id = :id")
+    fun updateFirstName(id: Long, firstName: String)
 }

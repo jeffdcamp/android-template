@@ -2,7 +2,7 @@ package org.jdc.template.ux.directory
 
 import androidx.lifecycle.LiveData
 import org.jdc.template.livedata.SingleLiveEvent
-import org.jdc.template.model.db.main.individual.IndividualDao
+import org.jdc.template.model.db.main.directoryitem.DirectoryItem
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.ui.viewmodel.BaseViewModel
 import org.jdc.template.util.CoroutineContextProvider
@@ -17,13 +17,13 @@ class DirectoryViewModel
     val onNewIndividualEvent = SingleLiveEvent<Void>()
     val showIndividualEvent = SingleLiveEvent<Long>()
 
-    val directoryList: LiveData<List<IndividualDao.DirectoryListItem>>
+    val directoryList: LiveData<List<DirectoryItem>>
 
     init {
         directoryList = loadDirectoryList()
     }
 
-    private fun loadDirectoryList(): LiveData<List<IndividualDao.DirectoryListItem>> {
+    private fun loadDirectoryList(): LiveData<List<DirectoryItem>> {
         return individualRepository.getDirectoryListLiveData()
     }
 
@@ -31,7 +31,7 @@ class DirectoryViewModel
         onNewIndividualEvent.call()
     }
 
-    fun onDirectoryIndividualClicked(directoryListItem: IndividualDao.DirectoryListItem) {
+    fun onDirectoryIndividualClicked(directoryListItem: DirectoryItem) {
         showIndividualEvent.value = directoryListItem.id
     }
 }
