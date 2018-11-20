@@ -1,9 +1,9 @@
 package org.jdc.template.model.webservice
 
 import android.os.Build
-import android.util.Base64
 import dagger.Module
 import dagger.Provides
+import okhttp3.Credentials
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.jdc.template.BuildConfig
@@ -11,6 +11,7 @@ import org.jdc.template.auth.MyAccountInterceptor
 import org.jdc.template.model.webservice.colors.ColorService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import java.io.UnsupportedEncodingException
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
@@ -59,13 +60,9 @@ class ServiceModule {
 
     private fun setupBasicAuth(clientBuilder: OkHttpClient.Builder, username: String, password: String) {
         try {
-            val basicAuthCredentials = username + ":" + password
-            val auth = "Basic " + Base64.encodeToString(basicAuthCredentials.toByteArray(charset("UTF-8")), Base64.NO_WRAP)
-
-
             clientBuilder.addInterceptor { chain ->
                 val builder = chain.request().newBuilder()
-                builder.addHeader("Authorization", auth)
+                builder.addHeader("Authorization", Credentials.basic(username, password))
                 chain.proceed(builder.build())
             }
         } catch (e: UnsupportedEncodingException) {
@@ -83,7 +80,7 @@ class ServiceModule {
                 .addConverterFactory(converterFactory)
                 .build()
 
-        return retrofit.create(ColorService::class.java)
+        return retrofit.create()
     }
 
     companion object {
