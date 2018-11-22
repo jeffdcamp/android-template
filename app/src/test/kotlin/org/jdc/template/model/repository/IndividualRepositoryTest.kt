@@ -11,10 +11,10 @@ import org.jdc.template.inject.CommonTestModule
 import org.jdc.template.log.JavaTree
 import org.jdc.template.model.db.main.MainDatabase
 import org.jdc.template.model.db.main.individual.Individual
-import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock
 import org.mockito.MockitoAnnotations
 import org.threeten.bp.LocalTime
@@ -27,7 +27,7 @@ class IndividualRepositoryTest {
     @Inject
     lateinit var individualRepository: IndividualRepository
 
-    @Before
+    @BeforeEach
     fun setUp() {
         MockitoAnnotations.initMocks(this)
         Timber.plant(JavaTree())
@@ -37,7 +37,7 @@ class IndividualRepositoryTest {
         component.inject(this)
     }
 
-    @After
+    @AfterEach
     fun tearDown() {
     }
 

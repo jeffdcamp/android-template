@@ -7,13 +7,14 @@ import org.jdc.template.inject.CommonTestModule
 import org.jdc.template.log.JavaTree
 import org.jdc.template.model.repository.IndividualRepositoryTestModule
 import org.jdc.template.model.webservice.colors.ColorService
-import org.junit.Assert
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import org.mockito.MockitoAnnotations
 import timber.log.Timber
-import java.net.SocketTimeoutException
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -24,7 +25,7 @@ class ColorServiceTest {
     @Inject
     lateinit var mockWebServer: MockWebServer
 
-    @Before
+    @BeforeEach
     fun setup() {
         MockitoAnnotations.initMocks(this)
         Timber.plant(JavaTree())
@@ -38,15 +39,15 @@ class ColorServiceTest {
         mockWebServer.enqueue(MockResponse().setResponseCode(200).setBody(COLORS_RESPONSE))
 
         val request = colorService.colors().execute()
-        Assert.assertTrue(request.isSuccessful)
+        assertTrue(request.isSuccessful)
 
         val colors = request.body()
-        Assert.assertNotNull(colors)
-        Assert.assertEquals(1, colors!!.colors.size)
+        assertNotNull(colors)
+        assertEquals(1, colors!!.colors.size)
 
         val color = colors.colors[0]
-        Assert.assertEquals("White", color.colorName)
-        Assert.assertEquals("#FFFFFF", color.hexValue)
+        assertEquals("White", color.colorName)
+        assertEquals("#FFFFFF", color.hexValue)
     }
 
     @Test
@@ -54,16 +55,7 @@ class ColorServiceTest {
         mockWebServer.enqueue(MockResponse().setResponseCode(500).setBody("""{"error": "Oh No!" }"""))
         val request = colorService.colors().execute()
 
-        Assert.assertFalse(request.isSuccessful)
-    }
-
-    @Test(expected = SocketTimeoutException::class)
-    fun timeoutThrowsException() {
-        mockWebServer.enqueue(
-                MockResponse().setBody(COLORS_RESPONSE)
-                        .throttleBody(8, 1, TimeUnit.SECONDS))
-
-        colorService.colors().execute()
+        assertFalse(request.isSuccessful)
     }
 
     companion object {
