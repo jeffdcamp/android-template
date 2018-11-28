@@ -89,8 +89,8 @@ class IndividualEditFragment : LiveDataObserverFragment() {
 
     private fun showBirthDateSelector(date: LocalDate) {
         val birthDatePickerDialog = DatePickerDialog(requireActivity(), DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-            viewModel.birthDate.set(LocalDate.of(year, monthOfYear + 1, dayOfMonth)) // + 1 because cord Java Date is 0 based
-        }, date.year, date.monthValue - 1, date.dayOfMonth) // - 1 because cord Java Date is 0 based
+            viewModel.birthDate.set(LocalDate.of(year, monthOfYear + 1, dayOfMonth)) // + 1 because core Java Date is 0 based
+        }, date.year, date.monthValue - 1, date.dayOfMonth) // - 1 because core Java Date is 0 based
 
         birthDatePickerDialog.show()
     }
