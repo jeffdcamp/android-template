@@ -11,10 +11,10 @@ import dagger.Module
 import dagger.Provides
 import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
-import org.jdc.template.json.LocalDateTimeTypeConverter
+import org.jdc.template.json.OffsetDateTimeJsonAdapter
 import org.jdc.template.model.webservice.ServiceModule
 import org.jdc.template.util.CoroutineContextProvider
-import org.threeten.bp.LocalDateTime
+import org.threeten.bp.OffsetDateTime
 import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 import javax.inject.Singleton
@@ -56,7 +56,7 @@ class AppModule(private val application: Application) {
     fun provideGson(): Gson {
         val builder = GsonBuilder()
 //                .setPrettyPrinting()
-            .registerTypeAdapter(LocalDateTime::class.java, LocalDateTimeTypeConverter())
+            .registerTypeAdapter(OffsetDateTime::class.java, OffsetDateTimeJsonAdapter())
         return builder.create()
     }
 

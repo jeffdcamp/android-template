@@ -4,8 +4,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import org.jdc.template.model.db.main.type.IndividualType
 import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalDateTime
 import org.threeten.bp.LocalTime
+import org.threeten.bp.OffsetDateTime
 
 @Entity(tableName = "individual")
 data class Individual(
@@ -17,7 +17,7 @@ data class Individual(
     var lastName: String = "",
     var birthDate: LocalDate? = null,
     var alarmTime: LocalTime = LocalTime.now(),
-    var lastModified: LocalDateTime = LocalDateTime.now(),
+    var lastModified: OffsetDateTime = OffsetDateTime.now(),
     var phone: String = "",
     var email: String = "",
     var available: Boolean = false

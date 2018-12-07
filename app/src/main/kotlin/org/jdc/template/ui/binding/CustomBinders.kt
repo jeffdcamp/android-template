@@ -1,15 +1,14 @@
 package org.jdc.template.ui.binding
 
+import android.text.format.DateUtils
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import android.text.format.DateUtils
-import android.widget.TextView
-import org.jdc.template.model.db.converter.ThreeTenFormatter
 import org.jdc.template.ui.recycleview.MovableListAdapter
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalTime
-import org.threeten.bp.ZoneId
+import org.threeten.bp.OffsetDateTime
 
 object CustomBinders {
     @JvmStatic
@@ -17,9 +16,8 @@ object CustomBinders {
     fun setTextDate(view: TextView, date: LocalDate?) {
         var text = ""
         date?.let {
-            ThreeTenFormatter.localDateTimeToLong(it.atStartOfDay(ZoneId.systemDefault()).toLocalDateTime())?.let { millis ->
-                text = DateUtils.formatDateTime(view.context, millis, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_YEAR)
-            }
+            val millis = OffsetDateTime.now().with(date).toInstant().toEpochMilli()
+            text = DateUtils.formatDateTime(view.context, millis, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_YEAR)
         }
 
         view.text = text
@@ -30,9 +28,8 @@ object CustomBinders {
     fun setTextTime(view: TextView, time: LocalTime?) {
         var text = ""
         time?.let {
-            ThreeTenFormatter.localDateTimeToLong(it.atDate(LocalDate.now()))?.let { millis ->
-                text = DateUtils.formatDateTime(view.context, millis, DateUtils.FORMAT_SHOW_TIME)
-            }
+            val millis = OffsetDateTime.now().with(time).toInstant().toEpochMilli()
+            text = DateUtils.formatDateTime(view.context, millis, DateUtils.FORMAT_SHOW_TIME)
         }
         view.text = text
     }

@@ -4,10 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import androidx.room.TypeConverters
 import androidx.room.Update
-import org.jdc.template.model.db.converter.DateTimeLongConverter
-import org.threeten.bp.LocalDateTime
+import org.threeten.bp.OffsetDateTime
 
 @Dao
 interface IndividualDao {
@@ -39,8 +37,7 @@ interface IndividualDao {
     fun deleteById(id: Long)
 
     @Query("SELECT lastModified FROM individual WHERE id = :id")
-    @TypeConverters(DateTimeLongConverter::class)
-    fun findLastModified(id: Long): LocalDateTime?
+    fun findLastModified(id: Long): OffsetDateTime?
 
     @Query("SELECT firstName FROM individual WHERE id = :id")
     fun findFirstName(id: Long): String?

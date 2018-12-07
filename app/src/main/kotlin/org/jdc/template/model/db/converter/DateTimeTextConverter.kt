@@ -2,18 +2,18 @@ package org.jdc.template.model.db.converter
 
 import androidx.room.TypeConverter
 import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalDateTime
 import org.threeten.bp.LocalTime
+import org.threeten.bp.OffsetDateTime
 
 class DateTimeTextConverter {
     @TypeConverter
-    fun fromStringToLocalDateTime(value: String?): LocalDateTime? {
-        return ThreeTenFormatter.dbStringToLocalDateTime(value)
+    fun fromStringToOffsetDateTime(value: String?): OffsetDateTime? {
+        return ThreeTenFormatter.dbStringToOffsetDateTime(value)
     }
 
     @TypeConverter
-    fun fromLocalDateTimeToString(value: LocalDateTime?): String? {
-        return ThreeTenFormatter.localDateTimeToDBString(value)
+    fun fromOffsetDateTimeToString(value: OffsetDateTime?): String? {
+        return ThreeTenFormatter.offsetDateTimeToDBString(value)
     }
 
     @TypeConverter
