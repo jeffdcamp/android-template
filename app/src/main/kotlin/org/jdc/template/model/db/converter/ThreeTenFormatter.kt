@@ -6,7 +6,7 @@ import org.threeten.bp.OffsetDateTime
 import org.threeten.bp.format.DateTimeFormatter
 
 object ThreeTenFormatter {
-    // Date only
+    // OffsetDateTime
     fun offsetDateTimeToDBString(d: OffsetDateTime?): String? {
         return if (d != null) {
             DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(d)

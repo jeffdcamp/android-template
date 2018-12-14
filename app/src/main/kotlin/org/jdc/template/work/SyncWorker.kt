@@ -3,7 +3,6 @@ package org.jdc.template.work
 import android.content.Context
 import androidx.annotation.WorkerThread
 import androidx.work.CoroutineWorker
-import androidx.work.Result
 import androidx.work.WorkerParameters
 import org.jdc.template.inject.Injector
 import org.jdc.template.prefs.Prefs

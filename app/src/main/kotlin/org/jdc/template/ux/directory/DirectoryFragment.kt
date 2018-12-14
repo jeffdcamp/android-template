@@ -83,6 +83,7 @@ class DirectoryFragment : BaseFragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.directory_menu, menu)
+        inflater.inflate(R.menu.common_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

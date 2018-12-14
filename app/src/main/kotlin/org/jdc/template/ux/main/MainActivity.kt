@@ -1,8 +1,7 @@
 package org.jdc.template.ux.main
 
-import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-import android.view.Menu
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import org.jdc.template.R
@@ -29,10 +28,4 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onSupportNavigateUp() = navController.navigateUp()
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.common_menu, menu)
-
-        return super.onCreateOptionsMenu(menu)
-    }
 }

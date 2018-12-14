@@ -8,7 +8,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.0-alpha07'
+        classpath 'com.android.tools.build:gradle:3.4.0-alpha08'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.20.0' // version plugin support
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
 //        classpath 'com.google.gms:oss-licenses:0.9.1'
@@ -18,9 +18,9 @@ buildscript {
 allprojects {
     repositories {
         mavenLocal()
+        google()
         mavenCentral()
         jcenter()
-        google()
     }
     apply plugin: 'com.github.ben-manes.versions' // ./gradlew dependencyUpdates -Drevision=release
 
@@ -51,7 +51,7 @@ ext {
     // Code
     daggerVersion = '2.19'
     okhttpVersion = '3.12.0'
-    dbtoolsRoomVersion = '4.1.0'
+    dbtoolsRoomVersion = '4.2.0'
 }
 
 task clean(type: Delete) {

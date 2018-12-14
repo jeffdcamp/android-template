@@ -1,9 +1,9 @@
 buildscript {
     repositories {
         mavenLocal()
+        google()
         mavenCentral()
         jcenter()
-        google()
     }
     dependencies {
         classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:$archNavigationVersion"
@@ -58,13 +58,16 @@ dependencies {
     implementation "android.arch.navigation:navigation-ui-ktx:$archNavigationVersion"
 
     // WorkManager
-    implementation "android.arch.work:work-runtime-ktx:1.0.0-alpha12"
+    implementation "android.arch.work:work-runtime-ktx:1.0.0-alpha13"
 
     // Database
     implementation "androidx.room:room-runtime:$archRoomVersion"
     // implementation "androidx.room:room-coroutines:$archRoomVersion" // NOTE: as of 2.1.0-alpha03, there are issues with suspend in Dao and UPDATE and DELETE (https://issuetracker.google.com/issues/69474692)
     kapt "androidx.room:room-compiler:$archRoomVersion"
     implementation "org.dbtools:dbtools-room:$dbtoolsRoomVersion"
+
+    // Debug Database (emulator: adb forward tcp:8080 tcp:8080) (https://github.com/amitshekhariitbhu/Android-Debug-Database)
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
 
     // Network
     implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
@@ -91,17 +94,17 @@ dependencies {
 
     // Test (Integration)
     // Espresso core dependencies
-    androidTestImplementation "androidx.test.espresso:espresso-core:3.1.0"
-    androidTestImplementation "androidx.test:runner:1.1.0"
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.1.1"
+    androidTestImplementation "androidx.test:runner:1.1.1"
     androidTestImplementation "androidx.annotation:annotation:1.0.1" // fix dependency conflict warning
 
     // Espresso contrib dependencies
-    androidTestImplementation "androidx.test.espresso:espresso-contrib:3.1.0"
-    androidTestImplementation "androidx.test:rules:1.1.0"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:3.1.1"
+    androidTestImplementation "androidx.test:rules:1.1.1"
     androidTestImplementation "androidx.appcompat:appcompat:1.0.2"
     androidTestImplementation "androidx.recyclerview:recyclerview:1.0.0"
     androidTestImplementation "com.google.android.material:material:1.0.0"
-    androidTestImplementation 'androidx.test.ext:junit:1.0.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
 
     // Test (Unit)
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.2'
