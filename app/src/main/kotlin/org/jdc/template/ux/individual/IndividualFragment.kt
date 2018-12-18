@@ -52,8 +52,10 @@ class IndividualFragment : BaseFragment() {
 
         setupViewModelObservers()
 
-        val args = IndividualFragmentArgs.fromBundle(arguments)
-        viewModel.setIndividualId(args.individualId)
+        arguments?.let {
+            val args = IndividualFragmentArgs.fromBundle(it)
+            viewModel.setIndividualId(args.individualId)
+        }
     }
 
     private fun setupViewModelObservers() {

@@ -46,7 +46,7 @@ ext {
 
     // Android
     archRoomVersion = '2.1.0-alpha03'
-    archNavigationVersion = '1.0.0-alpha08'
+    archNavigationVersion = '1.0.0-alpha09'
 
     // Code
     daggerVersion = '2.19'

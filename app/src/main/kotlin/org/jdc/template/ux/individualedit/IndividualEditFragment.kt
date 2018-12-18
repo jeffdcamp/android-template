@@ -52,9 +52,10 @@ class IndividualEditFragment : LiveDataObserverFragment() {
 
         setupViewModelObservers()
 
-        val args = IndividualEditFragmentArgs.fromBundle(arguments)
-
-        viewModel.loadIndividual(args.individualId)
+        arguments?.let {
+            val args = IndividualEditFragmentArgs.fromBundle(it)
+            viewModel.loadIndividual(args.individualId)
+        }
     }
 
     private fun setupViewModelObservers() {
