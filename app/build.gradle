@@ -30,7 +30,7 @@ dependencies {
     implementation "androidx.preference:preference-ktx:1.0.0"
     implementation "com.google.android.material:material:1.0.0"
     implementation "androidx.annotation:annotation:1.0.1" // includes support-v4
-    implementation "androidx.multidex:multidex:2.0.0"
+    implementation "androidx.multidex:multidex:2.0.1"
     implementation "androidx.multidex:multidex-instrumentation:2.0.0"
     implementation "com.google.android.gms:play-services-analytics:16.0.6"
 //    implementation "com.google.android.gms:play-services-oss-licenses:$playServicesVersion"
@@ -58,7 +58,7 @@ dependencies {
     implementation "android.arch.navigation:navigation-ui-ktx:$archNavigationVersion"
 
     // WorkManager
-    implementation "android.arch.work:work-runtime-ktx:1.0.0-alpha13"
+    implementation "android.arch.work:work-runtime-ktx:1.0.0-beta01"
 
     // Database
     implementation "androidx.room:room-runtime:$archRoomVersion"

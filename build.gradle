@@ -51,7 +51,7 @@ ext {
     // Code
     daggerVersion = '2.19'
     okhttpVersion = '3.12.0'
-    dbtoolsRoomVersion = '4.2.0'
+    dbtoolsRoomVersion = '4.3.0'
 }
 
 task clean(type: Delete) {
