@@ -47,7 +47,7 @@ class SmokeTest {
 
         val directoryRecyclerView = onView(allOf<View>(withId(R.id.recyclerView), isDisplayed()))
 
-        directoryRecyclerView.check(matches(recyclerViewWithItemCount(3)))
+        directoryRecyclerView.check(matches(recyclerViewWithItemCount(4)))
         directoryRecyclerView.perform(actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
 
         val nameTextView = onView(allOf<View>(withId(R.id.nameTextView), withText("Jeff Campbell"), isDisplayed()))
@@ -82,7 +82,7 @@ class SmokeTest {
 
         val directoryRecyclerView2 = onView(
                 allOf<View>(withId(org.jdc.template.R.id.recyclerView), isDisplayed()))
-        directoryRecyclerView2.perform(actionOnItemAtPosition<RecyclerView.ViewHolder>(2, click()))
+        directoryRecyclerView2.perform(actionOnItemAtPosition<RecyclerView.ViewHolder>(3, click()))
 
         val deleteMenuItemView = onView(allOf<View>(withId(org.jdc.template.R.id.menu_item_delete), withContentDescription("Delete"), isDisplayed()))
         deleteMenuItemView.perform(click())
@@ -91,6 +91,6 @@ class SmokeTest {
         deleteDialogButton.perform(click())
 
         val directoryRecyclerView3 = onView(allOf<View>(withId(org.jdc.template.R.id.recyclerView), isDisplayed()))
-        directoryRecyclerView3.check(matches(recyclerViewWithItemCount(2)))
+        directoryRecyclerView3.check(matches(recyclerViewWithItemCount(3)))
     }
 }
