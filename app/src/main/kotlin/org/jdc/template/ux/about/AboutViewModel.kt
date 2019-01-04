@@ -75,8 +75,18 @@ class AboutViewModel
         individual2.birthDate = LocalDate.of(1970, 1, 2)
         individual2.alarmTime = LocalTime.of(6, 0)
 
+        val individual3 = Individual()
+        individual3.householdId = 3
+        individual3.firstName = "Jordan"
+        individual3.lastName = "Hansen"
+        individual3.phone = "385-555-9999"
+        individual3.individualType = IndividualType.HEAD
+        individual3.birthDate = LocalDate.of(1970, 1, 2)
+        individual3.alarmTime = LocalTime.of(6, 30)
+
         individualRepository.saveNewHousehold("Campbell", listOf(individual1, individual1a))
         individualRepository.saveNewHousehold("Miller", listOf(individual2))
+        individualRepository.saveNewHousehold("Hansen", listOf(individual3))
     }
 
     /**
