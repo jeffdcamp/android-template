@@ -39,13 +39,13 @@ dependencies {
 
     // Code
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.0"
     implementation "me.eugeniomarletti:android-extras-delegates:1.0.5"
     implementation "com.jakewharton.threetenabp:threetenabp:1.1.1"
     implementation "com.jakewharton.timber:timber:4.7.1"
 
     // UI
-    implementation "com.afollestad.material-dialogs:core:2.0.0-rc3"
+    implementation "com.afollestad.material-dialogs:core:2.0.0-rc5"
 
     // === Android Architecture Components ===
     implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
