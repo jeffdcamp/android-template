@@ -7,15 +7,13 @@ import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
 import org.jdc.template.livedata.SingleLiveEvent
 import org.jdc.template.ui.viewmodel.BaseViewModel
-import org.jdc.template.util.CoroutineContextProvider
 import timber.log.Timber
 import javax.inject.Inject
 
 class StartupViewModel
 @Inject constructor(
-    cc: CoroutineContextProvider,
     private val analytics: Analytics
-) : BaseViewModel(cc) {
+) : BaseViewModel() {
 
     val startupProgress = MutableLiveData<StartupProgress>()
     val onStartupFinishedEvent = SingleLiveEvent<Void>()

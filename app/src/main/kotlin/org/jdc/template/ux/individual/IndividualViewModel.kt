@@ -10,15 +10,13 @@ import org.jdc.template.livedata.SingleLiveEvent
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.ui.viewmodel.BaseViewModel
-import org.jdc.template.util.CoroutineContextProvider
 import javax.inject.Inject
 
 class IndividualViewModel
 @Inject constructor(
-        cc: CoroutineContextProvider,
         private val analytics: Analytics,
         private val individualRepository: IndividualRepository
-) : BaseViewModel(cc) {
+) : BaseViewModel() {
 
     private val individualId = MutableLiveData<Long>()
     val individual: LiveData<Individual>

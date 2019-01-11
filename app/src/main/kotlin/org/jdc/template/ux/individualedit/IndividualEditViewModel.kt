@@ -7,16 +7,14 @@ import org.jdc.template.livedata.SingleLiveEvent
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.ui.viewmodel.BaseViewModel
-import org.jdc.template.util.CoroutineContextProvider
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalTime
 import javax.inject.Inject
 
 class IndividualEditViewModel
 @Inject constructor(
-    cc: CoroutineContextProvider,
     private val individualRepository: IndividualRepository
-) : BaseViewModel(cc) {
+) : BaseViewModel() {
 
     var individual = Individual()
 

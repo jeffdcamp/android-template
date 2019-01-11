@@ -1,15 +1,10 @@
 package org.jdc.template.ui.activity
 
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlin.coroutines.CoroutineContext
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.cancel
 
-abstract class BaseActivity : LiveDataObserverActivity(), CoroutineScope {
-    private val baseActivityJob = Job() // create a job as a parent for coroutines
-
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main + baseActivityJob
+abstract class BaseActivity : LiveDataObserverActivity(), CoroutineScope by MainScope() {
 
     fun enableActionBarBackArrow(enable: Boolean) {
         val actionBar = supportActionBar
@@ -20,7 +15,7 @@ abstract class BaseActivity : LiveDataObserverActivity(), CoroutineScope {
     }
 
     override fun onDestroy() {
-        baseActivityJob.cancel()
         super.onDestroy()
+        cancel() // CoroutineScope.cancel
     }
 }

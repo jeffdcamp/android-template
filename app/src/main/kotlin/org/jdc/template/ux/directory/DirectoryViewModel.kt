@@ -5,14 +5,12 @@ import org.jdc.template.livedata.SingleLiveEvent
 import org.jdc.template.model.db.main.directoryitem.DirectoryItem
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.ui.viewmodel.BaseViewModel
-import org.jdc.template.util.CoroutineContextProvider
 import javax.inject.Inject
 
 class DirectoryViewModel
 @Inject constructor(
-    cc: CoroutineContextProvider,
     private val individualRepository: IndividualRepository
-) : BaseViewModel(cc) {
+) : BaseViewModel() {
 
     val onNewIndividualEvent = SingleLiveEvent<Void>()
     val showIndividualEvent = SingleLiveEvent<Long>()

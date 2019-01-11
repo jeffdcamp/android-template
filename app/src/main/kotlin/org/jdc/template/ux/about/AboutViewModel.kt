@@ -13,7 +13,6 @@ import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.model.webservice.colors.ColorService
 import org.jdc.template.model.webservice.colors.dto.DtoColors
 import org.jdc.template.ui.viewmodel.BaseViewModel
-import org.jdc.template.util.CoroutineContextProvider
 import org.jdc.template.work.WorkScheduler
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalTime
@@ -26,13 +25,12 @@ import javax.inject.Inject
 
 class AboutViewModel
 @Inject constructor(
-    cc: CoroutineContextProvider,
     private val analytics: Analytics,
     private val application: Application,
     private val individualRepository: IndividualRepository,
     private val colorService: ColorService,
     private val workScheduler: WorkScheduler
-) : BaseViewModel(cc) {
+) : BaseViewModel() {
 
     var appVersion = BuildConfig.VERSION_NAME
     var appBuildDateTime = BuildConfig.BUILD_TIME
