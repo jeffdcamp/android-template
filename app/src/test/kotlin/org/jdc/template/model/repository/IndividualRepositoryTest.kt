@@ -10,6 +10,7 @@ import org.jdc.template.TestFilesystem
 import org.jdc.template.inject.CommonTestModule
 import org.jdc.template.log.JavaTree
 import org.jdc.template.model.db.main.MainDatabase
+import org.jdc.template.model.db.main.MainDatabaseWrapper
 import org.jdc.template.model.db.main.individual.Individual
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -68,11 +69,8 @@ class IndividualRepositoryTest {
 class IndividualRepositoryTestModule {
     @Provides
     @Singleton
-    fun provideMainDatabase(): MainDatabase {
-        return Room.databaseBuilder(mock(Application::class.java), MainDatabase::class.java, MainDatabase.DATABASE_NAME)
-            .allowMainThreadQueries()
-            .openHelperFactory(JdbcSQLiteOpenHelperFactory(TestFilesystem.INTERNAL_DATABASES_DIR_PATH))
-            .build()
+    fun provideMainDatabaseWrapper(application: Application): MainDatabaseWrapper {
+        return MainDatabaseTestWrapper(application)
     }
 }
 
@@ -80,4 +78,16 @@ class IndividualRepositoryTestModule {
 @Component(modules = [CommonTestModule::class, IndividualRepositoryTestModule::class])
 interface IndividualRepositoryTestComponent {
     fun inject(test: IndividualRepositoryTest)
+}
+
+class MainDatabaseTestWrapper(
+    application: Application
+) : MainDatabaseWrapper(application) {
+
+    override fun createDatabase(): MainDatabase {
+        return Room.databaseBuilder(mock(Application::class.java), MainDatabase::class.java, MainDatabase.DATABASE_NAME)
+            .allowMainThreadQueries()
+            .openHelperFactory(JdbcSQLiteOpenHelperFactory(TestFilesystem.INTERNAL_DATABASES_DIR_PATH))
+            .build()
+    }
 }
