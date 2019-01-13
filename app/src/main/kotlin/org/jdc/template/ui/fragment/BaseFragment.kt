@@ -1,16 +1,10 @@
 package org.jdc.template.ui.fragment
 
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlin.coroutines.CoroutineContext
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.cancel
 
-abstract class BaseFragment : LiveDataObserverFragment(), CoroutineScope {
-    private val baseFragmentJob = Job() // create a job as a parent for coroutines
-
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main + baseFragmentJob
-
+abstract class BaseFragment : LiveDataObserverFragment(), CoroutineScope by MainScope() {
     fun enableActionBarBackArrow(enable: Boolean) {
         activity?.actionBar?.apply {
             setHomeButtonEnabled(enable)
@@ -19,7 +13,7 @@ abstract class BaseFragment : LiveDataObserverFragment(), CoroutineScope {
     }
 
     override fun onDestroy() {
-        baseFragmentJob.cancel()
         super.onDestroy()
+        cancel() // CoroutineScope.cancel
     }
 }
