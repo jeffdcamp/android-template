@@ -17,7 +17,7 @@ import kotlin.reflect.KProperty
 sealed class PrefsManager {
     protected fun addManagedContainer(container: PrefsContainer): PrefsContainer {
         if (!prefsMap.containsKey(container.namespace)) {
-            prefsMap.put(container.namespace, container)
+            prefsMap[container.namespace] = container
         } else {
             if (!(prefsMap[container.namespace] === container))
                 throw RuntimeException("A namespace with the key ${container.namespace} already exists.")
