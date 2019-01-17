@@ -58,7 +58,7 @@ dependencies {
     implementation "android.arch.navigation:navigation-ui-ktx:$archNavigationVersion"
 
     // WorkManager
-    implementation "android.arch.work:work-runtime-ktx:1.0.0-beta01"
+    implementation "android.arch.work:work-runtime-ktx:1.0.0-beta02"
 
     // Database
     implementation "androidx.room:room-runtime:$archRoomVersion"
