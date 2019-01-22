@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <!--
+        As of 2019-01-22 use Bridge Theme because some of Google's widgets (DatePicker and TimePicker) don't yet fully support MaterialComponents Theme
+        see: https://github.com/material-components/material-components-android/blob/master/docs/getting-started.md#bridge-themes
+    -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
-        <item name="android:windowBackground">@color/window_background</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
 
         <!-- Remove all window annimations -->
