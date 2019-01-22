@@ -49,9 +49,9 @@ ext {
     archNavigationVersion = '1.0.0-alpha09'
 
     // Code
-    daggerVersion = '2.20'
+    daggerVersion = '2.21'
     okhttpVersion = '3.12.1'
-    dbtoolsRoomVersion = '4.3.0'
+    dbtoolsRoomVersion = '4.4.0'
 }
 
 task clean(type: Delete) {
