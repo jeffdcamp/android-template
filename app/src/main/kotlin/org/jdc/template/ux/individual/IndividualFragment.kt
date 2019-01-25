@@ -61,8 +61,7 @@ class IndividualFragment : BaseFragment() {
     private fun setupViewModelObservers() {
         // Events
         viewModel.onEditIndividualEvent.observeNotNull { individualId ->
-            val directions = IndividualFragmentDirections.editIndividual()
-            directions.setIndividualId(individualId)
+            val directions = IndividualFragmentDirections.editIndividual(individualId)
             this@IndividualFragment.findNavController().navigate(directions)
         }
         viewModel.onIndividualDeletedEvent.observe {

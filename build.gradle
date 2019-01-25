@@ -1,5 +1,6 @@
 buildscript {
     ext.kotlinVersion = '1.3.20'
+    ext.archNavigationVersion = '1.0.0-alpha11'
 
     repositories {
         mavenLocal()
@@ -11,6 +12,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:3.4.0-beta02'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.20.0' // version plugin support
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:$archNavigationVersion"
 //        classpath 'com.google.gms:oss-licenses:0.9.1'
     }
 }
@@ -46,7 +48,6 @@ ext {
 
     // Android
     archRoomVersion = '2.1.0-alpha03'
-    archNavigationVersion = '1.0.0-alpha09'
 
     // Code
     daggerVersion = '2.21'

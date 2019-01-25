@@ -1,20 +1,8 @@
-buildscript {
-    repositories {
-        mavenLocal()
-        google()
-        mavenCentral()
-        jcenter()
-    }
-    dependencies {
-        classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:$archNavigationVersion"
-    }
-}
-
 apply plugin: 'com.android.application'
 //apply plugin: 'com.google.gms.oss.licenses.plugin' // removed because this now shows more than run-time libraries and potentially has compile issue between 0.9.1 and 0.9.2
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'androidx.navigation.safeargs'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 // Manifest version information
 def buildTime = new Date().getTime()
