@@ -8,16 +8,16 @@ import androidx.room.Query
 @Dao
 interface HouseholdDao {
     @Insert
-    fun insert(household: Household): Long
+    suspend fun insert(household: Household): Long
 
     @Insert
-    fun update(household: Household)
+    suspend fun update(household: Household)
 
     @Query("DELETE FROM household")
-    fun deleteAll()
+    suspend fun deleteAll()
 
     @Query("SELECT * FROM household")
-    fun findAllMembers(): List<HouseholdMembers>
+    suspend fun findAllMembers(): List<HouseholdMembers>
 
     @Query("SELECT * FROM household")
     fun findAllMembersLiveData(): LiveData<List<HouseholdMembers>>

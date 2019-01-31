@@ -33,7 +33,7 @@ dependencies {
     implementation "com.jakewharton.timber:timber:4.7.1"
 
     // UI
-    implementation "com.afollestad.material-dialogs:core:2.0.0-rc8"
+    implementation "com.afollestad.material-dialogs:core:2.0.0-rc9"
 
     // === Android Architecture Components ===
     implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
@@ -46,10 +46,10 @@ dependencies {
     implementation "android.arch.navigation:navigation-ui-ktx:$archNavigationVersion"
 
     // WorkManager
-    implementation "android.arch.work:work-runtime-ktx:1.0.0-beta02"
+    implementation "android.arch.work:work-runtime-ktx:1.0.0-beta03"
 
     // Database
-    implementation "androidx.room:room-runtime:$archRoomVersion"
+    implementation "androidx.room:room-coroutines:$archRoomVersion"
     // implementation "androidx.room:room-coroutines:$archRoomVersion" // NOTE: as of 2.1.0-alpha03, there are issues with suspend in Dao and UPDATE and DELETE (https://issuetracker.google.com/issues/69474692)
     kapt "androidx.room:room-compiler:$archRoomVersion"
     implementation "org.dbtools:dbtools-room:$dbtoolsRoomVersion"

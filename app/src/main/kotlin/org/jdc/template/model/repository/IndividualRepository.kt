@@ -1,5 +1,6 @@
 package org.jdc.template.model.repository
 
+import org.dbtools.android.room.ext.runInTransactionSuspend
 import org.jdc.template.model.db.main.MainDatabaseWrapper
 import org.jdc.template.model.db.main.household.Household
 import org.jdc.template.model.db.main.individual.Individual
@@ -18,13 +19,13 @@ class IndividualRepository
     private fun directoryItemDao() = mainDatabase().directoryItemDao
 
     fun getDirectoryListLiveData() = directoryItemDao().findAllDirectItemsLiveData()
-    fun getIndividual(individualId: Long) = individualDao().findById(individualId)
+    suspend fun getIndividual(individualId: Long) = individualDao().findById(individualId)
     fun getIndividualLiveData(individualId: Long) = individualDao().findByIdLiveData(individualId)
-    fun getAllIndividuals() = individualDao().findAll()
-    fun getIndividualCount() = individualDao().findCount()
-    fun getIndividualFirstName(individualId: Long) = individualDao().findFirstName(individualId)
+    suspend fun getAllIndividuals() = individualDao().findAll()
+    suspend fun getIndividualCount() = individualDao().findCount()
+    suspend fun getIndividualFirstName(individualId: Long) = individualDao().findFirstName(individualId)
 
-    fun saveIndividual(individual: Individual) {
+    suspend fun saveIndividual(individual: Individual) {
         if (individual.id <= 0) {
             val newId = individualDao().insert(individual)
             individual.id = newId
@@ -33,7 +34,7 @@ class IndividualRepository
         }
     }
 
-    fun saveHousehold(household: Household) {
+    suspend fun saveHousehold(household: Household) {
         if (household.id <= 0) {
             val newId = householdDao().insert(household)
             household.id = newId
@@ -42,8 +43,8 @@ class IndividualRepository
         }
     }
 
-    fun saveNewHousehold(lastName: String, individuals: List<Individual>) {
-        mainDatabase().runInTransaction {
+    suspend fun saveNewHousehold(lastName: String, individuals: List<Individual>) {
+        mainDatabase().runInTransactionSuspend {
             val household = Household()
             household.name = lastName
             saveHousehold(household)
@@ -55,14 +56,14 @@ class IndividualRepository
         }
     }
 
-    fun deleteIndividual(individualId: Long) = individualDao().deleteById(individualId)
+    suspend fun deleteIndividual(individualId: Long) = individualDao().deleteById(individualId)
 
-    fun deleteAllIndividuals() {
-        mainDatabase().runInTransaction {
+    suspend fun deleteAllIndividuals() {
+        mainDatabase().runInTransactionSuspend {
             individualDao().deleteAll()
             householdDao().deleteAll()
         }
     }
 
-    fun getAllMembers() = householdDao().findAllMembers()
+    suspend fun getAllMembers() = householdDao().findAllMembers()
 }

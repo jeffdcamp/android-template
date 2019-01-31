@@ -47,7 +47,7 @@ class DirectoryFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.apply {
             viewModel = this@DirectoryFragment.viewModel
-            setLifecycleOwner(this@DirectoryFragment)
+            lifecycleOwner = this@DirectoryFragment
         }
 
         setupRecyclerView()
