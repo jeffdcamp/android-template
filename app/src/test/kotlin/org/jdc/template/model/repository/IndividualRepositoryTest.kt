@@ -5,6 +5,7 @@ import androidx.room.Room
 import dagger.Component
 import dagger.Module
 import dagger.Provides
+import kotlinx.coroutines.runBlocking
 import org.dbtools.android.room.jdbc.JdbcSQLiteOpenHelperFactory
 import org.jdc.template.TestFilesystem
 import org.jdc.template.inject.CommonTestModule
@@ -43,7 +44,7 @@ class IndividualRepositoryTest {
     }
 
     @Test
-    fun testIndividual() {
+    fun testIndividual() = runBlocking {
         // === CREATE / INSERT ===
         val individual = Individual()
         individual.firstName = "Jeff"
