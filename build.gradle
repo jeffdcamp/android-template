@@ -1,6 +1,6 @@
 buildscript {
     ext.kotlinVersion = '1.3.21'
-    ext.archNavigationVersion = '1.0.0-beta01'
+    ext.archNavigationVersion = '1.0.0-beta02'
 
     repositories {
         mavenLocal()

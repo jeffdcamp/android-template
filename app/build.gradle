@@ -55,7 +55,7 @@ dependencies {
     implementation "org.dbtools:dbtools-room:$dbtoolsRoomVersion"
 
     // Debug Database (emulator: adb forward tcp:8080 tcp:8080) (https://github.com/amitshekhariitbhu/Android-Debug-Database)
-    debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
+    // debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
 
     // Network
     implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
