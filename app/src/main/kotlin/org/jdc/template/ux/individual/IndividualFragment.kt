@@ -40,7 +40,7 @@ class IndividualFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.apply {
             viewModel = this@IndividualFragment.viewModel
-            setLifecycleOwner(this@IndividualFragment)
+            lifecycleOwner = this@IndividualFragment
         }
     }
 
