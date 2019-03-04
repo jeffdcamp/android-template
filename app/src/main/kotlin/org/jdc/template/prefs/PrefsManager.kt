@@ -1,12 +1,12 @@
 @file:Suppress("LeakingThis", "MemberVisibilityCanPrivate", "Unused")
 
-package org.jdc.template.prefs.base
+package org.jdc.template.prefs
 
 import android.annotation.SuppressLint
-import androidx.lifecycle.MutableLiveData
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
+import androidx.lifecycle.MutableLiveData
 import me.eugeniomarletti.extras.DelegateProvider
 import me.eugeniomarletti.extras.defaultDelegateName
 import java.util.HashMap
@@ -63,7 +63,7 @@ sealed class PrefsManager {
                 prefsMap[namespace]?.clear()
             } else {
                 prefsMap.filterKeys { it !in protectedNamespace }
-                        .forEach { it.value.clear() }
+                    .forEach { it.value.clear() }
             }
         }
     }
@@ -83,11 +83,11 @@ abstract class PrefsContainer(val namespace: String, val privacy: Int = Context.
         preferenceManager.edit().clear().commit()
     }
 
-    inner protected class NullableStringPref(
-            private val key: String? = null,
-            private val transformer: PreferenceTransformer<String>? = null,
-            private val liveData: MutableLiveData<String>? = null,
-            private val onChange: ((String?) -> Unit)? = null
+    protected inner class NullableStringPref(
+        private val key: String? = null,
+        private val transformer: PreferenceTransformer<String>? = null,
+        private val liveData: MutableLiveData<String>? = null,
+        private val onChange: ((String?) -> Unit)? = null
     ) : ReadWriteProperty<Any, String?> {
 
         @Suppress("UNCHECKED_CAST")
@@ -117,56 +117,58 @@ abstract class PrefsContainer(val namespace: String, val privacy: Int = Context.
     }
 
     @Suppress("FunctionName")
-    inline protected fun <reified T : Enum<T>> PrefsContainer.EnumPref(
-            defaultValue: T,
-            key: String? = null,
-            customPrefix: String? = null,
-            transformer: PreferenceTransformer<String>? = null,
-            liveData: MutableLiveData<T>? = null,
-            noinline onChange: ((T) -> Unit)? = null
+    protected inline fun <reified T : Enum<T>> PrefsContainer.EnumPref(
+        defaultValue: T,
+        key: String? = null,
+        customPrefix: String? = null,
+        transformer: PreferenceTransformer<String>? = null,
+        liveData: MutableLiveData<T>? = null,
+        noinline onChange: ((T) -> Unit)? = null
     ) = object : DelegateProvider<ReadWriteProperty<Any, T>> {
         override fun provideDelegate(thisRef: Any?, property: KProperty<*>) =
-                object : ReadWriteProperty<Any, T> {
+            object : ReadWriteProperty<Any, T> {
 
-                    private val prefName = key ?: property.defaultDelegateName(customPrefix)
+                private val prefName = key ?: property.defaultDelegateName(customPrefix)
 
-                    override fun getValue(thisRef: Any, property: KProperty<*>): T {
-                        val prefName = key ?: property.name
+                override fun getValue(thisRef: Any, property: KProperty<*>): T {
+                    val prefName = key ?: property.name
 
-                        val name: String? = if (transformer != null) {
-                            transformer.decode(preferenceManager.getString(prefName, defaultValue.name))
-                        } else {
-                            preferenceManager.getString(prefName, defaultValue.name)
-                        }
-
-                        return try {
-                            name?.let { kotlin.enumValueOf<T>(name) } ?: defaultValue
-                        } catch (_: Exception) {
-                            defaultValue
-                        }
+                    val name: String? = if (transformer != null) {
+                        transformer.decode(preferenceManager.getString(prefName, defaultValue.name))
+                    } else {
+                        preferenceManager.getString(prefName, defaultValue.name)
                     }
 
-                    override fun setValue(thisRef: Any, property: KProperty<*>, value: T) {
-                        val edit = preferenceManager.edit()
-
-                        if (transformer != null) {
-                            edit.putString(prefName, transformer.encode(value.name))
-                        } else {
-                            edit.putString(prefName, value.name)
-                        }
-
-                        edit.apply()
-                        liveData?.postValue(value)
-                        onChange?.invoke(value)
+                    return try {
+                        name?.let { kotlin.enumValueOf<T>(name) } ?: defaultValue
+                    } catch (_: Exception) {
+                        defaultValue
                     }
                 }
+
+                override fun setValue(thisRef: Any, property: KProperty<*>, value: T) {
+                    val edit = preferenceManager.edit()
+
+                    if (transformer != null) {
+                        edit.putString(prefName, transformer.encode(value.name))
+                    } else {
+                        edit.putString(prefName, value.name)
+                    }
+
+                    edit.apply()
+                    liveData?.postValue(value)
+                    onChange?.invoke(value)
+                }
+            }
     }
 
-    inner protected open class SharedPref<T>(private val defaultValue: T,
-                                             private val key: String? = null,
-                                             private val transformer: PreferenceTransformer<T>? = null,
-                                             private val liveData: MutableLiveData<T>? = null,
-                                             private val onChange: ((T) -> Unit)? = null) : ReadWriteProperty<Any, T> {
+    protected open inner class SharedPref<T>(
+        private val defaultValue: T,
+        private val key: String? = null,
+        private val transformer: PreferenceTransformer<T>? = null,
+        private val liveData: MutableLiveData<T>? = null,
+        private val onChange: ((T) -> Unit)? = null
+    ) : ReadWriteProperty<Any, T> {
 
         @Suppress("UNCHECKED_CAST")
         override fun getValue(thisRef: Any, property: KProperty<*>): T {

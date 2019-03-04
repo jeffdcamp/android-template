@@ -17,7 +17,7 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:1.0.0"
     implementation "androidx.preference:preference-ktx:1.0.0"
     implementation "com.google.android.material:material:1.0.0"
-    implementation "androidx.annotation:annotation:1.0.1" // includes support-v4
+    implementation "androidx.annotation:annotation:1.0.2" // includes support-v4
     implementation "androidx.multidex:multidex:2.0.1"
     implementation "androidx.multidex:multidex-instrumentation:2.0.0"
     implementation "com.google.android.gms:play-services-analytics:16.0.7"
@@ -33,7 +33,7 @@ dependencies {
     implementation "com.jakewharton.timber:timber:4.7.1"
 
     // UI
-    implementation "com.afollestad.material-dialogs:core:2.0.0"
+    implementation "com.afollestad.material-dialogs:core:2.0.3"
 
     // === Android Architecture Components ===
     implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
@@ -84,7 +84,7 @@ dependencies {
     // Espresso core dependencies
     androidTestImplementation "androidx.test.espresso:espresso-core:3.1.1"
     androidTestImplementation "androidx.test:runner:1.1.1"
-    androidTestImplementation "androidx.annotation:annotation:1.0.1" // fix dependency conflict warning
+    androidTestImplementation "androidx.annotation:annotation:1.0.2" // fix dependency conflict warning
 
     // Espresso contrib dependencies
     androidTestImplementation "androidx.test.espresso:espresso-contrib:3.1.1"
