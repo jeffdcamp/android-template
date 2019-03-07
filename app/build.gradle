@@ -42,8 +42,8 @@ dependencies {
     kapt "androidx.lifecycle:lifecycle-compiler:2.0.0"
 
     // Navigation
-    implementation "android.arch.navigation:navigation-fragment-ktx:$archNavigationVersion"
-    implementation "android.arch.navigation:navigation-ui-ktx:$archNavigationVersion"
+    implementation "androidx.navigation:navigation-fragment-ktx:$archNavigationVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$archNavigationVersion"
 
     // WorkManager
     implementation "android.arch.work:work-runtime-ktx:1.0.0"
