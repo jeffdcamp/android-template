@@ -29,7 +29,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1"
     implementation "me.eugeniomarletti:android-extras-delegates:1.0.5"
-    implementation "com.jakewharton.threetenabp:threetenabp:1.1.2"
+    implementation "com.jakewharton.threetenabp:threetenabp:1.2.0"
     implementation "com.jakewharton.timber:timber:4.7.1"
 
     // UI
@@ -46,7 +46,7 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$archNavigationVersion"
 
     // WorkManager
-    implementation "android.arch.work:work-runtime-ktx:1.0.0"
+    implementation "androidx.work:work-runtime-ktx:2.0.0-rc01"
 
     // Database
     implementation "androidx.room:room-coroutines:$archRoomVersion"
@@ -98,7 +98,7 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.4.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.4.0'
     // testImplementation 'org.junit.vintage:junit-vintage-engine:5.4.0' // junit 4 support (may be needed for Espresso)
-    testImplementation "org.mockito:mockito-core:2.24.5" // be sure to add src/test/resources/mockito-extensions (so you don't have to 'open' all of your classes)
+    testImplementation "org.mockito:mockito-core:2.25.0" // be sure to add src/test/resources/mockito-extensions (so you don't have to 'open' all of your classes)
     testImplementation "com.squareup.okhttp3:mockwebserver:$okhttpVersion"
     testImplementation "org.threeten:threetenbp:1.3.8"
     testImplementation "org.xerial:sqlite-jdbc:3.25.2"
