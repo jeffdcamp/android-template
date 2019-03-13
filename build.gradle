@@ -22,6 +22,7 @@ allprojects {
         mavenLocal()
         google()
         mavenCentral()
+//        maven { url "https://kotlin.bintray.com/kotlinx/" } // required for Room alpha05
         jcenter()
     }
     apply plugin: 'com.github.ben-manes.versions' // ./gradlew dependencyUpdates -Drevision=release
