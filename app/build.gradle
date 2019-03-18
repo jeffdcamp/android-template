@@ -20,7 +20,7 @@ dependencies {
     implementation "androidx.annotation:annotation:1.0.2" // includes support-v4
     implementation "androidx.multidex:multidex:2.0.1"
     implementation "androidx.multidex:multidex-instrumentation:2.0.0"
-    implementation "com.google.android.gms:play-services-analytics:16.0.7"
+    implementation "com.google.android.gms:play-services-analytics:16.0.8"
 //    implementation "com.google.android.gms:play-services-oss-licenses:$playServicesVersion"
     implementation "androidx.constraintlayout:constraintlayout:1.1.3"
     implementation 'androidx.core:core-ktx:1.0.1'
@@ -50,19 +50,13 @@ dependencies {
     implementation "androidx.work:work-runtime-ktx:2.0.0-rc01"
 
     // Database
-    // alpha05 dependencies
-//    implementation "androidx.room:room-runtime:$archRoomVersion"
-//    implementation "androidx.room:room-ktx:$archRoomVersion"
-//    kapt "androidx.room:room-compiler:$archRoomVersion"
-
-    // alpha04 dependencies
     implementation "androidx.room:room-runtime:$archRoomVersion"
-    implementation "androidx.room:room-coroutines:$archRoomVersion"
+    implementation "androidx.room:room-ktx:$archRoomVersion"
     kapt "androidx.room:room-compiler:$archRoomVersion"
+    implementation "org.dbtools:dbtools-room:$dbtoolsRoomVersion"
 
     // Debug Database (emulator: adb forward tcp:8080 tcp:8080) (https://github.com/amitshekhariitbhu/Android-Debug-Database)
     // debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
-    implementation "org.dbtools:dbtools-room:$dbtoolsRoomVersion"
 
     // Network
     implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
@@ -105,10 +99,10 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.4.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.4.0'
     // testImplementation 'org.junit.vintage:junit-vintage-engine:5.4.0' // junit 4 support (may be needed for Espresso)
-    testImplementation "org.mockito:mockito-core:2.25.0" // be sure to add src/test/resources/mockito-extensions (so you don't have to 'open' all of your classes)
+    testImplementation "org.mockito:mockito-core:2.25.1" // be sure to add src/test/resources/mockito-extensions (so you don't have to 'open' all of your classes)
     testImplementation "com.squareup.okhttp3:mockwebserver:$okhttpVersion"
     testImplementation "org.threeten:threetenbp:1.3.8"
-    testImplementation "org.xerial:sqlite-jdbc:3.25.2"
+    testImplementation "org.xerial:sqlite-jdbc:3.27.2"
     testImplementation "androidx.room:room-testing:$archRoomVersion"
     testImplementation "org.dbtools:dbtools-room-jdbc:$dbtoolsRoomVersion"
     kaptTest "com.google.dagger:dagger-compiler:$daggerVersion"

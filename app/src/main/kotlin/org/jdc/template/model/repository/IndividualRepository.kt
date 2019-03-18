@@ -1,6 +1,6 @@
 package org.jdc.template.model.repository
 
-import org.dbtools.android.room.ext.runInTransactionSuspend
+import androidx.room.withTransaction
 import org.jdc.template.model.db.main.MainDatabaseWrapper
 import org.jdc.template.model.db.main.household.Household
 import org.jdc.template.model.db.main.individual.Individual
@@ -44,7 +44,7 @@ class IndividualRepository
     }
 
     suspend fun saveNewHousehold(lastName: String, individuals: List<Individual>) {
-        mainDatabase().runInTransactionSuspend {
+        mainDatabase().withTransaction {
             val household = Household()
             household.name = lastName
             saveHousehold(household)
@@ -59,7 +59,7 @@ class IndividualRepository
     suspend fun deleteIndividual(individualId: Long) = individualDao().deleteById(individualId)
 
     suspend fun deleteAllIndividuals() {
-        mainDatabase().runInTransactionSuspend {
+        mainDatabase().withTransaction {
             individualDao().deleteAll()
             householdDao().deleteAll()
         }

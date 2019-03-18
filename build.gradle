@@ -22,7 +22,7 @@ allprojects {
         mavenLocal()
         google()
         mavenCentral()
-//        maven { url "https://kotlin.bintray.com/kotlinx/" } // required for Room alpha05
+        maven { url "https://kotlin.bintray.com/kotlinx/" } // todo remove when dependency is Maven Central: required for Room alpha05 (https://issuetracker.google.com/issues/128511448) (https://youtrack.jetbrains.com/issue/KT-27991)
         jcenter()
     }
     apply plugin: 'com.github.ben-manes.versions' // ./gradlew dependencyUpdates -Drevision=release
@@ -47,13 +47,13 @@ ext {
     minSdk = 21
     targetSdk = 28
 
-    // Android
-    archRoomVersion = '2.1.0-alpha04'
+    // Database
+    archRoomVersion = '2.1.0-alpha05'
+    dbtoolsRoomVersion = '4.6.0'
 
     // Code
     daggerVersion = '2.21'
-    okhttpVersion = '3.13.1'
-    dbtoolsRoomVersion = '4.5.0'
+    okhttpVersion = '3.14.0'
 }
 
 task clean(type: Delete) {
