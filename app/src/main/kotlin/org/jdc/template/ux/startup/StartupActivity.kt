@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.get
 import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import org.jdc.template.R
 import org.jdc.template.inject.Injector
 import org.jdc.template.ui.activity.BaseActivity
@@ -56,6 +57,7 @@ class StartupActivity : BaseActivity() {
 
     private fun devPauseStartup() {
         MaterialDialog(this).show {
+            lifecycleOwner(this@StartupActivity)
             message(text = "Paused for debugger attachment")
             positiveButton(text = "OK") { viewModel.startup() }
         }

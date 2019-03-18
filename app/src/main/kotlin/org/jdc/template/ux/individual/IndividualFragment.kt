@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.get
 import androidx.navigation.fragment.findNavController
 import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import org.jdc.template.R
 import org.jdc.template.databinding.IndividualBinding
 import org.jdc.template.inject.Injector
@@ -90,6 +91,7 @@ class IndividualFragment : BaseFragment() {
 
     private fun promptDeleteIndividual() {
         MaterialDialog(requireActivity()).show {
+            lifecycleOwner(this@IndividualFragment)
             message(R.string.delete_individual_confirm)
             positiveButton(R.string.delete) {
                 viewModel.deleteTask()
