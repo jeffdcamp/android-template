@@ -96,8 +96,8 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
 
     // Test (Unit)
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.4.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.4.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.4.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.4.1'
     // testImplementation 'org.junit.vintage:junit-vintage-engine:5.4.0' // junit 4 support (may be needed for Espresso)
     testImplementation "org.mockito:mockito-core:2.25.1" // be sure to add src/test/resources/mockito-extensions (so you don't have to 'open' all of your classes)
     testImplementation "com.squareup.okhttp3:mockwebserver:$okhttpVersion"
