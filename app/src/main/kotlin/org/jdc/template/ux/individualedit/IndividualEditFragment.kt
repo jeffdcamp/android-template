@@ -1,7 +1,5 @@
 package org.jdc.template.ux.individualedit
 
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -14,8 +12,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.get
 import androidx.navigation.fragment.findNavController
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.datetime.datePicker
+import com.afollestad.materialdialogs.datetime.timePicker
+import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import org.jdc.template.R
 import org.jdc.template.databinding.IndividualEditBinding
+import org.jdc.template.ext.toCalendar
+import org.jdc.template.ext.toLocalDate
+import org.jdc.template.ext.toLocalTime
 import org.jdc.template.inject.Injector
 import org.jdc.template.ui.fragment.LiveDataObserverFragment
 import org.threeten.bp.LocalDate
@@ -89,18 +94,19 @@ class IndividualEditFragment : LiveDataObserverFragment() {
     }
 
     private fun showBirthDateSelector(date: LocalDate) {
-        val birthDatePickerDialog = DatePickerDialog(requireActivity(), DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-            viewModel.birthDate.set(LocalDate.of(year, monthOfYear + 1, dayOfMonth)) // + 1 because core Java Date is 0 based
-        }, date.year, date.monthValue - 1, date.dayOfMonth) // - 1 because core Java Date is 0 based
-
-        birthDatePickerDialog.show()
+        MaterialDialog(requireContext()).show {
+            datePicker(currentDate = date.toCalendar()) { _, newDate ->
+                viewModel.birthDate.set(newDate.toLocalDate())
+            }
+        }
     }
 
     private fun showAlarmTimeSelector(time: LocalTime) {
-        val alarmTimePickerDialog = TimePickerDialog(requireActivity(), TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-            viewModel.alarmTime.set(LocalTime.of(hourOfDay, minute))
-        }, time.hour, time.minute, false)
-
-        alarmTimePickerDialog.show()
+        MaterialDialog(requireContext()).show {
+            lifecycleOwner(this@IndividualEditFragment)
+            timePicker(currentTime = time.toCalendar(), show24HoursView = false) { _, newTime ->
+                viewModel.alarmTime.set(newTime.toLocalTime())
+            }
+        }
     }
 }

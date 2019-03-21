@@ -33,8 +33,9 @@ dependencies {
     implementation "com.jakewharton.timber:timber:4.7.1"
 
     // UI
-    implementation "com.afollestad.material-dialogs:core:2.1.0"
-    implementation "com.afollestad.material-dialogs:lifecycle:2.1.0"
+    implementation "com.afollestad.material-dialogs:core:2.4.0"
+    implementation "com.afollestad.material-dialogs:datetime:2.4.0"
+    implementation "com.afollestad.material-dialogs:lifecycle:2.4.0"
 
     // === Android Architecture Components ===
     implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
