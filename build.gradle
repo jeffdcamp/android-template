@@ -40,6 +40,14 @@ allprojects {
 //            }
 //        }
 //    }
+
+    // improve performance of dagger annotation processing
+    afterEvaluate {
+        extensions.findByName('kapt')?.arguments {
+            arg("dagger.formatGeneratedSource", "disabled") // skip making the generated code "pretty"
+            arg("dagger.gradle.incremental", "enabled") // todo, remove when KAPT incremental builds are working (may still be needed?)
+        }
+    }
 }
 
 ext {
@@ -48,8 +56,8 @@ ext {
     targetSdk = 28
 
     // Database
-    archRoomVersion = '2.1.0-alpha05'
-    dbtoolsRoomVersion = '4.6.0'
+    archRoomVersion = '2.1.0-alpha06'
+    dbtoolsRoomVersion = '4.7.0'
 
     // Code
     daggerVersion = '2.21'
