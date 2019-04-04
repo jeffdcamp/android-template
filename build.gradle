@@ -60,7 +60,7 @@ ext {
     dbtoolsRoomVersion = '4.7.0'
 
     // Code
-    daggerVersion = '2.21'
+    daggerVersion = '2.22.1'
     okhttpVersion = '3.14.0'
 }
 

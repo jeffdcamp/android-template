@@ -40,15 +40,15 @@ dependencies {
     // === Android Architecture Components ===
     implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
     implementation "androidx.lifecycle:lifecycle-runtime:2.0.0"
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0'
-    kapt "androidx.lifecycle:lifecycle-compiler:2.0.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0"
+    implementation "androidx.lifecycle:lifecycle-common-java8:2.0.0"
 
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$archNavigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$archNavigationVersion"
 
     // WorkManager
-    implementation "androidx.work:work-runtime-ktx:2.0.0"
+    implementation "androidx.work:work-runtime-ktx:2.0.1-rc01"
 
     // Database
     implementation "androidx.room:room-runtime:$archRoomVersion"
@@ -103,7 +103,7 @@ dependencies {
     testImplementation "org.mockito:mockito-core:2.25.1" // be sure to add src/test/resources/mockito-extensions (so you don't have to 'open' all of your classes)
     testImplementation "com.squareup.okhttp3:mockwebserver:$okhttpVersion"
     testImplementation "org.threeten:threetenbp:1.3.8"
-    testImplementation "org.xerial:sqlite-jdbc:3.27.2"
+    testImplementation "org.xerial:sqlite-jdbc:3.27.2.1"
     testImplementation "androidx.room:room-testing:$archRoomVersion"
     testImplementation "org.dbtools:dbtools-room-jdbc:$dbtoolsRoomVersion"
     kaptTest "com.google.dagger:dagger-compiler:$daggerVersion"
