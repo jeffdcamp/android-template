@@ -35,9 +35,9 @@ dependencies {
     kapt 'com.vikingsen.inject:viewmodel-inject-processor:0.1.0'
 
     // UI
-    implementation "com.afollestad.material-dialogs:core:2.6.0"
-    implementation "com.afollestad.material-dialogs:datetime:2.6.0"
-    implementation "com.afollestad.material-dialogs:lifecycle:2.6.0"
+    implementation "com.afollestad.material-dialogs:core:2.7.0"
+    implementation "com.afollestad.material-dialogs:datetime:2.7.0"
+    implementation "com.afollestad.material-dialogs:lifecycle:2.7.0"
 
     // === Android Architecture Components ===
     implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
