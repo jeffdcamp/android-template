@@ -3,6 +3,7 @@ package org.jdc.template.ux.individual
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.analytics.HitBuilders
+import com.vikingsen.inject.viewmodel.ViewModelInject
 import kotlinx.coroutines.launch
 import org.jdc.template.Analytics
 import org.jdc.template.livedata.AbsentLiveData
@@ -10,10 +11,9 @@ import org.jdc.template.livedata.SingleLiveEvent
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.ui.viewmodel.BaseViewModel
-import javax.inject.Inject
 
 class IndividualViewModel
-@Inject constructor(
+@ViewModelInject constructor(
         private val analytics: Analytics,
         private val individualRepository: IndividualRepository
 ) : BaseViewModel() {

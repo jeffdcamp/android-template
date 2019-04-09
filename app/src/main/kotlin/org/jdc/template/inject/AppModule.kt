@@ -19,7 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 import javax.inject.Singleton
 
-@Module(includes = [ServiceModule::class])
+@Module(includes = [ServiceModule::class, AssistedModule::class])
 class AppModule(private val application: Application) {
 
     @Provides

@@ -2,16 +2,16 @@ package org.jdc.template.ux.startup
 
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.analytics.HitBuilders
+import com.vikingsen.inject.viewmodel.ViewModelInject
 import kotlinx.coroutines.launch
 import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
 import org.jdc.template.livedata.SingleLiveEvent
 import org.jdc.template.ui.viewmodel.BaseViewModel
 import timber.log.Timber
-import javax.inject.Inject
 
 class StartupViewModel
-@Inject constructor(
+@ViewModelInject constructor(
     private val analytics: Analytics
 ) : BaseViewModel() {
 

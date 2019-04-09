@@ -8,11 +8,11 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.get
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.vikingsen.inject.viewmodel.ViewModelFactory
 import me.eugeniomarletti.extras.bundle.BundleExtra
 import me.eugeniomarletti.extras.bundle.base.Int
 import org.jdc.template.R
@@ -28,7 +28,7 @@ class DirectoryFragment : BaseFragment() {
     @Inject
     lateinit var commonMenu: CommonMenu
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    lateinit var viewModelFactory: ViewModelFactory
 
     private val viewModel by lazy<DirectoryViewModel> { ViewModelProviders.of(this, viewModelFactory).get() }
     private lateinit var binding: DirectoryBinding

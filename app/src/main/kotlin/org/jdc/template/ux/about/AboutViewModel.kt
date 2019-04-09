@@ -2,6 +2,7 @@ package org.jdc.template.ux.about
 
 import android.app.Application
 import com.google.android.gms.analytics.HitBuilders
+import com.vikingsen.inject.viewmodel.ViewModelInject
 import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
 import org.jdc.template.Analytics
@@ -21,10 +22,9 @@ import retrofit2.Callback
 import retrofit2.Response
 import timber.log.Timber
 import java.io.File
-import javax.inject.Inject
 
 class AboutViewModel
-@Inject constructor(
+@ViewModelInject constructor(
     private val analytics: Analytics,
     private val application: Application,
     private val individualRepository: IndividualRepository,

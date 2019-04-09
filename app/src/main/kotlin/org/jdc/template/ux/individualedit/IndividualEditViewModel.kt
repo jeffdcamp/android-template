@@ -1,6 +1,7 @@
 package org.jdc.template.ux.individualedit
 
 import androidx.databinding.ObservableField
+import com.vikingsen.inject.viewmodel.ViewModelInject
 import kotlinx.coroutines.launch
 import org.jdc.template.R
 import org.jdc.template.livedata.SingleLiveEvent
@@ -9,10 +10,9 @@ import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.ui.viewmodel.BaseViewModel
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalTime
-import javax.inject.Inject
 
 class IndividualEditViewModel
-@Inject constructor(
+@ViewModelInject constructor(
     private val individualRepository: IndividualRepository
 ) : BaseViewModel() {
 

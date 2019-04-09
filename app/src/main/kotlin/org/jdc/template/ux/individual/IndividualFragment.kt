@@ -8,12 +8,12 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.get
 import androidx.navigation.fragment.findNavController
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
+import com.vikingsen.inject.viewmodel.ViewModelFactory
 import org.jdc.template.R
 import org.jdc.template.databinding.IndividualBinding
 import org.jdc.template.inject.Injector
@@ -23,7 +23,7 @@ import javax.inject.Inject
 class IndividualFragment : BaseFragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    lateinit var viewModelFactory: ViewModelFactory
 
     private val viewModel by lazy<IndividualViewModel> { ViewModelProviders.of(this, viewModelFactory).get() }
     private lateinit var binding: IndividualBinding
