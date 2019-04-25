@@ -1,5 +1,5 @@
 buildscript {
-    val kotlinVersion = "1.3.30"
+    val kotlinVersion = "1.3.31"
 
     repositories {
         mavenLocal()
@@ -8,7 +8,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:3.5.0-alpha12")
+        classpath("com.android.tools.build:gradle:3.5.0-alpha13")
         classpath("com.github.ben-manes:gradle-versions-plugin:0.21.0") // version plugin support
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.0.0")
