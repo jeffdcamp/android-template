@@ -57,10 +57,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
-    packagingOptions {
-        exclude("META-INF/atomicfu.kotlin_module") // fix for mixed versions of coroutines library (1.1.1 and 1.2.0) (https://github.com/Kotlin/kotlinx.coroutines/issues/1064)
-    }
-
     dataBinding {
         setEnabled(true)
     }
@@ -128,9 +124,9 @@ android {
 }
 
 object Versions {
-    const val COROUTINES = "1.2.0"
-    const val ROOM = "2.1.0-alpha06"
-    const val DBTOOLS_ROOM = "4.7.0"
+    const val COROUTINES = "1.2.1"
+    const val ROOM = "2.1.0-alpha07"
+    const val DBTOOLS_ROOM = "4.8.0"
     const val DAGGER = "2.22.1"
     const val OKHTTP = "3.14.1"
 }

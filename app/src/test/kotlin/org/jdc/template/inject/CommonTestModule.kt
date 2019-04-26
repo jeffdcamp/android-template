@@ -2,6 +2,7 @@ package org.jdc.template.inject
 
 import android.app.Application
 import com.google.gson.Gson
+import com.nhaarman.mockitokotlin2.whenever
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -11,7 +12,6 @@ import org.jdc.template.TestFilesystem
 import org.jdc.template.model.webservice.colors.ColorService
 import org.jdc.template.util.CoroutineContextProvider
 import org.mockito.ArgumentMatchers.anyString
-import org.mockito.Mockito.`when`
 import org.mockito.Mockito.doAnswer
 import org.mockito.Mockito.mock
 import retrofit2.Retrofit
@@ -38,7 +38,7 @@ class CommonTestModule {
     internal fun provideApplication(): Application {
         val application = mock(Application::class.java)
 
-        `when`(application.filesDir).thenReturn(TestFilesystem.INTERNAL_FILES_DIR)
+        whenever(application.filesDir).thenReturn(TestFilesystem.INTERNAL_FILES_DIR)
 
         doAnswer { invocation ->
             val type = invocation.getArgument<String>(0)
@@ -47,7 +47,7 @@ class CommonTestModule {
             } else {
                 return@doAnswer TestFilesystem.EXTERNAL_FILES_DIR
             }
-        }.`when`(application).getExternalFilesDir(anyString())
+        }.whenever(application).getExternalFilesDir(anyString())
 
         return application
     }
