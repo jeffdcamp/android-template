@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.get
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.vikingsen.inject.viewmodel.ViewModelFactory
@@ -27,6 +28,8 @@ class IndividualFragment : BaseFragment() {
 
     private val viewModel by lazy<IndividualViewModel> { ViewModelProviders.of(this, viewModelFactory).get() }
     private lateinit var binding: IndividualBinding
+
+    private val args by navArgs<IndividualFragmentArgs>()
 
     init {
         Injector.get().inject(this)
@@ -53,10 +56,7 @@ class IndividualFragment : BaseFragment() {
 
         setupViewModelObservers()
 
-        arguments?.let {
-            val args = IndividualFragmentArgs.fromBundle(it)
-            viewModel.setIndividualId(args.individualId)
-        }
+        viewModel.setIndividualId(args.individualId)
     }
 
     private fun setupViewModelObservers() {

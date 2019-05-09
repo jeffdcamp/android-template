@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.get
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.datetime.datePicker
 import com.afollestad.materialdialogs.datetime.timePicker
@@ -35,6 +36,8 @@ class IndividualEditFragment : LiveDataObserverFragment() {
     private val viewModel by lazy<IndividualEditViewModel> { ViewModelProviders.of(this, viewModelFactory).get() }
     private lateinit var binding: IndividualEditBinding
 
+    private val args by navArgs<IndividualEditFragmentArgs>()
+
     init {
         Injector.get().inject(this)
         setHasOptionsMenu(true)
@@ -57,10 +60,7 @@ class IndividualEditFragment : LiveDataObserverFragment() {
 
         setupViewModelObservers()
 
-        arguments?.let {
-            val args = IndividualEditFragmentArgs.fromBundle(it)
-            viewModel.loadIndividual(args.individualId)
-        }
+        viewModel.loadIndividual(args.individualId)
     }
 
     private fun setupViewModelObservers() {
