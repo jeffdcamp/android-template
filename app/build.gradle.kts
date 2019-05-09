@@ -68,10 +68,11 @@ android {
 
     // defined values my* in ~/.gradle/gradle.properties
     signingConfigs {
-        val myKeystore: String by project
-        val myKeystorePassword: String by project
-        val myKeyAlias: String by project
-        val myKeyPassword: String by project
+        // restore "by project" to read from Global Gradle file (this is a workaround to allow compile to work on fresh clone)
+        val myKeystore = "" // : String = "" by project
+        val myKeystorePassword = "" // : String = "" by project
+        val myKeyAlias = "" // : String = "" by project
+        val myKeyPassword = "" // : String by project
 
         create("prod") {
             storeFile = File(myKeystore)
