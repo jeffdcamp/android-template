@@ -1,6 +1,5 @@
 package org.jdc.template.ui.activity
 
-
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
@@ -24,7 +23,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-
 @RunWith(AndroidJUnit4::class)
 class SmokeTest {
 
@@ -37,7 +35,7 @@ class SmokeTest {
         val overflowMenuButton = onView(allOf<View>(withContentDescription("More options"), isDisplayed()))
         overflowMenuButton.perform(click())
 
-        val aboutMenuView = onView(allOf<View>(withId(org.jdc.template.R.id.title), withText("About"), isDisplayed()))
+        val aboutMenuView = onView(allOf<View>(withId(R.id.title), withText("About"), isDisplayed()))
         aboutMenuView.perform(click())
 
         val createDatabaseButton = onView(allOf<View>(withId(R.id.createDatabaseButton), withText("Create Database"), isDisplayed()))
@@ -53,16 +51,16 @@ class SmokeTest {
         val nameTextView = onView(allOf<View>(withId(R.id.nameTextView), withText("Jeff Campbell"), isDisplayed()))
         nameTextView.check(matches(withText("Jeff Campbell")))
 
-        val editMenuItemView = onView(allOf<View>(withId(org.jdc.template.R.id.menu_item_edit), withContentDescription("Edit"), isDisplayed()))
+        val editMenuItemView = onView(allOf<View>(withId(R.id.menu_item_edit), withContentDescription("Edit"), isDisplayed()))
         editMenuItemView.perform(click())
 
         val firstNameEditText = onView(allOf<View>(withId(R.id.firstNameEditText), withText("Jeff"), isDisplayed()))
         firstNameEditText.perform(click())
 
-        val firstNameEditText2 = onView(allOf<View>(withId(org.jdc.template.R.id.firstNameEditText), withText("Jeff"), isDisplayed()))
+        val firstNameEditText2 = onView(allOf<View>(withId(R.id.firstNameEditText), withText("Jeff"), isDisplayed()))
         firstNameEditText2.perform(replaceText("Jeffery"))
 
-        val saveMenuItemView = onView(allOf<View>(withId(org.jdc.template.R.id.menu_item_save), withText("Save"), isDisplayed()))
+        val saveMenuItemView = onView(allOf<View>(withId(R.id.menu_item_save), withText("Save"), isDisplayed()))
         saveMenuItemView.perform(click())
 
         val nameTextView2 = onView(allOf<View>(withId(R.id.nameTextView), withText("Jeffery Campbell"), isDisplayed()))
@@ -74,23 +72,23 @@ class SmokeTest {
         imageButton.perform(click())
 
         val listItemTextView = onView(
-                allOf<View>(withId(org.jdc.template.R.id.listItemTextView), withText("Jeffery Campbell"),
-                        withParent(allOf<View>(withId(org.jdc.template.R.id.listItemLayout),
+                allOf<View>(withId(R.id.listItemTextView), withText("Jeffery Campbell"),
+                        withParent(allOf<View>(withId(R.id.listItemLayout),
                                 withParent(withId(R.id.recyclerView)))),
                         isDisplayed()))
         listItemTextView.check(matches(withText("Jeffery Campbell")))
 
         val directoryRecyclerView2 = onView(
-                allOf<View>(withId(org.jdc.template.R.id.recyclerView), isDisplayed()))
+                allOf<View>(withId(R.id.recyclerView), isDisplayed()))
         directoryRecyclerView2.perform(actionOnItemAtPosition<RecyclerView.ViewHolder>(2, click()))
 
-        val deleteMenuItemView = onView(allOf<View>(withId(org.jdc.template.R.id.menu_item_delete), withContentDescription("Delete"), isDisplayed()))
+        val deleteMenuItemView = onView(allOf<View>(withId(R.id.menu_item_delete), withContentDescription("Delete"), isDisplayed()))
         deleteMenuItemView.perform(click())
 
         val deleteDialogButton = onView(allOf<View>(withId(R.id.md_button_positive), withText("Delete"), isDisplayed()))
         deleteDialogButton.perform(click())
 
-        val directoryRecyclerView3 = onView(allOf<View>(withId(org.jdc.template.R.id.recyclerView), isDisplayed()))
+        val directoryRecyclerView3 = onView(allOf<View>(withId(R.id.recyclerView), isDisplayed()))
         directoryRecyclerView3.check(matches(recyclerViewWithItemCount(2)))
     }
 }
