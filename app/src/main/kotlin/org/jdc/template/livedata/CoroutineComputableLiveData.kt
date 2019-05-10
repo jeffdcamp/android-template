@@ -7,7 +7,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.jdc.template.util.CoroutineContextProvider
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.coroutines.CoroutineContext
 
@@ -50,8 +49,6 @@ abstract class CoroutineComputableLiveData<T>(
     private val workerThreadContext: CoroutineContext = Dispatchers.Default,
     private val mainThreadContext: CoroutineContext = Dispatchers.Main
 ) : CoroutineScope {
-
-    constructor(cc: CoroutineContextProvider) : this(cc.default, cc.main)
 
     var liveData: MutableLiveData<T>
         private set

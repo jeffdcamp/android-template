@@ -13,7 +13,6 @@ import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
 import org.jdc.template.json.OffsetDateTimeJsonAdapter
 import org.jdc.template.model.webservice.ServiceModule
-import org.jdc.template.util.CoroutineContextProvider
 import org.threeten.bp.OffsetDateTime
 import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
@@ -64,12 +63,6 @@ class AppModule(private val application: Application) {
     @Singleton
     fun provideConverterFactory(gson: Gson): GsonConverterFactory {
         return GsonConverterFactory.create(gson)
-    }
-
-    @Provides
-    @Singleton
-    fun provideCoroutineContextProvider(): CoroutineContextProvider {
-        return CoroutineContextProvider.MainCoroutineContextProvider
     }
 
     @Provides

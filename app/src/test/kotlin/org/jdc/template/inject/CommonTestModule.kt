@@ -10,7 +10,6 @@ import okhttp3.mockwebserver.MockWebServer
 import org.jdc.template.Analytics
 import org.jdc.template.TestFilesystem
 import org.jdc.template.model.webservice.colors.ColorService
-import org.jdc.template.util.CoroutineContextProvider
 import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mockito.doAnswer
 import org.mockito.Mockito.mock
@@ -50,12 +49,6 @@ class CommonTestModule {
         }.whenever(application).getExternalFilesDir(anyString())
 
         return application
-    }
-
-    @Provides
-    @Singleton
-    fun provideCoroutineContextProvider(): CoroutineContextProvider {
-        return CoroutineContextProvider.TestCoroutineContextProvider
     }
 
     @Provides
