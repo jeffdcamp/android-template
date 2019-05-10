@@ -126,8 +126,8 @@ android {
 
 object Versions {
     const val COROUTINES = "1.2.1"
-    const val ROOM = "2.1.0-alpha07"
-    const val DBTOOLS_ROOM = "4.8.0"
+    const val ROOM = "2.1.0-beta01"
+    const val DBTOOLS_ROOM = "4.9.0"
     const val DAGGER = "2.22.1"
     const val OKHTTP = "3.14.1"
 }
@@ -144,7 +144,7 @@ dependencies {
     implementation("com.google.android.gms:play-services-analytics:16.0.8")
 //    implementation("com.google.android.gms:play-services-oss-licenses:$playServicesVersion")
     implementation("androidx.constraintlayout:constraintlayout:1.1.3")
-    implementation("androidx.core:core-ktx:1.0.1")
+    implementation("androidx.core:core-ktx:1.0.2")
 
     // Code
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KotlinCompilerVersion.VERSION}")
@@ -207,17 +207,17 @@ dependencies {
 
     // Test (Integration)
     // Espresso core dependencies
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.1.1")
-    androidTestImplementation("androidx.test:runner:1.1.1")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.2.0-beta01")
+    androidTestImplementation("androidx.test:runner:1.2.0-beta01")
     androidTestImplementation("androidx.annotation:annotation:1.0.2")// fix dependency conflict warning
 
     // Espresso contrib dependencies
-    androidTestImplementation("androidx.test.espresso:espresso-contrib:3.1.1")
-    androidTestImplementation("androidx.test:rules:1.1.1")
+    androidTestImplementation("androidx.test.espresso:espresso-contrib:3.2.0-beta01")
+    androidTestImplementation("androidx.test:rules:1.2.0-beta01")
     androidTestImplementation("androidx.appcompat:appcompat:1.0.2")
     androidTestImplementation("androidx.recyclerview:recyclerview:1.0.0")
     androidTestImplementation("com.google.android.material:material:1.0.0")
-    androidTestImplementation("androidx.test.ext:junit:1.1.0")
+    androidTestImplementation("androidx.test.ext:junit:1.1.1-beta01")
 
     // Test (Unit)
     testImplementation("org.junit.jupiter:junit-jupiter:5.4.1")
@@ -225,7 +225,7 @@ dependencies {
     // testimplementation("org.junit.vintage:junit-vintage-engine:5.4.0" // junit 4 support (may be needed for Espresso)
     testImplementation("org.mockito:mockito-core:2.27.0") // be sure to add src/test/resources/mockito-extensions (so you don"t have to "open" all of your classes)
     testImplementation("com.squareup.okhttp3:mockwebserver:${Versions.OKHTTP}")
-    testImplementation("org.threeten:threetenbp:1.3.8")
+    testImplementation("org.threeten:threetenbp:1.4.0")
     testImplementation("org.xerial:sqlite-jdbc:3.27.2.1")
     testImplementation("androidx.room:room-testing:${Versions.ROOM}")
     testImplementation("org.dbtools:dbtools-room-jdbc:${Versions.DBTOOLS_ROOM}")
