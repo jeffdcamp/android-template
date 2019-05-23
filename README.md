@@ -6,6 +6,8 @@ Sample Android app that utilizes common best practices
 **Features**
 
 * Kotlin
+* Kotlin Coroutines
+* Kotlin Gradle support (build.gradle.kts)
 * Android Architecture Components
     * ViewModel
     * LiveData
@@ -14,7 +16,6 @@ Sample Android app that utilizes common best practices
     * WorkManager
     * Data Binding
 * Dagger 2.0 dependency injection
-* Kotlin Coroutines
 * ThreeTenBp
 * Constraint Layout
 * RecyclerView / ListAdapter / ViewHolder
@@ -30,7 +31,7 @@ Sample Android app that utilizes common best practices
 License
 =======
 
-    Copyright 2014-2018 Jeff Campbell
+    Copyright 2014-2019 Jeff Campbell
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
