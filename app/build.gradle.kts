@@ -1,7 +1,5 @@
-import org.jetbrains.kotlin.config.KotlinCompilerVersion
-import java.io.FileInputStream
+
 import java.util.Date
-import java.util.Properties
 
 plugins {
     id("com.android.application")
@@ -15,7 +13,7 @@ apply(plugin = "androidx.navigation.safeargs.kotlin")
 val buildTime = Date().time
 val versionCodeAppName = "android-template"
 val minVersionCode = 1000
-val appVersionCode = readVersionCode()
+val appVersionCode = VersionCode.readVersionCode(versionCodeAppName, minVersionCode)
 val appVersionName = "1.0.0 ($appVersionCode.${System.getProperty("BUILD_NUMBER")})"
 
 kapt {
@@ -26,11 +24,11 @@ kapt {
 }
 
 android {
-    compileSdkVersion(28)
+    compileSdkVersion(AndroidSdk.COMPILE)
 
     defaultConfig {
-        minSdkVersion(21)
-        targetSdkVersion(28)
+        minSdkVersion(AndroidSdk.MIN)
+        targetSdkVersion(AndroidSdk.TARGET)
 
         versionCode = appVersionCode
         versionName = appVersionName
@@ -124,114 +122,91 @@ android {
     }
 }
 
-object Versions {
-    const val COROUTINES = "1.2.1"
-    const val ROOM = "2.1.0-beta01"
-    const val DBTOOLS_ROOM = "4.9.0"
-    const val DAGGER = "2.22.1"
-    const val OKHTTP = "3.14.1"
-}
-
 dependencies {
     // Android
-    implementation("androidx.appcompat:appcompat:1.1.0-alpha05")
-    implementation("androidx.recyclerview:recyclerview:1.0.0")
-    implementation("androidx.preference:preference-ktx:1.0.0")
-    implementation("com.google.android.material:material:1.1.0-alpha06")
-    implementation("androidx.annotation:annotation:1.0.2") // includes support-v4
-    implementation("androidx.multidex:multidex:2.0.1")
-    implementation("androidx.multidex:multidex-instrumentation:2.0.0")
-    implementation("com.google.android.gms:play-services-analytics:16.0.8")
-//    implementation("com.google.android.gms:play-services-oss-licenses:$playServicesVersion")
-    implementation("androidx.constraintlayout:constraintlayout:1.1.3")
-    implementation("androidx.core:core-ktx:1.0.2")
+    implementation(Libs.ANDROIDX_APPCOMPAT)
+    implementation(Libs.ANDROIDX_RECYCLERVIEW)
+    implementation(Libs.ANDROIDX_PREFERENCE)
+    implementation(Libs.ANDROID_MATERIAL)
+    implementation(Libs.ANDROIDX_ANNOTATIONS)
+    implementation(Libs.ANDROID_MULTIDEX)
+    implementation(Libs.ANDROID_MULTIDEX_INSTRUMENTATION)
+    implementation(Libs.PLAYSERVICE_ANALYTICS)
+//    implementation(Libs.PLAYSERVICE_LICENSES)
+    implementation(Libs.ANDROIDX_CONSTRAINT_LAYOUT)
+    implementation(Libs.ANDROIDX_CORE)
 
     // Code
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KotlinCompilerVersion.VERSION}")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.COROUTINES}")
-    implementation("me.eugeniomarletti:android-extras-delegates:1.0.5")
-    implementation("com.jakewharton.threetenabp:threetenabp:1.2.0")
-    implementation("com.jakewharton.timber:timber:4.7.1")
-    implementation("com.vikingsen.inject:viewmodel-inject:0.1.1")
-    kapt("com.vikingsen.inject:viewmodel-inject-processor:0.1.1")
+    implementation(Libs.KOTLIN_STD_LIB)
+    implementation(Libs.COROUTINES)
+    implementation(Libs.EXTRAS_DELEGATES)
+    implementation(Libs.THREETEN_ABP)
+    implementation(Libs.TIMBER)
+    implementation(Libs.VIEWMODEL_INJECT)
+    kapt(Libs.VIEWMODEL_INJECT_PROCESSOR)
 
     // UI
-    implementation("com.afollestad.material-dialogs:core:2.8.1")
-    implementation("com.afollestad.material-dialogs:datetime:2.8.1")
-    implementation("com.afollestad.material-dialogs:lifecycle:2.8.1")
+    implementation(Libs.MATERIAL_DIALOGS_CORE)
+    implementation(Libs.MATERIAL_DIALOGS_DATETIME)
+    implementation(Libs.MATERIAL_DIALOGS_LIFECYCLE)
 
     // === Android Architecture Components ===
-    implementation("androidx.lifecycle:lifecycle-extensions:2.0.0")
-    implementation("androidx.lifecycle:lifecycle-runtime:2.0.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0")
-    implementation("androidx.lifecycle:lifecycle-common-java8:2.0.0")
+    implementation(Libs.ARCH_LIFECYCLE_EXT)
+    implementation(Libs.ARCH_LIFECYCLE_RUNTIME)
+    implementation(Libs.ARCH_LIFECYCLE_VIEWMODEL)
+    implementation(Libs.ARCH_LIFECYCLE_COMMON)
 
     // Navigation
-    implementation("androidx.navigation:navigation-fragment-ktx:2.0.0")
-    implementation("androidx.navigation:navigation-ui-ktx:2.0.0")
+    implementation(Libs.ARCH_NAVIGATION_FRAGMENT)
+    implementation(Libs.ARCH_NAVIGATION_UI)
 
     // WorkManager
-    implementation("androidx.work:work-runtime-ktx:2.0.1")
+    implementation(Libs.ARCH_WORK_RUNTIME)
 
     // Database
-    implementation("androidx.room:room-runtime:${Versions.ROOM}")
-    implementation("androidx.room:room-ktx:${Versions.ROOM}")
-    kapt("androidx.room:room-compiler:${Versions.ROOM}")
-    implementation("org.dbtools:dbtools-room:${Versions.DBTOOLS_ROOM}")
+    implementation(Libs.ARCH_ROOM_RUNTIME)
+    implementation(Libs.ARCH_ROOM_KTX)
+    kapt(Libs.ARCH_ROOM_COMPILER)
+    implementation(Libs.DBTOOLS_ROOM)
+
+    // Custom SQLite database
+    // (for use of SqliteOrgSQLiteOpenHelperFactory in AppModule.kt)
+    //implementation(Libs.DBTOOLS_ROOM_SQLITE)
 
     // Debug Database (emulator: adb forward tcp:8080 tcp:8080) (https://github.com/amitshekhariitbhu/Android-Debug-Database)
     // debugimplementation("com.amitshekhar.android:debug-db:1.0.4")
 
     // Network
-    implementation("com.squareup.okhttp3:okhttp:${Versions.OKHTTP}")
-    implementation("com.squareup.okhttp3:logging-interceptor:${Versions.OKHTTP}")
+    implementation(Libs.OKHTTP)
+    implementation(Libs.OKHTTP_LOGGING_INTERCEPTOR)
 
     // JSON Parsing
-    implementation("com.google.code.gson:gson:2.8.5")
-    implementation("com.squareup.retrofit2:converter-gson:2.5.0")
+    implementation(Libs.GSON)
+    implementation(Libs.GSON_RETROFIT_CONVERTER)
 
     // Dagger 2
-    implementation("com.google.dagger:dagger:${Versions.DAGGER}")
-    kapt("com.google.dagger:dagger-compiler:${Versions.DAGGER}")
-
-    // Custom SQLite database
-
-    // (for use of SqliteOrgSQLiteOpenHelperFactory in AppModule.kt)
-//    implementation("org.dbtools:dbtools-room:$dbtoolsRoomVersion")
-//    implementation("org.dbtools:dbtools-room-sqliteorg:$dbtoolsRoomVersion")
-
-//    implementation("org.sqlite.sqliteX:sqlite-android:3.15.2")
-
-//    implementation("org.sqlite:sqlite-android:3.8.9.0-20150415")
-//    implementation("net.sqlcipher:sqlcipher-aar:3.1.0.20140823")
+    implementation(Libs.DAGGER)
+    kapt(Libs.DAGGER_COMPILER)
 
     // Test (Integration)
-    // Espresso core dependencies
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.2.0-beta01")
-    androidTestImplementation("androidx.test:runner:1.2.0-beta01")
-    androidTestImplementation("androidx.annotation:annotation:1.0.2")// fix dependency conflict warning
-
-    // Espresso contrib dependencies
-    androidTestImplementation("androidx.test.espresso:espresso-contrib:3.2.0-beta01")
-    androidTestImplementation("androidx.test:rules:1.2.0-beta01")
-    androidTestImplementation("androidx.appcompat:appcompat:1.0.2")
-    androidTestImplementation("androidx.recyclerview:recyclerview:1.0.0")
-    androidTestImplementation("com.google.android.material:material:1.0.0")
-    androidTestImplementation("androidx.test.ext:junit:1.1.1-beta01")
+    androidTestImplementation(Libs.TEST_ESPRESSO_CORE)
+    androidTestImplementation(Libs.TEST_ESPRESSO_CONTRIB)
+    androidTestImplementation(Libs.TEST_RUNNER)
+    androidTestImplementation(Libs.TEST_RULES)
+    androidTestImplementation(Libs.TEST_ANDROIDX_JUNIT)
 
     // Test (Unit)
-    testImplementation("org.junit.jupiter:junit-jupiter:5.4.1")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.4.1")
-    // testimplementation("org.junit.vintage:junit-vintage-engine:5.4.0" // junit 4 support (may be needed for Espresso)
-    testImplementation("org.mockito:mockito-core:2.27.0") // be sure to add src/test/resources/mockito-extensions (so you don"t have to "open" all of your classes)
-    testImplementation("com.squareup.okhttp3:mockwebserver:${Versions.OKHTTP}")
-    testImplementation("org.threeten:threetenbp:1.4.0")
-    testImplementation("org.xerial:sqlite-jdbc:3.27.2.1")
-    testImplementation("androidx.room:room-testing:${Versions.ROOM}")
-    testImplementation("org.dbtools:dbtools-room-jdbc:${Versions.DBTOOLS_ROOM}")
-    kaptTest("com.google.dagger:dagger-compiler:${Versions.DAGGER}")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.COROUTINES}")
-    testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0")
+    testImplementation(Libs.TEST_JUNIT)
+    testRuntimeOnly(Libs.TEST_JUNIT_ENGINE)
+    testImplementation(Libs.TEST_OKHTTP_MOCKWEBSERVER)
+    testImplementation(Libs.TEST_MOCKITO_CORE)
+    testImplementation(Libs.TEST_THREETENBP)
+    testImplementation(Libs.TEST_XERIAL_SQLITE)
+    testImplementation(Libs.TEST_ARCH_ROOM_TESTING)
+    testImplementation(Libs.TEST_DBTOOLS_ROOM_JDBC)
+    testImplementation(Libs.TEST_KOTLIN_COROUTINES_TEST)
+    testImplementation(Libs.TEST_MOCKITO_KOTLIN)
+    kaptTest(Libs.DAGGER_COMPILER)
 }
 
 // ===== TEST TASKS =====
@@ -247,66 +222,8 @@ fun getAnalyticsKey(): String {
     return myAnalyticsKey ?: ""
 }
 
-/**
- * Read the versionCode for a specific app.
- *
- * Be sure to define the following ABOVE defaultConfig {...}:
- * ext.versionCodeAppName = "my-app"
- * ext.minVersionCode = 100
- *
- * Set versionCode in defaultConfig {...}:
- * versionCode readVersionCode()
- *
- * @param increment Increments the version code (NOTE: This will increment AFTER configuration is executed (after defaultConfig {...}) (next build will have the incremented value)
- * @return current versionCode
- */
-fun readVersionCode(increment: Boolean = false): Int {
-    val versionsFilename = "$versionCodeAppName.properties"
-    val versionCodesDirname = "${System.getProperty("user.home")}/.app-version-codes"
-
-    // prepare directory
-    val versionsDir = File(versionCodesDirname)
-    if (!versionsDir.exists() && !versionsDir.mkdirs()) {
-        throw IllegalStateException("Cannot create versions directory [${versionsDir.absolutePath}]")
-    }
-
-    // read existing versions file (create if does not exist)
-    val versionPropsFile = File(versionsDir, versionsFilename)
-    val versionProps = Properties()
-    if (versionPropsFile.canRead()) {
-        val reader = FileInputStream(versionPropsFile)
-        versionProps.load(reader)
-        reader.close()
-    } else {
-        println("Failed to read properties file [${versionPropsFile.absolutePath}]")
-        versionProps["VERSION_CODE"] = "$minVersionCode"
-    }
-
-    // get the existing version
-    var versionCode = (versionProps["VERSION_CODE"] as String).toInt()
-
-    // make sure the version code is GREATER THAN the minVersionCode
-    if (versionCode < minVersionCode) {
-        versionCode = minVersionCode
-    }
-
-    println("Current build will use versionCode [$versionCode]")
-
-    if (increment) {
-        // increment version code
-        versionCode++
-
-        // write updated version code
-        versionPropsFile.writeText("VERSION_CODE=$versionCode")
-
-        println("Incremented versionCode to [$versionCode]")
-    }
-
-    return versionCode
-}
-
 tasks.register("incrementVersionCode") {
     doLast {
-        readVersionCode(true)
+        VersionCode.incrementVersionCode(versionCodeAppName, minVersionCode)
     }
 }
