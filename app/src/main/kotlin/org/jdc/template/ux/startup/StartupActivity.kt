@@ -9,6 +9,7 @@ import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.vikingsen.inject.viewmodel.ViewModelFactory
 import org.jdc.template.R
 import org.jdc.template.inject.Injector
+import org.jdc.template.ui.ThemeManager
 import org.jdc.template.ui.activity.BaseActivity
 import org.jdc.template.ux.main.MainActivity
 import javax.inject.Inject
@@ -17,6 +18,8 @@ class StartupActivity : BaseActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+    @Inject
+    lateinit var themeManager: ThemeManager
 
     private val viewModel by lazy<StartupViewModel> { ViewModelProviders.of(this, viewModelFactory).get() }
 
@@ -30,6 +33,8 @@ class StartupActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash_activity)
         setupViewModelObservers()
+
+        themeManager.applyTheme()
 
         @Suppress("ConstantConditionIf") // used for debugging
         if (debugStartup) {

@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Primary App Colors -->
-    <color name="primary">#F1433C</color>
-    <color name="primary_dark">#D03033</color>
-    <color name="accent">#027bc7</color>
-    <color name="window_background">#ffffffff</color>
+    <color name="primaryColor">#d32f2f</color>
+    <color name="primaryLightColor">#ff6659</color>
+    <color name="primaryDarkColor">#9a0007</color>
+    <color name="secondaryColor">#1976d2</color>
+    <color name="secondaryLightColor">#63a4ff</color>
+    <color name="secondaryDarkColor">#004ba0</color>
+    <color name="primaryTextColor">#ffffff</color>
+    <color name="secondaryTextColor">#ffffff</color>
+
+    <color name="colorBackground">#ffffff</color>
+    <color name="colorOnBackground">#000000</color>
+    <color name="colorSurface">#FFFFFF</color>
+    <color name="colorOnSurface">#212121</color>
+    <color name="colorError">#b00020</color>
+    <color name="colorOnError">#ffffff</color>
 
     <!-- Splash -->
     <color name="startup_background_start">#cfe1edFF</color>

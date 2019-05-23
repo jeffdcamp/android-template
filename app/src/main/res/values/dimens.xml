@@ -1,8 +1,4 @@
 <resources>
     <dimen name="fragment_elevation">0dp</dimen>
     <dimen name="drag_elevation_height">8dp</dimen>
-
-    <!-- todo Temp work around for constraint layout and TextImputLayout issue (https://code.google.com/p/android/issues/detail?id=230766)-->
-    <item name = "visible" type = "id" />
-    <item name = "masked" type = "id" />
 </resources>

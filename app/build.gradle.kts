@@ -69,9 +69,9 @@ android {
     // defined values my* in ~/.gradle/gradle.properties
     signingConfigs {
         // restore "by project" to read from Global Gradle file (this is a workaround to allow compile to work on fresh clone)
-        val myKeystore = "" // : String = "" by project
-        val myKeystorePassword = "" // : String = "" by project
-        val myKeyAlias = "" // : String = "" by project
+        val myKeystore = "" // : String by project
+        val myKeystorePassword = "" // : String by project
+        val myKeyAlias = "" // : String by project
         val myKeyPassword = "" // : String by project
 
         create("prod") {
@@ -134,10 +134,10 @@ object Versions {
 
 dependencies {
     // Android
-    implementation("androidx.appcompat:appcompat:1.0.2")
+    implementation("androidx.appcompat:appcompat:1.1.0-alpha05")
     implementation("androidx.recyclerview:recyclerview:1.0.0")
     implementation("androidx.preference:preference-ktx:1.0.0")
-    implementation("com.google.android.material:material:1.0.0")
+    implementation("com.google.android.material:material:1.1.0-alpha06")
     implementation("androidx.annotation:annotation:1.0.2") // includes support-v4
     implementation("androidx.multidex:multidex:2.0.1")
     implementation("androidx.multidex:multidex-instrumentation:2.0.0")

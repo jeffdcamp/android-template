@@ -2,15 +2,23 @@ package org.jdc.template.ui.fragment
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.preference.Preference
-import androidx.preference.PreferenceFragmentCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
 import org.jdc.template.R
 import org.jdc.template.inject.Injector
+import org.jdc.template.prefs.Prefs
+import org.jdc.template.ui.ThemeManager
+import javax.inject.Inject
 
 class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceClickListener {
+
+    @Inject
+    lateinit var prefs: Prefs
+    @Inject
+    lateinit var themeManager: ThemeManager
 
     init {
         Injector.get().inject(this)
@@ -25,10 +33,32 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
         addPreferencesFromResource(R.xml.preferences)
     }
 
+    override fun onResume() {
+        super.onResume()
+        showThemeDetails()
+
+        prefs.preferenceManager.registerOnSharedPreferenceChangeListener(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        prefs.preferenceManager.unregisterOnSharedPreferenceChangeListener(this)
+    }
+
     override fun onPreferenceClick(preference: Preference): Boolean {
         return false
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
+        when (key) {
+            Prefs.PREF_GENERAL_DISPLAY_THEME_TYPE -> {
+                showThemeDetails()
+                themeManager.applyTheme()
+            }
+        }
+    }
+
+    private fun showThemeDetails() {
+        findPreference(Prefs.PREF_GENERAL_DISPLAY_THEME_TYPE)?.setSummary(prefs.theme.stringResId)
     }
 }

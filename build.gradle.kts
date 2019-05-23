@@ -8,7 +8,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:3.5.0-beta01")
+        classpath("com.android.tools.build:gradle:3.5.0-beta02")
         classpath("com.github.ben-manes:gradle-versions-plugin:0.21.0") // version plugin support
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.0.0")

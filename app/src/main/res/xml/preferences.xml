@@ -1,15 +1,19 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- BE SURE TO MATCH KEYS WITH VALUES IN Prefs.java -->
+    <!-- BE SURE TO MATCH KEYS WITH VALUES IN Prefs.kt -->
 
+
+    <!-- Display -->
     <PreferenceCategory
-        android:key="general_category"
-        android:title="@string/pref_category_general">
+        android:key="category_ui"
+        android:title="@string/display">
 
-        <SwitchPreferenceCompat
-            android:defaultValue="false"
-            android:key="pref_enable_something_id"
-            android:summary="@string/pref_enable_something_summary"
-            android:title="@string/pref_enable_something"/>
+        <ListPreference
+            android:defaultValue="LIGHT"
+            android:entries="@array/theme_options"
+            android:entryValues="@array/theme_options_values"
+            android:key="display_theme_type"
+            android:title="@string/theme"
+            />
     </PreferenceCategory>
 
 </PreferenceScreen>

@@ -1,45 +1,26 @@
 package org.jdc.template.prefs
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import android.os.Build
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class Prefs @Inject constructor() : PrefsContainer(PrefsManager.COMMON_NAMESPACE)  {
-    private val _sortLiveData = MutableLiveData<Sort>()
-    val sortLiveData: LiveData<Sort>
-        get() = _sortLiveData
-
-    var version by SharedPref(0, key = PREF_VERSION)
+class Prefs @Inject constructor() : PrefsContainer(COMMON_NAMESPACE)  {
     var developerMode by SharedPref(false, key = PREF_DEVELOPER_MODE)
-    var sort by EnumPref(Sort.ALPHA, key = PREF_SORT, liveData = _sortLiveData)
+    var theme by EnumPref(getThemeDefault(), key = PREF_GENERAL_DISPLAY_THEME_TYPE)
 
-    init {
-        _sortLiveData.postValue(sort)
-    }
-
-    fun toggleDeveloperMode(): Boolean {
-        developerMode = !developerMode
-
-        return developerMode
-    }
-
-    fun toggleSort() {
-        sort = when (sort) {
-            Sort.ALPHA -> Sort.BETA
-            Sort.BETA -> Sort.ALPHA
+    private fun getThemeDefault(): DisplayThemeType {
+        return if (Build.VERSION.SDK_INT > 28) {
+            // support Android Q System Theme
+            DisplayThemeType.SYSTEM_DEFAULT
+        } else {
+            DisplayThemeType.LIGHT
         }
     }
 
     companion object {
-        private const val PREF_VERSION = "PREF_VERSION"
-        private const val PREF_DEVELOPER_MODE = "PREF_DEVELOPER_MODE"
-        private const val PREF_SORT = "PREF_SORT"
+        private const val PREF_DEVELOPER_MODE = "developer_mode"
+        const val PREF_GENERAL_DISPLAY_THEME_TYPE = "display_theme_type"
     }
 }
 
-enum class Sort {
-    ALPHA,
-    BETA
-}
