@@ -198,14 +198,14 @@ dependencies {
     // Test (Unit)
     testImplementation(Libs.TEST_JUNIT)
     testRuntimeOnly(Libs.TEST_JUNIT_ENGINE)
-    testImplementation(Libs.TEST_OKHTTP_MOCKWEBSERVER)
+    testImplementation(Libs.TEST_MOCKITO_KOTLIN)
     testImplementation(Libs.TEST_MOCKITO_CORE)
+    testImplementation(Libs.TEST_KOTLIN_COROUTINES_TEST)
     testImplementation(Libs.TEST_THREETENBP)
+    testImplementation(Libs.TEST_OKHTTP_MOCKWEBSERVER)
     testImplementation(Libs.TEST_XERIAL_SQLITE)
     testImplementation(Libs.TEST_ARCH_ROOM_TESTING)
     testImplementation(Libs.TEST_DBTOOLS_ROOM_JDBC)
-    testImplementation(Libs.TEST_KOTLIN_COROUTINES_TEST)
-    testImplementation(Libs.TEST_MOCKITO_KOTLIN)
     kaptTest(Libs.DAGGER_COMPILER)
 }
 

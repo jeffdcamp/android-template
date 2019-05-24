@@ -14,14 +14,13 @@ object Libs {
         const val DAGGER = "2.22.1"
         const val ROOM = "2.1.0-beta01"
         const val DBTOOLS = "4.9.0"
-        const val OKHTTP = "3.14.1"
+        const val OKHTTP = "3.14.2"
         const val MATERIAL_DIALOGS = "2.8.1"
         const val COROUTINES = "1.2.1"
 
         // Test
         const val JUNIT = "5.4.1"
         const val ESPRESSO = "3.2.0-beta01"
-
     }
 
     // Android (https://android.googlesource.com/platform/frameworks/support/+/refs/heads/androidx-master-dev/buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt)
