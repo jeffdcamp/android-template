@@ -51,11 +51,11 @@ object Libs {
 
     // Code
     const val KOTLIN_STD_LIB = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
+    const val KOTLIN_SERIALIZATION = "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.11.0"
     const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.COROUTINES}"
     const val DAGGER = "com.google.dagger:dagger:${Versions.DAGGER}"
     const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:${Versions.DAGGER}"
-    const val GSON = "com.google.code.gson:gson:2.8.5"
-    const val GSON_RETROFIT_CONVERTER = "com.squareup.retrofit2:converter-gson:2.5.0"
+    const val KOTLIN_RETROFIT_CONVERTER = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.4.0"
     const val EXTRAS_DELEGATES = "me.eugeniomarletti:android-extras-delegates:1.0.5"
     const val THREETEN_ABP = "com.jakewharton.threetenabp:threetenabp:1.2.0"
     const val TIMBER = "com.jakewharton.timber:timber:4.7.1"

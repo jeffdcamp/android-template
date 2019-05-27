@@ -7,6 +7,7 @@ plugins {
     kotlin("kapt")
 }
 
+apply(plugin = "kotlinx-serialization")
 apply(plugin = "androidx.navigation.safeargs.kotlin")
 
 // Manifest version information
@@ -138,6 +139,7 @@ dependencies {
 
     // Code
     implementation(Libs.KOTLIN_STD_LIB)
+    implementation(Libs.KOTLIN_SERIALIZATION)
     implementation(Libs.COROUTINES)
     implementation(Libs.EXTRAS_DELEGATES)
     implementation(Libs.THREETEN_ABP)
@@ -179,10 +181,7 @@ dependencies {
     // Network
     implementation(Libs.OKHTTP)
     implementation(Libs.OKHTTP_LOGGING_INTERCEPTOR)
-
-    // JSON Parsing
-    implementation(Libs.GSON)
-    implementation(Libs.GSON_RETROFIT_CONVERTER)
+    implementation(Libs.KOTLIN_RETROFIT_CONVERTER)
 
     // Dagger 2
     implementation(Libs.DAGGER)

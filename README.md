@@ -7,6 +7,7 @@ Sample Android app that utilizes common best practices
 
 * Kotlin
 * Kotlin Coroutines
+* Kotlin Serialization (json)
 * Kotlin Gradle support (build.gradle.kts)
 * Android Architecture Components
     * ViewModel
@@ -20,7 +21,6 @@ Sample Android app that utilizes common best practices
 * Constraint Layout
 * RecyclerView / ListAdapter / ViewHolder
 * Retrofit / Okhttp3
-* Gson
 * Espresso Tests
 * JUnit tests / mockito
 * Timber

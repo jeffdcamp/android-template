@@ -1,10 +1,12 @@
 package org.jdc.template.inject
 
 import android.app.Application
-import com.google.gson.Gson
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.nhaarman.mockitokotlin2.whenever
 import dagger.Module
 import dagger.Provides
+import kotlinx.serialization.json.Json
+import okhttp3.MediaType
 import okhttp3.OkHttpClient
 import okhttp3.mockwebserver.MockWebServer
 import org.jdc.template.Analytics
@@ -14,7 +16,6 @@ import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mockito.doAnswer
 import org.mockito.Mockito.mock
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
@@ -55,25 +56,21 @@ class CommonTestModule {
     @Singleton
     fun provideOkHttp(): OkHttpClient {
         return OkHttpClient.Builder()
-                .readTimeout(1, TimeUnit.SECONDS)
-                .connectTimeout(1, TimeUnit.SECONDS)
-                .build()
-    }
-
-    @Provides
-    @Singleton
-    fun provideGsonConverterFactory(): GsonConverterFactory {
-        return GsonConverterFactory.create(Gson())
+            .readTimeout(1, TimeUnit.SECONDS)
+            .connectTimeout(1, TimeUnit.SECONDS)
+            .build()
     }
 
     @Provides
     @Singleton
     fun provideColorService(mockWebServer: MockWebServer): ColorService {
+        val contentType = MediaType.get("application/json")
+
         val retrofit = Retrofit.Builder()
-                .baseUrl(mockWebServer.url(""))
-                .client(provideOkHttp())
-                .addConverterFactory(provideGsonConverterFactory())
-                .build()
+            .baseUrl(mockWebServer.url(""))
+            .client(provideOkHttp())
+            .addConverterFactory(Json.nonstrict.asConverterFactory(contentType))
+            .build()
 
         return retrofit.create(ColorService::class.java)
     }

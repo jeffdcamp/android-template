@@ -11,6 +11,7 @@ buildscript {
         classpath("com.android.tools.build:gradle:3.5.0-beta02")
         classpath("com.github.ben-manes:gradle-versions-plugin:0.21.0") // version plugin support
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION")
+        classpath("org.jetbrains.kotlin:kotlin-serialization:$KOTLIN_VERSION")
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$ANDROIDX_NAVIGATION_VERSION")
 //        classpath("com.google.gms:oss-licenses:$PLAYSERVICE_LICENSE_VERSION")
     }
