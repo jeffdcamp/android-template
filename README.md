@@ -25,6 +25,7 @@ Sample Android app that utilizes common best practices
 * JUnit tests / mockito
 * Timber
 * Firebase Analytics
+* Gradle Play Publisher (Triple-T)
 * Multidex
 
 

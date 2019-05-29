@@ -1,10 +1,10 @@
-
 import java.util.Date
 
 plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("kapt")
+    id("com.github.triplet.play") version "2.2.1"
 }
 
 apply(plugin = "kotlinx-serialization")
@@ -67,17 +67,32 @@ android {
 
     // defined values my* in ~/.gradle/gradle.properties
     signingConfigs {
-        // restore "by project" to read from Global Gradle file (this is a workaround to allow compile to work on fresh clone)
-        val myKeystore = "" // : String by project
-        val myKeystorePassword = "" // : String by project
-        val myKeyAlias = "" // : String by project
-        val myKeyPassword = "" // : String by project
+        create("upload") {
+            val myUploadKeystore: String? by project
+            val myUploadKeystorePassword: String by project
+            val myUploadKeyAlias: String by project
+            val myUploadKeyPassword: String by project
+
+            if (myUploadKeystore != null) {
+                storeFile = File(myUploadKeystore)
+                storePassword = myUploadKeystorePassword
+                keyAlias = myUploadKeyAlias
+                keyPassword = myUploadKeyPassword
+            }
+        }
 
         create("prod") {
-            storeFile = File(myKeystore)
-            storePassword = myKeystorePassword
-            keyAlias = myKeyAlias
-            keyPassword = myKeyPassword
+            val myProdKeystore: String? by project
+            val myProdKeystorePassword: String by project
+            val myProdKeyAlias: String by project
+            val myProdKeyPassword: String by project
+
+            if (myProdKeystore != null) {
+                storeFile = File(myProdKeystore)
+                storePassword = myProdKeystorePassword
+                keyAlias = myProdKeyAlias
+                keyPassword = myProdKeyPassword
+            }
         }
     }
 
@@ -93,20 +108,20 @@ android {
             applicationIdSuffix = ".dev"
             buildConfigField("long", "BUILD_TIME", "${buildTime}l")
             isDebuggable = true
-            signingConfig = signingConfigs.getByName("prod")
+            signingConfig = signingConfigs.getByName("upload")
         }
         create("beta") {
             initWith(getByName("release"))
             versionNameSuffix = " BETA"
             buildConfigField("long", "BUILD_TIME", "${buildTime}l")
-            signingConfig = signingConfigs.getByName("prod")
+            signingConfig = signingConfigs.getByName("upload")
         }
         getByName("release") {
             buildConfigField("long", "BUILD_TIME", "${buildTime}l")
             versionNameSuffix = ""
             //minifyEnabled true
             //shrinkResources true
-            signingConfig = signingConfigs.getByName("prod")
+            signingConfig = signingConfigs.getByName("upload")
         }
     }
 
@@ -225,4 +240,11 @@ tasks.register("incrementVersionCode") {
     doLast {
         VersionCode.incrementVersionCode(versionCodeAppName, minVersionCode)
     }
+}
+
+play {
+    val myServiceAccountCreds: String? by project
+    serviceAccountCredentials = File(myServiceAccountCreds ?: "api-playstore-dummy.json")
+    track = "internal"
+    defaultToAppBundles = true
 }
