@@ -11,7 +11,7 @@ object AndroidSdk {
 
 object Libs {
     private object Versions {
-        const val DAGGER = "2.22.1"
+        const val DAGGER = "2.23"
         const val ROOM = "2.1.0-beta01"
         const val DBTOOLS = "4.9.0"
         const val OKHTTP = "3.14.2"
