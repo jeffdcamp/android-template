@@ -88,7 +88,7 @@ object Libs {
     const val TEST_JUNIT = "org.junit.jupiter:junit-jupiter:${Versions.JUNIT}"
     const val TEST_JUNIT_ENGINE = "org.junit.jupiter:junit-jupiter-engine:${Versions.JUNIT}"
     const val TEST_OKHTTP_MOCKWEBSERVER = "com.squareup.okhttp3:mockwebserver:${Versions.OKHTTP}"
-    const val TEST_MOCKITO_CORE = "org.mockito:mockito-core:2.27.0"
+    const val TEST_MOCKITO_CORE = "org.mockito:mockito-core:2.28.1"
     const val TEST_THREETENBP = "org.threeten:threetenbp:1.4.0"
     const val TEST_XERIAL_SQLITE = "org.xerial:sqlite-jdbc:3.27.2.1"
     const val TEST_ARCH_ROOM_TESTING = "androidx.room:room-testing:${Versions.ROOM}"
