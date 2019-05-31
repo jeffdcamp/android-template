@@ -20,7 +20,7 @@ object Libs {
 
         // Test
         const val JUNIT = "5.4.1"
-        const val ESPRESSO = "3.2.0-beta01"
+        const val ESPRESSO = "3.2.0"
     }
 
     // Android (https://android.googlesource.com/platform/frameworks/support/+/refs/heads/androidx-master-dev/buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt)
@@ -82,13 +82,13 @@ object Libs {
 
     const val TEST_ESPRESSO_CORE = "androidx.test.espresso:espresso-core:${Versions.ESPRESSO}"
     const val TEST_ESPRESSO_CONTRIB = "androidx.test.espresso:espresso-contrib:${Versions.ESPRESSO}"
-    const val TEST_RUNNER = "androidx.test:runner:1.2.0-beta01"
-    const val TEST_RULES = "androidx.test:rules:1.2.0-beta01"
-    const val TEST_ANDROIDX_JUNIT = "androidx.test.ext:junit:1.1.1-beta01"
+    const val TEST_RUNNER = "androidx.test:runner:1.2.0"
+    const val TEST_RULES = "androidx.test:rules:1.2.0"
+    const val TEST_ANDROIDX_JUNIT = "androidx.test.ext:junit:1.1.1"
     const val TEST_JUNIT = "org.junit.jupiter:junit-jupiter:${Versions.JUNIT}"
     const val TEST_JUNIT_ENGINE = "org.junit.jupiter:junit-jupiter-engine:${Versions.JUNIT}"
     const val TEST_OKHTTP_MOCKWEBSERVER = "com.squareup.okhttp3:mockwebserver:${Versions.OKHTTP}"
-    const val TEST_MOCKITO_CORE = "org.mockito:mockito-core:2.28.1"
+    const val TEST_MOCKITO_CORE = "org.mockito:mockito-core:2.28.2"
     const val TEST_THREETENBP = "org.threeten:threetenbp:1.4.0"
     const val TEST_XERIAL_SQLITE = "org.xerial:sqlite-jdbc:3.27.2.1"
     const val TEST_ARCH_ROOM_TESTING = "androidx.room:room-testing:${Versions.ROOM}"
