@@ -140,87 +140,87 @@ android {
 
 dependencies {
     // Android
-    implementation(Libs.ANDROIDX_APPCOMPAT)
-    implementation(Libs.ANDROIDX_RECYCLERVIEW)
-    implementation(Libs.ANDROIDX_PREFERENCE)
-    implementation(Libs.ANDROID_MATERIAL)
-    implementation(Libs.ANDROIDX_ANNOTATIONS)
-    implementation(Libs.ANDROID_MULTIDEX)
-    implementation(Libs.ANDROID_MULTIDEX_INSTRUMENTATION)
-    implementation(Libs.PLAYSERVICE_ANALYTICS)
-//    implementation(Libs.PLAYSERVICE_LICENSES)
-    implementation(Libs.ANDROIDX_CONSTRAINT_LAYOUT)
-    implementation(Libs.ANDROIDX_CORE)
+    implementation(Deps.ANDROIDX_APPCOMPAT)
+    implementation(Deps.ANDROIDX_RECYCLERVIEW)
+    implementation(Deps.ANDROIDX_PREFERENCE)
+    implementation(Deps.ANDROID_MATERIAL)
+    implementation(Deps.ANDROIDX_ANNOTATIONS)
+    implementation(Deps.ANDROID_MULTIDEX)
+    implementation(Deps.ANDROID_MULTIDEX_INSTRUMENTATION)
+    implementation(Deps.PLAYSERVICE_ANALYTICS)
+//    implementation(Deps.PLAYSERVICE_LICENSES)
+    implementation(Deps.ANDROIDX_CONSTRAINT_LAYOUT)
+    implementation(Deps.ANDROIDX_CORE)
 
     // Code
-    implementation(Libs.KOTLIN_STD_LIB)
-    implementation(Libs.KOTLIN_SERIALIZATION)
-    implementation(Libs.COROUTINES)
-    implementation(Libs.EXTRAS_DELEGATES)
-    implementation(Libs.THREETEN_ABP)
-    implementation(Libs.TIMBER)
-    implementation(Libs.VIEWMODEL_INJECT)
-    kapt(Libs.VIEWMODEL_INJECT_PROCESSOR)
+    implementation(Deps.KOTLIN_STD_LIB)
+    implementation(Deps.KOTLIN_SERIALIZATION)
+    implementation(Deps.COROUTINES)
+    implementation(Deps.EXTRAS_DELEGATES)
+    implementation(Deps.THREETEN_ABP)
+    implementation(Deps.TIMBER)
+    implementation(Deps.VIEWMODEL_INJECT)
+    kapt(Deps.VIEWMODEL_INJECT_PROCESSOR)
 
     // UI
-    implementation(Libs.MATERIAL_DIALOGS_CORE)
-    implementation(Libs.MATERIAL_DIALOGS_DATETIME)
-    implementation(Libs.MATERIAL_DIALOGS_LIFECYCLE)
+    implementation(Deps.MATERIAL_DIALOGS_CORE)
+    implementation(Deps.MATERIAL_DIALOGS_DATETIME)
+    implementation(Deps.MATERIAL_DIALOGS_LIFECYCLE)
 
     // === Android Architecture Components ===
-    implementation(Libs.ARCH_LIFECYCLE_EXT)
-    implementation(Libs.ARCH_LIFECYCLE_RUNTIME)
-    implementation(Libs.ARCH_LIFECYCLE_VIEWMODEL)
-    implementation(Libs.ARCH_LIFECYCLE_COMMON)
+    implementation(Deps.ARCH_LIFECYCLE_EXT)
+    implementation(Deps.ARCH_LIFECYCLE_RUNTIME)
+    implementation(Deps.ARCH_LIFECYCLE_VIEWMODEL)
+    implementation(Deps.ARCH_LIFECYCLE_COMMON)
 
     // Navigation
-    implementation(Libs.ARCH_NAVIGATION_FRAGMENT)
-    implementation(Libs.ARCH_NAVIGATION_UI)
+    implementation(Deps.ARCH_NAVIGATION_FRAGMENT)
+    implementation(Deps.ARCH_NAVIGATION_UI)
 
     // WorkManager
-    implementation(Libs.ARCH_WORK_RUNTIME)
+    implementation(Deps.ARCH_WORK_RUNTIME)
 
     // Database
-    implementation(Libs.ARCH_ROOM_RUNTIME)
-    implementation(Libs.ARCH_ROOM_KTX)
-    kapt(Libs.ARCH_ROOM_COMPILER)
-    implementation(Libs.DBTOOLS_ROOM)
+    implementation(Deps.ARCH_ROOM_RUNTIME)
+    implementation(Deps.ARCH_ROOM_KTX)
+    kapt(Deps.ARCH_ROOM_COMPILER)
+    implementation(Deps.DBTOOLS_ROOM)
 
     // Custom SQLite database
     // (for use of SqliteOrgSQLiteOpenHelperFactory in AppModule.kt)
-    //implementation(Libs.DBTOOLS_ROOM_SQLITE)
+    //implementation(Deps.DBTOOLS_ROOM_SQLITE)
 
     // Debug Database (emulator: adb forward tcp:8080 tcp:8080) (https://github.com/amitshekhariitbhu/Android-Debug-Database)
     // debugimplementation("com.amitshekhar.android:debug-db:1.0.4")
 
     // Network
-    implementation(Libs.OKHTTP)
-    implementation(Libs.OKHTTP_LOGGING_INTERCEPTOR)
-    implementation(Libs.KOTLIN_RETROFIT_CONVERTER)
+    implementation(Deps.OKHTTP)
+    implementation(Deps.OKHTTP_LOGGING_INTERCEPTOR)
+    implementation(Deps.KOTLIN_RETROFIT_CONVERTER)
 
     // Dagger 2
-    implementation(Libs.DAGGER)
-    kapt(Libs.DAGGER_COMPILER)
+    implementation(Deps.DAGGER)
+    kapt(Deps.DAGGER_COMPILER)
 
     // Test (Integration)
-    androidTestImplementation(Libs.TEST_ESPRESSO_CORE)
-    androidTestImplementation(Libs.TEST_ESPRESSO_CONTRIB)
-    androidTestImplementation(Libs.TEST_RUNNER)
-    androidTestImplementation(Libs.TEST_RULES)
-    androidTestImplementation(Libs.TEST_ANDROIDX_JUNIT)
+    androidTestImplementation(Deps.TEST_ESPRESSO_CORE)
+    androidTestImplementation(Deps.TEST_ESPRESSO_CONTRIB)
+    androidTestImplementation(Deps.TEST_RUNNER)
+    androidTestImplementation(Deps.TEST_RULES)
+    androidTestImplementation(Deps.TEST_ANDROIDX_JUNIT)
 
     // Test (Unit)
-    testImplementation(Libs.TEST_JUNIT)
-    testRuntimeOnly(Libs.TEST_JUNIT_ENGINE)
-    testImplementation(Libs.TEST_MOCKITO_KOTLIN)
-    testImplementation(Libs.TEST_MOCKITO_CORE)
-    testImplementation(Libs.TEST_KOTLIN_COROUTINES_TEST)
-    testImplementation(Libs.TEST_THREETENBP)
-    testImplementation(Libs.TEST_OKHTTP_MOCKWEBSERVER)
-    testImplementation(Libs.TEST_XERIAL_SQLITE)
-    testImplementation(Libs.TEST_ARCH_ROOM_TESTING)
-    testImplementation(Libs.TEST_DBTOOLS_ROOM_JDBC)
-    kaptTest(Libs.DAGGER_COMPILER)
+    testImplementation(Deps.TEST_JUNIT)
+    testRuntimeOnly(Deps.TEST_JUNIT_ENGINE)
+    testImplementation(Deps.TEST_MOCKITO_KOTLIN)
+    testImplementation(Deps.TEST_MOCKITO_CORE)
+    testImplementation(Deps.TEST_KOTLIN_COROUTINES_TEST)
+    testImplementation(Deps.TEST_THREETENBP)
+    testImplementation(Deps.TEST_OKHTTP_MOCKWEBSERVER)
+    testImplementation(Deps.TEST_XERIAL_SQLITE)
+    testImplementation(Deps.TEST_ARCH_ROOM_TESTING)
+    testImplementation(Deps.TEST_DBTOOLS_ROOM_JDBC)
+    kaptTest(Deps.DAGGER_COMPILER)
 }
 
 // ===== TEST TASKS =====
