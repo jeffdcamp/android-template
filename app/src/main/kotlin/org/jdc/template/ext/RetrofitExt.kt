@@ -13,7 +13,7 @@ import java.io.IOException
  * @return true if the file streamed successfully to file and the new file exists
  */
 fun Response<ResponseBody>.saveBodyToFile(outputFile: File): Boolean {
-    Timber.d("Saving response [${raw().request().url().url()}] to file [${outputFile.absolutePath}]...")
+    Timber.d("Saving response [${raw().request.url}] to file [${outputFile.absolutePath}]...")
     var success = false
     try {
 

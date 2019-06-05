@@ -1,13 +1,13 @@
 package org.jdc.template.ui.recycleview
 
+import androidx.recyclerview.widget.AdapterListUpdateCallback
 import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.AdapterListUpdateCallback
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 
 @Suppress("unused")
-abstract class MovableListAdapter<T, VH : RecyclerView.ViewHolder>(diffCallback: DiffUtil.ItemCallback<T>) : androidx.recyclerview.widget.RecyclerView.Adapter<VH>(), MoveableItemAdapter {
+abstract class MovableListAdapter<T, VH : RecyclerView.ViewHolder>(diffCallback: DiffUtil.ItemCallback<T>) : RecyclerView.Adapter<VH>(), MoveableItemAdapter {
 
     private val asyncListDiffer = AsyncListDiffer(AdapterListUpdateCallback(this), AsyncDifferConfig.Builder(diffCallback).build())
 

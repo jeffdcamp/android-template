@@ -9,10 +9,10 @@ class ItemTouchCallback(
         private val onMove: (originalPosition: Int, endPosition: Int) -> Unit = { _, _ -> }
 ) : SimpleElevationItemTouchHelperCallback(dragDirections, 0, dragElevationHeight) {
 
-    override fun onMove(recyclerView: androidx.recyclerview.widget.RecyclerView, viewHolder: androidx.recyclerview.widget.RecyclerView.ViewHolder, target: androidx.recyclerview.widget.RecyclerView.ViewHolder): Boolean {
+    override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
         val originalPosition = viewHolder.adapterPosition
         val endPosition = target.adapterPosition
-        if (originalPosition == androidx.recyclerview.widget.RecyclerView.NO_POSITION || endPosition == androidx.recyclerview.widget.RecyclerView.NO_POSITION) {
+        if (originalPosition == RecyclerView.NO_POSITION || endPosition == RecyclerView.NO_POSITION) {
             return false
         }
 
@@ -21,7 +21,7 @@ class ItemTouchCallback(
 
     }
 
-    override fun onSwiped(viewHolder: androidx.recyclerview.widget.RecyclerView.ViewHolder, direction: Int) {
+    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         // Swipe not supported
     }
 

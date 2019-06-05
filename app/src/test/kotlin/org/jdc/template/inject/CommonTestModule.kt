@@ -6,7 +6,7 @@ import com.nhaarman.mockitokotlin2.whenever
 import dagger.Module
 import dagger.Provides
 import kotlinx.serialization.json.Json
-import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.mockwebserver.MockWebServer
 import org.jdc.template.Analytics
@@ -64,7 +64,7 @@ class CommonTestModule {
     @Provides
     @Singleton
     fun provideColorService(mockWebServer: MockWebServer): ColorService {
-        val contentType = MediaType.get("application/json")
+        val contentType = "application/json".toMediaType()
 
         val retrofit = Retrofit.Builder()
             .baseUrl(mockWebServer.url(""))

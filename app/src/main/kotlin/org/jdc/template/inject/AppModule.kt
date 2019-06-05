@@ -2,7 +2,7 @@ package org.jdc.template.inject
 
 import android.app.Application
 import android.content.SharedPreferences
-import android.preference.PreferenceManager
+import androidx.preference.PreferenceManager
 import androidx.work.WorkManager
 import com.google.android.gms.analytics.GoogleAnalytics
 import dagger.Module

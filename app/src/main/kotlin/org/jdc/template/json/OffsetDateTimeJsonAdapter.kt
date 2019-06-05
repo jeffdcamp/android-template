@@ -19,12 +19,12 @@ import org.threeten.bp.format.DateTimeFormatter
 object OffsetDateTimeSerializer: KSerializer<OffsetDateTime> {
     override val descriptor: SerialDescriptor = StringDescriptor.withName("OffsetDateTimeSerializer")
 
-    override fun serialize(output: Encoder, obj: OffsetDateTime) {
-        output.encodeString(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(obj))
+    override fun serialize(encoder: Encoder, obj: OffsetDateTime) {
+        encoder.encodeString(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(obj))
     }
 
-    override fun deserialize(input: Decoder): OffsetDateTime {
-        return OffsetDateTime.parse(input.decodeString())
+    override fun deserialize(decoder: Decoder): OffsetDateTime {
+        return OffsetDateTime.parse(decoder.decodeString())
     }
 }
 
@@ -32,12 +32,12 @@ object OffsetDateTimeSerializer: KSerializer<OffsetDateTime> {
 object InstantSerializer: KSerializer<Instant> {
     override val descriptor: SerialDescriptor = LongDescriptor.withName("InstantSerializer")
 
-    override fun serialize(output: Encoder, obj: Instant) {
-        output.encodeLong(obj.toEpochMilli())
+    override fun serialize(encoder: Encoder, obj: Instant) {
+        encoder.encodeLong(obj.toEpochMilli())
     }
 
-    override fun deserialize(input: Decoder): Instant {
-        return Instant.ofEpochMilli(input.decodeLong())
+    override fun deserialize(decoder: Decoder): Instant {
+        return Instant.ofEpochMilli(decoder.decodeLong())
     }
 }
 
@@ -45,12 +45,12 @@ object InstantSerializer: KSerializer<Instant> {
 object LocalDateTimeSerializer: KSerializer<LocalDateTime> {
     override val descriptor: SerialDescriptor = StringDescriptor.withName("LocalDateTimeSerializer")
 
-    override fun serialize(output: Encoder, obj: LocalDateTime) {
-        output.encodeString(DateTimeFormatter.ISO_DATE_TIME.format(obj))
+    override fun serialize(encoder: Encoder, obj: LocalDateTime) {
+        encoder.encodeString(DateTimeFormatter.ISO_DATE_TIME.format(obj))
     }
 
-    override fun deserialize(input: Decoder): LocalDateTime {
-        return LocalDateTime.parse(input.decodeString())
+    override fun deserialize(decoder: Decoder): LocalDateTime {
+        return LocalDateTime.parse(decoder.decodeString())
     }
 }
 
@@ -58,12 +58,12 @@ object LocalDateTimeSerializer: KSerializer<LocalDateTime> {
 object LocalDateSerializer: KSerializer<LocalDate> {
     override val descriptor: SerialDescriptor = StringDescriptor.withName("LocalDateSerializer")
 
-    override fun serialize(output: Encoder, obj: LocalDate) {
-        output.encodeString(DateTimeFormatter.ISO_DATE.format(obj))
+    override fun serialize(encoder: Encoder, obj: LocalDate) {
+        encoder.encodeString(DateTimeFormatter.ISO_DATE.format(obj))
     }
 
-    override fun deserialize(input: Decoder): LocalDate {
-        return LocalDate.parse(input.decodeString())
+    override fun deserialize(decoder: Decoder): LocalDate {
+        return LocalDate.parse(decoder.decodeString())
     }
 }
 
@@ -71,11 +71,11 @@ object LocalDateSerializer: KSerializer<LocalDate> {
 object LocalTimeSerializer: KSerializer<LocalTime> {
     override val descriptor: SerialDescriptor = StringDescriptor.withName("LocalTimeSerializer")
 
-    override fun serialize(output: Encoder, obj: LocalTime) {
-        output.encodeString(DateTimeFormatter.ISO_TIME.format(obj))
+    override fun serialize(encoder: Encoder, obj: LocalTime) {
+        encoder.encodeString(DateTimeFormatter.ISO_TIME.format(obj))
     }
 
-    override fun deserialize(input: Decoder): LocalTime {
-        return LocalTime.parse(input.decodeString())
+    override fun deserialize(decoder: Decoder): LocalTime {
+        return LocalTime.parse(decoder.decodeString())
     }
 }

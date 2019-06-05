@@ -8,9 +8,9 @@ import timber.log.Timber
 @SuppressLint("LogNotTimber")
 class ReleaseTree : Timber.Tree() {
     override fun isLoggable(tag: String?, priority: Int): Boolean {
-        when (priority) {
-            Log.VERBOSE, Log.DEBUG, Log.INFO -> return false
-            else -> return true
+        return when (priority) {
+            Log.VERBOSE, Log.DEBUG, Log.INFO -> false
+            else -> true
         }
     }
 
@@ -49,6 +49,6 @@ class ReleaseTree : Timber.Tree() {
     }
 
     companion object {
-        val MAX_LOG_LENGTH = 4000
+        const val MAX_LOG_LENGTH = 4000
     }
 }

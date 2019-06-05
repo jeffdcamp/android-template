@@ -1,4 +1,3 @@
 <resources>
-    <dimen name="fragment_elevation">0dp</dimen>
     <dimen name="drag_elevation_height">8dp</dimen>
 </resources>

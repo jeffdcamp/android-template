@@ -10,6 +10,6 @@ internal class ContextScope(context: CoroutineContext) : CoroutineScope {
     override val coroutineContext: CoroutineContext = context
 }
 
-fun IOScope(): CoroutineScope = ContextScope(SupervisorJob() + Dispatchers.IO)
-fun DefaultScope(): CoroutineScope = ContextScope(SupervisorJob() + Dispatchers.Default)
-fun CustomScope(dispatcher: CoroutineDispatcher): CoroutineScope = ContextScope(SupervisorJob() + dispatcher)
+fun ioScope(): CoroutineScope = ContextScope(SupervisorJob() + Dispatchers.IO)
+fun defaultScope(): CoroutineScope = ContextScope(SupervisorJob() + Dispatchers.Default)
+fun customScope(dispatcher: CoroutineDispatcher): CoroutineScope = ContextScope(SupervisorJob() + dispatcher)

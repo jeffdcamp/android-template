@@ -5,8 +5,8 @@ package org.jdc.template.prefs
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
-import android.preference.PreferenceManager
 import androidx.lifecycle.MutableLiveData
+import androidx.preference.PreferenceManager
 import me.eugeniomarletti.extras.DelegateProvider
 import me.eugeniomarletti.extras.defaultDelegateName
 import java.util.HashMap
@@ -140,7 +140,7 @@ abstract class PrefsContainer(val namespace: String, val privacy: Int = Context.
                     }
 
                     return try {
-                        name?.let { kotlin.enumValueOf<T>(name) } ?: defaultValue
+                        name?.let { enumValueOf<T>(name) } ?: defaultValue
                     } catch (_: Exception) {
                         defaultValue
                     }

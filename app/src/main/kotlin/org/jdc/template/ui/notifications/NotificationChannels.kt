@@ -21,7 +21,7 @@ enum class NotificationChannels constructor(
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 val notificationManager = context.getSystemService<NotificationManager>()
 
-                NotificationChannels.values().forEach {
+                values().forEach {
                     val channel = NotificationChannel(it.channelId, context.getString(it.textResId), it.importance)
                     notificationManager?.createNotificationChannel(channel)
                 }

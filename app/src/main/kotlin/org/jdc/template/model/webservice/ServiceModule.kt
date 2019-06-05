@@ -6,7 +6,7 @@ import dagger.Module
 import dagger.Provides
 import kotlinx.serialization.json.Json
 import okhttp3.Credentials
-import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.jdc.template.BuildConfig
@@ -57,7 +57,7 @@ class ServiceModule {
             chain.proceed(requestBuilder.build())
         }
 
-        clientBuilder.addInterceptor(HttpLoggingInterceptor().setLevel(serviceLogLevel))
+        clientBuilder.addInterceptor(HttpLoggingInterceptor().apply { level = serviceLogLevel })
     }
 
     private fun setupBasicAuth(clientBuilder: OkHttpClient.Builder, username: String, password: String) {
@@ -75,7 +75,7 @@ class ServiceModule {
     @Provides
     @Singleton
     fun getColorService(@Named(STANDARD_CLIENT) client: OkHttpClient): ColorService {
-        val contentType = MediaType.get("application/json")
+        val contentType = "application/json".toMediaType()
 
         val retrofit = Retrofit.Builder()
             .baseUrl(ColorService.BASE_URL)

@@ -15,21 +15,21 @@ interface Analytics {
 
     companion object {
         // Categories
-        val CATEGORY_APP = "App"
-        val CATEGORY_DIRECTORY = "Individual"
-        val CATEGORY_INDIVIDUAL = "Individual"
-        val CATEGORY_ABOUT = "About"
-        val CATEGORY_SETTINGS = "Settings"
+        const val CATEGORY_APP = "App"
+        const val CATEGORY_DIRECTORY = "Individual"
+        const val CATEGORY_INDIVIDUAL = "Individual"
+        const val CATEGORY_ABOUT = "About"
+        const val CATEGORY_SETTINGS = "Settings"
 
         // Actions
-        val ACTION_APP_LAUNCH = "Launch"
-        val ACTION_NEW = "New"
-        val ACTION_VIEW = "View"
-        val ACTION_EDIT = "Edit"
-        val ACTION_EDIT_SAVE = "Edit Save"
-        val ACTION_DELETE = "Delete"
+        const val ACTION_APP_LAUNCH = "Launch"
+        const val ACTION_NEW = "New"
+        const val ACTION_VIEW = "View"
+        const val ACTION_EDIT = "Edit"
+        const val ACTION_EDIT_SAVE = "Edit Save"
+        const val ACTION_DELETE = "Delete"
 
         // Variables
-        val VARIABLE_BUILD_TYPE = "Build Type"
+        const val VARIABLE_BUILD_TYPE = "Build Type"
     }
 }

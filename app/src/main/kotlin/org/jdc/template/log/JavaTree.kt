@@ -4,11 +4,10 @@ import timber.log.Timber
 
 class JavaTree : Timber.Tree() {
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
-        val logMessage: String
-        if (tag != null && !tag.isEmpty()) {
-            logMessage = "[$tag] $message"
+        val logMessage = if (tag != null && tag.isNotEmpty()) {
+            "[$tag] $message"
         } else {
-            logMessage = message
+            message
         }
 
         println(logMessage)
