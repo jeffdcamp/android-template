@@ -1,6 +1,7 @@
 package org.jdc.template.datasource.webservice.colors
 
 import dagger.Component
+import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.jdc.template.inject.CommonTestModule
@@ -35,13 +36,13 @@ class ColorServiceTest {
     }
 
     @Test
-    fun getColors() {
+    fun getColors() = runBlocking {
         mockWebServer.enqueue(MockResponse().setResponseCode(200).setBody(COLORS_RESPONSE))
 
-        val request = colorService.colors().execute()
-        assertTrue(request.isSuccessful)
+        val response = colorService.colors()
+        assertTrue(response.isSuccessful)
 
-        val colors = request.body()
+        val colors = response.body()
         assertNotNull(colors)
         assertEquals(1, colors!!.colors.size)
 
@@ -51,11 +52,11 @@ class ColorServiceTest {
     }
 
     @Test
-    fun failedNetwork() {
+    fun failedNetwork() = runBlocking {
         mockWebServer.enqueue(MockResponse().setResponseCode(500).setBody("""{"error": "Oh No!" }"""))
-        val request = colorService.colors().execute()
+        val response = colorService.colors()
 
-        assertFalse(request.isSuccessful)
+        assertFalse(response.isSuccessful)
     }
 
     companion object {

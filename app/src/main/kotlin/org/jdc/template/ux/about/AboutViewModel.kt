@@ -3,8 +3,8 @@ package org.jdc.template.ux.about
 import android.app.Application
 import com.google.android.gms.analytics.HitBuilders
 import com.vikingsen.inject.viewmodel.ViewModelInject
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import okhttp3.ResponseBody
 import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
 import org.jdc.template.ext.saveBodyToFile
@@ -17,8 +17,6 @@ import org.jdc.template.ui.viewmodel.BaseViewModel
 import org.jdc.template.work.WorkScheduler
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalTime
-import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.Response
 import timber.log.Timber
 import java.io.File
@@ -80,63 +78,51 @@ class AboutViewModel
     /**
      * Simple web service call
      */
-    fun testQueryWebServiceCall() {
-        val call = colorService.colors()
+    fun testQueryWebServiceCall() = launch {
+        val response = colorService.colors()
 
-        call.enqueue(object : Callback<DtoColors> {
-            override fun onResponse(call: Call<DtoColors>, response: Response<DtoColors>) {
-                processWebServiceResponse(response)
-            }
-
-            override fun onFailure(call: Call<DtoColors>, t: Throwable) {
-                Timber.e(t, "Search FAILED")
-            }
-        })
+        if (response.isSuccessful) {
+            processWebServiceResponse(response)
+        } else {
+            Timber.e("Search FAILED [${response.errorBody()}]")
+        }
     }
 
     /**
      * Simple web service call using the full url (instead of just an endpoint)
      */
-    fun testFullUrlQueryWebServiceCall() {
-        val call = colorService.colorsByFullUrl(ColorService.FULL_URL)
+    fun testFullUrlQueryWebServiceCall() = launch {
+        val response = colorService.colorsByFullUrl(ColorService.FULL_URL)
 
-        call.enqueue(object : Callback<DtoColors> {
-            override fun onResponse(call: Call<DtoColors>, response: Response<DtoColors>) {
-                processWebServiceResponse(response)
-            }
-
-            override fun onFailure(call: Call<DtoColors>, t: Throwable) {
-                Timber.e(t, "Search FAILED")
-            }
-        })
+        if (response.isSuccessful) {
+            processWebServiceResponse(response)
+        } else {
+            Timber.e("Search FAILED [${response.errorBody()}]")
+        }
     }
 
     /**
      * Web service call that saves response to file, then processes the file (best for large JSON payloads)
      */
-    fun testSaveQueryWebServiceCall() {
-        val call = colorService.colorsToFile()
+    fun testSaveQueryWebServiceCall() = launch {
+        val response = colorService.colorsToFile()
 
-        call.enqueue(object : Callback<ResponseBody> {
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                // delete any existing file
-                val outputFile = File(application.externalCacheDir, "ws-out.json")
-                if (outputFile.exists()) {
-                    outputFile.delete()
-                }
-
-                // save the response body to file
-                response.saveBodyToFile(outputFile)
-
-                // show the output of the file
-                val fileContents = outputFile.readText()
-                Timber.i("Output file: [$fileContents]")
+        if (response.isSuccessful) {
+            // delete any existing file
+            val outputFile = File(application.externalCacheDir, "ws-out.json")
+            if (outputFile.exists()) {
+                outputFile.delete()
             }
 
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                Timber.e("Search FAILED")
-            }
-        })
+            // save the response body to file
+            response.saveBodyToFile(outputFile)
+
+            // show the output of the file
+            val fileContents = outputFile.readText()
+            Timber.i("Output file: [$fileContents]")
+        } else {
+            Timber.e("Search FAILED [${response.errorBody()}]")
+        }
     }
 
     private fun processWebServiceResponse(response: Response<DtoColors>) {
@@ -159,14 +145,11 @@ class AboutViewModel
     /**
      * Sample for creating a scheduled simple worker
      */
-    fun workManagerSimpleTest() {
+    fun workManagerSimpleTest() = launch {
         workScheduler.scheduleSimpleWork("test1")
         workScheduler.scheduleSimpleWork("test2")
-        try {
-            Thread.sleep(3000)
-        } catch (e: InterruptedException) {
-            e.printStackTrace()
-        }
+
+        delay(3000)
 
         workScheduler.scheduleSimpleWork("test3")
     }
@@ -174,14 +157,11 @@ class AboutViewModel
     /**
      * Sample for creating a scheduled sync worker
      */
-    fun workManagerSyncTest() {
+    fun workManagerSyncTest() = launch {
         workScheduler.scheduleSync()
         workScheduler.scheduleSync(true)
-        try {
-            Thread.sleep(3000)
-        } catch (e: InterruptedException) {
-            e.printStackTrace()
-        }
+
+        delay(3000)
 
         workScheduler.scheduleSync()
     }
