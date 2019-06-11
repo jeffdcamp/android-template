@@ -1,6 +1,6 @@
 package org.jdc.template
 
-import androidx.multidex.MultiDexApplication
+import android.app.Application
 import com.jakewharton.threetenabp.AndroidThreeTen
 import org.jdc.template.inject.Injector
 import org.jdc.template.log.DebugTree
@@ -9,7 +9,7 @@ import org.jdc.template.prefs.PrefsManager
 import org.jdc.template.ui.notifications.NotificationChannels
 import timber.log.Timber
 
-class App : MultiDexApplication() {
+class App : Application() {
 
     init {
         Injector.init(this)

@@ -6,9 +6,9 @@ const val PLAYSERVICE_LICENSE_VERSION = "0.9.1"
 object Deps {
     // Android (https://android.googlesource.com/platform/frameworks/support/+/refs/heads/androidx-master-dev/buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt)
     const val ANDROIDX_ANNOTATIONS = "androidx.annotation:annotation:1.1.0"
-    const val ANDROIDX_APPCOMPAT = "androidx.appcompat:appcompat:1.1.0-alpha05"
+    const val ANDROIDX_APPCOMPAT = "androidx.appcompat:appcompat:1.1.0-beta01"
     const val ANDROIDX_RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.0.0"
-    const val ANDROIDX_PREFERENCE = "androidx.preference:preference-ktx:1.0.0"
+    const val ANDROIDX_PREFERENCE = "androidx.preference:preference-ktx:1.1.0-beta01"
     const val ANDROIDX_CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:2.0.0-beta1"
     const val ANDROIDX_CORE = "androidx.core:core-ktx:1.1.0-rc01"
 
@@ -24,8 +24,6 @@ object Deps {
     const val ARCH_WORK_RUNTIME = "androidx.work:work-runtime-ktx:2.0.1"
 
     const val ANDROID_MATERIAL = "com.google.android.material:material:1.1.0-alpha07"
-    const val ANDROID_MULTIDEX = "androidx.multidex:multidex:2.0.1"
-    const val ANDROID_MULTIDEX_INSTRUMENTATION = "androidx.multidex:multidex-instrumentation:2.0.0"
 
     const val PLAYSERVICE_ANALYTICS = "com.google.android.gms:play-services-analytics:16.0.8"
     const val PLAYSERVICE_LICENSES = "com.google.android.gms:play-services-oss-licenses:$PLAYSERVICE_LICENSE_VERSION"
@@ -48,7 +46,7 @@ object Deps {
     const val VIEWMODEL_INJECT_PROCESSOR = "com.vikingsen.inject:viewmodel-inject-processor:0.1.1"
 
     // UI
-    private const val MATERIAL_DIALOGS_VERSION = "3.0.0-rc1"
+    private const val MATERIAL_DIALOGS_VERSION = "3.0.0-rc3"
     const val MATERIAL_DIALOGS_CORE = "com.afollestad.material-dialogs:core:$MATERIAL_DIALOGS_VERSION"
     const val MATERIAL_DIALOGS_DATETIME = "com.afollestad.material-dialogs:datetime:$MATERIAL_DIALOGS_VERSION"
     const val MATERIAL_DIALOGS_LIFECYCLE = "com.afollestad.material-dialogs:lifecycle:$MATERIAL_DIALOGS_VERSION"
@@ -59,7 +57,7 @@ object Deps {
     const val ARCH_ROOM_RUNTIME = "androidx.room:room-runtime:$ROOM_VERSION"
     const val ARCH_ROOM_KTX = "androidx.room:room-ktx:$ROOM_VERSION"
     const val ARCH_ROOM_COMPILER = "androidx.room:room-compiler:$ROOM_VERSION"
-    private const val DBTOOLS_VERSION = "4.9.1"
+    private const val DBTOOLS_VERSION = "4.9.3"
     const val DBTOOLS_ROOM = "org.dbtools:dbtools-room:$DBTOOLS_VERSION"
     const val DBTOOLS_ROOM_SQLITE = "org.dbtools:dbtools-room-sqliteorg:$DBTOOLS_VERSION"
 

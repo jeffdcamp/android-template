@@ -145,8 +145,6 @@ dependencies {
     implementation(Deps.ANDROIDX_PREFERENCE)
     implementation(Deps.ANDROID_MATERIAL)
     implementation(Deps.ANDROIDX_ANNOTATIONS)
-    implementation(Deps.ANDROID_MULTIDEX)
-    implementation(Deps.ANDROID_MULTIDEX_INSTRUMENTATION)
     implementation(Deps.PLAYSERVICE_ANALYTICS)
 //    implementation(Deps.PLAYSERVICE_LICENSES)
     implementation(Deps.ANDROIDX_CONSTRAINT_LAYOUT)
