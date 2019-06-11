@@ -93,7 +93,9 @@ class DirectoryFragment : BaseFragment() {
     override fun onSaveInstanceState(bundle: Bundle) {
         super.onSaveInstanceState(bundle)
         with(SaveStateOptions) {
-            bundle.scrollPosition = binding.recyclerView.getScrollPosition()
+            if (::binding.isInitialized) { // onSaveInstanceState may be called before onCreateView
+                bundle.scrollPosition = binding.recyclerView.getScrollPosition()
+            }
         }
     }
 
@@ -108,7 +110,7 @@ class DirectoryFragment : BaseFragment() {
 
     private fun restoreState(bundle: Bundle) {
         with(SaveStateOptions) {
-            binding.recyclerView.scrollToPosition(bundle.scrollPosition!!)
+            binding.recyclerView.scrollToPosition(bundle.scrollPosition ?: 0)
         }
     }
 

@@ -35,7 +35,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
 
     override fun onResume() {
         super.onResume()
-        showThemeDetails()
 
         prefs.preferenceManager.registerOnSharedPreferenceChangeListener(this)
     }
@@ -52,13 +51,8 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
         when (key) {
             Prefs.PREF_GENERAL_DISPLAY_THEME_TYPE -> {
-                showThemeDetails()
                 themeManager.applyTheme()
             }
         }
-    }
-
-    private fun showThemeDetails() {
-        findPreference(Prefs.PREF_GENERAL_DISPLAY_THEME_TYPE)?.setSummary(prefs.theme.stringResId)
     }
 }
