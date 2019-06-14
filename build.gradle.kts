@@ -22,6 +22,7 @@ allprojects {
         mavenLocal()
         google()
         mavenCentral()
+        maven("https://jitpack.io") // ihsanbal:LoggingInterceptor
         jcenter()
 //        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
     }

@@ -4,6 +4,7 @@ import dagger.Component
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
+import org.jdc.template.LoggingUtil
 import org.jdc.template.inject.CommonTestModule
 import org.jdc.template.log.JavaTree
 import org.jdc.template.model.repository.IndividualRepositoryTestModule
@@ -28,6 +29,8 @@ class ColorServiceTest {
 
     @BeforeEach
     fun setup() {
+        LoggingUtil.setupSingleLineLogging(true)
+
         MockitoAnnotations.initMocks(this)
         Timber.plant(JavaTree())
 

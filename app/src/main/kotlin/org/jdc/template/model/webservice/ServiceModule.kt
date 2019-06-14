@@ -1,6 +1,8 @@
 package org.jdc.template.model.webservice
 
 import android.os.Build
+import com.ihsanbal.logging.Level
+import com.ihsanbal.logging.LoggingInterceptor
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
@@ -8,7 +10,7 @@ import kotlinx.serialization.json.Json
 import okhttp3.Credentials
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
+import okhttp3.internal.platform.Platform
 import org.jdc.template.BuildConfig
 import org.jdc.template.auth.MyAccountInterceptor
 import org.jdc.template.model.webservice.colors.ColorService
@@ -19,11 +21,17 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
 
+
 @Module
 class ServiceModule {
 
     // Log level
-    private val serviceLogLevel = HttpLoggingInterceptor.Level.BASIC
+    private val loggingInterceptor = LoggingInterceptor.Builder()
+        .loggable(BuildConfig.DEBUG)
+        .setLevel(Level.BASIC)
+        .log(Platform.INFO)
+        .tag("REST Call")
+        .build()
 
     @Provides
     @Named(AUTHENTICATED_CLIENT)
@@ -57,7 +65,7 @@ class ServiceModule {
             chain.proceed(requestBuilder.build())
         }
 
-        clientBuilder.addInterceptor(HttpLoggingInterceptor().apply { level = serviceLogLevel })
+        clientBuilder.addInterceptor(loggingInterceptor)
     }
 
     private fun setupBasicAuth(clientBuilder: OkHttpClient.Builder, username: String, password: String) {
@@ -75,12 +83,10 @@ class ServiceModule {
     @Provides
     @Singleton
     fun getColorService(@Named(STANDARD_CLIENT) client: OkHttpClient): ColorService {
-        val contentType = "application/json".toMediaType()
-
         val retrofit = Retrofit.Builder()
             .baseUrl(ColorService.BASE_URL)
             .client(client)
-            .addConverterFactory(Json.nonstrict.asConverterFactory(contentType))
+            .addConverterFactory(Json.nonstrict.asConverterFactory("application/json".toMediaType()))
             .build()
 
         return retrofit.create()

@@ -65,6 +65,7 @@ object Deps {
     private const val OKHTTP_VERSION = "4.0.0-RC1"
     const val OKHTTP = "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION"
     const val OKHTTP_LOGGING_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION"
+    const val OKHTTP_IHSANBAL_LOGGING_INTERCEPTOR = "com.github.ihsanbal:LoggingInterceptor:3.0.0"
 
     // Test - Integration
     private const val ESPRESSO_VERSION = "3.2.0"

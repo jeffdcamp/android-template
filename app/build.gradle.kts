@@ -193,7 +193,7 @@ dependencies {
 
     // Network
     implementation(Deps.OKHTTP)
-    implementation(Deps.OKHTTP_LOGGING_INTERCEPTOR)
+    implementation(Deps.OKHTTP_IHSANBAL_LOGGING_INTERCEPTOR)
     implementation(Deps.RETROFIT)
     implementation(Deps.KOTLIN_RETROFIT_CONVERTER)
 
