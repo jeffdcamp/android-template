@@ -11,7 +11,7 @@ import org.jdc.template.ui.activity.BaseActivity
 class MainActivity : BaseActivity() {
 
     private lateinit var binding: MainActivityBinding
-    private val navController by lazy { findNavController(R.id.main_nav_host_fragment) }
+    private val navController by lazy { findNavController(R.id.mainNavHostFragment) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

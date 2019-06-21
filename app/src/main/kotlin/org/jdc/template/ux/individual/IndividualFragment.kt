@@ -63,10 +63,10 @@ class IndividualFragment : BaseFragment() {
         // Events
         viewModel.onEditIndividualEvent.observeNotNull { individualId ->
             val directions = IndividualFragmentDirections.editIndividual(individualId)
-            this@IndividualFragment.findNavController().navigate(directions)
+            findNavController().navigate(directions)
         }
         viewModel.onIndividualDeletedEvent.observe {
-            this@IndividualFragment.findNavController().popBackStack()
+            findNavController().popBackStack()
         }
     }
 

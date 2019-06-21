@@ -65,7 +65,7 @@ class IndividualEditFragment : LiveDataObserverFragment() {
 
     private fun setupViewModelObservers() {
         // Events
-        viewModel.onIndividualSavedEvent.observe { this@IndividualEditFragment.findNavController().popBackStack() }
+        viewModel.onIndividualSavedEvent.observe { findNavController().popBackStack() }
         viewModel.onShowBirthDateSelectionEvent.observeNotNull { showBirthDateSelector(it) }
         viewModel.onShowAlarmTimeSelectionEvent.observeNotNull { showAlarmTimeSelector(it) }
 

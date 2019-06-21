@@ -1,5 +1,5 @@
 // Versions for Dependencies AND Build Plugins
-const val KOTLIN_VERSION = "1.3.31"
+const val KOTLIN_VERSION = "1.3.40"
 const val ANDROIDX_NAVIGATION_VERSION = "2.0.0"
 const val PLAYSERVICE_LICENSE_VERSION = "0.9.1"
 
@@ -9,7 +9,7 @@ object Deps {
     const val ANDROIDX_APPCOMPAT = "androidx.appcompat:appcompat:1.1.0-beta01"
     const val ANDROIDX_RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.0.0"
     const val ANDROIDX_PREFERENCE = "androidx.preference:preference-ktx:1.1.0-beta01"
-    const val ANDROIDX_CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:2.0.0-beta1"
+    const val ANDROIDX_CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:2.0.0-beta2"
     const val ANDROIDX_CORE = "androidx.core:core-ktx:1.1.0-rc01"
 
     private const val LIFECYCLE_VERSION = "2.1.0-beta01"
@@ -25,16 +25,16 @@ object Deps {
 
     const val ANDROID_MATERIAL = "com.google.android.material:material:1.1.0-alpha07"
 
-    const val PLAYSERVICE_ANALYTICS = "com.google.android.gms:play-services-analytics:16.0.8"
+    const val PLAYSERVICE_ANALYTICS = "com.google.android.gms:play-services-analytics:17.0.0"
     const val PLAYSERVICE_LICENSES = "com.google.android.gms:play-services-oss-licenses:$PLAYSERVICE_LICENSE_VERSION"
 
 
     // Code
     const val KOTLIN_STD_LIB = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
-    const val KOTLIN_SERIALIZATION = "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.11.0"
+    const val KOTLIN_SERIALIZATION = "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.11.1"
     private const val COROUTINES_VERSION = "1.2.1"
     const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINES_VERSION"
-    private const val DAGGER_VERSION = "2.23.1"
+    private const val DAGGER_VERSION = "2.23.2"
     const val DAGGER = "com.google.dagger:dagger:$DAGGER_VERSION"
     const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
     const val RETROFIT = "com.squareup.retrofit2:retrofit:2.6.0"
@@ -46,7 +46,7 @@ object Deps {
     const val VIEWMODEL_INJECT_PROCESSOR = "com.vikingsen.inject:viewmodel-inject-processor:0.1.1"
 
     // UI
-    private const val MATERIAL_DIALOGS_VERSION = "3.0.0-rc3"
+    private const val MATERIAL_DIALOGS_VERSION = "3.0.0-rc4"
     const val MATERIAL_DIALOGS_CORE = "com.afollestad.material-dialogs:core:$MATERIAL_DIALOGS_VERSION"
     const val MATERIAL_DIALOGS_DATETIME = "com.afollestad.material-dialogs:datetime:$MATERIAL_DIALOGS_VERSION"
     const val MATERIAL_DIALOGS_LIFECYCLE = "com.afollestad.material-dialogs:lifecycle:$MATERIAL_DIALOGS_VERSION"
