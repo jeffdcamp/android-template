@@ -46,7 +46,7 @@ object Deps {
     const val VIEWMODEL_INJECT_PROCESSOR = "com.vikingsen.inject:viewmodel-inject-processor:0.1.1"
 
     // UI
-    private const val MATERIAL_DIALOGS_VERSION = "3.0.0-rc4"
+    private const val MATERIAL_DIALOGS_VERSION = "3.0.0"
     const val MATERIAL_DIALOGS_CORE = "com.afollestad.material-dialogs:core:$MATERIAL_DIALOGS_VERSION"
     const val MATERIAL_DIALOGS_DATETIME = "com.afollestad.material-dialogs:datetime:$MATERIAL_DIALOGS_VERSION"
     const val MATERIAL_DIALOGS_LIFECYCLE = "com.afollestad.material-dialogs:lifecycle:$MATERIAL_DIALOGS_VERSION"
@@ -62,7 +62,7 @@ object Deps {
     const val DBTOOLS_ROOM_SQLITE = "org.dbtools:dbtools-room-sqliteorg:$DBTOOLS_VERSION"
 
     // Network
-    private const val OKHTTP_VERSION = "4.0.0-RC2"
+    private const val OKHTTP_VERSION = "4.0.0-RC3"
     const val OKHTTP = "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION"
     const val OKHTTP_LOGGING_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION"
     const val OKHTTP_IHSANBAL_LOGGING_INTERCEPTOR = "com.github.ihsanbal:LoggingInterceptor:3.0.0"
@@ -82,7 +82,7 @@ object Deps {
     const val TEST_OKHTTP_MOCKWEBSERVER = "com.squareup.okhttp3:mockwebserver:$OKHTTP_VERSION"
     const val TEST_MOCKITO_CORE = "org.mockito:mockito-core:2.28.2"
     const val TEST_THREETENBP = "org.threeten:threetenbp:1.4.0"
-    const val TEST_XERIAL_SQLITE = "org.xerial:sqlite-jdbc:3.27.2.1"
+    const val TEST_XERIAL_SQLITE = "org.xerial:sqlite-jdbc:3.28.0"
     const val TEST_ARCH_ROOM_TESTING = "androidx.room:room-testing:$ROOM_VERSION"
     const val TEST_DBTOOLS_ROOM_JDBC = "org.dbtools:dbtools-room-jdbc:$DBTOOLS_VERSION"
     const val TEST_KOTLIN_COROUTINES_TEST = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$COROUTINES_VERSION"
