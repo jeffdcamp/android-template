@@ -84,7 +84,7 @@ class AboutViewModel
         if (response.isSuccessful) {
             processWebServiceResponse(response)
         } else {
-            Timber.e("Search FAILED [${response.errorBody()}]")
+            Timber.e("Failed to get colors from webservice [${response.errorBody()}]")
         }
     }
 

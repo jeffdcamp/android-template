@@ -76,7 +76,7 @@ object Deps {
     const val TEST_ANDROIDX_JUNIT = "androidx.test.ext:junit:1.1.1"
 
     // Test - JUnit
-    private const val JUNIT_VERSION = "5.4.1"
+    private const val JUNIT_VERSION = "5.5.0"
     const val TEST_JUNIT = "org.junit.jupiter:junit-jupiter:$JUNIT_VERSION"
     const val TEST_JUNIT_ENGINE = "org.junit.jupiter:junit-jupiter-engine:$JUNIT_VERSION"
     const val TEST_OKHTTP_MOCKWEBSERVER = "com.squareup.okhttp3:mockwebserver:$OKHTTP_VERSION"
