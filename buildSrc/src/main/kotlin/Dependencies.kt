@@ -6,13 +6,13 @@ const val PLAYSERVICE_LICENSE_VERSION = "0.9.1"
 object Deps {
     // Android (https://android.googlesource.com/platform/frameworks/support/+/refs/heads/androidx-master-dev/buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt)
     const val ANDROIDX_ANNOTATIONS = "androidx.annotation:annotation:1.1.0"
-    const val ANDROIDX_APPCOMPAT = "androidx.appcompat:appcompat:1.1.0-beta01"
-    const val ANDROIDX_RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.0.0"
-    const val ANDROIDX_PREFERENCE = "androidx.preference:preference-ktx:1.1.0-beta01"
+    const val ANDROIDX_APPCOMPAT = "androidx.appcompat:appcompat:1.1.0-rc01"
+    const val ANDROIDX_RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.1.0-beta01"
+    const val ANDROIDX_PREFERENCE = "androidx.preference:preference-ktx:1.1.0-rc01"
     const val ANDROIDX_CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:2.0.0-beta2"
-    const val ANDROIDX_CORE = "androidx.core:core-ktx:1.1.0-rc01"
+    const val ANDROIDX_CORE = "androidx.core:core-ktx:1.1.0-rc02"
 
-    private const val LIFECYCLE_VERSION = "2.1.0-beta01"
+    private const val LIFECYCLE_VERSION = "2.1.0-rc01"
     const val ARCH_LIFECYCLE_EXT = "androidx.lifecycle:lifecycle-extensions:$LIFECYCLE_VERSION"
     const val ARCH_LIFECYCLE_RUNTIME = "androidx.lifecycle:lifecycle-runtime:$LIFECYCLE_VERSION"
     const val ARCH_LIFECYCLE_VIEWMODEL = "androidx.lifecycle:lifecycle-viewmodel-ktx:$LIFECYCLE_VERSION"
@@ -46,7 +46,7 @@ object Deps {
     const val VIEWMODEL_INJECT_PROCESSOR = "com.vikingsen.inject:viewmodel-inject-processor:0.1.1"
 
     // UI
-    private const val MATERIAL_DIALOGS_VERSION = "3.0.2"
+    private const val MATERIAL_DIALOGS_VERSION = "3.1.0"
     const val MATERIAL_DIALOGS_CORE = "com.afollestad.material-dialogs:core:$MATERIAL_DIALOGS_VERSION"
     const val MATERIAL_DIALOGS_DATETIME = "com.afollestad.material-dialogs:datetime:$MATERIAL_DIALOGS_VERSION"
     const val MATERIAL_DIALOGS_LIFECYCLE = "com.afollestad.material-dialogs:lifecycle:$MATERIAL_DIALOGS_VERSION"
