@@ -15,7 +15,7 @@ val buildTime = Date().time
 val versionCodeAppName = "android-template"
 val minVersionCode = 1000
 val appVersionCode = VersionCode.readVersionCode(versionCodeAppName, minVersionCode)
-val appVersionName = "1.0.0 ($appVersionCode.${System.getProperty("BUILD_NUMBER")})"
+val appVersionName = "1.0.0 ($appVersionCode.${System.getenv("BUILD_NUMBER")})"
 
 kapt {
     javacOptions {
