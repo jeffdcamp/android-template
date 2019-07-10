@@ -23,7 +23,7 @@ object Deps {
 
     const val ARCH_WORK_RUNTIME = "androidx.work:work-runtime-ktx:2.0.1"
 
-    const val ANDROID_MATERIAL = "com.google.android.material:material:1.1.0-alpha07"
+    const val ANDROID_MATERIAL = "com.google.android.material:material:1.1.0-alpha08" // https://github.com/material-components/material-components-android/releases
 
     const val PLAYSERVICE_ANALYTICS = "com.google.android.gms:play-services-analytics:17.0.0"
     const val PLAYSERVICE_LICENSES = "com.google.android.gms:play-services-oss-licenses:$PLAYSERVICE_LICENSE_VERSION"
@@ -62,7 +62,7 @@ object Deps {
     const val DBTOOLS_ROOM_SQLITE = "org.dbtools:dbtools-room-sqliteorg:$DBTOOLS_VERSION"
 
     // Network
-    private const val OKHTTP_VERSION = "4.0.0"
+    private const val OKHTTP_VERSION = "4.0.1"
     const val OKHTTP = "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION"
     const val OKHTTP_LOGGING_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION"
     const val OKHTTP_IHSANBAL_LOGGING_INTERCEPTOR = "com.github.ihsanbal:LoggingInterceptor:3.0.0"
@@ -80,7 +80,7 @@ object Deps {
     const val TEST_JUNIT = "org.junit.jupiter:junit-jupiter:$JUNIT_VERSION"
     const val TEST_JUNIT_ENGINE = "org.junit.jupiter:junit-jupiter-engine:$JUNIT_VERSION"
     const val TEST_OKHTTP_MOCKWEBSERVER = "com.squareup.okhttp3:mockwebserver:$OKHTTP_VERSION"
-    const val TEST_MOCKITO_CORE = "org.mockito:mockito-core:2.28.2"
+    const val TEST_MOCKITO_CORE = "org.mockito:mockito-core:3.0.0"
     const val TEST_THREETENBP = "org.threeten:threetenbp:1.4.0"
     const val TEST_XERIAL_SQLITE = "org.xerial:sqlite-jdbc:3.28.0"
     const val TEST_ARCH_ROOM_TESTING = "androidx.room:room-testing:$ROOM_VERSION"
