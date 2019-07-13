@@ -21,7 +21,7 @@ object Deps {
     const val ARCH_NAVIGATION_FRAGMENT = "androidx.navigation:navigation-fragment-ktx:$ANDROIDX_NAVIGATION_VERSION"
     const val ARCH_NAVIGATION_UI = "androidx.navigation:navigation-ui-ktx:$ANDROIDX_NAVIGATION_VERSION"
 
-    const val ARCH_WORK_RUNTIME = "androidx.work:work-runtime-ktx:2.0.1"
+    const val ARCH_WORK_RUNTIME = "androidx.work:work-runtime-ktx:2.1.0"
 
     const val ANDROID_MATERIAL = "com.google.android.material:material:1.1.0-alpha08" // https://github.com/material-components/material-components-android/releases
 

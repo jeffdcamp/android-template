@@ -4,7 +4,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("kapt")
-    id("com.github.triplet.play") version "2.2.1"
+    id("com.github.triplet.play") version "2.3.0"
 }
 
 apply(plugin = "kotlinx-serialization")
