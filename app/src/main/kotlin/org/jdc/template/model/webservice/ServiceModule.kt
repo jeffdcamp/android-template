@@ -60,7 +60,7 @@ class ServiceModule {
 
         clientBuilder.addInterceptor { chain ->
             val requestBuilder = chain.request().newBuilder()
-            requestBuilder.addHeader("http.useragent", USER_AGENT)
+            requestBuilder.addHeader("User-Agent", USER_AGENT)
             requestBuilder.addHeader("Accept", "application/json")
             chain.proceed(requestBuilder.build())
         }
