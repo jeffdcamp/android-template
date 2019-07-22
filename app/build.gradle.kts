@@ -9,6 +9,7 @@ plugins {
 
 apply(plugin = "kotlinx-serialization")
 apply(plugin = "androidx.navigation.safeargs.kotlin")
+apply(plugin = "io.fabric")
 
 // Manifest version information
 val buildTime = Date().time
@@ -108,13 +109,16 @@ android {
             versionNameSuffix = " DEV"
             applicationIdSuffix = ".dev"
             buildConfigField("long", "BUILD_TIME", "0l") // to improve build times, do allow change on every build
+
+            // Enable signing to test Firebase
+            // signingConfig = signingConfigs.getByName("upload")
         }
         create("alpha") {
             initWith(getByName("release"))
             versionNameSuffix = " ALPHA"
-            applicationIdSuffix = ".dev"
+            applicationIdSuffix = ".alpha"
             buildConfigField("long", "BUILD_TIME", "${buildTime}l")
-            isDebuggable = true
+            // isDebuggable = true
             signingConfig = signingConfigs.getByName("upload")
         }
         create("beta") {
@@ -156,6 +160,12 @@ dependencies {
 //    implementation(Deps.PLAYSERVICE_LICENSES)
     implementation(Deps.ANDROIDX_CONSTRAINT_LAYOUT)
     implementation(Deps.ANDROIDX_CORE)
+
+    // Firebase
+    implementation(Deps.FIREBASE_CORE)
+//    implementation(Deps.FIREBASE_PERF)
+//    implementation(Deps.FIREBASE_CONFIG)
+    implementation(Deps.CRASHLYTICS)
 
     // Code
     implementation(Deps.KOTLIN_STD_LIB)
@@ -254,3 +264,6 @@ play {
     track = "internal"
     defaultToAppBundles = true
 }
+
+// this must be at the bottom of the file
+apply(plugin = "com.google.gms.google-services")

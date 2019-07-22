@@ -28,6 +28,10 @@ object Deps {
     const val PLAYSERVICE_ANALYTICS = "com.google.android.gms:play-services-analytics:17.0.0"
     const val PLAYSERVICE_LICENSES = "com.google.android.gms:play-services-oss-licenses:$PLAYSERVICE_LICENSE_VERSION"
 
+    const val FIREBASE_CORE = "com.google.firebase:firebase-core:17.0.1"
+    const val FIREBASE_PERF = "com.google.firebase:firebase-perf:16.2.3"
+    const val FIREBASE_CONFIG = "com.google.firebase:firebase-config:17.0.0"
+    const val CRASHLYTICS = "com.crashlytics.sdk.android:crashlytics:2.10.1"
 
     // Code
     const val KOTLIN_STD_LIB = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
