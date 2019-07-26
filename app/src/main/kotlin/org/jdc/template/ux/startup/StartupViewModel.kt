@@ -1,7 +1,6 @@
 package org.jdc.template.ux.startup
 
 import androidx.lifecycle.MutableLiveData
-import com.google.android.gms.analytics.HitBuilders
 import com.vikingsen.inject.viewmodel.ViewModelInject
 import kotlinx.coroutines.launch
 import org.jdc.template.Analytics
@@ -19,7 +18,7 @@ class StartupViewModel
     val onStartupFinishedEvent = SingleLiveEvent<Void>()
 
     fun startup() = launch {
-        analytics.send(HitBuilders.EventBuilder().setCategory(Analytics.CATEGORY_APP).setAction(Analytics.ACTION_APP_LAUNCH).setLabel(BuildConfig.BUILD_TYPE).build())
+        analytics.logEvent(Analytics.EVENT_LAUNCH_APP, mapOf(Analytics.PARAM_BUILD_TYPE to BuildConfig.BUILD_TYPE))
 
         // do startup work here...
         showProgress("Doing stuff")
@@ -42,5 +41,4 @@ class StartupViewModel
     }
 
     data class StartupProgress(val progress: Int, val message: String = "", val indeterminate: Boolean = false)
-
 }

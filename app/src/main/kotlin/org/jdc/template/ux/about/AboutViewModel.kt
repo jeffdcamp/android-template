@@ -1,7 +1,6 @@
 package org.jdc.template.ux.about
 
 import android.app.Application
-import com.google.android.gms.analytics.HitBuilders
 import com.vikingsen.inject.viewmodel.ViewModelInject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -34,7 +33,7 @@ class AboutViewModel
     var appBuildDateTime = BuildConfig.BUILD_TIME
 
     fun logAnalytics() {
-        analytics.send(HitBuilders.EventBuilder().setCategory(Analytics.CATEGORY_ABOUT).build())
+        analytics.logEvent(Analytics.EVENT_VIEW_ABOUT)
     }
 
     /**

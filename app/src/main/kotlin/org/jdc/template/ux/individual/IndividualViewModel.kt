@@ -2,7 +2,6 @@ package org.jdc.template.ux.individual
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.android.gms.analytics.HitBuilders
 import com.vikingsen.inject.viewmodel.ViewModelInject
 import kotlinx.coroutines.launch
 import org.jdc.template.Analytics
@@ -36,14 +35,14 @@ class IndividualViewModel
     }
 
     private fun loadIndividual(individualId: Long): LiveData<Individual> {
-        analytics.send(HitBuilders.EventBuilder().setCategory(Analytics.CATEGORY_INDIVIDUAL).setAction(Analytics.ACTION_VIEW).build())
+        analytics.logEvent(Analytics.EVENT_VIEW_INDIVIDUAL)
         return individualRepository.getIndividualLiveData(individualId)
     }
 
     fun deleteTask() {
         individualId.value?.let { id ->
             launch {
-                analytics.send(HitBuilders.EventBuilder().setCategory(Analytics.CATEGORY_INDIVIDUAL).setAction(Analytics.ACTION_DELETE).build())
+                analytics.logEvent(Analytics.EVENT_DELETE_INDIVIDUAL)
                 individualRepository.deleteIndividual(id)
 
                 onIndividualDeletedEvent.postCall()
@@ -52,6 +51,7 @@ class IndividualViewModel
     }
 
     fun editTask() {
+        analytics.logEvent(Analytics.EVENT_EDIT_INDIVIDUAL)
         onEditIndividualEvent.value = individualId.value
     }
 }

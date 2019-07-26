@@ -14,7 +14,7 @@ apply(plugin = "io.fabric")
 // Manifest version information
 val buildTime = Date().time
 val versionCodeAppName = "android-template"
-val minVersionCode = 1000
+val minVersionCode = 1001
 val appVersionCode = VersionCode.readVersionCode(versionCodeAppName, minVersionCode)
 val appVersionName = "1.0.0 ($appVersionCode.${System.getenv("BUILD_NUMBER")})"
 
@@ -156,10 +156,12 @@ dependencies {
     implementation(Deps.ANDROIDX_PREFERENCE)
     implementation(Deps.ANDROID_MATERIAL)
     implementation(Deps.ANDROIDX_ANNOTATIONS)
-    implementation(Deps.PLAYSERVICE_ANALYTICS)
-//    implementation(Deps.PLAYSERVICE_LICENSES)
     implementation(Deps.ANDROIDX_CONSTRAINT_LAYOUT)
     implementation(Deps.ANDROIDX_CORE)
+
+    // Play Service
+    implementation(Deps.PLAYSERVICE_CORE)
+//    implementation(Deps.PLAYSERVICE_LICENSES)
 
     // Firebase
     implementation(Deps.FIREBASE_CORE)

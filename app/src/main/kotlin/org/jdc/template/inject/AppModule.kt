@@ -7,10 +7,11 @@ import androidx.work.WorkManager
 import com.google.android.gms.analytics.GoogleAnalytics
 import dagger.Module
 import dagger.Provides
+import com.google.firebase.analytics.FirebaseAnalytics
 import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
 import org.jdc.template.model.webservice.ServiceModule
-import timber.log.Timber
+import org.jdc.template.prefs.Prefs
 import javax.inject.Singleton
 
 @Module(includes = [ServiceModule::class, AssistedModule::class])
@@ -29,20 +30,16 @@ class AppModule(private val application: Application) {
 
     @Provides
     @Singleton
-    fun provideAnalytics(): Analytics {
-        // Only send analytics to Google Analytics with versions of the app that are NOT debuggable (such as BETA or RELEASE)
+    fun provideAnalytics(prefs: Prefs): Analytics {
+        // Only send analytics with versions of the app that are NOT debuggable (such as BETA or RELEASE)
         if (BuildConfig.DEBUG) {
-            return object : Analytics {
-                override fun send(params: Map<String, String>) {
-                    Timber.d("Analytics Params [$params]")
-                }
-            }
+            return Analytics.DebugAnalytics()
         }
 
-        val googleAnalytics = GoogleAnalytics.getInstance(application)
-        val tracker = googleAnalytics.newTracker(BuildConfig.ANALYTICS_KEY)
-        // tracker.setSessionTimeout(300); // default is 30 seconds
-        return Analytics.GoogleAnalytics(tracker)
+        val firebaseAnalytics = FirebaseAnalytics.getInstance(application).apply {
+            setUserId(prefs.getAppInstanceId())
+        }
+        return Analytics.FbAnalytics(firebaseAnalytics)
     }
 
     @Provides

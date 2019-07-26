@@ -25,9 +25,11 @@ object Deps {
 
     const val ANDROID_MATERIAL = "com.google.android.material:material:1.1.0-alpha08" // https://github.com/material-components/material-components-android/releases
 
-    const val PLAYSERVICE_ANALYTICS = "com.google.android.gms:play-services-analytics:17.0.0"
+    // Play Services
+    const val PLAYSERVICE_CORE = "com.google.android.play:core:1.6.1"
     const val PLAYSERVICE_LICENSES = "com.google.android.gms:play-services-oss-licenses:$PLAYSERVICE_LICENSE_VERSION"
 
+    // Firebase
     const val FIREBASE_CORE = "com.google.firebase:firebase-core:17.0.1"
     const val FIREBASE_PERF = "com.google.firebase:firebase-perf:16.2.3"
     const val FIREBASE_CONFIG = "com.google.firebase:firebase-config:17.0.0"

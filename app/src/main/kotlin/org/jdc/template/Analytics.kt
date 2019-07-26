@@ -1,35 +1,53 @@
 package org.jdc.template
 
-import com.google.android.gms.analytics.Tracker
+import android.os.Bundle
+import com.google.firebase.analytics.FirebaseAnalytics
+import timber.log.Timber
 
 interface Analytics {
 
-    fun send(params: Map<String, String>)
+    /**
+     * @param name Name of event (Built in Firebase FirebaseAnalytics.Event.*)
+     * @param params Parameters for event.  Optional. (Built in keys Firebase FirebaseAnalytics.Param.*)
+     */
+    fun logEvent(name: String, params: Map<String, String>? = null) {}
 
-    class GoogleAnalytics(private val tracker: Tracker) : Analytics {
+    class FbAnalytics(private val firebaseAnalytics: FirebaseAnalytics) : Analytics {
 
-        override fun send(params: Map<String, String>) {
-            tracker.send(params)
+        override fun logEvent(name: String, params: Map<String, String>?) {
+            val bundle = if (params != null) {
+                val bundle = Bundle()
+
+                params.forEach { param ->
+                    bundle.putString(param.key, param.value)
+                }
+
+                bundle
+            } else {
+                null
+            }
+
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
+        }
+    }
+
+    class DebugAnalytics() : Analytics {
+        override fun logEvent(name: String, params: Map<String, String>?) {
+            Timber.d("Analytics Name: [$name]  Params: [$params]")
         }
     }
 
     companion object {
-        // Categories
-        const val CATEGORY_APP = "App"
-        const val CATEGORY_DIRECTORY = "Individual"
-        const val CATEGORY_INDIVIDUAL = "Individual"
-        const val CATEGORY_ABOUT = "About"
-        const val CATEGORY_SETTINGS = "Settings"
+        // Events
+        const val EVENT_LAUNCH_APP = "launch_event"
+        const val EVENT_VIEW_DIRECTORY = "view_directory"
+        const val EVENT_VIEW_INDIVIDUAL = "view_individual"
+        const val EVENT_EDIT_INDIVIDUAL = "edit_individual"
+        const val EVENT_DELETE_INDIVIDUAL = "delete_individual"
+        const val EVENT_VIEW_ABOUT = "view_about"
+        const val EVENT_VIEW_SETTINGS = "view_settings"
 
-        // Actions
-        const val ACTION_APP_LAUNCH = "Launch"
-        const val ACTION_NEW = "New"
-        const val ACTION_VIEW = "View"
-        const val ACTION_EDIT = "Edit"
-        const val ACTION_EDIT_SAVE = "Edit Save"
-        const val ACTION_DELETE = "Delete"
-
-        // Variables
-        const val VARIABLE_BUILD_TYPE = "Build Type"
+        // Params
+        const val PARAM_BUILD_TYPE = "build_type"
     }
 }
