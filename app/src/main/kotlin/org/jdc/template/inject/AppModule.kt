@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
 import androidx.work.WorkManager
-import com.google.android.gms.analytics.GoogleAnalytics
 import dagger.Module
 import dagger.Provides
 import com.google.firebase.analytics.FirebaseAnalytics
