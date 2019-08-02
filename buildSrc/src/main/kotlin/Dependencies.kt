@@ -23,7 +23,7 @@ object Deps {
 
     const val ARCH_WORK_RUNTIME = "androidx.work:work-runtime-ktx:2.1.0"
 
-    const val ANDROID_MATERIAL = "com.google.android.material:material:1.1.0-alpha08" // https://github.com/material-components/material-components-android/releases
+    const val ANDROID_MATERIAL = "com.google.android.material:material:1.1.0-alpha09" // https://github.com/material-components/material-components-android/releases
 
     // Play Services
     const val PLAYSERVICE_CORE = "com.google.android.play:core:1.6.1"
@@ -43,7 +43,7 @@ object Deps {
     private const val DAGGER_VERSION = "2.24"
     const val DAGGER = "com.google.dagger:dagger:$DAGGER_VERSION"
     const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
-    const val RETROFIT = "com.squareup.retrofit2:retrofit:2.6.0"
+    const val RETROFIT = "com.squareup.retrofit2:retrofit:2.6.1"
     const val KOTLIN_RETROFIT_CONVERTER = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.4.0"
     const val EXTRAS_DELEGATES = "me.eugeniomarletti:android-extras-delegates:1.0.5"
     const val THREETEN_ABP = "com.jakewharton.threetenabp:threetenabp:1.2.1"
