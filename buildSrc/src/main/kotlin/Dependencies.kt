@@ -7,10 +7,10 @@ object Deps {
     // Android (https://android.googlesource.com/platform/frameworks/support/+/refs/heads/androidx-master-dev/buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt)
     const val ANDROIDX_ANNOTATIONS = "androidx.annotation:annotation:1.1.0"
     const val ANDROIDX_APPCOMPAT = "androidx.appcompat:appcompat:1.1.0-rc01"
-    const val ANDROIDX_RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.1.0-beta01"
+    const val ANDROIDX_RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.1.0-beta02"
     const val ANDROIDX_PREFERENCE = "androidx.preference:preference-ktx:1.1.0-rc01"
     const val ANDROIDX_CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:2.0.0-beta2"
-    const val ANDROIDX_CORE = "androidx.core:core-ktx:1.1.0-rc02"
+    const val ANDROIDX_CORE = "androidx.core:core-ktx:1.1.0-rc03"
 
     private const val LIFECYCLE_VERSION = "2.1.0-rc01"
     const val ARCH_LIFECYCLE_EXT = "androidx.lifecycle:lifecycle-extensions:$LIFECYCLE_VERSION"
