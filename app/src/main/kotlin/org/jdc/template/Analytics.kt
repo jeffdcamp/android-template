@@ -12,7 +12,7 @@ interface Analytics {
      */
     fun logEvent(name: String, params: Map<String, String>? = null) {}
 
-    class FbAnalytics(private val firebaseAnalytics: FirebaseAnalytics) : Analytics {
+    class FirebaseAnalyticsWrapper(private val firebaseAnalytics: FirebaseAnalytics) : Analytics {
 
         override fun logEvent(name: String, params: Map<String, String>?) {
             val bundle = if (params != null) {
@@ -27,7 +27,7 @@ interface Analytics {
                 null
             }
 
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
+            firebaseAnalytics.logEvent(name, bundle)
         }
     }
 

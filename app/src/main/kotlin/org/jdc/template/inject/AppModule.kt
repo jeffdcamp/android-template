@@ -38,7 +38,7 @@ class AppModule(private val application: Application) {
         val firebaseAnalytics = FirebaseAnalytics.getInstance(application).apply {
             setUserId(prefs.getAppInstanceId())
         }
-        return Analytics.FbAnalytics(firebaseAnalytics)
+        return Analytics.FirebaseAnalyticsWrapper(firebaseAnalytics)
     }
 
     @Provides
