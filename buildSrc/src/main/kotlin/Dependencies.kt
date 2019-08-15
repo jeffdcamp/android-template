@@ -21,7 +21,9 @@ object Deps {
     const val ARCH_NAVIGATION_FRAGMENT = "androidx.navigation:navigation-fragment-ktx:$ANDROIDX_NAVIGATION_VERSION"
     const val ARCH_NAVIGATION_UI = "androidx.navigation:navigation-ui-ktx:$ANDROIDX_NAVIGATION_VERSION"
 
-    const val ARCH_WORK_RUNTIME = "androidx.work:work-runtime-ktx:2.1.0"
+    private const val WORKMANAGER_VERSION = "2.2.0"
+    const val ARCH_WORK_RUNTIME = "androidx.work:work-runtime-ktx:$WORKMANAGER_VERSION"
+    const val ARCH_WORK_GCM = "androidx.work:work-gcm:$WORKMANAGER_VERSION" // Remove with min SDK 23
 
     const val ANDROID_MATERIAL = "com.google.android.material:material:1.1.0-alpha09" // https://github.com/material-components/material-components-android/releases
 
@@ -68,7 +70,7 @@ object Deps {
     const val DBTOOLS_ROOM_SQLITE = "org.dbtools:dbtools-room-sqliteorg:$DBTOOLS_VERSION"
 
     // Network
-    private const val OKHTTP_VERSION = "4.0.1" // https://github.com/square/okhttp/blob/master/CHANGELOG.md
+    private const val OKHTTP_VERSION = "4.1.0" // https://github.com/square/okhttp/blob/master/CHANGELOG.md
     const val OKHTTP = "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION"
     const val OKHTTP_LOGGING_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION"
     const val OKHTTP_IHSANBAL_LOGGING_INTERCEPTOR = "com.github.ihsanbal:LoggingInterceptor:3.0.0"

@@ -196,6 +196,7 @@ dependencies {
 
     // WorkManager
     implementation(Deps.ARCH_WORK_RUNTIME)
+    implementation(Deps.ARCH_WORK_GCM)
 
     // Database
     implementation(Deps.ARCH_ROOM_RUNTIME)
