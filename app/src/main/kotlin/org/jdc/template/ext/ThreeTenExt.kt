@@ -18,7 +18,7 @@ fun Calendar.toLocalTime(): LocalTime {
 fun LocalDate.toCalendar(): Calendar {
     val calendar = Calendar.getInstance()
     calendar.clear()
-    calendar.set(year, monthValue - 1, dayOfYear)
+    calendar.set(year, monthValue - 1, dayOfMonth)
     return calendar
 }
 
