@@ -14,7 +14,7 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION")
         classpath("org.jetbrains.kotlin:kotlin-serialization:$KOTLIN_VERSION")
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$ANDROIDX_NAVIGATION_VERSION")
-        classpath("com.google.gms:google-services:4.3.0")
+        classpath("com.google.gms:google-services:4.3.1")
         classpath("io.fabric.tools:gradle:1.31.0")
 //        classpath("com.google.gms:oss-licenses:$PLAYSERVICE_LICENSE_VERSION")
     }

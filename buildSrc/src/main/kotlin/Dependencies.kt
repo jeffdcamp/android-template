@@ -1,5 +1,5 @@
 // Versions for Dependencies AND Build Plugins
-const val KOTLIN_VERSION = "1.3.41"
+const val KOTLIN_VERSION = "1.3.50"
 const val ANDROIDX_NAVIGATION_VERSION = "2.0.0"
 const val PLAYSERVICE_LICENSE_VERSION = "0.9.1"
 
