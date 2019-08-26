@@ -1,7 +1,6 @@
 package org.jdc.template.livedata
 
 import androidx.annotation.MainThread
-import androidx.annotation.WorkerThread
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -20,14 +19,15 @@ import java.util.concurrent.atomic.AtomicBoolean
  *
  * Note that only one observer is going to be notified of changes.
  */
-class SingleLiveEvent<T> : MutableLiveData<T>() {
+open class SingleLiveEvent<T: Any> : MutableLiveData<T>() {
 
     private val pending = AtomicBoolean(false)
 
     @MainThread
     override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
         if (hasActiveObservers()) {
-            Timber.e("Multiple observers registered but only one will be notified of changes.")
+            // Generic type cannot be shown... place breakpoint here to debug
+            Timber.e("Multiple observers registered but only one will be notified of changes")
         }
 
         // Observe the internal MutableLiveData
@@ -39,24 +39,8 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
     }
 
     @MainThread
-    override fun setValue(t: T?) {
+    override fun setValue(value: T?) {
         pending.set(true)
-        super.setValue(t)
-    }
-
-    /**
-     * Used for cases where T is Void, to make calls cleaner.
-     */
-    @MainThread
-    fun call() {
-        value = null
-    }
-
-    /**
-     * Used for cases where T is Void, to make calls cleaner.
-     */
-    @WorkerThread
-    fun postCall() {
-        postValue(null)
+        super.setValue(value)
     }
 }

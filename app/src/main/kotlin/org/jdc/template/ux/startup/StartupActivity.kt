@@ -46,7 +46,7 @@ class StartupActivity : BaseActivity() {
 
     private fun setupViewModelObservers() {
         // Events
-        viewModel.onStartupFinishedEvent.observe {
+        viewModel.onStartupFinishedEvent.observeKt {
             showStartActivity()
         }
     }

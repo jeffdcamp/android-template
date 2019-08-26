@@ -5,7 +5,7 @@ import com.vikingsen.inject.viewmodel.ViewModelInject
 import kotlinx.coroutines.launch
 import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
-import org.jdc.template.livedata.SingleLiveEvent
+import org.jdc.template.livedata.EmptySingleLiveEvent
 import org.jdc.template.ui.viewmodel.BaseViewModel
 import timber.log.Timber
 
@@ -15,7 +15,7 @@ class StartupViewModel
 ) : BaseViewModel() {
 
     val startupProgress = MutableLiveData<StartupProgress>()
-    val onStartupFinishedEvent = SingleLiveEvent<Void>()
+    val onStartupFinishedEvent = EmptySingleLiveEvent()
 
     fun startup() = launch {
         analytics.logEvent(Analytics.EVENT_LAUNCH_APP, mapOf(Analytics.PARAM_BUILD_TYPE to BuildConfig.BUILD_TYPE))

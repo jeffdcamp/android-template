@@ -6,6 +6,7 @@ import com.vikingsen.inject.viewmodel.ViewModelInject
 import kotlinx.coroutines.launch
 import org.jdc.template.Analytics
 import org.jdc.template.livedata.AbsentLiveData
+import org.jdc.template.livedata.EmptySingleLiveEvent
 import org.jdc.template.livedata.SingleLiveEvent
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.repository.IndividualRepository
@@ -20,7 +21,7 @@ class IndividualViewModel
     private val individualId = MutableLiveData<Long>()
     val individual: LiveData<Individual>
     val onEditIndividualEvent = SingleLiveEvent<Long>() // individualId
-    val onIndividualDeletedEvent = SingleLiveEvent<Void>()
+    val onIndividualDeletedEvent = EmptySingleLiveEvent()
 
     init {
         individual = AbsentLiveData.switchMap(individualId) {

@@ -4,6 +4,7 @@ import androidx.databinding.ObservableField
 import com.vikingsen.inject.viewmodel.ViewModelInject
 import kotlinx.coroutines.launch
 import org.jdc.template.R
+import org.jdc.template.livedata.EmptySingleLiveEvent
 import org.jdc.template.livedata.SingleLiveEvent
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.repository.IndividualRepository
@@ -27,7 +28,7 @@ class IndividualEditViewModel
     val alarmTime = ObservableField<LocalTime>()
 
     // Events
-    val onIndividualSavedEvent = SingleLiveEvent<Void>()
+    val onIndividualSavedEvent = EmptySingleLiveEvent()
     val onValidationSaveErrorEvent = SingleLiveEvent<FieldValidationError>()
     val onShowBirthDateSelectionEvent = SingleLiveEvent<LocalDate>()
     val onShowAlarmTimeSelectionEvent = SingleLiveEvent<LocalTime>()

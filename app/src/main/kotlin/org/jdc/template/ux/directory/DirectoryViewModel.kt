@@ -2,6 +2,7 @@ package org.jdc.template.ux.directory
 
 import androidx.lifecycle.LiveData
 import com.vikingsen.inject.viewmodel.ViewModelInject
+import org.jdc.template.livedata.EmptySingleLiveEvent
 import org.jdc.template.livedata.SingleLiveEvent
 import org.jdc.template.model.db.main.directoryitem.DirectoryItem
 import org.jdc.template.model.repository.IndividualRepository
@@ -12,7 +13,7 @@ class DirectoryViewModel
     private val individualRepository: IndividualRepository
 ) : BaseViewModel() {
 
-    val onNewIndividualEvent = SingleLiveEvent<Void>()
+    val onNewIndividualEvent = EmptySingleLiveEvent()
     val showIndividualEvent = SingleLiveEvent<Long>()
 
     val directoryList: LiveData<List<DirectoryItem>>

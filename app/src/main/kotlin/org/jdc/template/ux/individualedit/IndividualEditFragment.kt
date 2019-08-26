@@ -1,12 +1,7 @@
 package org.jdc.template.ux.individualedit
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.get
@@ -65,11 +60,11 @@ class IndividualEditFragment : LiveDataObserverFragment() {
 
     private fun setupViewModelObservers() {
         // Events
-        viewModel.onIndividualSavedEvent.observe { findNavController().popBackStack() }
-        viewModel.onShowBirthDateSelectionEvent.observeNotNull { showBirthDateSelector(it) }
-        viewModel.onShowAlarmTimeSelectionEvent.observeNotNull { showAlarmTimeSelector(it) }
+        viewModel.onIndividualSavedEvent.observeKt { findNavController().popBackStack() }
+        viewModel.onShowBirthDateSelectionEvent.observeKt { showBirthDateSelector(it) }
+        viewModel.onShowAlarmTimeSelectionEvent.observeKt { showAlarmTimeSelector(it) }
 
-        viewModel.onValidationSaveErrorEvent.observeNotNull {
+        viewModel.onValidationSaveErrorEvent.observeKt {
             when (it) {
                 IndividualEditViewModel.FieldValidationError.FIRST_NAME_REQUIRED -> binding.firstNameLayout.error = getString(it.errorMessageId)
                 else -> { }

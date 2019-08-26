@@ -39,8 +39,8 @@ object Deps {
 
     // Code
     const val KOTLIN_STD_LIB = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
-    const val KOTLIN_SERIALIZATION = "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.11.1"
-    private const val COROUTINES_VERSION = "1.2.1"
+    const val KOTLIN_SERIALIZATION = "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.12.0"
+    private const val COROUTINES_VERSION = "1.3.0"
     const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINES_VERSION"
     private const val DAGGER_VERSION = "2.24"
     const val DAGGER = "com.google.dagger:dagger:$DAGGER_VERSION"

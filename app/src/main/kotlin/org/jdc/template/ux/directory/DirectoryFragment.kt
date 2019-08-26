@@ -1,12 +1,7 @@
 package org.jdc.template.ux.directory
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.get
@@ -67,10 +62,10 @@ class DirectoryFragment : BaseFragment() {
 
     private fun setupViewModelObservers() {
         // Events
-        viewModel.onNewIndividualEvent.observe {
+        viewModel.onNewIndividualEvent.observeKt {
             showNewIndividual()
         }
-        viewModel.showIndividualEvent.observeNotNull {
+        viewModel.showIndividualEvent.observeKt {
             showIndividual(it)
         }
     }
