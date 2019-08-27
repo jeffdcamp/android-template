@@ -16,6 +16,7 @@ open class MainDatabaseWrapper
 
     override fun createDatabase(): MainDatabase {
         return Room.databaseBuilder(application, MainDatabase::class.java, MainDatabase.DATABASE_NAME)
+            //.setTransactionExecutor(MainDatabase.TRANSACTION_EXECUTOR) // if no WAL support - only allow 1 single-threaded write operations
             .addMigrations(object : Migration(1, 2) {
                 override fun migrate(database: SupportSQLiteDatabase) {
                     // ONLY views are changed

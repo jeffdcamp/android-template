@@ -31,6 +31,9 @@ abstract class MainDatabase : RoomDatabase() {
     abstract val directoryItemDao: DirectoryItemDao
 
     companion object {
+        // if no WAL support - only allow 1 single-threaded write operations (assign this in the Room.databaseBuilder.setTransactionExecutor(...) (MainDatabaseWrapper.kt))
+        // val TRANSACTION_EXECUTOR = Executors.newSingleThreadExecutor()
+
         const val DATABASE_NAME = "main.db"
         val DATABASE_VIEW_QUERIES = listOf(
             DatabaseViewQuery(DirectoryItem.VIEW_NAME, DirectoryItem.VIEW_QUERY)
