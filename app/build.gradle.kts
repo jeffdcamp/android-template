@@ -10,6 +10,7 @@ plugins {
 apply(plugin = "kotlinx-serialization")
 apply(plugin = "androidx.navigation.safeargs.kotlin")
 apply(plugin = "io.fabric")
+apply(plugin = "com.google.android.gms.oss-licenses-plugin")
 
 // Manifest version information
 val buildTime = Date().time
@@ -163,7 +164,7 @@ dependencies {
 
     // Play Service
     implementation(Deps.PLAYSERVICE_CORE)
-//    implementation(Deps.PLAYSERVICE_LICENSES)
+    implementation(Deps.PLAYSERVICE_LICENSES)
 
     // Firebase
     implementation(Deps.FIREBASE_CORE)

@@ -1,7 +1,6 @@
 // Versions for Dependencies AND Build Plugins
 const val KOTLIN_VERSION = "1.3.50"
 const val ANDROIDX_NAVIGATION_VERSION = "2.0.0"
-const val PLAYSERVICE_LICENSE_VERSION = "0.9.1"
 
 object Deps {
     // Android (https://android.googlesource.com/platform/frameworks/support/+/refs/heads/androidx-master-dev/buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt)
@@ -32,7 +31,7 @@ object Deps {
 
     // Play Services
     const val PLAYSERVICE_CORE = "com.google.android.play:core:1.6.1"
-    const val PLAYSERVICE_LICENSES = "com.google.android.gms:play-services-oss-licenses:$PLAYSERVICE_LICENSE_VERSION"
+    const val PLAYSERVICE_LICENSES = "com.google.android.gms:play-services-oss-licenses:17.0.0"
 
     // Firebase
     const val FIREBASE_CORE = "com.google.firebase:firebase-core:17.2.0"

@@ -16,7 +16,7 @@ buildscript {
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$ANDROIDX_NAVIGATION_VERSION")
         classpath("com.google.gms:google-services:4.3.1")
         classpath("io.fabric.tools:gradle:1.31.0")
-//        classpath("com.google.gms:oss-licenses:$PLAYSERVICE_LICENSE_VERSION")
+        classpath("com.google.android.gms:oss-licenses-plugin:0.9.5")
     }
 }
 
