@@ -1,6 +1,8 @@
 package org.jdc.template.ux.individualedit
 
 import androidx.databinding.ObservableField
+import androidx.lifecycle.SavedStateHandle
+import com.squareup.inject.assisted.Assisted
 import com.vikingsen.inject.viewmodel.ViewModelInject
 import kotlinx.coroutines.launch
 import org.jdc.template.R
@@ -14,10 +16,12 @@ import org.threeten.bp.LocalTime
 
 class IndividualEditViewModel
 @ViewModelInject constructor(
-    private val individualRepository: IndividualRepository
+        private val individualRepository: IndividualRepository,
+        @Assisted savedStateHandle: SavedStateHandle
 ) : BaseViewModel() {
 
-    var individual = Individual()
+    private val individualId = requireNotNull(savedStateHandle.get<Long>("individualId")) { "individualId cannot be null" }
+    private var individual = Individual()
 
     // Fields
     val firstName = ObservableField<String>()
@@ -33,7 +37,11 @@ class IndividualEditViewModel
     val onShowBirthDateSelectionEvent = SingleLiveEvent<LocalDate>()
     val onShowAlarmTimeSelectionEvent = SingleLiveEvent<LocalTime>()
 
-    fun loadIndividual(individualId: Long) = launch {
+    init {
+        loadIndividual()
+    }
+
+    private fun loadIndividual() = launch {
         individualRepository.getIndividual(individualId)?.let {
             individual = it
 

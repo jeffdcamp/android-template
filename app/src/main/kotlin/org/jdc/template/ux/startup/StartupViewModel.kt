@@ -1,6 +1,8 @@
 package org.jdc.template.ux.startup
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
+import com.squareup.inject.assisted.Assisted
 import com.vikingsen.inject.viewmodel.ViewModelInject
 import kotlinx.coroutines.launch
 import org.jdc.template.Analytics
@@ -11,7 +13,8 @@ import timber.log.Timber
 
 class StartupViewModel
 @ViewModelInject constructor(
-    private val analytics: Analytics
+        private val analytics: Analytics,
+        @Assisted savedStateHandle: SavedStateHandle
 ) : BaseViewModel() {
 
     val startupProgress = MutableLiveData<StartupProgress>()

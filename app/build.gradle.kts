@@ -1,4 +1,4 @@
-import java.util.Date
+import java.util.*
 
 plugins {
     id("com.android.application")
@@ -158,6 +158,8 @@ dependencies {
     implementation(Deps.ANDROIDX_ANNOTATIONS)
     implementation(Deps.ANDROIDX_CONSTRAINT_LAYOUT)
     implementation(Deps.ANDROIDX_CORE)
+    implementation(Deps.ANDROIDX_ACTIVITY_KTX)
+    implementation(Deps.ANDROIDX_FRAGMENT_KTX)
 
     // Play Service
     implementation(Deps.PLAYSERVICE_CORE)
@@ -189,6 +191,7 @@ dependencies {
     implementation(Deps.ARCH_LIFECYCLE_RUNTIME)
     implementation(Deps.ARCH_LIFECYCLE_VIEWMODEL)
     implementation(Deps.ARCH_LIFECYCLE_COMMON)
+    implementation(Deps.ARCH_LIFECYCLE_SAVE_STATE)
 
     // Navigation
     implementation(Deps.ARCH_NAVIGATION_FRAGMENT)

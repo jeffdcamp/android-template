@@ -11,12 +11,15 @@ object Deps {
     const val ANDROIDX_PREFERENCE = "androidx.preference:preference-ktx:1.1.0-rc01"
     const val ANDROIDX_CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:2.0.0-beta2"
     const val ANDROIDX_CORE = "androidx.core:core-ktx:1.1.0-rc03"
+    const val ANDROIDX_ACTIVITY_KTX = "androidx.activity:activity-ktx:1.0.0-rc01"
+    const val ANDROIDX_FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.1.0-rc04"
 
     private const val LIFECYCLE_VERSION = "2.1.0-rc01"
     const val ARCH_LIFECYCLE_EXT = "androidx.lifecycle:lifecycle-extensions:$LIFECYCLE_VERSION"
     const val ARCH_LIFECYCLE_RUNTIME = "androidx.lifecycle:lifecycle-runtime:$LIFECYCLE_VERSION"
     const val ARCH_LIFECYCLE_VIEWMODEL = "androidx.lifecycle:lifecycle-viewmodel-ktx:$LIFECYCLE_VERSION"
     const val ARCH_LIFECYCLE_COMMON = "androidx.lifecycle:lifecycle-common-java8:$LIFECYCLE_VERSION"
+    const val ARCH_LIFECYCLE_SAVE_STATE = "androidx.lifecycle:lifecycle-viewmodel-savedstate:1.0.0-alpha03"
 
     const val ARCH_NAVIGATION_FRAGMENT = "androidx.navigation:navigation-fragment-ktx:$ANDROIDX_NAVIGATION_VERSION"
     const val ARCH_NAVIGATION_UI = "androidx.navigation:navigation-ui-ktx:$ANDROIDX_NAVIGATION_VERSION"
@@ -32,7 +35,7 @@ object Deps {
     const val PLAYSERVICE_LICENSES = "com.google.android.gms:play-services-oss-licenses:$PLAYSERVICE_LICENSE_VERSION"
 
     // Firebase
-    const val FIREBASE_CORE = "com.google.firebase:firebase-core:17.1.0"
+    const val FIREBASE_CORE = "com.google.firebase:firebase-core:17.2.0"
     const val FIREBASE_PERF = "com.google.firebase:firebase-perf:16.2.3"
     const val FIREBASE_CONFIG = "com.google.firebase:firebase-config:17.0.0"
     const val CRASHLYTICS = "com.crashlytics.sdk.android:crashlytics:2.10.1"
@@ -50,8 +53,9 @@ object Deps {
     const val EXTRAS_DELEGATES = "me.eugeniomarletti:android-extras-delegates:1.0.5"
     const val THREETEN_ABP = "com.jakewharton.threetenabp:threetenabp:1.2.1"
     const val TIMBER = "com.jakewharton.timber:timber:4.7.1"
-    const val VIEWMODEL_INJECT = "com.vikingsen.inject:viewmodel-inject:0.1.1"
-    const val VIEWMODEL_INJECT_PROCESSOR = "com.vikingsen.inject:viewmodel-inject-processor:0.1.1"
+    private const val VIEWMODEL_INJECT_VERSION = "0.3.0-alpha01"
+    const val VIEWMODEL_INJECT = "com.vikingsen.inject:viewmodel-inject:$VIEWMODEL_INJECT_VERSION"
+    const val VIEWMODEL_INJECT_PROCESSOR = "com.vikingsen.inject:viewmodel-inject-processor:$VIEWMODEL_INJECT_VERSION"
 
     // UI
     private const val MATERIAL_DIALOGS_VERSION = "3.1.0"

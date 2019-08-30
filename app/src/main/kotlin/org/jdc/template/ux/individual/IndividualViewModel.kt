@@ -1,11 +1,11 @@
 package org.jdc.template.ux.individual
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
+import com.squareup.inject.assisted.Assisted
 import com.vikingsen.inject.viewmodel.ViewModelInject
 import kotlinx.coroutines.launch
 import org.jdc.template.Analytics
-import org.jdc.template.livedata.AbsentLiveData
 import org.jdc.template.livedata.EmptySingleLiveEvent
 import org.jdc.template.livedata.SingleLiveEvent
 import org.jdc.template.model.db.main.individual.Individual
@@ -15,44 +15,29 @@ import org.jdc.template.ui.viewmodel.BaseViewModel
 class IndividualViewModel
 @ViewModelInject constructor(
         private val analytics: Analytics,
-        private val individualRepository: IndividualRepository
+        private val individualRepository: IndividualRepository,
+        @Assisted savedStateHandle: SavedStateHandle
 ) : BaseViewModel() {
 
-    private val individualId = MutableLiveData<Long>()
-    val individual: LiveData<Individual>
+    private val individualId = requireNotNull(savedStateHandle.get<Long>("individualId")) { "individualId cannot be null" }
+    val individual: LiveData<Individual> = individualRepository.getIndividualLiveData(individualId)
+
     val onEditIndividualEvent = SingleLiveEvent<Long>() // individualId
     val onIndividualDeletedEvent = EmptySingleLiveEvent()
 
     init {
-        individual = AbsentLiveData.switchMap(individualId) {
-            loadIndividual(it)
-        }
-    }
-
-    fun setIndividualId(individualId: Long) {
-        if (individualId != this.individualId.value) {
-            this.individualId.value = individualId
-        }
-    }
-
-    private fun loadIndividual(individualId: Long): LiveData<Individual> {
         analytics.logEvent(Analytics.EVENT_VIEW_INDIVIDUAL)
-        return individualRepository.getIndividualLiveData(individualId)
     }
 
-    fun deleteTask() {
-        individualId.value?.let { id ->
-            launch {
-                analytics.logEvent(Analytics.EVENT_DELETE_INDIVIDUAL)
-                individualRepository.deleteIndividual(id)
+    fun deleteIndividual() = launch {
+        analytics.logEvent(Analytics.EVENT_DELETE_INDIVIDUAL)
+        individualRepository.deleteIndividual(individualId)
 
-                onIndividualDeletedEvent.postCall()
-            }
-        }
+        onIndividualDeletedEvent.postCall()
     }
 
-    fun editTask() {
+    fun editIndividual() {
         analytics.logEvent(Analytics.EVENT_EDIT_INDIVIDUAL)
-        onEditIndividualEvent.value = individualId.value
+        onEditIndividualEvent.value = individualId
     }
 }

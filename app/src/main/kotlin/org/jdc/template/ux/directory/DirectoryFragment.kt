@@ -3,11 +3,10 @@ package org.jdc.template.ux.directory
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.get
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.vikingsen.inject.viewmodel.ViewModelFactory
+import com.vikingsen.inject.viewmodel.savedstate.SavedStateViewModelFactory
 import me.eugeniomarletti.extras.bundle.BundleExtra
 import me.eugeniomarletti.extras.bundle.base.Int
 import org.jdc.template.R
@@ -23,9 +22,9 @@ class DirectoryFragment : BaseFragment() {
     @Inject
     lateinit var commonMenu: CommonMenu
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+    lateinit var viewModelFactoryFactory: SavedStateViewModelFactory.Factory
 
-    private val viewModel by lazy<DirectoryViewModel> { ViewModelProviders.of(this, viewModelFactory).get() }
+    private val viewModel by viewModels<DirectoryViewModel> { viewModelFactoryFactory.create(this, null) }
     private lateinit var binding: DirectoryBinding
     private val adapter by lazy { DirectoryAdapter(viewModel) }
 

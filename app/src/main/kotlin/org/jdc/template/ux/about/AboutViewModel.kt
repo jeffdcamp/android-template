@@ -1,6 +1,8 @@
 package org.jdc.template.ux.about
 
 import android.app.Application
+import androidx.lifecycle.SavedStateHandle
+import com.squareup.inject.assisted.Assisted
 import com.vikingsen.inject.viewmodel.ViewModelInject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -22,11 +24,12 @@ import java.io.File
 
 class AboutViewModel
 @ViewModelInject constructor(
-    private val analytics: Analytics,
-    private val application: Application,
-    private val individualRepository: IndividualRepository,
-    private val colorService: ColorService,
-    private val workScheduler: WorkScheduler
+        private val analytics: Analytics,
+        private val application: Application,
+        private val individualRepository: IndividualRepository,
+        private val colorService: ColorService,
+        private val workScheduler: WorkScheduler,
+        @Assisted savedStateHandle: SavedStateHandle
 ) : BaseViewModel() {
 
     var appVersion = BuildConfig.VERSION_NAME

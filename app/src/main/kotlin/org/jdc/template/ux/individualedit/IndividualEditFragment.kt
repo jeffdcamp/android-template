@@ -3,15 +3,13 @@ package org.jdc.template.ux.individualedit
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.get
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.datetime.datePicker
 import com.afollestad.materialdialogs.datetime.timePicker
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
-import com.vikingsen.inject.viewmodel.ViewModelFactory
+import com.vikingsen.inject.viewmodel.savedstate.SavedStateViewModelFactory
 import org.jdc.template.R
 import org.jdc.template.databinding.IndividualEditBinding
 import org.jdc.template.ext.toCalendar
@@ -26,12 +24,10 @@ import javax.inject.Inject
 class IndividualEditFragment : LiveDataObserverFragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+    lateinit var viewModelFactoryFactory: SavedStateViewModelFactory.Factory
 
-    private val viewModel by lazy<IndividualEditViewModel> { ViewModelProviders.of(this, viewModelFactory).get() }
+    private val viewModel by viewModels<IndividualEditViewModel> { viewModelFactoryFactory.create(this, requireArguments()) }
     private lateinit var binding: IndividualEditBinding
-
-    private val args by navArgs<IndividualEditFragmentArgs>()
 
     init {
         Injector.get().inject(this)
@@ -54,8 +50,6 @@ class IndividualEditFragment : LiveDataObserverFragment() {
         activity?.setTitle(R.string.individual)
 
         setupViewModelObservers()
-
-        viewModel.loadIndividual(args.individualId)
     }
 
     private fun setupViewModelObservers() {
