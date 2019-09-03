@@ -10,7 +10,6 @@ import org.jdc.template.ux.directory.DirectoryFragment
 import org.jdc.template.ux.individual.IndividualFragment
 import org.jdc.template.ux.individualedit.IndividualEditFragment
 import org.jdc.template.ux.startup.StartupActivity
-import org.jdc.template.work.SyncWorker
 import javax.inject.Singleton
 
 @Singleton
@@ -25,9 +24,6 @@ interface AppComponent {
     fun inject(target: AboutFragment)
     fun inject(target: IndividualFragment)
     fun inject(target: SettingsFragment)
-
-    // Workers
-    fun inject(syncWorker: SyncWorker)
 
     // Exported for child-components.
     fun application(): Application

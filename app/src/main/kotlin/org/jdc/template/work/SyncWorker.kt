@@ -4,10 +4,10 @@ import android.content.Context
 import androidx.annotation.WorkerThread
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import org.jdc.template.inject.Injector
+import com.squareup.inject.assisted.Assisted
+import com.vikingsen.inject.worker.WorkerInject
 import org.jdc.template.prefs.Prefs
 import timber.log.Timber
-import javax.inject.Inject
 
 /**
  * Example data sync worker... one that should sync your changes when the user is finished changing/editing data
@@ -18,14 +18,12 @@ import javax.inject.Inject
  * - Replace any existing scheduled (if there is a pending sync request... remove it and reset delay for 30 seconds)
  * - Require network connection
  */
-class SyncWorker(context: Context, params: WorkerParameters) : CoroutineWorker(context, params) {
-
-    @Inject
-    lateinit var prefs: Prefs
-
-    init {
-        Injector.get().inject(this)
-    }
+class SyncWorker
+@WorkerInject constructor(
+        val prefs: Prefs,
+        @Assisted appContext: Context,
+        @Assisted workerParams: WorkerParameters
+) : CoroutineWorker(appContext, workerParams) {
 
     @WorkerThread
     override suspend fun doWork(): Result {

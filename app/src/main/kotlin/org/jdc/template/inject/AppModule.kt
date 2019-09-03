@@ -3,10 +3,9 @@ package org.jdc.template.inject
 import android.app.Application
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
-import androidx.work.WorkManager
+import com.google.firebase.analytics.FirebaseAnalytics
 import dagger.Module
 import dagger.Provides
-import com.google.firebase.analytics.FirebaseAnalytics
 import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
 import org.jdc.template.model.webservice.ServiceModule
@@ -39,11 +38,5 @@ class AppModule(private val application: Application) {
             setUserId(prefs.getAppInstanceId())
         }
         return Analytics.FirebaseAnalyticsWrapper(firebaseAnalytics)
-    }
-
-    @Provides
-    @Singleton
-    fun provideWorkManager(): WorkManager {
-        return WorkManager.getInstance(application)
     }
 }

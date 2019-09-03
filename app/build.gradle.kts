@@ -179,8 +179,14 @@ dependencies {
     implementation(Deps.EXTRAS_DELEGATES)
     implementation(Deps.THREETEN_ABP)
     implementation(Deps.TIMBER)
+
+    // Inject
+    implementation(Deps.DAGGER)
+    kapt(Deps.DAGGER_COMPILER)
     implementation(Deps.VIEWMODEL_INJECT)
     kapt(Deps.VIEWMODEL_INJECT_PROCESSOR)
+    implementation(Deps.WORKER_INJECT)
+    kapt(Deps.WORKER_INJECT_PROCESSOR)
 
     // UI
     implementation(Deps.MATERIAL_DIALOGS_CORE)
@@ -220,10 +226,6 @@ dependencies {
     implementation(Deps.OKHTTP_IHSANBAL_LOGGING_INTERCEPTOR)
     implementation(Deps.RETROFIT)
     implementation(Deps.KOTLIN_RETROFIT_CONVERTER)
-
-    // Dagger 2
-    implementation(Deps.DAGGER)
-    kapt(Deps.DAGGER_COMPILER)
 
     // Test (Integration)
     androidTestImplementation(Deps.TEST_ESPRESSO_CORE)

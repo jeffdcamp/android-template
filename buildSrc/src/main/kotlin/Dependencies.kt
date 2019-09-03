@@ -44,17 +44,22 @@ object Deps {
     const val KOTLIN_SERIALIZATION = "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.12.0"
     private const val COROUTINES_VERSION = "1.3.0"
     const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINES_VERSION"
-    private const val DAGGER_VERSION = "2.24"
-    const val DAGGER = "com.google.dagger:dagger:$DAGGER_VERSION"
-    const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
     const val RETROFIT = "com.squareup.retrofit2:retrofit:2.6.1"
     const val KOTLIN_RETROFIT_CONVERTER = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.4.0"
     const val EXTRAS_DELEGATES = "me.eugeniomarletti:android-extras-delegates:1.0.5"
     const val THREETEN_ABP = "com.jakewharton.threetenabp:threetenabp:1.2.1"
     const val TIMBER = "com.jakewharton.timber:timber:4.7.1"
+
+    // Inject
+    private const val DAGGER_VERSION = "2.24"
+    const val DAGGER = "com.google.dagger:dagger:$DAGGER_VERSION"
+    const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
     private const val VIEWMODEL_INJECT_VERSION = "0.3.0-alpha01"
     const val VIEWMODEL_INJECT = "com.vikingsen.inject:viewmodel-inject:$VIEWMODEL_INJECT_VERSION"
     const val VIEWMODEL_INJECT_PROCESSOR = "com.vikingsen.inject:viewmodel-inject-processor:$VIEWMODEL_INJECT_VERSION"
+    private const val WORKER_INJECT_VERSION = "0.2.0"
+    const val WORKER_INJECT = "com.vikingsen.inject:worker-inject:$WORKER_INJECT_VERSION"
+    const val WORKER_INJECT_PROCESSOR = "com.vikingsen.inject:worker-inject-processor:$WORKER_INJECT_VERSION"
 
     // UI
     private const val MATERIAL_DIALOGS_VERSION = "3.1.0"
