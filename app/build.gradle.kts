@@ -1,3 +1,7 @@
+import com.github.jk1.license.filter.DependencyFilter
+import com.github.jk1.license.filter.ExcludeTransitiveDependenciesFilter
+import com.github.jk1.license.filter.LicenseBundleNormalizer
+import com.github.jk1.license.render.*
 import java.util.*
 
 plugins {
@@ -5,12 +9,13 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("com.github.triplet.play") version "2.3.0"
+    id("com.github.jk1.dependency-license-report") version "1.9"
 }
 
 apply(plugin = "kotlinx-serialization")
 apply(plugin = "androidx.navigation.safeargs.kotlin")
 apply(plugin = "io.fabric")
-apply(plugin = "com.google.android.gms.oss-licenses-plugin")
+// apply(plugin = "com.google.android.gms.oss-licenses-plugin")
 
 // Manifest version information
 val buildTime = Date().time
@@ -164,7 +169,6 @@ dependencies {
 
     // Play Service
     implementation(Deps.PLAYSERVICE_CORE)
-    implementation(Deps.PLAYSERVICE_LICENSES)
 
     // Firebase
     implementation(Deps.FIREBASE_CORE)
@@ -272,6 +276,35 @@ play {
     serviceAccountCredentials = File(myServiceAccountCreds ?: "api-playstore-dummy.json")
     track = "internal"
     defaultToAppBundles = true
+}
+
+// ./gradlew generateLicenseReport
+licenseReport {
+    // only include run-time dependencies
+    configurations = arrayOf("releaseRuntimeClasspath")
+
+    // Renderers
+    renderers = arrayOf<ReportRenderer>(
+            JsonReportRenderer("../../../src/main/assets/licenses.json"), // required for acknowledgements screen in app
+            SimpleHtmlReportRenderer("licenses-simple.html"),
+            InventoryHtmlReportRenderer("licenses-groups.html", versionCodeAppName), // identify unique licenses
+            CsvReportRenderer("licenses.csv") // preferred by legal (spreadsheet form)
+    )
+
+    // Filters
+    filters = arrayOf<DependencyFilter>(
+            LicenseBundleNormalizer(), //  group common known licenses
+            ExcludeTransitiveDependenciesFilter() // only include top level dependencies
+    )
+
+    // excludes
+    excludeGroups = arrayOf(
+            // Internal created libraries
+            "org.jdc",
+
+            // Commercial Licenses
+            "com.xxx.xxx"
+    )
 }
 
 // this must be at the bottom of the file

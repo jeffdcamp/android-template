@@ -53,11 +53,19 @@
         android:id="@+id/aboutFragment"
         android:name="org.jdc.template.ux.about.AboutFragment"
         android:label="About"
-        tools:layout="@layout/about"/>
+        tools:layout="@layout/about">
+        <action
+            android:id="@+id/action_aboutFragment_to_acknowledgmentsFragment"
+            app:destination="@id/acknowledgmentsFragment" />
+    </fragment>
     <action
         android:id="@+id/settings"
         app:destination="@id/settingsFragment"/>
     <action
         android:id="@+id/about"
         app:destination="@id/aboutFragment"/>
+    <fragment
+        android:id="@+id/acknowledgmentsFragment"
+        android:name="org.jdc.template.ux.about.AcknowledgmentsFragment"
+        android:label="acknowledgments" />
 </navigation>
