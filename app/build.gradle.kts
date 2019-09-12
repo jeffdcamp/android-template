@@ -8,8 +8,8 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("kapt")
-    id("com.github.triplet.play") version "2.3.0"
-    id("com.github.jk1.dependency-license-report") version "1.9"
+    id("com.github.triplet.play") version "2.4.1"
+    id("com.github.jk1.dependency-license-report") version "1.10"
 }
 
 apply(plugin = "kotlinx-serialization")
@@ -203,6 +203,7 @@ dependencies {
     implementation(Deps.ARCH_LIFECYCLE_VIEWMODEL)
     implementation(Deps.ARCH_LIFECYCLE_COMMON)
     implementation(Deps.ARCH_LIFECYCLE_SAVE_STATE)
+    implementation(Deps.LIVE_DATA_KTX)
 
     // Navigation
     implementation(Deps.ARCH_NAVIGATION_FRAGMENT)

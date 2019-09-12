@@ -19,6 +19,7 @@ object Deps {
     const val ARCH_LIFECYCLE_VIEWMODEL = "androidx.lifecycle:lifecycle-viewmodel-ktx:$LIFECYCLE_VERSION"
     const val ARCH_LIFECYCLE_COMMON = "androidx.lifecycle:lifecycle-common-java8:$LIFECYCLE_VERSION"
     const val ARCH_LIFECYCLE_SAVE_STATE = "androidx.lifecycle:lifecycle-viewmodel-savedstate:1.0.0-alpha04"
+    const val LIVE_DATA_KTX = "androidx.lifecycle:lifecycle-livedata-ktx:$LIFECYCLE_VERSION"
 
     const val ARCH_NAVIGATION_FRAGMENT = "androidx.navigation:navigation-fragment-ktx:$ANDROIDX_NAVIGATION_VERSION"
     const val ARCH_NAVIGATION_UI = "androidx.navigation:navigation-ui-ktx:$ANDROIDX_NAVIGATION_VERSION"
@@ -30,7 +31,7 @@ object Deps {
     const val ANDROID_MATERIAL = "com.google.android.material:material:1.1.0-alpha10" // https://github.com/material-components/material-components-android/releases
 
     // Play Services
-    const val PLAYSERVICE_CORE = "com.google.android.play:core:1.6.2"
+    const val PLAYSERVICE_CORE = "com.google.android.play:core:1.6.3"
     // const val PLAYSERVICE_LICENSES = "com.google.android.gms:play-services-oss-licenses:17.0.0"
 
     // Firebase
@@ -78,7 +79,7 @@ object Deps {
     const val DBTOOLS_ROOM_SQLITE = "org.dbtools:dbtools-room-sqliteorg:$DBTOOLS_VERSION"
 
     // Network
-    private const val OKHTTP_VERSION = "4.1.1" // https://github.com/square/okhttp/blob/master/CHANGELOG.md
+    private const val OKHTTP_VERSION = "4.2.0" // https://github.com/square/okhttp/blob/master/CHANGELOG.md
     const val OKHTTP = "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION"
     const val OKHTTP_LOGGING_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION"
     const val OKHTTP_IHSANBAL_LOGGING_INTERCEPTOR = "com.github.ihsanbal:LoggingInterceptor:3.0.0"
@@ -92,7 +93,7 @@ object Deps {
     const val TEST_ANDROIDX_JUNIT = "androidx.test.ext:junit:1.1.1"
 
     // Test - JUnit
-    private const val JUNIT_VERSION = "5.5.1"
+    private const val JUNIT_VERSION = "5.5.2"
     const val TEST_JUNIT = "org.junit.jupiter:junit-jupiter:$JUNIT_VERSION"
     const val TEST_JUNIT_ENGINE = "org.junit.jupiter:junit-jupiter-engine:$JUNIT_VERSION"
     const val TEST_OKHTTP_MOCKWEBSERVER = "com.squareup.okhttp3:mockwebserver:$OKHTTP_VERSION"
@@ -102,5 +103,5 @@ object Deps {
     const val TEST_ARCH_ROOM_TESTING = "androidx.room:room-testing:$ROOM_VERSION"
     const val TEST_DBTOOLS_ROOM_JDBC = "org.dbtools:dbtools-room-jdbc:$DBTOOLS_VERSION"
     const val TEST_KOTLIN_COROUTINES_TEST = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$COROUTINES_VERSION"
-    const val TEST_MOCKITO_KOTLIN = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0"
+    const val TEST_MOCKITO_KOTLIN = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
 }
