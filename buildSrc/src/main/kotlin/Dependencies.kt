@@ -42,7 +42,7 @@ object Deps {
 
     // Code
     const val KOTLIN_STD_LIB = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
-    const val KOTLIN_SERIALIZATION = "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.12.0"
+    const val KOTLIN_SERIALIZATION = "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.13.0"
     private const val COROUTINES_VERSION = "1.3.1"
     const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINES_VERSION"
     const val RETROFIT = "com.squareup.retrofit2:retrofit:2.6.1"

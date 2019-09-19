@@ -8,14 +8,12 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("kapt")
+    id("kotlinx-serialization")
+    id("androidx.navigation.safeargs.kotlin")
+    id("io.fabric")
     id("com.github.triplet.play") version "2.4.1"
-    id("com.github.jk1.dependency-license-report") version "1.10"
+    id("com.github.jk1.dependency-license-report") version "1.11"
 }
-
-apply(plugin = "kotlinx-serialization")
-apply(plugin = "androidx.navigation.safeargs.kotlin")
-apply(plugin = "io.fabric")
-// apply(plugin = "com.google.android.gms.oss-licenses-plugin")
 
 // Manifest version information
 val buildTime = Date().time
