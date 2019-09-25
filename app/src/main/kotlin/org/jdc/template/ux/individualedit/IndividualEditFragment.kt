@@ -40,9 +40,8 @@ class IndividualEditFragment : LiveDataObserverFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.apply {
-            viewModel = this@IndividualEditFragment.viewModel
-        }
+        binding.viewModel = this@IndividualEditFragment.viewModel
+        binding.lifecycleOwner = this@IndividualEditFragment
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

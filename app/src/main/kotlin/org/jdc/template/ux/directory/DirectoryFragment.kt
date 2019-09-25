@@ -39,10 +39,8 @@ class DirectoryFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.apply {
-            viewModel = this@DirectoryFragment.viewModel
-            lifecycleOwner = this@DirectoryFragment
-        }
+        binding.viewModel = this@DirectoryFragment.viewModel
+        binding.lifecycleOwner = this@DirectoryFragment
 
         setupRecyclerView()
     }

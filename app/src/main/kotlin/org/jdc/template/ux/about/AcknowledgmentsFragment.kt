@@ -29,6 +29,10 @@ class AcknowledgmentsFragment : BaseFragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.lifecycleOwner = this@AcknowledgmentsFragment
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         activity?.setTitle(R.string.about_title)

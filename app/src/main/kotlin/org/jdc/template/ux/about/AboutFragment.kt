@@ -31,10 +31,8 @@ class AboutFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.apply {
-            viewModel = this@AboutFragment.viewModel
-            lifecycleOwner = this@AboutFragment
-        }
+        binding.viewModel = this@AboutFragment.viewModel
+        binding.lifecycleOwner = this@AboutFragment
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
