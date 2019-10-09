@@ -6,7 +6,7 @@ object Deps {
     // Android (https://android.googlesource.com/platform/frameworks/support/+/refs/heads/androidx-master-dev/buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt)
     const val ANDROIDX_ANNOTATIONS = "androidx.annotation:annotation:1.1.0"
     const val ANDROIDX_APPCOMPAT = "androidx.appcompat:appcompat:1.1.0"
-    const val ANDROIDX_RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.1.0-beta04"
+    const val ANDROIDX_RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.1.0-beta05"
     const val ANDROIDX_PREFERENCE = "androidx.preference:preference-ktx:1.1.0"
     const val ANDROIDX_CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:1.1.3"
     const val ANDROIDX_CORE = "androidx.core:core-ktx:1.1.0"
@@ -18,7 +18,7 @@ object Deps {
     const val ARCH_LIFECYCLE_RUNTIME = "androidx.lifecycle:lifecycle-runtime:$LIFECYCLE_VERSION"
     const val ARCH_LIFECYCLE_VIEWMODEL = "androidx.lifecycle:lifecycle-viewmodel-ktx:$LIFECYCLE_VERSION"
     const val ARCH_LIFECYCLE_COMMON = "androidx.lifecycle:lifecycle-common-java8:$LIFECYCLE_VERSION"
-    const val ARCH_LIFECYCLE_SAVE_STATE = "androidx.lifecycle:lifecycle-viewmodel-savedstate:1.0.0-alpha04"
+    const val ARCH_LIFECYCLE_SAVE_STATE = "androidx.lifecycle:lifecycle-viewmodel-savedstate:1.0.0-beta01"
     const val LIVE_DATA_KTX = "androidx.lifecycle:lifecycle-livedata-ktx:$LIFECYCLE_VERSION"
 
     const val ARCH_NAVIGATION_FRAGMENT = "androidx.navigation:navigation-fragment-ktx:$ANDROIDX_NAVIGATION_VERSION"
@@ -28,7 +28,7 @@ object Deps {
     const val ARCH_WORK_RUNTIME = "androidx.work:work-runtime-ktx:$WORKMANAGER_VERSION"
     const val ARCH_WORK_GCM = "androidx.work:work-gcm:$WORKMANAGER_VERSION" // Remove with min SDK 23
 
-    const val ANDROID_MATERIAL = "com.google.android.material:material:1.1.0-alpha10" // https://github.com/material-components/material-components-android/releases
+    const val ANDROID_MATERIAL = "com.google.android.material:material:1.1.0-beta01" // https://github.com/material-components/material-components-android/releases
 
     // Play Services
     const val PLAYSERVICE_CORE = "com.google.android.play:core:1.6.3"
@@ -70,7 +70,7 @@ object Deps {
     const val MATERIAL_DIALOGS_INPUT = "com.afollestad.material-dialogs:input:$MATERIAL_DIALOGS_VERSION"
 
     // Database
-    private const val ROOM_VERSION = "2.2.0-rc01"
+    private const val ROOM_VERSION = "2.2.0"
     const val ARCH_ROOM_RUNTIME = "androidx.room:room-runtime:$ROOM_VERSION"
     const val ARCH_ROOM_KTX = "androidx.room:room-ktx:$ROOM_VERSION"
     const val ARCH_ROOM_COMPILER = "androidx.room:room-compiler:$ROOM_VERSION"
@@ -79,7 +79,7 @@ object Deps {
     const val DBTOOLS_ROOM_SQLITE = "org.dbtools:dbtools-room-sqliteorg:$DBTOOLS_VERSION"
 
     // Network
-    private const val OKHTTP_VERSION = "4.2.1" // https://github.com/square/okhttp/blob/master/CHANGELOG.md
+    private const val OKHTTP_VERSION = "4.2.2" // https://github.com/square/okhttp/blob/master/CHANGELOG.md
     const val OKHTTP = "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION"
     const val OKHTTP_LOGGING_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION"
     const val OKHTTP_IHSANBAL_LOGGING_INTERCEPTOR = "com.github.ihsanbal:LoggingInterceptor:3.0.0"
