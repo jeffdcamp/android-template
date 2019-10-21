@@ -10,13 +10,12 @@ buildscript {
     }
     dependencies {
         classpath("com.android.tools.build:gradle:3.5.1")
-        classpath("com.github.ben-manes:gradle-versions-plugin:0.25.0") // version plugin support
+        classpath("com.github.ben-manes:gradle-versions-plugin:0.27.0") // version plugin support
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION")
         classpath("org.jetbrains.kotlin:kotlin-serialization:$KOTLIN_VERSION")
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$ANDROIDX_NAVIGATION_VERSION")
         classpath("com.google.gms:google-services:4.3.2")
-        classpath("io.fabric.tools:gradle:1.31.1")
-        classpath("com.google.android.gms:oss-licenses-plugin:0.9.5")
+        classpath("io.fabric.tools:gradle:1.31.2")
     }
 }
 
