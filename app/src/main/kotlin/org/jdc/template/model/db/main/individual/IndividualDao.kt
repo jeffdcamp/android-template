@@ -1,10 +1,10 @@
 package org.jdc.template.model.db.main.individual
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import kotlinx.coroutines.flow.Flow
 import org.threeten.bp.OffsetDateTime
 
 @Dao
@@ -25,13 +25,13 @@ interface IndividualDao {
     suspend fun findById(id: Long): Individual?
 
     @Query("SELECT * FROM individual WHERE id = :id")
-    fun findByIdLiveData(id: Long): LiveData<Individual>
+    fun findByIdFlow(id: Long): Flow<Individual>
 
     @Query("SELECT * FROM individual")
     suspend fun findAll(): List<Individual>
 
     @Query("SELECT * FROM individual")
-    fun findAllLiveData(): LiveData<List<Individual>>
+    fun findAllFlow(): Flow<List<Individual>>
 
     @Query("DELETE FROM individual WHERE id = :id")
     suspend fun deleteById(id: Long)

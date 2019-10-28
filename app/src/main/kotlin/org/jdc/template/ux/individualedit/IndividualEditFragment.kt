@@ -1,27 +1,35 @@
 package org.jdc.template.ux.individualedit
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.datetime.datePicker
 import com.afollestad.materialdialogs.datetime.timePicker
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.vikingsen.inject.viewmodel.savedstate.SavedStateViewModelFactory
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.jdc.template.R
 import org.jdc.template.databinding.IndividualEditBinding
 import org.jdc.template.ext.toCalendar
 import org.jdc.template.ext.toLocalDate
 import org.jdc.template.ext.toLocalTime
 import org.jdc.template.inject.Injector
-import org.jdc.template.ui.fragment.LiveDataObserverFragment
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalTime
 import javax.inject.Inject
 
-class IndividualEditFragment : LiveDataObserverFragment() {
+class IndividualEditFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactoryFactory: SavedStateViewModelFactory.Factory
@@ -48,19 +56,23 @@ class IndividualEditFragment : LiveDataObserverFragment() {
         super.onActivityCreated(savedInstanceState)
         activity?.setTitle(R.string.individual)
 
-        setupViewModelObservers()
+        setupViewModel()
     }
 
-    private fun setupViewModelObservers() {
+    private fun setupViewModel() {
         // Events
-        viewModel.onIndividualSavedEvent.observeKt { findNavController().popBackStack() }
-        viewModel.onShowBirthDateSelectionEvent.observeKt { showBirthDateSelector(it) }
-        viewModel.onShowAlarmTimeSelectionEvent.observeKt { showAlarmTimeSelector(it) }
-
-        viewModel.onValidationSaveErrorEvent.observeKt {
-            when (it) {
-                IndividualEditViewModel.FieldValidationError.FIRST_NAME_REQUIRED -> binding.firstNameLayout.error = getString(it.errorMessageId)
-                else -> { }
+        lifecycleScope.launch {
+            viewModel.eventFlow.collect { event ->
+                when (event) {
+                    is IndividualEditViewModel.Event.IndividualSaved -> findNavController().popBackStack()
+                    is IndividualEditViewModel.Event.ShowBirthDateSelection -> showBirthDateSelector(event.date)
+                    is IndividualEditViewModel.Event.ShowAlarmTimeSelection -> showAlarmTimeSelector(event.time)
+                    is IndividualEditViewModel.Event.ValidationSaveError -> {
+                        when (event.error) {
+                            IndividualEditViewModel.FieldValidationError.FIRST_NAME_REQUIRED -> binding.firstNameLayout.error = getString(event.error.errorMessageId)
+                        }
+                    }
+                }
             }
         }
     }

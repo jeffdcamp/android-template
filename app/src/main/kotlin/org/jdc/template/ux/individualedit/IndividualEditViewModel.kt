@@ -2,12 +2,11 @@ package org.jdc.template.ux.individualedit
 
 import androidx.databinding.ObservableField
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.viewModelScope
 import com.squareup.inject.assisted.Assisted
 import com.vikingsen.inject.viewmodel.ViewModelInject
 import kotlinx.coroutines.launch
 import org.jdc.template.R
-import org.jdc.template.livedata.EmptySingleLiveEvent
-import org.jdc.template.livedata.SingleLiveEvent
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.ui.viewmodel.BaseViewModel
@@ -18,7 +17,7 @@ class IndividualEditViewModel
 @ViewModelInject constructor(
         private val individualRepository: IndividualRepository,
         @Assisted savedStateHandle: SavedStateHandle
-) : BaseViewModel() {
+) : BaseViewModel<IndividualEditViewModel.Event>() {
 
     private val individualId = requireNotNull(savedStateHandle.get<Long>("individualId")) { "individualId cannot be null" }
     private var individual = Individual()
@@ -31,17 +30,11 @@ class IndividualEditViewModel
     val birthDate = ObservableField<LocalDate?>()
     val alarmTime = ObservableField<LocalTime>()
 
-    // Events
-    val onIndividualSavedEvent = EmptySingleLiveEvent()
-    val onValidationSaveErrorEvent = SingleLiveEvent<FieldValidationError>()
-    val onShowBirthDateSelectionEvent = SingleLiveEvent<LocalDate>()
-    val onShowAlarmTimeSelectionEvent = SingleLiveEvent<LocalTime>()
-
     init {
         loadIndividual()
     }
 
-    private fun loadIndividual() = launch {
+    private fun loadIndividual() = viewModelScope.launch {
         individualRepository.getIndividual(individualId)?.let {
             individual = it
 
@@ -54,7 +47,7 @@ class IndividualEditViewModel
         }
     }
 
-    fun saveIndividual() = launch {
+    fun saveIndividual() = viewModelScope.launch {
         if (!validate()) {
             return@launch
         }
@@ -68,12 +61,12 @@ class IndividualEditViewModel
 
         individualRepository.saveIndividual(individual)
 
-        onIndividualSavedEvent.postCall()
+        sendEvent(Event.IndividualSaved)
     }
 
-    private fun validate(): Boolean {
+    private fun validate(): Boolean{
         if (firstName.get().isNullOrBlank()) {
-            onValidationSaveErrorEvent.postValue(FieldValidationError.FIRST_NAME_REQUIRED)
+            sendEvent(Event.ValidationSaveError(FieldValidationError.FIRST_NAME_REQUIRED))
             return false
         }
 
@@ -81,14 +74,21 @@ class IndividualEditViewModel
     }
 
     fun onBirthDateClicked() {
-        onShowBirthDateSelectionEvent.postValue(birthDate.get() ?: LocalDate.now())
+        sendEvent(Event.ShowBirthDateSelection(birthDate.get() ?: LocalDate.now()))
     }
 
-    fun onAlarmTimeClicked() {
-        onShowAlarmTimeSelectionEvent.postValue(alarmTime.get() ?: LocalTime.now())
+    fun onAlarmTimeClicked()  {
+        sendEvent(Event.ShowAlarmTimeSelection(alarmTime.get() ?: LocalTime.now()))
     }
 
     enum class FieldValidationError(val errorMessageId: Int) {
         FIRST_NAME_REQUIRED(R.string.required),
+    }
+
+    sealed class Event {
+        object IndividualSaved : Event()
+        class ShowBirthDateSelection(val date: LocalDate) : Event()
+        class ShowAlarmTimeSelection(val time: LocalTime) : Event()
+        class ValidationSaveError(val error: FieldValidationError) : Event()
     }
 }

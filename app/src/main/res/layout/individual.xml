@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="viewModel"
-            type="org.jdc.template.ux.individual.IndividualViewModel"/>
+            name="individual"
+            type="org.jdc.template.model.db.main.individual.Individual"/>
     </data>
 
 
@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="8dp"
-                android:text="@{viewModel.individual.getFullName()}"
+                android:text="@{individual.getFullName()}"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="@{viewModel.individual.phone}"
+                android:text="@{individual.phone}"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@+id/nameTextView"
                 app:layout_constraintTop_toBottomOf="@+id/nameTextView"
@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="@{viewModel.individual.email}"
+                android:text="@{individual.email}"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@+id/phoneTextView"
                 app:layout_constraintTop_toBottomOf="@+id/phoneTextView"
@@ -73,7 +73,7 @@
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@+id/linearLayout3"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
-                app:textDate="@{viewModel.individual.birthDate}"
+                app:textDate="@{individual.birthDate}"
                 tools:text="1/1/70"/>
 
 
@@ -95,7 +95,7 @@
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@+id/textView"
                 app:layout_constraintTop_toBottomOf="@+id/textView"
-                app:textTime="@{viewModel.individual.alarmTime}"
+                app:textTime="@{individual.alarmTime}"
                 tools:layout_conversion_absoluteHeight="24dp"
                 tools:layout_conversion_absoluteWidth="84dp"
                 tools:layout_conversion_absoluteX="10dp"

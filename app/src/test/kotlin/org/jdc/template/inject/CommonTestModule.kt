@@ -9,7 +9,6 @@ import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.mockwebserver.MockWebServer
-import org.jdc.template.Analytics
 import org.jdc.template.TestFilesystem
 import org.jdc.template.model.webservice.colors.ColorService
 import org.mockito.ArgumentMatchers.anyString
@@ -22,16 +21,6 @@ import javax.inject.Singleton
 
 @Module
 class CommonTestModule {
-    @Provides
-    @Singleton
-    fun provideAnalytics(): Analytics {
-        return object : Analytics {
-            override fun send(params: Map<String, String>) {
-                println(params.toString())
-            }
-        }
-    }
-
     // ========== ANDROID ==========
     @Provides
     @Singleton

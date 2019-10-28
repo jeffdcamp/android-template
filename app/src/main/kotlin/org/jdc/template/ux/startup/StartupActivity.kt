@@ -3,17 +3,21 @@ package org.jdc.template.ux.startup
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.vikingsen.inject.viewmodel.savedstate.SavedStateViewModelFactory
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.jdc.template.R
 import org.jdc.template.inject.Injector
 import org.jdc.template.ui.ThemeManager
-import org.jdc.template.ui.activity.BaseActivity
 import org.jdc.template.ux.main.MainActivity
+import timber.log.Timber
 import javax.inject.Inject
 
-class StartupActivity : BaseActivity() {
+class StartupActivity : AppCompatActivity() {
 
     @Inject
     lateinit var themeManager: ThemeManager
@@ -31,7 +35,7 @@ class StartupActivity : BaseActivity() {
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash_activity)
-        setupViewModelObservers()
+        setupViewModel()
 
         themeManager.applyTheme()
 
@@ -39,14 +43,24 @@ class StartupActivity : BaseActivity() {
         if (debugStartup) {
             devPauseStartup()
         } else {
-            viewModel.startup()
+            startup()
         }
     }
 
-    private fun setupViewModelObservers() {
+    private fun startup() = lifecycleScope.launch {
+        viewModel.startup().collect {
+            Timber.i("Startup Progress $it")
+        }
+    }
+
+    private fun setupViewModel() {
         // Events
-        viewModel.onStartupFinishedEvent.observeKt {
-            showStartActivity()
+        lifecycleScope.launch {
+            viewModel.eventFlow.collect { event ->
+                when (event) {
+                    is StartupViewModel.Event.StartupFinishedEvent -> showStartActivity()
+                }
+            }
         }
     }
 

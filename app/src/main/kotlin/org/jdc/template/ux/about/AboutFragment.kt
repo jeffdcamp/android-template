@@ -1,18 +1,23 @@
 package org.jdc.template.ux.about
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.vikingsen.inject.viewmodel.savedstate.SavedStateViewModelFactory
 import org.jdc.template.R
 import org.jdc.template.databinding.AboutBinding
 import org.jdc.template.inject.Injector
-import org.jdc.template.ui.fragment.BaseFragment
 import javax.inject.Inject
 
-class AboutFragment : BaseFragment() {
+class AboutFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactoryFactory: SavedStateViewModelFactory.Factory
@@ -38,7 +43,6 @@ class AboutFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         activity?.setTitle(R.string.about_title)
-        enableActionBarBackArrow(true)
         viewModel.logAnalytics()
     }
 

@@ -2,6 +2,8 @@ package org.jdc.template.ux.about
 
 import android.app.Application
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.squareup.inject.assisted.Assisted
 import com.vikingsen.inject.viewmodel.ViewModelInject
 import kotlinx.coroutines.delay
@@ -14,7 +16,6 @@ import org.jdc.template.model.db.main.type.IndividualType
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.model.webservice.colors.ColorService
 import org.jdc.template.model.webservice.colors.dto.ColorsDto
-import org.jdc.template.ui.viewmodel.BaseViewModel
 import org.jdc.template.work.WorkScheduler
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalTime
@@ -30,7 +31,7 @@ class AboutViewModel
         private val colorService: ColorService,
         private val workScheduler: WorkScheduler,
         @Assisted savedStateHandle: SavedStateHandle
-) : BaseViewModel() {
+) : ViewModel() {
 
     var appVersion = BuildConfig.VERSION_NAME
     var appBuildDateTime = BuildConfig.BUILD_TIME
@@ -42,7 +43,7 @@ class AboutViewModel
     /**
      * Creates sample data WITH using injection
      */
-    fun createSampleDataWithInjection() = launch {
+    fun createSampleDataWithInjection() = viewModelScope.launch {
         // clear any existing items
         individualRepository.deleteAllIndividuals()
 
@@ -80,7 +81,7 @@ class AboutViewModel
     /**
      * Simple web service call
      */
-    fun testQueryWebServiceCall() = launch {
+    fun testQueryWebServiceCall() = viewModelScope.launch {
         val response = colorService.colors()
 
         if (response.isSuccessful) {
@@ -93,7 +94,7 @@ class AboutViewModel
     /**
      * Simple web service call using the full url (instead of just an endpoint)
      */
-    fun testFullUrlQueryWebServiceCall() = launch {
+    fun testFullUrlQueryWebServiceCall() = viewModelScope.launch {
         val response = colorService.colorsByFullUrl(ColorService.FULL_URL)
 
         if (response.isSuccessful) {
@@ -106,7 +107,7 @@ class AboutViewModel
     /**
      * Web service call that saves response to file, then processes the file (best for large JSON payloads)
      */
-    fun testSaveQueryWebServiceCall() = launch {
+    fun testSaveQueryWebServiceCall() = viewModelScope.launch {
         val response = colorService.colorsToFile()
 
         if (response.isSuccessful) {
@@ -147,7 +148,7 @@ class AboutViewModel
     /**
      * Sample for creating a scheduled simple worker
      */
-    fun workManagerSimpleTest() = launch {
+    fun workManagerSimpleTest() = viewModelScope.launch {
         workScheduler.scheduleSimpleWork("test1")
         workScheduler.scheduleSimpleWork("test2")
 
@@ -159,7 +160,7 @@ class AboutViewModel
     /**
      * Sample for creating a scheduled sync worker
      */
-    fun workManagerSyncTest() = launch {
+    fun workManagerSyncTest() = viewModelScope.launch {
         workScheduler.scheduleSync()
         workScheduler.scheduleSync(true)
 
@@ -171,7 +172,7 @@ class AboutViewModel
     /**
      * Table change listener tests
      */
-    fun testTableChange() = launch {
+    fun testTableChange() = viewModelScope.launch {
         // Sample tests
         if (individualRepository.getIndividualCount() == 0L) {
             Timber.e("No data.. cannot perform test")
@@ -199,7 +200,7 @@ class AboutViewModel
         }
     }
 
-    fun testStuff() = launch {
+    fun testStuff() = viewModelScope.launch {
         individualRepository.getAllMembers().forEach {
             Timber.i("Member Info: $it")
         }

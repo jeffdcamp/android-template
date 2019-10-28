@@ -1,11 +1,9 @@
 package org.jdc.template.ux.directory
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
 import com.squareup.inject.assisted.Assisted
 import com.vikingsen.inject.viewmodel.ViewModelInject
-import org.jdc.template.livedata.EmptySingleLiveEvent
-import org.jdc.template.livedata.SingleLiveEvent
+import kotlinx.coroutines.flow.Flow
 import org.jdc.template.model.db.main.directoryitem.DirectoryItem
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.ui.viewmodel.BaseViewModel
@@ -14,26 +12,22 @@ class DirectoryViewModel
 @ViewModelInject constructor(
         private val individualRepository: IndividualRepository,
         @Assisted savedStateHandle: SavedStateHandle
-) : BaseViewModel() {
+) : BaseViewModel<DirectoryViewModel.Event>() {
 
-    val onNewIndividualEvent = EmptySingleLiveEvent()
-    val showIndividualEvent = SingleLiveEvent<Long>()
-
-    val directoryList: LiveData<List<DirectoryItem>>
-
-    init {
-        directoryList = loadDirectoryList()
-    }
-
-    private fun loadDirectoryList(): LiveData<List<DirectoryItem>> {
-        return individualRepository.getDirectoryListLiveData()
+    fun getDirectoryList(): Flow<List<DirectoryItem>> {
+        return individualRepository.getDirectoryListFlow()
     }
 
     fun addIndividual() {
-        onNewIndividualEvent.call()
+        sendEvent(Event.NewIndividualEvent)
     }
 
     fun onDirectoryIndividualClicked(directoryListItem: DirectoryItem) {
-        showIndividualEvent.value = directoryListItem.id
+        sendEvent(Event.ShowIndividualEvent(directoryListItem.id))
+    }
+
+    sealed class Event {
+        object NewIndividualEvent : Event()
+        data class ShowIndividualEvent(val individualId: Long) : Event()
     }
 }

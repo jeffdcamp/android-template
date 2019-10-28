@@ -11,12 +11,12 @@ Sample Android app that utilizes common best practices
 * Kotlin Gradle support (build.gradle.kts)
 * Android Architecture Components
     * ViewModel
-    * LiveData
+    * Flow/LiveData
     * Room
     * Navigation
     * WorkManager
     * Data Binding
-* Dagger 2.0 dependency injection
+* Dagger dependency injection
 * ThreeTenBp
 * Constraint Layout
 * RecyclerView / ListAdapter / ViewHolder

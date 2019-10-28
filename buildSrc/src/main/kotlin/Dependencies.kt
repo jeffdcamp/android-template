@@ -6,19 +6,19 @@ object Deps {
     // Android (https://android.googlesource.com/platform/frameworks/support/+/refs/heads/androidx-master-dev/buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt)
     const val ANDROIDX_ANNOTATIONS = "androidx.annotation:annotation:1.1.0"
     const val ANDROIDX_APPCOMPAT = "androidx.appcompat:appcompat:1.1.0"
-    const val ANDROIDX_RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.1.0-beta05"
+    const val ANDROIDX_RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.1.0-rc01"
     const val ANDROIDX_PREFERENCE = "androidx.preference:preference-ktx:1.1.0"
     const val ANDROIDX_CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:1.1.3"
-    const val ANDROIDX_CORE = "androidx.core:core-ktx:1.1.0"
-    const val ANDROIDX_ACTIVITY_KTX = "androidx.activity:activity-ktx:1.0.0"
-    const val ANDROIDX_FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.1.0"
+    const val ANDROIDX_CORE = "androidx.core:core-ktx:1.2.0-beta01"
+    const val ANDROIDX_ACTIVITY_KTX = "androidx.activity:activity-ktx:1.1.0-rc01"
+    const val ANDROIDX_FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.2.0-rc01"
 
-    private const val LIFECYCLE_VERSION = "2.1.0"
+    private const val LIFECYCLE_VERSION = "2.2.0-rc01"
     const val ARCH_LIFECYCLE_EXT = "androidx.lifecycle:lifecycle-extensions:$LIFECYCLE_VERSION"
-    const val ARCH_LIFECYCLE_RUNTIME = "androidx.lifecycle:lifecycle-runtime:$LIFECYCLE_VERSION"
+    const val ARCH_LIFECYCLE_RUNTIME = "androidx.lifecycle:lifecycle-runtime-ktx:$LIFECYCLE_VERSION"
     const val ARCH_LIFECYCLE_VIEWMODEL = "androidx.lifecycle:lifecycle-viewmodel-ktx:$LIFECYCLE_VERSION"
     const val ARCH_LIFECYCLE_COMMON = "androidx.lifecycle:lifecycle-common-java8:$LIFECYCLE_VERSION"
-    const val ARCH_LIFECYCLE_SAVE_STATE = "androidx.lifecycle:lifecycle-viewmodel-savedstate:1.0.0-beta01"
+    const val ARCH_LIFECYCLE_SAVE_STATE = "androidx.lifecycle:lifecycle-viewmodel-savedstate:1.0.0-rc01"
     const val LIVE_DATA_KTX = "androidx.lifecycle:lifecycle-livedata-ktx:$LIFECYCLE_VERSION"
 
     const val ARCH_NAVIGATION_FRAGMENT = "androidx.navigation:navigation-fragment-ktx:$ANDROIDX_NAVIGATION_VERSION"
@@ -31,11 +31,11 @@ object Deps {
     const val ANDROID_MATERIAL = "com.google.android.material:material:1.1.0-beta01" // https://github.com/material-components/material-components-android/releases
 
     // Play Services
-    const val PLAYSERVICE_CORE = "com.google.android.play:core:1.6.3"
+    const val PLAYSERVICE_CORE = "com.google.android.play:core-ktx:1.6.4"
     // const val PLAYSERVICE_LICENSES = "com.google.android.gms:play-services-oss-licenses:17.0.0"
 
     // Firebase
-    const val FIREBASE_CORE = "com.google.firebase:firebase-core:17.2.0"
+    const val FIREBASE_CORE = "com.google.firebase:firebase-core:17.2.1"
     const val FIREBASE_PERF = "com.google.firebase:firebase-perf:16.2.3"
     const val FIREBASE_CONFIG = "com.google.firebase:firebase-config:17.0.0"
     const val CRASHLYTICS = "com.crashlytics.sdk.android:crashlytics:2.10.1"
@@ -52,13 +52,13 @@ object Deps {
     const val TIMBER = "com.jakewharton.timber:timber:4.7.1"
 
     // Inject
-    private const val DAGGER_VERSION = "2.24"
+    private const val DAGGER_VERSION = "2.25.2"
     const val DAGGER = "com.google.dagger:dagger:$DAGGER_VERSION"
     const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
-    private const val VIEWMODEL_INJECT_VERSION = "0.3.1-alpha02"
+    private const val VIEWMODEL_INJECT_VERSION = "0.3.2-rc01"
     const val VIEWMODEL_INJECT = "com.vikingsen.inject:viewmodel-inject:$VIEWMODEL_INJECT_VERSION"
     const val VIEWMODEL_INJECT_PROCESSOR = "com.vikingsen.inject:viewmodel-inject-processor:$VIEWMODEL_INJECT_VERSION"
-    private const val WORKER_INJECT_VERSION = "0.2.1"
+    private const val WORKER_INJECT_VERSION = "0.2.2"
     const val WORKER_INJECT = "com.vikingsen.inject:worker-inject:$WORKER_INJECT_VERSION"
     const val WORKER_INJECT_PROCESSOR = "com.vikingsen.inject:worker-inject-processor:$WORKER_INJECT_VERSION"
 
@@ -70,7 +70,7 @@ object Deps {
     const val MATERIAL_DIALOGS_INPUT = "com.afollestad.material-dialogs:input:$MATERIAL_DIALOGS_VERSION"
 
     // Database
-    private const val ROOM_VERSION = "2.2.0"
+    private const val ROOM_VERSION = "2.2.1"
     const val ARCH_ROOM_RUNTIME = "androidx.room:room-runtime:$ROOM_VERSION"
     const val ARCH_ROOM_KTX = "androidx.room:room-ktx:$ROOM_VERSION"
     const val ARCH_ROOM_COMPILER = "androidx.room:room-compiler:$ROOM_VERSION"

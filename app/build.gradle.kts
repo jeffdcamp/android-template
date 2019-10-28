@@ -1,3 +1,4 @@
+
 import com.github.jk1.license.filter.DependencyFilter
 import com.github.jk1.license.filter.ExcludeTransitiveDependenciesFilter
 import com.github.jk1.license.filter.LicenseBundleNormalizer

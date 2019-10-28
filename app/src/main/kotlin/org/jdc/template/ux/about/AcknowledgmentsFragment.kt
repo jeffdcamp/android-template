@@ -12,15 +12,15 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import org.intellij.lang.annotations.Language
 import org.jdc.template.R
 import org.jdc.template.databinding.AcknowledgmentsFragmentBinding
-import org.jdc.template.ui.fragment.BaseFragment
 import timber.log.Timber
 
-class AcknowledgmentsFragment : BaseFragment() {
+class AcknowledgmentsFragment : Fragment() {
 
     private lateinit var binding: AcknowledgmentsFragmentBinding
 
@@ -36,7 +36,6 @@ class AcknowledgmentsFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         activity?.setTitle(R.string.about_title)
-        enableActionBarBackArrow(true)
 
         setupWebview()
 

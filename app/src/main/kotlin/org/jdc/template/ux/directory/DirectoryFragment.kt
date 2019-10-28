@@ -1,24 +1,31 @@
 package org.jdc.template.ux.directory
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vikingsen.inject.viewmodel.savedstate.SavedStateViewModelFactory
+import kotlinx.coroutines.flow.collect
 import me.eugeniomarletti.extras.bundle.BundleExtra
 import me.eugeniomarletti.extras.bundle.base.Int
 import org.jdc.template.R
 import org.jdc.template.databinding.DirectoryBinding
 import org.jdc.template.ext.getScrollPosition
 import org.jdc.template.inject.Injector
-import org.jdc.template.ui.fragment.BaseFragment
 import org.jdc.template.ui.menu.CommonMenu
 import javax.inject.Inject
 
 
-class DirectoryFragment : BaseFragment() {
+class DirectoryFragment : Fragment() {
     @Inject
     lateinit var commonMenu: CommonMenu
     @Inject
@@ -50,20 +57,26 @@ class DirectoryFragment : BaseFragment() {
 
         activity?.setTitle(R.string.app_name)
 
-        enableActionBarBackArrow(false)
-
         savedInstanceState?.let { restoreState(it) }
 
-        setupViewModelObservers()
+        setupViewModel()
     }
 
-    private fun setupViewModelObservers() {
-        // Events
-        viewModel.onNewIndividualEvent.observeKt {
-            showNewIndividual()
+    private fun setupViewModel() {
+        lifecycleScope.launchWhenStarted {
+            viewModel.getDirectoryList().collect { list ->
+                adapter.submitList(list)
+            }
         }
-        viewModel.showIndividualEvent.observeKt {
-            showIndividual(it)
+
+        // Events
+        lifecycleScope.launchWhenStarted {
+            viewModel.eventFlow.collect { event ->
+                when (event) {
+                    is DirectoryViewModel.Event.NewIndividualEvent -> showNewIndividual()
+                    is DirectoryViewModel.Event.ShowIndividualEvent -> showIndividual(event.individualId)
+                }
+            }
         }
     }
 

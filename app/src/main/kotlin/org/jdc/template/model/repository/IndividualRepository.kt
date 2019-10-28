@@ -18,9 +18,9 @@ class IndividualRepository
     private fun householdDao() = mainDatabase().householdDao
     private fun directoryItemDao() = mainDatabase().directoryItemDao
 
-    fun getDirectoryListLiveData() = directoryItemDao().findAllDirectItemsLiveData()
+    fun getDirectoryListFlow() = directoryItemDao().findAllDirectItemsFlow()
     suspend fun getIndividual(individualId: Long) = individualDao().findById(individualId)
-    fun getIndividualLiveData(individualId: Long) = individualDao().findByIdLiveData(individualId)
+    fun getIndividualFlow(individualId: Long) = individualDao().findByIdFlow(individualId)
     suspend fun getAllIndividuals() = individualDao().findAll()
     suspend fun getIndividualCount() = individualDao().findCount()
     suspend fun getIndividualFirstName(individualId: Long) = individualDao().findFirstName(individualId)
