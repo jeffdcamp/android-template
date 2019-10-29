@@ -54,7 +54,7 @@ class IndividualFragment : Fragment() {
 
     private fun setupViewModel() {
         lifecycleScope.launchWhenStarted {
-            viewModel.individualFlow.collect{
+            viewModel.individual.collect{
                 binding.individual = it
             }
         }

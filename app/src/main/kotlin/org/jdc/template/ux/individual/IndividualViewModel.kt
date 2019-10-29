@@ -17,7 +17,7 @@ class IndividualViewModel
 ) : BaseViewModel<IndividualViewModel.Event>() {
 
     private val individualId = requireNotNull(savedStateHandle.get<Long>("individualId")) { "individualId cannot be null" }
-    val individualFlow = individualRepository.getIndividualFlow(individualId)
+    val individual = individualRepository.getIndividualFlow(individualId)
 
     init {
         analytics.logEvent(Analytics.EVENT_VIEW_INDIVIDUAL)
