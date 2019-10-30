@@ -56,7 +56,7 @@ class StartupActivity : AppCompatActivity() {
     private fun setupViewModel() {
         // Events
         lifecycleScope.launch {
-            viewModel.eventFlow.collect { event ->
+            for (event in viewModel.eventChannel) {
                 when (event) {
                     is StartupViewModel.Event.StartupFinishedEvent -> showStartActivity()
                 }

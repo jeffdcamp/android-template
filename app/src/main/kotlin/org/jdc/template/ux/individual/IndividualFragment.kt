@@ -61,7 +61,7 @@ class IndividualFragment : Fragment() {
 
         // Events
         lifecycleScope.launch {
-            viewModel.eventFlow.collect { event ->
+            for (event in viewModel.eventChannel) {
                 when (event) {
                     is IndividualViewModel.Event.EditIndividualEvent -> {
                         val directions = IndividualFragmentDirections.editIndividual(event.individualId)

@@ -71,7 +71,7 @@ class DirectoryFragment : Fragment() {
 
         // Events
         lifecycleScope.launchWhenStarted {
-            viewModel.eventFlow.collect { event ->
+            for (event in viewModel.eventChannel) {
                 when (event) {
                     is DirectoryViewModel.Event.NewIndividualEvent -> showNewIndividual()
                     is DirectoryViewModel.Event.ShowIndividualEvent -> showIndividual(event.individualId)
