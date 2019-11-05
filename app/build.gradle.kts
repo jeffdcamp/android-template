@@ -2,7 +2,11 @@
 import com.github.jk1.license.filter.DependencyFilter
 import com.github.jk1.license.filter.ExcludeTransitiveDependenciesFilter
 import com.github.jk1.license.filter.LicenseBundleNormalizer
-import com.github.jk1.license.render.*
+import com.github.jk1.license.render.CsvReportRenderer
+import com.github.jk1.license.render.InventoryHtmlReportRenderer
+import com.github.jk1.license.render.JsonReportRenderer
+import com.github.jk1.license.render.ReportRenderer
+import com.github.jk1.license.render.SimpleHtmlReportRenderer
 import java.util.*
 
 plugins {
@@ -12,7 +16,7 @@ plugins {
     id("kotlinx-serialization")
     id("androidx.navigation.safeargs.kotlin")
     id("io.fabric")
-    id("com.github.triplet.play") version "2.4.1"
+    id("com.github.triplet.play") version "2.5.0"
     id("com.github.jk1.dependency-license-report") version "1.11"
 }
 
@@ -200,7 +204,6 @@ dependencies {
     implementation(Deps.ARCH_LIFECYCLE_EXT)
     implementation(Deps.ARCH_LIFECYCLE_RUNTIME)
     implementation(Deps.ARCH_LIFECYCLE_VIEWMODEL)
-    implementation(Deps.ARCH_LIFECYCLE_COMMON)
     implementation(Deps.ARCH_LIFECYCLE_SAVE_STATE)
     implementation(Deps.LIVE_DATA_KTX)
 
