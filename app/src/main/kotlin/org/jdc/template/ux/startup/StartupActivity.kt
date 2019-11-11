@@ -8,8 +8,6 @@ import androidx.lifecycle.lifecycleScope
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.vikingsen.inject.viewmodel.savedstate.SavedStateViewModelFactory
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import org.jdc.template.R
 import org.jdc.template.inject.Injector
 import org.jdc.template.ui.ThemeManager
@@ -26,8 +24,6 @@ class StartupActivity : AppCompatActivity() {
 
     private val viewModel by viewModels<StartupViewModel> { viewModelFactoryFactory.create(this, null) }
 
-    private val debugStartup = false
-
     init {
         Injector.get().inject(this)
     }
@@ -38,27 +34,15 @@ class StartupActivity : AppCompatActivity() {
         setupViewModel()
 
         themeManager.applyTheme()
-
-        @Suppress("ConstantConditionIf") // used for debugging
-        if (debugStartup) {
-            devPauseStartup()
-        } else {
-            startup()
-        }
-    }
-
-    private fun startup() = lifecycleScope.launch {
-        viewModel.startup().collect {
-            Timber.i("Startup Progress $it")
-        }
     }
 
     private fun setupViewModel() {
         // Events
-        lifecycleScope.launch {
+        lifecycleScope.launchWhenStarted {
             for (event in viewModel.eventChannel) {
                 when (event) {
-                    is StartupViewModel.Event.StartupFinishedEvent -> showStartActivity()
+                    is StartupViewModel.Event.StartupProgress -> Timber.i("Startup Progress ${event.progress}")
+                    is StartupViewModel.Event.StartupFinished -> showStartActivity()
                 }
             }
         }
@@ -77,7 +61,7 @@ class StartupActivity : AppCompatActivity() {
         MaterialDialog(this).show {
             lifecycleOwner(this@StartupActivity)
             message(text = "Paused for debugger attachment")
-            positiveButton(text = "OK") { viewModel.startup() }
+            positiveButton(text = "OK") { viewModel.debugResumeStartup() }
         }
     }
 }

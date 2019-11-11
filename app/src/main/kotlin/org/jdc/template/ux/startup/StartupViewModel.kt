@@ -1,10 +1,8 @@
 package org.jdc.template.ux.startup
 
-import androidx.lifecycle.SavedStateHandle
-import com.squareup.inject.assisted.Assisted
+import androidx.lifecycle.viewModelScope
 import com.vikingsen.inject.viewmodel.ViewModelInject
-import kotlinx.coroutines.flow.FlowCollector
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
 import org.jdc.template.ui.viewmodel.BaseViewModel
@@ -12,23 +10,34 @@ import timber.log.Timber
 
 class StartupViewModel
 @ViewModelInject constructor(
-        private val analytics: Analytics,
-        @Assisted savedStateHandle: SavedStateHandle
+        private val analytics: Analytics
 ) : BaseViewModel<StartupViewModel.Event>() {
+    private val debugStartup = false
     private var currentProgressCount = 0
 
-    fun startup() = flow<StartupProgress> {
+    init {
+        @Suppress("ConstantConditionIf") // used for debugging
+        if (!debugStartup) {
+            startup()
+        }
+    }
+
+    private fun startup() = viewModelScope.launch {
         analytics.logEvent(Analytics.EVENT_LAUNCH_APP, mapOf(Analytics.PARAM_BUILD_TYPE to BuildConfig.BUILD_TYPE))
 
         // do startup work here...
-        showProgress(this, "Doing stuff")
+        showProgress( "Doing stuff")
 
-        sendEvent(Event.StartupFinishedEvent)
+        sendEvent(Event.StartupFinished)
     }
 
-    private suspend fun showProgress(flowCollector: FlowCollector<StartupProgress>, message: String) {
+    fun debugResumeStartup() {
+        startup()
+    }
+
+    private suspend fun showProgress(message: String) {
         Timber.i("Startup progress: [%s]", message)
-        flowCollector.emit(StartupProgress(currentProgressCount + 1, message))
+        sendEvent(Event.StartupProgress(currentProgressCount + 1, message))
     }
 
     companion object {
@@ -36,8 +45,7 @@ class StartupViewModel
     }
 
     sealed class Event {
-        object StartupFinishedEvent : Event()
+        class StartupProgress(val progress: Int, val message: String = "", val indeterminate: Boolean = false) : Event()
+        object StartupFinished : Event()
     }
-
-    data class StartupProgress(val progress: Int, val message: String = "", val indeterminate: Boolean = false)
 }

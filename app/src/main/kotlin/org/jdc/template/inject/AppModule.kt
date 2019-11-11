@@ -12,7 +12,7 @@ import org.jdc.template.model.webservice.ServiceModule
 import org.jdc.template.prefs.Prefs
 import javax.inject.Singleton
 
-@Module(includes = [ServiceModule::class, AssistedModule::class])
+@Module(includes = [ServiceModule::class, AssistModule::class])
 class AppModule(private val application: Application) {
 
     @Provides

@@ -17,7 +17,6 @@ import com.afollestad.materialdialogs.datetime.datePicker
 import com.afollestad.materialdialogs.datetime.timePicker
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.vikingsen.inject.viewmodel.savedstate.SavedStateViewModelFactory
-import kotlinx.coroutines.launch
 import org.jdc.template.R
 import org.jdc.template.databinding.IndividualEditBinding
 import org.jdc.template.ext.toCalendar
@@ -60,7 +59,7 @@ class IndividualEditFragment : Fragment() {
 
     private fun setupViewModel() {
         // Events
-        lifecycleScope.launch {
+        lifecycleScope.launchWhenStarted {
             for (event in viewModel.eventChannel) {
                 when (event) {
                     is IndividualEditViewModel.Event.IndividualSaved -> findNavController().popBackStack()
