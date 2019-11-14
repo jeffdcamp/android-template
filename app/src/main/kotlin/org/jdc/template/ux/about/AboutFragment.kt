@@ -8,16 +8,16 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.vikingsen.inject.viewmodel.savedstate.SavedStateViewModelFactory
 import org.jdc.template.R
 import org.jdc.template.databinding.AboutBinding
 import org.jdc.template.inject.Injector
+import org.jdc.template.ui.fragment.BaseFragment
 import javax.inject.Inject
 
-class AboutFragment : Fragment() {
+class AboutFragment : BaseFragment() {
 
     @Inject
     lateinit var viewModelFactoryFactory: SavedStateViewModelFactory.Factory

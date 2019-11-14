@@ -8,24 +8,23 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vikingsen.inject.viewmodel.savedstate.SavedStateViewModelFactory
-import kotlinx.coroutines.flow.collect
 import me.eugeniomarletti.extras.bundle.BundleExtra
 import me.eugeniomarletti.extras.bundle.base.Int
 import org.jdc.template.R
 import org.jdc.template.databinding.DirectoryBinding
 import org.jdc.template.ext.getScrollPosition
 import org.jdc.template.inject.Injector
+import org.jdc.template.ui.fragment.BaseFragment
 import org.jdc.template.ui.menu.CommonMenu
 import javax.inject.Inject
 
 
-class DirectoryFragment : Fragment() {
+class DirectoryFragment : BaseFragment() {
     @Inject
     lateinit var commonMenu: CommonMenu
     @Inject
@@ -63,10 +62,8 @@ class DirectoryFragment : Fragment() {
     }
 
     private fun setupViewModel() {
-        lifecycleScope.launchWhenStarted {
-            viewModel.getDirectoryList().collect { list ->
-                adapter.submitList(list)
-            }
+        viewModel.getDirectoryList().observeKt { list ->
+            adapter.submitList(list)
         }
 
         // Events

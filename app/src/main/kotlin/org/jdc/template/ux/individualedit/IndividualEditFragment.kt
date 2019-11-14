@@ -8,7 +8,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -23,11 +22,12 @@ import org.jdc.template.ext.toCalendar
 import org.jdc.template.ext.toLocalDate
 import org.jdc.template.ext.toLocalTime
 import org.jdc.template.inject.Injector
+import org.jdc.template.ui.fragment.BaseFragment
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalTime
 import javax.inject.Inject
 
-class IndividualEditFragment : Fragment() {
+class IndividualEditFragment : BaseFragment() {
 
     @Inject
     lateinit var viewModelFactoryFactory: SavedStateViewModelFactory.Factory

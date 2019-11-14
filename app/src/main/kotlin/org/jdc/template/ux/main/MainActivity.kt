@@ -1,14 +1,14 @@
 package org.jdc.template.ux.main
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import org.jdc.template.R
 import org.jdc.template.databinding.MainActivityBinding
+import org.jdc.template.ui.activity.BaseActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private lateinit var binding: MainActivityBinding
     private val navController by lazy { findNavController(R.id.mainNavHostFragment) }

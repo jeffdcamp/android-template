@@ -1,9 +1,10 @@
 package org.jdc.template.ux.directory
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.asLiveData
 import com.squareup.inject.assisted.Assisted
 import com.vikingsen.inject.viewmodel.ViewModelInject
-import kotlinx.coroutines.flow.Flow
 import org.jdc.template.model.db.main.directoryitem.DirectoryItem
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.ui.viewmodel.BaseViewModel
@@ -14,8 +15,8 @@ class DirectoryViewModel
         @Assisted savedStateHandle: SavedStateHandle
 ) : BaseViewModel<DirectoryViewModel.Event>() {
 
-    fun getDirectoryList(): Flow<List<DirectoryItem>> {
-        return individualRepository.getDirectoryListFlow()
+    fun getDirectoryList(): LiveData<List<DirectoryItem>> {
+        return individualRepository.getDirectoryListFlow().asLiveData()
     }
 
     fun addIndividual() {

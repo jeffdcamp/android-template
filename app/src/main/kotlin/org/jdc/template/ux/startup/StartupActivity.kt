@@ -3,7 +3,6 @@ package org.jdc.template.ux.startup
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
@@ -11,11 +10,12 @@ import com.vikingsen.inject.viewmodel.savedstate.SavedStateViewModelFactory
 import org.jdc.template.R
 import org.jdc.template.inject.Injector
 import org.jdc.template.ui.ThemeManager
+import org.jdc.template.ui.activity.BaseActivity
 import org.jdc.template.ux.main.MainActivity
 import timber.log.Timber
 import javax.inject.Inject
 
-class StartupActivity : AppCompatActivity() {
+class StartupActivity : BaseActivity() {
 
     @Inject
     lateinit var themeManager: ThemeManager

@@ -19,7 +19,7 @@ class IndividualEditViewModel
         @Assisted savedStateHandle: SavedStateHandle
 ) : BaseViewModel<IndividualEditViewModel.Event>() {
 
-    private val individualId = requireNotNull(savedStateHandle.get<Long>("individualId")) { "individualId cannot be null" }
+    private val individualId: Long = requireNotNull(savedStateHandle["individualId"]) { "individualId cannot be null" }
     private var individual = Individual()
 
     // Fields
