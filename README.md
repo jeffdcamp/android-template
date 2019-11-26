@@ -26,7 +26,6 @@ Sample Android app that utilizes common best practices
 * Timber
 * Firebase Analytics
 * Gradle Play Publisher (Triple-T)
-* Multidex
 
 
 License

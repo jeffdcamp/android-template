@@ -16,7 +16,7 @@ plugins {
     id("kotlinx-serialization")
     id("androidx.navigation.safeargs.kotlin")
     id("io.fabric")
-    id("com.github.triplet.play") version "2.5.0"
+    id("com.github.triplet.play") version "2.6.1"
     id("com.github.jk1.dependency-license-report") version "1.11"
 }
 
@@ -230,7 +230,7 @@ dependencies {
 
     // Network
     implementation(Deps.OKHTTP)
-    implementation(Deps.OKHTTP_IHSANBAL_LOGGING_INTERCEPTOR)
+    implementation(Deps.OKHTTP_LOGGING_INTERCEPTOR)
     implementation(Deps.RETROFIT)
     implementation(Deps.KOTLIN_RETROFIT_CONVERTER)
 

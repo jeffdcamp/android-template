@@ -1,8 +1,6 @@
 package org.jdc.template.model.webservice
 
 import android.os.Build
-import com.ihsanbal.logging.Level
-import com.ihsanbal.logging.LoggingInterceptor
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
@@ -10,7 +8,7 @@ import kotlinx.serialization.json.Json
 import okhttp3.Credentials
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
-import okhttp3.internal.platform.Platform
+import okhttp3.logging.HttpLoggingInterceptor
 import org.jdc.template.BuildConfig
 import org.jdc.template.auth.MyAccountInterceptor
 import org.jdc.template.model.webservice.colors.ColorService
@@ -26,12 +24,7 @@ import javax.inject.Singleton
 class ServiceModule {
 
     // Log level
-    private val loggingInterceptor = LoggingInterceptor.Builder()
-        .loggable(BuildConfig.DEBUG)
-        .setLevel(Level.BASIC)
-        .log(Platform.INFO)
-        .tag("REST Call")
-        .build()
+    private val serviceLogLevel = HttpLoggingInterceptor.Level.BASIC
 
     @Provides
     @Named(AUTHENTICATED_CLIENT)
@@ -65,7 +58,7 @@ class ServiceModule {
             chain.proceed(requestBuilder.build())
         }
 
-        clientBuilder.addInterceptor(loggingInterceptor)
+        clientBuilder.addInterceptor(HttpLoggingInterceptor().apply { level = serviceLogLevel })
     }
 
     private fun setupBasicAuth(clientBuilder: OkHttpClient.Builder, username: String, password: String) {
