@@ -1,5 +1,5 @@
 // Versions for Dependencies AND Build Plugins
-const val KOTLIN_VERSION = "1.3.60"
+const val KOTLIN_VERSION = "1.3.61"
 const val ANDROIDX_NAVIGATION_VERSION = "2.2.0-rc02"
 
 object Deps {
@@ -95,7 +95,7 @@ object Deps {
     const val TEST_JUNIT = "org.junit.jupiter:junit-jupiter:$JUNIT_VERSION"
     const val TEST_JUNIT_ENGINE = "org.junit.jupiter:junit-jupiter-engine:$JUNIT_VERSION"
     const val TEST_OKHTTP_MOCKWEBSERVER = "com.squareup.okhttp3:mockwebserver:$OKHTTP_VERSION"
-    const val TEST_MOCKITO_CORE = "org.mockito:mockito-core:3.1.0"
+    const val TEST_MOCKITO_CORE = "org.mockito:mockito-core:3.2.0"
     const val TEST_THREETENBP = "org.threeten:threetenbp:1.4.0"
     const val TEST_XERIAL_SQLITE = "org.xerial:sqlite-jdbc:3.28.0"
     const val TEST_ARCH_ROOM_TESTING = "androidx.room:room-testing:$ROOM_VERSION"

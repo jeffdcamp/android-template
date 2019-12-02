@@ -17,7 +17,7 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     id("io.fabric")
     id("com.github.triplet.play") version "2.6.1"
-    id("com.github.jk1.dependency-license-report") version "1.11"
+    id("com.github.jk1.dependency-license-report") version "1.12"
 }
 
 // Manifest version information
