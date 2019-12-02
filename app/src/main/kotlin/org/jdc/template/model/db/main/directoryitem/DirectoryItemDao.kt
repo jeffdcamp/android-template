@@ -6,6 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface DirectoryItemDao {
-    @Query("SELECT id, lastName, firstName FROM individual ORDER BY lastName, firstName")
+    @Query("SELECT id, lastName, firstName FROM Individual ORDER BY lastName, firstName")
     fun findAllDirectItemsFlow(): Flow<List<DirectoryItem>>
 }

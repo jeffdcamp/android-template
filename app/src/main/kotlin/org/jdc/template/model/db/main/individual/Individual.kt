@@ -7,7 +7,7 @@ import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalTime
 import org.threeten.bp.OffsetDateTime
 
-@Entity(tableName = "individual")
+@Entity
 data class Individual(
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0,

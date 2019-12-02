@@ -12,9 +12,9 @@ interface HouseholdDao {
     @Insert
     suspend fun update(household: Household)
 
-    @Query("DELETE FROM household")
+    @Query("DELETE FROM Household")
     suspend fun deleteAll()
 
-    @Query("SELECT * FROM household")
+    @Query("SELECT * FROM Household")
     suspend fun findAllMembers(): List<HouseholdMembers>
 }

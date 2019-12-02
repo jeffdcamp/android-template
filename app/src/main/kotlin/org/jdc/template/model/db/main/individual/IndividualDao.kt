@@ -15,31 +15,31 @@ interface IndividualDao {
     @Update
     suspend fun update(individual: Individual)
 
-    @Query("DELETE FROM individual")
+    @Query("DELETE FROM Individual")
     suspend fun deleteAll()
 
-    @Query("SELECT count(1) FROM individual")
+    @Query("SELECT count(1) FROM Individual")
     suspend fun findCount(): Long
 
-    @Query("SELECT * FROM individual WHERE id = :id")
+    @Query("SELECT * FROM Individual WHERE id = :id")
     suspend fun findById(id: Long): Individual?
 
-    @Query("SELECT * FROM individual WHERE id = :id")
+    @Query("SELECT * FROM Individual WHERE id = :id")
     fun findByIdFlow(id: Long): Flow<Individual>
 
-    @Query("SELECT * FROM individual")
+    @Query("SELECT * FROM Individual")
     suspend fun findAll(): List<Individual>
 
-    @Query("SELECT * FROM individual")
+    @Query("SELECT * FROM Individual")
     fun findAllFlow(): Flow<List<Individual>>
 
-    @Query("DELETE FROM individual WHERE id = :id")
+    @Query("DELETE FROM Individual WHERE id = :id")
     suspend fun deleteById(id: Long)
 
-    @Query("SELECT lastModified FROM individual WHERE id = :id")
+    @Query("SELECT lastModified FROM Individual WHERE id = :id")
     suspend fun findLastModified(id: Long): OffsetDateTime?
 
-    @Query("SELECT firstName FROM individual WHERE id = :id")
+    @Query("SELECT firstName FROM Individual WHERE id = :id")
     suspend fun findFirstName(id: Long): String?
 
     @Query("UPDATE individual SET firstName = :firstName WHERE id = :id")

@@ -3,7 +3,7 @@ package org.jdc.template.model.db.main.household
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "household")
+@Entity
 data class Household(
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0,

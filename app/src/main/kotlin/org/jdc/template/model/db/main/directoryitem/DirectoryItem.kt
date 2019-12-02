@@ -14,7 +14,7 @@ data class DirectoryItem(
     fun getFullName() = "$firstName $lastName"
 
     companion object {
-        const val VIEW_NAME = "directory_item"
-        const val VIEW_QUERY = "SELECT id, lastName, firstName FROM individual"
+        const val VIEW_NAME = "DirectoryItem"
+        const val VIEW_QUERY = "SELECT id, lastName, firstName FROM Individual"
     }
 }
