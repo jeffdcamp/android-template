@@ -50,7 +50,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
         when (key) {
-            Prefs.PREF_GENERAL_DISPLAY_THEME_TYPE -> {
+            "displayThemeType" -> {
                 themeManager.applyTheme()
             }
         }
