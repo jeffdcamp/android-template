@@ -14,7 +14,7 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION")
         classpath("org.jetbrains.kotlin:kotlin-serialization:$KOTLIN_VERSION")
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$ANDROIDX_NAVIGATION_VERSION")
-        classpath("com.google.gms:google-services:4.3.2")
+        classpath("com.google.gms:google-services:4.3.3")
         classpath("io.fabric.tools:gradle:1.31.2")
     }
 }
@@ -31,14 +31,7 @@ allprojects {
     // Gradle Dependency Check
     apply(plugin = "com.github.ben-manes.versions") // ./gradlew dependencyUpdates -Drevision=release
     val excludeVersionContaining = listOf("alpha", "eap") // example: "alpha", "beta"
-    val ignoreArtifacts = listOf(
-            "material",
-            "appcompat",
-            "constraintlayout",
-            "recyclerview",
-            "lifecycle-viewmodel-savedstate",
-            "viewmodel"
-    ) // some artifacts may be OK to check for "alpha"... add these exceptions here
+    val ignoreArtifacts = listOf("material") // some artifacts may be OK to check for "alpha"... add these exceptions here
 
     tasks.named<DependencyUpdatesTask>("dependencyUpdates") {
         resolutionStrategy {
