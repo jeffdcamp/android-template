@@ -9,7 +9,7 @@ object ThreeTenFormatter {
     // OffsetDateTime
     fun offsetDateTimeToDBString(d: OffsetDateTime?): String? {
         return if (d != null) {
-            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(d)
+            DateTimeFormatter.ISO_INSTANT.format(d)
         } else {
             null
         }
