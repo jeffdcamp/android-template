@@ -27,7 +27,7 @@ object Deps {
     const val ARCH_WORK_RUNTIME = "androidx.work:work-runtime-ktx:$WORKMANAGER_VERSION"
     const val ARCH_WORK_GCM = "androidx.work:work-gcm:$WORKMANAGER_VERSION" // Remove with min SDK 23
 
-    const val ANDROID_MATERIAL = "com.google.android.material:material:1.1.0-beta02" // https://github.com/material-components/material-components-android/releases
+    const val ANDROID_MATERIAL = "com.google.android.material:material:1.1.0-rc01" // https://github.com/material-components/material-components-android/releases
 
     // Play Services
     const val PLAYSERVICE_CORE = "com.google.android.play:core-ktx:1.6.4"
@@ -51,7 +51,7 @@ object Deps {
     const val TIMBER = "com.jakewharton.timber:timber:4.7.1"
 
     // Inject
-    private const val DAGGER_VERSION = "2.25.3"
+    private const val DAGGER_VERSION = "2.25.4"
     const val DAGGER = "com.google.dagger:dagger:$DAGGER_VERSION"
     const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
     private const val VIEWMODEL_INJECT_VERSION = "0.3.2-rc01"
@@ -97,7 +97,7 @@ object Deps {
     const val TEST_OKHTTP_MOCKWEBSERVER = "com.squareup.okhttp3:mockwebserver:$OKHTTP_VERSION"
     const val TEST_MOCKITO_CORE = "org.mockito:mockito-core:3.2.4"
     const val TEST_THREETENBP = "org.threeten:threetenbp:1.4.0"
-    const val TEST_XERIAL_SQLITE = "org.xerial:sqlite-jdbc:3.28.0"
+    const val TEST_XERIAL_SQLITE = "org.xerial:sqlite-jdbc:3.30.1"
     const val TEST_ARCH_ROOM_TESTING = "androidx.room:room-testing:$ROOM_VERSION"
     const val TEST_DBTOOLS_ROOM_JDBC = "org.dbtools:dbtools-room-jdbc:$DBTOOLS_VERSION"
     const val TEST_KOTLIN_COROUTINES_TEST = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$COROUTINES_VERSION"

@@ -226,7 +226,9 @@ dependencies {
     //implementation(Deps.DBTOOLS_ROOM_SQLITE)
 
     // Debug Database (emulator: adb forward tcp:8080 tcp:8080) (https://github.com/amitshekhariitbhu/Android-Debug-Database)
-    // debugimplementation("com.amitshekhar.android:debug-db:1.0.4")
+    // Device: Look for "DebugDB" in logcat for the address
+    // Emulator: 'adb forward tcp:8080 tcp:8080' then localhost:8080 from browser
+    // debugimplementation("com.amitshekhar.android:debug-db:1.0.6")
 
     // Network
     implementation(Deps.OKHTTP)
