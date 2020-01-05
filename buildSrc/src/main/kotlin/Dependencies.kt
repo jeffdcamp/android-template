@@ -44,7 +44,7 @@ object Deps {
     const val KOTLIN_SERIALIZATION = "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.14.0"
     private const val COROUTINES_VERSION = "1.3.3"
     const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINES_VERSION"
-    const val RETROFIT = "com.squareup.retrofit2:retrofit:2.7.0"
+    const val RETROFIT = "com.squareup.retrofit2:retrofit:2.7.1"
     const val KOTLIN_RETROFIT_CONVERTER = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.4.0"
     const val EXTRAS_DELEGATES = "me.eugeniomarletti:android-extras-delegates:1.0.5"
     const val THREETEN_ABP = "com.jakewharton.threetenabp:threetenabp:1.2.1"
@@ -78,7 +78,7 @@ object Deps {
     const val DBTOOLS_ROOM_SQLITE = "org.dbtools:dbtools-room-sqliteorg:$DBTOOLS_VERSION"
 
     // Network
-    private const val OKHTTP_VERSION = "4.2.2" // https://github.com/square/okhttp/blob/master/CHANGELOG.md
+    private const val OKHTTP_VERSION = "4.3.0" // https://github.com/square/okhttp/blob/master/CHANGELOG.md
     const val OKHTTP = "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION"
     const val OKHTTP_LOGGING_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION"
 
