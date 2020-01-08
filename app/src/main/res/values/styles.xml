@@ -66,6 +66,9 @@
     </style>
 
     <!-- Text -->
+    <style name="DefaultTextInputField" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    </style>
+
     <style name="DefaultTextField">
         <!-- prevent full-screen edit when phone in landscape -->
         <item name="android:imeOptions">flagNoExtractUi</item>

@@ -24,6 +24,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/firstNameLayout"
+                style="@style/DefaultTextInputField"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -46,6 +47,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/lastNameLayout"
+                style="@style/DefaultTextInputField"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -66,6 +68,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/phoneLayout"
+                style="@style/DefaultTextInputField"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -87,6 +90,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/emailLayout"
+                style="@style/DefaultTextInputField"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -108,6 +112,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/birthDateLayout"
+                style="@style/DefaultTextInputField"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -130,6 +135,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/alarmTimeLayout"
+                style="@style/DefaultTextInputField"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
