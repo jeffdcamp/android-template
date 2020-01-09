@@ -195,11 +195,6 @@ dependencies {
     implementation(Deps.WORKER_INJECT)
     kapt(Deps.WORKER_INJECT_PROCESSOR)
 
-    // UI
-    implementation(Deps.MATERIAL_DIALOGS_CORE)
-    implementation(Deps.MATERIAL_DIALOGS_DATETIME)
-    implementation(Deps.MATERIAL_DIALOGS_LIFECYCLE)
-
     // === Android Architecture Components ===
     implementation(Deps.ARCH_LIFECYCLE_EXT)
     implementation(Deps.ARCH_LIFECYCLE_RUNTIME)

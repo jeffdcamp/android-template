@@ -4,8 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.vikingsen.inject.viewmodel.savedstate.SavedStateViewModelFactory
 import org.jdc.template.R
 import org.jdc.template.inject.Injector
@@ -58,10 +57,9 @@ class StartupActivity : BaseActivity() {
     }
 
     private fun devPauseStartup() {
-        MaterialDialog(this).show {
-            lifecycleOwner(this@StartupActivity)
-            message(text = "Paused for debugger attachment")
-            positiveButton(text = "OK") { viewModel.debugResumeStartup() }
-        }
+        MaterialAlertDialogBuilder(this)
+                .setMessage("Paused for debugger attachment")
+                .setPositiveButton("OK") { _, _ -> viewModel.debugResumeStartup() }
+
     }
 }

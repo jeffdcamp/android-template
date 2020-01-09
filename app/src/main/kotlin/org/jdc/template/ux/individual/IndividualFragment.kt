@@ -11,8 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.vikingsen.inject.viewmodel.savedstate.SavedStateViewModelFactory
 import kotlinx.coroutines.launch
 import org.jdc.template.R
@@ -90,13 +89,12 @@ class IndividualFragment : BaseFragment() {
     }
 
     private fun promptDeleteIndividual() {
-        MaterialDialog(requireActivity()).show {
-            lifecycleOwner(this@IndividualFragment)
-            message(R.string.delete_individual_confirm)
-            positiveButton(R.string.delete) {
-                viewModel.deleteIndividual()
-            }
-            negativeButton(R.string.cancel)
-        }
+        MaterialAlertDialogBuilder(requireActivity())
+                .setMessage(R.string.delete_individual_confirm)
+                .setPositiveButton(R.string.delete) { _, _ ->
+                    viewModel.deleteIndividual()
+                }
+                .setNegativeButton(R.string.cancel) { _, _ -> }
+                .show()
     }
 }
