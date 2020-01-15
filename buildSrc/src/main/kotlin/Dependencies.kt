@@ -11,7 +11,7 @@ object Deps {
     const val ANDROIDX_CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:1.1.3"
     const val ANDROIDX_CORE = "androidx.core:core-ktx:1.2.0-rc01"
     const val ANDROIDX_ACTIVITY_KTX = "androidx.activity:activity-ktx:1.1.0-rc03"
-    const val ANDROIDX_FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.2.0-rc04"
+    const val ANDROIDX_FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.2.0-rc05"
 
     private const val LIFECYCLE_VERSION = "2.2.0-rc03"
     const val ARCH_LIFECYCLE_EXT = "androidx.lifecycle:lifecycle-extensions:$LIFECYCLE_VERSION"
@@ -34,7 +34,7 @@ object Deps {
     // const val PLAYSERVICE_LICENSES = "com.google.android.gms:play-services-oss-licenses:17.0.0"
 
     // Firebase
-    const val FIREBASE_CORE = "com.google.firebase:firebase-core:17.2.1"
+    const val FIREBASE_CORE = "com.google.firebase:firebase-core:17.2.2"
     const val FIREBASE_PERF = "com.google.firebase:firebase-perf:16.2.3"
     const val FIREBASE_CONFIG = "com.google.firebase:firebase-config:17.0.0"
     const val CRASHLYTICS = "com.crashlytics.sdk.android:crashlytics:2.10.1"
@@ -47,7 +47,7 @@ object Deps {
     const val RETROFIT = "com.squareup.retrofit2:retrofit:2.7.1"
     const val KOTLIN_RETROFIT_CONVERTER = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.4.0"
     const val EXTRAS_DELEGATES = "me.eugeniomarletti:android-extras-delegates:1.0.5"
-    const val THREETEN_ABP = "com.jakewharton.threetenabp:threetenabp:1.2.1"
+    const val THREETEN_ABP = "com.jakewharton.threetenabp:threetenabp:1.2.2"
     const val TIMBER = "com.jakewharton.timber:timber:4.7.1"
 
     // Inject
@@ -71,7 +71,7 @@ object Deps {
     const val DBTOOLS_ROOM_SQLITE = "org.dbtools:dbtools-room-sqliteorg:$DBTOOLS_VERSION"
 
     // Network
-    private const val OKHTTP_VERSION = "4.3.0" // https://github.com/square/okhttp/blob/master/CHANGELOG.md
+    private const val OKHTTP_VERSION = "4.3.1" // https://github.com/square/okhttp/blob/master/CHANGELOG.md
     const val OKHTTP = "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION"
     const val OKHTTP_LOGGING_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION"
 
@@ -89,7 +89,7 @@ object Deps {
     const val TEST_JUNIT_ENGINE = "org.junit.jupiter:junit-jupiter-engine:$JUNIT_VERSION"
     const val TEST_OKHTTP_MOCKWEBSERVER = "com.squareup.okhttp3:mockwebserver:$OKHTTP_VERSION"
     const val TEST_MOCKITO_CORE = "org.mockito:mockito-core:3.2.4"
-    const val TEST_THREETENBP = "org.threeten:threetenbp:1.4.0"
+    const val TEST_THREETENBP = "org.threeten:threetenbp:1.4.1"
     const val TEST_XERIAL_SQLITE = "org.xerial:sqlite-jdbc:3.30.1"
     const val TEST_ARCH_ROOM_TESTING = "androidx.room:room-testing:$ROOM_VERSION"
     const val TEST_DBTOOLS_ROOM_JDBC = "org.dbtools:dbtools-room-jdbc:$DBTOOLS_VERSION"
