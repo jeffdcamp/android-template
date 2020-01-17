@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         APP_MODULE_NAME = 'android-template'
+        CHANGELOG_CMD = 'git log --date=format:"%Y-%m-%d" --pretty="format: * %s% b (%an, %cd)" | head -n 10 > commit-changelog.txt'
     }
 
     options {
@@ -52,7 +53,8 @@ pipeline {
             stages {
                 stage("Build") {
                     steps {
-                        sh './gradlew clean assembleAlpha'
+                        sh "${CHANGELOG_CMD}"
+                        sh './gradlew clean assembleAlpha appDistributionUploadAlpha'
                     }
                     post {
                         always {
@@ -104,7 +106,8 @@ pipeline {
             stages {
                 stage("Build") {
                     steps {
-                        sh './gradlew clean assemblePreview'
+                        sh "${CHANGELOG_CMD}"
+                        sh './gradlew clean assemblePreview appDistributionUploadPreview'
                     }
                     post {
                         always {
@@ -155,7 +158,8 @@ pipeline {
             stages {
                 stage("Build") {
                     steps {
-                        sh './gradlew clean assembleBeta'
+                        sh "${CHANGELOG_CMD}"
+                        sh './gradlew clean assembleBeta appDistributionUploadRelease'
                     }
                     post {
                         always {
@@ -206,7 +210,8 @@ pipeline {
             stages {
                 stage("Build") {
                     steps {
-                        sh './gradlew clean assembleRelease'
+                        sh "${CHANGELOG_CMD}"
+                        sh './gradlew clean assembleRelease appDistributionUploadRelease'
                     }
                     post {
                         always {

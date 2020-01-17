@@ -16,6 +16,7 @@ plugins {
     id("kotlinx-serialization")
     id("androidx.navigation.safeargs.kotlin")
     id("io.fabric")
+    id("com.google.firebase.appdistribution")
     id("com.github.triplet.play") version "2.6.2"
     id("com.github.jk1.dependency-license-report") version "1.12"
 }
@@ -129,12 +130,26 @@ android {
             buildConfigField("long", "BUILD_TIME", "${buildTime}l")
             // isDebuggable = true
             signingConfig = signingConfigs.getByName("upload")
+
+            firebaseAppDistribution {
+                val androidTemplateServiceCredentialsFile: String? by project
+                serviceCredentialsFile = androidTemplateServiceCredentialsFile
+                groups = "mobile-dev-team, mobile-qa-team"
+                releaseNotesFile = "commit-changelog.txt"
+            }
         }
         create("beta") {
             initWith(getByName("release"))
             versionNameSuffix = " BETA"
             buildConfigField("long", "BUILD_TIME", "${buildTime}l")
             signingConfig = signingConfigs.getByName("upload")
+
+            firebaseAppDistribution {
+                val androidTemplateServiceCredentialsFile: String? by project
+                serviceCredentialsFile = androidTemplateServiceCredentialsFile
+                groups = "mobile-dev-team, mobile-qa-team"
+                releaseNotesFile = "commit-changelog.txt"
+            }
         }
         getByName("release") {
             buildConfigField("long", "BUILD_TIME", "${buildTime}l")
@@ -142,6 +157,13 @@ android {
             //minifyEnabled true
             //shrinkResources true
             signingConfig = signingConfigs.getByName("upload")
+
+            firebaseAppDistribution {
+                val androidTemplateServiceCredentialsFile: String? by project
+                serviceCredentialsFile = androidTemplateServiceCredentialsFile
+                groups = "mobile-dev-team, mobile-qa-team"
+                releaseNotesFile = "commit-changelog.txt"
+            }
         }
     }
 
