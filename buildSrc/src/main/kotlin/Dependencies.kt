@@ -51,7 +51,7 @@ object Deps {
     const val TIMBER = "com.jakewharton.timber:timber:4.7.1"
 
     // Inject
-    private const val DAGGER_VERSION = "2.25.4"
+    private const val DAGGER_VERSION = "2.26"
     const val DAGGER = "com.google.dagger:dagger:$DAGGER_VERSION"
     const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
     private const val VIEWMODEL_INJECT_VERSION = "0.3.2-rc01"

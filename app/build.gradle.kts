@@ -18,7 +18,7 @@ plugins {
     id("io.fabric")
     id("com.google.firebase.appdistribution")
     id("com.github.triplet.play") version "2.6.2"
-    id("com.github.jk1.dependency-license-report") version "1.12"
+    id("com.github.jk1.dependency-license-report") version "1.13"
 }
 
 // Manifest version information

@@ -40,38 +40,10 @@
         <item name="android:statusBarColor">@color/primaryDarkColor</item>
 
         <!-- The color below the App (where the clock and battery icons are) -->
-<!--        <item name="android:navigationBarColor">@android:color/holo_orange_light</item>-->
+        <!--        <item name="android:navigationBarColor">@android:color/holo_orange_light</item>-->
 
         <!-- Style of EditText Fields -->
-        <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
+        <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.FilledBox</item>
     </style>
 
-    <!-- ActionBar / ToolBar -->
-    <style name="MainToolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
-        <item name="android:elevation">4dp</item>
-        <item name="popupTheme">@style/Theme.MaterialComponents.DayNight.NoActionBar</item>
-    </style>
-
-    <!-- Lists -->
-    <style name="ListItemLayout">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">?android:attr/listPreferredItemHeight</item>
-        <item name="android:paddingLeft">16dp</item>
-        <item name="android:paddingRight">16dp</item>
-        <item name="android:paddingTop">8dp</item>
-        <item name="android:paddingBottom">8dp</item>
-        <item name="android:background">?android:attr/selectableItemBackground</item> <!-- background will not highlight when row is tapped without this -->
-        <item name="android:gravity">center_vertical</item>
-    </style>
-    <style name="ListItemText">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textAppearance">?android:attr/textAppearanceListItem</item>
-    </style>
-
-    <!-- Text -->
-    <style name="DefaultTextField">
-        <!-- prevent full-screen edit when phone in landscape -->
-        <item name="android:imeOptions">flagNoExtractUi</item>
-    </style>
 </resources>
