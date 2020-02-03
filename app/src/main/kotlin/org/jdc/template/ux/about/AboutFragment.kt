@@ -13,20 +13,17 @@ import androidx.navigation.fragment.findNavController
 import com.vikingsen.inject.viewmodel.savedstate.SavedStateViewModelFactory
 import org.jdc.template.R
 import org.jdc.template.databinding.AboutBinding
-import org.jdc.template.inject.Injector
 import org.jdc.template.ui.fragment.BaseFragment
 import javax.inject.Inject
 
-class AboutFragment : BaseFragment() {
-
-    @Inject
-    lateinit var viewModelFactoryFactory: SavedStateViewModelFactory.Factory
-
+class AboutFragment
+@Inject constructor(
+        private val viewModelFactoryFactory: SavedStateViewModelFactory.Factory
+): BaseFragment() {
     private val viewModel by viewModels<AboutViewModel> { viewModelFactoryFactory.create(this, null) }
     private lateinit var binding: AboutBinding
 
     init {
-        Injector.get().inject(this)
         setHasOptionsMenu(true)
     }
 

@@ -16,20 +16,17 @@ import com.vikingsen.inject.viewmodel.savedstate.SavedStateViewModelFactory
 import kotlinx.coroutines.launch
 import org.jdc.template.R
 import org.jdc.template.databinding.IndividualBinding
-import org.jdc.template.inject.Injector
 import org.jdc.template.ui.fragment.BaseFragment
 import javax.inject.Inject
 
-class IndividualFragment : BaseFragment() {
-
-    @Inject
-    lateinit var viewModelFactoryFactory: SavedStateViewModelFactory.Factory
-
+class IndividualFragment
+@Inject constructor(
+        private val viewModelFactoryFactory: SavedStateViewModelFactory.Factory
+): BaseFragment() {
     private val viewModel by viewModels<IndividualViewModel> { viewModelFactoryFactory.create(this, requireArguments()) }
     private lateinit var binding: IndividualBinding
 
     init {
-        Injector.get().inject(this)
         setHasOptionsMenu(true)
     }
 

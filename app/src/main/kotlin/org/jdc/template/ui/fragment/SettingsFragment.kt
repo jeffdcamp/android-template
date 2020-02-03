@@ -8,21 +8,15 @@ import android.view.ViewGroup
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import org.jdc.template.R
-import org.jdc.template.inject.Injector
 import org.jdc.template.prefs.Prefs
 import org.jdc.template.ui.ThemeManager
 import javax.inject.Inject
 
-class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceClickListener {
-
-    @Inject
-    lateinit var prefs: Prefs
-    @Inject
-    lateinit var themeManager: ThemeManager
-
-    init {
-        Injector.get().inject(this)
-    }
+class SettingsFragment
+@Inject constructor(
+        private val prefs: Prefs,
+        private val themeManager: ThemeManager
+) : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         activity?.setTitle(R.string.menu_settings)

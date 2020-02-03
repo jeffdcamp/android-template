@@ -18,24 +18,21 @@ import me.eugeniomarletti.extras.bundle.base.Int
 import org.jdc.template.R
 import org.jdc.template.databinding.DirectoryBinding
 import org.jdc.template.ext.getScrollPosition
-import org.jdc.template.inject.Injector
 import org.jdc.template.ui.fragment.BaseFragment
 import org.jdc.template.ui.menu.CommonMenu
 import javax.inject.Inject
 
 
-class DirectoryFragment : BaseFragment() {
-    @Inject
-    lateinit var commonMenu: CommonMenu
-    @Inject
-    lateinit var viewModelFactoryFactory: SavedStateViewModelFactory.Factory
-
+class DirectoryFragment
+@Inject constructor(
+        private val commonMenu: CommonMenu,
+        private val viewModelFactoryFactory: SavedStateViewModelFactory.Factory
+) : BaseFragment() {
     private val viewModel by viewModels<DirectoryViewModel> { viewModelFactoryFactory.create(this, null) }
     private lateinit var binding: DirectoryBinding
     private val adapter by lazy { DirectoryAdapter(viewModel) }
 
     init {
-        Injector.get().inject(this)
         setHasOptionsMenu(true)
     }
 
