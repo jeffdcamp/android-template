@@ -27,17 +27,18 @@ object Deps {
     const val ARCH_WORK_RUNTIME = "androidx.work:work-runtime-ktx:$WORKMANAGER_VERSION"
     const val ARCH_WORK_GCM = "androidx.work:work-gcm:$WORKMANAGER_VERSION" // Remove with min SDK 23
 
-    const val ANDROID_MATERIAL = "com.google.android.material:material:1.1.0-rc02" // https://github.com/material-components/material-components-android/releases
+    const val ANDROID_MATERIAL = "com.google.android.material:material:1.1.0" // https://github.com/material-components/material-components-android/releases
 
     // Play Services
     const val PLAYSERVICE_CORE = "com.google.android.play:core-ktx:1.6.4"
     // const val PLAYSERVICE_LICENSES = "com.google.android.gms:play-services-oss-licenses:17.0.0"
 
     // Firebase
-    const val FIREBASE_CORE = "com.google.firebase:firebase-core:17.2.2"
-    const val FIREBASE_PERF = "com.google.firebase:firebase-perf:16.2.3"
-    const val FIREBASE_CONFIG = "com.google.firebase:firebase-config:17.0.0"
-    const val CRASHLYTICS = "com.crashlytics.sdk.android:crashlytics:2.10.1"
+    const val FIREBASE_BOM = "com.google.firebase:firebase-bom:24.6.0" // automatically sets the version for all firebase libs below
+    const val FIREBASE_CORE = "com.google.firebase:firebase-core"
+    const val FIREBASE_PERF = "com.google.firebase:firebase-perf"
+    const val FIREBASE_CONFIG = "com.google.firebase:firebase-config-ktx"
+    const val FIREBASE_CRASHLYTICS = "com.google.firebase:firebase-crashlytics"
 
     // Code
     const val KOTLIN_STD_LIB = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"

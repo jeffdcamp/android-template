@@ -17,6 +17,7 @@ Sample Android app that utilizes common best practices
     * WorkManager
     * Data Binding
 * Dagger dependency injection
+* Fragment, ViewModel, Worker constructor Injection support
 * ThreeTenBp
 * Constraint Layout
 * RecyclerView / ListAdapter / ViewHolder
@@ -31,7 +32,7 @@ Sample Android app that utilizes common best practices
 License
 =======
 
-    Copyright 2014-2019 Jeff Campbell
+    Copyright 2014-2020 Jeff Campbell
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

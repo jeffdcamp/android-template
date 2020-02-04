@@ -15,7 +15,7 @@ plugins {
     kotlin("kapt")
     id("kotlinx-serialization")
     id("androidx.navigation.safeargs.kotlin")
-    id("io.fabric")
+    id("com.google.firebase.crashlytics")
     id("com.google.firebase.appdistribution")
     id("com.github.triplet.play") version "2.6.2"
     id("com.github.jk1.dependency-license-report") version "1.13"
@@ -196,10 +196,11 @@ dependencies {
     implementation(Deps.PLAYSERVICE_CORE)
 
     // Firebase
+    implementation(platform(Deps.FIREBASE_BOM))
     implementation(Deps.FIREBASE_CORE)
 //    implementation(Deps.FIREBASE_PERF)
 //    implementation(Deps.FIREBASE_CONFIG)
-    implementation(Deps.CRASHLYTICS)
+    implementation(Deps.FIREBASE_CRASHLYTICS)
 
     // Code
     implementation(Deps.KOTLIN_STD_LIB)
