@@ -54,7 +54,12 @@ object Deps {
     private const val DAGGER_VERSION = "2.26"
     const val DAGGER = "com.google.dagger:dagger:$DAGGER_VERSION"
     const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
-    private const val VIEWMODEL_INJECT_VERSION = "0.3.2-rc01"
+
+    // Inject helpers
+    private const val FRAGMENT_INJECT_VERSION = "1.0.0"
+    const val FRAGMENT_INJECT = "com.vikingsen.inject:fragment-inject:$FRAGMENT_INJECT_VERSION"
+    const val FRAGMENT_INJECT_PROCESSOR = "com.vikingsen.inject:fragment-inject-processor:$FRAGMENT_INJECT_VERSION"
+    private const val VIEWMODEL_INJECT_VERSION = "0.3.3"
     const val VIEWMODEL_INJECT = "com.vikingsen.inject:viewmodel-inject:$VIEWMODEL_INJECT_VERSION"
     const val VIEWMODEL_INJECT_PROCESSOR = "com.vikingsen.inject:viewmodel-inject-processor:$VIEWMODEL_INJECT_VERSION"
     private const val WORKER_INJECT_VERSION = "0.2.2"

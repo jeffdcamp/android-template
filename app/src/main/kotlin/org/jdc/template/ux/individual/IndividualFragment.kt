@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.vikingsen.inject.fragment.FragmentInject
 import com.vikingsen.inject.viewmodel.savedstate.SavedStateViewModelFactory
 import kotlinx.coroutines.launch
 import org.jdc.template.R
@@ -20,7 +21,7 @@ import org.jdc.template.ui.fragment.BaseFragment
 import javax.inject.Inject
 
 class IndividualFragment
-@Inject constructor(
+@FragmentInject constructor(
         private val viewModelFactoryFactory: SavedStateViewModelFactory.Factory
 ): BaseFragment() {
     private val viewModel by viewModels<IndividualViewModel> { viewModelFactoryFactory.create(this, requireArguments()) }

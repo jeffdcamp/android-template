@@ -7,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import com.vikingsen.inject.fragment.FragmentInject
 import org.jdc.template.R
 import org.jdc.template.prefs.Prefs
 import org.jdc.template.ui.ThemeManager
-import javax.inject.Inject
 
 class SettingsFragment
-@Inject constructor(
+@FragmentInject constructor(
         private val prefs: Prefs,
         private val themeManager: ThemeManager
 ) : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceClickListener {

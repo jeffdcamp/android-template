@@ -10,14 +10,14 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.vikingsen.inject.fragment.FragmentInject
 import com.vikingsen.inject.viewmodel.savedstate.SavedStateViewModelFactory
 import org.jdc.template.R
 import org.jdc.template.databinding.AboutBinding
 import org.jdc.template.ui.fragment.BaseFragment
-import javax.inject.Inject
 
 class AboutFragment
-@Inject constructor(
+@FragmentInject constructor(
         private val viewModelFactoryFactory: SavedStateViewModelFactory.Factory
 ): BaseFragment() {
     private val viewModel by viewModels<AboutViewModel> { viewModelFactoryFactory.create(this, null) }

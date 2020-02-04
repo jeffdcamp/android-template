@@ -8,7 +8,7 @@ import org.jdc.template.ux.startup.StartupActivity
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [AppModule::class, FragmentBindingModule::class])
+@Component(modules = [AppModule::class])
 interface AppComponent {
     fun inject(application: App)
 

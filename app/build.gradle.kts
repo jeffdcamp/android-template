@@ -212,6 +212,10 @@ dependencies {
     // Inject
     implementation(Deps.DAGGER)
     kapt(Deps.DAGGER_COMPILER)
+
+    // Inject helpers
+    implementation(Deps.FRAGMENT_INJECT)
+    kapt(Deps.FRAGMENT_INJECT_PROCESSOR)
     implementation(Deps.VIEWMODEL_INJECT)
     kapt(Deps.VIEWMODEL_INJECT_PROCESSOR)
     implementation(Deps.WORKER_INJECT)

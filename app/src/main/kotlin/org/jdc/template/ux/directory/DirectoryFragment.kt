@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.vikingsen.inject.fragment.FragmentInject
 import com.vikingsen.inject.viewmodel.savedstate.SavedStateViewModelFactory
 import me.eugeniomarletti.extras.bundle.BundleExtra
 import me.eugeniomarletti.extras.bundle.base.Int
@@ -24,7 +25,7 @@ import javax.inject.Inject
 
 
 class DirectoryFragment
-@Inject constructor(
+@FragmentInject constructor(
         private val commonMenu: CommonMenu,
         private val viewModelFactoryFactory: SavedStateViewModelFactory.Factory
 ) : BaseFragment() {

@@ -13,16 +13,16 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.vikingsen.inject.fragment.FragmentInject
 import com.vikingsen.inject.viewmodel.savedstate.SavedStateViewModelFactory
 import org.jdc.template.R
 import org.jdc.template.databinding.IndividualEditBinding
 import org.jdc.template.ui.fragment.BaseFragment
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalTime
-import javax.inject.Inject
 
 class IndividualEditFragment
-@Inject constructor(
+@FragmentInject constructor(
         private val viewModelFactoryFactory: SavedStateViewModelFactory.Factory
 ): BaseFragment() {
     private val viewModel by viewModels<IndividualEditViewModel> { viewModelFactoryFactory.create(this, requireArguments()) }
