@@ -1,6 +1,6 @@
 // Versions for Dependencies AND Build Plugins
 const val KOTLIN_VERSION = "1.3.61"
-const val ANDROIDX_NAVIGATION_VERSION = "2.2.0"
+const val ANDROIDX_NAVIGATION_VERSION = "2.2.1"
 
 object Deps {
     // Android (https://android.googlesource.com/platform/frameworks/support/+/refs/heads/androidx-master-dev/buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt)
@@ -9,21 +9,21 @@ object Deps {
     const val ANDROIDX_RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.1.0"
     const val ANDROIDX_PREFERENCE = "androidx.preference:preference-ktx:1.1.0"
     const val ANDROIDX_CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:1.1.3"
-    const val ANDROIDX_CORE = "androidx.core:core-ktx:1.2.0-rc01"
+    const val ANDROIDX_CORE = "androidx.core:core-ktx:1.2.0"
     const val ANDROIDX_ACTIVITY_KTX = "androidx.activity:activity-ktx:1.1.0"
-    const val ANDROIDX_FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.2.0"
+    const val ANDROIDX_FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.2.1"
 
     private const val LIFECYCLE_VERSION = "2.2.0"
     const val ARCH_LIFECYCLE_EXT = "androidx.lifecycle:lifecycle-extensions:$LIFECYCLE_VERSION"
     const val ARCH_LIFECYCLE_RUNTIME = "androidx.lifecycle:lifecycle-runtime-ktx:$LIFECYCLE_VERSION"
     const val ARCH_LIFECYCLE_VIEWMODEL = "androidx.lifecycle:lifecycle-viewmodel-ktx:$LIFECYCLE_VERSION"
-    const val ARCH_LIFECYCLE_SAVE_STATE = "androidx.lifecycle:lifecycle-viewmodel-savedstate:1.0.0"
+    const val ARCH_LIFECYCLE_SAVE_STATE = "androidx.lifecycle:lifecycle-viewmodel-savedstate:$LIFECYCLE_VERSION"
     const val LIVE_DATA_KTX = "androidx.lifecycle:lifecycle-livedata-ktx:$LIFECYCLE_VERSION"
 
     const val ARCH_NAVIGATION_FRAGMENT = "androidx.navigation:navigation-fragment-ktx:$ANDROIDX_NAVIGATION_VERSION"
     const val ARCH_NAVIGATION_UI = "androidx.navigation:navigation-ui-ktx:$ANDROIDX_NAVIGATION_VERSION"
 
-    private const val WORKMANAGER_VERSION = "2.3.0"
+    private const val WORKMANAGER_VERSION = "2.3.1"
     const val ARCH_WORK_RUNTIME = "androidx.work:work-runtime-ktx:$WORKMANAGER_VERSION"
     const val ARCH_WORK_GCM = "androidx.work:work-gcm:$WORKMANAGER_VERSION" // Remove with min SDK 23
 
