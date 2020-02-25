@@ -7,7 +7,7 @@ import com.github.jk1.license.render.InventoryHtmlReportRenderer
 import com.github.jk1.license.render.JsonReportRenderer
 import com.github.jk1.license.render.ReportRenderer
 import com.github.jk1.license.render.SimpleHtmlReportRenderer
-import java.util.*
+import java.util.Date
 
 plugins {
     id("com.android.application")
@@ -17,7 +17,7 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.firebase.crashlytics")
     id("com.google.firebase.appdistribution")
-    id("com.github.triplet.play") version "2.6.2"
+    id("com.github.triplet.play") version "2.7.1"
     id("com.github.jk1.dependency-license-report") version "1.13"
 }
 
