@@ -1,5 +1,5 @@
 // Versions for Dependencies AND Build Plugins
-const val KOTLIN_VERSION = "1.3.61"
+const val KOTLIN_VERSION = "1.3.70"
 const val ANDROIDX_NAVIGATION_VERSION = "2.2.1"
 
 object Deps {
@@ -34,7 +34,7 @@ object Deps {
     // const val PLAYSERVICE_LICENSES = "com.google.android.gms:play-services-oss-licenses:17.0.0"
 
     // Firebase
-    const val FIREBASE_BOM = "com.google.firebase:firebase-bom:24.7.0" // automatically sets the version for all firebase libs below
+    const val FIREBASE_BOM = "com.google.firebase:firebase-bom:24.7.1" // automatically sets the version for all firebase libs below
     const val FIREBASE_CORE = "com.google.firebase:firebase-core"
     const val FIREBASE_PERF = "com.google.firebase:firebase-perf"
     const val FIREBASE_CONFIG = "com.google.firebase:firebase-config-ktx"
@@ -94,7 +94,7 @@ object Deps {
     const val TEST_JUNIT = "org.junit.jupiter:junit-jupiter:$JUNIT_VERSION"
     const val TEST_JUNIT_ENGINE = "org.junit.jupiter:junit-jupiter-engine:$JUNIT_VERSION"
     const val TEST_OKHTTP_MOCKWEBSERVER = "com.squareup.okhttp3:mockwebserver:$OKHTTP_VERSION"
-    const val TEST_MOCKITO_CORE = "org.mockito:mockito-core:3.3.0"
+    const val TEST_MOCKITO_CORE = "org.mockito:mockito-core:3.3.1"
     const val TEST_THREETENBP = "org.threeten:threetenbp:1.4.1"
     const val TEST_XERIAL_SQLITE = "org.xerial:sqlite-jdbc:3.30.1"
     const val TEST_ARCH_ROOM_TESTING = "androidx.room:room-testing:$ROOM_VERSION"
