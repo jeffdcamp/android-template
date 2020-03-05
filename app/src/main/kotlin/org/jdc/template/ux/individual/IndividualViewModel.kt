@@ -8,6 +8,7 @@ import com.squareup.inject.assisted.Assisted
 import com.vikingsen.inject.viewmodel.ViewModelInject
 import kotlinx.coroutines.launch
 import org.jdc.template.Analytics
+import org.jdc.template.delegates.requireSavedState
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.ui.viewmodel.BaseViewModel
@@ -19,7 +20,7 @@ class IndividualViewModel
         @Assisted savedStateHandle: SavedStateHandle
 ) : BaseViewModel<IndividualViewModel.Event>() {
 
-    private val individualId: Long = requireNotNull(savedStateHandle["individualId"]) { "individualId cannot be null" }
+    private val individualId: Long by requireSavedState(savedStateHandle, "individualId")
     val individual: LiveData<Individual> = individualRepository.getIndividualFlow(individualId).asLiveData()
 
     init {
