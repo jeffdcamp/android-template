@@ -75,11 +75,11 @@ class ServiceModule {
 
     @Provides
     @Singleton
-    fun getColorService(@Named(STANDARD_CLIENT) client: OkHttpClient): ColorService {
+    fun getColorService(@Named(STANDARD_CLIENT) client: OkHttpClient, json: Json): ColorService {
         val retrofit = Retrofit.Builder()
             .baseUrl(ColorService.BASE_URL)
             .client(client)
-            .addConverterFactory(Json.nonstrict.asConverterFactory("application/json".toMediaType()))
+            .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
             .build()
 
         return retrofit.create()

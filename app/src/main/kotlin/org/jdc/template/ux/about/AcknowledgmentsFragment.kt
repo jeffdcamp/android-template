@@ -13,6 +13,7 @@ import android.webkit.WebViewClient
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.vikingsen.inject.fragment.FragmentInject
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import org.intellij.lang.annotations.Language
@@ -20,7 +21,10 @@ import org.jdc.template.R
 import org.jdc.template.databinding.AcknowledgmentsFragmentBinding
 import timber.log.Timber
 
-class AcknowledgmentsFragment : Fragment() {
+class AcknowledgmentsFragment
+@FragmentInject constructor(
+        private val json: Json
+) : Fragment() {
 
     private lateinit var binding: AcknowledgmentsFragmentBinding
 
@@ -56,9 +60,9 @@ class AcknowledgmentsFragment : Fragment() {
             val jsonFilename = "licenses.json"
 
             // read the file
-            val json = requireContext().assets.open(jsonFilename).bufferedReader().use { it.readText() }
+            val licenseJson = requireContext().assets.open(jsonFilename).bufferedReader().use { it.readText() }
 
-            val licensesDto = Json.nonstrict.parse(LicensesDto.serializer(), json)
+            val licensesDto = json.parse(LicensesDto.serializer(), licenseJson)
 
             val html = renderHtml(licensesDto.dependencies)
             binding.webview.loadData(html, "text/html", "utf-8")

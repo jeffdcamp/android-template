@@ -6,6 +6,8 @@ import androidx.preference.PreferenceManager
 import com.google.firebase.analytics.FirebaseAnalytics
 import dagger.Module
 import dagger.Provides
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonConfiguration
 import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
 import org.jdc.template.model.webservice.ServiceModule
@@ -24,6 +26,16 @@ class AppModule(private val application: Application) {
     @Provides
     fun provideSharedPreferences(application: Application): SharedPreferences {
         return PreferenceManager.getDefaultSharedPreferences(application)
+    }
+
+    @Provides
+    @Singleton
+    fun provideJson(): Json {
+        return Json(JsonConfiguration.Stable.copy(
+                ignoreUnknownKeys = true,
+                serializeSpecialFloatingPointValues = true,
+                useArrayPolymorphism = true
+        ))
     }
 
     @Provides
