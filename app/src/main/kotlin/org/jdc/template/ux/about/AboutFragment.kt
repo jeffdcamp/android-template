@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.vikingsen.inject.fragment.FragmentInject
 import com.vikingsen.inject.viewmodel.savedstate.SavedStateViewModelFactory
 import org.jdc.template.R
-import org.jdc.template.databinding.AboutBinding
+import org.jdc.template.databinding.AboutFragmentBinding
 import org.jdc.template.ui.fragment.BaseFragment
 
 class AboutFragment
@@ -21,14 +21,14 @@ class AboutFragment
         private val viewModelFactoryFactory: SavedStateViewModelFactory.Factory
 ): BaseFragment() {
     private val viewModel by viewModels<AboutViewModel> { viewModelFactoryFactory.create(this, null) }
-    private lateinit var binding: AboutBinding
+    private lateinit var binding: AboutFragmentBinding
 
     init {
         setHasOptionsMenu(true)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.about, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.about_fragment, container, false)
         return binding.root
     }
 

@@ -16,7 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.vikingsen.inject.fragment.FragmentInject
 import com.vikingsen.inject.viewmodel.savedstate.SavedStateViewModelFactory
 import org.jdc.template.R
-import org.jdc.template.databinding.IndividualEditBinding
+import org.jdc.template.databinding.IndividualEditFragmentBinding
 import org.jdc.template.ui.fragment.BaseFragment
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalTime
@@ -26,14 +26,14 @@ class IndividualEditFragment
         private val viewModelFactoryFactory: SavedStateViewModelFactory.Factory
 ): BaseFragment() {
     private val viewModel by viewModels<IndividualEditViewModel> { viewModelFactoryFactory.create(this, requireArguments()) }
-    private lateinit var binding: IndividualEditBinding
+    private lateinit var binding: IndividualEditFragmentBinding
 
     init {
         setHasOptionsMenu(true)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.individual_edit, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.individual_edit_fragment, container, false)
         return binding.root
     }
 

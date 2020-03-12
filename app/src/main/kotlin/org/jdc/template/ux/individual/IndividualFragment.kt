@@ -16,23 +16,22 @@ import com.vikingsen.inject.fragment.FragmentInject
 import com.vikingsen.inject.viewmodel.savedstate.SavedStateViewModelFactory
 import kotlinx.coroutines.launch
 import org.jdc.template.R
-import org.jdc.template.databinding.IndividualBinding
+import org.jdc.template.databinding.IndividualFragmentBinding
 import org.jdc.template.ui.fragment.BaseFragment
-import javax.inject.Inject
 
 class IndividualFragment
 @FragmentInject constructor(
         private val viewModelFactoryFactory: SavedStateViewModelFactory.Factory
 ): BaseFragment() {
     private val viewModel by viewModels<IndividualViewModel> { viewModelFactoryFactory.create(this, requireArguments()) }
-    private lateinit var binding: IndividualBinding
+    private lateinit var binding: IndividualFragmentBinding
 
     init {
         setHasOptionsMenu(true)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.individual, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.individual_fragment, container, false)
         return binding.root
     }
 

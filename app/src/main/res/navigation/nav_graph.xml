@@ -9,7 +9,7 @@
         android:id="@+id/directoryFragment"
         android:name="org.jdc.template.ux.directory.DirectoryFragment"
         android:label="Directory"
-        tools:layout="@layout/directory"
+        tools:layout="@layout/directory_fragment"
         >
         <action
             android:id="@+id/showIndividual"
@@ -24,7 +24,7 @@
         android:id="@+id/individualFragment"
         android:name="org.jdc.template.ux.individual.IndividualFragment"
         android:label="Individual"
-        tools:layout="@layout/individual"
+        tools:layout="@layout/individual_fragment"
         >
         <action
             android:id="@+id/editIndividual"
@@ -37,7 +37,7 @@
         android:id="@+id/individualEditFragment"
         android:name="org.jdc.template.ux.individualedit.IndividualEditFragment"
         android:label="Edit Individual"
-        tools:layout="@layout/individual_edit">
+        tools:layout="@layout/individual_edit_fragment">
         <argument
             android:name="individualId"
             android:defaultValue="0L"
@@ -53,7 +53,7 @@
         android:id="@+id/aboutFragment"
         android:name="org.jdc.template.ux.about.AboutFragment"
         android:label="About"
-        tools:layout="@layout/about">
+        tools:layout="@layout/about_fragment">
         <action
             android:id="@+id/action_aboutFragment_to_acknowledgmentsFragment"
             app:destination="@id/acknowledgmentsFragment" />
