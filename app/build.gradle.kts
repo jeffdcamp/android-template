@@ -17,7 +17,7 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.firebase.crashlytics")
     id("com.google.firebase.appdistribution")
-    id("com.github.triplet.play") version "2.7.2"
+    id("com.github.triplet.play") version "2.7.3"
     id("com.github.jk1.dependency-license-report") version "1.13"
 }
 
