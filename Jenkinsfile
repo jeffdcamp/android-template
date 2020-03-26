@@ -56,11 +56,6 @@ pipeline {
                         sh "${CHANGELOG_CMD}"
                         sh './gradlew clean assembleAlpha appDistributionUploadAlpha'
                     }
-                    post {
-                        always {
-                            archiveArtifacts "app/build/outputs/apk/alpha/${APP_MODULE_NAME}-alpha.apk"
-                        }
-                    }
                 }
                 stage("Test") {
                     steps {
@@ -89,11 +84,6 @@ pipeline {
 //                    }
                     steps {
                         sh './gradlew publishAlphaBundle'
-                    }
-                    post {
-                        always {
-                            archiveArtifacts "app/build/outputs/bundle/alpha/${APP_MODULE_NAME}-alpha.aab"
-                        }
                     }
                 }
             }
