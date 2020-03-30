@@ -28,7 +28,7 @@ class DirectoryFragment
         private val commonMenu: CommonMenu,
         private val viewModelFactoryFactory: SavedStateViewModelFactory.Factory
 ) : BaseFragment() {
-    private val viewModel by viewModels<DirectoryViewModel> { viewModelFactoryFactory.create(this, null) }
+    private val viewModel: DirectoryViewModel by viewModels { viewModelFactoryFactory.create(this, null) }
     private lateinit var binding: DirectoryFragmentBinding
     private val adapter by lazy { DirectoryAdapter(viewModel) }
 

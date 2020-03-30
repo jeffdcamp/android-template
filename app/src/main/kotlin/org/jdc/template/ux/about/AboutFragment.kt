@@ -20,7 +20,7 @@ class AboutFragment
 @FragmentInject constructor(
         private val viewModelFactoryFactory: SavedStateViewModelFactory.Factory
 ): BaseFragment() {
-    private val viewModel by viewModels<AboutViewModel> { viewModelFactoryFactory.create(this, null) }
+    private val viewModel: AboutViewModel by viewModels { viewModelFactoryFactory.create(this, null) }
     private lateinit var binding: AboutFragmentBinding
 
     init {

@@ -21,7 +21,7 @@ class StartupActivity : BaseActivity() {
     @Inject
     lateinit var viewModelFactoryFactory: SavedStateViewModelFactory.Factory
 
-    private val viewModel by viewModels<StartupViewModel> { viewModelFactoryFactory.create(this, null) }
+    private val viewModel: StartupViewModel by viewModels { viewModelFactoryFactory.create(this, null) }
 
     init {
         Injector.get().inject(this)

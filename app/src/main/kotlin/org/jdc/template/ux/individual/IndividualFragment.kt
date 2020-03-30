@@ -23,7 +23,7 @@ class IndividualFragment
 @FragmentInject constructor(
         private val viewModelFactoryFactory: SavedStateViewModelFactory.Factory
 ): BaseFragment() {
-    private val viewModel by viewModels<IndividualViewModel> { viewModelFactoryFactory.create(this, requireArguments()) }
+    private val viewModel: IndividualViewModel by viewModels { viewModelFactoryFactory.create(this, requireArguments()) }
     private lateinit var binding: IndividualFragmentBinding
 
     init {
