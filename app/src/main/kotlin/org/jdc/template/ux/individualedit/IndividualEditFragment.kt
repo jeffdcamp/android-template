@@ -46,10 +46,10 @@ class IndividualEditFragment
         super.onActivityCreated(savedInstanceState)
         activity?.setTitle(R.string.individual)
 
-        setupViewModel()
+        setupViewModelObservers()
     }
 
-    private fun setupViewModel() {
+    private fun setupViewModelObservers() {
         // Events
         lifecycleScope.launchWhenStarted {
             for (event in viewModel.eventChannel) {

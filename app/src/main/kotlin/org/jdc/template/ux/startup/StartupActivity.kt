@@ -30,12 +30,12 @@ class StartupActivity : BaseActivity() {
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash_activity)
-        setupViewModel()
+        setupViewModelObservers()
 
         themeManager.applyTheme()
     }
 
-    private fun setupViewModel() {
+    private fun setupViewModelObservers() {
         // Events
         lifecycleScope.launchWhenStarted {
             for (event in viewModel.eventChannel) {

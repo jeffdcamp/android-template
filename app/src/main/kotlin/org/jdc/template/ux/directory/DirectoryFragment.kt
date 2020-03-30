@@ -55,10 +55,10 @@ class DirectoryFragment
 
         savedInstanceState?.let { restoreState(it) }
 
-        setupViewModel()
+        setupViewModelObservers()
     }
 
-    private fun setupViewModel() {
+    private fun setupViewModelObservers() {
         viewModel.getDirectoryList().observeKt { list ->
             adapter.submitList(list)
         }

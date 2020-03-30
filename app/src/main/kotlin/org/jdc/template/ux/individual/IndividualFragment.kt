@@ -44,10 +44,10 @@ class IndividualFragment
 
         activity?.setTitle(R.string.individual)
 
-        setupViewModel()
+        setupViewModelObservers()
     }
 
-    private fun setupViewModel() {
+    private fun setupViewModelObservers() {
         viewModel.individual.observeKt {
             binding.individual = it
         }
