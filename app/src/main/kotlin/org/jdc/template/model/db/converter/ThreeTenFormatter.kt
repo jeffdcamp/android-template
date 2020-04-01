@@ -1,9 +1,9 @@
 package org.jdc.template.model.db.converter
 
-import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalTime
-import org.threeten.bp.OffsetDateTime
-import org.threeten.bp.format.DateTimeFormatter
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 
 object ThreeTenFormatter {
     // OffsetDateTime

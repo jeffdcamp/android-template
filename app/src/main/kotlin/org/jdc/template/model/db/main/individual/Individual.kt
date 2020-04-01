@@ -3,9 +3,9 @@ package org.jdc.template.model.db.main.individual
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import org.jdc.template.model.db.main.type.IndividualType
-import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalTime
-import org.threeten.bp.OffsetDateTime
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.OffsetDateTime
 
 @Entity
 data class Individual(

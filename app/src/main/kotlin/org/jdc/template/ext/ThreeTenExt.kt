@@ -1,7 +1,7 @@
 package org.jdc.template.ext
 
-import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalTime
+import java.time.LocalDate
+import java.time.LocalTime
 import java.util.Calendar
 
 fun LocalTime.toCalendar(): Calendar {

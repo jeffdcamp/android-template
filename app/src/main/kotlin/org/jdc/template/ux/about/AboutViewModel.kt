@@ -17,11 +17,11 @@ import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.model.webservice.colors.ColorService
 import org.jdc.template.model.webservice.colors.dto.ColorsDto
 import org.jdc.template.work.WorkScheduler
-import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalTime
 import retrofit2.Response
 import timber.log.Timber
 import java.io.File
+import java.time.LocalDate
+import java.time.LocalTime
 
 class AboutViewModel
 @ViewModelInject constructor(

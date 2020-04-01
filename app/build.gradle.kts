@@ -70,12 +70,15 @@ android {
     }
 
     compileOptions {
+        // Flag to enable support for the new language APIs
+        coreLibraryDesugaringEnabled = true
+
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
-    dataBinding {
-        isEnabled = true
+    buildFeatures {
+        dataBinding = true
     }
 
     lintOptions {
@@ -182,6 +185,7 @@ android {
 
 dependencies {
     // Android
+    coreLibraryDesugaring(Deps.ANDROID_DESUGAR_JDK_LIBS)
     implementation(Deps.ANDROIDX_APPCOMPAT)
     implementation(Deps.ANDROIDX_RECYCLERVIEW)
     implementation(Deps.ANDROIDX_PREFERENCE)
@@ -207,7 +211,6 @@ dependencies {
     implementation(Deps.KOTLIN_SERIALIZATION)
     implementation(Deps.COROUTINES)
     implementation(Deps.EXTRAS_DELEGATES)
-    implementation(Deps.THREETEN_ABP)
     implementation(Deps.TIMBER)
 
     // Inject
@@ -271,7 +274,6 @@ dependencies {
     testImplementation(Deps.TEST_MOCKITO_KOTLIN)
     testImplementation(Deps.TEST_MOCKITO_CORE)
     testImplementation(Deps.TEST_KOTLIN_COROUTINES_TEST)
-    testImplementation(Deps.TEST_THREETENBP)
     testImplementation(Deps.TEST_OKHTTP_MOCKWEBSERVER)
     testImplementation(Deps.TEST_XERIAL_SQLITE)
     testImplementation(Deps.TEST_ARCH_ROOM_TESTING)

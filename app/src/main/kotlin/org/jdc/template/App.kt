@@ -3,7 +3,6 @@ package org.jdc.template
 import android.app.Application
 import androidx.work.Configuration
 import com.google.firebase.crashlytics.FirebaseCrashlytics
-import com.jakewharton.threetenabp.AndroidThreeTen
 import com.vikingsen.inject.worker.WorkerFactory
 import org.jdc.template.inject.Injector
 import org.jdc.template.log.DebugTree
@@ -29,7 +28,6 @@ class App : Application(), Configuration.Provider {
 
     override fun onCreate() {
         super.onCreate()
-        AndroidThreeTen.init(this)
         // Initialize dependency injection
         Injector.get().inject(this)
 

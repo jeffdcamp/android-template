@@ -18,8 +18,8 @@ import com.vikingsen.inject.viewmodel.savedstate.SavedStateViewModelFactory
 import org.jdc.template.R
 import org.jdc.template.databinding.IndividualEditFragmentBinding
 import org.jdc.template.ui.fragment.BaseFragment
-import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalTime
+import java.time.LocalDate
+import java.time.LocalTime
 
 class IndividualEditFragment
 @FragmentInject constructor(

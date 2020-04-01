@@ -7,12 +7,12 @@ import kotlinx.serialization.PrimitiveDescriptor
 import kotlinx.serialization.PrimitiveKind
 import kotlinx.serialization.SerialDescriptor
 import kotlinx.serialization.Serializer
-import org.threeten.bp.Instant
-import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalDateTime
-import org.threeten.bp.LocalTime
-import org.threeten.bp.OffsetDateTime
-import org.threeten.bp.format.DateTimeFormatter
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 
 @Serializer(forClass = OffsetDateTime::class)
 object OffsetDateTimeSerializer: KSerializer<OffsetDateTime> {

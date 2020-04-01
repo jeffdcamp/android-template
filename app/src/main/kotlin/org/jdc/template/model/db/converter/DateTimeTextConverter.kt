@@ -1,9 +1,9 @@
 package org.jdc.template.model.db.converter
 
 import androidx.room.TypeConverter
-import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalTime
-import org.threeten.bp.OffsetDateTime
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.OffsetDateTime
 
 class DateTimeTextConverter {
     @TypeConverter

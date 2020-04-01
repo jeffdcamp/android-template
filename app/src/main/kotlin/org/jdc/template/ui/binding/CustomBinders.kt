@@ -3,9 +3,9 @@ package org.jdc.template.ui.binding
 import android.text.format.DateUtils
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalTime
-import org.threeten.bp.OffsetDateTime
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.OffsetDateTime
 
 object CustomBinders {
     @JvmStatic

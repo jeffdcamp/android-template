@@ -11,8 +11,8 @@ import org.jdc.template.delegates.requireSavedState
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.ui.viewmodel.BaseViewModel
-import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalTime
+import java.time.LocalDate
+import java.time.LocalTime
 
 class IndividualEditViewModel
 @ViewModelInject constructor(

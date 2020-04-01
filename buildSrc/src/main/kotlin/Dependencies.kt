@@ -4,6 +4,7 @@ const val ANDROIDX_NAVIGATION_VERSION = "2.2.1"
 
 object Deps {
     // Android (https://android.googlesource.com/platform/frameworks/support/+/refs/heads/androidx-master-dev/buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt)
+    const val ANDROID_DESUGAR_JDK_LIBS = "com.android.tools:desugar_jdk_libs:1.0.5"
     const val ANDROIDX_ANNOTATIONS = "androidx.annotation:annotation:1.1.0"
     const val ANDROIDX_APPCOMPAT = "androidx.appcompat:appcompat:1.1.0"
     const val ANDROIDX_RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.1.0"
@@ -48,7 +49,6 @@ object Deps {
     const val RETROFIT = "com.squareup.retrofit2:retrofit:2.8.1"
     const val KOTLIN_RETROFIT_CONVERTER = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.5.0"
     const val EXTRAS_DELEGATES = "me.eugeniomarletti:android-extras-delegates:1.0.5"
-    const val THREETEN_ABP = "com.jakewharton.threetenabp:threetenabp:1.2.2"
     const val TIMBER = "com.jakewharton.timber:timber:4.7.1"
 
     // Inject
@@ -95,7 +95,6 @@ object Deps {
     const val TEST_JUNIT_ENGINE = "org.junit.jupiter:junit-jupiter-engine:$JUNIT_VERSION"
     const val TEST_OKHTTP_MOCKWEBSERVER = "com.squareup.okhttp3:mockwebserver:$OKHTTP_VERSION"
     const val TEST_MOCKITO_CORE = "org.mockito:mockito-core:3.3.3"
-    const val TEST_THREETENBP = "org.threeten:threetenbp:1.4.2"
     const val TEST_XERIAL_SQLITE = "org.xerial:sqlite-jdbc:3.30.1"
     const val TEST_ARCH_ROOM_TESTING = "androidx.room:room-testing:$ROOM_VERSION"
     const val TEST_DBTOOLS_ROOM_JDBC = "org.dbtools:dbtools-room-jdbc:$DBTOOLS_VERSION"

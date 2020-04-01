@@ -5,7 +5,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
-import org.threeten.bp.OffsetDateTime
+import java.time.OffsetDateTime
 
 @Dao
 interface IndividualDao {
