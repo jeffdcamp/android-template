@@ -11,13 +11,11 @@ import org.jdc.template.ui.viewmodel.BaseViewModel
 
 class DirectoryViewModel
 @ViewModelInject constructor(
-        private val individualRepository: IndividualRepository,
+        individualRepository: IndividualRepository,
         @Assisted savedStateHandle: SavedStateHandle
 ) : BaseViewModel<DirectoryViewModel.Event>() {
 
-    fun getDirectoryList(): LiveData<List<DirectoryItem>> {
-        return individualRepository.getDirectoryListFlow().asLiveData()
-    }
+    val directoryListLiveData: LiveData<List<DirectoryItem>> = individualRepository.getDirectoryListFlow().asLiveData()
 
     fun addIndividual() {
         sendEvent(Event.NewIndividualEvent)

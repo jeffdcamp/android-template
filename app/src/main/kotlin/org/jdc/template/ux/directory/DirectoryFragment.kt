@@ -59,7 +59,7 @@ class DirectoryFragment
     }
 
     private fun setupViewModelObservers() {
-        viewModel.getDirectoryList().observeKt { list ->
+        viewModel.directoryListLiveData.observeKt { list ->
             adapter.submitList(list)
         }
 
