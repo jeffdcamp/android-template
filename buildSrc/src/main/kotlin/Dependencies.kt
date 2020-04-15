@@ -1,5 +1,5 @@
 // Versions for Dependencies AND Build Plugins
-const val KOTLIN_VERSION = "1.3.71"
+const val KOTLIN_VERSION = "1.3.72"
 const val ANDROIDX_NAVIGATION_VERSION = "2.2.1"
 
 object Deps {

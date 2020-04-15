@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     environment {
+        APP_ARCHIVE_NAME = 'app'
         APP_MODULE_NAME = 'android-template'
         CHANGELOG_CMD = 'git log --date=format:"%Y-%m-%d" --pretty="format: * %s% b (%an, %cd)" | head -n 10 > commit-changelog.txt'
     }
@@ -101,7 +102,7 @@ pipeline {
                     }
                     post {
                         always {
-                            archiveArtifacts "app/build/outputs/apk/preview/${APP_MODULE_NAME}-preview.apk"
+                            archiveArtifacts "app/build/outputs/apk/preview/${APP_ARCHIVE_NAME}-preview.apk"
                         }
                     }
                 }
@@ -135,7 +136,7 @@ pipeline {
                     }
                     post {
                         always {
-                            archiveArtifacts "app/build/outputs/bundle/preview/${APP_MODULE_NAME}-preview.aab"
+                            archiveArtifacts "app/build/outputs/bundle/preview/${APP_ARCHIVE_NAME}-preview.aab"
                         }
                     }
                 }
@@ -153,7 +154,7 @@ pipeline {
                     }
                     post {
                         always {
-                            archiveArtifacts "app/build/outputs/apk/beta/${APP_MODULE_NAME}-beta.apk"
+                            archiveArtifacts "app/build/outputs/apk/beta/${APP_ARCHIVE_NAME}-beta.apk"
                         }
                     }
                 }
@@ -187,7 +188,7 @@ pipeline {
                     }
                     post {
                         always {
-                            archiveArtifacts "app/build/outputs/bundle/beta/${APP_MODULE_NAME}-beta.aab"
+                            archiveArtifacts "app/build/outputs/bundle/beta/${APP_ARCHIVE_NAME}-beta.aab"
                         }
                     }
                 }
@@ -205,7 +206,7 @@ pipeline {
                     }
                     post {
                         always {
-                            archiveArtifacts "app/build/outputs/apk/release/${APP_MODULE_NAME}-release.apk"
+                            archiveArtifacts "app/build/outputs/apk/release/${APP_ARCHIVE_NAME}-release.apk"
                         }
                     }
                 }
@@ -239,7 +240,7 @@ pipeline {
                     }
                     post {
                         always {
-                            archiveArtifacts "app/build/outputs/bundle/release/${APP_MODULE_NAME}-release.aab"
+                            archiveArtifacts "app/build/outputs/bundle/release/${APP_ARCHIVE_NAME}-release.aab"
                         }
                     }
                 }
