@@ -25,7 +25,7 @@ abstract class BaseFragment : Fragment() {
                 Timber.w("Cannot post null value to a non-null LiveData")
             }
         }
-        observe(this@BaseFragment, wrappedObserver)
+        observe(viewLifecycleOwner, wrappedObserver)
         return wrappedObserver
     }
 
@@ -43,7 +43,7 @@ abstract class BaseFragment : Fragment() {
     @MainThread
     protected inline fun <T> LiveData<T>.observeByFragment(crossinline onChanged: (T?) -> Unit): Observer<T> {
         val wrappedObserver = Observer<T> { value -> onChanged.invoke(value) }
-        observe(this@BaseFragment, wrappedObserver)
+        observe(viewLifecycleOwner, wrappedObserver)
         return wrappedObserver
     }
 
@@ -56,7 +56,7 @@ abstract class BaseFragment : Fragment() {
                 Timber.i("Cannot post null value to a non-null LiveData")
             }
         }
-        observe(this@BaseFragment, wrappedObserver)
+        observe(viewLifecycleOwner, wrappedObserver)
         return wrappedObserver
     }
 
@@ -67,7 +67,7 @@ abstract class BaseFragment : Fragment() {
                 onChanged.invoke(value)
             }
         }
-        observe(this@BaseFragment, wrappedObserver)
+        observe(viewLifecycleOwner, wrappedObserver)
         return wrappedObserver
     }
 }
