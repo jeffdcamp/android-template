@@ -19,8 +19,8 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock
 import org.mockito.MockitoAnnotations
-import org.threeten.bp.LocalTime
 import timber.log.Timber
+import java.time.LocalTime
 import javax.inject.Inject
 import javax.inject.Singleton
 
