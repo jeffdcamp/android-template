@@ -94,7 +94,7 @@ object Deps {
     const val TEST_JUNIT_ENGINE = "org.junit.jupiter:junit-jupiter-engine:$JUNIT_VERSION"
     const val TEST_OKHTTP_MOCKWEBSERVER = "com.squareup.okhttp3:mockwebserver:$OKHTTP_VERSION"
     const val TEST_MOCKITO_CORE = "org.mockito:mockito-core:3.3.3"
-    const val TEST_XERIAL_SQLITE = "org.xerial:sqlite-jdbc:3.30.1"
+    const val TEST_XERIAL_SQLITE = "org.xerial:sqlite-jdbc:3.31.1"
     const val TEST_ARCH_ROOM_TESTING = "androidx.room:room-testing:$ROOM_VERSION"
     const val TEST_DBTOOLS_ROOM_JDBC = "org.dbtools:dbtools-room-jdbc:$DBTOOLS_VERSION"
     const val TEST_KOTLIN_COROUTINES_TEST = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$COROUTINES_VERSION"
