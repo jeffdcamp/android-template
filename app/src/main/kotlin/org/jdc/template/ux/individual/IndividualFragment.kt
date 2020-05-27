@@ -41,9 +41,6 @@ class IndividualFragment
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        activity?.setTitle(R.string.individual)
-
         setupViewModelObservers()
     }
 

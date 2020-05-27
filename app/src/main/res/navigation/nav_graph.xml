@@ -1,71 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/mainNavigation"
-            app:startDestination="@id/directoryFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainNavigation"
+    app:startDestination="@id/directoryFragment"
+    >
 
     <fragment
         android:id="@+id/directoryFragment"
         android:name="org.jdc.template.ux.directory.DirectoryFragment"
-        android:label="Directory"
+        android:label="@string/directory"
         tools:layout="@layout/directory_fragment"
         >
         <action
-            android:id="@+id/showIndividual"
+            android:id="@+id/individual"
             app:destination="@id/individualFragment"
-            >
-        </action>
+            ></action>
         <action
             android:id="@+id/newIndividual"
-            app:destination="@id/individualEditFragment"/>
+            app:destination="@id/individualEditFragment"
+            />
     </fragment>
     <fragment
         android:id="@+id/individualFragment"
         android:name="org.jdc.template.ux.individual.IndividualFragment"
-        android:label="Individual"
+        android:label="@string/individual"
         tools:layout="@layout/individual_fragment"
         >
         <action
             android:id="@+id/editIndividual"
-            app:destination="@id/individualEditFragment"/>
+            app:destination="@id/individualEditFragment"
+            />
         <argument
             android:name="individualId"
-            app:argType="long"/>
+            app:argType="long"
+            />
     </fragment>
     <fragment
         android:id="@+id/individualEditFragment"
         android:name="org.jdc.template.ux.individualedit.IndividualEditFragment"
-        android:label="Edit Individual"
-        tools:layout="@layout/individual_edit_fragment">
+        android:label="@string/edit_individual"
+        tools:layout="@layout/individual_edit_fragment"
+        >
         <argument
             android:name="individualId"
             android:defaultValue="0L"
-            app:argType="long"/>
+            app:argType="long"
+            />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="org.jdc.template.ui.fragment.SettingsFragment"
-        android:label="Settings"
-        >
-    </fragment>
+        android:label="@string/settings"
+        ></fragment>
     <fragment
         android:id="@+id/aboutFragment"
         android:name="org.jdc.template.ux.about.AboutFragment"
-        android:label="About"
-        tools:layout="@layout/about_fragment">
+        android:label="@string/about"
+        tools:layout="@layout/about_fragment"
+        >
         <action
-            android:id="@+id/action_aboutFragment_to_acknowledgmentsFragment"
-            app:destination="@id/acknowledgmentsFragment" />
+            android:id="@+id/acknowledgments"
+            app:destination="@id/acknowledgmentsFragment"
+            />
     </fragment>
     <action
         android:id="@+id/settings"
-        app:destination="@id/settingsFragment"/>
+        app:destination="@id/settingsFragment"
+        />
     <action
         android:id="@+id/about"
-        app:destination="@id/aboutFragment"/>
+        app:destination="@id/aboutFragment"
+        />
     <fragment
         android:id="@+id/acknowledgmentsFragment"
         android:name="org.jdc.template.ux.about.AcknowledgmentsFragment"
-        android:label="acknowledgments" />
+        android:label="@string/acknowledgments"
+        />
 </navigation>

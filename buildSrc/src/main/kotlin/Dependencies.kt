@@ -1,11 +1,10 @@
 // Versions for Dependencies AND Build Plugins
 const val KOTLIN_VERSION = "1.3.72"
-const val ANDROIDX_NAVIGATION_VERSION = "2.2.2"
+const val ANDROIDX_NAVIGATION_VERSION = "2.3.0-beta01"
 
 object Deps {
     // Android (https://android.googlesource.com/platform/frameworks/support/+/refs/heads/androidx-master-dev/buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt)
     const val ANDROID_DESUGAR_JDK_LIBS = "com.android.tools:desugar_jdk_libs:1.0.5"
-    const val ANDROIDX_ANNOTATIONS = "androidx.annotation:annotation:1.1.0"
     const val ANDROIDX_APPCOMPAT = "androidx.appcompat:appcompat:1.1.0"
     const val ANDROIDX_RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.1.0"
     const val ANDROIDX_PREFERENCE = "androidx.preference:preference-ktx:1.1.1"
@@ -35,7 +34,7 @@ object Deps {
     // const val PLAYSERVICE_LICENSES = "com.google.android.gms:play-services-oss-licenses:17.0.0"
 
     // Firebase - https://firebase.google.com/support/release-notes/android
-    const val FIREBASE_BOM = "com.google.firebase:firebase-bom:25.3.0" // automatically sets the version for all firebase libs below
+    const val FIREBASE_BOM = "com.google.firebase:firebase-bom:25.4.0" // automatically sets the version for all firebase libs below
     const val FIREBASE_CORE = "com.google.firebase:firebase-core"
     const val FIREBASE_PERF = "com.google.firebase:firebase-perf"
     const val FIREBASE_CONFIG = "com.google.firebase:firebase-config-ktx"
@@ -44,15 +43,15 @@ object Deps {
     // Code
     const val KOTLIN_STD_LIB = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
     const val KOTLIN_SERIALIZATION = "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.20.0"
-    private const val COROUTINES_VERSION = "1.3.4"
+    private const val COROUTINES_VERSION = "1.3.7"
     const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINES_VERSION"
-    const val RETROFIT = "com.squareup.retrofit2:retrofit:2.8.1"
+    const val RETROFIT = "com.squareup.retrofit2:retrofit:2.9.0"
     const val KOTLIN_RETROFIT_CONVERTER = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.5.0"
     const val EXTRAS_DELEGATES = "me.eugeniomarletti:android-extras-delegates:1.0.5"
     const val TIMBER = "com.jakewharton.timber:timber:4.7.1"
 
     // Inject
-    private const val DAGGER_VERSION = "2.27"
+    private const val DAGGER_VERSION = "2.28"
     const val DAGGER = "com.google.dagger:dagger:$DAGGER_VERSION"
     const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
 
@@ -72,22 +71,22 @@ object Deps {
     const val ARCH_ROOM_RUNTIME = "androidx.room:room-runtime:$ROOM_VERSION"
     const val ARCH_ROOM_KTX = "androidx.room:room-ktx:$ROOM_VERSION"
     const val ARCH_ROOM_COMPILER = "androidx.room:room-compiler:$ROOM_VERSION"
-    private const val DBTOOLS_VERSION = "5.6.0"
+    private const val DBTOOLS_VERSION = "5.6.1"
     const val DBTOOLS_ROOM = "org.dbtools:dbtools-room:$DBTOOLS_VERSION"
     const val DBTOOLS_ROOM_SQLITE = "org.dbtools:dbtools-room-sqliteorg:$DBTOOLS_VERSION"
 
     // Network
-    private const val OKHTTP_VERSION = "4.6.0" // https://github.com/square/okhttp/blob/master/CHANGELOG.md
+    private const val OKHTTP_VERSION = "4.7.2" // https://github.com/square/okhttp/blob/master/CHANGELOG.md
     const val OKHTTP = "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION"
     const val OKHTTP_LOGGING_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION"
 
     // Test - Integration
-    private const val ESPRESSO_VERSION = "3.2.0"
+    private const val ESPRESSO_VERSION = "3.3.0-beta02"
     const val TEST_ESPRESSO_CORE = "androidx.test.espresso:espresso-core:$ESPRESSO_VERSION"
     const val TEST_ESPRESSO_CONTRIB = "androidx.test.espresso:espresso-contrib:$ESPRESSO_VERSION"
-    const val TEST_RUNNER = "androidx.test:runner:1.2.0"
-    const val TEST_RULES = "androidx.test:rules:1.2.0"
-    const val TEST_ANDROIDX_JUNIT = "androidx.test.ext:junit:1.1.1"
+    const val TEST_RUNNER = "androidx.test:runner:1.3.0-beta02"
+    const val TEST_RULES = "androidx.test:rules:1.3.0-beta02"
+    const val TEST_ANDROIDX_JUNIT = "androidx.test.ext:junit:1.1.2-beta01"
 
     // Test - JUnit
     private const val JUNIT_VERSION = "5.6.2"

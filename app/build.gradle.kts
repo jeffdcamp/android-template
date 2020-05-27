@@ -1,4 +1,3 @@
-
 import com.github.jk1.license.filter.DependencyFilter
 import com.github.jk1.license.filter.ExcludeTransitiveDependenciesFilter
 import com.github.jk1.license.filter.LicenseBundleNormalizer
@@ -18,7 +17,7 @@ plugins {
     id("com.google.firebase.crashlytics")
     id("com.google.firebase.appdistribution")
     id("com.github.triplet.play") version "2.7.5"
-    id("com.github.jk1.dependency-license-report") version "1.13"
+    id("com.github.jk1.dependency-license-report") version "1.14"
 }
 
 // Manifest version information
@@ -61,7 +60,7 @@ android {
         // used by Room, to test migrations
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = mapOf("room.schemaLocation" to "$projectDir/schema")
+                argument("room.schemaLocation", "$projectDir/schema")
             }
         }
 
@@ -74,10 +73,12 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
 
         // Flag to enable support for the new language APIs
-        isCoreLibraryDesugaringEnabled = true
+//        isCoreLibraryDesugaringEnabled = true
+        coreLibraryDesugaringEnabled = true
     }
 
     buildFeatures {
+        viewBinding = true
         dataBinding = true
     }
 
@@ -190,7 +191,6 @@ dependencies {
     implementation(Deps.ANDROIDX_RECYCLERVIEW)
     implementation(Deps.ANDROIDX_PREFERENCE)
     implementation(Deps.ANDROID_MATERIAL)
-    implementation(Deps.ANDROIDX_ANNOTATIONS)
     implementation(Deps.ANDROIDX_CONSTRAINT_LAYOUT)
     implementation(Deps.ANDROIDX_CORE)
     implementation(Deps.ANDROIDX_ACTIVITY_KTX)
@@ -275,7 +275,8 @@ dependencies {
     testImplementation(Deps.TEST_MOCKITO_CORE)
     testImplementation(Deps.TEST_KOTLIN_COROUTINES_TEST)
     testImplementation(Deps.TEST_OKHTTP_MOCKWEBSERVER)
-    testImplementation(Deps.TEST_XERIAL_SQLITE)
+    testImplementation(Deps.TEST_SQLITEX)
+//    testImplementation(Deps.TEST_XERIAL_SQLITE)
     testImplementation(Deps.TEST_ARCH_ROOM_TESTING)
     testImplementation(Deps.TEST_DBTOOLS_ROOM_JDBC)
     kaptTest(Deps.DAGGER_COMPILER)

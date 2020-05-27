@@ -67,8 +67,8 @@ class DirectoryFragment
         lifecycleScope.launchWhenStarted {
             for (event in viewModel.eventChannel) {
                 when (event) {
-                    is DirectoryViewModel.Event.NewIndividualEvent -> showNewIndividual()
-                    is DirectoryViewModel.Event.ShowIndividualEvent -> showIndividual(event.individualId)
+                    is DirectoryViewModel.Event.NewIndividualEvent -> findNavController().navigate(DirectoryFragmentDirections.newIndividual())
+                    is DirectoryViewModel.Event.ShowIndividualEvent -> findNavController().navigate(DirectoryFragmentDirections.individual(event.individualId))
                 }
             }
         }
@@ -96,15 +96,6 @@ class DirectoryFragment
                 bundle.scrollPosition = binding.recyclerView.getScrollPosition()
             }
         }
-    }
-
-    private fun showNewIndividual() {
-        findNavController().navigate(DirectoryFragmentDirections.newIndividual())
-    }
-
-    private fun showIndividual(individualId: Long) {
-        val directions = DirectoryFragmentDirections.showIndividual(individualId)
-        findNavController().navigate(directions)
     }
 
     private fun restoreState(bundle: Bundle) {

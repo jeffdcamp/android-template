@@ -19,7 +19,7 @@ class SettingsFragment
 ) : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        activity?.setTitle(R.string.menu_settings)
+        activity?.setTitle(R.string.settings)
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 

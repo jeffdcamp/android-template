@@ -6,10 +6,10 @@
         <item
             android:id="@+id/menu_item_settings"
             android:orderInCategory="101"
-            android:title="@string/menu_settings" />
+            android:title="@string/settings" />
         <item
             android:id="@+id/menu_item_about"
             android:orderInCategory="102"
-            android:title="@string/menu_about" />
+            android:title="@string/about" />
     </group>
 </menu>
