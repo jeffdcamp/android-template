@@ -1,11 +1,9 @@
 package org.jdc.template.auth
 
-import java.io.IOException
-
-import javax.inject.Inject
-
 import okhttp3.Interceptor
 import okhttp3.Response
+import java.io.IOException
+import javax.inject.Inject
 
 class MyAccountInterceptor @Inject
 constructor() : Interceptor {

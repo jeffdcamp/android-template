@@ -9,7 +9,7 @@ import org.jdc.template.model.db.main.directoryitem.DirectoryItem
 import org.jdc.template.ui.recycleview.BindingViewHolder
 
 class DirectoryAdapter(
-        private val viewModel: DirectoryViewModel
+    private val viewModel: DirectoryViewModel
 ) : ListAdapter<DirectoryItem, DirectoryAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

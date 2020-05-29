@@ -19,8 +19,10 @@ class App : Application(), Configuration.Provider {
 
     @Inject
     lateinit var prefs: Prefs
+
     @Inject
     lateinit var workerFactory: WorkerFactory
+
     @Inject
     lateinit var themeManager: ThemeManager
 
@@ -62,7 +64,7 @@ class App : Application(), Configuration.Provider {
 
     override fun getWorkManagerConfiguration(): Configuration {
         return Configuration.Builder()
-                .setWorkerFactory(workerFactory)
-                .build()
+            .setWorkerFactory(workerFactory)
+            .build()
     }
 }

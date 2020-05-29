@@ -8,7 +8,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.vikingsen.inject.viewmodel.savedstate.SavedStateViewModelFactory
 import org.jdc.template.R
 import org.jdc.template.inject.Injector
-import org.jdc.template.ui.ThemeManager
 import org.jdc.template.ui.activity.BaseActivity
 import org.jdc.template.ux.main.MainActivity
 import timber.log.Timber
@@ -54,8 +53,8 @@ class StartupActivity : BaseActivity() {
 
     private fun devPauseStartup() {
         MaterialAlertDialogBuilder(this)
-                .setMessage("Paused for debugger attachment")
-                .setPositiveButton("OK") { _, _ -> viewModel.debugResumeStartup() }
+            .setMessage("Paused for debugger attachment")
+            .setPositiveButton("OK") { _, _ -> viewModel.debugResumeStartup() }
 
     }
 }

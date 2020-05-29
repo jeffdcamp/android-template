@@ -1,15 +1,15 @@
 package org.jdc.template.ext
 
-import androidx.annotation.MenuRes
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.appcompat.widget.PopupMenu
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.StatefulItemTouchHelper
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.annotation.MenuRes
+import androidx.appcompat.widget.PopupMenu
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StatefulItemTouchHelper
 import org.jdc.template.ui.recycleview.ItemTouchCallback
 import org.jdc.template.ui.recycleview.MoveableItemAdapter
 import org.jdc.template.ui.recycleview.SimpleElevationItemTouchHelperCallback
@@ -38,7 +38,7 @@ fun <T : RecyclerView> T.setScrollPosition(position: Int) {
         is GridLayoutManager -> manager.scrollToPositionWithOffset(position, 0)
         else -> {
             // do nothing
-         }
+        }
     }
 }
 
@@ -91,10 +91,12 @@ fun <T : RecyclerView.ViewHolder> T.setOnLongClickListener(view: View = itemView
  *         }
  *     }
  */
-fun <T : RecyclerView.ViewHolder> T.setOnMenuClickListener(view: View,
-                                                                                        @MenuRes menuResourceId: Int,
-                                                                                        onPreparePopupMenu: (position: Int, menu: Menu) -> Unit = { _, _ ->},
-                                                                                        block: (position: Int, menuItem: MenuItem) -> Boolean) {
+fun <T : RecyclerView.ViewHolder> T.setOnMenuClickListener(
+    view: View,
+    @MenuRes menuResourceId: Int,
+    onPreparePopupMenu: (position: Int, menu: Menu) -> Unit = { _, _ -> },
+    block: (position: Int, menuItem: MenuItem) -> Boolean
+) {
     view.setOnClickListener {
         executeOnValidPosition { position ->
             val popupMenu = PopupMenu(view.context, view)
@@ -162,21 +164,23 @@ fun <T : RecyclerView.ViewHolder> T.executeOnValidPositionBoolean(defaultReturn:
  * }
  */
 fun <R : RecyclerView> R.setupDragDrop(
-        adapter: MoveableItemAdapter,
-        dragDirections: Int = SimpleElevationItemTouchHelperCallback.DEFAULT_DRAG_DIRECTIONS_LIST,
-        dragElevationHeight: Float = this.context.resources?.getDimensionPixelSize(org.jdc.template.R.dimen.drag_elevation_height)?.toFloat() ?: 0f,
-        longPressDragEnabled: Boolean = true,
-        onMove: (originalPosition: Int, endPosition: Int) -> Unit = { _, _ -> },
-        onDragFinished: () -> Unit = {}): StatefulItemTouchHelper {
+    adapter: MoveableItemAdapter,
+    dragDirections: Int = SimpleElevationItemTouchHelperCallback.DEFAULT_DRAG_DIRECTIONS_LIST,
+    dragElevationHeight: Float = this.context.resources?.getDimensionPixelSize(org.jdc.template.R.dimen.drag_elevation_height)?.toFloat() ?: 0f,
+    longPressDragEnabled: Boolean = true,
+    onMove: (originalPosition: Int, endPosition: Int) -> Unit = { _, _ -> },
+    onDragFinished: () -> Unit = {}
+): StatefulItemTouchHelper {
 
     return setupDragDrop(
-            dragDirections,
-            dragElevationHeight,
-            longPressDragEnabled,
-            { originalPosition, endPosition ->
-                adapter.move(originalPosition, endPosition)
-                onMove(originalPosition, endPosition)
-            }, onDragFinished)
+        dragDirections,
+        dragElevationHeight,
+        longPressDragEnabled,
+        { originalPosition, endPosition ->
+            adapter.move(originalPosition, endPosition)
+            onMove(originalPosition, endPosition)
+        }, onDragFinished
+    )
 
 }
 
@@ -211,11 +215,11 @@ fun <R : RecyclerView> R.setupDragDrop(
  * }
  */
 fun <R : RecyclerView> R.setupDragDrop(
-        dragDirections: Int = SimpleElevationItemTouchHelperCallback.DEFAULT_DRAG_DIRECTIONS_LIST,
-        dragElevationHeight: Float = SimpleElevationItemTouchHelperCallback.DEFAULT_DRAG_ELEVATION_HEIGHT,
-        longPressDragEnabled: Boolean = true,
-        onMove: (originalPosition: Int, endPosition: Int) -> Unit = { _, _ -> },
-        onDragFinished: () -> Unit = {}
+    dragDirections: Int = SimpleElevationItemTouchHelperCallback.DEFAULT_DRAG_DIRECTIONS_LIST,
+    dragElevationHeight: Float = SimpleElevationItemTouchHelperCallback.DEFAULT_DRAG_ELEVATION_HEIGHT,
+    longPressDragEnabled: Boolean = true,
+    onMove: (originalPosition: Int, endPosition: Int) -> Unit = { _, _ -> },
+    onDragFinished: () -> Unit = {}
 ): StatefulItemTouchHelper {
 
     var reordering = false

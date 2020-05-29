@@ -10,7 +10,7 @@ import javax.inject.Singleton
 class ThemeManager
 @Inject constructor(
     private val prefs: Prefs
-){
+) {
     fun saveAndApplyTheme(theme: DisplayThemeType) {
         prefs.theme = theme
         applyTheme()
