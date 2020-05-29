@@ -1,27 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
 
     <data>
 
         <variable
             name="directoryItem"
-            type="org.jdc.template.model.db.main.directoryitem.DirectoryItem"/>
+            type="org.jdc.template.model.db.main.directoryitem.DirectoryItem"
+            />
 
-        <variable name="viewModel" type="org.jdc.template.ux.directory.DirectoryViewModel"/>
+        <variable
+            name="viewModel"
+            type="org.jdc.template.ux.directory.DirectoryViewModel"
+            />
     </data>
 
     <LinearLayout
         android:id="@+id/listItemLayout"
-        style="@style/ListItemLayout"
-        android:orientation="horizontal"
+        style="@style/Widget.AndroidTemplate.ListItemLayout"
         android:onClick="@{() -> viewModel.onDirectoryIndividualClicked(directoryItem)}"
+        android:orientation="horizontal"
         >
 
         <TextView
             android:id="@+id/listItemTextView"
-            style="@style/ListItemText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="@{directoryItem.fullName}"
-            tools:text="Item Name"/>
+            android:textAppearance="?textAppearanceBody1"
+            tools:text="Item Name"
+            />
     </LinearLayout>
 </layout>

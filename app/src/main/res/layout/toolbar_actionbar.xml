@@ -5,9 +5,9 @@
     android:layout_height="wrap_content"
     >
 
-    <androidx.appcompat.widget.Toolbar
+    <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/mainToolbar"
-        style="@style/MainToolbar"
+        style="@style/Widget.AndroidTemplate.MainToolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         />

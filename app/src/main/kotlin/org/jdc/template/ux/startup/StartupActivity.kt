@@ -17,8 +17,6 @@ import javax.inject.Inject
 class StartupActivity : BaseActivity() {
 
     @Inject
-    lateinit var themeManager: ThemeManager
-    @Inject
     lateinit var viewModelFactoryFactory: SavedStateViewModelFactory.Factory
 
     private val viewModel: StartupViewModel by viewModels { viewModelFactoryFactory.create(this, null) }
@@ -31,8 +29,6 @@ class StartupActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash_activity)
         setupViewModelObservers()
-
-        themeManager.applyTheme()
     }
 
     private fun setupViewModelObservers() {

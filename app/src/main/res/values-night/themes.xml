@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.AndroidTemplate" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Color Theme Definitions -->
+        <!-- https://material.io/develop/android/theming/color/ -->
+
+        <!-- Color Tool -->
+        <!-- https://material.io/tools/color/#!/?view.left=0&view.right=0&primary.color=D32F2F&secondary.color=1976D2 -->
+        <!-- Export to get colors created -->
+
+        <!-- The color displayed most frequently across your app’s screens and components. -->
+        <item name="colorPrimary">@color/material_red_500</item>
+        <!-- A lighter/darker variant of your primary brand color, used sparingly in theme -->
+        <item name="colorPrimaryVariant">@color/material_red_500_dark</item>
+        <!-- The color used for elements displayed on top of your primary colors (eg. Text and icons, often white or semi-transparent black depending on accessibility). default #FFFFFF -->
+        <item name="colorOnPrimary">@color/material_white</item>
+        <!-- The secondary brand color of your app, used mostly as an accent for certain widgets that need to stand out -->
+        <item name="colorSecondary">@color/material_blue_500</item>
+        <!-- A lighter/darker variant of your secondary brand color, used sparingly in theme -->
+        <item name="colorSecondaryVariant">@color/material_blue_500_dark</item>
+        <!-- The color used for elements displayed on top of your secondary colors. default #000000 -->
+        <item name="colorOnSecondary">@color/material_white</item>
+
+        <!-- The color used for errors (often a shade of red). default #B00020 -->
+        <item name="colorError">@color/material_red_300</item>
+        <!-- The color used for elements displayed on top of your error color. default #FFFFFF -->
+        <item name="colorOnError">@color/material_black</item>
+        <!-- The color used for surfaces (i.e. Material “sheets”). default #FFFFFF -->
+        <item name="colorSurface">@color/material_black</item>
+        <!-- A color that passes accessibility guidelines for text/iconography when drawn on top of the surface color. default #000000 -->
+        <item name="colorOnSurface">@color/material_white</item>
+        <!-- The color used for elements displayed on top of your background color. default #000000 -->
+        <item name="colorOnBackground">@color/material_white</item>
+
+        <!-- The background color appears behind scrollable content. default #FFFFFF -->
+        <item name="android:colorBackground">@color/material_grey_900</item>
+
+        <!-- The color ABOVE the App (where the clock and battery icons are) -->
+        <item name="android:statusBarColor">@color/material_grey_900</item>
+
+        <!-- The color BELOW the App (where the OS nav widgets exist) -->
+        <item name="android:navigationBarColor">@color/material_grey_900</item>
+
+        <!-- Style of EditText Fields -->
+        <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
+    </style>
+
+
+    <!-- Theme Overlays -->
+    <style name="ThemeOverlay.AndroidTemplate.MainToolbar" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
+        <item name="colorPrimary">@color/material_black</item>
+    </style>
+</resources>

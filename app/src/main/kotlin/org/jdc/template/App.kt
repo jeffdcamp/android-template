@@ -10,6 +10,7 @@ import org.jdc.template.log.FirebaseCrashlyticsTree
 import org.jdc.template.log.ReleaseTree
 import org.jdc.template.prefs.Prefs
 import org.jdc.template.prefs.PrefsManager
+import org.jdc.template.ui.ThemeManager
 import org.jdc.template.ui.notifications.NotificationChannels
 import timber.log.Timber
 import javax.inject.Inject
@@ -20,6 +21,8 @@ class App : Application(), Configuration.Provider {
     lateinit var prefs: Prefs
     @Inject
     lateinit var workerFactory: WorkerFactory
+    @Inject
+    lateinit var themeManager: ThemeManager
 
     init {
         Injector.init(this)
@@ -35,6 +38,9 @@ class App : Application(), Configuration.Provider {
 
         // register notification channels
         NotificationChannels.registerAllChannels(this)
+
+        // Apply theme
+        themeManager.applyTheme()
     }
 
     private fun setupLogging() {

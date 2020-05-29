@@ -11,10 +11,10 @@
         >
 
         <ListPreference
-            android:defaultValue="LIGHT"
+            android:defaultValue="SYSTEM_DEFAULT"
             android:entries="@array/theme_options"
             android:entryValues="@array/theme_options_values"
-            android:key="display_theme_type"
+            android:key="displayThemeType"
             android:title="@string/theme"
             app:useSimpleSummaryProvider="true"
             />
