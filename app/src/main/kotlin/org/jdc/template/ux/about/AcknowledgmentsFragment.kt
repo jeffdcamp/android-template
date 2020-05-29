@@ -23,18 +23,14 @@ import timber.log.Timber
 
 class AcknowledgmentsFragment
 @FragmentInject constructor(
-        private val json: Json
+    private val json: Json
 ) : Fragment() {
 
     private lateinit var binding: AcknowledgmentsFragmentBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.acknowledgments_fragment, container, false)
+        binding = AcknowledgmentsFragmentBinding.inflate(inflater, container, false)
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.lifecycleOwner = this@AcknowledgmentsFragment
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -110,7 +106,7 @@ class AcknowledgmentsFragment
 private class AcknowledgmentsWebViewClient : WebViewClient() {
     override fun shouldOverrideUrlLoading(view: WebView, url: String?): Boolean {
         view.context.startActivity(
-                Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            Intent(Intent.ACTION_VIEW, Uri.parse(url))
         )
 
         return true
@@ -123,7 +119,7 @@ private class NewAcknowledgmentsWebViewClient : WebViewClient() {
         val url = request?.url?.toString() ?: return super.shouldOverrideUrlLoading(view, request)
 
         view.context.startActivity(
-                Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            Intent(Intent.ACTION_VIEW, Uri.parse(url))
         )
         return true
     }
@@ -131,11 +127,11 @@ private class NewAcknowledgmentsWebViewClient : WebViewClient() {
 
 @Serializable
 private data class LicenseDto(
-        val moduleName: String? = null,
-        val moduleUrl: String? = null,
-        val moduleVersion: String? = null,
-        val moduleLicense: String? = null,
-        val moduleLicenseUrl: String? = null
+    val moduleName: String? = null,
+    val moduleUrl: String? = null,
+    val moduleVersion: String? = null,
+    val moduleLicense: String? = null,
+    val moduleLicenseUrl: String? = null
 )
 
 @Serializable
