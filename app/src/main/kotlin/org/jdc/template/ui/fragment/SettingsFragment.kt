@@ -14,14 +14,9 @@ import org.jdc.template.ui.ThemeManager
 
 class SettingsFragment
 @FragmentInject constructor(
-        private val prefs: Prefs,
-        private val themeManager: ThemeManager
+    private val prefs: Prefs,
+    private val themeManager: ThemeManager
 ) : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceClickListener {
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        activity?.setTitle(R.string.settings)
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.preferences)
