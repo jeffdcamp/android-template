@@ -11,7 +11,7 @@ import javax.inject.Singleton
 class IndividualRepository
 @Inject constructor(
     private val mainDatabaseWrapper: MainDatabaseWrapper
-){
+) {
     private fun mainDatabase() = mainDatabaseWrapper.getDatabase()
 
     private fun individualDao() = mainDatabase().individualDao

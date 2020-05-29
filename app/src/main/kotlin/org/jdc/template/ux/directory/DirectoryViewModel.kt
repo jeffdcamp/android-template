@@ -11,8 +11,8 @@ import org.jdc.template.ui.viewmodel.BaseViewModel
 
 class DirectoryViewModel
 @ViewModelInject constructor(
-        individualRepository: IndividualRepository,
-        @Assisted savedStateHandle: SavedStateHandle
+    individualRepository: IndividualRepository,
+    @Assisted savedStateHandle: SavedStateHandle
 ) : BaseViewModel<DirectoryViewModel.Event>() {
 
     val directoryListLiveData: LiveData<List<DirectoryItem>> = individualRepository.getDirectoryListFlow().asLiveData()

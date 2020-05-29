@@ -25,8 +25,8 @@ import org.jdc.template.ui.menu.CommonMenu
 
 class DirectoryFragment
 @FragmentInject constructor(
-        private val commonMenu: CommonMenu,
-        private val viewModelFactoryFactory: SavedStateViewModelFactory.Factory
+    private val commonMenu: CommonMenu,
+    private val viewModelFactoryFactory: SavedStateViewModelFactory.Factory
 ) : BaseFragment() {
     private val viewModel: DirectoryViewModel by viewModels { viewModelFactoryFactory.create(this, null) }
     private lateinit var binding: DirectoryFragmentBinding

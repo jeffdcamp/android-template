@@ -1,12 +1,12 @@
 package org.jdc.template.prefs
 
 import android.os.Build
-import java.util.*
+import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class Prefs @Inject constructor() : PrefsContainer(COMMON_NAMESPACE)  {
+class Prefs @Inject constructor() : PrefsContainer(COMMON_NAMESPACE) {
     var developerMode by SharedPref(false, key = "developerMode")
     var theme by EnumPref(getThemeDefault(), key = "displayThemeType")
     private var internalAppInstanceId by SharedPref("", key = "appInstanceId")

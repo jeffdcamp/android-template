@@ -2,11 +2,11 @@
 
 package org.jdc.template.ui.recycleview
 
+import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
-import android.view.ViewGroup
 import org.jdc.template.ext.inflater
 
 /**

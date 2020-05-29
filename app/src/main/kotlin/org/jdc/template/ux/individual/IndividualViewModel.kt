@@ -15,9 +15,9 @@ import org.jdc.template.ui.viewmodel.BaseViewModel
 
 class IndividualViewModel
 @ViewModelInject constructor(
-        private val analytics: Analytics,
-        private val individualRepository: IndividualRepository,
-        @Assisted savedStateHandle: SavedStateHandle
+    private val analytics: Analytics,
+    private val individualRepository: IndividualRepository,
+    @Assisted savedStateHandle: SavedStateHandle
 ) : BaseViewModel<IndividualViewModel.Event>() {
 
     private val individualId: Long by requireSavedState(savedStateHandle, "individualId")

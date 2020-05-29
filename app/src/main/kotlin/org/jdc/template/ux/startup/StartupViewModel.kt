@@ -10,7 +10,7 @@ import timber.log.Timber
 
 class StartupViewModel
 @ViewModelInject constructor(
-        private val analytics: Analytics
+    private val analytics: Analytics
 ) : BaseViewModel<StartupViewModel.Event>() {
     private val debugStartup = false
     private var currentProgressCount = 0
@@ -26,7 +26,7 @@ class StartupViewModel
         analytics.logEvent(Analytics.EVENT_LAUNCH_APP, mapOf(Analytics.PARAM_BUILD_TYPE to BuildConfig.BUILD_TYPE))
 
         // do startup work here...
-        showProgress( "Doing stuff")
+        showProgress("Doing stuff")
 
         sendEvent(Event.StartupFinished)
     }

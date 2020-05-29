@@ -2,8 +2,8 @@ package org.jdc.template.ui.recycleview
 
 import android.graphics.Canvas
 import androidx.core.view.ViewCompat
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 
 /**
  * Extends the [android.support.v7.widget.helper.ItemTouchHelper.SimpleCallback] to provide
@@ -27,9 +27,9 @@ import androidx.recyclerview.widget.ItemTouchHelper
  */
 
 abstract class SimpleElevationItemTouchHelperCallback(
-        dragDirections: Int = DEFAULT_DRAG_DIRECTIONS_LIST,
-        swipeDirections: Int = DEFAULT_SWIPE_DIRECTIONS,
-        private val dragElevationHeight: Float = DEFAULT_DRAG_ELEVATION_HEIGHT
+    dragDirections: Int = DEFAULT_DRAG_DIRECTIONS_LIST,
+    swipeDirections: Int = DEFAULT_SWIPE_DIRECTIONS,
+    private val dragElevationHeight: Float = DEFAULT_DRAG_ELEVATION_HEIGHT
 ) : ItemTouchHelper.SimpleCallback(dragDirections, swipeDirections) {
 
     private var isElevated = false
@@ -78,10 +78,10 @@ abstract class SimpleElevationItemTouchHelperCallback(
      */
     private fun findMaxElevation(recyclerView: RecyclerView): Float {
         return (0 until recyclerView.childCount)
-                .map { recyclerView.getChildAt(it) }
-                .map { ViewCompat.getElevation(it) }
-                .max()
-                ?: 0f
+            .map { recyclerView.getChildAt(it) }
+            .map { ViewCompat.getElevation(it) }
+            .max()
+            ?: 0f
     }
 
     companion object {

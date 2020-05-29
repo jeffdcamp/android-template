@@ -31,11 +31,13 @@ class AppModule(private val application: Application) {
     @Provides
     @Singleton
     fun provideJson(): Json {
-        return Json(JsonConfiguration.Stable.copy(
+        return Json(
+            JsonConfiguration.Stable.copy(
                 ignoreUnknownKeys = true,
                 serializeSpecialFloatingPointValues = true,
                 useArrayPolymorphism = true
-        ))
+            )
+        )
     }
 
     @Provides

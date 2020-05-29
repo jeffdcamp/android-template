@@ -23,8 +23,8 @@ import java.time.LocalTime
 
 class IndividualEditFragment
 @FragmentInject constructor(
-        private val viewModelFactoryFactory: SavedStateViewModelFactory.Factory
-): BaseFragment() {
+    private val viewModelFactoryFactory: SavedStateViewModelFactory.Factory
+) : BaseFragment() {
     private val viewModel: IndividualEditViewModel by viewModels { viewModelFactoryFactory.create(this, requireArguments()) }
     private lateinit var binding: IndividualEditFragmentBinding
 

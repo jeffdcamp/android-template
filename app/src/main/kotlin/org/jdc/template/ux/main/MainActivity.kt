@@ -1,7 +1,6 @@
 package org.jdc.template.ux.main
 
 import android.os.Bundle
-import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import org.jdc.template.R

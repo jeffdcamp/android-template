@@ -11,7 +11,6 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.annotation.RequiresApi
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.vikingsen.inject.fragment.FragmentInject
 import kotlinx.serialization.Serializable

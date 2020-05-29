@@ -20,9 +20,9 @@ import timber.log.Timber
  */
 class SyncWorker
 @WorkerInject constructor(
-        val prefs: Prefs,
-        @Assisted appContext: Context,
-        @Assisted workerParams: WorkerParameters
+    val prefs: Prefs,
+    @Assisted appContext: Context,
+    @Assisted workerParams: WorkerParameters
 ) : CoroutineWorker(appContext, workerParams) {
 
     @WorkerThread

@@ -1,8 +1,7 @@
 package org.jdc.template.log
 
 import timber.log.Timber
-import java.util.*
-import kotlin.collections.ArrayList
+import java.util.Arrays
 
 /**
  * Non-fatal exception for use with Timber and Crashlytics

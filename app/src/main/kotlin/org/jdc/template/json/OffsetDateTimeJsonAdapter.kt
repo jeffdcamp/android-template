@@ -15,7 +15,7 @@ import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 
 @Serializer(forClass = OffsetDateTime::class)
-object OffsetDateTimeSerializer: KSerializer<OffsetDateTime> {
+object OffsetDateTimeSerializer : KSerializer<OffsetDateTime> {
     override val descriptor: SerialDescriptor = PrimitiveDescriptor("OffsetDateTimeSerializer", PrimitiveKind.STRING)
 
     override fun serialize(encoder: Encoder, value: OffsetDateTime) {
@@ -28,7 +28,7 @@ object OffsetDateTimeSerializer: KSerializer<OffsetDateTime> {
 }
 
 @Serializer(forClass = Instant::class)
-object InstantSerializer: KSerializer<Instant> {
+object InstantSerializer : KSerializer<Instant> {
     override val descriptor: SerialDescriptor = PrimitiveDescriptor("InstantSerializer", PrimitiveKind.LONG)
 
     override fun serialize(encoder: Encoder, value: Instant) {
@@ -41,7 +41,7 @@ object InstantSerializer: KSerializer<Instant> {
 }
 
 @Serializer(forClass = LocalDateTime::class)
-object LocalDateTimeSerializer: KSerializer<LocalDateTime> {
+object LocalDateTimeSerializer : KSerializer<LocalDateTime> {
     override val descriptor: SerialDescriptor = PrimitiveDescriptor("LocalDateTimeSerializer", PrimitiveKind.STRING)
 
     override fun serialize(encoder: Encoder, value: LocalDateTime) {
@@ -54,7 +54,7 @@ object LocalDateTimeSerializer: KSerializer<LocalDateTime> {
 }
 
 @Serializer(forClass = LocalDate::class)
-object LocalDateSerializer: KSerializer<LocalDate> {
+object LocalDateSerializer : KSerializer<LocalDate> {
     override val descriptor: SerialDescriptor = PrimitiveDescriptor("LocalDateSerializer", PrimitiveKind.STRING)
 
     override fun serialize(encoder: Encoder, value: LocalDate) {
@@ -67,7 +67,7 @@ object LocalDateSerializer: KSerializer<LocalDate> {
 }
 
 @Serializer(forClass = LocalTime::class)
-object LocalTimeSerializer: KSerializer<LocalTime> {
+object LocalTimeSerializer : KSerializer<LocalTime> {
     override val descriptor: SerialDescriptor = PrimitiveDescriptor("LocalTimeSerializer", PrimitiveKind.STRING)
 
     override fun serialize(encoder: Encoder, value: LocalTime) {

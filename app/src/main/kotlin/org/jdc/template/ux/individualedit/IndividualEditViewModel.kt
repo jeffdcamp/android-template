@@ -16,8 +16,8 @@ import java.time.LocalTime
 
 class IndividualEditViewModel
 @ViewModelInject constructor(
-        private val individualRepository: IndividualRepository,
-        @Assisted savedStateHandle: SavedStateHandle
+    private val individualRepository: IndividualRepository,
+    @Assisted savedStateHandle: SavedStateHandle
 ) : BaseViewModel<IndividualEditViewModel.Event>() {
 
     private val individualId: Long by requireSavedState(savedStateHandle, "individualId")
@@ -65,7 +65,7 @@ class IndividualEditViewModel
         sendEvent(Event.IndividualSaved)
     }
 
-    private fun validate(): Boolean{
+    private fun validate(): Boolean {
         if (firstName.get().isNullOrBlank()) {
             sendEvent(Event.ValidationSaveError(FieldValidationError.FIRST_NAME_REQUIRED))
             return false
@@ -78,7 +78,7 @@ class IndividualEditViewModel
         sendEvent(Event.ShowBirthDateSelection(birthDate.get() ?: LocalDate.now()))
     }
 
-    fun onAlarmTimeClicked()  {
+    fun onAlarmTimeClicked() {
         sendEvent(Event.ShowAlarmTimeSelection(alarmTime.get() ?: LocalTime.now()))
     }
 

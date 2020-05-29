@@ -3,10 +3,10 @@ package org.jdc.template.ui.recycleview
 import androidx.recyclerview.widget.RecyclerView
 
 class ItemTouchCallback(
-        dragDirections: Int = DEFAULT_DRAG_DIRECTIONS_LIST,
-        dragElevationHeight: Float = DEFAULT_DRAG_ELEVATION_HEIGHT,
-        private val longPressDragEnabled: Boolean = true,
-        private val onMove: (originalPosition: Int, endPosition: Int) -> Unit = { _, _ -> }
+    dragDirections: Int = DEFAULT_DRAG_DIRECTIONS_LIST,
+    dragElevationHeight: Float = DEFAULT_DRAG_ELEVATION_HEIGHT,
+    private val longPressDragEnabled: Boolean = true,
+    private val onMove: (originalPosition: Int, endPosition: Int) -> Unit = { _, _ -> }
 ) : SimpleElevationItemTouchHelperCallback(dragDirections, 0, dragElevationHeight) {
 
     override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {

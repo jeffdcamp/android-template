@@ -18,8 +18,8 @@ import org.jdc.template.ui.fragment.BaseFragment
 
 class AboutFragment
 @FragmentInject constructor(
-        private val viewModelFactoryFactory: SavedStateViewModelFactory.Factory
-): BaseFragment() {
+    private val viewModelFactoryFactory: SavedStateViewModelFactory.Factory
+) : BaseFragment() {
     private val viewModel: AboutViewModel by viewModels { viewModelFactoryFactory.create(this, null) }
     private lateinit var binding: AboutFragmentBinding
 

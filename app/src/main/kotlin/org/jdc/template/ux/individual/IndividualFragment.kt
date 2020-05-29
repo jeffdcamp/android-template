@@ -21,8 +21,8 @@ import org.jdc.template.ui.fragment.BaseFragment
 
 class IndividualFragment
 @FragmentInject constructor(
-        private val viewModelFactoryFactory: SavedStateViewModelFactory.Factory
-): BaseFragment() {
+    private val viewModelFactoryFactory: SavedStateViewModelFactory.Factory
+) : BaseFragment() {
     private val viewModel: IndividualViewModel by viewModels { viewModelFactoryFactory.create(this, requireArguments()) }
     private lateinit var binding: IndividualFragmentBinding
 
@@ -84,11 +84,11 @@ class IndividualFragment
 
     private fun promptDeleteIndividual() {
         MaterialAlertDialogBuilder(requireActivity())
-                .setMessage(R.string.delete_individual_confirm)
-                .setPositiveButton(R.string.delete) { _, _ ->
-                    viewModel.deleteIndividual()
-                }
-                .setNegativeButton(R.string.cancel) { _, _ -> }
-                .show()
+            .setMessage(R.string.delete_individual_confirm)
+            .setPositiveButton(R.string.delete) { _, _ ->
+                viewModel.deleteIndividual()
+            }
+            .setNegativeButton(R.string.cancel) { _, _ -> }
+            .show()
     }
 }

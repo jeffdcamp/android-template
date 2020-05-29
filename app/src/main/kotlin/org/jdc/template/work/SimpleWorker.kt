@@ -14,8 +14,8 @@ import timber.log.Timber
  */
 class SimpleWorker
 @WorkerInject constructor(
-        @Assisted appContext: Context,
-        @Assisted workerParams: WorkerParameters
+    @Assisted appContext: Context,
+    @Assisted workerParams: WorkerParameters
 ) : CoroutineWorker(appContext, workerParams) {
 
     @WorkerThread
@@ -41,10 +41,10 @@ class SimpleWorker
         private const val KEY_TEXT = "TEXT"
 
         fun createInputData(
-                text: String
+            text: String
         ): Data {
             val dataBuilder = Data.Builder()
-                    .putString(KEY_TEXT, text)
+                .putString(KEY_TEXT, text)
 
             return dataBuilder.build()
         }

@@ -25,12 +25,12 @@ import java.time.LocalTime
 
 class AboutViewModel
 @ViewModelInject constructor(
-        private val analytics: Analytics,
-        private val application: Application,
-        private val individualRepository: IndividualRepository,
-        private val colorService: ColorService,
-        private val workScheduler: WorkScheduler,
-        @Assisted savedStateHandle: SavedStateHandle
+    private val analytics: Analytics,
+    private val application: Application,
+    private val individualRepository: IndividualRepository,
+    private val colorService: ColorService,
+    private val workScheduler: WorkScheduler,
+    @Assisted savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     var appVersion = BuildConfig.VERSION_NAME
