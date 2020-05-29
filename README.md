@@ -15,10 +15,11 @@ Sample Android app that utilizes common best practices
     * Room
     * Navigation
     * WorkManager
-    * Data Binding
+    * Data Binding / View Binding
 * Dagger dependency injection
+* Material styles and themes
 * Fragment, ViewModel, Worker constructor Injection support
-* ThreeTenBp
+* CoreLibraryDesugaring (support java.time)
 * Constraint Layout
 * RecyclerView / ListAdapter / ViewHolder
 * Retrofit / Okhttp3
