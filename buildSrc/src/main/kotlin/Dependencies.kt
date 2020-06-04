@@ -9,7 +9,7 @@ object Deps {
     const val ANDROIDX_RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.1.0"
     const val ANDROIDX_PREFERENCE = "androidx.preference:preference-ktx:1.1.1"
     const val ANDROIDX_CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:1.1.3"
-    const val ANDROIDX_CORE = "androidx.core:core-ktx:1.2.0"
+    const val ANDROIDX_CORE = "androidx.core:core-ktx:1.3.0"
     const val ANDROIDX_ACTIVITY_KTX = "androidx.activity:activity-ktx:1.1.0"
     const val ANDROIDX_FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.2.4"
 
