@@ -12,18 +12,19 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import com.vikingsen.inject.fragment.FragmentInject
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import org.intellij.lang.annotations.Language
 import org.jdc.template.R
 import org.jdc.template.databinding.AcknowledgmentsFragmentBinding
 import timber.log.Timber
+import javax.inject.Inject
 
-class AcknowledgmentsFragment
-@FragmentInject constructor(
-    private val json: Json
-) : Fragment() {
+@AndroidEntryPoint
+class AcknowledgmentsFragment : Fragment() {
+    @Inject
+    lateinit var json: Json
 
     private lateinit var binding: AcknowledgmentsFragmentBinding
 

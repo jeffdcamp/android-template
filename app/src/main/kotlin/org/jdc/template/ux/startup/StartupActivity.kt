@@ -5,24 +5,16 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.vikingsen.inject.viewmodel.savedstate.SavedStateViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
-import org.jdc.template.inject.Injector
 import org.jdc.template.ui.activity.BaseActivity
 import org.jdc.template.ux.main.MainActivity
 import timber.log.Timber
-import javax.inject.Inject
 
+@AndroidEntryPoint
 class StartupActivity : BaseActivity() {
 
-    @Inject
-    lateinit var viewModelFactoryFactory: SavedStateViewModelFactory.Factory
-
-    private val viewModel: StartupViewModel by viewModels { viewModelFactoryFactory.create(this, null) }
-
-    init {
-        Injector.get().inject(this)
-    }
+    private val viewModel: StartupViewModel by viewModels()
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

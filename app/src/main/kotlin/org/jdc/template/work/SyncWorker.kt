@@ -2,10 +2,10 @@ package org.jdc.template.work
 
 import android.content.Context
 import androidx.annotation.WorkerThread
+import androidx.hilt.Assisted
+import androidx.hilt.work.WorkerInject
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.squareup.inject.assisted.Assisted
-import com.vikingsen.inject.worker.WorkerInject
 import org.jdc.template.prefs.Prefs
 import timber.log.Timber
 

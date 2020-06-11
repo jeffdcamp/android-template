@@ -16,7 +16,7 @@ Sample Android app that utilizes common best practices
     * Navigation
     * WorkManager
     * Data Binding / View Binding
-* Dagger dependency injection
+* Dagger dependency injection using Jetpack Hilt
 * Material styles and themes
 * Fragment, ViewModel, Worker constructor Injection support
 * CoreLibraryDesugaring (support java.time)

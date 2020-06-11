@@ -13,6 +13,7 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("kotlinx-serialization")
+    id("dagger.hilt.android.plugin")
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.firebase.crashlytics")
     id("com.google.firebase.appdistribution")
@@ -214,16 +215,11 @@ dependencies {
     implementation(Deps.TIMBER)
 
     // Inject
-    implementation(Deps.DAGGER)
-    kapt(Deps.DAGGER_COMPILER)
-
-    // Inject helpers
-    implementation(Deps.FRAGMENT_INJECT)
-    kapt(Deps.FRAGMENT_INJECT_PROCESSOR)
-    implementation(Deps.VIEWMODEL_INJECT)
-    kapt(Deps.VIEWMODEL_INJECT_PROCESSOR)
-    implementation(Deps.WORKER_INJECT)
-    kapt(Deps.WORKER_INJECT_PROCESSOR)
+    implementation(Deps.HILT)
+    kapt(Deps.HILT_COMPILER)
+    implementation(Deps.ANDROIDX_HILT_WORK)
+    implementation(Deps.ANDROIDX_HILT_VIEWMODEL)
+    kapt(Deps.ANDROIDX_HILT_COMPILER)
 
     // === Android Architecture Components ===
     implementation(Deps.ARCH_LIFECYCLE_EXT)
@@ -278,7 +274,17 @@ dependencies {
     testImplementation(Deps.TEST_XERIAL_SQLITE)
     testImplementation(Deps.TEST_ARCH_ROOM_TESTING)
     testImplementation(Deps.TEST_DBTOOLS_ROOM_JDBC)
+
+    // use regular dagger for unit tests
+    // (2020-06-11: "Currently, Hilt only supports Android instrumentation and Robolectric tests. Hilt cannot be used in vanilla JVM tests,
+    // but it does not prevent you from writing these tests as you would normally." (https://dagger.dev/hilt/testing)
+    testImplementation(Deps.DAGGER)
     kaptTest(Deps.DAGGER_COMPILER)
+}
+
+configurations {
+    // prevent hilt-android-compiler for JVM unit test
+    kaptTest.get().exclude(module = "hilt-android-compiler")
 }
 
 // ===== TEST TASKS =====

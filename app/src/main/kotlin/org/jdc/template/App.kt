@@ -1,10 +1,10 @@
 package org.jdc.template
 
 import android.app.Application
+import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
 import com.google.firebase.crashlytics.FirebaseCrashlytics
-import com.vikingsen.inject.worker.WorkerFactory
-import org.jdc.template.inject.Injector
+import dagger.hilt.android.HiltAndroidApp
 import org.jdc.template.log.DebugTree
 import org.jdc.template.log.FirebaseCrashlyticsTree
 import org.jdc.template.log.ReleaseTree
@@ -15,26 +15,24 @@ import org.jdc.template.ui.notifications.NotificationChannels
 import timber.log.Timber
 import javax.inject.Inject
 
+@HiltAndroidApp
 class App : Application(), Configuration.Provider {
 
     @Inject
     lateinit var prefs: Prefs
 
     @Inject
-    lateinit var workerFactory: WorkerFactory
+    lateinit var workerFactory: HiltWorkerFactory
 
     @Inject
     lateinit var themeManager: ThemeManager
 
     init {
-        Injector.init(this)
         PrefsManager.init(this)
     }
 
     override fun onCreate() {
         super.onCreate()
-        // Initialize dependency injection
-        Injector.get().inject(this)
 
         setupLogging()
 

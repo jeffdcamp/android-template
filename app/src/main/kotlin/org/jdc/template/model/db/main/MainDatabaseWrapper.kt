@@ -1,9 +1,10 @@
 package org.jdc.template.model.db.main
 
-import android.app.Application
+import android.content.Context
 import androidx.room.Room
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import dagger.hilt.android.qualifiers.ApplicationContext
 import org.dbtools.android.room.CloseableDatabaseWrapper
 import org.dbtools.android.room.ext.createAllViews
 import org.dbtools.android.room.ext.dropAllViews
@@ -14,11 +15,11 @@ import javax.inject.Singleton
 @Singleton
 open class MainDatabaseWrapper
 @Inject constructor(
-    application: Application
-) : CloseableDatabaseWrapper<MainDatabase>(application) {
+    @ApplicationContext context: Context
+) : CloseableDatabaseWrapper<MainDatabase>(context) {
 
     override fun createDatabase(): MainDatabase {
-        return Room.databaseBuilder(application, MainDatabase::class.java, MainDatabase.DATABASE_FILENAME)
+        return Room.databaseBuilder(context, MainDatabase::class.java, MainDatabase.DATABASE_FILENAME)
             .addMigrations(object : Migration(1, 2) {
                 override fun migrate(database: SupportSQLiteDatabase) {
                     // ONLY views are changed

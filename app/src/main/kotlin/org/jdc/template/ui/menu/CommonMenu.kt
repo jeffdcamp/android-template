@@ -2,16 +2,15 @@ package org.jdc.template.ui.menu
 
 import android.view.MenuItem
 import androidx.navigation.NavController
+import dagger.hilt.android.scopes.FragmentScoped
 import org.jdc.template.MainNavigationDirections
 import org.jdc.template.R
 import timber.log.Timber
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+@FragmentScoped
 class CommonMenu
 @Inject constructor() {
-
     fun onOptionsItemSelected(navController: NavController, item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_item_search -> true

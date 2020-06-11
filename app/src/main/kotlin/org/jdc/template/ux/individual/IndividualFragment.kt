@@ -12,18 +12,15 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.vikingsen.inject.fragment.FragmentInject
-import com.vikingsen.inject.viewmodel.savedstate.SavedStateViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.jdc.template.R
 import org.jdc.template.databinding.IndividualFragmentBinding
 import org.jdc.template.ui.fragment.BaseFragment
 
-class IndividualFragment
-@FragmentInject constructor(
-    private val viewModelFactoryFactory: SavedStateViewModelFactory.Factory
-) : BaseFragment() {
-    private val viewModel: IndividualViewModel by viewModels { viewModelFactoryFactory.create(this, requireArguments()) }
+@AndroidEntryPoint
+class IndividualFragment : BaseFragment() {
+    private val viewModel: IndividualViewModel by viewModels()
     private lateinit var binding: IndividualFragmentBinding
 
     init {

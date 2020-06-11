@@ -1,5 +1,6 @@
 // Versions for Dependencies AND Build Plugins
 const val KOTLIN_VERSION = "1.3.72"
+const val DAGGER_HILT_VERSION = "2.28-alpha"
 const val ANDROIDX_NAVIGATION_VERSION = "2.3.0-beta01"
 
 object Deps {
@@ -51,27 +52,27 @@ object Deps {
     const val TIMBER = "com.jakewharton.timber:timber:4.7.1"
 
     // Inject
+    private const val ANDROIDX_HILT_VERSION = "1.0.0-alpha01"
+    const val HILT = "com.google.dagger:hilt-android:$DAGGER_HILT_VERSION"
+    const val HILT_COMPILER = "com.google.dagger:hilt-android-compiler:$DAGGER_HILT_VERSION"
+    const val HILT_TESTING = "com.google.dagger:hilt-android-testing:$DAGGER_HILT_VERSION" // integration tests ONLY (does not support JVM tests)
+    const val ANDROIDX_HILT_WORK = "androidx.hilt:hilt-work:$ANDROIDX_HILT_VERSION"
+    const val ANDROIDX_HILT_VIEWMODEL = "androidx.hilt:hilt-lifecycle-viewmodel:$ANDROIDX_HILT_VERSION"
+    const val ANDROIDX_HILT_COMPILER = "androidx.hilt:hilt-compiler:$ANDROIDX_HILT_VERSION"
+
+    // Standard dagger is needed for unit tests ONLY
     private const val DAGGER_VERSION = "2.28"
     const val DAGGER = "com.google.dagger:dagger:$DAGGER_VERSION"
     const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
 
-    // Inject helpers
-    private const val FRAGMENT_INJECT_VERSION = "1.0.0"
-    const val FRAGMENT_INJECT = "com.vikingsen.inject:fragment-inject:$FRAGMENT_INJECT_VERSION"
-    const val FRAGMENT_INJECT_PROCESSOR = "com.vikingsen.inject:fragment-inject-processor:$FRAGMENT_INJECT_VERSION"
-    private const val VIEWMODEL_INJECT_VERSION = "0.3.3"
-    const val VIEWMODEL_INJECT = "com.vikingsen.inject:viewmodel-inject:$VIEWMODEL_INJECT_VERSION"
-    const val VIEWMODEL_INJECT_PROCESSOR = "com.vikingsen.inject:viewmodel-inject-processor:$VIEWMODEL_INJECT_VERSION"
-    private const val WORKER_INJECT_VERSION = "0.2.2"
-    const val WORKER_INJECT = "com.vikingsen.inject:worker-inject:$WORKER_INJECT_VERSION"
-    const val WORKER_INJECT_PROCESSOR = "com.vikingsen.inject:worker-inject-processor:$WORKER_INJECT_VERSION"
+
 
     // Database
     private const val ROOM_VERSION = "2.2.5"
     const val ARCH_ROOM_RUNTIME = "androidx.room:room-runtime:$ROOM_VERSION"
     const val ARCH_ROOM_KTX = "androidx.room:room-ktx:$ROOM_VERSION"
     const val ARCH_ROOM_COMPILER = "androidx.room:room-compiler:$ROOM_VERSION"
-    private const val DBTOOLS_VERSION = "5.6.1"
+    private const val DBTOOLS_VERSION = "5.7.1"
     const val DBTOOLS_ROOM = "org.dbtools:dbtools-room:$DBTOOLS_VERSION"
     const val DBTOOLS_ROOM_SQLITE = "org.dbtools:dbtools-room-sqliteorg:$DBTOOLS_VERSION"
 

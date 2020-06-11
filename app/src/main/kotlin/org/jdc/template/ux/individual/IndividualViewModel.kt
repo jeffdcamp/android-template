@@ -1,11 +1,11 @@
 package org.jdc.template.ux.individual
 
+import androidx.hilt.Assisted
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.squareup.inject.assisted.Assisted
-import com.vikingsen.inject.viewmodel.ViewModelInject
 import kotlinx.coroutines.launch
 import org.jdc.template.Analytics
 import org.jdc.template.delegates.requireSavedState

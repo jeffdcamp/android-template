@@ -4,16 +4,20 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import com.vikingsen.inject.fragment.FragmentInject
+import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
 import org.jdc.template.prefs.Prefs
 import org.jdc.template.ui.ThemeManager
+import javax.inject.Inject
 
-class SettingsFragment
-@FragmentInject constructor(
-    private val prefs: Prefs,
-    private val themeManager: ThemeManager
-) : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceClickListener {
+@AndroidEntryPoint
+class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceClickListener {
+
+    @Inject
+    lateinit var prefs: Prefs
+
+    @Inject
+    lateinit var themeManager: ThemeManager
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.preferences)

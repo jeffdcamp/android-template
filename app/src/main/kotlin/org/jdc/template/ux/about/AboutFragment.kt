@@ -10,17 +10,14 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.vikingsen.inject.fragment.FragmentInject
-import com.vikingsen.inject.viewmodel.savedstate.SavedStateViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
 import org.jdc.template.databinding.AboutFragmentBinding
 import org.jdc.template.ui.fragment.BaseFragment
 
-class AboutFragment
-@FragmentInject constructor(
-    private val viewModelFactoryFactory: SavedStateViewModelFactory.Factory
-) : BaseFragment() {
-    private val viewModel: AboutViewModel by viewModels { viewModelFactoryFactory.create(this, null) }
+@AndroidEntryPoint
+class AboutFragment : BaseFragment() {
+    private val viewModel: AboutViewModel by viewModels()
     private lateinit var binding: AboutFragmentBinding
 
     init {

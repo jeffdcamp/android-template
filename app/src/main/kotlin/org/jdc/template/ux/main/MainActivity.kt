@@ -3,10 +3,12 @@ package org.jdc.template.ux.main
 import android.os.Bundle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
+import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
 import org.jdc.template.databinding.MainActivityBinding
 import org.jdc.template.ui.activity.BaseActivity
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
     private lateinit var binding: MainActivityBinding
