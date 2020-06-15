@@ -19,8 +19,9 @@ sealed class PrefsManager {
         if (!prefsMap.containsKey(container.namespace)) {
             prefsMap[container.namespace] = container
         } else {
-            if (!(prefsMap[container.namespace] === container))
-                throw RuntimeException("A namespace with the key ${container.namespace} already exists.")
+            if (!(prefsMap[container.namespace] === container)) {
+                throw IllegalStateException("A namespace with the key ${container.namespace} already exists.")
+            }
         }
 
         return prefsMap[container.namespace] ?: error("Container was null when it should not have been")
@@ -207,7 +208,7 @@ abstract class PrefsContainer(val namespace: String, val privacy: Int = Context.
     }
 }
 
-abstract class PreferenceTransformer<T> {
-    abstract fun encode(value: T?): String?
-    abstract fun decode(value: String?): T?
+interface PreferenceTransformer<T> {
+    fun encode(value: T?): String?
+    fun decode(value: String?): T?
 }

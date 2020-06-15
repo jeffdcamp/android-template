@@ -62,9 +62,9 @@ class AcknowledgmentsFragment : Fragment() {
 
             val html = renderHtml(licensesDto.dependencies)
             binding.webview.loadData(html, "text/html", "utf-8")
-        } catch (e: Exception) {
-            Timber.e(e, "Failed to render Acknowledgments html")
-            binding.webview.loadData("Failed to load licenses:\n [$e]", "text/html", "utf-8")
+        } catch (expected: Exception) {
+            Timber.e(expected, "Failed to render Acknowledgments html")
+            binding.webview.loadData("Failed to load licenses:\n [${expected.message}]", "text/html", "utf-8")
         }
     }
 
@@ -72,6 +72,7 @@ class AcknowledgmentsFragment : Fragment() {
         val dependenciesHtml = StringBuffer()
         val notAvailableText = getString(R.string.not_available)
         dependencies.forEach { dependency ->
+            @Suppress("MaxLineLength") // html
             @Language("HTML")
             val dependencyHtml = """
                 <p>

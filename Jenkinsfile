@@ -44,6 +44,16 @@ pipeline {
                         }
                     }
                 }
+                stage("Detekt") {
+                    steps {
+                        sh './gradlew downloadDetektConfig detekt'
+                    }
+                    post {
+                        always {
+                            archiveArtifacts '*/build/reports/detekt/*.html'
+                        }
+                    }
+                }
             }
         }
         stage("Alpha") {
@@ -76,6 +86,16 @@ pipeline {
                         always {
                             androidLint()
                             archiveArtifacts 'app/build/reports/*.html'
+                        }
+                    }
+                }
+                stage("Detekt") {
+                    steps {
+                        sh './gradlew downloadDetektConfig detekt'
+                    }
+                    post {
+                        always {
+                            archiveArtifacts '*/build/reports/detekt/*.html'
                         }
                     }
                 }
@@ -124,6 +144,16 @@ pipeline {
                         always {
                             androidLint()
                             archiveArtifacts 'app/build/reports/*.html'
+                        }
+                    }
+                }
+                stage("Detekt") {
+                    steps {
+                        sh './gradlew downloadDetektConfig detekt'
+                    }
+                    post {
+                        always {
+                            archiveArtifacts '*/build/reports/detekt/*.html'
                         }
                     }
                 }
@@ -179,6 +209,16 @@ pipeline {
                         }
                     }
                 }
+                stage("Detekt") {
+                    steps {
+                        sh './gradlew downloadDetektConfig detekt'
+                    }
+                    post {
+                        always {
+                            archiveArtifacts '*/build/reports/detekt/*.html'
+                        }
+                    }
+                }
                 stage("Deploy to Play Store") {
 //                    steps {
 //                        sh './gradlew publishBetaApk'
@@ -228,6 +268,16 @@ pipeline {
                         always {
                             androidLint()
                             archiveArtifacts 'app/build/reports/*.html'
+                        }
+                    }
+                }
+                stage("Detekt") {
+                    steps {
+                        sh './gradlew downloadDetektConfig detekt'
+                    }
+                    post {
+                        always {
+                            archiveArtifacts '*/build/reports/detekt/*.html'
                         }
                     }
                 }

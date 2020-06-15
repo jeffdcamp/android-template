@@ -17,6 +17,8 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.firebase.crashlytics")
     id("com.google.firebase.appdistribution")
+    id("io.gitlab.arturbosch.detekt") version "1.9.1"
+    id ("de.undercouch.download")
     id("com.github.triplet.play") version "2.8.0"
     id("com.github.jk1.dependency-license-report") version "1.14"
 }
@@ -221,7 +223,7 @@ dependencies {
     implementation(Deps.ANDROIDX_HILT_VIEWMODEL)
     kapt(Deps.ANDROIDX_HILT_COMPILER)
 
-    // === Android Architecture Components ===
+    // Android Architecture Components
     implementation(Deps.ARCH_LIFECYCLE_EXT)
     implementation(Deps.ARCH_LIFECYCLE_RUNTIME)
     implementation(Deps.ARCH_LIFECYCLE_VIEWMODEL)
@@ -298,6 +300,27 @@ fun getAnalyticsKey(): String {
 tasks.register("incrementVersionCode") {
     doLast {
         VersionCode.incrementVersionCode(versionCodeAppName, minVersionCode)
+    }
+}
+
+tasks.register<de.undercouch.gradle.tasks.download.Download>("downloadDetektConfig") {
+    download {
+        onlyIf { !file("build/config/detektConfig.yml").exists() }
+        src("https://raw.githubusercontent.com/ChurchofJesusChrist/AndroidPublic/master/detektConfig.yml")
+        dest("build/config/detektConfig.yml")
+    }
+}
+
+// ./gradlew downloadDetektConfig detekt
+detekt {
+    failFast = true // fail build on any finding
+    buildUponDefaultConfig = true // preconfigure defaults
+    config = files("$projectDir/build/config/detektConfig.yml") // point to your custom config defining rules to run, overwriting default behavior
+//    baseline = file("$projectDir/config/baseline.xml") // a way of suppressing issues before introducing detekt
+    reports {
+        html.enabled = true // observe findings in your browser with structure and code snippets
+        xml.enabled = true // checkstyle like format mainly for integrations like Jenkins
+        txt.enabled = true // similar to the console output, contains issue signature to manually edit baseline files
     }
 }
 

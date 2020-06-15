@@ -4,6 +4,7 @@ import java.time.LocalDate
 import java.time.LocalTime
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 
 object ThreeTenFormatter {
     // OffsetDateTime
@@ -19,8 +20,8 @@ object ThreeTenFormatter {
         return if (text != null && text.isNotEmpty() && text != "null") {
             try {
                 OffsetDateTime.parse(text)
-            } catch (ex: Exception) {
-                throw IllegalArgumentException("Cannot parse date text: $text", ex)
+            } catch (e: DateTimeParseException) {
+                throw IllegalArgumentException("Cannot parse date text: $text", e)
             }
         } else {
             null
@@ -40,8 +41,8 @@ object ThreeTenFormatter {
         return if (text != null && text.isNotEmpty() && text != "null") {
             try {
                 LocalDate.parse(text, DateTimeFormatter.ISO_LOCAL_DATE)
-            } catch (ex: Exception) {
-                throw IllegalArgumentException("Cannot parse date text: $text", ex)
+            } catch (e: DateTimeParseException) {
+                throw IllegalArgumentException("Cannot parse date text: $text", e)
             }
 
         } else {
@@ -62,8 +63,8 @@ object ThreeTenFormatter {
         return if (text != null && text.isNotEmpty() && text != "null") {
             try {
                 LocalTime.parse(text, DateTimeFormatter.ISO_LOCAL_TIME)
-            } catch (ex: Exception) {
-                throw IllegalArgumentException("Cannot parse time text: $text", ex)
+            } catch (e: DateTimeParseException) {
+                throw IllegalArgumentException("Cannot parse time text: $text", e)
             }
 
         } else {

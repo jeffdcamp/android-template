@@ -1,7 +1,6 @@
 package org.jdc.template.log
 
 import timber.log.Timber
-import java.util.Arrays
 
 /**
  * Non-fatal exception for use with Timber and Crashlytics
@@ -10,8 +9,7 @@ class TimberNonFatalCrashLogException(message: String) : RuntimeException(messag
 
     override fun fillInStackTrace(): Throwable {
         super.fillInStackTrace()
-        val original = stackTrace
-        val iterator = Arrays.asList(*original).iterator()
+        val iterator = stackTrace.iterator()
         val filtered = ArrayList<StackTraceElement>()
 
         // heading to top of Timber stack trace

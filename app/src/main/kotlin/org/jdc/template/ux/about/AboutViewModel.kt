@@ -43,6 +43,7 @@ class AboutViewModel
     /**
      * Creates sample data WITH using injection
      */
+    @Suppress("MagicNumber") // Dates
     fun createSampleDataWithInjection() = viewModelScope.launch {
         // clear any existing items
         individualRepository.deleteAllIndividuals()
@@ -152,6 +153,7 @@ class AboutViewModel
         workScheduler.scheduleSimpleWork("test1")
         workScheduler.scheduleSimpleWork("test2")
 
+        @Suppress("MagicNumber") // test value
         delay(3000)
 
         workScheduler.scheduleSimpleWork("test3")
@@ -164,6 +166,7 @@ class AboutViewModel
         workScheduler.scheduleSync()
         workScheduler.scheduleSync(true)
 
+        @Suppress("MagicNumber") // test value
         delay(3000)
 
         workScheduler.scheduleSync()

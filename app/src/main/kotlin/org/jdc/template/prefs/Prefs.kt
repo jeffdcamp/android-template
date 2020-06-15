@@ -12,7 +12,7 @@ class Prefs @Inject constructor() : PrefsContainer(COMMON_NAMESPACE) {
     private var internalAppInstanceId by SharedPref("", key = "appInstanceId")
 
     private fun getThemeDefault(): DisplayThemeType {
-        return if (Build.VERSION.SDK_INT > 28) {
+        return if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
             // support Android Q System Theme
             DisplayThemeType.SYSTEM_DEFAULT
         } else {

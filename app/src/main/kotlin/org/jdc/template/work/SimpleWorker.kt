@@ -7,6 +7,7 @@ import androidx.hilt.work.WorkerInject
 import androidx.work.CoroutineWorker
 import androidx.work.Data
 import androidx.work.WorkerParameters
+import kotlinx.coroutines.delay
 import timber.log.Timber
 
 /**
@@ -24,7 +25,8 @@ class SimpleWorker
 
         logProgress("RUNNING: Text: [$inputText]")
         try {
-            Thread.sleep(1000)
+            @Suppress("MagicNumber")
+            delay(1000)
         } catch (e: InterruptedException) {
             Timber.e("Sleep Failure")
         }

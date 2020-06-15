@@ -6,6 +6,7 @@ import androidx.hilt.Assisted
 import androidx.hilt.work.WorkerInject
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import kotlinx.coroutines.delay
 import org.jdc.template.prefs.Prefs
 import timber.log.Timber
 
@@ -32,7 +33,8 @@ class SyncWorker
         // simulate some work...
         logProgress("WORK1-STARTED")
         logProgress("WORK1-developerMode=${prefs.developerMode}")
-        Thread.sleep(5000)
+        @Suppress("MagicNumber") // test values to simulate work
+        delay(5000)
         logProgress("WORK1-FINISHED")
 
         if (isStopped) {
@@ -42,7 +44,8 @@ class SyncWorker
 
         // simulate some work...
         logProgress("WORK2-STARTED")
-        Thread.sleep(1000)
+        @Suppress("MagicNumber") // test values to simulate work
+        delay(1000)
         logProgress("WORK2-FINISHED")
 
         logProgress("FINISHED")

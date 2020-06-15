@@ -31,7 +31,7 @@ interface Analytics {
         }
     }
 
-    class DebugAnalytics() : Analytics {
+    class DebugAnalytics : Analytics {
         override fun logEvent(name: String, params: Map<String, String>?) {
             Timber.d("Analytics Name: [$name]  Params: [$params]")
         }
