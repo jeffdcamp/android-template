@@ -1,7 +1,7 @@
 // Versions for Dependencies AND Build Plugins
 const val KOTLIN_VERSION = "1.3.72"
 const val DAGGER_HILT_VERSION = "2.28-alpha"
-const val ANDROIDX_NAVIGATION_VERSION = "2.3.0-beta01"
+const val ANDROIDX_NAVIGATION_VERSION = "2.3.0-rc01"
 
 object Deps {
     // Android (https://android.googlesource.com/platform/frameworks/support/+/refs/heads/androidx-master-dev/buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt)
@@ -12,7 +12,7 @@ object Deps {
     const val ANDROIDX_CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:1.1.3"
     const val ANDROIDX_CORE = "androidx.core:core-ktx:1.3.0"
     const val ANDROIDX_ACTIVITY_KTX = "androidx.activity:activity-ktx:1.1.0"
-    const val ANDROIDX_FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.2.4"
+    const val ANDROIDX_FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.2.5"
 
     private const val LIFECYCLE_VERSION = "2.2.0"
     const val ARCH_LIFECYCLE_EXT = "androidx.lifecycle:lifecycle-extensions:$LIFECYCLE_VERSION"
@@ -35,7 +35,7 @@ object Deps {
     // const val PLAYSERVICE_LICENSES = "com.google.android.gms:play-services-oss-licenses:17.0.0"
 
     // Firebase - https://firebase.google.com/support/release-notes/android
-    const val FIREBASE_BOM = "com.google.firebase:firebase-bom:25.4.0" // automatically sets the version for all firebase libs below
+    const val FIREBASE_BOM = "com.google.firebase:firebase-bom:25.4.1" // automatically sets the version for all firebase libs below
     const val FIREBASE_CORE = "com.google.firebase:firebase-core"
     const val FIREBASE_PERF = "com.google.firebase:firebase-perf"
     const val FIREBASE_CONFIG = "com.google.firebase:firebase-config-ktx"
@@ -82,12 +82,12 @@ object Deps {
     const val OKHTTP_LOGGING_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION"
 
     // Test - Integration
-    private const val ESPRESSO_VERSION = "3.3.0-beta02"
+    private const val ESPRESSO_VERSION = "3.3.0-rc01"
     const val TEST_ESPRESSO_CORE = "androidx.test.espresso:espresso-core:$ESPRESSO_VERSION"
     const val TEST_ESPRESSO_CONTRIB = "androidx.test.espresso:espresso-contrib:$ESPRESSO_VERSION"
-    const val TEST_RUNNER = "androidx.test:runner:1.3.0-beta02"
-    const val TEST_RULES = "androidx.test:rules:1.3.0-beta02"
-    const val TEST_ANDROIDX_JUNIT = "androidx.test.ext:junit:1.1.2-beta01"
+    const val TEST_RUNNER = "androidx.test:runner:1.3.0-rc01"
+    const val TEST_RULES = "androidx.test:rules:1.3.0-rc01"
+    const val TEST_ANDROIDX_JUNIT = "androidx.test.ext:junit:1.1.2-rc01"
 
     // Test - JUnit
     private const val JUNIT_VERSION = "5.6.2"
