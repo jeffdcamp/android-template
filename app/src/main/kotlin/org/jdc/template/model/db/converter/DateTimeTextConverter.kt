@@ -7,32 +7,20 @@ import java.time.OffsetDateTime
 
 class DateTimeTextConverter {
     @TypeConverter
-    fun fromStringToOffsetDateTime(value: String?): OffsetDateTime? {
-        return ThreeTenFormatter.dbStringToOffsetDateTime(value)
-    }
+    fun fromStringToOffsetDateTime(value: String?): OffsetDateTime? = ThreeTenFormatter.dbStringToOffsetDateTime(value)
 
     @TypeConverter
-    fun fromOffsetDateTimeToString(value: OffsetDateTime?): String? {
-        return ThreeTenFormatter.offsetDateTimeToDBString(value)
-    }
+    fun fromOffsetDateTimeToString(value: OffsetDateTime?): String? = ThreeTenFormatter.offsetDateTimeToDBString(value)
 
     @TypeConverter
-    fun fromStringToLocalDate(value: String?): LocalDate? {
-        return ThreeTenFormatter.dbStringToLocalDate(value)
-    }
+    fun fromStringToLocalDate(value: String?): LocalDate? = ThreeTenFormatter.dbStringToLocalDate(value)
 
     @TypeConverter
-    fun fromLocalDateToString(value: LocalDate?): String? {
-        return ThreeTenFormatter.localDateToDBString(value)
-    }
+    fun fromLocalDateToString(value: LocalDate?): String? = ThreeTenFormatter.localDateToDBString(value)
 
     @TypeConverter
-    fun fromStringToLocalTime(value: String?): LocalTime? {
-        return ThreeTenFormatter.dbStringToLocalTime(value)
-    }
+    fun fromStringToLocalTime(value: String?): LocalTime? = ThreeTenFormatter.dbStringToLocalTime(value)
 
     @TypeConverter
-    fun fromLocalTimeToString(value: LocalTime?): String? {
-        return ThreeTenFormatter.localTimeToDBString(value)
-    }
+    fun fromLocalTimeToString(value: LocalTime?): String? = ThreeTenFormatter.localTimeToDBString(value)
 }
