@@ -282,12 +282,6 @@ dependencies {
     kaptTest(Deps.DAGGER_COMPILER)
 }
 
-// Workaround for "JVM Unit Tests that use Dagger, no longer work when depending on Hilt" (https://issuetracker.google.com/issues/158758786)
-configurations {
-    // prevent hilt-android-compiler for JVM unit test
-    kaptTest.get().exclude(module = "hilt-android-compiler")
-}
-
 // ===== TEST TASKS =====
 
 // create JUnit reports

@@ -5,6 +5,7 @@ import androidx.room.Room
 import dagger.Component
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.migration.DisableInstallInCheck
 import kotlinx.coroutines.runBlocking
 import org.dbtools.android.room.jdbc.JdbcSQLiteOpenHelperFactory
 import org.jdc.template.TestFilesystem
@@ -67,6 +68,7 @@ class IndividualRepositoryTest {
 }
 
 @Module
+@DisableInstallInCheck // prevent Hilt from checking for @InstallIn (https://issuetracker.google.com/issues/158758786)
 class IndividualRepositoryTestModule {
     @Provides
     @Singleton
