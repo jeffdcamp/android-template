@@ -42,7 +42,6 @@ class WorkScheduler
             .setConstraints(workerConstraints)
 
         if (!now) {
-            @Suppress("MagicNumber") // explicit values in function
             workRequestBuilder.setInitialDelay(10, TimeUnit.SECONDS)
         }
 

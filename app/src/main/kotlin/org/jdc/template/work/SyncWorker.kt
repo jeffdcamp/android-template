@@ -33,7 +33,6 @@ class SyncWorker
         // simulate some work...
         logProgress("WORK1-STARTED")
         logProgress("WORK1-developerMode=${prefs.developerMode}")
-        @Suppress("MagicNumber") // test values to simulate work
         delay(5000)
         logProgress("WORK1-FINISHED")
 
@@ -44,7 +43,6 @@ class SyncWorker
 
         // simulate some work...
         logProgress("WORK2-STARTED")
-        @Suppress("MagicNumber") // test values to simulate work
         delay(1000)
         logProgress("WORK2-FINISHED")
 

@@ -303,6 +303,7 @@ tasks.register("incrementVersionCode") {
     }
 }
 
+// download detekt config file
 tasks.register<de.undercouch.gradle.tasks.download.Download>("downloadDetektConfig") {
     download {
         onlyIf { !file("build/config/detektConfig.yml").exists() }
@@ -311,7 +312,16 @@ tasks.register<de.undercouch.gradle.tasks.download.Download>("downloadDetektConf
     }
 }
 
-// ./gradlew downloadDetektConfig detekt
+tasks {
+    // make sure when running detekt, the config file is downloaded
+    withType<io.gitlab.arturbosch.detekt.Detekt> {
+        // Target version of the generated JVM bytecode. It is used for type resolution.
+        this.jvmTarget = "1.8"
+        dependsOn("downloadDetektConfig")
+    }
+}
+
+// ./gradlew detekt
 detekt {
     failFast = true // fail build on any finding
     buildUponDefaultConfig = true // preconfigure defaults

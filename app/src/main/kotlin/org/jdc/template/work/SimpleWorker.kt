@@ -25,7 +25,6 @@ class SimpleWorker
 
         logProgress("RUNNING: Text: [$inputText]")
         try {
-            @Suppress("MagicNumber")
             delay(1000)
         } catch (e: InterruptedException) {
             Timber.e("Sleep Failure")
