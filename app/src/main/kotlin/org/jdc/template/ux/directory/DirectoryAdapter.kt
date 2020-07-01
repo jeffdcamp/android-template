@@ -3,10 +3,11 @@ package org.jdc.template.ux.directory
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import org.jdc.template.R
+import androidx.recyclerview.widget.RecyclerView
 import org.jdc.template.databinding.ListItemBinding
+import org.jdc.template.ext.inflater
+import org.jdc.template.ext.setOnClickListener
 import org.jdc.template.model.db.main.directoryitem.DirectoryItem
-import org.jdc.template.ui.recycleview.BindingViewHolder
 
 class DirectoryAdapter(
     private val viewModel: DirectoryViewModel
@@ -14,15 +15,17 @@ class DirectoryAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(parent).apply {
-            binding.viewModel = viewModel
+            setOnClickListener { position ->
+                viewModel.onDirectoryIndividualClicked(getItem(position))
+            }
         }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.directoryItem = getItem(position)
+        holder.binding.listItemTextView.text = getItem(position).getFullName()
     }
 
-    class ViewHolder(parent: ViewGroup) : BindingViewHolder<ListItemBinding>(R.layout.list_item, parent)
+    class ViewHolder(parent: ViewGroup, val binding: ListItemBinding = ListItemBinding.inflate(parent.inflater(), parent, false)) : RecyclerView.ViewHolder(binding.root)
 
     companion object {
         private val DIFF_CALLBACK: DiffUtil.ItemCallback<DirectoryItem> = object : DiffUtil.ItemCallback<DirectoryItem>() {
