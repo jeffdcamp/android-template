@@ -41,8 +41,7 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"/>
 
-        <!-- Setup WorkManagerInject -->
-        <!-- Provide your own custom WorkManager configuration, you must first remove the default initializer. -->
+        <!-- Setup WorkManagerInject (Hilt support for WorkManager) -->
         <provider
             android:name="androidx.work.impl.WorkManagerInitializer"
             android:authorities="${applicationId}.workmanager-init"

@@ -1,6 +1,6 @@
 // Versions for Dependencies AND Build Plugins
 const val KOTLIN_VERSION = "1.3.72"
-const val DAGGER_HILT_VERSION = "2.28-alpha"
+const val DAGGER_HILT_VERSION = "2.28.1-alpha"
 const val ANDROIDX_NAVIGATION_VERSION = "2.3.0"
 
 object Deps {
