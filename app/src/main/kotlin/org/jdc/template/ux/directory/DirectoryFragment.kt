@@ -7,20 +7,32 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import android.widget.FrameLayout
+import androidx.compose.Composable
+import androidx.compose.Recomposer
+import androidx.compose.getValue
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.ui.core.setContent
+import androidx.ui.foundation.Icon
+import androidx.ui.foundation.Text
+import androidx.ui.foundation.lazy.LazyColumnItems
+import androidx.ui.livedata.observeAsState
+import androidx.ui.material.FloatingActionButton
+import androidx.ui.material.ListItem
+import androidx.ui.material.Scaffold
+import androidx.ui.material.icons.Icons
+import androidx.ui.material.icons.filled.Add
 import dagger.hilt.android.AndroidEntryPoint
-import me.eugeniomarletti.extras.bundle.BundleExtra
-import me.eugeniomarletti.extras.bundle.base.Int
 import org.jdc.template.R
-import org.jdc.template.databinding.DirectoryFragmentBinding
-import org.jdc.template.ext.getScrollPosition
+import org.jdc.template.model.db.main.directoryitem.DirectoryItem
+import org.jdc.template.ui.compose.AppTheme
 import org.jdc.template.ui.fragment.BaseFragment
 import org.jdc.template.ui.menu.CommonMenu
 import javax.inject.Inject
+import kotlin.random.Random
 
 @AndroidEntryPoint
 class DirectoryFragment : BaseFragment() {
@@ -28,39 +40,30 @@ class DirectoryFragment : BaseFragment() {
     lateinit var commonMenu: CommonMenu
 
     private val viewModel: DirectoryViewModel by viewModels()
-    private lateinit var binding: DirectoryFragmentBinding
-    private val adapter by lazy { DirectoryAdapter(viewModel) }
 
     init {
         setHasOptionsMenu(true)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.directory_fragment, container, false)
-        return binding.root
+        return FrameLayout(requireContext()).apply {
+            id = Random.nextInt()
+            layoutParams = ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT)
+            setContent(Recomposer.current()) {
+                DirectoryPage(viewModel)
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.viewModel = this@DirectoryFragment.viewModel
-        binding.lifecycleOwner = this@DirectoryFragment
-
-        setupRecyclerView()
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
 
         activity?.setTitle(R.string.app_name)
-
-        savedInstanceState?.let { restoreState(it) }
 
         setupViewModelObservers()
     }
 
     private fun setupViewModelObservers() {
-        viewModel.directoryListLiveData.observeKt { list ->
-            adapter.submitList(list)
-        }
 
         // Events
         lifecycleScope.launchWhenStarted {
@@ -73,11 +76,6 @@ class DirectoryFragment : BaseFragment() {
         }
     }
 
-    private fun setupRecyclerView() {
-        binding.recyclerView.layoutManager = LinearLayoutManager(activity)
-        binding.recyclerView.adapter = adapter
-    }
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.directory_menu, menu)
@@ -87,23 +85,30 @@ class DirectoryFragment : BaseFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return commonMenu.onOptionsItemSelected(findNavController(), item) || super.onOptionsItemSelected(item)
     }
+}
 
-    override fun onSaveInstanceState(bundle: Bundle) {
-        super.onSaveInstanceState(bundle)
-        with(SaveStateOptions) {
-            if (::binding.isInitialized) { // onSaveInstanceState may be called before onCreateView
-                bundle.scrollPosition = binding.recyclerView.getScrollPosition()
-            }
+@Composable
+fun DirectoryPage(viewModel: DirectoryViewModel) {
+    val directoryList by viewModel.directoryListLiveData.observeAsState(emptyList())
+    AppTheme {
+        Scaffold(
+            floatingActionButton = {
+                FloatingActionButton(onClick = viewModel::addIndividual) {
+                    Icon(Icons.Filled.Add)
+                }
+            }) {
+            DirectoryList(viewModel, directoryList)
         }
     }
+}
 
-    private fun restoreState(bundle: Bundle) {
-        with(SaveStateOptions) {
-            binding.recyclerView.scrollToPosition(bundle.scrollPosition ?: 0)
-        }
-    }
-
-    object SaveStateOptions {
-        var Bundle.scrollPosition by BundleExtra.Int()
+@Composable
+fun DirectoryList(viewModel: DirectoryViewModel, directoryList: List<DirectoryItem>) {
+    LazyColumnItems(directoryList) { item ->
+        ListItem(text = {
+            Text(text = item.getFullName())
+        }, onClick = {
+            viewModel.onDirectoryIndividualClicked(item)
+        })
     }
 }

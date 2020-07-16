@@ -16,6 +16,7 @@ object Deps {
     const val ANDROIDX_FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.2.5"
 
     const val COMPOSE_LAYOUT = "androidx.ui:ui-layout:$COMPOSE_VERSION"
+    const val COMPOSE_LIVEDATA = "androidx.ui:ui-livedata:$COMPOSE_VERSION"
     const val COMPOSE_MATERIAL = "androidx.ui:ui-material:$COMPOSE_VERSION"
     const val COMPOSE_TOOLING = "androidx.ui:ui-tooling:$COMPOSE_VERSION"
 

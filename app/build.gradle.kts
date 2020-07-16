@@ -83,6 +83,12 @@ android {
     buildFeatures {
         viewBinding = true
         dataBinding = true
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = COMPOSE_VERSION
+        kotlinCompilerVersion = "1.3.70-dev-withExperimentalGoogleExtensions-20200424"
     }
 
     lintOptions {
@@ -201,6 +207,7 @@ dependencies {
 
     // Compose
     implementation(Deps.COMPOSE_LAYOUT)
+    implementation(Deps.COMPOSE_LIVEDATA)
     implementation(Deps.COMPOSE_MATERIAL)
     implementation(Deps.COMPOSE_TOOLING)
 

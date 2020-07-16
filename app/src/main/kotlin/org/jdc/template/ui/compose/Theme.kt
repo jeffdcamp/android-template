@@ -3,7 +3,6 @@ package org.jdc.template.ui.compose
 import androidx.compose.Composable
 import androidx.ui.foundation.isSystemInDarkTheme
 import androidx.ui.material.MaterialTheme
-import androidx.ui.material.MaterialTheme.typography
 import androidx.ui.material.darkColorPalette
 import androidx.ui.material.lightColorPalette
 
