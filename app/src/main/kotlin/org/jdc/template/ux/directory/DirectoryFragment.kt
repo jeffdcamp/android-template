@@ -105,10 +105,10 @@ fun DirectoryPage(viewModel: DirectoryViewModel) {
 @Composable
 fun DirectoryList(viewModel: DirectoryViewModel, directoryList: List<DirectoryItem>) {
     LazyColumnItems(directoryList) { item ->
-        ListItem(text = {
-            Text(text = item.getFullName())
-        }, onClick = {
+        ListItem(onClick = {
             viewModel.onDirectoryIndividualClicked(item)
-        })
+        }) {
+            Text(text = item.getFullName())
+        }
     }
 }
