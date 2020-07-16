@@ -25,7 +25,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
 
     override fun onResume() {
         super.onResume()
-
         prefs.preferenceManager.registerOnSharedPreferenceChangeListener(this)
     }
 
@@ -38,6 +37,9 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
         return false
     }
 
+    /**
+     * For changes that have already been persisted
+     */
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
         when (key) {
             "displayThemeType" -> {

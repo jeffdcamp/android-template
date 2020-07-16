@@ -16,12 +16,12 @@
     <!-- Lists -->
     <style name="Widget.AndroidTemplate.ListItemLayout" parent="">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">?android:attr/listPreferredItemHeight</item>
+        <item name="android:layout_height">?listPreferredItemHeight</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">16dp</item>
         <item name="android:paddingTop">8dp</item>
         <item name="android:paddingBottom">8dp</item>
-        <item name="android:background">?android:attr/selectableItemBackground</item> <!-- background will not highlight when row is tapped without this -->
+        <item name="android:background">?selectableItemBackground</item> <!-- background will not highlight when row is tapped without this -->
         <item name="android:gravity">center_vertical</item>
     </style>
 

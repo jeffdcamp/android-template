@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="Theme.AndroidTemplate.Splash">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/branded_splash</item>
+    </style>
+
     <style name="Theme.AndroidTemplate" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Color Theme Definitions -->
         <!-- https://material.io/develop/android/theming/color/ -->

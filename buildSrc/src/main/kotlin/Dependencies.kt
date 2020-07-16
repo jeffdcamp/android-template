@@ -35,7 +35,7 @@ object Deps {
     // const val PLAYSERVICE_LICENSES = "com.google.android.gms:play-services-oss-licenses:17.0.0"
 
     // Firebase - https://firebase.google.com/support/release-notes/android
-    const val FIREBASE_BOM = "com.google.firebase:firebase-bom:25.5.0" // automatically sets the version for all firebase libs below
+    const val FIREBASE_BOM = "com.google.firebase:firebase-bom:25.6.0" // automatically sets the version for all firebase libs below
     const val FIREBASE_CORE = "com.google.firebase:firebase-core"
     const val FIREBASE_PERF = "com.google.firebase:firebase-perf"
     const val FIREBASE_CONFIG = "com.google.firebase:firebase-config-ktx"
@@ -61,7 +61,7 @@ object Deps {
     const val ANDROIDX_HILT_COMPILER = "androidx.hilt:hilt-compiler:$ANDROIDX_HILT_VERSION"
 
     // Standard dagger is needed for unit tests ONLY
-    private const val DAGGER_VERSION = "2.28.1"
+    private const val DAGGER_VERSION = "2.28.2"
     const val DAGGER = "com.google.dagger:dagger:$DAGGER_VERSION"
     const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
 
@@ -75,7 +75,7 @@ object Deps {
     const val DBTOOLS_ROOM_SQLITE = "org.dbtools:dbtools-room-sqliteorg:$DBTOOLS_VERSION"
 
     // Network
-    private const val OKHTTP_VERSION = "4.7.2" // https://github.com/square/okhttp/blob/master/CHANGELOG.md
+    private const val OKHTTP_VERSION = "4.8.0" // https://github.com/square/okhttp/blob/master/CHANGELOG.md
     const val OKHTTP = "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION"
     const val OKHTTP_LOGGING_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION"
 
@@ -92,8 +92,8 @@ object Deps {
     const val TEST_JUNIT = "org.junit.jupiter:junit-jupiter:$JUNIT_VERSION"
     const val TEST_JUNIT_ENGINE = "org.junit.jupiter:junit-jupiter-engine:$JUNIT_VERSION"
     const val TEST_OKHTTP_MOCKWEBSERVER = "com.squareup.okhttp3:mockwebserver:$OKHTTP_VERSION"
-    const val TEST_MOCKITO_CORE = "org.mockito:mockito-core:3.3.3"
-    const val TEST_XERIAL_SQLITE = "org.xerial:sqlite-jdbc:3.32.3"
+    const val TEST_MOCKITO_CORE = "org.mockito:mockito-core:3.4.0"
+    const val TEST_XERIAL_SQLITE = "org.xerial:sqlite-jdbc:3.32.3.1"
     const val TEST_ARCH_ROOM_TESTING = "androidx.room:room-testing:$ROOM_VERSION"
     const val TEST_DBTOOLS_ROOM_JDBC = "org.dbtools:dbtools-room-jdbc:$DBTOOLS_VERSION"
     const val TEST_KOTLIN_COROUTINES_TEST = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$COROUTINES_VERSION"
