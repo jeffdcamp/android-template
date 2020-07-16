@@ -35,14 +35,14 @@
                 app:layout_constraintTop_toTopOf="parent"
                 >
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/firstNameEditText"
-                    style="@style/Widget.AndroidTemplate.EditTextField"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/first_name"
-                    android:text="@={viewModel.firstName}"
-                    />
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/firstNameEditText"-->
+<!--                    style="@style/Widget.AndroidTemplate.EditTextField"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:hint="@string/first_name"-->
+<!--                    android:text="@={viewModel.firstName}"-->
+<!--                    />-->
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -55,14 +55,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/firstNameLayout"
                 >
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/lastNameEditText"
-                    style="@style/Widget.AndroidTemplate.EditTextField"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/last_name"
-                    android:text="@={viewModel.lastName}"
-                    />
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/lastNameEditText"-->
+<!--                    style="@style/Widget.AndroidTemplate.EditTextField"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:hint="@string/last_name"-->
+<!--                    android:text="@={viewModel.lastName}"-->
+<!--                    />-->
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -75,15 +75,15 @@
                 app:layout_constraintTop_toBottomOf="@+id/lastNameLayout"
                 >
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/phoneEditText"
-                    style="@style/Widget.AndroidTemplate.EditTextField"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/phone"
-                    android:inputType="phone"
-                    android:text="@={viewModel.phone}"
-                    />
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/phoneEditText"-->
+<!--                    style="@style/Widget.AndroidTemplate.EditTextField"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:hint="@string/phone"-->
+<!--                    android:inputType="phone"-->
+<!--                    android:text="@={viewModel.phone}"-->
+<!--                    />-->
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -96,15 +96,15 @@
                 app:layout_constraintTop_toBottomOf="@+id/phoneLayout"
                 >
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/emailEditText"
-                    style="@style/Widget.AndroidTemplate.EditTextField"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/email"
-                    android:inputType="textEmailAddress"
-                    android:text="@={viewModel.email}"
-                    />
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/emailEditText"-->
+<!--                    style="@style/Widget.AndroidTemplate.EditTextField"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:hint="@string/email"-->
+<!--                    android:inputType="textEmailAddress"-->
+<!--                    android:text="@={viewModel.email}"-->
+<!--                    />-->
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -117,16 +117,16 @@
                 app:layout_constraintTop_toBottomOf="@+id/emailLayout"
                 >
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/birthDateEditText"
-                    style="@style/Widget.AndroidTemplate.EditTextField"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusable="false"
-                    android:hint="@string/birth_date"
-                    android:onClick="@{() -> viewModel.onBirthDateClicked()}"
-                    app:textDate="@{viewModel.birthDate}"
-                    />
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/birthDateEditText"-->
+<!--                    style="@style/Widget.AndroidTemplate.EditTextField"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:focusable="false"-->
+<!--                    android:hint="@string/birth_date"-->
+<!--                    android:onClick="@{() -> viewModel.onBirthDateClicked()}"-->
+<!--                    app:textDate="@{viewModel.birthDate}"-->
+<!--                    />-->
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -139,16 +139,16 @@
                 app:layout_constraintTop_toBottomOf="@+id/birthDateLayout"
                 >
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/alarmTimeEditText"
-                    style="@style/Widget.AndroidTemplate.EditTextField"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusable="false"
-                    android:hint="@string/alarm_time"
-                    android:onClick="@{() -> viewModel.onAlarmTimeClicked()}"
-                    app:textTime="@{viewModel.alarmTime}"
-                    />
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/alarmTimeEditText"-->
+<!--                    style="@style/Widget.AndroidTemplate.EditTextField"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:focusable="false"-->
+<!--                    android:hint="@string/alarm_time"-->
+<!--                    android:onClick="@{() -> viewModel.onAlarmTimeClicked()}"-->
+<!--                    app:textTime="@{viewModel.alarmTime}"-->
+<!--                    />-->
             </com.google.android.material.textfield.TextInputLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

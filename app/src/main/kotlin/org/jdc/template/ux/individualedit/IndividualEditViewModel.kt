@@ -1,6 +1,6 @@
 package org.jdc.template.ux.individualedit
 
-import androidx.databinding.ObservableField
+import androidx.compose.mutableStateOf
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.SavedStateHandle
@@ -24,12 +24,15 @@ class IndividualEditViewModel
     private var individual = Individual()
 
     // Fields
-    val firstName = ObservableField<String>()
-    val lastName = ObservableField<String>()
-    val phone = ObservableField<String>()
-    val email = ObservableField<String>()
-    val birthDate = ObservableField<LocalDate?>()
-    val alarmTime = ObservableField<LocalTime>()
+    val firstName = mutableStateOf("")
+    val firstNameError = mutableStateOf(false)
+    val lastName = mutableStateOf("")
+    val phone = mutableStateOf("")
+    val email = mutableStateOf("")
+    val birthDate = mutableStateOf<LocalDate?>(null)
+    val birthDateFormatted = mutableStateOf("")
+    val alarmTime = mutableStateOf<LocalTime>(LocalTime.now())
+    val alarmTimeFormatted = mutableStateOf("")
 
     init {
         loadIndividual()
@@ -39,12 +42,12 @@ class IndividualEditViewModel
         individualRepository.getIndividual(individualId)?.let {
             individual = it
 
-            firstName.set(it.firstName)
-            lastName.set(it.lastName)
-            phone.set(it.phone)
-            email.set(it.email)
-            birthDate.set(it.birthDate)
-            alarmTime.set(it.alarmTime)
+            firstName.value = it.firstName
+            lastName.value = it.lastName
+            phone.value = it.phone
+            email.value = it.email
+            birthDate.value = it.birthDate
+            alarmTime.value = it.alarmTime
         }
     }
 
@@ -53,12 +56,12 @@ class IndividualEditViewModel
             return@launch
         }
 
-        individual.firstName = firstName.get() ?: return@launch
-        individual.lastName = lastName.get() ?: ""
-        individual.phone = phone.get() ?: ""
-        individual.email = email.get() ?: ""
-        individual.birthDate = birthDate.get()
-        individual.alarmTime = alarmTime.get() ?: LocalTime.now()
+        individual.firstName = firstName.value
+        individual.lastName = lastName.value
+        individual.phone = phone.value
+        individual.email = email.value
+        individual.birthDate = birthDate.value
+        individual.alarmTime = alarmTime.value
 
         individualRepository.saveIndividual(individual)
 
@@ -66,21 +69,23 @@ class IndividualEditViewModel
     }
 
     private fun validate(): Boolean {
-        if (firstName.get().isNullOrBlank()) {
-            sendEvent(Event.ValidationSaveError(FieldValidationError.FIRST_NAME_REQUIRED))
+        if (firstName.value.isBlank()) {
+            firstNameError.value = true
+//            sendEvent(Event.ValidationSaveError(FieldValidationError.FIRST_NAME_REQUIRED))
             return false
         }
+        firstNameError.value = false
 
         return true
     }
 
-    fun onBirthDateClicked() {
-        sendEvent(Event.ShowBirthDateSelection(birthDate.get() ?: LocalDate.now()))
-    }
+//    fun onBirthDateClicked() {
+//        sendEvent(Event.ShowBirthDateSelection(birthDate.value ?: LocalDate.now()))
+//    }
 
-    fun onAlarmTimeClicked() {
-        sendEvent(Event.ShowAlarmTimeSelection(alarmTime.get() ?: LocalTime.now()))
-    }
+//    fun onAlarmTimeClicked() {
+//        sendEvent(Event.ShowAlarmTimeSelection(alarmTime.value))
+//    }
 
     enum class FieldValidationError(val errorMessageId: Int) {
         FIRST_NAME_REQUIRED(R.string.required),
@@ -88,8 +93,8 @@ class IndividualEditViewModel
 
     sealed class Event {
         object IndividualSaved : Event()
-        class ShowBirthDateSelection(val date: LocalDate) : Event()
-        class ShowAlarmTimeSelection(val time: LocalTime) : Event()
-        class ValidationSaveError(val error: FieldValidationError) : Event()
+//        class ShowBirthDateSelection(val date: LocalDate) : Event()
+//        class ShowAlarmTimeSelection(val time: LocalTime) : Event()
+//        class ValidationSaveError(val error: FieldValidationError) : Event()
     }
 }

@@ -7,15 +7,11 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewGroup.LayoutParams.MATCH_PARENT
-import android.widget.FrameLayout
 import androidx.compose.Composable
-import androidx.compose.Recomposer
 import androidx.compose.getValue
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.ui.core.setContent
 import androidx.ui.foundation.Icon
 import androidx.ui.foundation.Text
 import androidx.ui.foundation.lazy.LazyColumnItems
@@ -29,10 +25,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
 import org.jdc.template.model.db.main.directoryitem.DirectoryItem
 import org.jdc.template.ui.compose.AppTheme
+import org.jdc.template.ui.compose.setContent
 import org.jdc.template.ui.fragment.BaseFragment
 import org.jdc.template.ui.menu.CommonMenu
 import javax.inject.Inject
-import kotlin.random.Random
 
 @AndroidEntryPoint
 class DirectoryFragment : BaseFragment() {
@@ -46,12 +42,8 @@ class DirectoryFragment : BaseFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return FrameLayout(requireContext()).apply {
-            id = Random.nextInt()
-            layoutParams = ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT)
-            setContent(Recomposer.current()) {
-                DirectoryPage(viewModel)
-            }
+        return setContent {
+            DirectoryPage(viewModel)
         }
     }
 
@@ -85,30 +77,30 @@ class DirectoryFragment : BaseFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return commonMenu.onOptionsItemSelected(findNavController(), item) || super.onOptionsItemSelected(item)
     }
-}
 
-@Composable
-fun DirectoryPage(viewModel: DirectoryViewModel) {
-    val directoryList by viewModel.directoryListLiveData.observeAsState(emptyList())
-    AppTheme {
-        Scaffold(
-            floatingActionButton = {
-                FloatingActionButton(onClick = viewModel::addIndividual) {
-                    Icon(Icons.Filled.Add)
-                }
-            }) {
-            DirectoryList(viewModel, directoryList)
+    @Composable
+    private fun DirectoryPage(viewModel: DirectoryViewModel) {
+        val directoryList by viewModel.directoryListLiveData.observeAsState(emptyList())
+        AppTheme {
+            Scaffold(
+                floatingActionButton = {
+                    FloatingActionButton(onClick = viewModel::addIndividual) {
+                        Icon(Icons.Filled.Add)
+                    }
+                }) {
+                DirectoryList(viewModel, directoryList)
+            }
         }
     }
-}
 
-@Composable
-fun DirectoryList(viewModel: DirectoryViewModel, directoryList: List<DirectoryItem>) {
-    LazyColumnItems(directoryList) { item ->
-        ListItem(onClick = {
-            viewModel.onDirectoryIndividualClicked(item)
-        }) {
-            Text(text = item.getFullName())
+    @Composable
+    private fun DirectoryList(viewModel: DirectoryViewModel, directoryList: List<DirectoryItem>) {
+        LazyColumnItems(directoryList) { item ->
+            ListItem(onClick = {
+                viewModel.onDirectoryIndividualClicked(item)
+            }) {
+                Text(text = item.getFullName())
+            }
         }
     }
 }
