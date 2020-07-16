@@ -7,45 +7,48 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
+import androidx.compose.Composable
+import androidx.compose.getValue
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.ui.core.Modifier
+import androidx.ui.foundation.Text
+import androidx.ui.foundation.VerticalScroller
+import androidx.ui.layout.Column
+import androidx.ui.layout.padding
+import androidx.ui.livedata.observeAsState
+import androidx.ui.material.MaterialTheme
+import androidx.ui.res.stringResource
+import androidx.ui.unit.dp
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.jdc.template.R
-import org.jdc.template.databinding.IndividualFragmentBinding
+import org.jdc.template.model.db.main.individual.Individual
+import org.jdc.template.ui.compose.AppTheme
+import org.jdc.template.ui.compose.setContent
 import org.jdc.template.ui.fragment.BaseFragment
 
 @AndroidEntryPoint
 class IndividualFragment : BaseFragment() {
     private val viewModel: IndividualViewModel by viewModels()
-    private lateinit var binding: IndividualFragmentBinding
 
     init {
         setHasOptionsMenu(true)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.individual_fragment, container, false)
-        return binding.root
+        return setContent {
+            IndividualPage(viewModel)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.lifecycleOwner = this@IndividualFragment
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         setupViewModelObservers()
     }
 
     private fun setupViewModelObservers() {
-        viewModel.individual.observeKt {
-            binding.individual = it
-        }
-
         // Events
         lifecycleScope.launch {
             for (event in viewModel.eventChannel) {
@@ -87,5 +90,25 @@ class IndividualFragment : BaseFragment() {
             }
             .setNegativeButton(R.string.cancel) { _, _ -> }
             .show()
+    }
+
+    @Composable
+    fun IndividualPage(viewModel: IndividualViewModel) {
+        val individual by viewModel.individual.observeAsState(Individual())
+        AppTheme {
+            VerticalScroller {
+                Column(Modifier.padding(16.dp)) {
+                    Text(text = individual.getFullName(), style = MaterialTheme.typography.h4)
+                    Text(text = stringResource(id = R.string.phone), modifier = Modifier.padding(top = 8.dp), style = MaterialTheme.typography.caption)
+                    Text(text = individual.phone, style = MaterialTheme.typography.body1)
+                    Text(text = stringResource(id = R.string.email), modifier = Modifier.padding(top = 8.dp), style = MaterialTheme.typography.caption)
+                    Text(text = individual.email, style = MaterialTheme.typography.body1)
+                    Text(text = stringResource(id = R.string.birth_date), modifier = Modifier.padding(top = 8.dp), style = MaterialTheme.typography.caption)
+                    Text(text = individual.birthDate?.toString() ?: "", style = MaterialTheme.typography.body1)
+                    Text(text = stringResource(id = R.string.alarm_time), modifier = Modifier.padding(top = 8.dp), style = MaterialTheme.typography.caption)
+                    Text(text = individual.alarmTime.toString(), style = MaterialTheme.typography.body1)
+                }
+            }
+        }
     }
 }

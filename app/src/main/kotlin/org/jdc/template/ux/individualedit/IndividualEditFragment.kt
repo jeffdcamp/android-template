@@ -55,13 +55,6 @@ class IndividualEditFragment : BaseFragment() {
             for (event in viewModel.eventChannel) {
                 when (event) {
                     is IndividualEditViewModel.Event.IndividualSaved -> findNavController().popBackStack()
-//                    is IndividualEditViewModel.Event.ShowBirthDateSelection -> showBirthDateSelector(event.date)
-//                    is IndividualEditViewModel.Event.ShowAlarmTimeSelection -> showAlarmTimeSelector(event.time)
-//                    is IndividualEditViewModel.Event.ValidationSaveError -> {
-//                        when (event.error) {
-//                            IndividualEditViewModel.FieldValidationError.FIRST_NAME_REQUIRED -> binding.firstNameLayout.error = getString(event.error.errorMessageId)
-//                        }
-//                    }
                 }
             }
         }
