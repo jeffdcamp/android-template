@@ -54,9 +54,9 @@ android {
         versionCode = appVersionCode
         versionName = appVersionName
 
-        buildConfigField("String", "BUILD_NUMBER", "\"${System.getProperty("BUILD_NUMBER")}\"")
-        buildConfigField("String", "USER_AGENT_APP_NAME", "\"AndroidTemplate\"")
-        buildConfigField("String", "ANALYTICS_KEY", "\"${getAnalyticsKey()}\"")
+        buildConfigField("String", "BUILD_NUMBER", "${System.getProperty("BUILD_NUMBER")}")
+        buildConfigField("String", "USER_AGENT_APP_NAME", "AndroidTemplate")
+        buildConfigField("String", "ANALYTICS_KEY", "${getAnalyticsKey()}")
 
         multiDexEnabled = true
 
@@ -77,7 +77,7 @@ android {
 
         // Flag to enable support for the new language APIs
 //        isCoreLibraryDesugaringEnabled = true // AGP 4.1+ naming
-        coreLibraryDesugaringEnabled = true
+        isCoreLibraryDesugaringEnabled = true
     }
 
     buildFeatures {
@@ -125,7 +125,7 @@ android {
         getByName("debug") {
             versionNameSuffix = " DEV"
             applicationIdSuffix = ".dev"
-            buildConfigField("long", "BUILD_TIME", "0l") // to improve build times, do allow change on every build
+            buildConfigField("long", "BUILD_TIME", "0") // to improve build times, do allow change on every build
 
             // Enable signing to test Firebase
             // signingConfig = signingConfigs.getByName("upload")
@@ -134,7 +134,7 @@ android {
             initWith(getByName("release"))
             versionNameSuffix = " ALPHA"
             applicationIdSuffix = ".alpha"
-            buildConfigField("long", "BUILD_TIME", "${buildTime}l")
+            buildConfigField("long", "BUILD_TIME", "${buildTime}")
             // isDebuggable = true
             signingConfig = signingConfigs.getByName("upload")
 
@@ -148,7 +148,7 @@ android {
         create("beta") {
             initWith(getByName("release"))
             versionNameSuffix = " BETA"
-            buildConfigField("long", "BUILD_TIME", "${buildTime}l")
+            buildConfigField("long", "BUILD_TIME", "${buildTime}")
             signingConfig = signingConfigs.getByName("upload")
 
             firebaseAppDistribution {
@@ -159,7 +159,7 @@ android {
             }
         }
         getByName("release") {
-            buildConfigField("long", "BUILD_TIME", "${buildTime}l")
+            buildConfigField("long", "BUILD_TIME", "${buildTime}")
             versionNameSuffix = ""
             //minifyEnabled true
             //shrinkResources true
@@ -198,6 +198,11 @@ dependencies {
     implementation(Deps.ANDROIDX_CORE)
     implementation(Deps.ANDROIDX_ACTIVITY_KTX)
     implementation(Deps.ANDROIDX_FRAGMENT_KTX)
+
+    // Compose
+    implementation(Deps.COMPOSE_LAYOUT)
+    implementation(Deps.COMPOSE_MATERIAL)
+    implementation(Deps.COMPOSE_TOOLING)
 
     // Play Service
     implementation(Deps.PLAYSERVICE_CORE)

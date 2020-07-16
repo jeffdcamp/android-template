@@ -2,6 +2,7 @@
 const val KOTLIN_VERSION = "1.3.72"
 const val DAGGER_HILT_VERSION = "2.28-alpha"
 const val ANDROIDX_NAVIGATION_VERSION = "2.3.0"
+const val COMPOSE_VERSION = "0.1.0-dev14"
 
 object Deps {
     // Android (https://android.googlesource.com/platform/frameworks/support/+/refs/heads/androidx-master-dev/buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt)
@@ -13,6 +14,10 @@ object Deps {
     const val ANDROIDX_CORE = "androidx.core:core-ktx:1.3.0"
     const val ANDROIDX_ACTIVITY_KTX = "androidx.activity:activity-ktx:1.1.0"
     const val ANDROIDX_FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.2.5"
+
+    const val COMPOSE_LAYOUT = "androidx.ui:ui-layout:$COMPOSE_VERSION"
+    const val COMPOSE_MATERIAL = "androidx.ui:ui-material:$COMPOSE_VERSION"
+    const val COMPOSE_TOOLING = "androidx.ui:ui-tooling:$COMPOSE_VERSION"
 
     private const val LIFECYCLE_VERSION = "2.2.0"
     const val ARCH_LIFECYCLE_EXT = "androidx.lifecycle:lifecycle-extensions:$LIFECYCLE_VERSION"
