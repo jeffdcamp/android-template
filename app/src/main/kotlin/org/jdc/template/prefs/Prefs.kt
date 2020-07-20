@@ -7,6 +7,8 @@ import javax.inject.Singleton
 
 @Singleton
 class Prefs @Inject constructor() : PrefsContainer(COMMON_NAMESPACE) {
+    var lastInstalledVersionCode by SharedPref(0, key = "lastInstalledVersionCode")
+
     var developerMode by SharedPref(false, key = "developerMode")
     var theme by EnumPref(getThemeDefault(), key = "displayThemeType")
     private var internalAppInstanceId by SharedPref("", key = "appInstanceId")

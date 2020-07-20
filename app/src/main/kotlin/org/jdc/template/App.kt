@@ -22,6 +22,9 @@ class App : Application(), Configuration.Provider {
     lateinit var prefs: Prefs
 
     @Inject
+    lateinit var appUpgrade: AppUpgrade
+
+    @Inject
     lateinit var workerFactory: HiltWorkerFactory
 
     @Inject
@@ -34,7 +37,11 @@ class App : Application(), Configuration.Provider {
     override fun onCreate() {
         super.onCreate()
 
+        // logging should be done before upgradeApp()
         setupLogging()
+
+        // before anything gets initialized... allow for any app upgrades
+        appUpgrade.upgradeApp()
 
         // register notification channels
         NotificationChannels.registerAllChannels(this)
