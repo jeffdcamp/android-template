@@ -51,7 +51,7 @@ class IndividualFragment : BaseFragment() {
             for (event in viewModel.eventChannel) {
                 when (event) {
                     is IndividualViewModel.Event.EditIndividualEvent -> {
-                        val directions = IndividualFragmentDirections.editIndividual(event.individualId)
+                        val directions = IndividualFragmentDirections.actionIndividualEditFragment(event.individualId)
                         findNavController().navigate(directions)
                     }
                     is IndividualViewModel.Event.IndividualDeletedEvent -> findNavController().popBackStack()

@@ -10,7 +10,6 @@ buildscript {
     }
     dependencies {
         classpath("com.android.tools.build:gradle:4.0.1")
-        classpath("com.github.ben-manes:gradle-versions-plugin:0.28.0") // version plugin support
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION")
         classpath("org.jetbrains.kotlin:kotlin-serialization:$KOTLIN_VERSION")
         classpath("com.google.dagger:hilt-android-gradle-plugin:$DAGGER_HILT_VERSION")
@@ -19,7 +18,7 @@ buildscript {
         classpath("com.google.firebase:firebase-appdistribution-gradle:2.0.0")
         classpath("com.google.gms:google-services:4.3.3")
         classpath("io.fabric.tools:gradle:1.31.2")
-
+        classpath("com.github.ben-manes:gradle-versions-plugin:0.29.0") // version plugin support
     }
 }
 
@@ -35,7 +34,7 @@ allprojects {
     // Gradle Dependency Check
     apply(plugin = "com.github.ben-manes.versions") // ./gradlew dependencyUpdates -Drevision=release
     val excludeVersionContaining = listOf("alpha", "eap") // example: "alpha", "beta"
-    val ignoreArtifacts = listOf("material") // some artifacts may be OK to check for "alpha"... add these exceptions here
+    val ignoreArtifacts = listOf("material", "hilt-android") // some artifacts may be OK to check for "alpha"... add these exceptions here
 
     tasks.named<DependencyUpdatesTask>("dependencyUpdates") {
         resolutionStrategy {

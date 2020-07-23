@@ -48,7 +48,7 @@ class AboutFragment : BaseFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_item_licenses -> {
-                findNavController().navigate(AboutFragmentDirections.acknowledgments())
+                findNavController().navigate(AboutFragmentDirections.actionAcknowledgmentsFragment())
                 true
             }
             else -> super.onOptionsItemSelected(item)

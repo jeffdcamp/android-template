@@ -13,11 +13,11 @@
         tools:layout="@layout/directory_fragment"
         >
         <action
-            android:id="@+id/individual"
+            android:id="@+id/action_individualFragment"
             app:destination="@id/individualFragment"
-            ></action>
+            />
         <action
-            android:id="@+id/newIndividual"
+            android:id="@+id/action_individualEditFragment"
             app:destination="@id/individualEditFragment"
             />
     </fragment>
@@ -28,7 +28,7 @@
         tools:layout="@layout/individual_fragment"
         >
         <action
-            android:id="@+id/editIndividual"
+            android:id="@+id/action_individualEditFragment"
             app:destination="@id/individualEditFragment"
             />
         <argument
@@ -52,7 +52,7 @@
         android:id="@+id/settingsFragment"
         android:name="org.jdc.template.ui.fragment.SettingsFragment"
         android:label="@string/settings"
-        ></fragment>
+        />
     <fragment
         android:id="@+id/aboutFragment"
         android:name="org.jdc.template.ux.about.AboutFragment"
@@ -60,16 +60,16 @@
         tools:layout="@layout/about_fragment"
         >
         <action
-            android:id="@+id/acknowledgments"
+            android:id="@+id/action_acknowledgmentsFragment"
             app:destination="@id/acknowledgmentsFragment"
             />
     </fragment>
     <action
-        android:id="@+id/settings"
+        android:id="@+id/action_global_settingsFragment"
         app:destination="@id/settingsFragment"
         />
     <action
-        android:id="@+id/about"
+        android:id="@+id/action_global_aboutFragment"
         app:destination="@id/aboutFragment"
         />
     <fragment

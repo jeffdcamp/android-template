@@ -1,6 +1,6 @@
 // Versions for Dependencies AND Build Plugins
 const val KOTLIN_VERSION = "1.3.72"
-const val DAGGER_HILT_VERSION = "2.28.1-alpha"
+const val DAGGER_HILT_VERSION = "2.28.3-alpha"
 const val ANDROIDX_NAVIGATION_VERSION = "2.3.0"
 
 object Deps {
@@ -10,7 +10,7 @@ object Deps {
     const val ANDROIDX_RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.1.0"
     const val ANDROIDX_PREFERENCE = "androidx.preference:preference-ktx:1.1.1"
     const val ANDROIDX_CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:1.1.3"
-    const val ANDROIDX_CORE = "androidx.core:core-ktx:1.3.0"
+    const val ANDROIDX_CORE = "androidx.core:core-ktx:1.3.1"
     const val ANDROIDX_ACTIVITY_KTX = "androidx.activity:activity-ktx:1.1.0"
     const val ANDROIDX_FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.2.5"
 
@@ -24,7 +24,7 @@ object Deps {
     const val ARCH_NAVIGATION_FRAGMENT = "androidx.navigation:navigation-fragment-ktx:$ANDROIDX_NAVIGATION_VERSION"
     const val ARCH_NAVIGATION_UI = "androidx.navigation:navigation-ui-ktx:$ANDROIDX_NAVIGATION_VERSION"
 
-    private const val WORKMANAGER_VERSION = "2.3.4"
+    private const val WORKMANAGER_VERSION = "2.4.0"
     const val ARCH_WORK_RUNTIME = "androidx.work:work-runtime-ktx:$WORKMANAGER_VERSION"
     const val ARCH_WORK_GCM = "androidx.work:work-gcm:$WORKMANAGER_VERSION" // Remove with min SDK 23
 
@@ -35,7 +35,7 @@ object Deps {
     // const val PLAYSERVICE_LICENSES = "com.google.android.gms:play-services-oss-licenses:17.0.0"
 
     // Firebase - https://firebase.google.com/support/release-notes/android
-    const val FIREBASE_BOM = "com.google.firebase:firebase-bom:25.6.0" // automatically sets the version for all firebase libs below
+    const val FIREBASE_BOM = "com.google.firebase:firebase-bom:25.6.1" // automatically sets the version for all firebase libs below
     const val FIREBASE_CORE = "com.google.firebase:firebase-core"
     const val FIREBASE_PERF = "com.google.firebase:firebase-perf"
     const val FIREBASE_CONFIG = "com.google.firebase:firebase-config-ktx"
@@ -44,7 +44,7 @@ object Deps {
     // Code
     const val KOTLIN_STD_LIB = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
     const val KOTLIN_SERIALIZATION = "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.20.0"
-    private const val COROUTINES_VERSION = "1.3.7"
+    private const val COROUTINES_VERSION = "1.3.8"
     const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINES_VERSION"
     const val RETROFIT = "com.squareup.retrofit2:retrofit:2.9.0"
     const val KOTLIN_RETROFIT_CONVERTER = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.5.0"
@@ -52,7 +52,7 @@ object Deps {
     const val TIMBER = "com.jakewharton.timber:timber:4.7.1"
 
     // Inject
-    private const val ANDROIDX_HILT_VERSION = "1.0.0-alpha01"
+    private const val ANDROIDX_HILT_VERSION = "1.0.0-alpha02"
     const val HILT = "com.google.dagger:hilt-android:$DAGGER_HILT_VERSION"
     const val HILT_COMPILER = "com.google.dagger:hilt-android-compiler:$DAGGER_HILT_VERSION"
     const val HILT_TESTING = "com.google.dagger:hilt-android-testing:$DAGGER_HILT_VERSION" // integration tests ONLY (does not support JVM tests)
@@ -61,7 +61,7 @@ object Deps {
     const val ANDROIDX_HILT_COMPILER = "androidx.hilt:hilt-compiler:$ANDROIDX_HILT_VERSION"
 
     // Standard dagger is needed for unit tests ONLY
-    private const val DAGGER_VERSION = "2.28.2"
+    private const val DAGGER_VERSION = "2.28.3"
     const val DAGGER = "com.google.dagger:dagger:$DAGGER_VERSION"
     const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
 
@@ -92,7 +92,7 @@ object Deps {
     const val TEST_JUNIT = "org.junit.jupiter:junit-jupiter:$JUNIT_VERSION"
     const val TEST_JUNIT_ENGINE = "org.junit.jupiter:junit-jupiter-engine:$JUNIT_VERSION"
     const val TEST_OKHTTP_MOCKWEBSERVER = "com.squareup.okhttp3:mockwebserver:$OKHTTP_VERSION"
-    const val TEST_MOCKITO_CORE = "org.mockito:mockito-core:3.4.0"
+    const val TEST_MOCKITO_CORE = "org.mockito:mockito-core:3.4.4"
     const val TEST_XERIAL_SQLITE = "org.xerial:sqlite-jdbc:3.32.3.1"
     const val TEST_ARCH_ROOM_TESTING = "androidx.room:room-testing:$ROOM_VERSION"
     const val TEST_DBTOOLS_ROOM_JDBC = "org.dbtools:dbtools-room-jdbc:$DBTOOLS_VERSION"
