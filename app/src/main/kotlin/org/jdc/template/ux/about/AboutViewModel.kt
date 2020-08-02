@@ -1,11 +1,12 @@
 package org.jdc.template.ux.about
 
-import android.app.Application
+import android.content.Context
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.jdc.template.Analytics
@@ -25,8 +26,8 @@ import java.time.LocalTime
 
 class AboutViewModel
 @ViewModelInject constructor(
+    @ApplicationContext private val context: Context,
     private val analytics: Analytics,
-    private val application: Application,
     private val individualRepository: IndividualRepository,
     private val colorService: ColorService,
     private val workScheduler: WorkScheduler,
@@ -112,7 +113,7 @@ class AboutViewModel
 
         if (response.isSuccessful) {
             // delete any existing file
-            val outputFile = File(application.externalCacheDir, "ws-out.json")
+            val outputFile = File(context.externalCacheDir, "ws-out.json")
             if (outputFile.exists()) {
                 outputFile.delete()
             }
