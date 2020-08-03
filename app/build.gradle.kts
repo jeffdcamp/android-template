@@ -201,12 +201,13 @@ dependencies {
 
     // Play Service
     implementation(Deps.PLAYSERVICE_CORE)
+    implementation(Deps.PLAYSERVICE_KOTLINX_COROUTINES)
 
     // Firebase
     implementation(platform(Deps.FIREBASE_BOM))
     implementation(Deps.FIREBASE_CORE)
 //    implementation(Deps.FIREBASE_PERF)
-//    implementation(Deps.FIREBASE_CONFIG)
+    implementation(Deps.FIREBASE_CONFIG)
     implementation(Deps.FIREBASE_CRASHLYTICS)
     implementation(Deps.FIREBASE_ANALYTICS)
 
@@ -238,6 +239,7 @@ dependencies {
     // WorkManager
     implementation(Deps.ARCH_WORK_RUNTIME)
     implementation(Deps.ARCH_WORK_GCM)
+    implementation(Deps.WORKMANAGER_TOOLS)
 
     // Database
     implementation(Deps.ARCH_ROOM_RUNTIME)

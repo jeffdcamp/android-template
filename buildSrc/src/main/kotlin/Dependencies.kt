@@ -1,5 +1,6 @@
 // Versions for Dependencies AND Build Plugins
 const val KOTLIN_VERSION = "1.3.72"
+private const val COROUTINES_VERSION = "1.3.8"
 const val DAGGER_HILT_VERSION = "2.28.3-alpha"
 const val ANDROIDX_NAVIGATION_VERSION = "2.3.0"
 
@@ -27,11 +28,13 @@ object Deps {
     private const val WORKMANAGER_VERSION = "2.4.0"
     const val ARCH_WORK_RUNTIME = "androidx.work:work-runtime-ktx:$WORKMANAGER_VERSION"
     const val ARCH_WORK_GCM = "androidx.work:work-gcm:$WORKMANAGER_VERSION" // Remove with min SDK 23
+    const val WORKMANAGER_TOOLS = "org.dbtools:workmanager-tools:1.13.0"
 
     const val ANDROID_MATERIAL = "com.google.android.material:material:1.1.0" // https://github.com/material-components/material-components-android/releases
 
     // Play Services
     const val PLAYSERVICE_CORE = "com.google.android.play:core-ktx:1.7.0" // https://developer.android.com/reference/com/google/android/play/core/release-notes
+    const val PLAYSERVICE_KOTLINX_COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$COROUTINES_VERSION"
     // const val PLAYSERVICE_LICENSES = "com.google.android.gms:play-services-oss-licenses:17.0.0"
 
     // Firebase - https://firebase.google.com/support/release-notes/android
@@ -45,7 +48,6 @@ object Deps {
     // Code
     const val KOTLIN_STD_LIB = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
     const val KOTLIN_SERIALIZATION = "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.20.0"
-    private const val COROUTINES_VERSION = "1.3.8"
     const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINES_VERSION"
     const val RETROFIT = "com.squareup.retrofit2:retrofit:2.9.0"
     const val KOTLIN_RETROFIT_CONVERTER = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.5.0"

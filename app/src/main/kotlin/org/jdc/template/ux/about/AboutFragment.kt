@@ -38,6 +38,8 @@ class AboutFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         activity?.setTitle(R.string.about_title)
         viewModel.logAnalytics()
+
+        viewModel.resetServiceEnabledLiveData.observeKt { binding.restServiceEnabledTextView.text = it.toString() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

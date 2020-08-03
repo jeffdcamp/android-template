@@ -88,7 +88,7 @@
             android:text="Test REST Call"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/createDatabaseButton"
+            app:layout_constraintTop_toBottomOf="@+id/restServiceLabelTextView"
             tools:layout_conversion_absoluteHeight="48dp"
             tools:layout_conversion_absoluteWidth="131dp"
             tools:layout_conversion_absoluteX="126dp"
@@ -173,6 +173,28 @@
             tools:layout_conversion_absoluteWidth="88dp"
             tools:layout_conversion_absoluteX="148dp"
             tools:layout_conversion_absoluteY="349dp"
+            />
+
+        <TextView
+            android:id="@+id/restServiceLabelTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Rest Servies Enabled:"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.33"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/createDatabaseButton"
+            />
+
+        <TextView
+            android:id="@+id/restServiceEnabledTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Unknown"
+            app:layout_constraintStart_toEndOf="@+id/restServiceLabelTextView"
+            app:layout_constraintTop_toTopOf="@+id/restServiceLabelTextView"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

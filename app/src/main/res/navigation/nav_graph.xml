@@ -52,7 +52,19 @@
         android:id="@+id/settingsFragment"
         android:name="org.jdc.template.ui.fragment.SettingsFragment"
         android:label="@string/settings"
-        />
+        >
+        <action
+            android:id="@+id/action_workManagerFragment"
+            app:destination="@id/workManagerFragment"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/workManagerFragment"
+        android:name="org.dbtools.android.work.ux.monitor.WorkManagerStatusFragment"
+        android:label="Work Manager Status"
+        tools:layout="@layout/work_manager_status_fragment"
+        >
+    </fragment>
     <fragment
         android:id="@+id/aboutFragment"
         android:name="org.jdc.template.ux.about.AboutFragment"

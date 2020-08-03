@@ -10,8 +10,10 @@ import org.jdc.template.log.FirebaseCrashlyticsTree
 import org.jdc.template.log.ReleaseTree
 import org.jdc.template.model.prefs.Prefs
 import org.jdc.template.model.prefs.PrefsManager
+import org.jdc.template.model.remoteconfig.RemoteConfig
 import org.jdc.template.ui.ThemeManager
 import org.jdc.template.ui.notifications.NotificationChannels
+import org.jdc.template.work.WorkScheduler
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -30,6 +32,12 @@ class App : Application(), Configuration.Provider {
     @Inject
     lateinit var themeManager: ThemeManager
 
+    @Inject
+    lateinit var remoteConfig: RemoteConfig
+
+    @Inject
+    lateinit var workScheduler: WorkScheduler
+
     init {
         PrefsManager.init(this)
     }
@@ -40,6 +48,9 @@ class App : Application(), Configuration.Provider {
         // logging should be done before upgradeApp()
         setupLogging()
 
+        // remote config
+        initRemoteConfig()
+
         // before anything gets initialized... allow for any app upgrades
         appUpgrade.upgradeApp()
 
@@ -48,6 +59,9 @@ class App : Application(), Configuration.Provider {
 
         // Apply theme
         themeManager.applyTheme()
+
+        // start work schedules
+        workScheduler.startPeriodicWorkSchedules()
     }
 
     private fun setupLogging() {
@@ -65,6 +79,11 @@ class App : Application(), Configuration.Provider {
             // Timber.e(...) will log a non-fatal crash in Crashlytics
             Timber.plant(FirebaseCrashlyticsTree())
         }
+    }
+
+    private fun initRemoteConfig() {
+        remoteConfig.activate()
+        remoteConfig.fetch()
     }
 
     override fun getWorkManagerConfiguration(): Configuration {

@@ -2,6 +2,7 @@ package org.jdc.template.ui.fragment
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,6 +46,20 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
             "displayThemeType" -> {
                 themeManager.applyTheme()
             }
+        }
+    }
+
+    override fun onPreferenceTreeClick(preference: Preference): Boolean {
+        if (preference.key == null) {
+            return super.onPreferenceTreeClick(preference)
+        }
+
+        return when (preference.key) {
+            "workManagerStatusButton" -> {
+                findNavController().navigate(SettingsFragmentDirections.actionWorkManagerFragment())
+                true
+            }
+            else -> super.onPreferenceTreeClick(preference)
         }
     }
 }
