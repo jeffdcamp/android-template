@@ -2,7 +2,7 @@ package org.jdc.template
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
-import org.jdc.template.prefs.Prefs
+import org.jdc.template.model.prefs.Prefs
 import timber.log.Timber
 import javax.inject.Inject
 

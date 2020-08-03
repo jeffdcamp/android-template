@@ -6,7 +6,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
-import org.jdc.template.prefs.Prefs
+import org.jdc.template.model.prefs.Prefs
 import org.jdc.template.ui.ThemeManager
 import javax.inject.Inject
 

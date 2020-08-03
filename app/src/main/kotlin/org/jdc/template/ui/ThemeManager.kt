@@ -1,8 +1,8 @@
 package org.jdc.template.ui
 
 import androidx.appcompat.app.AppCompatDelegate
-import org.jdc.template.prefs.DisplayThemeType
-import org.jdc.template.prefs.Prefs
+import org.jdc.template.model.prefs.DisplayThemeType
+import org.jdc.template.model.prefs.Prefs
 import javax.inject.Inject
 import javax.inject.Singleton
 

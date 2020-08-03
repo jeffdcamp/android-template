@@ -13,7 +13,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonConfiguration
 import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
-import org.jdc.template.prefs.Prefs
+import org.jdc.template.model.prefs.Prefs
 import javax.inject.Singleton
 
 @Module

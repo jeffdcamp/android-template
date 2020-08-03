@@ -8,8 +8,8 @@ import dagger.hilt.android.HiltAndroidApp
 import org.jdc.template.log.DebugTree
 import org.jdc.template.log.FirebaseCrashlyticsTree
 import org.jdc.template.log.ReleaseTree
-import org.jdc.template.prefs.Prefs
-import org.jdc.template.prefs.PrefsManager
+import org.jdc.template.model.prefs.Prefs
+import org.jdc.template.model.prefs.PrefsManager
 import org.jdc.template.ui.ThemeManager
 import org.jdc.template.ui.notifications.NotificationChannels
 import timber.log.Timber

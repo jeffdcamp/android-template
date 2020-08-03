@@ -1,4 +1,4 @@
-package org.jdc.template.prefs
+package org.jdc.template.model.prefs
 
 import android.os.Build
 import java.util.UUID

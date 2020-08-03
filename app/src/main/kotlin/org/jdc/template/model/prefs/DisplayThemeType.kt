@@ -1,4 +1,4 @@
-package org.jdc.template.prefs
+package org.jdc.template.model.prefs
 
 enum class DisplayThemeType {
     SYSTEM_DEFAULT,

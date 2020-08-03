@@ -1,6 +1,6 @@
 @file:Suppress("LeakingThis", "MemberVisibilityCanPrivate", "Unused")
 
-package org.jdc.template.prefs
+package org.jdc.template.model.prefs
 
 import android.annotation.SuppressLint
 import android.content.Context
