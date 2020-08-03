@@ -13,6 +13,7 @@ import androidx.work.PeriodicWorkRequest
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import dagger.hilt.android.qualifiers.ApplicationContext
+import org.jdc.template.BuildConfig
 import org.jdc.template.model.prefs.Prefs
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -33,7 +34,11 @@ class WorkScheduler
             prefs.workSchedulerVersion = WORK_SCHEDULER_VERSION
         }
 
-        scheduleRemoteConfigUpdate()
+        @Suppress("ConstantConditionIf")
+        // don't schedule work for debug builds because connection to Firebase may not work (default signing will be wrong for debug builds)
+        if (BuildConfig.BUILD_TYPE != "debug") {
+            scheduleRemoteConfigUpdate()
+        }
     }
 
     fun scheduleSimpleWork(text: String) {

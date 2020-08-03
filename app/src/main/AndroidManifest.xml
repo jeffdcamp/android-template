@@ -49,11 +49,31 @@
             android:value="@integer/google_play_services_version"
             />
 
-        <!-- Setup WorkManagerInject (Hilt support for WorkManager) -->
+        <!-- Remove the default initializer for WorkManager -->
         <provider
             android:name="androidx.work.impl.WorkManagerInitializer"
             android:authorities="${applicationId}.workmanager-init"
-            tools:node="remove"
-            />
+            tools:node="remove" />
+
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data android:name="org.jdc.template.startup.PrefsInitializer"
+                android:value="androidx.startup" />
+            <meta-data android:name="org.jdc.template.startup.NotificationInitializer"
+                android:value="androidx.startup" />
+            <meta-data android:name="org.jdc.template.startup.TimberInitializer"
+                android:value="androidx.startup" />
+            <meta-data android:name="org.jdc.template.startup.AppUpgradeInitializer"
+                android:value="androidx.startup" />
+            <meta-data android:name="org.jdc.template.startup.ThemeInitializer"
+                android:value="androidx.startup" />
+            <meta-data android:name="org.jdc.template.startup.RemoteConfigInitializer"
+                android:value="androidx.startup" />
+            <meta-data android:name="org.jdc.template.startup.WorkManagerInitializer"
+                android:value="androidx.startup" />
+        </provider>
     </application>
 </manifest>
