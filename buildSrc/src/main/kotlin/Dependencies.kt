@@ -40,6 +40,7 @@ object Deps {
     const val FIREBASE_PERF = "com.google.firebase:firebase-perf"
     const val FIREBASE_CONFIG = "com.google.firebase:firebase-config-ktx"
     const val FIREBASE_CRASHLYTICS = "com.google.firebase:firebase-crashlytics"
+    const val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics"
 
     // Code
     const val KOTLIN_STD_LIB = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"

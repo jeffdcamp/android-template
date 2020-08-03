@@ -208,6 +208,7 @@ dependencies {
 //    implementation(Deps.FIREBASE_PERF)
 //    implementation(Deps.FIREBASE_CONFIG)
     implementation(Deps.FIREBASE_CRASHLYTICS)
+    implementation(Deps.FIREBASE_ANALYTICS)
 
     // Code
     implementation(Deps.KOTLIN_STD_LIB)
