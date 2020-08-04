@@ -14,11 +14,11 @@ import org.jdc.template.log.ReleaseTree
 import org.jdc.template.model.prefs.Prefs
 import timber.log.Timber
 
-class TimberInitializer : Initializer<Unit> {
+class LoggingInitializer : Initializer<Unit> {
 
     override fun create(context: Context) {
         val applicationContext = checkNotNull(context.applicationContext) { "Missing Application Context" }
-        val injector = EntryPoints.get(applicationContext, TimberInitializerInjector::class.java)
+        val injector = EntryPoints.get(applicationContext, LoggingInitializerInjector::class.java)
 
         FirebaseCrashlytics.getInstance().setUserId(injector.prefs.getAppInstanceId())
 
@@ -42,7 +42,7 @@ class TimberInitializer : Initializer<Unit> {
 
     @EntryPoint
     @InstallIn(ApplicationComponent::class)
-    interface TimberInitializerInjector {
+    interface LoggingInitializerInjector {
         val prefs: Prefs
     }
 }

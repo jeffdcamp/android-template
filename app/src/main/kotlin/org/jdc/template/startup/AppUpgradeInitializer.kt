@@ -18,7 +18,7 @@ class AppUpgradeInitializer : Initializer<Unit> {
     }
 
     override fun dependencies(): List<Class<out Initializer<*>>> {
-        return listOf(TimberInitializer::class.java, PrefsInitializer::class.java)
+        return listOf(LoggingInitializer::class.java, PrefsInitializer::class.java)
     }
 
     @EntryPoint

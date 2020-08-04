@@ -64,7 +64,7 @@
                 android:value="androidx.startup" />
             <meta-data android:name="org.jdc.template.startup.NotificationInitializer"
                 android:value="androidx.startup" />
-            <meta-data android:name="org.jdc.template.startup.TimberInitializer"
+            <meta-data android:name="org.jdc.template.startup.LoggingInitializer"
                 android:value="androidx.startup" />
             <meta-data android:name="org.jdc.template.startup.AppUpgradeInitializer"
                 android:value="androidx.startup" />

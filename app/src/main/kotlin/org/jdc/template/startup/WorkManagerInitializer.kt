@@ -31,7 +31,7 @@ class WorkManagerInitializer : Initializer<WorkManager> {
     }
 
     override fun dependencies(): List<Class<out Initializer<*>>> {
-        return listOf(TimberInitializer::class.java, RemoteConfigInitializer::class.java)
+        return listOf(LoggingInitializer::class.java, RemoteConfigInitializer::class.java)
     }
 
     @EntryPoint
