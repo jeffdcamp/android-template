@@ -76,8 +76,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
 
         // Flag to enable support for the new language APIs
-//        isCoreLibraryDesugaringEnabled = true // AGP 4.1+ naming
-        coreLibraryDesugaringEnabled = true
+        isCoreLibraryDesugaringEnabled = true
     }
 
     buildFeatures {

@@ -6,7 +6,7 @@ const val ANDROIDX_NAVIGATION_VERSION = "2.3.0"
 
 object Deps {
     // Android (https://android.googlesource.com/platform/frameworks/support/+/refs/heads/androidx-master-dev/buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt)
-    const val ANDROID_DESUGAR_JDK_LIBS = "com.android.tools:desugar_jdk_libs:1.0.5"
+    const val ANDROID_DESUGAR_JDK_LIBS = "com.android.tools:desugar_jdk_libs:1.0.10"
     const val ANDROIDX_APPCOMPAT = "androidx.appcompat:appcompat:1.1.0"
     const val ANDROIDX_RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.1.0"
     const val ANDROIDX_PREFERENCE = "androidx.preference:preference-ktx:1.1.1"
@@ -34,12 +34,12 @@ object Deps {
     const val ANDROID_MATERIAL = "com.google.android.material:material:1.1.0" // https://github.com/material-components/material-components-android/releases
 
     // Play Services
-    const val PLAYSERVICE_CORE = "com.google.android.play:core-ktx:1.7.0" // https://developer.android.com/reference/com/google/android/play/core/release-notes
+    const val PLAYSERVICE_CORE = "com.google.android.play:core-ktx:1.8.0" // https://developer.android.com/reference/com/google/android/play/core/release-notes
     const val PLAYSERVICE_KOTLINX_COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$COROUTINES_VERSION"
     // const val PLAYSERVICE_LICENSES = "com.google.android.gms:play-services-oss-licenses:17.0.0"
 
     // Firebase - https://firebase.google.com/support/release-notes/android
-    const val FIREBASE_BOM = "com.google.firebase:firebase-bom:25.6.1" // automatically sets the version for all firebase libs below
+    const val FIREBASE_BOM = "com.google.firebase:firebase-bom:25.7.0" // automatically sets the version for all firebase libs below
     const val FIREBASE_CORE = "com.google.firebase:firebase-core"
     const val FIREBASE_PERF = "com.google.firebase:firebase-perf"
     const val FIREBASE_CONFIG = "com.google.firebase:firebase-config-ktx"
@@ -87,8 +87,8 @@ object Deps {
     private const val ESPRESSO_VERSION = "3.3.0-rc01"
     const val TEST_ESPRESSO_CORE = "androidx.test.espresso:espresso-core:$ESPRESSO_VERSION"
     const val TEST_ESPRESSO_CONTRIB = "androidx.test.espresso:espresso-contrib:$ESPRESSO_VERSION"
-    const val TEST_RUNNER = "androidx.test:runner:1.3.0-rc01"
-    const val TEST_RULES = "androidx.test:rules:1.3.0-rc01"
+    const val TEST_RUNNER = "androidx.test:runner:1.3.0-rc02"
+    const val TEST_RULES = "androidx.test:rules:1.3.0-rc02"
     const val TEST_ANDROIDX_JUNIT = "androidx.test.ext:junit:1.1.2-rc01"
 
     // Test - JUnit
@@ -96,8 +96,8 @@ object Deps {
     const val TEST_JUNIT = "org.junit.jupiter:junit-jupiter:$JUNIT_VERSION"
     const val TEST_JUNIT_ENGINE = "org.junit.jupiter:junit-jupiter-engine:$JUNIT_VERSION"
     const val TEST_OKHTTP_MOCKWEBSERVER = "com.squareup.okhttp3:mockwebserver:$OKHTTP_VERSION"
-    const val TEST_MOCKITO_CORE = "org.mockito:mockito-core:3.4.4"
-    const val TEST_XERIAL_SQLITE = "org.xerial:sqlite-jdbc:3.32.3.1"
+    const val TEST_MOCKITO_CORE = "org.mockito:mockito-core:3.4.6"
+    const val TEST_XERIAL_SQLITE = "org.xerial:sqlite-jdbc:3.32.3.2"
     const val TEST_ARCH_ROOM_TESTING = "androidx.room:room-testing:$ROOM_VERSION"
     const val TEST_DBTOOLS_ROOM_JDBC = "org.dbtools:dbtools-room-jdbc:$DBTOOLS_VERSION"
     const val TEST_KOTLIN_COROUTINES_TEST = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$COROUTINES_VERSION"
