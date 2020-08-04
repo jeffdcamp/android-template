@@ -17,7 +17,7 @@ class WorkManagerInitializer : Initializer<WorkManager> {
         val injector = EntryPoints.get(applicationContext, WorkManagerInitializerInjector::class.java)
 
         val configuration = Configuration.Builder()
-            .setWorkerFactory(injector.workerFactory)
+            .setWorkerFactory(injector.getWorkerFactory())
             .build()
 
         WorkManager.initialize(context, configuration)
@@ -25,7 +25,7 @@ class WorkManagerInitializer : Initializer<WorkManager> {
         val workManager = WorkManager.getInstance(context)
 
         // schedule all periodic work
-        injector.workScheduler.startPeriodicWorkSchedules()
+        injector.getWorkScheduler().startPeriodicWorkSchedules()
 
         return workManager
     }
@@ -37,7 +37,7 @@ class WorkManagerInitializer : Initializer<WorkManager> {
     @EntryPoint
     @InstallIn(ApplicationComponent::class)
     interface WorkManagerInitializerInjector {
-        val workerFactory: HiltWorkerFactory
-        val workScheduler: WorkScheduler
+        fun getWorkerFactory(): HiltWorkerFactory
+        fun getWorkScheduler(): WorkScheduler
     }
 }

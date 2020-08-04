@@ -14,7 +14,7 @@ class ThemeInitializer : Initializer<Unit> {
         val applicationContext = checkNotNull(context.applicationContext) { "Missing Application Context" }
         val injector = EntryPoints.get(applicationContext, ThemeInitializerInjector::class.java)
 
-        injector.themeManager.applyTheme()
+        injector.getThemeManager().applyTheme()
     }
 
     override fun dependencies(): List<Class<out Initializer<*>>> {
@@ -24,6 +24,6 @@ class ThemeInitializer : Initializer<Unit> {
     @EntryPoint
     @InstallIn(ApplicationComponent::class)
     interface ThemeInitializerInjector {
-        val themeManager: ThemeManager
+        fun getThemeManager(): ThemeManager
     }
 }

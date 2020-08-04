@@ -14,7 +14,7 @@ class RemoteConfigInitializer : Initializer<Unit> {
         val applicationContext = checkNotNull(context.applicationContext) { "Missing Application Context" }
         val injector = EntryPoints.get(applicationContext, RemoteConfigInitializerInjector::class.java)
 
-        val remoteConfig = injector.remoteConfig
+        val remoteConfig = injector.getRemoteConfig()
 
         remoteConfig.fetch()
         remoteConfig.activate()
@@ -27,6 +27,6 @@ class RemoteConfigInitializer : Initializer<Unit> {
     @EntryPoint
     @InstallIn(ApplicationComponent::class)
     interface RemoteConfigInitializerInjector {
-        val remoteConfig: RemoteConfig
+        fun getRemoteConfig(): RemoteConfig
     }
 }

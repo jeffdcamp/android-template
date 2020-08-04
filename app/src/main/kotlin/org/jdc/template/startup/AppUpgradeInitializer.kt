@@ -14,7 +14,7 @@ class AppUpgradeInitializer : Initializer<Unit> {
         val applicationContext = checkNotNull(context.applicationContext) { "Missing Application Context" }
         val injector = EntryPoints.get(applicationContext, AppUpgradeInitializerInjector::class.java)
 
-        injector.appUpgrade.upgradeApp()
+        injector.getAppUpgrade().upgradeApp()
     }
 
     override fun dependencies(): List<Class<out Initializer<*>>> {
@@ -24,6 +24,6 @@ class AppUpgradeInitializer : Initializer<Unit> {
     @EntryPoint
     @InstallIn(ApplicationComponent::class)
     interface AppUpgradeInitializerInjector {
-        val appUpgrade: AppUpgrade
+        fun getAppUpgrade(): AppUpgrade
     }
 }

@@ -20,7 +20,7 @@ class LoggingInitializer : Initializer<Unit> {
         val applicationContext = checkNotNull(context.applicationContext) { "Missing Application Context" }
         val injector = EntryPoints.get(applicationContext, LoggingInitializerInjector::class.java)
 
-        FirebaseCrashlytics.getInstance().setUserId(injector.prefs.getAppInstanceId())
+        FirebaseCrashlytics.getInstance().setUserId(injector.getPrefs().getAppInstanceId())
 
         if (BuildConfig.DEBUG) {
             Timber.plant(DebugTree())
@@ -43,6 +43,6 @@ class LoggingInitializer : Initializer<Unit> {
     @EntryPoint
     @InstallIn(ApplicationComponent::class)
     interface LoggingInitializerInjector {
-        val prefs: Prefs
+        fun getPrefs(): Prefs
     }
 }
