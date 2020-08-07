@@ -7,7 +7,7 @@ import androidx.hilt.work.WorkerInject
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import kotlinx.coroutines.delay
-import org.jdc.template.prefs.Prefs
+import org.jdc.template.model.prefs.Prefs
 import timber.log.Timber
 
 /**

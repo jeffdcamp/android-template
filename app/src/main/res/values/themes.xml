@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="Theme.AndroidTemplate.Splash">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/branded_splash</item>
+    </style>
+
     <style name="Theme.AndroidTemplate" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Color Theme Definitions -->
         <!-- https://material.io/develop/android/theming/color/ -->
@@ -39,7 +44,7 @@
         <item name="android:statusBarColor">@color/material_red_900</item>
 
         <!-- The color BELOW the App (where the OS nav widgets exist) -->
-        <item name="android:navigationBarColor">@color/material_white</item>
+        <!-- <item name="android:navigationBarColor">@color/material_white</item> -->
 
         <!-- Style of EditText Fields -->
         <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>

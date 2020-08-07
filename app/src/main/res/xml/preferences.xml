@@ -20,4 +20,14 @@
             />
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="Developer Options">
+
+        <Preference
+            android:key="workManagerStatusButton"
+            android:summary="Show status of all background workers"
+            android:title="Work Manager Status"
+            />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

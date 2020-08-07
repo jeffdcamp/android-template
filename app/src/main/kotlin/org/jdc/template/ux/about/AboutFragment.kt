@@ -38,6 +38,8 @@ class AboutFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         activity?.setTitle(R.string.about_title)
         viewModel.logAnalytics()
+
+        viewModel.resetServiceEnabledLiveData.observeKt { binding.restServiceEnabledTextView.text = it.toString() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -48,7 +50,7 @@ class AboutFragment : BaseFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_item_licenses -> {
-                findNavController().navigate(AboutFragmentDirections.acknowledgments())
+                findNavController().navigate(AboutFragmentDirections.actionAcknowledgmentsFragment())
                 true
             }
             else -> super.onOptionsItemSelected(item)

@@ -15,11 +15,11 @@ class CommonMenu
         return when (item.itemId) {
             R.id.menu_item_search -> true
             R.id.menu_item_settings -> {
-                navController.navigate(MainNavigationDirections.settings())
+                navController.navigate(MainNavigationDirections.actionGlobalSettingsFragment())
                 true
             }
             R.id.menu_item_about -> {
-                navController.navigate(MainNavigationDirections.about())
+                navController.navigate(MainNavigationDirections.actionGlobalAboutFragment())
                 true
             }
             else -> {

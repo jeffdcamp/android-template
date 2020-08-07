@@ -82,7 +82,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
 
         // Flag to enable support for the new language APIs
-//        isCoreLibraryDesugaringEnabled = true // AGP 4.1+ naming
         isCoreLibraryDesugaringEnabled = true
     }
 
@@ -210,6 +209,7 @@ dependencies {
     implementation(Deps.ANDROIDX_CORE)
     implementation(Deps.ANDROIDX_ACTIVITY_KTX)
     implementation(Deps.ANDROIDX_FRAGMENT_KTX)
+    implementation(Deps.ANDROIDX_STARTUP)
 
     // Compose
     implementation(Deps.COMPOSE_LAYOUT)
@@ -219,13 +219,15 @@ dependencies {
 
     // Play Service
     implementation(Deps.PLAYSERVICE_CORE)
+    implementation(Deps.PLAYSERVICE_KOTLINX_COROUTINES)
 
     // Firebase
     implementation(platform(Deps.FIREBASE_BOM))
     implementation(Deps.FIREBASE_CORE)
 //    implementation(Deps.FIREBASE_PERF)
-//    implementation(Deps.FIREBASE_CONFIG)
+    implementation(Deps.FIREBASE_CONFIG)
     implementation(Deps.FIREBASE_CRASHLYTICS)
+    implementation(Deps.FIREBASE_ANALYTICS)
 
     // Code
     implementation(Deps.KOTLIN_STD_LIB)
@@ -255,6 +257,7 @@ dependencies {
     // WorkManager
     implementation(Deps.ARCH_WORK_RUNTIME)
     implementation(Deps.ARCH_WORK_GCM)
+    implementation(Deps.WORKMANAGER_TOOLS)
 
     // Database
     implementation(Deps.ARCH_ROOM_RUNTIME)

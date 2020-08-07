@@ -60,8 +60,8 @@ class DirectoryFragment : BaseFragment() {
         lifecycleScope.launchWhenStarted {
             for (event in viewModel.eventChannel) {
                 when (event) {
-                    is DirectoryViewModel.Event.NewIndividualEvent -> findNavController().navigate(DirectoryFragmentDirections.newIndividual())
-                    is DirectoryViewModel.Event.ShowIndividualEvent -> findNavController().navigate(DirectoryFragmentDirections.individual(event.individualId))
+                    is DirectoryViewModel.Event.NewIndividualEvent -> findNavController().navigate(DirectoryFragmentDirections.actionIndividualEditFragment())
+                    is DirectoryViewModel.Event.ShowIndividualEvent -> findNavController().navigate(DirectoryFragmentDirections.actionIndividualFragment(event.individualId))
                 }
             }
         }

@@ -2,11 +2,12 @@ package org.jdc.template.ui.fragment
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
-import org.jdc.template.prefs.Prefs
+import org.jdc.template.model.prefs.Prefs
 import org.jdc.template.ui.ThemeManager
 import javax.inject.Inject
 
@@ -25,7 +26,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
 
     override fun onResume() {
         super.onResume()
-
         prefs.preferenceManager.registerOnSharedPreferenceChangeListener(this)
     }
 
@@ -38,11 +38,28 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
         return false
     }
 
+    /**
+     * For changes that have already been persisted
+     */
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
         when (key) {
             "displayThemeType" -> {
                 themeManager.applyTheme()
             }
+        }
+    }
+
+    override fun onPreferenceTreeClick(preference: Preference): Boolean {
+        if (preference.key == null) {
+            return super.onPreferenceTreeClick(preference)
+        }
+
+        return when (preference.key) {
+            "workManagerStatusButton" -> {
+                findNavController().navigate(SettingsFragmentDirections.actionWorkManagerFragment())
+                true
+            }
+            else -> super.onPreferenceTreeClick(preference)
         }
     }
 }

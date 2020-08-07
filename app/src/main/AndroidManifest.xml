@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="org.jdc.template"
-    android:installLocation="auto">
+    android:installLocation="auto"
+    >
 
     <!-- Permissions -->
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!-- MyApplication -->
     <application
@@ -21,14 +23,19 @@
         <!-- support 18:9 form factors -->
         <meta-data
             android:name="android.max_aspect"
-            android:value="2.1"/>
+            android:value="2.1"
+            />
 
         <!-- Activities -->
-        <activity android:name=".ux.startup.StartupActivity">
+        <activity
+            android:name=".ux.startup.StartupActivity"
+            android:theme="@style/Theme.AndroidTemplate.Splash"
+            >
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".ux.main.MainActivity">
@@ -39,28 +46,34 @@
         <!-- Google Play Services -->
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version"/>
+            android:value="@integer/google_play_services_version"
+            />
 
-        <!-- Setup WorkManagerInject -->
-        <!-- Provide your own custom WorkManager configuration, you must first remove the default initializer. -->
+        <!-- Remove the default initializer for WorkManager -->
         <provider
             android:name="androidx.work.impl.WorkManagerInitializer"
             android:authorities="${applicationId}.workmanager-init"
             tools:node="remove" />
 
-        <!-- Google Analytics -->
-        <!-- (optional) register AnalyticsReceiver and AnalyticsService to support background dispatching on non-Google Play devices -->
-        <receiver
-            android:name="com.google.android.gms.analytics.AnalyticsReceiver"
-            android:enabled="true">
-            <intent-filter>
-                <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH"/>
-            </intent-filter>
-        </receiver>
-        <service
-            android:name="com.google.android.gms.analytics.AnalyticsService"
-            android:enabled="true"
-            android:exported="false"/>
-
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data android:name="org.jdc.template.startup.PrefsInitializer"
+                android:value="androidx.startup" />
+            <meta-data android:name="org.jdc.template.startup.NotificationInitializer"
+                android:value="androidx.startup" />
+            <meta-data android:name="org.jdc.template.startup.LoggingInitializer"
+                android:value="androidx.startup" />
+            <meta-data android:name="org.jdc.template.startup.AppUpgradeInitializer"
+                android:value="androidx.startup" />
+            <meta-data android:name="org.jdc.template.startup.ThemeInitializer"
+                android:value="androidx.startup" />
+            <meta-data android:name="org.jdc.template.startup.RemoteConfigInitializer"
+                android:value="androidx.startup" />
+            <meta-data android:name="org.jdc.template.startup.WorkManagerInitializer"
+                android:value="androidx.startup" />
+        </provider>
     </application>
 </manifest>

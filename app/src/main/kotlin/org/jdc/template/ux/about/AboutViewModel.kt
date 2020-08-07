@@ -1,21 +1,26 @@
 package org.jdc.template.ux.about
 
-import android.app.Application
+import android.content.Context
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
 import org.jdc.template.ext.saveBodyToFile
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.db.main.type.IndividualType
+import org.jdc.template.model.remoteconfig.RemoteConfig
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.model.webservice.colors.ColorService
 import org.jdc.template.model.webservice.colors.dto.ColorsDto
+import org.jdc.template.ui.viewmodel.BaseViewModel
 import org.jdc.template.work.WorkScheduler
 import retrofit2.Response
 import timber.log.Timber
@@ -25,16 +30,20 @@ import java.time.LocalTime
 
 class AboutViewModel
 @ViewModelInject constructor(
+    @ApplicationContext private val context: Context,
     private val analytics: Analytics,
-    private val application: Application,
     private val individualRepository: IndividualRepository,
     private val colorService: ColorService,
     private val workScheduler: WorkScheduler,
+    private val remoteConfig: RemoteConfig,
     @Assisted savedStateHandle: SavedStateHandle
-) : ViewModel() {
+) : BaseViewModel<Unit>() {
 
     var appVersion = BuildConfig.VERSION_NAME
     var appBuildDateTime = BuildConfig.BUILD_TIME
+    val resetServiceEnabledLiveData: LiveData<Boolean> = flow {
+        emit(remoteConfig.isColorServiceEnabled())
+    }.asLiveData()
 
     fun logAnalytics() {
         analytics.logEvent(Analytics.EVENT_VIEW_ABOUT)
@@ -82,6 +91,11 @@ class AboutViewModel
      * Simple web service call
      */
     fun testQueryWebServiceCall() = viewModelScope.launch {
+        if (!remoteConfig.isColorServiceEnabled()) {
+            Timber.e("Color Service is NOT enabled... skipping")
+            return@launch
+        }
+
         val response = colorService.colors()
 
         if (response.isSuccessful) {
@@ -112,7 +126,7 @@ class AboutViewModel
 
         if (response.isSuccessful) {
             // delete any existing file
-            val outputFile = File(application.externalCacheDir, "ws-out.json")
+            val outputFile = File(context.externalCacheDir, "ws-out.json")
             if (outputFile.exists()) {
                 outputFile.delete()
             }

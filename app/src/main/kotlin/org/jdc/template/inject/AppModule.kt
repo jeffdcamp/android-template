@@ -12,7 +12,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.serialization.json.Json
 import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
-import org.jdc.template.prefs.Prefs
+import org.jdc.template.model.prefs.Prefs
 import javax.inject.Singleton
 
 @Module

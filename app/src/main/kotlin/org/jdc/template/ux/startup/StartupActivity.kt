@@ -47,6 +47,5 @@ class StartupActivity : BaseActivity() {
         MaterialAlertDialogBuilder(this)
             .setMessage("Paused for debugger attachment")
             .setPositiveButton("OK") { _, _ -> viewModel.debugResumeStartup() }
-
     }
 }

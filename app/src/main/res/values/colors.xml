@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="brand_color">@color/material_red_700_dark</color>
+
     <!-- Variants - (customizations per app) -->
     <color name="material_red_500_dark">#ba000d</color>
     <color name="material_red_700_dark">#9a0007</color>
