@@ -1,6 +1,7 @@
 package org.jdc.template.ui.compose
 
-import androidx.ui.graphics.Color
+import androidx.compose.ui.graphics.Color
+
 
 // Variants - (customizations per app)
 val material_red_500_dark = Color(0xba000d)

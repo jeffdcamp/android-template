@@ -10,7 +10,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonConfiguration
 import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
 import org.jdc.template.prefs.Prefs
@@ -28,13 +27,11 @@ class AppModule {
     @Provides
     @Singleton
     fun provideJson(): Json {
-        return Json(
-            JsonConfiguration.Stable.copy(
-                ignoreUnknownKeys = true,
-                serializeSpecialFloatingPointValues = true,
-                useArrayPolymorphism = true
-            )
-        )
+        return Json {
+            ignoreUnknownKeys = true
+            allowSpecialFloatingPointValues = true
+            useArrayPolymorphism = true
+        }
     }
 
     @Provides

@@ -10,6 +10,7 @@ import java.util.Date
 
 plugins {
     id("com.android.application")
+    id("com.github.ben-manes.versions") // ./gradlew dependencyUpdates -Drevision=release
     kotlin("android")
     kotlin("kapt")
     id("kotlinx-serialization")
@@ -17,8 +18,8 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.firebase.crashlytics")
     id("com.google.firebase.appdistribution")
-    id("io.gitlab.arturbosch.detekt") version "1.9.1"
-    id ("de.undercouch.download")
+    id("io.gitlab.arturbosch.detekt") version "1.11.0-RC1"
+    id("de.undercouch.download")
     id("com.github.triplet.play") version "2.8.0"
     id("com.github.jk1.dependency-license-report") version "1.14"
 }
@@ -41,7 +42,10 @@ kapt {
 // "Cannot inline bytecode built with JVM target 1.8 into bytecode that is being built with JVM target 1.6. Please specify proper '-jvm-target' option"
 // The following is added to allow the Kotlin Compiler to compile properly
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions {
+        jvmTarget = "1.8"
+        freeCompilerArgs = freeCompilerArgs + listOf("-Xallow-jvm-ir-dependencies", "-Xskip-prerelease-check")
+    }
 }
 
 android {
@@ -54,9 +58,11 @@ android {
         versionCode = appVersionCode
         versionName = appVersionName
 
+        @Suppress("RemoveSingleExpressionStringTemplate")   // Needed to format BuildConfg properly
         buildConfigField("String", "BUILD_NUMBER", "${System.getProperty("BUILD_NUMBER")}")
         buildConfigField("String", "USER_AGENT_APP_NAME", "AndroidTemplate")
-        buildConfigField("String", "ANALYTICS_KEY", "${getAnalyticsKey()}")
+        @Suppress("RemoveSingleExpressionStringTemplate")   // Needed to format BuildConfg properly
+        buildConfigField("String", "ANALYTICS_KEY", "\"${getAnalyticsKey()}\"")
 
         multiDexEnabled = true
 
@@ -88,7 +94,7 @@ android {
 
     composeOptions {
         kotlinCompilerExtensionVersion = COMPOSE_VERSION
-        kotlinCompilerVersion = "1.3.70-dev-withExperimentalGoogleExtensions-20200424"
+        kotlinCompilerVersion = KOTLIN_VERSION
     }
 
     lintOptions {
@@ -105,7 +111,7 @@ android {
             val myUploadKeyPassword: String by project
 
             if (myUploadKeystore != null) {
-                storeFile = File(myUploadKeystore)
+                storeFile = File(myUploadKeystore!!)
                 storePassword = myUploadKeystorePassword
                 keyAlias = myUploadKeyAlias
                 keyPassword = myUploadKeyPassword
@@ -119,7 +125,7 @@ android {
             val myProdKeyPassword: String by project
 
             if (myProdKeystore != null) {
-                storeFile = File(myProdKeystore)
+                storeFile = File(myProdKeystore!!)
                 storePassword = myProdKeystorePassword
                 keyAlias = myProdKeyAlias
                 keyPassword = myProdKeyPassword
@@ -140,7 +146,7 @@ android {
             initWith(getByName("release"))
             versionNameSuffix = " ALPHA"
             applicationIdSuffix = ".alpha"
-            buildConfigField("long", "BUILD_TIME", "${buildTime}")
+            buildConfigField("long", "BUILD_TIME", "$buildTime")
             // isDebuggable = true
             signingConfig = signingConfigs.getByName("upload")
 
@@ -154,7 +160,7 @@ android {
         create("beta") {
             initWith(getByName("release"))
             versionNameSuffix = " BETA"
-            buildConfigField("long", "BUILD_TIME", "${buildTime}")
+            buildConfigField("long", "BUILD_TIME", "$buildTime")
             signingConfig = signingConfigs.getByName("upload")
 
             firebaseAppDistribution {
@@ -165,7 +171,7 @@ android {
             }
         }
         getByName("release") {
-            buildConfigField("long", "BUILD_TIME", "${buildTime}")
+            buildConfigField("long", "BUILD_TIME", "$buildTime")
             versionNameSuffix = ""
             //minifyEnabled true
             //shrinkResources true
@@ -200,7 +206,7 @@ dependencies {
     implementation(Deps.ANDROIDX_RECYCLERVIEW)
     implementation(Deps.ANDROIDX_PREFERENCE)
     implementation(Deps.ANDROID_MATERIAL)
-    implementation(Deps.ANDROIDX_CONSTRAINT_LAYOUT)
+//    implementation(Deps.ANDROIDX_CONSTRAINT_LAYOUT)
     implementation(Deps.ANDROIDX_CORE)
     implementation(Deps.ANDROIDX_ACTIVITY_KTX)
     implementation(Deps.ANDROIDX_FRAGMENT_KTX)

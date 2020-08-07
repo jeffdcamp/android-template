@@ -1,12 +1,12 @@
 package org.jdc.template.ui.compose
 
-import androidx.compose.Composable
-import androidx.ui.foundation.isSystemInDarkTheme
-import androidx.ui.material.MaterialTheme
-import androidx.ui.material.darkColorPalette
-import androidx.ui.material.lightColorPalette
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.darkColors
+import androidx.compose.material.lightColors
+import androidx.compose.runtime.Composable
 
-private val darkPalette = darkColorPalette(
+private val darkPalette = darkColors(
     primary = material_red_500,
     primaryVariant = material_red_500_dark,
     onPrimary = material_white,
@@ -21,7 +21,7 @@ private val darkPalette = darkColorPalette(
     onBackground = material_white
 )
 
-private val lightPalette = lightColorPalette(
+private val lightPalette = lightColors(
     primary = material_red_700,
     primaryVariant = material_red_700_dark,
     onPrimary = material_white,

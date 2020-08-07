@@ -3,10 +3,10 @@ package org.jdc.template.ui.compose
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import androidx.compose.Composable
-import androidx.compose.Recomposer
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Recomposer
+import androidx.compose.ui.platform.setContent
 import androidx.fragment.app.Fragment
-import androidx.ui.core.setContent
 import kotlin.random.Random
 
 fun Fragment.setContent(content: @Composable() () -> Unit): View {

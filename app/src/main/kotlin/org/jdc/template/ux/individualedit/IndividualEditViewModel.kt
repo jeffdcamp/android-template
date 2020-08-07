@@ -1,6 +1,6 @@
 package org.jdc.template.ux.individualedit
 
-import androidx.compose.mutableStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.SavedStateHandle
@@ -79,13 +79,13 @@ class IndividualEditViewModel
         return true
     }
 
-//    fun onBirthDateClicked() {
-//        sendEvent(Event.ShowBirthDateSelection(birthDate.value ?: LocalDate.now()))
-//    }
+    fun onBirthDateClick() {
+        sendEvent(Event.ShowBirthDateSelection(birthDate.value ?: LocalDate.now()))
+    }
 
-//    fun onAlarmTimeClicked() {
-//        sendEvent(Event.ShowAlarmTimeSelection(alarmTime.value))
-//    }
+    fun onAlarmTimeClick() {
+        sendEvent(Event.ShowAlarmTimeSelection(alarmTime.value))
+    }
 
     enum class FieldValidationError(val errorMessageId: Int) {
         FIRST_NAME_REQUIRED(R.string.required),
@@ -93,8 +93,8 @@ class IndividualEditViewModel
 
     sealed class Event {
         object IndividualSaved : Event()
-//        class ShowBirthDateSelection(val date: LocalDate) : Event()
-//        class ShowAlarmTimeSelection(val time: LocalTime) : Event()
+        class ShowBirthDateSelection(val date: LocalDate) : Event()
+        class ShowAlarmTimeSelection(val time: LocalTime) : Event()
 //        class ValidationSaveError(val error: FieldValidationError) : Event()
     }
 }

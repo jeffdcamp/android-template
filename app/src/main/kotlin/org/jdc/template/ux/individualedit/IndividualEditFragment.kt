@@ -9,20 +9,20 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.Composable
+import androidx.compose.foundation.Box
+import androidx.compose.foundation.ScrollableColumn
+import androidx.compose.foundation.Text
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.ui.core.Modifier
-import androidx.ui.foundation.Box
-import androidx.ui.foundation.Text
-import androidx.ui.foundation.VerticalScroller
-import androidx.ui.foundation.clickable
-import androidx.ui.layout.Column
-import androidx.ui.layout.padding
-import androidx.ui.material.OutlinedTextField
-import androidx.ui.res.stringResource
-import androidx.ui.unit.dp
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
 import org.jdc.template.ui.compose.AppTheme
@@ -55,6 +55,8 @@ class IndividualEditFragment : BaseFragment() {
             for (event in viewModel.eventChannel) {
                 when (event) {
                     is IndividualEditViewModel.Event.IndividualSaved -> findNavController().popBackStack()
+                    is IndividualEditViewModel.Event.ShowBirthDateSelection -> showBirthDateSelector(event.date)
+                    is IndividualEditViewModel.Event.ShowAlarmTimeSelection -> showAlarmTimeSelector(event.time)
                 }
             }
         }
@@ -91,37 +93,37 @@ class IndividualEditFragment : BaseFragment() {
 
         alarmTimePickerDialog.show()
     }
+}
 
-    @Composable
-    fun IndividualEditPage(viewModel: IndividualEditViewModel) {
-        AppTheme {
-            VerticalScroller {
-                Column(Modifier.padding(16.dp)) {
+@Composable
+fun IndividualEditPage(viewModel: IndividualEditViewModel) {
+    AppTheme {
+        ScrollableColumn(children = {
+            Column(Modifier.padding(16.dp)) {
+                OutlinedTextField(
+                    value = viewModel.firstName.value,
+                    onValueChange = { viewModel.firstName.value = it },
+                    label = { Text(text = stringResource(id = R.string.first_name)) },
+                    isErrorValue = viewModel.firstNameError.value
+                )
+                OutlinedTextField(value = viewModel.lastName.value, onValueChange = { viewModel.lastName.value = it }, label = { Text(text = stringResource(id = R.string.last_name)) })
+                OutlinedTextField(value = viewModel.phone.value, onValueChange = { viewModel.phone.value = it }, label = { Text(text = stringResource(id = R.string.phone)) })
+                OutlinedTextField(value = viewModel.email.value, onValueChange = { viewModel.email.value = it }, label = { Text(text = stringResource(id = R.string.email)) })
+                Box(modifier = Modifier.clickable(onClick = { viewModel.onBirthDateClick() })) {
                     OutlinedTextField(
-                        value = viewModel.firstName.value,
-                        onValueChange = { viewModel.firstName.value = it },
-                        label = { Text(text = stringResource(id = R.string.first_name)) },
-                        isErrorValue = viewModel.firstNameError.value
+                        value = viewModel.birthDateFormatted.value,
+                        onValueChange = {},
+                        label = { Text(text = stringResource(id = R.string.birth_date)) }
                     )
-                    OutlinedTextField(value = viewModel.lastName.value, onValueChange = { viewModel.lastName.value = it }, label = { Text(text = stringResource(id = R.string.last_name)) })
-                    OutlinedTextField(value = viewModel.phone.value, onValueChange = { viewModel.phone.value = it }, label = { Text(text = stringResource(id = R.string.phone)) })
-                    OutlinedTextField(value = viewModel.email.value, onValueChange = { viewModel.email.value = it }, label = { Text(text = stringResource(id = R.string.email)) })
-                    Box(modifier = Modifier.clickable(onClick = { showBirthDateSelector(viewModel.birthDate.value ?: LocalDate.now()) })) {
-                        OutlinedTextField(
-                            value = viewModel.birthDateFormatted.value,
-                            onValueChange = {},
-                            label = { Text(text = stringResource(id = R.string.birth_date)) }
-                        )
-                    }
-                    Box(modifier = Modifier.clickable(onClick = { showAlarmTimeSelector(viewModel.alarmTime.value) })) {
-                        OutlinedTextField(
-                            value = viewModel.alarmTimeFormatted.value,
-                            onValueChange = {},
-                            label = { Text(text = stringResource(id = R.string.alarm_time)) }
-                        )
-                    }
+                }
+                Box(modifier = Modifier.clickable(onClick = { viewModel.onAlarmTimeClick() })) {
+                    OutlinedTextField(
+                        value = viewModel.alarmTimeFormatted.value,
+                        onValueChange = {},
+                        label = { Text(text = stringResource(id = R.string.alarm_time)) }
+                    )
                 }
             }
-        }
+        })
     }
 }
