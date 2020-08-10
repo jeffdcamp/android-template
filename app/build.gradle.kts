@@ -215,7 +215,6 @@ dependencies {
     implementation(Deps.KOTLIN_STD_LIB)
     implementation(Deps.KOTLIN_SERIALIZATION)
     implementation(Deps.COROUTINES)
-    implementation(Deps.EXTRAS_DELEGATES)
     implementation(Deps.TIMBER)
 
     // Inject

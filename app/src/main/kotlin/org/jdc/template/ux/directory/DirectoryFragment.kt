@@ -13,12 +13,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import me.eugeniomarletti.extras.bundle.BundleExtra
-import me.eugeniomarletti.extras.bundle.base.Int
 import org.jdc.template.R
 import org.jdc.template.databinding.DirectoryFragmentBinding
 import org.jdc.template.ext.collectWhenStarted
-import org.jdc.template.ext.getScrollPosition
 import org.jdc.template.ext.receiveWhenStarted
 import org.jdc.template.ui.menu.CommonMenu
 import javax.inject.Inject
@@ -89,20 +86,12 @@ class DirectoryFragment : Fragment() {
 
     override fun onSaveInstanceState(bundle: Bundle) {
         super.onSaveInstanceState(bundle)
-        with(SaveStateOptions) {
-            if (::binding.isInitialized) { // onSaveInstanceState may be called before onCreateView
-                bundle.scrollPosition = binding.recyclerView.getScrollPosition()
-            }
+        if (::binding.isInitialized) { // onSaveInstanceState may be called before onCreateView
+            bundle.putInt("scrollPosition", 0)
         }
     }
 
     private fun restoreState(bundle: Bundle) {
-        with(SaveStateOptions) {
-            binding.recyclerView.scrollToPosition(bundle.scrollPosition ?: 0)
-        }
-    }
-
-    object SaveStateOptions {
-        var Bundle.scrollPosition by BundleExtra.Int()
+        binding.recyclerView.scrollToPosition(bundle.getInt("scrollPosition", 0))
     }
 }
