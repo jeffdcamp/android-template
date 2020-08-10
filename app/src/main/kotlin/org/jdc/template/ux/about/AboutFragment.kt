@@ -8,15 +8,16 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
 import org.jdc.template.databinding.AboutFragmentBinding
-import org.jdc.template.ui.fragment.BaseFragment
+import org.jdc.template.ext.collectWhenStarted
 
 @AndroidEntryPoint
-class AboutFragment : BaseFragment() {
+class AboutFragment : Fragment() {
     private val viewModel: AboutViewModel by viewModels()
     private lateinit var binding: AboutFragmentBinding
 
@@ -39,7 +40,9 @@ class AboutFragment : BaseFragment() {
         activity?.setTitle(R.string.about_title)
         viewModel.logAnalytics()
 
-        viewModel.resetServiceEnabledLiveData.observeKt { binding.restServiceEnabledTextView.text = it.toString() }
+        viewLifecycleOwner.collectWhenStarted(viewModel.resetServiceEnabledFlow) {
+            binding.restServiceEnabledTextView.text = it.toString()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

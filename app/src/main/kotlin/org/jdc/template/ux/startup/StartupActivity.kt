@@ -3,16 +3,16 @@ package org.jdc.template.ux.startup
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
-import org.jdc.template.ui.activity.BaseActivity
 import org.jdc.template.ux.main.MainActivity
 import timber.log.Timber
 
 @AndroidEntryPoint
-class StartupActivity : BaseActivity() {
+class StartupActivity : AppCompatActivity() {
 
     private val viewModel: StartupViewModel by viewModels()
 

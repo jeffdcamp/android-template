@@ -8,18 +8,18 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import org.jdc.template.R
 import org.jdc.template.databinding.IndividualFragmentBinding
-import org.jdc.template.ui.fragment.BaseFragment
+import org.jdc.template.ext.collectWhenStarted
+import org.jdc.template.ext.receiveWhenStarted
 
 @AndroidEntryPoint
-class IndividualFragment : BaseFragment() {
+class IndividualFragment : Fragment() {
     private val viewModel: IndividualViewModel by viewModels()
     private lateinit var binding: IndividualFragmentBinding
 
@@ -42,21 +42,20 @@ class IndividualFragment : BaseFragment() {
     }
 
     private fun setupViewModelObservers() {
-        viewModel.individual.observeKt {
+        viewLifecycleOwner.collectWhenStarted(viewModel.individualFlow) {
             binding.individual = it
         }
 
         // Events
-        lifecycleScope.launch {
-            for (event in viewModel.eventChannel) {
-                when (event) {
-                    is IndividualViewModel.Event.EditIndividualEvent -> {
-                        val directions = IndividualFragmentDirections.actionIndividualEditFragment(event.individualId)
-                        findNavController().navigate(directions)
-                    }
-                    is IndividualViewModel.Event.IndividualDeletedEvent -> findNavController().popBackStack()
+        viewLifecycleOwner.receiveWhenStarted(viewModel.eventChannel) { event ->
+            when (event) {
+                is IndividualViewModel.Event.EditIndividualEvent -> {
+                    val directions = IndividualFragmentDirections.actionIndividualEditFragment(event.individualId)
+                    findNavController().navigate(directions)
                 }
+                is IndividualViewModel.Event.IndividualDeletedEvent -> findNavController().popBackStack()
             }
+
         }
     }
 

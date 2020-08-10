@@ -8,8 +8,8 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,13 +17,14 @@ import me.eugeniomarletti.extras.bundle.BundleExtra
 import me.eugeniomarletti.extras.bundle.base.Int
 import org.jdc.template.R
 import org.jdc.template.databinding.DirectoryFragmentBinding
+import org.jdc.template.ext.collectWhenStarted
 import org.jdc.template.ext.getScrollPosition
-import org.jdc.template.ui.fragment.BaseFragment
+import org.jdc.template.ext.receiveWhenStarted
 import org.jdc.template.ui.menu.CommonMenu
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DirectoryFragment : BaseFragment() {
+class DirectoryFragment : Fragment() {
     @Inject
     lateinit var commonMenu: CommonMenu
 
@@ -58,17 +59,15 @@ class DirectoryFragment : BaseFragment() {
     }
 
     private fun setupViewModelObservers() {
-        viewModel.directoryListLiveData.observeKt { list ->
+        viewLifecycleOwner.collectWhenStarted(viewModel.directoryListFlow) { list ->
             adapter.submitList(list)
         }
 
         // Events
-        lifecycleScope.launchWhenStarted {
-            for (event in viewModel.eventChannel) {
-                when (event) {
-                    is DirectoryViewModel.Event.NewIndividualEvent -> findNavController().navigate(DirectoryFragmentDirections.actionIndividualEditFragment())
-                    is DirectoryViewModel.Event.ShowIndividualEvent -> findNavController().navigate(DirectoryFragmentDirections.actionIndividualFragment(event.individualId))
-                }
+        viewLifecycleOwner.receiveWhenStarted(viewModel.eventChannel) { event ->
+            when (event) {
+                is DirectoryViewModel.Event.NewIndividualEvent -> findNavController().navigate(DirectoryFragmentDirections.actionIndividualEditFragment())
+                is DirectoryViewModel.Event.ShowIndividualEvent -> findNavController().navigate(DirectoryFragmentDirections.actionIndividualFragment(event.individualId))
             }
         }
     }

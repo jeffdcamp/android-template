@@ -7,7 +7,7 @@ const val ANDROIDX_NAVIGATION_VERSION = "2.3.0"
 object Deps {
     // Android (https://android.googlesource.com/platform/frameworks/support/+/refs/heads/androidx-master-dev/buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt)
     const val ANDROID_DESUGAR_JDK_LIBS = "com.android.tools:desugar_jdk_libs:1.0.10"
-    const val ANDROIDX_APPCOMPAT = "androidx.appcompat:appcompat:1.1.0"
+    const val ANDROIDX_APPCOMPAT = "androidx.appcompat:appcompat:1.2.0"
     const val ANDROIDX_RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.1.0"
     const val ANDROIDX_PREFERENCE = "androidx.preference:preference-ktx:1.1.1"
     const val ANDROIDX_CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:1.1.3"
@@ -34,7 +34,7 @@ object Deps {
     const val ANDROID_MATERIAL = "com.google.android.material:material:1.1.0" // https://github.com/material-components/material-components-android/releases
 
     // Play Services
-    const val PLAYSERVICE_CORE = "com.google.android.play:core-ktx:1.8.0" // https://developer.android.com/reference/com/google/android/play/core/release-notes
+    const val PLAYSERVICE_CORE = "com.google.android.play:core-ktx:1.8.1" // https://developer.android.com/reference/com/google/android/play/core/release-notes
     const val PLAYSERVICE_KOTLINX_COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$COROUTINES_VERSION"
     // const val PLAYSERVICE_LICENSES = "com.google.android.gms:play-services-oss-licenses:17.0.0"
 
@@ -79,16 +79,16 @@ object Deps {
     const val DBTOOLS_ROOM_SQLITE = "org.dbtools:dbtools-room-sqliteorg:$DBTOOLS_VERSION"
 
     // Network
-    private const val OKHTTP_VERSION = "4.8.0" // https://github.com/square/okhttp/blob/master/CHANGELOG.md
+    private const val OKHTTP_VERSION = "4.8.1" // https://github.com/square/okhttp/blob/master/CHANGELOG.md
     const val OKHTTP = "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION"
     const val OKHTTP_LOGGING_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION"
 
     // Test - Integration
-    private const val ESPRESSO_VERSION = "3.3.0-rc01"
+    private const val ESPRESSO_VERSION = "3.3.0-rc03"
     const val TEST_ESPRESSO_CORE = "androidx.test.espresso:espresso-core:$ESPRESSO_VERSION"
     const val TEST_ESPRESSO_CONTRIB = "androidx.test.espresso:espresso-contrib:$ESPRESSO_VERSION"
-    const val TEST_RUNNER = "androidx.test:runner:1.3.0-rc02"
-    const val TEST_RULES = "androidx.test:rules:1.3.0-rc02"
+    const val TEST_RUNNER = "androidx.test:runner:1.3.0-rc03"
+    const val TEST_RULES = "androidx.test:rules:1.3.0-rc03"
     const val TEST_ANDROIDX_JUNIT = "androidx.test.ext:junit:1.1.2-rc01"
 
     // Test - JUnit

@@ -10,18 +10,18 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
 import org.jdc.template.databinding.IndividualEditFragmentBinding
-import org.jdc.template.ui.fragment.BaseFragment
+import org.jdc.template.ext.receiveWhenStarted
 import java.time.LocalDate
 import java.time.LocalTime
 
 @AndroidEntryPoint
-class IndividualEditFragment : BaseFragment() {
+class IndividualEditFragment : Fragment() {
     private val viewModel: IndividualEditViewModel by viewModels()
     private lateinit var binding: IndividualEditFragmentBinding
 
@@ -46,16 +46,14 @@ class IndividualEditFragment : BaseFragment() {
 
     private fun setupViewModelObservers() {
         // Events
-        lifecycleScope.launchWhenStarted {
-            for (event in viewModel.eventChannel) {
-                when (event) {
-                    is IndividualEditViewModel.Event.IndividualSaved -> findNavController().popBackStack()
-                    is IndividualEditViewModel.Event.ShowBirthDateSelection -> showBirthDateSelector(event.date)
-                    is IndividualEditViewModel.Event.ShowAlarmTimeSelection -> showAlarmTimeSelector(event.time)
-                    is IndividualEditViewModel.Event.ValidationSaveError -> {
-                        when (event.error) {
-                            IndividualEditViewModel.FieldValidationError.FIRST_NAME_REQUIRED -> binding.firstNameLayout.error = getString(event.error.errorMessageId)
-                        }
+        viewLifecycleOwner.receiveWhenStarted(viewModel.eventChannel) {event ->
+            when (event) {
+                is IndividualEditViewModel.Event.IndividualSaved -> findNavController().popBackStack()
+                is IndividualEditViewModel.Event.ShowBirthDateSelection -> showBirthDateSelector(event.date)
+                is IndividualEditViewModel.Event.ShowAlarmTimeSelection -> showAlarmTimeSelector(event.time)
+                is IndividualEditViewModel.Event.ValidationSaveError -> {
+                    when (event.error) {
+                        IndividualEditViewModel.FieldValidationError.FIRST_NAME_REQUIRED -> binding.firstNameLayout.error = getString(event.error.errorMessageId)
                     }
                 }
             }

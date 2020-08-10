@@ -3,12 +3,12 @@ package org.jdc.template.ux.about
 import android.content.Context
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.asLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import org.jdc.template.Analytics
@@ -20,7 +20,6 @@ import org.jdc.template.model.remoteconfig.RemoteConfig
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.model.webservice.colors.ColorService
 import org.jdc.template.model.webservice.colors.dto.ColorsDto
-import org.jdc.template.ui.viewmodel.BaseViewModel
 import org.jdc.template.work.WorkScheduler
 import retrofit2.Response
 import timber.log.Timber
@@ -37,13 +36,13 @@ class AboutViewModel
     private val workScheduler: WorkScheduler,
     private val remoteConfig: RemoteConfig,
     @Assisted savedStateHandle: SavedStateHandle
-) : BaseViewModel<Unit>() {
+) : ViewModel() {
 
     var appVersion = BuildConfig.VERSION_NAME
     var appBuildDateTime = BuildConfig.BUILD_TIME
-    val resetServiceEnabledLiveData: LiveData<Boolean> = flow {
+    val resetServiceEnabledFlow: Flow<Boolean> = flow {
         emit(remoteConfig.isColorServiceEnabled())
-    }.asLiveData()
+    }
 
     fun logAnalytics() {
         analytics.logEvent(Analytics.EVENT_VIEW_ABOUT)
