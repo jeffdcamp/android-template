@@ -88,7 +88,7 @@ object Deps {
     const val TEST_ESPRESSO_CONTRIB = "androidx.test.espresso:espresso-contrib:$ESPRESSO_VERSION"
     const val TEST_RUNNER = "androidx.test:runner:1.3.0-rc03"
     const val TEST_RULES = "androidx.test:rules:1.3.0-rc03"
-    const val TEST_ANDROIDX_JUNIT = "androidx.test.ext:junit:1.1.2-rc01"
+    const val TEST_ANDROIDX_JUNIT = "androidx.test.ext:junit:1.1.2-rc03"
 
     // Test - JUnit
     private const val JUNIT_VERSION = "5.6.2"
