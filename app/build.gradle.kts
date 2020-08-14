@@ -257,7 +257,7 @@ dependencies {
     implementation(Deps.OKHTTP)
     implementation(Deps.OKHTTP_LOGGING_INTERCEPTOR)
     implementation(Deps.RETROFIT)
-    implementation(Deps.KOTLIN_RETROFIT_CONVERTER)
+//    implementation(Deps.KOTLIN_RETROFIT_CONVERTER) // todo: temp disabled till support for Kotlin 1.4.0
 
     // Test (Integration)
     androidTestImplementation(Deps.TEST_ESPRESSO_CORE)

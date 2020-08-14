@@ -51,7 +51,7 @@ object Deps {
     const val KOTLIN_SERIALIZATION = "org.jetbrains.kotlinx:kotlinx-serialization-runtime:1.0-M1-1.4.0-rc" // todo change to release version when available
     const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINES_VERSION"
     const val RETROFIT = "com.squareup.retrofit2:retrofit:2.9.0"
-    const val KOTLIN_RETROFIT_CONVERTER = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.5.0"
+    const val KOTLIN_RETROFIT_CONVERTER = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.5.0" // todo update to work with Kotlin 1.4.0 (https://github.com/JakeWharton/retrofit2-kotlinx-serialization-converter/pull/26)
     const val TIMBER = "com.jakewharton.timber:timber:4.7.1"
 
     // Inject

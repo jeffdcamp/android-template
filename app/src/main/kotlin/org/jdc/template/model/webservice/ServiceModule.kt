@@ -1,7 +1,6 @@
 package org.jdc.template.model.webservice
 
 import android.os.Build
-import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,6 +12,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.jdc.template.BuildConfig
 import org.jdc.template.auth.MyAccountInterceptor
+import org.jdc.template.json.serialization.asConverterFactory
 import org.jdc.template.model.webservice.colors.ColorService
 import retrofit2.Retrofit
 import retrofit2.create
