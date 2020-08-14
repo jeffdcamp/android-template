@@ -58,7 +58,7 @@ class AcknowledgmentsFragment : Fragment() {
             // read the file
             val licenseJson = requireContext().assets.open(jsonFilename).bufferedReader().use { it.readText() }
 
-            val licensesDto = json.parse(LicensesDto.serializer(), licenseJson)
+            val licensesDto = json.decodeFromString(LicensesDto.serializer(), licenseJson)
 
             val html = renderHtml(licensesDto.dependencies)
             binding.webview.loadData(html, "text/html", "utf-8")

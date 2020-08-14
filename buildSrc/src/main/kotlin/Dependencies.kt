@@ -1,6 +1,6 @@
 // Versions for Dependencies AND Build Plugins
-const val KOTLIN_VERSION = "1.3.72"
-private const val COROUTINES_VERSION = "1.3.8"
+const val KOTLIN_VERSION = "1.4.0"
+private const val COROUTINES_VERSION = "1.3.9"
 const val DAGGER_HILT_VERSION = "2.28.3-alpha"
 const val ANDROIDX_NAVIGATION_VERSION = "2.3.0"
 
@@ -48,7 +48,7 @@ object Deps {
 
     // Code
     const val KOTLIN_STD_LIB = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
-    const val KOTLIN_SERIALIZATION = "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.20.0"
+    const val KOTLIN_SERIALIZATION = "org.jetbrains.kotlinx:kotlinx-serialization-runtime:1.0-M1-1.4.0-rc" // todo change to release version when available
     const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINES_VERSION"
     const val RETROFIT = "com.squareup.retrofit2:retrofit:2.9.0"
     const val KOTLIN_RETROFIT_CONVERTER = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.5.0"
