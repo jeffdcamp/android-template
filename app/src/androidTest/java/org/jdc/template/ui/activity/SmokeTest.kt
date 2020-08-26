@@ -1,6 +1,5 @@
 package org.jdc.template.ui.activity
 
-import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.Espresso.pressBack
@@ -34,64 +33,64 @@ class SmokeTest {
 
     @Test
     fun smokeTest() {
-        val overflowMenuButton = onView(allOf<View>(withContentDescription("More options"), isDisplayed()))
+        val overflowMenuButton = onView(allOf(withContentDescription("More options"), isDisplayed()))
         overflowMenuButton.perform(click())
 
-        val aboutMenuView = onView(allOf<View>(withId(R.id.title), withText("About"), isDisplayed()))
+        val aboutMenuView = onView(allOf(withId(R.id.title), withText("About"), isDisplayed()))
         aboutMenuView.perform(click())
 
-        val createDatabaseButton = onView(allOf<View>(withId(R.id.createDatabaseButton), withText("Create Database"), isDisplayed()))
+        val createDatabaseButton = onView(allOf(withId(R.id.createDatabaseButton), withText("Create Database"), isDisplayed()))
         createDatabaseButton.perform(click())
 
         pressBack()
 
-        val directoryRecyclerView = onView(allOf<View>(withId(R.id.recyclerView), isDisplayed()))
+        val directoryRecyclerView = onView(allOf(withId(R.id.recyclerView), isDisplayed()))
 
         directoryRecyclerView.check(matches(recyclerViewWithItemCount(3)))
         directoryRecyclerView.perform(actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
 
-        val nameTextView = onView(allOf<View>(withId(R.id.nameTextView), withText("Jeff Campbell"), isDisplayed()))
+        val nameTextView = onView(allOf(withId(R.id.nameTextView), withText("Jeff Campbell"), isDisplayed()))
         nameTextView.check(matches(withText("Jeff Campbell")))
 
-        val editMenuItemView = onView(allOf<View>(withId(R.id.menu_item_edit), withContentDescription("Edit"), isDisplayed()))
+        val editMenuItemView = onView(allOf(withId(R.id.menu_item_edit), withContentDescription("Edit"), isDisplayed()))
         editMenuItemView.perform(click())
 
-        val firstNameEditText = onView(allOf<View>(withId(R.id.firstNameEditText), withText("Jeff"), isDisplayed()))
+        val firstNameEditText = onView(allOf(withId(R.id.firstNameEditText), withText("Jeff"), isDisplayed()))
         firstNameEditText.perform(click())
 
-        val firstNameEditText2 = onView(allOf<View>(withId(R.id.firstNameEditText), withText("Jeff"), isDisplayed()))
+        val firstNameEditText2 = onView(allOf(withId(R.id.firstNameEditText), withText("Jeff"), isDisplayed()))
         firstNameEditText2.perform(replaceText("Jeffery"))
 
-        val saveMenuItemView = onView(allOf<View>(withId(R.id.menu_item_save), withText("Save"), isDisplayed()))
+        val saveMenuItemView = onView(allOf(withId(R.id.menu_item_save), withText("Save"), isDisplayed()))
         saveMenuItemView.perform(click())
 
-        val nameTextView2 = onView(allOf<View>(withId(R.id.nameTextView), withText("Jeffery Campbell"), isDisplayed()))
+        val nameTextView2 = onView(allOf(withId(R.id.nameTextView), withText("Jeffery Campbell"), isDisplayed()))
         nameTextView2.check(matches(withText("Jeffery Campbell")))
 
         val imageButton = onView(
-            allOf<View>(withContentDescription("Navigate up"), withParent(allOf<View>(withId(R.id.mainToolbar), isDisplayed())),
+            allOf(withContentDescription("Navigate up"), withParent(allOf(withId(R.id.mainToolbar), isDisplayed())),
                 isDisplayed()))
         imageButton.perform(click())
 
         val listItemTextView = onView(
-            allOf<View>(withId(R.id.listItemTextView), withText("Jeffery Campbell"),
-                withParent(allOf<View>(withId(R.id.listItemLayout),
+            allOf(withId(R.id.listItemTextView), withText("Jeffery Campbell"),
+                withParent(allOf(withId(R.id.listItemLayout),
                     withParent(withId(R.id.recyclerView)))),
                 isDisplayed()))
         listItemTextView.check(matches(withText("Jeffery Campbell")))
 
         val directoryRecyclerView2 = onView(
-            allOf<View>(withId(R.id.recyclerView), isDisplayed()))
+            allOf(withId(R.id.recyclerView), isDisplayed()))
         directoryRecyclerView2.perform(actionOnItemAtPosition<RecyclerView.ViewHolder>(2, click()))
 
-        val deleteMenuItemView = onView(allOf<View>(withId(R.id.menu_item_delete), withContentDescription("Delete"), isDisplayed()))
+        val deleteMenuItemView = onView(allOf(withId(R.id.menu_item_delete), withContentDescription("Delete"), isDisplayed()))
         deleteMenuItemView.perform(click())
 
-//        val deleteDialogButton = onView(allOf<View>(withId(R.id.md_button_positive), withText("Delete"), isDisplayed()))
-        val deleteDialogButton = onView(allOf<View>(withId(android.R.id.button1), withText("Delete"), isDisplayed()))
+//        val deleteDialogButton = onView(allOf(withId(R.id.md_button_positive), withText("Delete"), isDisplayed()))
+        val deleteDialogButton = onView(allOf(withId(android.R.id.button1), withText("Delete"), isDisplayed()))
         deleteDialogButton.perform(click())
 
-        val directoryRecyclerView3 = onView(allOf<View>(withId(R.id.recyclerView), isDisplayed()))
+        val directoryRecyclerView3 = onView(allOf(withId(R.id.recyclerView), isDisplayed()))
         directoryRecyclerView3.check(matches(recyclerViewWithItemCount(2)))
     }
 }
