@@ -10,11 +10,11 @@ object Deps {
     const val ANDROIDX_APPCOMPAT = "androidx.appcompat:appcompat:1.2.0"
     const val ANDROIDX_RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.1.0"
     const val ANDROIDX_PREFERENCE = "androidx.preference:preference-ktx:1.1.1"
-    const val ANDROIDX_CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:1.1.3"
+    const val ANDROIDX_CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:2.0.1"
     const val ANDROIDX_CORE = "androidx.core:core-ktx:1.3.1"
     const val ANDROIDX_ACTIVITY_KTX = "androidx.activity:activity-ktx:1.1.0"
     const val ANDROIDX_FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.2.5"
-    const val ANDROIDX_STARTUP = "androidx.startup:startup-runtime:1.0.0-alpha02"
+    const val ANDROIDX_STARTUP = "androidx.startup:startup-runtime:1.0.0-alpha03"
 
     private const val LIFECYCLE_VERSION = "2.2.0"
     const val ARCH_LIFECYCLE_EXT = "androidx.lifecycle:lifecycle-extensions:$LIFECYCLE_VERSION"
@@ -82,19 +82,19 @@ object Deps {
     const val OKHTTP_LOGGING_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION"
 
     // Test - Integration
-    private const val ESPRESSO_VERSION = "3.3.0-rc03"
+    private const val ESPRESSO_VERSION = "3.3.0"
     const val TEST_ESPRESSO_CORE = "androidx.test.espresso:espresso-core:$ESPRESSO_VERSION"
     const val TEST_ESPRESSO_CONTRIB = "androidx.test.espresso:espresso-contrib:$ESPRESSO_VERSION"
-    const val TEST_RUNNER = "androidx.test:runner:1.3.0-rc03"
-    const val TEST_RULES = "androidx.test:rules:1.3.0-rc03"
-    const val TEST_ANDROIDX_JUNIT = "androidx.test.ext:junit:1.1.2-rc03"
+    const val TEST_RUNNER = "androidx.test:runner:1.3.0"
+    const val TEST_RULES = "androidx.test:rules:1.3.0"
+    const val TEST_ANDROIDX_JUNIT = "androidx.test.ext:junit:1.1.2"
 
     // Test - JUnit
     private const val JUNIT_VERSION = "5.6.2"
     const val TEST_JUNIT = "org.junit.jupiter:junit-jupiter:$JUNIT_VERSION"
     const val TEST_JUNIT_ENGINE = "org.junit.jupiter:junit-jupiter-engine:$JUNIT_VERSION"
     const val TEST_OKHTTP_MOCKWEBSERVER = "com.squareup.okhttp3:mockwebserver:$OKHTTP_VERSION"
-    const val TEST_MOCKITO_CORE = "org.mockito:mockito-core:3.5.0"
+    const val TEST_MOCKITO_CORE = "org.mockito:mockito-core:3.5.7"
     const val TEST_XERIAL_SQLITE = "org.xerial:sqlite-jdbc:3.32.3.2"
     const val TEST_ARCH_ROOM_TESTING = "androidx.room:room-testing:$ROOM_VERSION"
     const val TEST_DBTOOLS_ROOM_JDBC = "org.dbtools:dbtools-room-jdbc:$DBTOOLS_VERSION"

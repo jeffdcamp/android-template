@@ -17,7 +17,7 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.firebase.crashlytics")
     id("com.google.firebase.appdistribution")
-    id("io.gitlab.arturbosch.detekt") version "1.11.0"
+    id("io.gitlab.arturbosch.detekt") version "1.12.0"
     id ("de.undercouch.download")
     id("com.github.triplet.play") version "2.8.0"
     id("com.github.jk1.dependency-license-report") version "1.14"
@@ -42,6 +42,14 @@ kapt {
 // The following is added to allow the Kotlin Compiler to compile properly
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.languageVersion = "1.4"
+    kotlinOptions.freeCompilerArgs += listOf(
+        "-Xopt-in=kotlin.ExperimentalStdlibApi",
+        "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+        "-Xopt-in=kotlinx.coroutines.FlowPreview",
+        "-Xopt-in=kotlin.time.ExperimentalTime",
+        "-Xjvm-default=all"
+    )
 }
 
 android {
