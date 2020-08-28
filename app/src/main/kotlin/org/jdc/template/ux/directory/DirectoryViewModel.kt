@@ -2,27 +2,31 @@ package org.jdc.template.ux.directory
 
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.asLiveData
+import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.channels.ReceiveChannel
+import kotlinx.coroutines.flow.Flow
+import org.jdc.template.coroutine.channel.ViewModelChannel
 import org.jdc.template.model.db.main.directoryitem.DirectoryItem
 import org.jdc.template.model.repository.IndividualRepository
-import org.jdc.template.ui.viewmodel.BaseViewModel
 
 class DirectoryViewModel
 @ViewModelInject constructor(
-    individualRepository: IndividualRepository,
+    private val individualRepository: IndividualRepository,
     @Assisted savedStateHandle: SavedStateHandle
-) : BaseViewModel<DirectoryViewModel.Event>() {
+) : ViewModel() {
+    private val _eventChannel: ViewModelChannel<Event> = ViewModelChannel(this)
+    val eventChannel: ReceiveChannel<Event> = _eventChannel
 
-    val directoryListLiveData: LiveData<List<DirectoryItem>> = individualRepository.getDirectoryListFlow().asLiveData()
+    val directoryListFlow: Flow<List<DirectoryItem>> // change to ShareFlow.shareIn(viewModelScope) when available (in coroutine library https://github.com/Kotlin/kotlinx.coroutines/issues/2069)
+        get() = individualRepository.getDirectoryListFlow()
 
     fun addIndividual() {
-        sendEvent(Event.NewIndividualEvent)
+        _eventChannel.sendAsync(Event.NewIndividualEvent)
     }
 
     fun onDirectoryIndividualClicked(directoryListItem: DirectoryItem) {
-        sendEvent(Event.ShowIndividualEvent(directoryListItem.id))
+        _eventChannel.sendAsync(Event.ShowIndividualEvent(directoryListItem.id))
     }
 
     sealed class Event {

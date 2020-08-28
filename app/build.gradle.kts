@@ -18,8 +18,8 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.firebase.crashlytics")
     id("com.google.firebase.appdistribution")
-    id("io.gitlab.arturbosch.detekt") version "1.11.0-RC1"
-    id("de.undercouch.download")
+    id("io.gitlab.arturbosch.detekt") version "1.12.0"
+    id ("de.undercouch.download")
     id("com.github.triplet.play") version "2.8.0"
     id("com.github.jk1.dependency-license-report") version "1.14"
 }
@@ -42,10 +42,17 @@ kapt {
 // "Cannot inline bytecode built with JVM target 1.8 into bytecode that is being built with JVM target 1.6. Please specify proper '-jvm-target' option"
 // The following is added to allow the Kotlin Compiler to compile properly
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions {
-        jvmTarget = "1.8"
-        freeCompilerArgs = freeCompilerArgs + listOf("-Xallow-jvm-ir-dependencies", "-Xskip-prerelease-check")
-    }
+    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.languageVersion = "1.4"
+    kotlinOptions.freeCompilerArgs += listOf(
+        "-Xallow-jvm-ir-dependencies",
+        "-Xskip-prerelease-check",
+        "-Xopt-in=kotlin.ExperimentalStdlibApi",
+        "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+        "-Xopt-in=kotlinx.coroutines.FlowPreview",
+        "-Xopt-in=kotlin.time.ExperimentalTime",
+        "-Xjvm-default=all"
+    )
 }
 
 android {
@@ -63,8 +70,6 @@ android {
         buildConfigField("String", "USER_AGENT_APP_NAME", "\"AndroidTemplate\"")
         @Suppress("RemoveSingleExpressionStringTemplate")   // Needed to format BuildConfg properly
         buildConfigField("String", "ANALYTICS_KEY", "\"${getAnalyticsKey()}\"")
-
-        multiDexEnabled = true
 
         // used by Room, to test migrations
         javaCompileOptions {
@@ -230,10 +235,8 @@ dependencies {
     implementation(Deps.FIREBASE_ANALYTICS)
 
     // Code
-//    implementation(Deps.KOTLIN_STD_LIB)
 //    implementation(Deps.KOTLIN_SERIALIZATION)
     implementation(Deps.COROUTINES)
-    implementation(Deps.EXTRAS_DELEGATES)
     implementation(Deps.TIMBER)
 
     // Inject
@@ -278,7 +281,7 @@ dependencies {
     implementation(Deps.OKHTTP)
     implementation(Deps.OKHTTP_LOGGING_INTERCEPTOR)
     implementation(Deps.RETROFIT)
-    implementation(Deps.KOTLIN_RETROFIT_CONVERTER)
+//    implementation(Deps.KOTLIN_RETROFIT_CONVERTER) // todo: temp disabled till support for Kotlin 1.4.0
 
     // Test (Integration)
     androidTestImplementation(Deps.TEST_ESPRESSO_CORE)

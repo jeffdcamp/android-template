@@ -4,13 +4,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.launch
 import org.jdc.template.R
+import org.jdc.template.coroutine.channel.ViewModelChannel
 import org.jdc.template.delegates.requireSavedState
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.repository.IndividualRepository
-import org.jdc.template.ui.viewmodel.BaseViewModel
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -18,7 +20,9 @@ class IndividualEditViewModel
 @ViewModelInject constructor(
     private val individualRepository: IndividualRepository,
     @Assisted savedStateHandle: SavedStateHandle
-) : BaseViewModel<IndividualEditViewModel.Event>() {
+) : ViewModel() {
+    private val _eventChannel: ViewModelChannel<Event> = ViewModelChannel(this)
+    val eventChannel: ReceiveChannel<Event> = _eventChannel
 
     private val individualId: Long by requireSavedState(savedStateHandle, "individualId")
     private var individual = Individual()
@@ -65,13 +69,12 @@ class IndividualEditViewModel
 
         individualRepository.saveIndividual(individual)
 
-        sendEvent(Event.IndividualSaved)
+        _eventChannel.sendAsync(Event.IndividualSaved)
     }
 
     private fun validate(): Boolean {
-        if (firstName.value.isBlank()) {
-            firstNameError.value = true
-//            sendEvent(Event.ValidationSaveError(FieldValidationError.FIRST_NAME_REQUIRED))
+        if (firstName.get().isNullOrBlank()) {
+            _eventChannel.sendAsync(Event.ValidationSaveError(FieldValidationError.FIRST_NAME_REQUIRED))
             return false
         }
         firstNameError.value = false
@@ -79,12 +82,12 @@ class IndividualEditViewModel
         return true
     }
 
-    fun onBirthDateClick() {
-        sendEvent(Event.ShowBirthDateSelection(birthDate.value ?: LocalDate.now()))
+    fun onBirthDateClicked() {
+        _eventChannel.sendAsync(Event.ShowBirthDateSelection(birthDate.get() ?: LocalDate.now()))
     }
 
-    fun onAlarmTimeClick() {
-        sendEvent(Event.ShowAlarmTimeSelection(alarmTime.value))
+    fun onAlarmTimeClicked() {
+        _eventChannel.sendAsync(Event.ShowAlarmTimeSelection(alarmTime.get() ?: LocalTime.now()))
     }
 
     enum class FieldValidationError(val errorMessageId: Int) {

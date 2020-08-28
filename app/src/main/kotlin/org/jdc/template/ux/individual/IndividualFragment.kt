@@ -7,6 +7,8 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.compose.foundation.ScrollableColumn
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.Column
@@ -19,19 +21,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import org.jdc.template.R
+import org.jdc.template.databinding.IndividualFragmentBinding
+import org.jdc.template.ext.collectWhenStarted
+import org.jdc.template.ext.receiveWhenStarted
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.ui.compose.AppTheme
 import org.jdc.template.ui.compose.setContent
 import org.jdc.template.ui.fragment.BaseFragment
 
 @AndroidEntryPoint
-class IndividualFragment : BaseFragment() {
+class IndividualFragment : Fragment() {
     private val viewModel: IndividualViewModel by viewModels()
 
     init {
@@ -45,21 +48,26 @@ class IndividualFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.lifecycleOwner = this@IndividualFragment
+
         setupViewModelObservers()
     }
 
     private fun setupViewModelObservers() {
+        viewLifecycleOwner.collectWhenStarted(viewModel.individualFlow) {
+            binding.individual = it
+        }
+
         // Events
-        lifecycleScope.launch {
-            for (event in viewModel.eventChannel) {
-                when (event) {
-                    is IndividualViewModel.Event.EditIndividualEvent -> {
-                        val directions = IndividualFragmentDirections.actionIndividualEditFragment(event.individualId)
-                        findNavController().navigate(directions)
-                    }
-                    is IndividualViewModel.Event.IndividualDeletedEvent -> findNavController().popBackStack()
+        viewLifecycleOwner.receiveWhenStarted(viewModel.eventChannel) { event ->
+            when (event) {
+                is IndividualViewModel.Event.EditIndividualEvent -> {
+                    val directions = IndividualFragmentDirections.actionIndividualEditFragment(event.individualId)
+                    findNavController().navigate(directions)
                 }
+                is IndividualViewModel.Event.IndividualDeletedEvent -> findNavController().popBackStack()
             }
+
         }
     }
 

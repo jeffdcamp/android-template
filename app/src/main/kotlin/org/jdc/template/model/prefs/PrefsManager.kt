@@ -5,11 +5,9 @@ package org.jdc.template.model.prefs
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.lifecycle.MutableLiveData
+import androidx.core.content.edit
 import androidx.preference.PreferenceManager
-import me.eugeniomarletti.extras.DelegateProvider
-import me.eugeniomarletti.extras.defaultDelegateName
-import java.util.HashMap
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlin.properties.Delegates
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
@@ -19,9 +17,8 @@ sealed class PrefsManager {
         if (!prefsMap.containsKey(container.namespace)) {
             prefsMap[container.namespace] = container
         } else {
-            if (!(prefsMap[container.namespace] === container)) {
-                throw IllegalStateException("A namespace with the key ${container.namespace} already exists.")
-            }
+            if (!(prefsMap[container.namespace] === container))
+                throw RuntimeException("A namespace with the key ${container.namespace} already exists.")
         }
 
         return prefsMap[container.namespace] ?: error("Container was null when it should not have been")
@@ -29,7 +26,7 @@ sealed class PrefsManager {
 
     protected fun getManagedContainer(namespace: String): SharedPreferences {
         prefsMap[namespace]?.let {
-            return if (namespace == COMMON_NAMESPACE) {
+            return if (namespace == COMMON_NAMESPACE && !isTest) {
                 PreferenceManager.getDefaultSharedPreferences(context)
             } else {
                 context.getSharedPreferences("${context.packageName}.${it.namespace}", it.privacy)
@@ -43,12 +40,14 @@ sealed class PrefsManager {
 
         private val protectedNamespace = hashSetOf(PROTECTED_NAMESPACE)
 
-        private val prefsMap: HashMap<String, PrefsContainer> = HashMap()
+        private val prefsMap = mutableMapOf<String, PrefsContainer>()
 
         private var context: Context by Delegates.notNull()
+        private var isTest: Boolean = false
 
-        fun init(context: Context) {
-            Companion.context = context
+        fun init(context: Context, isTest: Boolean = false) {
+            this.context = context
+            this.isTest = isTest
         }
 
         fun protectedNamespace(namespace: String) {
@@ -67,6 +66,10 @@ sealed class PrefsManager {
                     .forEach { it.value.clear() }
             }
         }
+
+        fun reset() {
+            prefsMap.clear()
+        }
     }
 }
 
@@ -81,15 +84,31 @@ abstract class PrefsContainer(val namespace: String, val privacy: Int = Context.
 
     @SuppressLint("ApplySharedPref")
     fun clear() {
-        preferenceManager.edit().clear().commit()
+        preferenceManager.edit(commit = true) {
+            clear()
+        }
+        onCleared()
+    }
+
+    protected open fun onCleared() {
+
     }
 
     protected inner class NullableStringPref(
         private val key: String? = null,
         private val transformer: PreferenceTransformer<String>? = null,
-        private val liveData: MutableLiveData<String>? = null,
         private val onChange: ((String?) -> Unit)? = null
     ) : ReadWriteProperty<Any, String?> {
+
+        constructor(
+            key: String? = null,
+            transformer: PreferenceTransformer<String>? = null,
+            stateFlow: MutableStateFlow<String?>? = null,
+            onChange: ((String?) -> Unit)? = null
+        ) : this(key, transformer, {
+            stateFlow?.value = it
+            onChange?.invoke(it)
+        })
 
         @Suppress("UNCHECKED_CAST")
         override fun getValue(thisRef: Any, property: KProperty<*>): String? {
@@ -102,17 +121,14 @@ abstract class PrefsContainer(val namespace: String, val privacy: Int = Context.
         }
 
         override fun setValue(thisRef: Any, property: KProperty<*>, value: String?) {
-            val name = property.name
-            val edit = preferenceManager.edit()
-
-            if (transformer != null) {
-                edit.putString(name, transformer.encode(value))
-            } else {
-                edit.putString(name, value)
+            val name = key ?: property.name
+            preferenceManager.edit {
+                if (transformer != null) {
+                    putString(name, transformer.encode(value))
+                } else {
+                    putString(name, value)
+                }
             }
-
-            edit.apply()
-            liveData?.postValue(value)
             onChange?.invoke(value)
         }
     }
@@ -121,94 +137,112 @@ abstract class PrefsContainer(val namespace: String, val privacy: Int = Context.
     protected inline fun <reified T : Enum<T>> PrefsContainer.EnumPref(
         defaultValue: T,
         key: String? = null,
-        customPrefix: String? = null,
         transformer: PreferenceTransformer<String>? = null,
-        liveData: MutableLiveData<T>? = null,
+        stateFlow: MutableStateFlow<T>?,
         noinline onChange: ((T) -> Unit)? = null
-    ) = object : DelegateProvider<ReadWriteProperty<Any, T>> {
-        override fun provideDelegate(thisRef: Any?, property: KProperty<*>) =
-            object : ReadWriteProperty<Any, T> {
+    ) = EnumPref(defaultValue, key, transformer, {
+        stateFlow?.value = it
+        onChange?.invoke(it)
+    })
 
-                private val prefName = key ?: property.defaultDelegateName(customPrefix)
-
-                override fun getValue(thisRef: Any, property: KProperty<*>): T {
-                    val prefName = key ?: property.name
-
-                    val name: String? = if (transformer != null) {
-                        transformer.decode(preferenceManager.getString(prefName, defaultValue.name))
-                    } else {
-                        preferenceManager.getString(prefName, defaultValue.name)
-                    }
-
-                    return try {
-                        name?.let { enumValueOf<T>(name) } ?: defaultValue
-                    } catch (_: Exception) {
-                        defaultValue
-                    }
-                }
-
-                override fun setValue(thisRef: Any, property: KProperty<*>, value: T) {
-                    val edit = preferenceManager.edit()
-
-                    if (transformer != null) {
-                        edit.putString(prefName, transformer.encode(value.name))
-                    } else {
-                        edit.putString(prefName, value.name)
-                    }
-
-                    edit.apply()
-                    liveData?.postValue(value)
-                    onChange?.invoke(value)
-                }
-            }
-    }
-
-    protected open inner class SharedPref<T>(
-        private val defaultValue: T,
-        private val key: String? = null,
-        private val transformer: PreferenceTransformer<T>? = null,
-        private val liveData: MutableLiveData<T>? = null,
-        private val onChange: ((T) -> Unit)? = null
-    ) : ReadWriteProperty<Any, T> {
-
-        @Suppress("UNCHECKED_CAST")
+    @Suppress("FunctionName")
+    protected inline fun <reified T : Enum<T>> PrefsContainer.EnumPref(
+        defaultValue: T,
+        key: String? = null,
+        transformer: PreferenceTransformer<String>? = null,
+        noinline onChange: ((T) -> Unit)? = null
+    ): ReadWriteProperty<Any, T> = object : ReadWriteProperty<Any, T> {
         override fun getValue(thisRef: Any, property: KProperty<*>): T {
-            val name = key ?: property.name
+            val prefName = key ?: property.name
 
-            return if (transformer != null) transformer.decode(preferenceManager.getString(name, null)) ?: defaultValue
-            else when (defaultValue) {
-                is Boolean -> preferenceManager.getBoolean(name, defaultValue) as T
-                is Float -> preferenceManager.getFloat(name, defaultValue) as T
-                is Int -> preferenceManager.getInt(name, defaultValue) as T
-                is Long -> preferenceManager.getLong(name, defaultValue) as T
-                is String -> preferenceManager.getString(name, defaultValue) as T
-                else -> throw UnsupportedOperationException("Unsupported preference type ${property.javaClass} on property $name")
+            val name: String? = if (transformer != null) {
+                transformer.decode(preferenceManager.getString(prefName, defaultValue.name))
+            } else {
+                preferenceManager.getString(prefName, defaultValue.name)
+            }
+
+            return try {
+                name?.let { enumValueOf<T>(name) } ?: defaultValue
+            } catch (_: Exception) {
+                defaultValue
             }
         }
 
         override fun setValue(thisRef: Any, property: KProperty<*>, value: T) {
             val name = key ?: property.name
 
-            val edit = preferenceManager.edit()
-
-            if (transformer != null) edit.putString(name, transformer.encode(value))
-            else when (defaultValue) {
-                is Boolean -> edit.putBoolean(name, value as Boolean)
-                is Float -> edit.putFloat(name, value as Float)
-                is Int -> edit.putInt(name, value as Int)
-                is Long -> edit.putLong(name, value as Long)
-                is String -> edit.putString(name, value as String)
-                else -> throw UnsupportedOperationException("Unsupported preference type ${property.javaClass} on property $name")
+            preferenceManager.edit {
+                if (transformer != null) {
+                    putString(name, transformer.encode(value.name))
+                } else {
+                    putString(name, value.name)
+                }
             }
 
-            edit.apply()
-            liveData?.postValue(value)
+            onChange?.invoke(value)
+        }
+    }
+
+    protected open inner class SharedPref<T>(
+        private val defaultValue: T,
+        private val key: String? = null,
+        private val transformer: PreferenceTransformer<T>? = null,
+        private val onChange: ((T) -> Unit)? = null
+    ) : ReadWriteProperty<Any, T> {
+
+        constructor(
+            defaultValue: T,
+            key: String? = null,
+            transformer: PreferenceTransformer<T>? = null,
+            stateFlow: MutableStateFlow<T>? = null,
+            onChange: ((T) -> Unit)? = null
+        ) : this(defaultValue, key, transformer, {
+            stateFlow?.value = it
+            onChange?.invoke(it)
+        })
+
+        @Suppress("UNCHECKED_CAST")
+        override fun getValue(thisRef: Any, property: KProperty<*>): T {
+            val name = key ?: property.name
+
+            return if (transformer != null) {
+                transformer.decode(preferenceManager.getString(name, null)) ?: defaultValue
+            } else {
+                when (defaultValue) {
+                    is Boolean -> preferenceManager.getBoolean(name, defaultValue) as T
+                    is Float -> preferenceManager.getFloat(name, defaultValue) as T
+                    is Int -> preferenceManager.getInt(name, defaultValue) as T
+                    is Long -> preferenceManager.getLong(name, defaultValue) as T
+                    is String -> preferenceManager.getString(name, defaultValue) as T
+                    else -> throw UnsupportedOperationException("Unsupported preference type ${property.javaClass} on property $name")
+                }
+            }
+        }
+
+        override fun setValue(thisRef: Any, property: KProperty<*>, value: T) {
+            val name = key ?: property.name
+
+            preferenceManager.edit {
+                if (transformer != null) {
+                    putString(name, transformer.encode(value))
+                } else {
+                    when (defaultValue) {
+                        is Boolean -> putBoolean(name, value as Boolean)
+                        is Float -> putFloat(name, value as Float)
+                        is Int -> putInt(name, value as Int)
+                        is Long -> putLong(name, value as Long)
+                        is String -> putString(name, value as String)
+                        else -> throw UnsupportedOperationException("Unsupported preference type ${property.javaClass} on property $name")
+                    }
+                }
+            }
+
             onChange?.invoke(value)
         }
     }
 }
 
-interface PreferenceTransformer<T> {
-    fun encode(value: T?): String?
-    fun decode(value: String?): T?
+abstract class PreferenceTransformer<T> {
+    abstract fun encode(value: T?): String?
+    abstract fun decode(value: String?): T?
 }

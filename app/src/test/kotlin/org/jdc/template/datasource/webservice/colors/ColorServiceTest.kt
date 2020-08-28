@@ -31,7 +31,7 @@ class ColorServiceTest {
     fun setup() {
         LoggingUtil.setupSingleLineLogging(true)
 
-        MockitoAnnotations.initMocks(this)
+        MockitoAnnotations.openMocks(this)
         Timber.plant(JavaTree())
 
         val component = DaggerColorServiceTestComponent.builder().build()

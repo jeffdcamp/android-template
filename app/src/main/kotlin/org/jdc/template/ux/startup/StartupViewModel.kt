@@ -1,17 +1,22 @@
 package org.jdc.template.ux.startup
 
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.launch
 import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
-import org.jdc.template.ui.viewmodel.BaseViewModel
+import org.jdc.template.coroutine.channel.ViewModelChannel
 import timber.log.Timber
 
 class StartupViewModel
 @ViewModelInject constructor(
     private val analytics: Analytics
-) : BaseViewModel<StartupViewModel.Event>() {
+) : ViewModel() {
+    private val _eventChannel: ViewModelChannel<Event> = ViewModelChannel(this)
+    val eventChannel: ReceiveChannel<Event> = _eventChannel
+
     private val debugStartup = false
     private var currentProgressCount = 0
 
@@ -28,7 +33,7 @@ class StartupViewModel
         // do startup work here...
         showProgress("Doing stuff")
 
-        sendEvent(Event.StartupFinished)
+        _eventChannel.sendAsync(Event.StartupFinished)
     }
 
     fun debugResumeStartup() {
@@ -37,7 +42,7 @@ class StartupViewModel
 
     private suspend fun showProgress(message: String) {
         Timber.i("Startup progress: [%s]", message)
-        sendEvent(Event.StartupProgress(currentProgressCount + 1, message))
+        _eventChannel.sendAsync(Event.StartupProgress(currentProgressCount + 1, message))
     }
 
     companion object {

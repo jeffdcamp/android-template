@@ -7,6 +7,8 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.compose.foundation.Icon
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.clickable
@@ -21,10 +23,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
+import org.jdc.template.databinding.DirectoryFragmentBinding
+import org.jdc.template.ext.collectWhenStarted
+import org.jdc.template.ext.receiveWhenStarted
 import org.jdc.template.ui.compose.AppTheme
 import org.jdc.template.ui.compose.setContent
 import org.jdc.template.ui.fragment.BaseFragment
@@ -32,7 +36,7 @@ import org.jdc.template.ui.menu.CommonMenu
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DirectoryFragment : BaseFragment() {
+class DirectoryFragment : Fragment() {
     @Inject
     lateinit var commonMenu: CommonMenu
 
@@ -49,7 +53,10 @@ class DirectoryFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        binding.viewModel = this@DirectoryFragment.viewModel
+        binding.lifecycleOwner = this@DirectoryFragment
+
+        setupRecyclerView()
 
         activity?.setTitle(R.string.app_name)
 
@@ -57,14 +64,15 @@ class DirectoryFragment : BaseFragment() {
     }
 
     private fun setupViewModelObservers() {
+        viewLifecycleOwner.collectWhenStarted(viewModel.directoryListFlow) { list ->
+            adapter.submitList(list)
+        }
 
         // Events
-        lifecycleScope.launchWhenStarted {
-            for (event in viewModel.eventChannel) {
-                when (event) {
-                    is DirectoryViewModel.Event.NewIndividualEvent -> findNavController().navigate(DirectoryFragmentDirections.actionIndividualEditFragment())
-                    is DirectoryViewModel.Event.ShowIndividualEvent -> findNavController().navigate(DirectoryFragmentDirections.actionIndividualFragment(event.individualId))
-                }
+        viewLifecycleOwner.receiveWhenStarted(viewModel.eventChannel) { event ->
+            when (event) {
+                is DirectoryViewModel.Event.NewIndividualEvent -> findNavController().navigate(DirectoryFragmentDirections.actionIndividualEditFragment())
+                is DirectoryViewModel.Event.ShowIndividualEvent -> findNavController().navigate(DirectoryFragmentDirections.actionIndividualFragment(event.individualId))
             }
         }
     }
@@ -78,6 +86,16 @@ class DirectoryFragment : BaseFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return commonMenu.onOptionsItemSelected(findNavController(), item) || super.onOptionsItemSelected(item)
     }
+
+    override fun onSaveInstanceState(bundle: Bundle) {
+        super.onSaveInstanceState(bundle)
+        if (::binding.isInitialized) { // onSaveInstanceState may be called before onCreateView
+            bundle.putInt("scrollPosition", 0)
+        }
+    }
+
+    private fun restoreState(bundle: Bundle) {
+        binding.recyclerView.scrollToPosition(bundle.getInt("scrollPosition", 0))
 }
 
 @Composable
