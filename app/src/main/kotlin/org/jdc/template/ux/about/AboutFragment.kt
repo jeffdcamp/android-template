@@ -33,10 +33,7 @@ class AboutFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.viewModel = this@AboutFragment.viewModel
         binding.lifecycleOwner = this@AboutFragment
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         activity?.setTitle(R.string.about_title)
         viewModel.logAnalytics()
 

@@ -43,10 +43,6 @@ class DirectoryFragment : Fragment() {
         binding.lifecycleOwner = this@DirectoryFragment
 
         setupRecyclerView()
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
 
         activity?.setTitle(R.string.app_name)
 

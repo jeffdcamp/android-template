@@ -37,10 +37,7 @@ class IndividualEditFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.viewModel = this@IndividualEditFragment.viewModel
         binding.lifecycleOwner = this@IndividualEditFragment
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         setupViewModelObservers()
     }
 
