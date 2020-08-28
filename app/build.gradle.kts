@@ -13,7 +13,7 @@ plugins {
     id("com.github.ben-manes.versions") // ./gradlew dependencyUpdates -Drevision=release
     kotlin("android")
     kotlin("kapt")
-    id("kotlinx-serialization")
+//    id("kotlinx-serialization")
     id("dagger.hilt.android.plugin")
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.firebase.crashlytics")
@@ -60,7 +60,7 @@ android {
 
         @Suppress("RemoveSingleExpressionStringTemplate")   // Needed to format BuildConfg properly
         buildConfigField("String", "BUILD_NUMBER", "${System.getProperty("BUILD_NUMBER")}")
-        buildConfigField("String", "USER_AGENT_APP_NAME", "AndroidTemplate")
+        buildConfigField("String", "USER_AGENT_APP_NAME", "\"AndroidTemplate\"")
         @Suppress("RemoveSingleExpressionStringTemplate")   // Needed to format BuildConfg properly
         buildConfigField("String", "ANALYTICS_KEY", "\"${getAnalyticsKey()}\"")
 
@@ -230,8 +230,8 @@ dependencies {
     implementation(Deps.FIREBASE_ANALYTICS)
 
     // Code
-    implementation(Deps.KOTLIN_STD_LIB)
-    implementation(Deps.KOTLIN_SERIALIZATION)
+//    implementation(Deps.KOTLIN_STD_LIB)
+//    implementation(Deps.KOTLIN_SERIALIZATION)
     implementation(Deps.COROUTINES)
     implementation(Deps.EXTRAS_DELEGATES)
     implementation(Deps.TIMBER)

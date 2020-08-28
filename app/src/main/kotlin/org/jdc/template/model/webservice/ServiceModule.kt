@@ -1,14 +1,11 @@
 package org.jdc.template.model.webservice
 
 import android.os.Build
-import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
-import kotlinx.serialization.json.Json
 import okhttp3.Credentials
-import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.jdc.template.BuildConfig
@@ -78,11 +75,11 @@ class ServiceModule {
 
     @Provides
     @Singleton
-    fun getColorService(@Named(STANDARD_CLIENT) client: OkHttpClient, json: Json): ColorService {
+    fun getColorService(@Named(STANDARD_CLIENT) client: OkHttpClient/*, json: Json*/): ColorService {
         val retrofit = Retrofit.Builder()
             .baseUrl(ColorService.BASE_URL)
             .client(client)
-            .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
+//            .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
             .build()
 
         return retrofit.create()

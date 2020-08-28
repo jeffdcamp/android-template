@@ -14,17 +14,15 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
 import org.intellij.lang.annotations.Language
 import org.jdc.template.R
 import org.jdc.template.databinding.AcknowledgmentsFragmentBinding
 import timber.log.Timber
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class AcknowledgmentsFragment : Fragment() {
-    @Inject
-    lateinit var json: Json
+//    @Inject
+//    lateinit var json: Json
 
     private lateinit var binding: AcknowledgmentsFragmentBinding
 
@@ -58,9 +56,9 @@ class AcknowledgmentsFragment : Fragment() {
             // read the file
             val licenseJson = requireContext().assets.open(jsonFilename).bufferedReader().use { it.readText() }
 
-            val licensesDto = json.decodeFromString(LicensesDto.serializer(), licenseJson)
+//            val licensesDto = json.decodeFromString(LicensesDto.serializer(), licenseJson)
 
-            val html = renderHtml(licensesDto.dependencies)
+            val html = renderHtml(emptyList()/*licensesDto.dependencies*/)
             binding.webview.loadData(html, "text/html", "utf-8")
         } catch (expected: Exception) {
             Timber.e(expected, "Failed to render Acknowledgments html")

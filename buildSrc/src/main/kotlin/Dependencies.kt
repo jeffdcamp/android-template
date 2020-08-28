@@ -1,9 +1,9 @@
 // Versions for Dependencies AND Build Plugins
-const val KOTLIN_VERSION = "1.4.0-rc"
-private const val COROUTINES_VERSION = "1.3.8-1.4.0-rc-218"
+const val KOTLIN_VERSION = "1.4.0"
+private const val COROUTINES_VERSION = "1.3.9"
 const val DAGGER_HILT_VERSION = "2.28.3-alpha"
 const val ANDROIDX_NAVIGATION_VERSION = "2.3.0"
-const val COMPOSE_VERSION = "0.1.0-dev16"
+const val COMPOSE_VERSION = "1.0.0-alpha01"
 
 object Deps {
     // Android (https://android.googlesource.com/platform/frameworks/support/+/refs/heads/androidx-master-dev/buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt)

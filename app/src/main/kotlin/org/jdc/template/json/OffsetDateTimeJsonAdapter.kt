@@ -1,4 +1,5 @@
 package org.jdc.template.json
+/*
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializer
@@ -77,4 +78,4 @@ object LocalTimeSerializer : KSerializer<LocalTime> {
     override fun deserialize(decoder: Decoder): LocalTime {
         return LocalTime.parse(decoder.decodeString())
     }
-}
+}*/

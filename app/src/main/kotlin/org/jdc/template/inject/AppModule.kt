@@ -24,15 +24,15 @@ class AppModule {
         return PreferenceManager.getDefaultSharedPreferences(context)
     }
 
-    @Provides
-    @Singleton
-    fun provideJson(): Json {
-        return Json {
-            ignoreUnknownKeys = true
-            allowSpecialFloatingPointValues = true
-            useArrayPolymorphism = true
-        }
-    }
+//    @Provides
+//    @Singleton
+//    fun provideJson(): Json {
+//        return Json {
+//            ignoreUnknownKeys = true
+//            allowSpecialFloatingPointValues = true
+//            useArrayPolymorphism = true
+//        }
+//    }
 
     @Provides
     @Singleton

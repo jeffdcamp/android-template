@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.Icon
 import androidx.compose.foundation.Text
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.lazy.LazyColumnFor
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.ListItem
@@ -18,6 +19,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Modifier
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -96,7 +98,7 @@ private fun DirectoryPage(viewModel: DirectoryViewModel) {
 private fun DirectoryList(viewModel: DirectoryViewModel) {
     val directoryList by viewModel.directoryListLiveData.observeAsState(emptyList())
     LazyColumnFor(directoryList) { item ->
-        ListItem(onClick = {
+        ListItem(modifier = Modifier.clickable {
             viewModel.onDirectoryIndividualClicked(item)
         }) {
             Text(text = item.getFullName())
