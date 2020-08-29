@@ -73,21 +73,21 @@ class IndividualEditViewModel
     }
 
     private fun validate(): Boolean {
-        if (firstName.get().isNullOrBlank()) {
-            _eventChannel.sendAsync(Event.ValidationSaveError(FieldValidationError.FIRST_NAME_REQUIRED))
-            return false
-        }
+//        if (firstName.get().isNullOrBlank()) {
+//            _eventChannel.sendAsync(Event.ValidationSaveError(FieldValidationError.FIRST_NAME_REQUIRED))
+//            return false
+//        }
         firstNameError.value = false
 
         return true
     }
 
     fun onBirthDateClicked() {
-        _eventChannel.sendAsync(Event.ShowBirthDateSelection(birthDate.get() ?: LocalDate.now()))
+        _eventChannel.sendAsync(Event.ShowBirthDateSelection(birthDate.value ?: LocalDate.now()))
     }
 
     fun onAlarmTimeClicked() {
-        _eventChannel.sendAsync(Event.ShowAlarmTimeSelection(alarmTime.get() ?: LocalTime.now()))
+        _eventChannel.sendAsync(Event.ShowAlarmTimeSelection(alarmTime.value ?: LocalTime.now()))
     }
 
     enum class FieldValidationError(val errorMessageId: Int) {
