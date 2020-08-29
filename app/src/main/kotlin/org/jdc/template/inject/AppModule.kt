@@ -9,7 +9,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.serialization.json.Json
+//import kotlinx.serialization.json.Json
 import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
 import org.jdc.template.model.prefs.Prefs

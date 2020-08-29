@@ -1,6 +1,6 @@
 package org.jdc.template.json
 
-import kotlinx.serialization.BinaryFormat
+/*import kotlinx.serialization.BinaryFormat
 import kotlinx.serialization.DeserializationStrategy
 import kotlinx.serialization.SerializationStrategy
 import kotlinx.serialization.StringFormat
@@ -78,24 +78,24 @@ internal class SerializationStrategyConverter<T>(
     override fun convert(value: T) = serializer.toRequestBody(contentType, saver, value)
 }
 
-/**
+*//**
  * Return a [Converter.Factory] which uses Kotlin serialization for string-based payloads.
  *
  * Because Kotlin serialization is so flexible in the types it supports, this converter assumes
  * that it can handle all types. If you are mixing this with something else, you must add this
  * instance last to allow the other converters a chance to see their types.
- */
+ *//*
 fun StringFormat.asConverterFactory(contentType: MediaType): Converter.Factory {
     return KotlinSerializationFactory(contentType, KotlinSerializationSerializer.FromString(this))
 }
 
-/**
+*//**
  * Return a [Converter.Factory] which uses Kotlin serialization for byte-based payloads.
  *
  * Because Kotlin serialization is so flexible in the types it supports, this converter assumes
  * that it can handle all types. If you are mixing this with something else, you must add this
  * instance last to allow the other converters a chance to see their types.
- */
+ *//*
 fun BinaryFormat.asConverterFactory(contentType: MediaType): Converter.Factory {
     return KotlinSerializationFactory(contentType, KotlinSerializationSerializer.FromBytes(this))
-}
+}*/

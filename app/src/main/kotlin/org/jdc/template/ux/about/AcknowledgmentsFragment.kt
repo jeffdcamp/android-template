@@ -13,7 +13,7 @@ import android.webkit.WebViewClient
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.serialization.Serializable
+//import kotlinx.serialization.Serializable
 import org.intellij.lang.annotations.Language
 import org.jdc.template.R
 import org.jdc.template.databinding.AcknowledgmentsFragmentBinding
@@ -124,7 +124,7 @@ private class NewAcknowledgmentsWebViewClient : WebViewClient() {
     }
 }
 
-@Serializable
+//@Serializable
 private data class LicenseDto(
     val moduleName: String? = null,
     val moduleUrl: String? = null,
@@ -133,5 +133,5 @@ private data class LicenseDto(
     val moduleLicenseUrl: String? = null
 )
 
-@Serializable
+//@Serializable
 private data class LicensesDto(val dependencies: List<LicenseDto>)
