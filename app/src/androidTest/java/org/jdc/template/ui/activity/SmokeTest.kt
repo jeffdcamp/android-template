@@ -4,7 +4,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.action.ViewActions.replaceText
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
@@ -55,11 +54,11 @@ class SmokeTest {
         val editMenuItemView = onView(allOf(withId(R.id.menu_item_edit), withContentDescription("Edit"), isDisplayed()))
         editMenuItemView.perform(click())
 
-        val firstNameEditText = onView(allOf(withId(R.id.firstNameEditText), withText("Jeff"), isDisplayed()))
-        firstNameEditText.perform(click())
-
-        val firstNameEditText2 = onView(allOf(withId(R.id.firstNameEditText), withText("Jeff"), isDisplayed()))
-        firstNameEditText2.perform(replaceText("Jeffery"))
+//        val firstNameEditText = onView(allOf(withId(R.id.firstNameEditText), withText("Jeff"), isDisplayed()))
+//        firstNameEditText.perform(click())
+//
+//        val firstNameEditText2 = onView(allOf(withId(R.id.firstNameEditText), withText("Jeff"), isDisplayed()))
+//        firstNameEditText2.perform(replaceText("Jeffery"))
 
         val saveMenuItemView = onView(allOf(withId(R.id.menu_item_save), withText("Save"), isDisplayed()))
         saveMenuItemView.perform(click())

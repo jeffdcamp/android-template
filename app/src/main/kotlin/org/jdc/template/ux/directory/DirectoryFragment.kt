@@ -22,9 +22,11 @@ import androidx.compose.ui.Modifier
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.ui.tooling.preview.Preview
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
 import org.jdc.template.ext.receiveWhenStarted
+import org.jdc.template.model.db.main.directoryitem.DirectoryItem
 import org.jdc.template.ui.compose.AppTheme
 import org.jdc.template.ui.compose.setContent
 import org.jdc.template.ui.menu.CommonMenu
@@ -83,19 +85,29 @@ private fun DirectoryPage(viewModel: DirectoryViewModel) {
                     Icon(Icons.Filled.Add)
                 }
             }) {
-            DirectoryList(viewModel)
+            val directoryList = viewModel.directoryListFlow.collectAsState(emptyList())
+            DirectoryList(directoryList.value, viewModel::onDirectoryIndividualClicked)
         }
     }
 }
 
 @Composable
-private fun DirectoryList(viewModel: DirectoryViewModel) {
-    val directoryList = viewModel.directoryListFlow.collectAsState(emptyList())
-    LazyColumnFor(directoryList.value) { item ->
+private fun DirectoryList(directoryList: List<DirectoryItem>, onClick: (DirectoryItem) -> Unit = {}) {
+    LazyColumnFor(directoryList) { item ->
         ListItem(modifier = Modifier.clickable {
-            viewModel.onDirectoryIndividualClicked(item)
+            onClick(item)
         }) {
             Text(text = item.getFullName())
         }
     }
+}
+
+@Preview
+@Composable
+private fun PreviewDirectory() {
+    val directoryList = listOf(
+        DirectoryItem(0L, "Test 1", "Person"),
+        DirectoryItem(1L, "Test 2", "Person"),
+    )
+    DirectoryList(directoryList)
 }

@@ -9,7 +9,7 @@ import androidx.compose.ui.platform.setContent
 import androidx.fragment.app.Fragment
 import kotlin.random.Random
 
-fun Fragment.setContent(content: @Composable() () -> Unit): View {
+fun Fragment.setContent(content: @Composable () -> Unit): View {
     return FrameLayout(requireContext()).apply {
         id = Random.nextInt()
         layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)

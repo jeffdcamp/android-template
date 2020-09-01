@@ -1,16 +1,15 @@
 package org.jdc.template.inject
 
+//import kotlinx.serialization.json.Json
+//import org.jdc.template.json.asConverterFactory
 import android.app.Application
 import com.nhaarman.mockitokotlin2.whenever
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.migration.DisableInstallInCheck
-import kotlinx.serialization.json.Json
-import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.mockwebserver.MockWebServer
 import org.jdc.template.TestFilesystem
-import org.jdc.template.json.asConverterFactory
 import org.jdc.template.model.webservice.colors.ColorService
 import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mockito.doAnswer
@@ -43,15 +42,15 @@ class CommonTestModule {
         return application
     }
 
-    @Provides
-    @Singleton
-    fun provideJson(): Json {
-        return Json {
-            ignoreUnknownKeys = true
-            allowSpecialFloatingPointValues = true
-            useArrayPolymorphism = true
-        }
-    }
+//    @Provides
+//    @Singleton
+//    fun provideJson(): Json {
+//        return Json {
+//            ignoreUnknownKeys = true
+//            allowSpecialFloatingPointValues = true
+//            useArrayPolymorphism = true
+//        }
+//    }
 
     @Provides
     @Singleton
@@ -64,11 +63,11 @@ class CommonTestModule {
 
     @Provides
     @Singleton
-    fun provideColorService(mockWebServer: MockWebServer, json: Json): ColorService {
+    fun provideColorService(mockWebServer: MockWebServer/*, json: Json*/): ColorService {
         val retrofit = Retrofit.Builder()
             .baseUrl(mockWebServer.url(""))
             .client(provideOkHttp())
-            .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
+//            .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
             .build()
 
         return retrofit.create(ColorService::class.java)

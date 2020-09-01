@@ -13,12 +13,13 @@ import androidx.compose.foundation.Box
 import androidx.compose.foundation.ScrollableColumn
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -46,15 +47,12 @@ class IndividualEditFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        binding.viewModel = this@IndividualEditFragment.viewModel
-//        binding.lifecycleOwner = this@IndividualEditFragment
-
         setupViewModelObservers()
     }
 
     private fun setupViewModelObservers() {
         // Events
-        viewLifecycleOwner.receiveWhenStarted(viewModel.eventChannel) {event ->
+        viewLifecycleOwner.receiveWhenStarted(viewModel.eventChannel) { event ->
             when (event) {
                 is IndividualEditViewModel.Event.IndividualSaved -> findNavController().popBackStack()
                 is IndividualEditViewModel.Event.ShowBirthDateSelection -> showBirthDateSelector(event.date)
@@ -104,32 +102,47 @@ class IndividualEditFragment : Fragment() {
 @Composable
 fun IndividualEditPage(viewModel: IndividualEditViewModel) {
     AppTheme {
-        ScrollableColumn(children = {
-            Column(Modifier.padding(16.dp)) {
+        ScrollableColumn(Modifier.padding(16.dp)) {
+            OutlinedTextField(
+                value = viewModel.firstName.value,
+                onValueChange = { viewModel.firstName.value = it },
+                label = { Text(text = stringResource(id = R.string.first_name)) },
+                isErrorValue = viewModel.firstNameError.value
+            )
+            OutlinedTextField(
+                value = viewModel.lastName.value,
+                onValueChange = { viewModel.lastName.value = it },
+                label = { Text(text = stringResource(id = R.string.last_name)) },
+                imeAction = ImeAction.Next
+            )
+            OutlinedTextField(
+                value = viewModel.phone.value,
+                onValueChange = { viewModel.phone.value = it },
+                label = { Text(text = stringResource(id = R.string.phone)) },
+                imeAction = ImeAction.Next,
+                keyboardType = KeyboardType.Phone
+            )
+            OutlinedTextField(
+                value = viewModel.email.value,
+                onValueChange = { viewModel.email.value = it },
+                label = { Text(text = stringResource(id = R.string.email)) },
+                imeAction = ImeAction.Next,
+                keyboardType = KeyboardType.Email
+            )
+            Box(modifier = Modifier.clickable(onClick = { viewModel.onBirthDateClicked() })) {
                 OutlinedTextField(
-                    value = viewModel.firstName.value,
-                    onValueChange = { viewModel.firstName.value = it },
-                    label = { Text(text = stringResource(id = R.string.first_name)) },
-                    isErrorValue = viewModel.firstNameError.value
+                    value = viewModel.birthDateFormatted.value,
+                    onValueChange = {},
+                    label = { Text(text = stringResource(id = R.string.birth_date)) }
                 )
-                OutlinedTextField(value = viewModel.lastName.value, onValueChange = { viewModel.lastName.value = it }, label = { Text(text = stringResource(id = R.string.last_name)) })
-                OutlinedTextField(value = viewModel.phone.value, onValueChange = { viewModel.phone.value = it }, label = { Text(text = stringResource(id = R.string.phone)) })
-                OutlinedTextField(value = viewModel.email.value, onValueChange = { viewModel.email.value = it }, label = { Text(text = stringResource(id = R.string.email)) })
-                Box(modifier = Modifier.clickable(onClick = { viewModel.onBirthDateClicked() })) {
-                    OutlinedTextField(
-                        value = viewModel.birthDateFormatted.value,
-                        onValueChange = {},
-                        label = { Text(text = stringResource(id = R.string.birth_date)) }
-                    )
-                }
-                Box(modifier = Modifier.clickable(onClick = { viewModel.onAlarmTimeClicked() })) {
-                    OutlinedTextField(
-                        value = viewModel.alarmTimeFormatted.value,
-                        onValueChange = {},
-                        label = { Text(text = stringResource(id = R.string.alarm_time)) }
-                    )
-                }
             }
-        })
+            Box(modifier = Modifier.clickable(onClick = { viewModel.onAlarmTimeClicked() })) {
+                OutlinedTextField(
+                    value = viewModel.alarmTimeFormatted.value,
+                    onValueChange = {},
+                    label = { Text(text = stringResource(id = R.string.alarm_time)) }
+                )
+            }
+        }
     }
 }
