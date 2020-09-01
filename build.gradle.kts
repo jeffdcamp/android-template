@@ -15,7 +15,7 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-serialization:$KOTLIN_VERSION")
         classpath("com.google.dagger:hilt-android-gradle-plugin:$DAGGER_HILT_VERSION")
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$ANDROIDX_NAVIGATION_VERSION")
-        classpath("com.google.firebase:firebase-crashlytics-gradle:2.2.0")
+        classpath("com.google.firebase:firebase-crashlytics-gradle:2.2.1")
         classpath("com.google.firebase:firebase-appdistribution-gradle:2.0.1")
         classpath("com.google.gms:google-services:4.3.3")
         classpath("io.fabric.tools:gradle:1.31.2")
