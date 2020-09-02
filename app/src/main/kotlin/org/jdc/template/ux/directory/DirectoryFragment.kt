@@ -102,7 +102,7 @@ private fun DirectoryList(directoryList: List<DirectoryItem>, onClick: (Director
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun PreviewDirectory() {
     val directoryList = listOf(

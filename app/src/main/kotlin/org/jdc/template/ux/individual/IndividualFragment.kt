@@ -116,7 +116,7 @@ fun IndividualView(individual: Individual) {
 }
 
 @Composable
-@Preview
+@Preview(showBackground = true)
 fun IndividualPreview() {
     val individual = Individual(firstName = "George", lastName = "Washington", birthDate = LocalDate.of(1732, Month.FEBRUARY, 22), phone = "(202) 456-1111", email = "whitehouse@us.gov")
     IndividualView(individual)
