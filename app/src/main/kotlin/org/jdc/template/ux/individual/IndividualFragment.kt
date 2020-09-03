@@ -120,7 +120,7 @@ fun IndividualView(individual: Individual) {
         } ?: ""
         Text(text = birthDate, style = MaterialTheme.typography.body1)
         Text(text = stringResource(id = R.string.alarm_time), modifier = Modifier.padding(top = 8.dp), style = MaterialTheme.typography.caption)
-M        val millis2 = OffsetDateTime.now().with(individual.alarmTime).toInstant().toEpochMilli()
+        val millis2 = OffsetDateTime.now().with(individual.alarmTime).toInstant().toEpochMilli()
         val alarmTime = DateUtils.formatDateTime(ContextAmbient.current, millis2, DateUtils.FORMAT_SHOW_TIME)
         Text(text = alarmTime, style = MaterialTheme.typography.body1)
     }
