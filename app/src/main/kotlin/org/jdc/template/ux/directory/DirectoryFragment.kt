@@ -19,6 +19,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.viewinterop.viewModel
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -45,7 +46,7 @@ class DirectoryFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return setContent {
-            DirectoryPage(viewModel)
+            DirectoryPage()
         }
     }
 
@@ -77,8 +78,9 @@ class DirectoryFragment : Fragment() {
 }
 
 @Composable
-private fun DirectoryPage(viewModel: DirectoryViewModel) {
+private fun DirectoryPage() {
     AppTheme {
+        val viewModel = viewModel<DirectoryViewModel>()
         Scaffold(
             floatingActionButton = {
                 FloatingActionButton(onClick = viewModel::addIndividual) {

@@ -13,6 +13,7 @@ import androidx.compose.foundation.Box
 import androidx.compose.foundation.ScrollableColumn
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Stack
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.runtime.Composable
@@ -21,6 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.viewModel
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -42,7 +44,7 @@ class IndividualEditFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return setContent {
-            IndividualEditPage(viewModel)
+            IndividualEditPage()
         }
     }
 
@@ -100,9 +102,10 @@ class IndividualEditFragment : Fragment() {
 }
 
 @Composable
-fun IndividualEditPage(viewModel: IndividualEditViewModel) {
+fun IndividualEditPage() {
     AppTheme {
         ScrollableColumn(Modifier.padding(16.dp)) {
+            val viewModel = viewModel<IndividualEditViewModel>()
             OutlinedTextField(
                 value = viewModel.firstName.value,
                 onValueChange = { viewModel.firstName.value = it },
@@ -129,19 +132,21 @@ fun IndividualEditPage(viewModel: IndividualEditViewModel) {
                 imeAction = ImeAction.Next,
                 keyboardType = KeyboardType.Email
             )
-            Box(modifier = Modifier.clickable(onClick = { viewModel.onBirthDateClicked() })) {
+            Stack {
                 OutlinedTextField(
                     value = viewModel.birthDateFormatted.value,
                     onValueChange = {},
                     label = { Text(text = stringResource(id = R.string.birth_date)) }
                 )
+                Box(modifier = Modifier.matchParentSize().clickable(onClick = { viewModel.onBirthDateClicked() }))
             }
-            Box(modifier = Modifier.clickable(onClick = { viewModel.onAlarmTimeClicked() })) {
+            Stack {
                 OutlinedTextField(
                     value = viewModel.alarmTimeFormatted.value,
                     onValueChange = {},
                     label = { Text(text = stringResource(id = R.string.alarm_time)) }
                 )
+                Box(modifier = Modifier.matchParentSize().clickable(onClick = { viewModel.onAlarmTimeClicked() }))
             }
         }
     }

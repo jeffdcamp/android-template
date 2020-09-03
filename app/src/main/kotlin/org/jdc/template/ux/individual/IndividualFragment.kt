@@ -1,6 +1,7 @@
 package org.jdc.template.ux.individual
 
 import android.os.Bundle
+import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -14,8 +15,10 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ContextAmbient
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.viewModel
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -29,6 +32,7 @@ import org.jdc.template.ui.compose.AppTheme
 import org.jdc.template.ui.compose.setContent
 import java.time.LocalDate
 import java.time.Month
+import java.time.OffsetDateTime
 
 @AndroidEntryPoint
 class IndividualFragment : Fragment() {
@@ -40,7 +44,7 @@ class IndividualFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return setContent {
-            IndividualPage(viewModel)
+            IndividualPage()
         }
     }
 
@@ -93,9 +97,10 @@ class IndividualFragment : Fragment() {
 }
 
 @Composable
-fun IndividualPage(viewModel: IndividualViewModel) {
-    val individual = viewModel.individualFlow.collectAsState(Individual())
+fun IndividualPage() {
     AppTheme {
+        val viewModel = viewModel<IndividualViewModel>()
+        val individual = viewModel.individualFlow.collectAsState(Individual())
         IndividualView(individual.value)
     }
 }
@@ -109,9 +114,15 @@ fun IndividualView(individual: Individual) {
         Text(text = stringResource(id = R.string.email), modifier = Modifier.padding(top = 8.dp), style = MaterialTheme.typography.caption)
         Text(text = individual.email, style = MaterialTheme.typography.body1)
         Text(text = stringResource(id = R.string.birth_date), modifier = Modifier.padding(top = 8.dp), style = MaterialTheme.typography.caption)
-        Text(text = individual.birthDate?.toString() ?: "", style = MaterialTheme.typography.body1)
+        val birthDate = individual.birthDate?.let {
+            val millis1 = OffsetDateTime.now().with(individual.birthDate).toInstant().toEpochMilli()
+            DateUtils.formatDateTime(ContextAmbient.current, millis1, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_YEAR)
+        } ?: ""
+        Text(text = birthDate, style = MaterialTheme.typography.body1)
         Text(text = stringResource(id = R.string.alarm_time), modifier = Modifier.padding(top = 8.dp), style = MaterialTheme.typography.caption)
-        Text(text = individual.alarmTime.toString(), style = MaterialTheme.typography.body1)
+M        val millis2 = OffsetDateTime.now().with(individual.alarmTime).toInstant().toEpochMilli()
+        val alarmTime = DateUtils.formatDateTime(ContextAmbient.current, millis2, DateUtils.FORMAT_SHOW_TIME)
+        Text(text = alarmTime, style = MaterialTheme.typography.body1)
     }
 }
 
