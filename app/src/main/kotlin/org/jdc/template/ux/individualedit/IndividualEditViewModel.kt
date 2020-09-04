@@ -6,8 +6,10 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.launch
+import org.jdc.template.Analytics
 import org.jdc.template.R
 import org.jdc.template.coroutine.channel.ViewModelChannel
 import org.jdc.template.delegates.requireSavedState
@@ -18,6 +20,7 @@ import java.time.LocalTime
 
 class IndividualEditViewModel
 @ViewModelInject constructor(
+    analytics: Analytics,
     private val individualRepository: IndividualRepository,
     @Assisted savedStateHandle: SavedStateHandle
 ) : ViewModel() {
@@ -39,6 +42,7 @@ class IndividualEditViewModel
     val alarmTimeFormatted = mutableStateOf("")
 
     init {
+        analytics.logEvent(Analytics.EVENT_EDIT_INDIVIDUAL)
         loadIndividual()
     }
 
@@ -55,21 +59,19 @@ class IndividualEditViewModel
         }
     }
 
-    fun saveIndividual() = viewModelScope.launch {
-        if (!validate()) {
-            return@launch
+    fun saveIndividual(): Boolean {
+        val valid = validate()
+        if (valid) GlobalScope.launch {
+            individual.firstName = firstName.value
+            individual.lastName = lastName.value
+            individual.phone = phone.value
+            individual.email = email.value
+            individual.birthDate = birthDate.value
+            individual.alarmTime = alarmTime.value
+
+            individualRepository.saveIndividual(individual)
         }
-
-        individual.firstName = firstName.value
-        individual.lastName = lastName.value
-        individual.phone = phone.value
-        individual.email = email.value
-        individual.birthDate = birthDate.value
-        individual.alarmTime = alarmTime.value
-
-        individualRepository.saveIndividual(individual)
-
-        _eventChannel.sendAsync(Event.IndividualSaved)
+        return valid
     }
 
     private fun validate(): Boolean {
@@ -95,7 +97,6 @@ class IndividualEditViewModel
     }
 
     sealed class Event {
-        object IndividualSaved : Event()
         class ShowBirthDateSelection(val date: LocalDate) : Event()
         class ShowAlarmTimeSelection(val time: LocalTime) : Event()
 //        class ValidationSaveError(val error: FieldValidationError) : Event()

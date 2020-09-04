@@ -10,7 +10,6 @@
         android:id="@+id/directoryFragment"
         android:name="org.jdc.template.ux.directory.DirectoryFragment"
         android:label="@string/directory"
-        tools:layout="@layout/directory_fragment"
         >
         <action
             android:id="@+id/action_individualFragment"

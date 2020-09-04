@@ -1,31 +1,46 @@
 package org.jdc.template.ui.menu
 
-import android.view.MenuItem
-import androidx.navigation.NavController
-import dagger.hilt.android.scopes.FragmentScoped
+import androidx.compose.foundation.Icon
+import androidx.compose.foundation.Text
+import androidx.compose.material.DropdownMenu
+import androidx.compose.material.DropdownMenuItem
+import androidx.compose.material.IconButton
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
 import org.jdc.template.MainNavigationDirections
 import org.jdc.template.R
-import timber.log.Timber
-import javax.inject.Inject
+import org.jdc.template.ux.main.NavControllerAmbient
 
-@FragmentScoped
-class CommonMenu
-@Inject constructor() {
-    fun onOptionsItemSelected(navController: NavController, item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.menu_item_search -> true
-            R.id.menu_item_settings -> {
-                navController.navigate(MainNavigationDirections.actionGlobalSettingsFragment())
-                true
+@Composable
+fun CommonMenu() {
+    var openState: Boolean by remember { mutableStateOf(false) }
+    DropdownMenu(
+        toggle = {
+            IconButton(onClick = { openState = true }) {
+                Icon(Icons.Filled.Settings)
             }
-            R.id.menu_item_about -> {
-                navController.navigate(MainNavigationDirections.actionGlobalAboutFragment())
-                true
-            }
-            else -> {
-                Timber.i("Unknown common menu item id: ${item.itemId}, ignoring")
-                false
-            }
+        },
+        expanded = openState,
+        onDismissRequest = { openState = false }
+    ) {
+        val navController = NavControllerAmbient.current
+        DropdownMenuItem(onClick = {
+            openState = false
+            navController.navigate(MainNavigationDirections.actionGlobalSettingsFragment())
+        }) {
+            Text(stringResource(id = R.string.settings))
+        }
+        DropdownMenuItem(onClick = {
+            openState = false
+            navController.navigate(MainNavigationDirections.actionGlobalAboutFragment())
+        }) {
+            Text(stringResource(id = R.string.about))
         }
     }
 }

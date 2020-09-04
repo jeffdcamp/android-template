@@ -2,8 +2,9 @@ package org.jdc.template.ux.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.runtime.staticAmbientOf
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupActionBarWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
 import org.jdc.template.databinding.MainActivityBinding
@@ -21,16 +22,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        setSupportActionBar(binding.appbar.mainToolbar)
-
-        supportActionBar?.apply {
-            setHomeButtonEnabled(true)
-            setDisplayHomeAsUpEnabled(true)
-        }
-
-        setupActionBarWithNavController(navController)
     }
 
     override fun onSupportNavigateUp() = navController.navigateUp()
 }
+
+val NavControllerAmbient = staticAmbientOf<NavController>()
