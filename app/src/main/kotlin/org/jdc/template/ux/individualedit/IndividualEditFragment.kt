@@ -1,8 +1,7 @@
 package org.jdc.template.ux.individualedit
 
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
 import android.os.Bundle
+import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +17,7 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Providers
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ContextAmbient
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -26,14 +26,20 @@ import androidx.compose.ui.viewinterop.viewModel
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.timepicker.MaterialTimePicker
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
 import org.jdc.template.ext.receiveWhenStarted
 import org.jdc.template.ui.compose.AppTheme
 import org.jdc.template.ui.compose.setContent
 import org.jdc.template.ux.main.NavControllerAmbient
+import java.time.Clock
+import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalTime
+import java.time.ZoneId
 
 @AndroidEntryPoint
 class IndividualEditFragment : Fragment() {
@@ -67,19 +73,28 @@ class IndividualEditFragment : Fragment() {
     }
 
     private fun showBirthDateSelector(date: LocalDate) {
-        val birthDatePickerDialog = DatePickerDialog(requireActivity(), { _, year, monthOfYear, dayOfMonth ->
-            viewModel.birthDate.value = LocalDate.of(year, monthOfYear + 1, dayOfMonth) // + 1 because core Java Date is 0 based
-        }, date.year, date.monthValue - 1, date.dayOfMonth) // - 1 because core Java Date is 0 based
-
-        birthDatePickerDialog.show()
+        val selection = date.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli()
+        val constraints = CalendarConstraints.Builder()
+            .setOpenAt(selection)
+            .setEnd(Clock.systemDefaultZone().millis())
+            .build()
+        val picker = MaterialDatePicker.Builder
+            .datePicker()
+            .setSelection(selection)
+            .setCalendarConstraints(constraints)
+            .build()
+        picker.addOnPositiveButtonClickListener {
+            viewModel.birthDate.value = Instant.ofEpochMilli(it).atZone(ZoneId.systemDefault()).toLocalDate()
+        }
+        picker.show(parentFragmentManager, picker.toString())
     }
 
     private fun showAlarmTimeSelector(time: LocalTime) {
-        val alarmTimePickerDialog = TimePickerDialog(requireActivity(), { _, hourOfDay, minute ->
-            viewModel.alarmTime.value = LocalTime.of(hourOfDay, minute)
-        }, time.hour, time.minute, false)
-
-        alarmTimePickerDialog.show()
+        val picker = MaterialTimePicker()
+        picker.setListener {
+            viewModel.alarmTime.value = LocalTime.of(it.hour, it.minute)
+        }
+        picker.show(parentFragmentManager, picker.toString())
     }
 }
 
@@ -144,16 +159,18 @@ private fun IndividualForm(modifier: Modifier = Modifier) {
             keyboardType = KeyboardType.Email,
         )
         Stack {
+            val birthDate = viewModel.birthDateMillis?.let { DateUtils.formatDateTime(ContextAmbient.current, it, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_YEAR) } ?: ""
             OutlinedTextField(
-                value = viewModel.birthDateFormatted.value,
+                value = birthDate,
                 onValueChange = {},
                 label = { Text(text = stringResource(id = R.string.birth_date)) },
             )
             Box(modifier = Modifier.matchParentSize().clickable(onClick = { viewModel.onBirthDateClicked() }))
         }
         Stack {
+            val alarmTime = DateUtils.formatDateTime(ContextAmbient.current, viewModel.alarmTimeMillis, DateUtils.FORMAT_SHOW_TIME)
             OutlinedTextField(
-                value = viewModel.alarmTimeFormatted.value,
+                value = alarmTime,
                 onValueChange = {},
                 label = { Text(text = stringResource(id = R.string.alarm_time)) },
             )

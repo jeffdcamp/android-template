@@ -17,6 +17,8 @@ import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.repository.IndividualRepository
 import java.time.LocalDate
 import java.time.LocalTime
+import java.time.OffsetDateTime
+import java.time.ZoneId
 
 class IndividualEditViewModel
 @ViewModelInject constructor(
@@ -37,9 +39,9 @@ class IndividualEditViewModel
     val phone = mutableStateOf("")
     val email = mutableStateOf("")
     val birthDate = mutableStateOf<LocalDate?>(null)
-    val birthDateFormatted = mutableStateOf("")
+    val birthDateMillis get() = birthDate.value?.atStartOfDay(ZoneId.systemDefault())?.toInstant()?.toEpochMilli()
     val alarmTime = mutableStateOf<LocalTime>(LocalTime.now())
-    val alarmTimeFormatted = mutableStateOf("")
+    val alarmTimeMillis get() = OffsetDateTime.now().with(alarmTime.value).toInstant().toEpochMilli()
 
     init {
         analytics.logEvent(Analytics.EVENT_EDIT_INDIVIDUAL)
