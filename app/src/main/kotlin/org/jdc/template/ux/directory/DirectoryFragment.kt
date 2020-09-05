@@ -66,7 +66,7 @@ private fun DirectoryPage() {
 private fun AppBar() {
     TopAppBar(
         title = {
-            Text(stringResource(id = R.string.app_name))
+            Text(stringResource(id = R.string.directory))
         },
         actions = {
             IconButton(onClick = {}) {

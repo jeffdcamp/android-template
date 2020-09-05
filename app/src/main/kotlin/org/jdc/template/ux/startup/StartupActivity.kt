@@ -18,7 +18,6 @@ class StartupActivity : AppCompatActivity() {
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.splash_activity)
         setupViewModelObservers()
     }
 

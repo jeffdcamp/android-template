@@ -16,6 +16,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
@@ -71,7 +72,14 @@ private fun AppBar() {
     val navController = NavControllerAmbient.current
     val viewModel: IndividualViewModel = viewModel()
     TopAppBar(
-        title = {},
+        navigationIcon = {
+            IconButton(onClick = { navController.popBackStack() }) {
+                Icon(Icons.Filled.ArrowBack)
+            }
+        },
+        title = {
+            Text(stringResource(id = R.string.individual))
+        },
         actions = {
             IconButton(onClick = {
                 val directions = IndividualFragmentDirections.actionIndividualEditFragment(viewModel.individualId)
