@@ -51,6 +51,7 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
         "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
         "-Xopt-in=kotlinx.coroutines.FlowPreview",
         "-Xopt-in=kotlin.time.ExperimentalTime",
+        "-Xopt-in=kotlinx.serialization.ExperimentalSerializationApi",
         "-Xjvm-default=all"
     )
 }

@@ -19,7 +19,7 @@ buildscript {
         classpath("com.google.firebase:firebase-appdistribution-gradle:2.0.1")
         classpath("com.google.gms:google-services:4.3.3")
         classpath("io.fabric.tools:gradle:1.31.2")
-        classpath("com.github.ben-manes:gradle-versions-plugin:0.29.0") // version plugin support
+        classpath("com.github.ben-manes:gradle-versions-plugin:0.31.0") // version plugin support
     }
 }
 
@@ -55,7 +55,6 @@ allprojects {
         }
     }
 }
-
 
 tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
