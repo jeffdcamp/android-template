@@ -19,7 +19,7 @@ plugins {
     id("com.google.firebase.appdistribution")
     id("io.gitlab.arturbosch.detekt") version "1.12.0"
     id ("de.undercouch.download")
-    id("com.github.triplet.play") version "2.8.0"
+    id("com.github.triplet.play") version "3.0.0"
     id("com.github.jk1.dependency-license-report") version "1.14"
 }
 
@@ -344,9 +344,9 @@ detekt {
 
 play {
     val myServiceAccountCreds: String? by project
-    serviceAccountCredentials = File(myServiceAccountCreds ?: "api-playstore-dummy.json")
-    track = "internal"
-    defaultToAppBundles = true
+    serviceAccountCredentials.set(File(myServiceAccountCreds ?: "api-playstore-dummy.json"))
+    track.set("internal")
+    defaultToAppBundles.set(true)
 }
 
 // ./gradlew generateLicenseReport
