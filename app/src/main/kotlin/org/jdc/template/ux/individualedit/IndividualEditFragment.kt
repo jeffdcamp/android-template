@@ -67,11 +67,6 @@ class IndividualEditFragment : Fragment() {
             when (event) {
                 is IndividualEditViewModel.Event.ShowBirthDateSelection -> showBirthDateSelector(event.date)
                 is IndividualEditViewModel.Event.ShowAlarmTimeSelection -> showAlarmTimeSelector(event.time)
-//                is IndividualEditViewModel.Event.ValidationSaveError -> {
-//                    when (event.error) {
-//                        IndividualEditViewModel.FieldValidationError.FIRST_NAME_REQUIRED -> binding.firstNameLayout.error = getString(event.error.errorMessageId)
-//                    }
-//                }
             }
         }
     }

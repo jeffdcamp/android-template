@@ -64,16 +64,13 @@ class IndividualEditViewModel
     fun saveIndividual(): Boolean {
         val valid = validate()
         if (valid) GlobalScope.launch {
-            // using copy ensures that any fields which were not editable remain unchanged
-            val updatedIndividual = individual.copy(
-                firstName = firstName.value,
-                lastName = lastName.value,
-                phone = phone.value,
-                email = email.value,
-                birthDate = birthDate.value,
-                alarmTime = alarmTime.value,
-            )
-            individualRepository.saveIndividual(updatedIndividual)
+            individual.firstName = firstName.value
+            individual.lastName = lastName.value
+            individual.phone = phone.value
+            individual.email = email.value
+            individual.birthDate = birthDate.value
+            individual.alarmTime = alarmTime.value
+            individualRepository.saveIndividual(individual)
         }
         return valid
     }
@@ -99,6 +96,5 @@ class IndividualEditViewModel
     sealed class Event {
         class ShowBirthDateSelection(val date: LocalDate) : Event()
         class ShowAlarmTimeSelection(val time: LocalTime) : Event()
-//        class ValidationSaveError(val error: FieldValidationError) : Event()
     }
 }
