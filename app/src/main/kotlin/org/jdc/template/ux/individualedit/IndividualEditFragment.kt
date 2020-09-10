@@ -147,6 +147,7 @@ private fun IndividualForm(modifier: Modifier = Modifier) {
             value = viewModel.firstName.value,
             onValueChange = { viewModel.firstName.value = it },
             label = { Text(text = stringResource(id = R.string.first_name)) },
+            imeAction = ImeAction.Next,
             isErrorValue = viewModel.firstNameError.value
         )
         OutlinedTextField(

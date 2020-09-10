@@ -64,26 +64,24 @@ class IndividualEditViewModel
     fun saveIndividual(): Boolean {
         val valid = validate()
         if (valid) GlobalScope.launch {
-            individual.firstName = firstName.value
-            individual.lastName = lastName.value
-            individual.phone = phone.value
-            individual.email = email.value
-            individual.birthDate = birthDate.value
-            individual.alarmTime = alarmTime.value
-
-            individualRepository.saveIndividual(individual)
+            // using copy ensures that any fields which were not editable remain unchanged
+            val updatedIndividual = individual.copy(
+                firstName = firstName.value,
+                lastName = lastName.value,
+                phone = phone.value,
+                email = email.value,
+                birthDate = birthDate.value,
+                alarmTime = alarmTime.value,
+            )
+            individualRepository.saveIndividual(updatedIndividual)
         }
         return valid
     }
 
     private fun validate(): Boolean {
-//        if (firstName.get().isNullOrBlank()) {
-//            _eventChannel.sendAsync(Event.ValidationSaveError(FieldValidationError.FIRST_NAME_REQUIRED))
-//            return false
-//        }
-        firstNameError.value = false
-
-        return true
+        return firstName.value.isNotBlank().also { valid ->
+            firstNameError.value = !valid   // show error state if field is not valid
+        }
     }
 
     fun onBirthDateClicked() {
