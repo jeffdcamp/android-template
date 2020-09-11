@@ -49,7 +49,7 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
         "-Xopt-in=kotlinx.coroutines.FlowPreview",
         "-Xopt-in=kotlin.time.ExperimentalTime",
         "-Xopt-in=kotlinx.serialization.ExperimentalSerializationApi",
-        "-Xjvm-default=all"
+        "-Xjvm-default=all" // required for Coil
     )
 }
 
@@ -60,6 +60,7 @@ android {
         minSdkVersion(AndroidSdk.MIN)
         targetSdkVersion(AndroidSdk.TARGET)
 
+        applicationId = "org.jdc.template"
         versionCode = appVersionCode
         versionName = appVersionName
 
