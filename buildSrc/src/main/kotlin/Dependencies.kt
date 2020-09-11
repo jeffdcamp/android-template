@@ -1,7 +1,7 @@
 // Versions for Dependencies AND Build Plugins
 const val KOTLIN_VERSION = "1.4.10"
 private const val COROUTINES_VERSION = "1.3.9"
-const val DAGGER_HILT_VERSION = "2.29-alpha"
+const val DAGGER_HILT_VERSION = "2.29.1-alpha"
 const val ANDROIDX_NAVIGATION_VERSION = "2.3.0"
 
 object Deps {
@@ -55,14 +55,14 @@ object Deps {
     // Inject
     private const val ANDROIDX_HILT_VERSION = "1.0.0-alpha02"
     const val HILT = "com.google.dagger:hilt-android:$DAGGER_HILT_VERSION"
-    const val HILT_COMPILER = "com.google.dagger:hilt-android-compiler:$DAGGER_HILT_VERSION" // todo change to "hilt-compiler" (https://github.com/google/dagger/issues/2086)
+    const val HILT_COMPILER = "com.google.dagger:hilt-compiler:$DAGGER_HILT_VERSION"
     const val HILT_TESTING = "com.google.dagger:hilt-android-test:$DAGGER_HILT_VERSION" // integration tests ONLY (does not support JVM tests)
     const val ANDROIDX_HILT_WORK = "androidx.hilt:hilt-work:$ANDROIDX_HILT_VERSION"
     const val ANDROIDX_HILT_VIEWMODEL = "androidx.hilt:hilt-lifecycle-viewmodel:$ANDROIDX_HILT_VERSION"
     const val ANDROIDX_HILT_COMPILER = "androidx.hilt:hilt-compiler:$ANDROIDX_HILT_VERSION"
 
     // Standard dagger is needed for unit tests ONLY
-    private const val DAGGER_VERSION = "2.29"
+    private const val DAGGER_VERSION = "2.29.1"
     const val DAGGER = "com.google.dagger:dagger:$DAGGER_VERSION"
     const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
 
