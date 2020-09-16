@@ -7,6 +7,10 @@ pipeline {
         CHANGELOG_CMD = 'git log --date=format:"%Y-%m-%d" --pretty="format: * %s% b (%an, %cd)" | head -n 10 > commit-changelog.txt'
     }
 
+    tools {
+        jdk "Java 11"
+    }
+
     options {
         // prevent multiple builds from running concurrently, that come from the same git branch
         disableConcurrentBuilds()
@@ -65,7 +69,7 @@ pipeline {
                 stage("Build") {
                     steps {
                         sh "${CHANGELOG_CMD}"
-                        sh './gradlew clean assembleAlpha appDistributionUploadAlpha'
+                        sh './gradlew clean assembleAlpha bundleAlpha appDistributionUploadAlpha'
                     }
                 }
                 stage("Test") {
@@ -104,7 +108,7 @@ pipeline {
 //                        sh './gradlew publishAlphaApk'
 //                    }
                     steps {
-                        sh './gradlew publishAlphaBundle'
+                        sh './gradlew publishAlphaBundle --artifact-dir app/build/outputs/bundle/alpha'
                     }
                 }
             }
@@ -118,7 +122,7 @@ pipeline {
                 stage("Build") {
                     steps {
                         sh "${CHANGELOG_CMD}"
-                        sh './gradlew clean assemblePreview appDistributionUploadPreview'
+                        sh './gradlew clean assemblePreview bundlePreview appDistributionUploadPreview'
                     }
                     post {
                         always {
@@ -162,7 +166,7 @@ pipeline {
 //                        sh './gradlew publishPreviewApk'
 //                    }
                     steps {
-                        sh './gradlew publishPreviewBundle'
+                        sh './gradlew publishPreviewBundle --artifact-dir app/build/outputs/bundle/preview'
                     }
                     post {
                         always {
@@ -180,7 +184,7 @@ pipeline {
                 stage("Build") {
                     steps {
                         sh "${CHANGELOG_CMD}"
-                        sh './gradlew clean assembleBeta appDistributionUploadRelease'
+                        sh './gradlew clean assembleBeta bundleBeta appDistributionUploadRelease'
                     }
                     post {
                         always {
@@ -224,7 +228,7 @@ pipeline {
 //                        sh './gradlew publishBetaApk'
 //                    }
                     steps {
-                        sh './gradlew publishBetaBundle'
+                        sh './gradlew publishBetaBundle --artifact-dir app/build/outputs/bundle/beta'
                     }
                     post {
                         always {
@@ -242,7 +246,7 @@ pipeline {
                 stage("Build") {
                     steps {
                         sh "${CHANGELOG_CMD}"
-                        sh './gradlew clean assembleRelease appDistributionUploadRelease'
+                        sh './gradlew clean assembleRelease bundleRelease appDistributionUploadRelease'
                     }
                     post {
                         always {
@@ -286,7 +290,7 @@ pipeline {
 //                        sh './gradlew publishReleaseApk'
 //                    }
                     steps {
-                        sh './gradlew publishReleaseBundle'
+                        sh './gradlew publishReleaseBundle --artifact-dir app/build/outputs/bundle/release'
                     }
                     post {
                         always {
