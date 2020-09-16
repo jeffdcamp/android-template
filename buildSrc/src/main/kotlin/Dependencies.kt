@@ -14,7 +14,7 @@ object Deps {
     const val ANDROIDX_CORE = "androidx.core:core-ktx:1.3.1"
     const val ANDROIDX_ACTIVITY_KTX = "androidx.activity:activity-ktx:1.1.0"
     const val ANDROIDX_FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.2.5"
-    const val ANDROIDX_STARTUP = "androidx.startup:startup-runtime:1.0.0-alpha03"
+    const val ANDROIDX_STARTUP = "androidx.startup:startup-runtime:1.0.0-beta01"
 
     private const val LIFECYCLE_VERSION = "2.2.0"
     const val ARCH_LIFECYCLE_EXT = "androidx.lifecycle:lifecycle-extensions:$LIFECYCLE_VERSION"
