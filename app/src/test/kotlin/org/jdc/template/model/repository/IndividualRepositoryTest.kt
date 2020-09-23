@@ -32,7 +32,7 @@ class IndividualRepositoryTest {
 
     @BeforeEach
     fun setUp() {
-        MockitoAnnotations.initMocks(this)
+        MockitoAnnotations.openMocks(this)
         Timber.plant(JavaTree())
         TestFilesystem.deleteFilesystem()
 
