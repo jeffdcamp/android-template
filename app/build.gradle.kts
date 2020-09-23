@@ -232,7 +232,6 @@ dependencies {
     kapt(Deps.ANDROIDX_HILT_COMPILER)
 
     // Android Architecture Components
-    implementation(Deps.ARCH_LIFECYCLE_EXT)
     implementation(Deps.ARCH_LIFECYCLE_RUNTIME)
     implementation(Deps.ARCH_LIFECYCLE_VIEWMODEL)
     implementation(Deps.ARCH_LIFECYCLE_SAVE_STATE)
