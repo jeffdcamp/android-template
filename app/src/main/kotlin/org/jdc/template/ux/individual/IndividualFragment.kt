@@ -7,7 +7,6 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -28,7 +27,7 @@ class IndividualFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.individual_fragment, container, false)
+        binding = IndividualFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -44,15 +43,16 @@ class IndividualFragment : Fragment() {
         }
 
         // Events
-        viewLifecycleOwner.receiveWhenStarted(viewModel.eventChannel) { event ->
-            when (event) {
-                is IndividualViewModel.Event.EditIndividualEvent -> {
-                    val directions = IndividualFragmentDirections.actionIndividualEditFragment(event.individualId)
-                    findNavController().navigate(directions)
-                }
-                is IndividualViewModel.Event.IndividualDeletedEvent -> findNavController().popBackStack()
-            }
+        viewLifecycleOwner.receiveWhenStarted(viewModel.eventChannel) { event -> handleEvent(event) }
+    }
 
+    private fun handleEvent(event: IndividualViewModel.Event) {
+        when (event) {
+            is IndividualViewModel.Event.EditIndividualEvent -> {
+                val directions = IndividualFragmentDirections.actionIndividualEditFragment(event.individualId)
+                findNavController().navigate(directions)
+            }
+            is IndividualViewModel.Event.IndividualDeletedEvent -> findNavController().popBackStack()
         }
     }
 

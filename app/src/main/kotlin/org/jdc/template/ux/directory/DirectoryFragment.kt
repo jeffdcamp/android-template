@@ -7,7 +7,6 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -34,7 +33,7 @@ class DirectoryFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.directory_fragment, container, false)
+        binding = DirectoryFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -57,11 +56,13 @@ class DirectoryFragment : Fragment() {
         }
 
         // Events
-        viewLifecycleOwner.receiveWhenStarted(viewModel.eventChannel) { event ->
-            when (event) {
-                is DirectoryViewModel.Event.NewIndividualEvent -> findNavController().navigate(DirectoryFragmentDirections.actionIndividualEditFragment())
-                is DirectoryViewModel.Event.ShowIndividualEvent -> findNavController().navigate(DirectoryFragmentDirections.actionIndividualFragment(event.individualId))
-            }
+        viewLifecycleOwner.receiveWhenStarted(viewModel.eventChannel) { event -> handleEvent(event) }
+    }
+
+    private fun handleEvent(event: DirectoryViewModel.Event) {
+        when (event) {
+            is DirectoryViewModel.Event.NewIndividualEvent -> findNavController().navigate(DirectoryFragmentDirections.actionIndividualEditFragment())
+            is DirectoryViewModel.Event.ShowIndividualEvent -> findNavController().navigate(DirectoryFragmentDirections.actionIndividualFragment(event.individualId))
         }
     }
 
