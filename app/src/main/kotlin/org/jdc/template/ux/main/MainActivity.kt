@@ -1,5 +1,6 @@
 package org.jdc.template.ux.main
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
@@ -32,5 +33,13 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController)
     }
 
-    override fun onSupportNavigateUp() = navController.navigateUp()
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp()
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        if (!navController.handleDeepLink(intent)) {
+            super.onNewIntent(intent)
+        }
+    }
 }

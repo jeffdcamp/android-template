@@ -79,6 +79,9 @@ object Deps {
     const val OKHTTP = "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION"
     const val OKHTTP_LOGGING_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION"
 
+    // Dev
+    const val LEAK_CANARY = "com.squareup.leakcanary:leakcanary-android:2.4"
+
     // Test - Integration
     private const val ESPRESSO_VERSION = "3.3.0"
     const val TEST_ESPRESSO_CORE = "androidx.test.espresso:espresso-core:$ESPRESSO_VERSION"

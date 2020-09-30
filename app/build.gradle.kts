@@ -266,6 +266,9 @@ dependencies {
     implementation(Deps.RETROFIT)
 //    implementation(Deps.KOTLIN_RETROFIT_CONVERTER) // todo: temp disabled till support for Kotlin 1.4.0
 
+    // Dev
+    debugImplementation(Deps.LEAK_CANARY)
+
     // Test (Integration)
     androidTestImplementation(Deps.TEST_ESPRESSO_CORE)
     androidTestImplementation(Deps.TEST_ESPRESSO_CONTRIB)

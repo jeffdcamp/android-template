@@ -22,14 +22,16 @@ import java.time.LocalTime
 @AndroidEntryPoint
 class IndividualEditFragment : Fragment() {
     private val viewModel: IndividualEditViewModel by viewModels()
-    private lateinit var binding: IndividualEditFragmentBinding
+
+    private var _binding: IndividualEditFragmentBinding? = null
+    private val binding get() = _binding!! // This property is only valid between onCreateView and onDestroyView.
 
     init {
         setHasOptionsMenu(true)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = IndividualEditFragmentBinding.inflate(inflater, container, false)
+        _binding = IndividualEditFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -88,5 +90,10 @@ class IndividualEditFragment : Fragment() {
         }, time.hour, time.minute, false)
 
         alarmTimePickerDialog.show()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

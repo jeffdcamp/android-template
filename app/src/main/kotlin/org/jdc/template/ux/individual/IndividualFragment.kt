@@ -20,14 +20,16 @@ import org.jdc.template.ext.receiveWhenStarted
 @AndroidEntryPoint
 class IndividualFragment : Fragment() {
     private val viewModel: IndividualViewModel by viewModels()
-    private lateinit var binding: IndividualFragmentBinding
+
+    private var _binding: IndividualFragmentBinding? = null
+    private val binding get() = _binding!! // This property is only valid between onCreateView and onDestroyView.
 
     init {
         setHasOptionsMenu(true)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = IndividualFragmentBinding.inflate(inflater, container, false)
+        _binding = IndividualFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -83,5 +85,10 @@ class IndividualFragment : Fragment() {
             }
             .setNegativeButton(R.string.cancel) { _, _ -> }
             .show()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
