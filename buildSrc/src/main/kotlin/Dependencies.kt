@@ -2,7 +2,7 @@
 const val KOTLIN_VERSION = "1.4.10"
 private const val COROUTINES_VERSION = "1.3.9"
 const val DAGGER_HILT_VERSION = "2.29.1-alpha"
-const val ANDROIDX_NAVIGATION_VERSION = "2.3.0"
+const val ANDROIDX_NAVIGATION_VERSION = "2.3.1"
 
 object Deps {
     // Android (https://android.googlesource.com/platform/frameworks/support/+/refs/heads/androidx-master-dev/buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt)
