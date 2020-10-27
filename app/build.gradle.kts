@@ -20,7 +20,7 @@ plugins {
     id("io.gitlab.arturbosch.detekt") version "1.14.0"
     id ("de.undercouch.download")
     id("com.github.triplet.play") version "3.0.0"
-    id("com.github.jk1.dependency-license-report") version "1.14"
+    id("com.github.jk1.dependency-license-report") version "1.16"
 }
 
 // Manifest version information
