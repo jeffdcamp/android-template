@@ -30,7 +30,7 @@ class DirectoryFragment : Fragment() {
     private var _binding: DirectoryFragmentBinding? = null
     private val binding get() = _binding!! // This property is only valid between onCreateView and onDestroyView.
 
-    private val adapter by lazy { DirectoryAdapter(viewModel) }
+    private lateinit var adapter: DirectoryAdapter
 
     init {
         setHasOptionsMenu(true)
@@ -72,6 +72,7 @@ class DirectoryFragment : Fragment() {
 
     private fun setupRecyclerView() {
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
+        adapter = DirectoryAdapter(viewModel)
         binding.recyclerView.adapter = adapter
     }
 
