@@ -10,11 +10,11 @@ object Deps {
     const val ANDROIDX_APPCOMPAT = "androidx.appcompat:appcompat:1.2.0"
     const val ANDROIDX_RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.1.0"
     const val ANDROIDX_PREFERENCE = "androidx.preference:preference-ktx:1.1.1"
-    const val ANDROIDX_CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:2.0.2"
+    const val ANDROIDX_CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:2.0.3"
     const val ANDROIDX_CORE = "androidx.core:core-ktx:1.3.2"
     const val ANDROIDX_ACTIVITY_KTX = "androidx.activity:activity-ktx:1.1.0"
     const val ANDROIDX_FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.2.5"
-    const val ANDROIDX_STARTUP = "androidx.startup:startup-runtime:1.0.0-rc01"
+    const val ANDROIDX_STARTUP = "androidx.startup:startup-runtime:1.0.0"
 
     private const val LIFECYCLE_VERSION = "2.2.0"
     const val ARCH_LIFECYCLE_RUNTIME = "androidx.lifecycle:lifecycle-runtime-ktx:$LIFECYCLE_VERSION"
@@ -38,7 +38,7 @@ object Deps {
     // const val PLAYSERVICE_LICENSES = "com.google.android.gms:play-services-oss-licenses:17.0.0"
 
     // Firebase - https://firebase.google.com/support/release-notes/android
-    const val FIREBASE_BOM = "com.google.firebase:firebase-bom:25.13.0" // automatically sets the version for all firebase libs below
+    const val FIREBASE_BOM = "com.google.firebase:firebase-bom:26.0.0" // automatically sets the version for all firebase libs below
     const val FIREBASE_CORE = "com.google.firebase:firebase-core"
     const val FIREBASE_PERF = "com.google.firebase:firebase-perf"
     const val FIREBASE_CONFIG = "com.google.firebase:firebase-config-ktx"
@@ -46,7 +46,7 @@ object Deps {
     const val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics-ktx"
 
     // Code
-    const val KOTLIN_SERIALIZATION = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.0"
+    const val KOTLIN_SERIALIZATION = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1"
     const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINES_VERSION"
     const val RETROFIT = "com.squareup.retrofit2:retrofit:2.9.0"
     const val TIMBER = "com.jakewharton.timber:timber:4.7.1"
@@ -95,7 +95,7 @@ object Deps {
     const val TEST_JUNIT = "org.junit.jupiter:junit-jupiter:$JUNIT_VERSION"
     const val TEST_JUNIT_ENGINE = "org.junit.jupiter:junit-jupiter-engine:$JUNIT_VERSION"
     const val TEST_OKHTTP_MOCKWEBSERVER = "com.squareup.okhttp3:mockwebserver:$OKHTTP_VERSION"
-    const val TEST_MOCKITO_CORE = "org.mockito:mockito-core:3.5.15"
+    const val TEST_MOCKITO_CORE = "org.mockito:mockito-core:3.6.0"
     const val TEST_XERIAL_SQLITE = "org.xerial:sqlite-jdbc:3.32.3.2"
     const val TEST_ARCH_ROOM_TESTING = "androidx.room:room-testing:$ROOM_VERSION"
     const val TEST_DBTOOLS_ROOM_JDBC = "org.dbtools:dbtools-room-jdbc:$DBTOOLS_VERSION"
