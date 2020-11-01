@@ -10,7 +10,7 @@ object Deps {
     const val ANDROIDX_APPCOMPAT = "androidx.appcompat:appcompat:1.2.0"
     const val ANDROIDX_RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.1.0"
     const val ANDROIDX_PREFERENCE = "androidx.preference:preference-ktx:1.1.1"
-    const val ANDROIDX_CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:2.0.3"
+    const val ANDROIDX_CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:2.0.4"
     const val ANDROIDX_CORE = "androidx.core:core-ktx:1.3.2"
     const val ANDROIDX_ACTIVITY_KTX = "androidx.activity:activity-ktx:1.1.0"
     const val ANDROIDX_FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.2.5"
@@ -30,7 +30,7 @@ object Deps {
     const val ARCH_WORK_GCM = "androidx.work:work-gcm:$WORKMANAGER_VERSION" // Remove with min SDK 23
     const val WORKMANAGER_TOOLS = "org.dbtools:workmanager-tools:1.13.0"
 
-    const val ANDROID_MATERIAL = "com.google.android.material:material:1.2.0" // https://github.com/material-components/material-components-android/releases
+    const val ANDROID_MATERIAL = "com.google.android.material:material:1.2.1" // https://github.com/material-components/material-components-android/releases
 
     // Play Services
     const val PLAYSERVICE_CORE = "com.google.android.play:core-ktx:1.8.1" // https://developer.android.com/reference/com/google/android/play/core/release-notes

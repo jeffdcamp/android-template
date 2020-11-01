@@ -3,13 +3,6 @@
         {
             "moduleName": "androidx.activity:activity-ktx",
             "moduleUrl": "https://developer.android.com/jetpack/androidx",
-            "moduleVersion": "1.0.0",
-            "moduleLicense": "Apache License, Version 2.0",
-            "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
-        },
-        {
-            "moduleName": "androidx.annotation:annotation",
-            "moduleUrl": "http://developer.android.com/tools/extras/support-library.html",
             "moduleVersion": "1.1.0",
             "moduleLicense": "Apache License, Version 2.0",
             "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
@@ -17,207 +10,206 @@
         {
             "moduleName": "androidx.appcompat:appcompat",
             "moduleUrl": "https://developer.android.com/jetpack/androidx",
-            "moduleVersion": "1.1.0",
+            "moduleVersion": "1.2.0",
             "moduleLicense": "Apache License, Version 2.0",
             "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
         },
         {
             "moduleName": "androidx.constraintlayout:constraintlayout",
             "moduleUrl": "http://tools.android.com",
-            "moduleVersion": "1.1.3",
+            "moduleVersion": "2.0.4",
             "moduleLicense": "Apache License, Version 2.0",
             "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
         },
         {
             "moduleName": "androidx.core:core-ktx",
-            "moduleUrl": "http://developer.android.com/tools/extras/support-library.html",
-            "moduleVersion": "1.1.0",
+            "moduleUrl": "https://developer.android.com/jetpack/androidx",
+            "moduleVersion": "1.3.2",
             "moduleLicense": "Apache License, Version 2.0",
             "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
         },
         {
             "moduleName": "androidx.databinding:databinding-adapters",
-            "moduleVersion": "3.6.0-alpha09",
+            "moduleVersion": "4.1.0",
             "moduleLicense": "Apache License, Version 2.0",
             "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
         },
         {
             "moduleName": "androidx.databinding:databinding-common",
             "moduleUrl": "https://developer.android.com/studio",
-            "moduleVersion": "3.6.0-alpha09",
+            "moduleVersion": "4.1.0",
             "moduleLicense": "Apache License, Version 2.0",
             "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
         },
         {
             "moduleName": "androidx.databinding:databinding-runtime",
-            "moduleVersion": "3.6.0-alpha09",
+            "moduleVersion": "4.1.0",
+            "moduleLicense": "Apache License, Version 2.0",
+            "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
+        },
+        {
+            "moduleName": "androidx.databinding:viewbinding",
+            "moduleVersion": "4.1.0",
             "moduleLicense": "Apache License, Version 2.0",
             "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
         },
         {
             "moduleName": "androidx.fragment:fragment-ktx",
             "moduleUrl": "https://developer.android.com/jetpack/androidx",
-            "moduleVersion": "1.1.0",
+            "moduleVersion": "1.2.5",
             "moduleLicense": "Apache License, Version 2.0",
             "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
         },
         {
-            "moduleName": "androidx.lifecycle:lifecycle-common-java8",
+            "moduleName": "androidx.hilt:hilt-lifecycle-viewmodel",
             "moduleUrl": "https://developer.android.com/topic/libraries/architecture/index.html",
-            "moduleVersion": "2.1.0",
+            "moduleVersion": "1.0.0-alpha02",
             "moduleLicense": "Apache License, Version 2.0",
             "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
         },
         {
-            "moduleName": "androidx.lifecycle:lifecycle-extensions",
+            "moduleName": "androidx.hilt:hilt-work",
             "moduleUrl": "https://developer.android.com/topic/libraries/architecture/index.html",
-            "moduleVersion": "2.1.0",
+            "moduleVersion": "1.0.0-alpha02",
             "moduleLicense": "Apache License, Version 2.0",
             "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
         },
         {
             "moduleName": "androidx.lifecycle:lifecycle-livedata-ktx",
-            "moduleUrl": "http://developer.android.com/tools/extras/support-library.html",
-            "moduleVersion": "2.1.0",
+            "moduleUrl": "https://developer.android.com/jetpack/androidx",
+            "moduleVersion": "2.2.0",
             "moduleLicense": "Apache License, Version 2.0",
             "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
         },
         {
-            "moduleName": "androidx.lifecycle:lifecycle-runtime",
-            "moduleUrl": "https://developer.android.com/topic/libraries/architecture/index.html",
-            "moduleVersion": "2.1.0",
+            "moduleName": "androidx.lifecycle:lifecycle-runtime-ktx",
+            "moduleUrl": "https://developer.android.com/jetpack/androidx",
+            "moduleVersion": "2.2.0",
             "moduleLicense": "Apache License, Version 2.0",
             "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
         },
         {
             "moduleName": "androidx.lifecycle:lifecycle-viewmodel-ktx",
-            "moduleUrl": "http://developer.android.com/tools/extras/support-library.html",
-            "moduleVersion": "2.1.0",
+            "moduleUrl": "https://developer.android.com/jetpack/androidx",
+            "moduleVersion": "2.2.0",
             "moduleLicense": "Apache License, Version 2.0",
             "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
         },
         {
             "moduleName": "androidx.lifecycle:lifecycle-viewmodel-savedstate",
             "moduleUrl": "https://developer.android.com/topic/libraries/architecture/index.html",
-            "moduleVersion": "1.0.0-alpha04",
+            "moduleVersion": "2.2.0",
             "moduleLicense": "Apache License, Version 2.0",
             "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
         },
         {
             "moduleName": "androidx.navigation:navigation-fragment-ktx",
             "moduleUrl": "https://developer.android.com/topic/libraries/architecture/index.html",
-            "moduleVersion": "2.1.0",
+            "moduleVersion": "2.3.1",
             "moduleLicense": "Apache License, Version 2.0",
             "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
         },
         {
             "moduleName": "androidx.navigation:navigation-ui-ktx",
             "moduleUrl": "https://developer.android.com/topic/libraries/architecture/index.html",
-            "moduleVersion": "2.1.0",
+            "moduleVersion": "2.3.1",
             "moduleLicense": "Apache License, Version 2.0",
             "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
         },
         {
             "moduleName": "androidx.preference:preference-ktx",
             "moduleUrl": "https://developer.android.com/jetpack/androidx",
-            "moduleVersion": "1.1.0",
+            "moduleVersion": "1.1.1",
             "moduleLicense": "Apache License, Version 2.0",
             "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
         },
         {
             "moduleName": "androidx.recyclerview:recyclerview",
             "moduleUrl": "https://developer.android.com/jetpack/androidx",
-            "moduleVersion": "1.1.0-beta04",
+            "moduleVersion": "1.1.0",
             "moduleLicense": "Apache License, Version 2.0",
             "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
         },
         {
             "moduleName": "androidx.room:room-ktx",
             "moduleUrl": "https://developer.android.com/topic/libraries/architecture/index.html",
-            "moduleVersion": "2.1.0",
+            "moduleVersion": "2.2.5",
             "moduleLicense": "Apache License, Version 2.0",
             "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
         },
         {
             "moduleName": "androidx.room:room-runtime",
             "moduleUrl": "https://developer.android.com/topic/libraries/architecture/index.html",
-            "moduleVersion": "2.1.0",
+            "moduleVersion": "2.2.5",
+            "moduleLicense": "Apache License, Version 2.0",
+            "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
+        },
+        {
+            "moduleName": "androidx.startup:startup-runtime",
+            "moduleUrl": "https://developer.android.com/jetpack/androidx/releases/startup#1.0.0",
+            "moduleVersion": "1.0.0",
             "moduleLicense": "Apache License, Version 2.0",
             "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
         },
         {
             "moduleName": "androidx.work:work-gcm",
             "moduleUrl": "https://developer.android.com/topic/libraries/architecture/index.html",
-            "moduleVersion": "2.2.0",
+            "moduleVersion": "2.4.0",
             "moduleLicense": "Apache License, Version 2.0",
             "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
         },
         {
             "moduleName": "androidx.work:work-runtime-ktx",
             "moduleUrl": "https://developer.android.com/topic/libraries/architecture/index.html",
-            "moduleVersion": "2.2.0",
+            "moduleVersion": "2.4.0",
             "moduleLicense": "Apache License, Version 2.0",
             "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
-        },
-        {
-            "moduleName": "com.afollestad.material-dialogs:core",
-            "moduleVersion": "3.1.1"
-        },
-        {
-            "moduleName": "com.afollestad.material-dialogs:datetime",
-            "moduleVersion": "3.1.1"
-        },
-        {
-            "moduleName": "com.afollestad.material-dialogs:lifecycle",
-            "moduleVersion": "3.1.1"
-        },
-        {
-            "moduleName": "com.crashlytics.sdk.android:crashlytics",
-            "moduleVersion": "2.10.1",
-            "moduleLicense": "Crashlytics Terms of Service",
-            "moduleLicenseUrl": "http://try.crashlytics.com/terms/terms-of-service.pdf"
-        },
-        {
-            "moduleName": "com.github.ihsanbal:LoggingInterceptor",
-            "moduleVersion": "3.0.0"
         },
         {
             "moduleName": "com.google.android.material:material",
-            "moduleUrl": "http://developer.android.com/tools/extras/support-library.html",
-            "moduleVersion": "1.1.0-alpha10",
+            "moduleUrl": "https://github.com/material-components/material-components-android",
+            "moduleVersion": "1.2.1",
             "moduleLicense": "Apache License, Version 2.0",
             "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
         },
         {
-            "moduleName": "com.google.android.play:core",
-            "moduleVersion": "1.6.3",
+            "moduleName": "com.google.android.play:core-ktx",
+            "moduleVersion": "1.8.1",
             "moduleLicense": "Android Software Development Kit License",
             "moduleLicenseUrl": "https://developer.android.com/studio/terms.html"
         },
         {
-            "moduleName": "com.google.dagger:dagger",
+            "moduleName": "com.google.dagger:hilt-android",
             "moduleUrl": "https://github.com/google/dagger",
-            "moduleVersion": "2.24",
+            "moduleVersion": "2.29.1-alpha",
+            "moduleLicense": "Apache License, Version 2.0",
+            "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
+        },
+        {
+            "moduleName": "com.google.firebase:firebase-analytics-ktx",
+            "moduleVersion": "18.0.0",
+            "moduleLicense": "Android Software Development Kit License",
+            "moduleLicenseUrl": "https://developer.android.com/studio/terms.html"
+        },
+        {
+            "moduleName": "com.google.firebase:firebase-bom",
+            "moduleVersion": "26.0.0"
+        },
+        {
+            "moduleName": "com.google.firebase:firebase-config-ktx",
+            "moduleVersion": "20.0.0",
             "moduleLicense": "Apache License, Version 2.0",
             "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
         },
         {
             "moduleName": "com.google.firebase:firebase-core",
-            "moduleVersion": "17.2.0",
+            "moduleVersion": "18.0.0",
             "moduleLicense": "Android Software Development Kit License",
             "moduleLicenseUrl": "https://developer.android.com/studio/terms.html"
         },
         {
-            "moduleName": "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter",
-            "moduleUrl": "https://github.com/JakeWharton/retrofit2-kotlinx-serialization-converter/",
-            "moduleVersion": "0.4.0",
-            "moduleLicense": "Apache License, Version 2.0",
-            "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
-        },
-        {
-            "moduleName": "com.jakewharton.threetenabp:threetenabp",
-            "moduleUrl": "https://github.com/JakeWharton/ThreeTenABP/",
-            "moduleVersion": "1.2.1",
+            "moduleName": "com.google.firebase:firebase-crashlytics-ktx",
+            "moduleVersion": "17.2.2",
             "moduleLicense": "Apache License, Version 2.0",
             "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
         },
@@ -229,63 +221,64 @@
             "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
         },
         {
+            "moduleName": "com.squareup.okhttp3:logging-interceptor",
+            "moduleUrl": "https://square.github.io/okhttp/",
+            "moduleVersion": "4.9.0",
+            "moduleLicense": "Apache License, Version 2.0",
+            "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
+        },
+        {
             "moduleName": "com.squareup.okhttp3:okhttp",
-            "moduleUrl": "https://github.com/square/okhttp",
-            "moduleVersion": "4.2.0",
+            "moduleUrl": "https://square.github.io/okhttp/",
+            "moduleVersion": "4.9.0",
             "moduleLicense": "Apache License, Version 2.0",
             "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
         },
         {
             "moduleName": "com.squareup.retrofit2:retrofit",
-            "moduleVersion": "2.6.1",
+            "moduleUrl": "https://github.com/square/retrofit",
+            "moduleVersion": "2.9.0",
             "moduleLicense": "Apache License, Version 2.0",
             "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
-        },
-        {
-            "moduleName": "com.vikingsen.inject:viewmodel-inject",
-            "moduleUrl": "https://github.com/hansenji/ViewModelInject/",
-            "moduleVersion": "0.3.1-alpha02",
-            "moduleLicense": "Apache License, Version 2.0",
-            "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
-        },
-        {
-            "moduleName": "com.vikingsen.inject:worker-inject",
-            "moduleUrl": "https://github.com/hansenji/WorkerInject/",
-            "moduleVersion": "0.2.1",
-            "moduleLicense": "Apache License, Version 2.0",
-            "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
-        },
-        {
-            "moduleName": "me.eugeniomarletti:android-extras-delegates",
-            "moduleVersion": "1.0.5"
         },
         {
             "moduleName": "org.dbtools:dbtools-room",
             "moduleUrl": "https://github.com/jeffdcamp/dbtools-room/",
-            "moduleVersion": "4.9.7",
+            "moduleVersion": "5.8.0",
             "moduleLicense": "Apache License, Version 2.0",
             "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
         },
         {
-            "moduleName": "org.jetbrains.kotlin:kotlin-stdlib-jdk7",
+            "moduleName": "org.dbtools:workmanager-tools",
+            "moduleUrl": "https://github.com/jeffdcamp/workmanager-tools/",
+            "moduleVersion": "1.13.0",
+            "moduleLicense": "Apache License, Version 2.0",
+            "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
+        },
+        {
+            "moduleName": "org.jetbrains.kotlin:kotlin-stdlib-jdk8",
             "moduleUrl": "https://kotlinlang.org/",
-            "moduleVersion": "1.3.50",
+            "moduleVersion": "1.4.10",
             "moduleLicense": "Apache License, Version 2.0",
             "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
         },
         {
             "moduleName": "org.jetbrains.kotlinx:kotlinx-coroutines-android",
             "moduleUrl": "https://github.com/Kotlin/kotlinx.coroutines",
-            "moduleVersion": "1.3.1",
+            "moduleVersion": "1.4.0",
             "moduleLicense": "Apache License, Version 2.0",
             "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
         },
         {
-            "moduleName": "org.jetbrains.kotlinx:kotlinx-serialization-runtime",
-            "moduleUrl": "https://github.com/Kotlin/kotlinx.serialization",
-            "moduleVersion": "0.13.0",
+            "moduleName": "org.jetbrains.kotlinx:kotlinx-coroutines-play-services",
+            "moduleUrl": "https://github.com/Kotlin/kotlinx.coroutines",
+            "moduleVersion": "1.4.0",
             "moduleLicense": "Apache License, Version 2.0",
             "moduleLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0"
+        },
+        {
+            "moduleName": "org.jetbrains.kotlinx:kotlinx-serialization-json",
+            "moduleVersion": "1.0.1"
         }
     ]
 }
