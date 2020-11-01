@@ -32,6 +32,7 @@ class AboutFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.viewModel = this@AboutFragment.viewModel
         binding.lifecycleOwner = this@AboutFragment
 
