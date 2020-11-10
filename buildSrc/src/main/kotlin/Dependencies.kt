@@ -1,6 +1,6 @@
 // Versions for Dependencies AND Build Plugins
 const val KOTLIN_VERSION = "1.4.10"
-private const val COROUTINES_VERSION = "1.4.0"
+private const val COROUTINES_VERSION = "1.4.1"
 const val DAGGER_HILT_VERSION = "2.29.1-alpha"
 const val ANDROIDX_NAVIGATION_VERSION = "2.3.1"
 

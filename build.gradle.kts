@@ -9,7 +9,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:4.1.0")
+        classpath("com.android.tools.build:gradle:4.1.1")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION")
         classpath("org.jetbrains.kotlin:kotlin-serialization:$KOTLIN_VERSION")
         classpath("com.google.dagger:hilt-android-gradle-plugin:$DAGGER_HILT_VERSION")
@@ -18,7 +18,7 @@ buildscript {
         classpath("com.google.firebase:firebase-appdistribution-gradle:2.0.1")
         classpath("com.google.gms:google-services:4.3.4")
         classpath("io.fabric.tools:gradle:1.31.2")
-        classpath("com.github.ben-manes:gradle-versions-plugin:0.33.0") // version plugin support
+        classpath("com.github.ben-manes:gradle-versions-plugin:0.36.0") // version plugin support
     }
 }
 
