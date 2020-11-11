@@ -8,7 +8,7 @@ import androidx.work.WorkManager
 import dagger.hilt.EntryPoint
 import dagger.hilt.EntryPoints
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import org.jdc.template.work.WorkScheduler
 
 class WorkManagerInitializer : Initializer<WorkManager> {
@@ -35,7 +35,7 @@ class WorkManagerInitializer : Initializer<WorkManager> {
     }
 
     @EntryPoint
-    @InstallIn(ApplicationComponent::class)
+    @InstallIn(SingletonComponent::class)
     interface WorkManagerInitializerInjector {
         fun getWorkerFactory(): HiltWorkerFactory
         fun getWorkScheduler(): WorkScheduler

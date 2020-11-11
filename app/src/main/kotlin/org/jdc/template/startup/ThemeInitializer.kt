@@ -5,7 +5,7 @@ import androidx.startup.Initializer
 import dagger.hilt.EntryPoint
 import dagger.hilt.EntryPoints
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import org.jdc.template.ui.ThemeManager
 
 class ThemeInitializer : Initializer<Unit> {
@@ -22,7 +22,7 @@ class ThemeInitializer : Initializer<Unit> {
     }
 
     @EntryPoint
-    @InstallIn(ApplicationComponent::class)
+    @InstallIn(SingletonComponent::class)
     interface ThemeInitializerInjector {
         fun getThemeManager(): ThemeManager
     }

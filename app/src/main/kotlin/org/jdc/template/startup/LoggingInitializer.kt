@@ -6,7 +6,7 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics
 import dagger.hilt.EntryPoint
 import dagger.hilt.EntryPoints
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import org.jdc.template.BuildConfig
 import org.jdc.template.log.DebugTree
 import org.jdc.template.log.FirebaseCrashlyticsTree
@@ -41,7 +41,7 @@ class LoggingInitializer : Initializer<Unit> {
     }
 
     @EntryPoint
-    @InstallIn(ApplicationComponent::class)
+    @InstallIn(SingletonComponent::class)
     interface LoggingInitializerInjector {
         fun getPrefs(): Prefs
     }

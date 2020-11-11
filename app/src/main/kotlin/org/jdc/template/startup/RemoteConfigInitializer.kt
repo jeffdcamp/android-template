@@ -5,7 +5,7 @@ import androidx.startup.Initializer
 import dagger.hilt.EntryPoint
 import dagger.hilt.EntryPoints
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import org.jdc.template.model.remoteconfig.RemoteConfig
 
 class RemoteConfigInitializer : Initializer<Unit> {
@@ -25,7 +25,7 @@ class RemoteConfigInitializer : Initializer<Unit> {
     }
 
     @EntryPoint
-    @InstallIn(ApplicationComponent::class)
+    @InstallIn(SingletonComponent::class)
     interface RemoteConfigInitializerInjector {
         fun getRemoteConfig(): RemoteConfig
     }

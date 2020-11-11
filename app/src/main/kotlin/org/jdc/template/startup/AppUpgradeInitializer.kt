@@ -5,7 +5,7 @@ import androidx.startup.Initializer
 import dagger.hilt.EntryPoint
 import dagger.hilt.EntryPoints
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import org.jdc.template.AppUpgrade
 
 class AppUpgradeInitializer : Initializer<Unit> {
@@ -22,7 +22,7 @@ class AppUpgradeInitializer : Initializer<Unit> {
     }
 
     @EntryPoint
-    @InstallIn(ApplicationComponent::class)
+    @InstallIn(SingletonComponent::class)
     interface AppUpgradeInitializerInjector {
         fun getAppUpgrade(): AppUpgrade
     }
