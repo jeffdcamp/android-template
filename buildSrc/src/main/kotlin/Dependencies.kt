@@ -1,7 +1,7 @@
 // Versions for Dependencies AND Build Plugins
 const val KOTLIN_VERSION = "1.4.20"
 private const val COROUTINES_VERSION = "1.4.1"
-const val DAGGER_HILT_VERSION = "2.29.1-alpha"
+const val DAGGER_HILT_VERSION = "2.30-alpha"
 const val ANDROIDX_NAVIGATION_VERSION = "2.3.1"
 
 object Deps {
@@ -61,7 +61,7 @@ object Deps {
     const val ANDROIDX_HILT_COMPILER = "androidx.hilt:hilt-compiler:$ANDROIDX_HILT_VERSION"
 
     // Standard dagger is needed for unit tests ONLY
-    private const val DAGGER_VERSION = "2.29.1"
+    private const val DAGGER_VERSION = "2.30"
     const val DAGGER = "com.google.dagger:dagger:$DAGGER_VERSION"
     const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
 
