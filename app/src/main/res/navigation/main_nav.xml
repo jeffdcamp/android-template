@@ -13,11 +13,11 @@
         tools:layout="@layout/directory_fragment"
         >
         <action
-            android:id="@+id/action_individualFragment"
+            android:id="@+id/action_to_individualFragment"
             app:destination="@id/individualFragment"
             />
         <action
-            android:id="@+id/action_individualEditFragment"
+            android:id="@+id/action_to_individualEditFragment"
             app:destination="@id/individualEditFragment"
             />
     </fragment>
@@ -28,7 +28,7 @@
         tools:layout="@layout/individual_fragment"
         >
         <action
-            android:id="@+id/action_individualEditFragment"
+            android:id="@+id/action_to_individualEditFragment"
             app:destination="@id/individualEditFragment"
             />
         <argument
@@ -54,7 +54,7 @@
         android:label="@string/settings"
         >
         <action
-            android:id="@+id/action_workManagerFragment"
+            android:id="@+id/action_to_workManagerFragment"
             app:destination="@id/workManagerFragment"
             />
     </fragment>
@@ -72,7 +72,7 @@
         tools:layout="@layout/about_fragment"
         >
         <action
-            android:id="@+id/action_acknowledgmentsFragment"
+            android:id="@+id/action_to_acknowledgmentsFragment"
             app:destination="@id/acknowledgmentsFragment"
             />
     </fragment>

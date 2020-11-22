@@ -56,7 +56,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
 
         return when (preference.key) {
             "workManagerStatusButton" -> {
-                findNavController().navigate(SettingsFragmentDirections.actionWorkManagerFragment())
+                findNavController().navigate(SettingsFragmentDirections.actionToWorkManagerFragment())
                 true
             }
             else -> super.onPreferenceTreeClick(preference)
