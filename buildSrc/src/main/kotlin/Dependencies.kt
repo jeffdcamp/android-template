@@ -1,7 +1,7 @@
 // Versions for Dependencies AND Build Plugins
 const val KOTLIN_VERSION = "1.4.20"
-private const val COROUTINES_VERSION = "1.4.1"
-const val DAGGER_HILT_VERSION = "2.30-alpha"
+private const val COROUTINES_VERSION = "1.4.2"
+const val DAGGER_HILT_VERSION = "2.30.1-alpha"
 const val ANDROIDX_NAVIGATION_VERSION = "2.3.1"
 
 object Deps {
@@ -12,11 +12,11 @@ object Deps {
     const val ANDROIDX_PREFERENCE = "androidx.preference:preference-ktx:1.1.1"
     const val ANDROIDX_CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:2.0.4"
     const val ANDROIDX_CORE = "androidx.core:core-ktx:1.3.2"
-    const val ANDROIDX_ACTIVITY_KTX = "androidx.activity:activity-ktx:1.1.0"
-    const val ANDROIDX_FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.2.5"
+    const val ANDROIDX_ACTIVITY_KTX = "androidx.activity:activity-ktx:1.2.0-beta01"
+    const val ANDROIDX_FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.3.0-beta01"
     const val ANDROIDX_STARTUP = "androidx.startup:startup-runtime:1.0.0"
 
-    private const val LIFECYCLE_VERSION = "2.2.0"
+    private const val LIFECYCLE_VERSION = "2.3.0-beta01"
     const val ARCH_LIFECYCLE_RUNTIME = "androidx.lifecycle:lifecycle-runtime-ktx:$LIFECYCLE_VERSION"
     const val ARCH_LIFECYCLE_VIEWMODEL = "androidx.lifecycle:lifecycle-viewmodel-ktx:$LIFECYCLE_VERSION"
     const val ARCH_LIFECYCLE_SAVE_STATE = "androidx.lifecycle:lifecycle-viewmodel-savedstate:$LIFECYCLE_VERSION"
@@ -25,12 +25,12 @@ object Deps {
     const val ARCH_NAVIGATION_FRAGMENT = "androidx.navigation:navigation-fragment-ktx:$ANDROIDX_NAVIGATION_VERSION"
     const val ARCH_NAVIGATION_UI = "androidx.navigation:navigation-ui-ktx:$ANDROIDX_NAVIGATION_VERSION"
 
-    private const val WORKMANAGER_VERSION = "2.4.0"
+    private const val WORKMANAGER_VERSION = "2.5.0-beta01"
     const val ARCH_WORK_RUNTIME = "androidx.work:work-runtime-ktx:$WORKMANAGER_VERSION"
     const val ARCH_WORK_GCM = "androidx.work:work-gcm:$WORKMANAGER_VERSION" // Remove with min SDK 23
     const val WORKMANAGER_TOOLS = "org.dbtools:workmanager-tools:1.13.0"
 
-    const val ANDROID_MATERIAL = "com.google.android.material:material:1.2.1" // https://github.com/material-components/material-components-android/releases
+    const val ANDROID_MATERIAL = "com.google.android.material:material:1.3.0-alpha04" // https://github.com/material-components/material-components-android/releases
 
     // Play Services
     const val PLAYSERVICE_CORE = "com.google.android.play:core-ktx:1.8.1" // https://developer.android.com/reference/com/google/android/play/core/release-notes
@@ -61,7 +61,7 @@ object Deps {
     const val ANDROIDX_HILT_COMPILER = "androidx.hilt:hilt-compiler:$ANDROIDX_HILT_VERSION"
 
     // Standard dagger is needed for unit tests ONLY
-    private const val DAGGER_VERSION = "2.30"
+    private const val DAGGER_VERSION = "2.30.1"
     const val DAGGER = "com.google.dagger:dagger:$DAGGER_VERSION"
     const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
 
@@ -95,7 +95,7 @@ object Deps {
     const val TEST_JUNIT = "org.junit.jupiter:junit-jupiter:$JUNIT_VERSION"
     const val TEST_JUNIT_ENGINE = "org.junit.jupiter:junit-jupiter-engine:$JUNIT_VERSION"
     const val TEST_OKHTTP_MOCKWEBSERVER = "com.squareup.okhttp3:mockwebserver:$OKHTTP_VERSION"
-    const val TEST_MOCKITO_CORE = "org.mockito:mockito-core:3.6.0"
+    const val TEST_MOCKITO_CORE = "org.mockito:mockito-core:3.6.28"
     const val TEST_XERIAL_SQLITE = "org.xerial:sqlite-jdbc:3.32.3.2"
     const val TEST_ARCH_ROOM_TESTING = "androidx.room:room-testing:$ROOM_VERSION"
     const val TEST_DBTOOLS_ROOM_JDBC = "org.dbtools:dbtools-room-jdbc:$DBTOOLS_VERSION"
