@@ -14,8 +14,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
 import org.jdc.template.databinding.IndividualFragmentBinding
-import org.jdc.template.ext.collectWhenStarted
-import org.jdc.template.ext.receiveWhenStarted
+import org.jdc.template.ext.withLifecycleOwner
 
 @AndroidEntryPoint
 class IndividualFragment : Fragment() {
@@ -41,12 +40,14 @@ class IndividualFragment : Fragment() {
     }
 
     private fun setupViewModelObservers() {
-        viewLifecycleOwner.collectWhenStarted(viewModel.individualFlow) {
-            binding.individual = it
-        }
+        withLifecycleOwner(this) {
+            viewModel.individualFlow.collectWhenStarted {
+                binding.individual = it
+            }
 
-        // Events
-        viewLifecycleOwner.receiveWhenStarted(viewModel.eventChannel) { event -> handleEvent(event) }
+            // Events
+            viewModel.eventChannel.receiveWhenStarted { event -> handleEvent(event) }
+        }
     }
 
     private fun handleEvent(event: IndividualViewModel.Event) {

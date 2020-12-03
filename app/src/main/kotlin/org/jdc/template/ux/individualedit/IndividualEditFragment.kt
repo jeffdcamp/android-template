@@ -15,7 +15,7 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
 import org.jdc.template.databinding.IndividualEditFragmentBinding
-import org.jdc.template.ext.receiveWhenStarted
+import org.jdc.template.ext.withLifecycleOwner
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -44,8 +44,10 @@ class IndividualEditFragment : Fragment() {
     }
 
     private fun setupViewModelObservers() {
-        // Events
-        viewLifecycleOwner.receiveWhenStarted(viewModel.eventChannel) {event -> handleEvent(event) }
+        withLifecycleOwner(this) {
+            // Events
+            viewModel.eventChannel.receiveWhenStarted { event -> handleEvent(event) }
+        }
     }
 
     private fun handleEvent(event: IndividualEditViewModel.Event) {

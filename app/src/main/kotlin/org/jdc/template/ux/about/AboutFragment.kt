@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
 import org.jdc.template.databinding.AboutFragmentBinding
-import org.jdc.template.ext.collectWhenStarted
+import org.jdc.template.ext.withLifecycleOwner
 
 @AndroidEntryPoint
 class AboutFragment : Fragment() {
@@ -39,8 +39,14 @@ class AboutFragment : Fragment() {
         activity?.setTitle(R.string.about_title)
         viewModel.logAnalytics()
 
-        viewLifecycleOwner.collectWhenStarted(viewModel.resetServiceEnabledFlow) {
-            binding.restServiceEnabledTextView.text = it.toString()
+        setupViewModelObservers()
+    }
+
+    private fun setupViewModelObservers() {
+        withLifecycleOwner(this) {
+            viewModel.resetServiceEnabledFlow.collectWhenStarted {
+                binding.restServiceEnabledTextView.text = it.toString()
+            }
         }
     }
 

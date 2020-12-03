@@ -14,9 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
 import org.jdc.template.databinding.DirectoryFragmentBinding
-import org.jdc.template.ext.collectWhenStarted
 import org.jdc.template.ext.getScrollPosition
-import org.jdc.template.ext.receiveWhenStarted
+import org.jdc.template.ext.withLifecycleOwner
 import org.jdc.template.ui.menu.CommonMenu
 import javax.inject.Inject
 
@@ -56,12 +55,14 @@ class DirectoryFragment : Fragment() {
     }
 
     private fun setupViewModelObservers() {
-        viewLifecycleOwner.collectWhenStarted(viewModel.directoryListFlow) { list ->
-            adapter.submitList(list)
-        }
+        withLifecycleOwner(this) {
+            viewModel.directoryListFlow.collectWhenStarted { list ->
+                adapter.submitList(list)
+            }
 
-        // Events
-        viewLifecycleOwner.receiveWhenStarted(viewModel.eventChannel) { event -> handleEvent(event) }
+            // Events
+            viewModel.eventChannel.receiveWhenStarted { event -> handleEvent(event) }
+        }
     }
 
     private fun handleEvent(event: DirectoryViewModel.Event) {

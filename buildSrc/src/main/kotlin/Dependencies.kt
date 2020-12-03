@@ -2,7 +2,7 @@
 const val KOTLIN_VERSION = "1.4.20"
 private const val COROUTINES_VERSION = "1.4.2"
 const val DAGGER_HILT_VERSION = "2.30.1-alpha"
-const val ANDROIDX_NAVIGATION_VERSION = "2.3.1"
+const val ANDROIDX_NAVIGATION_VERSION = "2.3.2"
 
 object Deps {
     // Android (https://android.googlesource.com/platform/frameworks/support/+/refs/heads/androidx-master-dev/buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt)
@@ -12,8 +12,8 @@ object Deps {
     const val ANDROIDX_PREFERENCE = "androidx.preference:preference-ktx:1.1.1"
     const val ANDROIDX_CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:2.0.4"
     const val ANDROIDX_CORE = "androidx.core:core-ktx:1.3.2"
-    const val ANDROIDX_ACTIVITY_KTX = "androidx.activity:activity-ktx:1.2.0-beta01"
-    const val ANDROIDX_FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.3.0-beta01"
+    const val ANDROIDX_ACTIVITY_KTX = "androidx.activity:activity-ktx:1.2.0-beta02"
+    const val ANDROIDX_FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.3.0-beta02"
     const val ANDROIDX_STARTUP = "androidx.startup:startup-runtime:1.0.0"
 
     private const val LIFECYCLE_VERSION = "2.3.0-beta01"
