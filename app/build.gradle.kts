@@ -19,7 +19,7 @@ plugins {
     id("com.google.firebase.appdistribution")
     id("io.gitlab.arturbosch.detekt") version "1.14.2"
     id ("de.undercouch.download")
-    id("com.github.triplet.play") version "3.0.0"
+    id("com.github.triplet.play") // version "3.0.0" // temp commented out (3.0.0 is not supported by AS 4.2+)
     id("com.github.jk1.dependency-license-report") version "1.16"
 }
 
@@ -79,9 +79,6 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-
         // Flag to enable support for the new language APIs
         isCoreLibraryDesugaringEnabled = true
     }
@@ -344,10 +341,11 @@ detekt {
     }
 }
 
-play {
+// TripleT / Google Play Publisher
+configure<com.github.triplet.gradle.play.PlayPublisherExtension> {
     val myServiceAccountCreds: String? by project
-    serviceAccountCredentials.set(File(myServiceAccountCreds ?: "api-playstore-dummy.json"))
-    track.set("internal")
+    serviceAccountCredentials.set(file(myServiceAccountCreds ?: "api-playstore-dummy.json"))
+    promoteTrack.set("internal")
     defaultToAppBundles.set(true)
 }
 
