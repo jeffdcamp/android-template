@@ -11,7 +11,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
-import org.jdc.template.Analytics
+import org.jdc.template.analytics.Analytics
 import org.jdc.template.BuildConfig
 import org.jdc.template.ext.saveBodyToFile
 import org.jdc.template.model.db.main.individual.Individual

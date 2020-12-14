@@ -2,26 +2,15 @@ package org.jdc.template.startup
 
 import android.content.Context
 import androidx.startup.Initializer
-import com.google.firebase.crashlytics.FirebaseCrashlytics
-import dagger.hilt.EntryPoint
-import dagger.hilt.EntryPoints
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import org.jdc.template.BuildConfig
 import org.jdc.template.log.DebugTree
 import org.jdc.template.log.FirebaseCrashlyticsTree
 import org.jdc.template.log.ReleaseTree
-import org.jdc.template.model.prefs.Prefs
 import timber.log.Timber
 
 class LoggingInitializer : Initializer<Unit> {
 
     override fun create(context: Context) {
-        val applicationContext = checkNotNull(context.applicationContext) { "Missing Application Context" }
-        val injector = EntryPoints.get(applicationContext, LoggingInitializerInjector::class.java)
-
-        FirebaseCrashlytics.getInstance().setUserId(injector.getPrefs().getAppInstanceId())
-
         if (BuildConfig.DEBUG) {
             Timber.plant(DebugTree())
         } else {
@@ -38,11 +27,5 @@ class LoggingInitializer : Initializer<Unit> {
 
     override fun dependencies(): List<Class<out Initializer<*>>> {
         return listOf(PrefsInitializer::class.java)
-    }
-
-    @EntryPoint
-    @InstallIn(SingletonComponent::class)
-    interface LoggingInitializerInjector {
-        fun getPrefs(): Prefs
     }
 }

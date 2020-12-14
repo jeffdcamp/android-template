@@ -3,15 +3,16 @@ package org.jdc.template.inject
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
-import com.google.firebase.analytics.FirebaseAnalytics
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
-import org.jdc.template.Analytics
 import org.jdc.template.BuildConfig
+import org.jdc.template.analytics.Analytics
+import org.jdc.template.analytics.DebugAnalytics
+import org.jdc.template.analytics.FirebaseAnalyticsWrapper
 import org.jdc.template.model.prefs.Prefs
 import javax.inject.Singleton
 
@@ -39,12 +40,9 @@ class AppModule {
     fun provideAnalytics(@ApplicationContext context: Context, prefs: Prefs): Analytics {
         // Only send analytics with versions of the app that are NOT debuggable (such as BETA or RELEASE)
         if (BuildConfig.DEBUG) {
-            return Analytics.DebugAnalytics()
+            return DebugAnalytics()
         }
 
-        val firebaseAnalytics = FirebaseAnalytics.getInstance(context).apply {
-            setUserId(prefs.getAppInstanceId())
-        }
-        return Analytics.FirebaseAnalyticsWrapper(firebaseAnalytics)
+        return FirebaseAnalyticsWrapper(context, prefs)
     }
 }
