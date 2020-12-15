@@ -1,65 +1,41 @@
 package org.jdc.template.ui.fragment
 
-import android.content.SharedPreferences
 import android.os.Bundle
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
-import org.jdc.template.model.prefs.Prefs
-import org.jdc.template.ui.ThemeManager
-import javax.inject.Inject
+import org.jdc.template.model.prefs.DisplayThemeType
+import org.jdc.template.util.enumValueOfOrNull
 
 @AndroidEntryPoint
-class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceClickListener {
+class SettingsFragment : PreferenceFragmentCompat() {
 
-    @Inject
-    lateinit var prefs: Prefs
-
-    @Inject
-    lateinit var themeManager: ThemeManager
+    private val viewModel: SettingsViewModel by viewModels()
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.preferences)
+
+        setupPreferenceListeners()
     }
 
-    override fun onResume() {
-        super.onResume()
-        prefs.preferenceManager.registerOnSharedPreferenceChangeListener(this)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        prefs.preferenceManager.unregisterOnSharedPreferenceChangeListener(this)
-    }
-
-    override fun onPreferenceClick(preference: Preference): Boolean {
-        return false
-    }
-
-    /**
-     * For changes that have already been persisted
-     */
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
-        when (key) {
-            "displayThemeType" -> {
-                themeManager.applyTheme()
+    private fun setupPreferenceListeners() {
+        findPreference<Preference>("displayThemeType")?.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
+            when (newValue) {
+                is String -> {
+                    enumValueOfOrNull<DisplayThemeType>(newValue)?.let { theme ->
+                        viewModel.setTheme(theme)
+                    }
+                }
             }
-        }
-    }
-
-    override fun onPreferenceTreeClick(preference: Preference): Boolean {
-        if (preference.key == null) {
-            return super.onPreferenceTreeClick(preference)
+            true
         }
 
-        return when (preference.key) {
-            "workManagerStatusButton" -> {
-                findNavController().navigate(SettingsFragmentDirections.actionToWorkManagerFragment())
-                true
-            }
-            else -> super.onPreferenceTreeClick(preference)
+        findPreference<Preference>("workManagerStatusButton")?.setOnPreferenceClickListener {
+            findNavController().navigate(SettingsFragmentDirections.actionToWorkManagerFragment())
+            true
         }
     }
 }

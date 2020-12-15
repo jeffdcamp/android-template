@@ -60,8 +60,6 @@
             android:authorities="${applicationId}.androidx-startup"
             android:exported="false"
             tools:node="merge">
-            <meta-data android:name="org.jdc.template.startup.PrefsInitializer"
-                android:value="androidx.startup" />
             <meta-data android:name="org.jdc.template.startup.NotificationInitializer"
                 android:value="androidx.startup" />
             <meta-data android:name="org.jdc.template.startup.LoggingInitializer"

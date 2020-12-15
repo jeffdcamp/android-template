@@ -7,7 +7,7 @@ import androidx.hilt.work.WorkerInject
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import kotlinx.coroutines.delay
-import org.jdc.template.model.prefs.Prefs
+import org.jdc.template.model.repository.SettingsRepository
 import timber.log.Timber
 
 /**
@@ -21,7 +21,7 @@ import timber.log.Timber
  */
 class SyncWorker
 @WorkerInject constructor(
-    val prefs: Prefs,
+    val settingsRepository: SettingsRepository,
     @Assisted appContext: Context,
     @Assisted workerParams: WorkerParameters
 ) : CoroutineWorker(appContext, workerParams) {
@@ -32,7 +32,7 @@ class SyncWorker
 
         // simulate some work...
         logProgress("WORK1-STARTED")
-        logProgress("WORK1-developerMode=${prefs.developerMode}")
+        logProgress("WORK1-developerMode=${settingsRepository.isDeveloperModeEnabled()}")
         delay(5000)
         logProgress("WORK1-FINISHED")
 

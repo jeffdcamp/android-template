@@ -17,6 +17,7 @@
             android:key="displayThemeType"
             android:title="@string/theme"
             app:useSimpleSummaryProvider="true"
+            android:persistent="false"
             />
     </PreferenceCategory>
 
@@ -26,6 +27,7 @@
             android:key="workManagerStatusButton"
             android:summary="Show status of all background workers"
             android:title="Work Manager Status"
+            android:persistent="false"
             />
 
     </PreferenceCategory>

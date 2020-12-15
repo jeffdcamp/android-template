@@ -21,7 +21,7 @@ class RemoteConfigInitializer : Initializer<Unit> {
     }
 
     override fun dependencies(): List<Class<out Initializer<*>>> {
-        return listOf(LoggingInitializer::class.java, PrefsInitializer::class.java)
+        return listOf(LoggingInitializer::class.java)
     }
 
     @EntryPoint

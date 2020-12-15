@@ -202,6 +202,7 @@ dependencies {
     implementation(Deps.ANDROIDX_ACTIVITY_KTX)
     implementation(Deps.ANDROIDX_FRAGMENT_KTX)
     implementation(Deps.ANDROIDX_STARTUP)
+    implementation(Deps.ANDROID_DATASTORE_PREFS)
 
     // Play Service
     implementation(Deps.PLAYSERVICE_CORE)

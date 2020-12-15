@@ -4,7 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import com.google.firebase.analytics.FirebaseAnalytics
-import org.jdc.template.model.prefs.Prefs
+import kotlinx.coroutines.runBlocking
+import org.jdc.template.model.repository.SettingsRepository
 import java.time.LocalDateTime
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -17,8 +18,7 @@ import java.util.concurrent.atomic.AtomicBoolean
  */
 class FirebaseAnalyticsWrapper(
     context: Context,
-    private val prefs: Prefs
-//    private val settingsRepository: SettingsRepository
+    private val settingsRepository: SettingsRepository
 ) : Analytics {
     private val dimensionsInitialized = AtomicBoolean(false)
     private var lastDimensionUpdate = LocalDateTime.MIN
@@ -70,8 +70,7 @@ class FirebaseAnalyticsWrapper(
 
     private fun updateFirebaseUserProperties() {
         firebaseAnalytics?.apply {
-//            setUserProperty("app_instance_id", runBlocking { settingsRepository.getAppInstanceId() })
-            setUserProperty("app_instance_id", prefs.getAppInstanceId())
+            setUserProperty("app_instance_id", runBlocking { settingsRepository.getAppInstanceId() })
         }
     }
 

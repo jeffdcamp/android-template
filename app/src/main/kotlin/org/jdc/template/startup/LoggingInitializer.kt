@@ -26,6 +26,6 @@ class LoggingInitializer : Initializer<Unit> {
     }
 
     override fun dependencies(): List<Class<out Initializer<*>>> {
-        return listOf(PrefsInitializer::class.java)
+        return emptyList()
     }
 }

@@ -15,6 +15,7 @@ object Deps {
     const val ANDROIDX_ACTIVITY_KTX = "androidx.activity:activity-ktx:1.2.0-beta02"
     const val ANDROIDX_FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.3.0-beta02"
     const val ANDROIDX_STARTUP = "androidx.startup:startup-runtime:1.0.0"
+    const val ANDROID_DATASTORE_PREFS = "androidx.datastore:datastore-preferences:1.0.0-alpha05"
 
     private const val LIFECYCLE_VERSION = "2.3.0-beta01"
     const val ARCH_LIFECYCLE_RUNTIME = "androidx.lifecycle:lifecycle-runtime-ktx:$LIFECYCLE_VERSION"

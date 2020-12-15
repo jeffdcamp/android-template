@@ -13,8 +13,10 @@ import androidx.work.PeriodicWorkRequest
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.jdc.template.BuildConfig
-import org.jdc.template.model.prefs.Prefs
+import org.jdc.template.model.repository.SettingsRepository
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -23,15 +25,15 @@ import javax.inject.Singleton
 class WorkScheduler
 @Inject constructor(
     @ApplicationContext context: Context,
-    private val prefs: Prefs
+    private val settingsRepository: SettingsRepository
 ) {
     private val workManager: WorkManager = WorkManager.getInstance(context)
 
-    fun startPeriodicWorkSchedules() {
+    fun startPeriodicWorkSchedules() = GlobalScope.launch {
         // cancel all work if the version changed
-        if (prefs.workSchedulerVersion != WORK_SCHEDULER_VERSION) {
+        if (settingsRepository.getWorkSchedulerVersion() != WORK_SCHEDULER_VERSION) {
             workManager.cancelAllWork()
-            prefs.workSchedulerVersion = WORK_SCHEDULER_VERSION
+            settingsRepository.setWorkSchedulerVersion(WORK_SCHEDULER_VERSION)
         }
 
         @Suppress("ConstantConditionIf")

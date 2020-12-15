@@ -13,7 +13,7 @@ import org.jdc.template.BuildConfig
 import org.jdc.template.analytics.Analytics
 import org.jdc.template.analytics.DebugAnalytics
 import org.jdc.template.analytics.FirebaseAnalyticsWrapper
-import org.jdc.template.model.prefs.Prefs
+import org.jdc.template.model.repository.SettingsRepository
 import javax.inject.Singleton
 
 @Module
@@ -37,12 +37,12 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideAnalytics(@ApplicationContext context: Context, prefs: Prefs): Analytics {
+    fun provideAnalytics(@ApplicationContext context: Context, settingsRepository: SettingsRepository): Analytics {
         // Only send analytics with versions of the app that are NOT debuggable (such as BETA or RELEASE)
         if (BuildConfig.DEBUG) {
             return DebugAnalytics()
         }
 
-        return FirebaseAnalyticsWrapper(context, prefs)
+        return FirebaseAnalyticsWrapper(context, settingsRepository)
     }
 }
