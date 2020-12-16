@@ -7,6 +7,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
+import org.jdc.template.ext.withLifecycleOwner
 import org.jdc.template.model.prefs.DisplayThemeType
 import org.jdc.template.util.enumValueOfOrNull
 
@@ -22,15 +23,24 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun setupPreferenceListeners() {
-        findPreference<Preference>("displayThemeType")?.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
-            when (newValue) {
-                is String -> {
-                    enumValueOfOrNull<DisplayThemeType>(newValue)?.let { theme ->
-                        viewModel.setTheme(theme)
+        findPreference<Preference>("displayThemeType")?.apply {
+            // show/update setting summary
+            summaryProvider = null // remove existing summary provider
+            withLifecycleOwner(this@SettingsFragment) {
+                viewModel.currentThemeTitleFlow.collectLatestWhenStarted { summary -> setSummary(summary) }
+            }
+
+            // handle setting change
+            onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
+                when (newValue) {
+                    is String -> {
+                        enumValueOfOrNull<DisplayThemeType>(newValue)?.let { theme ->
+                            viewModel.setTheme(theme)
+                        }
                     }
                 }
+                true
             }
-            true
         }
 
         findPreference<Preference>("workManagerStatusButton")?.setOnPreferenceClickListener {

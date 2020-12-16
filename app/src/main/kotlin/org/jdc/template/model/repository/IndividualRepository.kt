@@ -27,8 +27,8 @@ class IndividualRepository
             else -> directoryItemDao().findAllDirectItemsByFirstNameFlow()
         }
     }
-    suspend fun setDirectorySort(sortAscending: Boolean) {
-        userPreferenceDataSource.setDirectorySort(sortAscending)
+    suspend fun setDirectorySort(byLastName: Boolean) {
+        userPreferenceDataSource.setDirectorySort(byLastName)
     }
     suspend fun getIndividual(individualId: Long) = individualDao().findById(individualId)
     fun getIndividualFlow(individualId: Long) = individualDao().findByIdFlow(individualId)
