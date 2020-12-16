@@ -5,7 +5,7 @@ import java.time.LocalDate
 import java.time.LocalTime
 import java.time.OffsetDateTime
 
-class DateTimeTextConverter {
+object DateTimeTextConverter {
     @TypeConverter
     fun fromStringToOffsetDateTime(value: String?): OffsetDateTime? = ThreeTenFormatter.dbStringToOffsetDateTime(value)
 

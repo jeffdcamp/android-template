@@ -5,7 +5,6 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import org.dbtools.android.room.DatabaseViewQuery
 import org.jdc.template.model.db.converter.DateTimeTextConverter
-import org.jdc.template.model.db.main.converter.MainDatabaseConverters
 import org.jdc.template.model.db.main.directoryitem.DirectoryItem
 import org.jdc.template.model.db.main.directoryitem.DirectoryItemDao
 import org.jdc.template.model.db.main.household.Household
@@ -23,7 +22,7 @@ import org.jdc.template.model.db.main.individual.IndividualDao
     ],
     version = 1
 )
-@TypeConverters(MainDatabaseConverters::class, DateTimeTextConverter::class, DateTimeTextConverter::class)
+@TypeConverters(DateTimeTextConverter::class)
 abstract class MainDatabase : RoomDatabase() {
 
     abstract val individualDao: IndividualDao
