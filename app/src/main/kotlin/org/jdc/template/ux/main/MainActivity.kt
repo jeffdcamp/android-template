@@ -2,6 +2,7 @@ package org.jdc.template.ux.main
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -9,7 +10,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
 import org.jdc.template.databinding.MainActivityBinding
 import org.jdc.template.ext.withLifecycleOwner
-import org.jdc.template.model.repository.SettingsRepository
 import org.jdc.template.ui.ThemeManager
 import javax.inject.Inject
 
@@ -17,10 +17,9 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
 
     @Inject
-    lateinit var settingsRepository: SettingsRepository
-
-    @Inject
     lateinit var themeManager: ThemeManager
+
+    private val viewModel: MainViewModel by viewModels()
 
     private lateinit var binding: MainActivityBinding
     private val navController by lazy {
@@ -43,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController)
 
         withLifecycleOwner(this) {
-            settingsRepository.themeFlow.collectWhenStarted { theme ->
+            viewModel.themeFlow.collectWhenStarted { theme ->
                 themeManager.applyTheme(theme)
             }
         }
