@@ -19,7 +19,7 @@ plugins {
     id("com.google.firebase.appdistribution")
     id("io.gitlab.arturbosch.detekt") version "1.14.2"
     id ("de.undercouch.download")
-    id("com.github.triplet.play") // version "3.0.0" // temp commented out (3.0.0 is not supported by AS 4.2+)
+    id("com.github.triplet.play") version "3.1.0-agp4.2"
     id("com.github.jk1.dependency-license-report") version "1.16"
 }
 
@@ -342,13 +342,21 @@ detekt {
     }
 }
 
-// TripleT / Google Play Publisher
-configure<com.github.triplet.gradle.play.PlayPublisherExtension> {
+// TripleT / Google Play Publisher (3.1.x)
+play {
     val myServiceAccountCreds: String? by project
-    serviceAccountCredentials.set(file(myServiceAccountCreds ?: "api-playstore-dummy.json"))
-    promoteTrack.set("internal")
+    serviceAccountCredentials.set(File(myServiceAccountCreds ?: "api-playstore-dummy.json"))
+    track.set("internal")
     defaultToAppBundles.set(true)
 }
+
+// TripleT / Google Play Publisher (3.2+?)
+//configure<com.github.triplet.gradle.play.PlayPublisherExtension> {
+//    val myServiceAccountCreds: String? by project
+//    serviceAccountCredentials.set(file(myServiceAccountCreds ?: "api-playstore-dummy.json"))
+//    promoteTrack.set("internal")
+//    defaultToAppBundles.set(true)
+//}
 
 // ./gradlew generateLicenseReport
 licenseReport {

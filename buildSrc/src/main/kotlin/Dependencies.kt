@@ -31,7 +31,7 @@ object Deps {
     const val ARCH_WORK_GCM = "androidx.work:work-gcm:$WORKMANAGER_VERSION" // Remove with min SDK 23
     const val WORKMANAGER_TOOLS = "org.dbtools:workmanager-tools:1.13.0"
 
-    const val ANDROID_MATERIAL = "com.google.android.material:material:1.3.0-alpha04" // https://github.com/material-components/material-components-android/releases
+    const val ANDROID_MATERIAL = "com.google.android.material:material:1.3.0-beta01" // https://github.com/material-components/material-components-android/releases
 
     // Play Services
     const val PLAYSERVICE_CORE = "com.google.android.play:core-ktx:1.8.1" // https://developer.android.com/reference/com/google/android/play/core/release-notes
@@ -39,7 +39,7 @@ object Deps {
     // const val PLAYSERVICE_LICENSES = "com.google.android.gms:play-services-oss-licenses:17.0.0"
 
     // Firebase - https://firebase.google.com/support/release-notes/android
-    const val FIREBASE_BOM = "com.google.firebase:firebase-bom:26.1.1" // automatically sets the version for all firebase libs below
+    const val FIREBASE_BOM = "com.google.firebase:firebase-bom:26.2.0" // automatically sets the version for all firebase libs below
     const val FIREBASE_CORE = "com.google.firebase:firebase-core"
     const val FIREBASE_PERF = "com.google.firebase:firebase-perf"
     const val FIREBASE_CONFIG = "com.google.firebase:firebase-config-ktx"
@@ -81,7 +81,7 @@ object Deps {
     const val OKHTTP_LOGGING_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION"
 
     // Dev
-    const val LEAK_CANARY = "com.squareup.leakcanary:leakcanary-android:2.5"
+    const val LEAK_CANARY = "com.squareup.leakcanary:leakcanary-android:2.6"
 
     // Test - Integration
     private const val ESPRESSO_VERSION = "3.3.0"
