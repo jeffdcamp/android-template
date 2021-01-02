@@ -15,6 +15,7 @@ import java.time.Instant
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
 
+@Suppress("UnnecessaryAbstractClass")
 abstract class BaseFirebaseRemoteConfig(@XmlRes remoteConfigDefaults: Int) {
 
     init {
@@ -32,7 +33,7 @@ abstract class BaseFirebaseRemoteConfig(@XmlRes remoteConfigDefaults: Int) {
 
     fun getMinimumFetchIntervalInSeconds(): Long = TimeUnit.HOURS.toSeconds(12)
 
-    fun getFetchTimeoutInSeconds(): Long = 60L
+    fun getFetchTimeoutInSeconds(): Long = DEFAULT_TIMEOUT_FETCH_SECONDS_LONG
 
     fun fetch(now: Boolean = false): Task<Void> {
         Timber.d("RemoteConfig: fetch  now=$now")
@@ -82,6 +83,7 @@ abstract class BaseFirebaseRemoteConfig(@XmlRes remoteConfigDefaults: Int) {
      * @param timeoutSeconds How long the fetch should be allowed to take before timeout will occur
      * @return true if the fetch was successful and we could apply the changes; false if there was an error fetching and activating
      */
+    @Suppress("TooGenericExceptionCaught") // NEVER allow this function to crash the app
     fun fetchAndActivateNow(timeoutSeconds: Long = DEFAULT_TIMEOUT_FETCH_SECONDS_SHORT): Boolean {
         Timber.d("RemoteConfig: fetchAndActivateNow")
 
@@ -106,7 +108,10 @@ abstract class BaseFirebaseRemoteConfig(@XmlRes remoteConfigDefaults: Int) {
 
     fun getStatusDetails(): String {
         val info = Firebase.remoteConfig.info
-        return "Last Fetch Status: [${getLastFetchStatus()}]  Fetch: [${Instant.ofEpochMilli(info.fetchTimeMillis)}]  Min Fetch Interval: [${info.configSettings.minimumFetchIntervalInSeconds}s] Fetch Timeout: [${info.configSettings.fetchTimeoutInSeconds}s]"
+        return "Last Fetch Status: [${getLastFetchStatus()}]  " +
+                "Fetch: [${Instant.ofEpochMilli(info.fetchTimeMillis)}]  " +
+                "Min Fetch Interval: [${info.configSettings.minimumFetchIntervalInSeconds}s] " +
+                "Fetch Timeout: [${info.configSettings.fetchTimeoutInSeconds}s]"
     }
 
     fun getLastFetchStatus(): String {

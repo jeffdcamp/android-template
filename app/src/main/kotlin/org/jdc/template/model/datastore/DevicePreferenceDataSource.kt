@@ -32,7 +32,9 @@ class DevicePreferenceDataSource
     private val dataStore: DataStore<Preferences> = application.createDataStore(
         name = "device",
         migrations = listOf(
-            PreferenceMigrations.sharedPreferenceMigration(application, toVersion = 1, migrate = { sharedPrefs, currentData -> SharedPreferenceMigration.migrateSharedPreferences(sharedPrefs, currentData) }),
+            PreferenceMigrations.sharedPreferenceMigration(application, toVersion = 1, migrate = { sharedPrefs, currentData ->
+                SharedPreferenceMigration.migrateSharedPreferences(sharedPrefs, currentData)
+            }),
             PreferenceMigrations(version, listOf(DevicePreferenceMigration2, DevicePreferenceMigration1To3, DevicePreferenceMigration3))
         )
     )

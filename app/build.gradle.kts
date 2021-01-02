@@ -17,7 +17,7 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.firebase.crashlytics")
     id("com.google.firebase.appdistribution")
-    id("io.gitlab.arturbosch.detekt") version "1.14.2"
+    id("io.gitlab.arturbosch.detekt") version "1.15.0"
     id ("de.undercouch.download")
     id("com.github.triplet.play") version "3.1.0-agp4.2"
     id("com.github.jk1.dependency-license-report") version "1.16"

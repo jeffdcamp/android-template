@@ -36,7 +36,10 @@ val PREFERENCES_VERSION_KEY: Preferences.Key<Int> get() = preferencesKey("prefer
  *     name = "device",
  *     migrations = listOf(
  *         // Migrate legacy SharedPrefs to version 1
- *         PreferenceMigrations.sharedPreferenceMigration(application, toVersion = 1, migrate = { sharedPrefs, currentData -> SharedPreferenceMigration.migrateSharedPreferences(sharedPrefs, currentData) }),
+ *         PreferenceMigrations.sharedPreferenceMigration(application, toVersion = 1, migrate = { sharedPrefs, currentData ->
+ *             SharedPreferenceMigration.migrateSharedPreferences(sharedPrefs, currentData)
+ *         }),
+ *
  *         // Migrate DataStore Preferences to version 3
  *         PreferenceMigrations(3, listOf(DevicePreferenceMigration2, DevicePreferenceMigration1To3, DevicePreferenceMigration3))
  *     )
