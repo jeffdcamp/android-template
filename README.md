@@ -34,7 +34,7 @@ Sample Android app that utilizes common best practices
 License
 =======
 
-    Copyright 2014-2020 Jeff Campbell
+    Copyright 2014-2021 Jeff Campbell
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
