@@ -2,10 +2,10 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "4c164342919e649eb6dbd7cc108bb039",
+    "identityHash": "aaf29643d023832cb7f2e5cb55eb1ef2",
     "entities": [
       {
-        "tableName": "individual",
+        "tableName": "Individual",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `householdId` INTEGER NOT NULL, `individualType` TEXT NOT NULL, `firstName` TEXT NOT NULL, `lastName` TEXT NOT NULL, `birthDate` TEXT, `alarmTime` TEXT NOT NULL, `lastModified` TEXT NOT NULL, `phone` TEXT NOT NULL, `email` TEXT NOT NULL, `available` INTEGER NOT NULL)",
         "fields": [
           {
@@ -85,7 +85,7 @@
         "foreignKeys": []
       },
       {
-        "tableName": "household",
+        "tableName": "Household",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL)",
         "fields": [
           {
@@ -111,9 +111,15 @@
         "foreignKeys": []
       }
     ],
+    "views": [
+      {
+        "viewName": "DirectoryItem",
+        "createSql": "CREATE VIEW `${VIEW_NAME}` AS SELECT id, lastName, firstName FROM Individual"
+      }
+    ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"4c164342919e649eb6dbd7cc108bb039\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'aaf29643d023832cb7f2e5cb55eb1ef2')"
     ]
   }
 }
