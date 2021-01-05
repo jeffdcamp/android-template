@@ -4,6 +4,22 @@ private const val COROUTINES_VERSION = "1.4.2"
 const val DAGGER_HILT_VERSION = "2.30.1-alpha"
 const val ANDROIDX_NAVIGATION_VERSION = "2.3.2"
 
+object BuildDeps {
+    const val ANDROID = "com.android.tools.build:gradle:4.2.0-beta02"
+    const val KOTLIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
+    const val KOTLIN_SERIALIZATION = "org.jetbrains.kotlin:kotlin-serialization:$KOTLIN_VERSION"
+    const val GOOGLE_SERVICES = "com.google.gms:google-services:4.3.4"
+    const val HILT = "com.google.dagger:hilt-android-gradle-plugin:$DAGGER_HILT_VERSION"
+    const val FIREBASE_CRASHLYTICS = "com.google.firebase:firebase-crashlytics-gradle:2.4.1"
+    const val FIREBASE_APP_DISTRIBUTION = "com.google.firebase:firebase-appdistribution-gradle:2.0.1"
+    const val FIREBASE_PERF = "com.google.firebase:perf-plugin:1.3.4"
+    const val SAFE_ARGS = "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.2"
+    const val GRADLE_VERSIONS = "com.github.ben-manes:gradle-versions-plugin:0.36.0"
+    const val PLAY_PUBLISHER = "com.github.triplet.gradle:play-publisher:3.1.0-agp4.2"
+    const val LICENSE_REPORT = "com.github.jk1:gradle-license-report:1.16"
+    const val GRADLE_DETEKT = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.15.0"
+}
+
 object Deps {
     // Android (https://android.googlesource.com/platform/frameworks/support/+/refs/heads/androidx-master-dev/buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt)
     const val ANDROID_DESUGAR_JDK_LIBS = "com.android.tools:desugar_jdk_libs:1.1.1" // https://github.com/google/desugar_jdk_libs/blob/master/CHANGELOG.md
@@ -96,7 +112,7 @@ object Deps {
     const val TEST_JUNIT = "org.junit.jupiter:junit-jupiter:$JUNIT_VERSION"
     const val TEST_JUNIT_ENGINE = "org.junit.jupiter:junit-jupiter-engine:$JUNIT_VERSION"
     const val TEST_OKHTTP_MOCKWEBSERVER = "com.squareup.okhttp3:mockwebserver:$OKHTTP_VERSION"
-    const val TEST_MOCKITO_CORE = "org.mockito:mockito-core:3.6.28"
+    const val TEST_MOCKITO_CORE = "org.mockito:mockito-core:3.7.0"
     const val TEST_XERIAL_SQLITE = "org.xerial:sqlite-jdbc:3.34.0"
     const val TEST_ARCH_ROOM_TESTING = "androidx.room:room-testing:$ROOM_VERSION"
     const val TEST_DBTOOLS_ROOM_JDBC = "org.dbtools:dbtools-room-jdbc:$DBTOOLS_VERSION"

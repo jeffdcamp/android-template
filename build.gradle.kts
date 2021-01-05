@@ -5,20 +5,22 @@ buildscript {
         mavenLocal()
         google()
         mavenCentral()
-        maven("https://maven.fabric.io/public")
         jcenter()
+        maven("https://plugins.gradle.org/m2")
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:4.2.0-beta02")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION")
-        classpath("org.jetbrains.kotlin:kotlin-serialization:$KOTLIN_VERSION")
-        classpath("com.google.dagger:hilt-android-gradle-plugin:$DAGGER_HILT_VERSION")
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$ANDROIDX_NAVIGATION_VERSION")
-        classpath("com.google.firebase:firebase-crashlytics-gradle:2.4.1")
-        classpath("com.google.firebase:firebase-appdistribution-gradle:2.0.1")
-        classpath("com.google.gms:google-services:4.3.4")
-        classpath("io.fabric.tools:gradle:1.31.2")
-        classpath("com.github.ben-manes:gradle-versions-plugin:0.36.0") // version plugin support
+        classpath(BuildDeps.ANDROID)
+        classpath(BuildDeps.KOTLIN)
+        classpath(BuildDeps.KOTLIN_SERIALIZATION)
+        classpath(BuildDeps.HILT)
+        classpath(BuildDeps.SAFE_ARGS)
+        classpath(BuildDeps.FIREBASE_CRASHLYTICS)
+        classpath(BuildDeps.FIREBASE_APP_DISTRIBUTION)
+        classpath(BuildDeps.GOOGLE_SERVICES)
+        classpath(BuildDeps.GRADLE_VERSIONS)
+        classpath(BuildDeps.PLAY_PUBLISHER)
+        classpath(BuildDeps.LICENSE_REPORT)
+        classpath(BuildDeps.GRADLE_DETEKT)
     }
 }
 
