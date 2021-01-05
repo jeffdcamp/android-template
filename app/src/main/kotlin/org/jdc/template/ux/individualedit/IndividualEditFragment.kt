@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
 import org.jdc.template.databinding.IndividualEditFragmentBinding
+import org.jdc.template.ext.autoCleared
 import org.jdc.template.ext.withLifecycleOwner
 import java.time.LocalDate
 import java.time.LocalTime
@@ -23,15 +24,14 @@ import java.time.LocalTime
 class IndividualEditFragment : Fragment() {
     private val viewModel: IndividualEditViewModel by viewModels()
 
-    private var _binding: IndividualEditFragmentBinding? = null
-    private val binding get() = _binding!! // This property is only valid between onCreateView and onDestroyView.
+    private var binding: IndividualEditFragmentBinding by autoCleared()
 
     init {
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = IndividualEditFragmentBinding.inflate(inflater, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = IndividualEditFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -80,7 +80,7 @@ class IndividualEditFragment : Fragment() {
     }
 
     private fun showBirthDateSelector(date: LocalDate) {
-        val birthDatePickerDialog = DatePickerDialog(requireActivity(), DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+        val birthDatePickerDialog = DatePickerDialog(requireActivity(), { _, year, monthOfYear, dayOfMonth ->
             viewModel.birthDate.set(LocalDate.of(year, monthOfYear + 1, dayOfMonth)) // + 1 because core Java Date is 0 based
         }, date.year, date.monthValue - 1, date.dayOfMonth) // - 1 because core Java Date is 0 based
 
@@ -88,15 +88,10 @@ class IndividualEditFragment : Fragment() {
     }
 
     private fun showAlarmTimeSelector(time: LocalTime) {
-        val alarmTimePickerDialog = TimePickerDialog(requireActivity(), TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
+        val alarmTimePickerDialog = TimePickerDialog(requireActivity(), { _, hourOfDay, minute ->
             viewModel.alarmTime.set(LocalTime.of(hourOfDay, minute))
         }, time.hour, time.minute, false)
 
         alarmTimePickerDialog.show()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

@@ -232,6 +232,7 @@ dependencies {
     implementation(Deps.ARCH_LIFECYCLE_RUNTIME)
     implementation(Deps.ARCH_LIFECYCLE_VIEWMODEL)
     implementation(Deps.ARCH_LIFECYCLE_SAVE_STATE)
+    implementation(Deps.LIFECYCLE_COMMON)
     implementation(Deps.LIVE_DATA_KTX)
 
     // Navigation

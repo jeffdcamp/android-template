@@ -14,21 +14,21 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
 import org.jdc.template.databinding.IndividualFragmentBinding
+import org.jdc.template.ext.autoCleared
 import org.jdc.template.ext.withLifecycleOwner
 
 @AndroidEntryPoint
 class IndividualFragment : Fragment() {
     private val viewModel: IndividualViewModel by viewModels()
 
-    private var _binding: IndividualFragmentBinding? = null
-    private val binding get() = _binding!! // This property is only valid between onCreateView and onDestroyView.
+    private var binding: IndividualFragmentBinding by autoCleared()
 
     init {
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = IndividualFragmentBinding.inflate(inflater, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = IndividualFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -87,10 +87,5 @@ class IndividualFragment : Fragment() {
             }
             .setNegativeButton(R.string.cancel) { _, _ -> }
             .show()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

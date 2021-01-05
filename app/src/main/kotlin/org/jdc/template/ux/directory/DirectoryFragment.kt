@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
 import org.jdc.template.databinding.DirectoryFragmentBinding
+import org.jdc.template.ext.autoCleared
 import org.jdc.template.ext.getScrollPosition
 import org.jdc.template.ext.withLifecycleOwner
 import org.jdc.template.ui.menu.CommonMenu
@@ -25,18 +26,15 @@ class DirectoryFragment : Fragment() {
     lateinit var commonMenu: CommonMenu
 
     private val viewModel: DirectoryViewModel by viewModels()
-
-    private var _binding: DirectoryFragmentBinding? = null
-    private val binding get() = _binding!! // This property is only valid between onCreateView and onDestroyView.
-
-    private lateinit var adapter: DirectoryAdapter
+    private var binding: DirectoryFragmentBinding by autoCleared()
+    private var adapter: DirectoryAdapter by autoCleared()
 
     init {
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = DirectoryFragmentBinding.inflate(inflater, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = DirectoryFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -90,15 +88,10 @@ class DirectoryFragment : Fragment() {
 
     override fun onSaveInstanceState(bundle: Bundle) {
         super.onSaveInstanceState(bundle)
-        bundle.putInt("scrollPosition", _binding?.recyclerView?.getScrollPosition() ?: 0)
+        bundle.putInt("scrollPosition", binding.recyclerView.getScrollPosition())
     }
 
     private fun restoreState(bundle: Bundle) {
         binding.recyclerView.scrollToPosition(bundle.getInt("scrollPosition", 0))
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

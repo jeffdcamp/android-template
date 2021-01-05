@@ -13,21 +13,20 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
 import org.jdc.template.databinding.AboutFragmentBinding
+import org.jdc.template.ext.autoCleared
 import org.jdc.template.ext.withLifecycleOwner
 
 @AndroidEntryPoint
 class AboutFragment : Fragment() {
     private val viewModel: AboutViewModel by viewModels()
-
-    private var _binding: AboutFragmentBinding? = null
-    private val binding get() = _binding!! // This property is only valid between onCreateView and onDestroyView.
+    private var binding: AboutFragmentBinding by autoCleared()
 
     init {
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = AboutFragmentBinding.inflate(inflater, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = AboutFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -63,10 +62,5 @@ class AboutFragment : Fragment() {
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
