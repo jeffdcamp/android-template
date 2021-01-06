@@ -19,7 +19,7 @@ open class MainDatabaseWrapper
 ) : CloseableDatabaseWrapper<MainDatabase>(context) {
 
     override fun createDatabase(): MainDatabase {
-        return Room.databaseBuilder(context, MainDatabase::class.java, MainDatabase.DATABASE_FILENAME)
+        return Room.databaseBuilder(context, MainDatabase::class.java, MainDatabase.DATABASE_NAME)
             .addMigrations(object : Migration(1, 2) {
                 override fun migrate(database: SupportSQLiteDatabase) {
                     // ONLY views are changed
@@ -41,6 +41,8 @@ open class MainDatabaseWrapper
                     database.createAllViews(MainDatabase.DATABASE_VIEW_QUERIES)
                 }
             })
+            // Debug -- Show SQL statements
+            //.setQueryCallback({ sql, args -> Timber.d("${MainDatabase.DATABASE_NAME} Query: [$sql]  Args: $args") }) { it.run() }
             .build()
     }
 }

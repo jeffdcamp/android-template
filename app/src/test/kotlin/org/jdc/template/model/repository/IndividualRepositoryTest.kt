@@ -88,7 +88,7 @@ class MainDatabaseTestWrapper(
 ) : MainDatabaseWrapper(application) {
 
     override fun createDatabase(): MainDatabase {
-        return Room.databaseBuilder(mock(Application::class.java), MainDatabase::class.java, MainDatabase.DATABASE_FILENAME)
+        return Room.databaseBuilder(mock(Application::class.java), MainDatabase::class.java, MainDatabase.DATABASE_NAME)
             .allowMainThreadQueries()
             .openHelperFactory(JdbcSQLiteOpenHelperFactory(TestFilesystem.INTERNAL_DATABASES_DIR_PATH))
             .build()

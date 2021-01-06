@@ -30,7 +30,7 @@ abstract class MainDatabase : RoomDatabase() {
     abstract val directoryItemDao: DirectoryItemDao
 
     companion object {
-        const val DATABASE_FILENAME = "main.db"
+        const val DATABASE_NAME = "main.db"
         val DATABASE_VIEW_QUERIES = listOf(
             DatabaseViewQuery(DirectoryItem.VIEW_NAME, DirectoryItem.VIEW_QUERY)
         )
