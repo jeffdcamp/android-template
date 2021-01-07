@@ -5,7 +5,7 @@ const val DAGGER_HILT_VERSION = "2.30.1-alpha"
 const val ANDROIDX_NAVIGATION_VERSION = "2.3.2"
 
 object BuildDeps {
-    const val ANDROID = "com.android.tools.build:gradle:4.2.0-beta02"
+    const val ANDROID = "com.android.tools.build:gradle:4.2.0-beta03"
     const val KOTLIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
     const val KOTLIN_SERIALIZATION = "org.jetbrains.kotlin:kotlin-serialization:$KOTLIN_VERSION"
     const val GOOGLE_SERVICES = "com.google.gms:google-services:4.3.4"
@@ -15,7 +15,7 @@ object BuildDeps {
     const val FIREBASE_PERF = "com.google.firebase:perf-plugin:1.3.4"
     const val SAFE_ARGS = "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.2"
     const val GRADLE_VERSIONS = "com.github.ben-manes:gradle-versions-plugin:0.36.0"
-    const val PLAY_PUBLISHER = "com.github.triplet.gradle:play-publisher:3.1.0-agp4.2"
+    const val PLAY_PUBLISHER = "com.github.triplet.gradle:play-publisher:3.1.0-agp4.2-2"
     const val LICENSE_REPORT = "com.github.jk1:gradle-license-report:1.16"
     const val GRADLE_DETEKT = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.15.0"
 }
