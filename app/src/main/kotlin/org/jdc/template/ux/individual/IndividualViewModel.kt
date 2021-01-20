@@ -1,10 +1,9 @@
 package org.jdc.template.ux.individual
 
-import androidx.hilt.Assisted
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -13,12 +12,14 @@ import org.jdc.template.coroutine.channel.ViewModelChannel
 import org.jdc.template.delegates.requireSavedState
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.repository.IndividualRepository
+import javax.inject.Inject
 
+@HiltViewModel
 class IndividualViewModel
-@ViewModelInject constructor(
+@Inject constructor(
     private val analytics: Analytics,
     private val individualRepository: IndividualRepository,
-    @Assisted savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     private val _eventChannel: ViewModelChannel<Event> = ViewModelChannel(this)
     val eventChannel: ReceiveChannel<Event> = _eventChannel

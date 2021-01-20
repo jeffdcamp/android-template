@@ -1,11 +1,10 @@
 package org.jdc.template.ux.individualedit
 
 import androidx.databinding.ObservableField
-import androidx.hilt.Assisted
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.launch
 import org.jdc.template.R
@@ -15,11 +14,13 @@ import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.repository.IndividualRepository
 import java.time.LocalDate
 import java.time.LocalTime
+import javax.inject.Inject
 
+@HiltViewModel
 class IndividualEditViewModel
-@ViewModelInject constructor(
+@Inject constructor(
     private val individualRepository: IndividualRepository,
-    @Assisted savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     private val _eventChannel: ViewModelChannel<Event> = ViewModelChannel(this)
     val eventChannel: ReceiveChannel<Event> = _eventChannel

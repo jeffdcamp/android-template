@@ -1,18 +1,17 @@
 package org.jdc.template.ux.about
 
 import android.content.Context
-import androidx.hilt.Assisted
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
-import org.jdc.template.analytics.Analytics
 import org.jdc.template.BuildConfig
+import org.jdc.template.analytics.Analytics
 import org.jdc.template.ext.saveBodyToFile
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.db.main.type.IndividualType
@@ -26,16 +25,18 @@ import timber.log.Timber
 import java.io.File
 import java.time.LocalDate
 import java.time.LocalTime
+import javax.inject.Inject
 
+@HiltViewModel
 class AboutViewModel
-@ViewModelInject constructor(
+@Inject constructor(
     @ApplicationContext private val context: Context,
     private val analytics: Analytics,
     private val individualRepository: IndividualRepository,
     private val colorService: ColorService,
     private val workScheduler: WorkScheduler,
     private val remoteConfig: RemoteConfig,
-    @Assisted savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     var appVersion = BuildConfig.VERSION_NAME

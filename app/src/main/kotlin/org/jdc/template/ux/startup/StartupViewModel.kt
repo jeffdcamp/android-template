@@ -1,17 +1,19 @@
 package org.jdc.template.ux.startup
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.launch
-import org.jdc.template.analytics.Analytics
 import org.jdc.template.BuildConfig
+import org.jdc.template.analytics.Analytics
 import org.jdc.template.coroutine.channel.ViewModelChannel
 import timber.log.Timber
+import javax.inject.Inject
 
+@HiltViewModel
 class StartupViewModel
-@ViewModelInject constructor(
+@Inject constructor(
     private val analytics: Analytics
 ) : ViewModel() {
     private val _eventChannel: ViewModelChannel<Event> = ViewModelChannel(this)
