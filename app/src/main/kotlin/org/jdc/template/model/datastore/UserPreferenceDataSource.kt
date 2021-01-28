@@ -3,9 +3,8 @@ package org.jdc.template.model.datastore
 import android.app.Application
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.clear
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.preferencesKey
 import androidx.datastore.preferences.createDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -31,6 +30,6 @@ class UserPreferenceDataSource
     }
 
     private object Keys {
-        val DIRECTORY_SORT = preferencesKey<Boolean>("directorySort")
+        val DIRECTORY_SORT = booleanPreferencesKey("directorySort")
     }
 }

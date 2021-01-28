@@ -7,14 +7,11 @@ import androidx.datastore.core.DataMigration
 import androidx.datastore.migrations.SharedPreferencesMigration
 import androidx.datastore.migrations.SharedPreferencesView
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.clear
-import androidx.datastore.preferences.core.preferencesKey
-import androidx.datastore.preferences.core.toMutablePreferences
-import androidx.datastore.preferences.core.toPreferences
+import androidx.datastore.preferences.core.intPreferencesKey
 import timber.log.Timber
 import java.util.TreeMap
 
-val PREFERENCES_VERSION_KEY: Preferences.Key<Int> get() = preferencesKey("preferenceVersion")
+val PREFERENCES_VERSION_KEY: Preferences.Key<Int> get() = intPreferencesKey("preferenceVersion")
 
 /**
  * Versioned Migration support for DataStore preferences

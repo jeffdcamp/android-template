@@ -1,8 +1,6 @@
 package org.jdc.template.model.datastore.migration
 
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.toMutablePreferences
-import androidx.datastore.preferences.core.toPreferences
 import org.jdc.template.datastore.PreferenceMigration
 
 object DevicePreferenceMigration3: PreferenceMigration(2, 3) {

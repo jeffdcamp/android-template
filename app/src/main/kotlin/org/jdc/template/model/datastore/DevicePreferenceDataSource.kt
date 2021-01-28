@@ -4,9 +4,10 @@ import android.app.Application
 import android.os.Build
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.clear
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.preferencesKey
+import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.createDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -93,11 +94,11 @@ class DevicePreferenceDataSource
     }
 
     object Keys {
-        val THEME = preferencesKey<String>("theme")
-        val LAST_INSTALLED_VERSION_CODE = preferencesKey<Int>("lastInstalledVersionCode")
-        val WORK_SCHEDULER_VERSION = preferencesKey<Int>("workSchedulerVersion")
-        val DEV_MODE = preferencesKey<Boolean>("devMode")
-        val APP_INSTANCE_ID = preferencesKey<String>("appInstanceId")
+        val THEME = stringPreferencesKey("theme")
+        val LAST_INSTALLED_VERSION_CODE = intPreferencesKey("lastInstalledVersionCode")
+        val WORK_SCHEDULER_VERSION = intPreferencesKey("workSchedulerVersion")
+        val DEV_MODE = booleanPreferencesKey("devMode")
+        val APP_INSTANCE_ID = stringPreferencesKey("appInstanceId")
     }
 }
 

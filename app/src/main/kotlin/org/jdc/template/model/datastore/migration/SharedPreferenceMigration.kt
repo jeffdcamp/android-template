@@ -2,8 +2,6 @@ package org.jdc.template.model.datastore.migration
 
 import androidx.datastore.migrations.SharedPreferencesView
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.toMutablePreferences
-import androidx.datastore.preferences.core.toPreferences
 import org.jdc.template.model.datastore.DevicePreferenceDataSource
 import timber.log.Timber
 

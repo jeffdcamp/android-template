@@ -31,7 +31,7 @@ object Deps {
     const val ANDROIDX_ACTIVITY_KTX = "androidx.activity:activity-ktx:1.2.0-rc01"
     const val ANDROIDX_FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.3.0-rc02"
     const val ANDROIDX_STARTUP = "androidx.startup:startup-runtime:1.0.0"
-    const val ANDROID_DATASTORE_PREFS = "androidx.datastore:datastore-preferences:1.0.0-alpha05"
+    const val ANDROID_DATASTORE_PREFS = "androidx.datastore:datastore-preferences:1.0.0-alpha06"
 
     private const val LIFECYCLE_VERSION = "2.3.0-rc01"
     const val ARCH_LIFECYCLE_RUNTIME = "androidx.lifecycle:lifecycle-runtime-ktx:$LIFECYCLE_VERSION"
@@ -46,7 +46,7 @@ object Deps {
     private const val WORKMANAGER_VERSION = "2.5.0"
     const val ARCH_WORK_RUNTIME = "androidx.work:work-runtime-ktx:$WORKMANAGER_VERSION"
     const val ARCH_WORK_GCM = "androidx.work:work-gcm:$WORKMANAGER_VERSION" // Remove with min SDK 23
-    const val WORKMANAGER_TOOLS = "org.dbtools:workmanager-tools:1.13.0"
+    const val WORKMANAGER_TOOLS = "org.dbtools:workmanager-tools:1.14.0"
 
     const val ANDROID_MATERIAL = "com.google.android.material:material:1.3.0-rc01" // https://github.com/material-components/material-components-android/releases
 
