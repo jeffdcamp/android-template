@@ -1,11 +1,11 @@
 // Versions for Dependencies AND Build Plugins
 const val KOTLIN_VERSION = "1.4.21"
 private const val COROUTINES_VERSION = "1.4.2"
-const val DAGGER_HILT_VERSION = "2.31.1-alpha"
-const val ANDROIDX_NAVIGATION_VERSION = "2.3.2"
+const val DAGGER_HILT_VERSION = "2.31.2-alpha"
+const val ANDROIDX_NAVIGATION_VERSION = "2.3.3"
 
 object BuildDeps {
-    const val ANDROID = "com.android.tools.build:gradle:4.2.0-beta03"
+    const val ANDROID = "com.android.tools.build:gradle:7.0.0-alpha05"
     const val KOTLIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
     const val KOTLIN_SERIALIZATION = "org.jetbrains.kotlin:kotlin-serialization:$KOTLIN_VERSION"
     const val GOOGLE_SERVICES = "com.google.gms:google-services:4.3.4"
@@ -29,7 +29,7 @@ object Deps {
     const val ANDROIDX_CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:2.0.4"
     const val ANDROIDX_CORE = "androidx.core:core-ktx:1.5.0-beta01"
     const val ANDROIDX_ACTIVITY_KTX = "androidx.activity:activity-ktx:1.2.0-rc01"
-    const val ANDROIDX_FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.3.0-rc01"
+    const val ANDROIDX_FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.3.0-rc02"
     const val ANDROIDX_STARTUP = "androidx.startup:startup-runtime:1.0.0"
     const val ANDROID_DATASTORE_PREFS = "androidx.datastore:datastore-preferences:1.0.0-alpha05"
 
@@ -43,7 +43,7 @@ object Deps {
     const val ARCH_NAVIGATION_FRAGMENT = "androidx.navigation:navigation-fragment-ktx:$ANDROIDX_NAVIGATION_VERSION"
     const val ARCH_NAVIGATION_UI = "androidx.navigation:navigation-ui-ktx:$ANDROIDX_NAVIGATION_VERSION"
 
-    private const val WORKMANAGER_VERSION = "2.5.0-rc01"
+    private const val WORKMANAGER_VERSION = "2.5.0"
     const val ARCH_WORK_RUNTIME = "androidx.work:work-runtime-ktx:$WORKMANAGER_VERSION"
     const val ARCH_WORK_GCM = "androidx.work:work-gcm:$WORKMANAGER_VERSION" // Remove with min SDK 23
     const val WORKMANAGER_TOOLS = "org.dbtools:workmanager-tools:1.13.0"
@@ -70,7 +70,7 @@ object Deps {
     const val TIMBER = "com.jakewharton.timber:timber:4.7.1"
 
     // Inject
-    private const val ANDROIDX_HILT_VERSION = "1.0.0-alpha02"
+    private const val ANDROIDX_HILT_VERSION = "1.0.0-alpha03"
     const val HILT = "com.google.dagger:hilt-android:$DAGGER_HILT_VERSION"
     const val HILT_COMPILER = "com.google.dagger:hilt-compiler:$DAGGER_HILT_VERSION"
     const val HILT_TESTING = "com.google.dagger:hilt-android-test:$DAGGER_HILT_VERSION" // integration tests ONLY (does not support JVM tests)
@@ -79,12 +79,12 @@ object Deps {
     const val ANDROIDX_HILT_COMPILER = "androidx.hilt:hilt-compiler:$ANDROIDX_HILT_VERSION"
 
     // Standard dagger is needed for unit tests ONLY
-    private const val DAGGER_VERSION = "2.31.1"
+    private const val DAGGER_VERSION = "2.31.2"
     const val DAGGER = "com.google.dagger:dagger:$DAGGER_VERSION"
     const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
 
     // Database
-    private const val ROOM_VERSION = "2.3.0-alpha04"
+    private const val ROOM_VERSION = "2.3.0-beta01"
     const val ARCH_ROOM_RUNTIME = "androidx.room:room-runtime:$ROOM_VERSION"
     const val ARCH_ROOM_KTX = "androidx.room:room-ktx:$ROOM_VERSION"
     const val ARCH_ROOM_COMPILER = "androidx.room:room-compiler:$ROOM_VERSION"

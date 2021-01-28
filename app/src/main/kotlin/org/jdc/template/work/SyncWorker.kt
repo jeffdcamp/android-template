@@ -2,10 +2,11 @@ package org.jdc.template.work
 
 import android.content.Context
 import androidx.annotation.WorkerThread
-import androidx.hilt.Assisted
-import androidx.hilt.work.WorkerInject
+import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.delay
 import org.jdc.template.model.repository.SettingsRepository
 import timber.log.Timber
@@ -19,8 +20,9 @@ import timber.log.Timber
  * - Replace any existing scheduled (if there is a pending sync request... remove it and reset delay for 30 seconds)
  * - Require network connection
  */
+@HiltWorker
 class SyncWorker
-@WorkerInject constructor(
+@AssistedInject constructor(
     val settingsRepository: SettingsRepository,
     @Assisted appContext: Context,
     @Assisted workerParams: WorkerParameters

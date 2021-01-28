@@ -2,19 +2,21 @@ package org.jdc.template.work
 
 import android.content.Context
 import androidx.annotation.WorkerThread
-import androidx.hilt.Assisted
-import androidx.hilt.work.WorkerInject
+import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.Data
 import androidx.work.WorkerParameters
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.delay
 import timber.log.Timber
 
 /**
  * Example simple worker... one that should execute every time it is called
  */
+@HiltWorker
 class SimpleWorker
-@WorkerInject constructor(
+@AssistedInject constructor(
     @Assisted appContext: Context,
     @Assisted workerParams: WorkerParameters
 ) : CoroutineWorker(appContext, workerParams) {

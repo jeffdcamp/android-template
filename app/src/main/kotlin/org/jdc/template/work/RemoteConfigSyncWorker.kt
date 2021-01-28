@@ -1,16 +1,18 @@
 package org.jdc.template.work
 
 import android.content.Context
-import androidx.hilt.Assisted
-import androidx.hilt.work.WorkerInject
+import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import org.jdc.template.model.remoteconfig.BaseFirebaseRemoteConfig.Companion.DEFAULT_TIMEOUT_FETCH_SECONDS_LONG
 import org.jdc.template.model.remoteconfig.RemoteConfig
 import timber.log.Timber
 
+@HiltWorker
 class RemoteConfigSyncWorker
-@WorkerInject constructor(
+@AssistedInject constructor(
     private val remoteConfig: RemoteConfig,
     @Assisted appContext: Context,
     @Assisted workerParams: WorkerParameters
