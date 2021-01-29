@@ -42,7 +42,7 @@ open class MainDatabaseWrapper
                 }
             })
             // Debug -- Show SQL statements
-            //.setQueryCallback({ sql, args -> Timber.d("${MainDatabase.DATABASE_NAME} Query: [$sql]  Args: $args") }) { it.run() }
+            // .setLoggingQueryCallback(MainDatabase.DATABASE_NAME)
             .build()
     }
 }

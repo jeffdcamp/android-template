@@ -284,7 +284,7 @@ dependencies {
     testImplementation(Deps.TEST_OKHTTP_MOCKWEBSERVER)
     testImplementation(Deps.TEST_XERIAL_SQLITE)
     testImplementation(Deps.TEST_ARCH_ROOM_TESTING)
-    testImplementation(Deps.TEST_DBTOOLS_ROOM_JDBC)
+    testImplementation(Deps.TEST_DBTOOLS_ROOM_JDBC_TEST)
 
     // use regular dagger for unit tests
     // (2020-06-11: "Currently, Hilt only supports Android instrumentation and Robolectric tests. Hilt cannot be used in vanilla JVM tests,

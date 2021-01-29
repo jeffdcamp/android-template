@@ -88,7 +88,7 @@ object Deps {
     const val ARCH_ROOM_RUNTIME = "androidx.room:room-runtime:$ROOM_VERSION"
     const val ARCH_ROOM_KTX = "androidx.room:room-ktx:$ROOM_VERSION"
     const val ARCH_ROOM_COMPILER = "androidx.room:room-compiler:$ROOM_VERSION"
-    private const val DBTOOLS_VERSION = "5.8.0"
+    private const val DBTOOLS_VERSION = "6.0.0-beta01"
     const val DBTOOLS_ROOM = "org.dbtools:dbtools-room:$DBTOOLS_VERSION"
     const val DBTOOLS_ROOM_SQLITE = "org.dbtools:dbtools-room-sqliteorg:$DBTOOLS_VERSION"
 
@@ -116,7 +116,7 @@ object Deps {
     const val TEST_MOCKITO_CORE = "org.mockito:mockito-core:3.7.7"
     const val TEST_XERIAL_SQLITE = "org.xerial:sqlite-jdbc:3.34.0"
     const val TEST_ARCH_ROOM_TESTING = "androidx.room:room-testing:$ROOM_VERSION"
-    const val TEST_DBTOOLS_ROOM_JDBC = "org.dbtools:dbtools-room-jdbc:$DBTOOLS_VERSION"
+    const val TEST_DBTOOLS_ROOM_JDBC_TEST = "org.dbtools:dbtools-room-jdbc-test:$DBTOOLS_VERSION"
     const val TEST_KOTLIN_COROUTINES_TEST = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$COROUTINES_VERSION"
     const val TEST_MOCKITO_KOTLIN = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
 }
