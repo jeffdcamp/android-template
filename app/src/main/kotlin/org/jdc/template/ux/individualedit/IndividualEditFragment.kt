@@ -15,8 +15,8 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
 import org.jdc.template.databinding.IndividualEditFragmentBinding
-import org.jdc.template.ext.autoCleared
-import org.jdc.template.ext.withLifecycleOwner
+import org.jdc.template.util.ext.autoCleared
+import org.jdc.template.util.ext.withLifecycleOwner
 import java.time.LocalDate
 import java.time.LocalTime
 

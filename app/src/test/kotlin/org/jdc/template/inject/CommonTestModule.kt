@@ -10,7 +10,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.mockwebserver.MockWebServer
 import org.jdc.template.TestFilesystem
-import org.jdc.template.json.asConverterFactory
+import org.jdc.template.util.json.asConverterFactory
 import org.jdc.template.model.webservice.colors.ColorService
 import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mockito.doAnswer

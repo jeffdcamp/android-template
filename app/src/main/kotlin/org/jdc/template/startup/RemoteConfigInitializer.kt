@@ -6,7 +6,7 @@ import dagger.hilt.EntryPoint
 import dagger.hilt.EntryPoints
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import org.jdc.template.model.remoteconfig.RemoteConfig
+import org.jdc.template.model.config.RemoteConfig
 
 class RemoteConfigInitializer : Initializer<Unit> {
 

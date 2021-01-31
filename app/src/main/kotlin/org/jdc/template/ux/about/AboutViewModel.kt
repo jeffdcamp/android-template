@@ -12,10 +12,10 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import org.jdc.template.BuildConfig
 import org.jdc.template.analytics.Analytics
-import org.jdc.template.ext.saveBodyToFile
+import org.jdc.template.util.ext.saveBodyToFile
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.db.main.type.IndividualType
-import org.jdc.template.model.remoteconfig.RemoteConfig
+import org.jdc.template.model.config.RemoteConfig
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.model.webservice.colors.ColorService
 import org.jdc.template.model.webservice.colors.dto.ColorsDto

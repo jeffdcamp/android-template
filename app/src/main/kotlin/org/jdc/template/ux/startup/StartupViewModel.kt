@@ -7,7 +7,7 @@ import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.launch
 import org.jdc.template.BuildConfig
 import org.jdc.template.analytics.Analytics
-import org.jdc.template.coroutine.channel.ViewModelChannel
+import org.jdc.template.util.coroutine.channel.ViewModelChannel
 import timber.log.Timber
 import javax.inject.Inject
 

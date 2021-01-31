@@ -3,9 +3,9 @@ package org.jdc.template.startup
 import android.content.Context
 import androidx.startup.Initializer
 import org.jdc.template.BuildConfig
-import org.jdc.template.log.DebugTree
-import org.jdc.template.log.FirebaseCrashlyticsTree
-import org.jdc.template.log.ReleaseTree
+import org.jdc.template.util.log.DebugTree
+import org.jdc.template.util.log.FirebaseCrashlyticsTree
+import org.jdc.template.util.log.ReleaseTree
 import timber.log.Timber
 
 class LoggingInitializer : Initializer<Unit> {

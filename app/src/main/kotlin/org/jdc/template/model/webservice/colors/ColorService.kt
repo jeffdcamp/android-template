@@ -21,7 +21,7 @@ interface ColorService {
 
     companion object {
         const val BASE_URL = "https://raw.githubusercontent.com"
-        const val SUB_URL = "/jeffdcamp/android-template/33017aa38f59b3ff728a26c1ee350e58c8bb9647/src/test/json/rest-test.json"
+        private const val SUB_URL = "/jeffdcamp/android-template/33017aa38f59b3ff728a26c1ee350e58c8bb9647/src/test/json/rest-test.json"
         const val FULL_URL = BASE_URL + SUB_URL
     }
 }

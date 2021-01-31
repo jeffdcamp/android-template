@@ -9,8 +9,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
 import org.jdc.template.databinding.MainActivityBinding
-import org.jdc.template.ext.withLifecycleOwner
 import org.jdc.template.ui.ThemeManager
+import org.jdc.template.util.ext.withLifecycleOwner
 import javax.inject.Inject
 
 @AndroidEntryPoint

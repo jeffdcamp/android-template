@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
-import org.jdc.template.ext.withLifecycleOwner
+import org.jdc.template.util.ext.withLifecycleOwner
 import org.jdc.template.ux.main.MainActivity
 import timber.log.Timber
 

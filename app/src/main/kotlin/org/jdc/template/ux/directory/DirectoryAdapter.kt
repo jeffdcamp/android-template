@@ -5,8 +5,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import org.jdc.template.databinding.ListItemBinding
-import org.jdc.template.ext.inflater
-import org.jdc.template.ext.setOnClickListener
+import org.jdc.template.util.ext.inflater
+import org.jdc.template.util.ext.setOnClickListener
 import org.jdc.template.model.db.main.directoryitem.DirectoryItem
 
 class DirectoryAdapter(

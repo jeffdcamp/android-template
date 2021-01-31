@@ -8,8 +8,8 @@ import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import org.jdc.template.analytics.Analytics
-import org.jdc.template.coroutine.channel.ViewModelChannel
-import org.jdc.template.delegates.requireSavedState
+import org.jdc.template.util.coroutine.channel.ViewModelChannel
+import org.jdc.template.util.delegates.requireSavedState
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.repository.IndividualRepository
 import javax.inject.Inject

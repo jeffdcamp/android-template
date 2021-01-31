@@ -11,12 +11,12 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.createDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import org.jdc.template.datastore.PreferenceMigrations
 import org.jdc.template.model.datastore.migration.DevicePreferenceMigration1To3
 import org.jdc.template.model.datastore.migration.DevicePreferenceMigration2
 import org.jdc.template.model.datastore.migration.DevicePreferenceMigration3
 import org.jdc.template.model.datastore.migration.SharedPreferenceMigration
-import org.jdc.template.model.prefs.DisplayThemeType
+import org.jdc.template.model.data.DisplayThemeType
+import org.jdc.template.util.datastore.PreferenceMigrations
 import org.jdc.template.util.enumValueOfOrDefault
 import java.util.UUID
 import javax.inject.Inject

@@ -2,7 +2,7 @@ package org.jdc.template.ui
 
 import androidx.appcompat.app.AppCompatDelegate
 import kotlinx.coroutines.flow.first
-import org.jdc.template.model.prefs.DisplayThemeType
+import org.jdc.template.model.data.DisplayThemeType
 import org.jdc.template.model.repository.SettingsRepository
 import javax.inject.Inject
 import javax.inject.Singleton

@@ -2,7 +2,7 @@ package org.jdc.template.startup
 
 import android.content.Context
 import androidx.startup.Initializer
-import org.jdc.template.ui.notifications.NotificationChannels
+import org.jdc.template.ui.notification.NotificationChannels
 
 class NotificationInitializer : Initializer<Unit> {
 

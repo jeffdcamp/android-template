@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
 import org.jdc.template.databinding.DirectoryFragmentBinding
-import org.jdc.template.ext.autoCleared
-import org.jdc.template.ext.getScrollPosition
-import org.jdc.template.ext.withLifecycleOwner
+import org.jdc.template.util.ext.autoCleared
+import org.jdc.template.util.ext.getScrollPosition
+import org.jdc.template.util.ext.withLifecycleOwner
 import org.jdc.template.ui.menu.CommonMenu
 import javax.inject.Inject
 

@@ -1,7 +1,7 @@
 package org.jdc.template.model.datastore.migration
 
 import androidx.datastore.preferences.core.Preferences
-import org.jdc.template.datastore.PreferenceMigration
+import org.jdc.template.util.datastore.PreferenceMigration
 
 object DevicePreferenceMigration3: PreferenceMigration(2, 3) {
     override suspend fun migrate(currentData: Preferences): Preferences {

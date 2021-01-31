@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import org.jdc.template.model.datastore.DevicePreferenceDataSource
 import org.jdc.template.model.datastore.UserPreferenceDataSource
-import org.jdc.template.model.prefs.DisplayThemeType
+import org.jdc.template.model.data.DisplayThemeType
 import javax.inject.Inject
 import javax.inject.Singleton
 

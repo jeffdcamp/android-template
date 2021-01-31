@@ -14,8 +14,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
 import org.jdc.template.databinding.IndividualFragmentBinding
-import org.jdc.template.ext.autoCleared
-import org.jdc.template.ext.withLifecycleOwner
+import org.jdc.template.util.ext.autoCleared
+import org.jdc.template.util.ext.withLifecycleOwner
 
 @AndroidEntryPoint
 class IndividualFragment : Fragment() {

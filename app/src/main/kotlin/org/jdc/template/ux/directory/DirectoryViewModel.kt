@@ -1,12 +1,11 @@
 package org.jdc.template.ux.directory
 
-import androidx.hilt.Assisted
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.flow.Flow
-import org.jdc.template.coroutine.channel.ViewModelChannel
+import org.jdc.template.util.coroutine.channel.ViewModelChannel
 import org.jdc.template.model.db.main.directoryitem.DirectoryItem
 import org.jdc.template.model.repository.IndividualRepository
 import javax.inject.Inject

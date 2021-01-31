@@ -50,7 +50,7 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="org.jdc.template.ui.fragment.SettingsFragment"
+        android:name="org.jdc.template.ux.settings.SettingsFragment"
         android:label="@string/settings"
         >
         <action

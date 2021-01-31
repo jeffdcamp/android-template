@@ -6,8 +6,8 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import org.jdc.template.model.remoteconfig.BaseFirebaseRemoteConfig.Companion.DEFAULT_TIMEOUT_FETCH_SECONDS_LONG
-import org.jdc.template.model.remoteconfig.RemoteConfig
+import org.jdc.template.model.config.BaseFirebaseRemoteConfig.Companion.DEFAULT_TIMEOUT_FETCH_SECONDS_LONG
+import org.jdc.template.model.config.RemoteConfig
 import timber.log.Timber
 
 @HiltWorker
