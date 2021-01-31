@@ -45,7 +45,7 @@ class IndividualRepository
         }
     }
 
-    suspend fun saveHousehold(household: Household) {
+    private suspend fun saveHousehold(household: Household) {
         if (household.id <= 0) {
             val newId = householdDao().insert(household)
             household.id = newId

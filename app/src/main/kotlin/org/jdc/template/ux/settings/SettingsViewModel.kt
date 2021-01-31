@@ -1,7 +1,6 @@
 package org.jdc.template.ux.settings
 
 import android.app.Application
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,8 +16,7 @@ import javax.inject.Inject
 class SettingsViewModel
 @Inject constructor(
     private val application: Application,
-    private val settingsRepository: SettingsRepository,
-    savedStateHandle: SavedStateHandle
+    private val settingsRepository: SettingsRepository
 ) : ViewModel() {
 
     val currentThemeTitleFlow: Flow<String> get() = settingsRepository.themeFlow.map { theme ->

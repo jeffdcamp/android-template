@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package org.jdc.template.util.json
 
 import kotlinx.serialization.KSerializer

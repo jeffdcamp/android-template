@@ -1,4 +1,4 @@
-package org.jdc.template.util
+package org.jdc.template.util.ext
 
 inline fun <reified T : Enum<T>> enumValueOfOrNull(name: String?): T? {
     name ?: return null

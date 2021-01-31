@@ -21,6 +21,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
 
+@Suppress("MemberVisibilityCanBePrivate")
 @Singleton
 class WorkScheduler
 @Inject constructor(

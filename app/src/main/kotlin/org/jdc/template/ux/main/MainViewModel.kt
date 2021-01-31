@@ -1,6 +1,5 @@
 package org.jdc.template.ux.main
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -11,8 +10,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel
 @Inject constructor(
-    private val settingsRepository: SettingsRepository,
-    savedStateHandle: SavedStateHandle
+    private val settingsRepository: SettingsRepository
 ) : ViewModel() {
 
     val themeFlow: Flow<DisplayThemeType> get() = settingsRepository.themeFlow

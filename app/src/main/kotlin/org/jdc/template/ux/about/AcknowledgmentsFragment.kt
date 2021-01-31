@@ -28,7 +28,7 @@ class AcknowledgmentsFragment : Fragment() {
 
     private lateinit var binding: AcknowledgmentsFragmentBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = AcknowledgmentsFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -37,12 +37,12 @@ class AcknowledgmentsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         activity?.setTitle(R.string.about_title)
 
-        setupWebview()
+        setupWebView()
 
         loadLicenses()
     }
 
-    private fun setupWebview() {
+    private fun setupWebView() {
         binding.webview.webViewClient = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             NewAcknowledgmentsWebViewClient()
         } else {

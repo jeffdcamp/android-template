@@ -1,7 +1,6 @@
 package org.jdc.template.ux.about
 
 import android.content.Context
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,13 +11,13 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import org.jdc.template.BuildConfig
 import org.jdc.template.analytics.Analytics
-import org.jdc.template.util.ext.saveBodyToFile
+import org.jdc.template.model.config.RemoteConfig
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.db.main.type.IndividualType
-import org.jdc.template.model.config.RemoteConfig
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.model.webservice.colors.ColorService
 import org.jdc.template.model.webservice.colors.dto.ColorsDto
+import org.jdc.template.util.ext.saveBodyToFile
 import org.jdc.template.work.WorkScheduler
 import retrofit2.Response
 import timber.log.Timber
@@ -35,8 +34,7 @@ class AboutViewModel
     private val individualRepository: IndividualRepository,
     private val colorService: ColorService,
     private val workScheduler: WorkScheduler,
-    private val remoteConfig: RemoteConfig,
-    savedStateHandle: SavedStateHandle
+    private val remoteConfig: RemoteConfig
 ) : ViewModel() {
 
     var appVersion = BuildConfig.VERSION_NAME

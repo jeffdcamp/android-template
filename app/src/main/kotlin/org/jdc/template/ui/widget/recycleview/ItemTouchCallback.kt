@@ -10,8 +10,8 @@ class ItemTouchCallback(
 ) : SimpleElevationItemTouchHelperCallback(dragDirections, 0, dragElevationHeight) {
 
     override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
-        val originalPosition = viewHolder.adapterPosition
-        val endPosition = target.adapterPosition
+        val originalPosition = viewHolder.bindingAdapterPosition
+        val endPosition = target.bindingAdapterPosition
         if (originalPosition == RecyclerView.NO_POSITION || endPosition == RecyclerView.NO_POSITION) {
             return false
         }

@@ -42,7 +42,7 @@ class StartupViewModel
         startup()
     }
 
-    private suspend fun showProgress(message: String) {
+    private fun showProgress(message: String) {
         Timber.i("Startup progress: [%s]", message)
         _eventChannel.sendAsync(Event.StartupProgress(currentProgressCount + 1, message))
     }

@@ -80,7 +80,7 @@ abstract class SimpleElevationItemTouchHelperCallback(
         return (0 until recyclerView.childCount)
             .map { recyclerView.getChildAt(it) }
             .map { ViewCompat.getElevation(it) }
-            .max()
+            .maxOrNull()
             ?: 0f
     }
 

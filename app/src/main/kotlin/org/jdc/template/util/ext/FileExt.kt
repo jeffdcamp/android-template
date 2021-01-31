@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package org.jdc.template.util.ext
 
 import java.io.File

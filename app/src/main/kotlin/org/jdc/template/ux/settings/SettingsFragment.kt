@@ -8,7 +8,7 @@ import androidx.preference.PreferenceFragmentCompat
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
 import org.jdc.template.model.data.DisplayThemeType
-import org.jdc.template.util.enumValueOfOrNull
+import org.jdc.template.util.ext.enumValueOfOrNull
 import org.jdc.template.util.ext.withLifecycleOwner
 
 @AndroidEntryPoint

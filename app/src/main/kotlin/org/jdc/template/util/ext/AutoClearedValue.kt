@@ -43,6 +43,7 @@ class AutoClearedValue<T : Any>(val fragment: Fragment) : ReadWriteProperty<Frag
         })
     }
 
+    @Suppress("TooGenericExceptionCaught")
     override fun getValue(thisRef: Fragment, property: KProperty<*>): T {
         try {
             return _value!!

@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package org.jdc.template.util.ext
 
 import android.view.Menu
@@ -120,14 +122,14 @@ fun <T : RecyclerView.ViewHolder> T.setOnMenuClickListener(
 }
 
 fun <T : RecyclerView.ViewHolder> T.executeOnValidPosition(block: (position: Int) -> Unit) {
-    if (adapterPosition != RecyclerView.NO_POSITION) {
-        block(adapterPosition)
+    if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
+        block(bindingAdapterPosition)
     }
 }
 
 fun <T : RecyclerView.ViewHolder> T.executeOnValidPositionBoolean(defaultReturn: Boolean = false, block: (position: Int) -> Boolean): Boolean {
-    if (adapterPosition != RecyclerView.NO_POSITION) {
-        return block(adapterPosition)
+    if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
+        return block(bindingAdapterPosition)
     }
 
     return defaultReturn

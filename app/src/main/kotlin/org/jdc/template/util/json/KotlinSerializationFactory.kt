@@ -20,7 +20,7 @@ internal class KotlinSerializationFactory(
     override fun responseBodyConverter(
         type: Type, annotations: Array<out Annotation>,
         retrofit: Retrofit
-    ): Converter<ResponseBody, *>? {
+    ): Converter<ResponseBody, *> {
         val loader = serializer(type)
         return DeserializationStrategyConverter(loader, serializer)
     }
@@ -28,7 +28,7 @@ internal class KotlinSerializationFactory(
     override fun requestBodyConverter(
         type: Type, parameterAnnotations: Array<out Annotation>,
         methodAnnotations: Array<out Annotation>, retrofit: Retrofit
-    ): Converter<*, RequestBody>? {
+    ): Converter<*, RequestBody> {
         val saver = serializer(type)
         return SerializationStrategyConverter(contentType, saver, serializer)
     }

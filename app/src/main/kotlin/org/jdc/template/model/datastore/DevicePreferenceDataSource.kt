@@ -17,7 +17,7 @@ import org.jdc.template.model.datastore.migration.DevicePreferenceMigration3
 import org.jdc.template.model.datastore.migration.SharedPreferenceMigration
 import org.jdc.template.model.data.DisplayThemeType
 import org.jdc.template.util.datastore.PreferenceMigrations
-import org.jdc.template.util.enumValueOfOrDefault
+import org.jdc.template.util.ext.enumValueOfOrDefault
 import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Singleton
