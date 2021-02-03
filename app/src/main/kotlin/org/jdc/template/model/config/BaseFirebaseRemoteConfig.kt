@@ -83,7 +83,6 @@ abstract class BaseFirebaseRemoteConfig(@XmlRes remoteConfigDefaults: Int) {
      * @param timeoutSeconds How long the fetch should be allowed to take before timeout will occur
      * @return true if the fetch was successful and we could apply the changes; false if there was an error fetching and activating
      */
-    @Suppress("TooGenericExceptionCaught") // NEVER allow this function to crash the app
     fun fetchAndActivateNow(timeoutSeconds: Long = DEFAULT_TIMEOUT_FETCH_SECONDS_SHORT): Boolean {
         Timber.d("RemoteConfig: fetchAndActivateNow")
 
@@ -99,8 +98,8 @@ abstract class BaseFirebaseRemoteConfig(@XmlRes remoteConfigDefaults: Int) {
             }
         } catch (e: TimeoutException) {
             Timber.w("fetchAndActivateNow timeout occurred")
-        } catch (e: Exception) {
-            Timber.e(e,"Failed to FetchAndActivate")
+        } catch (expected: Exception) {
+            Timber.e(expected,"Failed to FetchAndActivate")
         }
 
         return false
