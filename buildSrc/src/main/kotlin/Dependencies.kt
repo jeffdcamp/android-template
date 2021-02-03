@@ -1,5 +1,5 @@
 // Versions for Dependencies AND Build Plugins
-const val KOTLIN_VERSION = "1.4.21"
+const val KOTLIN_VERSION = "1.4.30"
 private const val COROUTINES_VERSION = "1.4.2"
 const val DAGGER_HILT_VERSION = "2.31.2-alpha"
 const val ANDROIDX_NAVIGATION_VERSION = "2.3.3"
@@ -88,7 +88,7 @@ object Deps {
     const val ARCH_ROOM_RUNTIME = "androidx.room:room-runtime:$ROOM_VERSION"
     const val ARCH_ROOM_KTX = "androidx.room:room-ktx:$ROOM_VERSION"
     const val ARCH_ROOM_COMPILER = "androidx.room:room-compiler:$ROOM_VERSION"
-    private const val DBTOOLS_VERSION = "6.0.0-beta01"
+    private const val DBTOOLS_VERSION = "6.0.0-beta02"
     const val DBTOOLS_ROOM = "org.dbtools:dbtools-room:$DBTOOLS_VERSION"
     const val DBTOOLS_ROOM_SQLITE = "org.dbtools:dbtools-room-sqliteorg:$DBTOOLS_VERSION"
 
