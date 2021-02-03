@@ -26,7 +26,7 @@ import kotlin.reflect.KProperty
  *
  * Accessing this variable while the fragment's view is destroyed will throw NPE.
  */
-class AutoClearedValue<T : Any>(val fragment: Fragment) : ReadWriteProperty<Fragment, T> {
+private class AutoClearedValue<T>(val fragment: Fragment, val onClear: (T) -> Unit) : ReadWriteProperty<Fragment, T> {
     private var _value: T? = null
 
     init {
@@ -35,6 +35,7 @@ class AutoClearedValue<T : Any>(val fragment: Fragment) : ReadWriteProperty<Frag
                 fragment.viewLifecycleOwnerLiveData.observe(fragment) { viewLifecycleOwner ->
                     viewLifecycleOwner?.lifecycle?.addObserver(object : DefaultLifecycleObserver {
                         override fun onDestroy(owner: LifecycleOwner) {
+                            _value?.let { onClear(it) }
                             _value = null
                         }
                     })
@@ -43,13 +44,8 @@ class AutoClearedValue<T : Any>(val fragment: Fragment) : ReadWriteProperty<Frag
         })
     }
 
-    @Suppress("TooGenericExceptionCaught")
     override fun getValue(thisRef: Fragment, property: KProperty<*>): T {
-        try {
-            return _value!!
-        } catch (e: NullPointerException) {
-            error("should never call auto-cleared-value get when it might not be available")
-        }
+        return checkNotNull(_value) { "Should never call auto-cleared-value get when it might not be available" }
     }
 
     override fun setValue(thisRef: Fragment, property: KProperty<*>, value: T) {
@@ -58,8 +54,69 @@ class AutoClearedValue<T : Any>(val fragment: Fragment) : ReadWriteProperty<Frag
 }
 
 /**
+ * A lazy property that gets cleaned up when the fragment's view is destroyed.
+ *
+ * Accessing this variable while the fragment's view is destroyed will NOT throw an exception but return null.
+ */
+private class AutoClearedNullableValue<T: Any?>(val fragment: Fragment, val onClear: (T) -> Unit) : ReadWriteProperty<Fragment, T> {
+    private var _value: T? = null
+
+    init {
+        fragment.lifecycle.addObserver(object : DefaultLifecycleObserver {
+            override fun onCreate(owner: LifecycleOwner) {
+                fragment.viewLifecycleOwnerLiveData.observe(fragment) { viewLifecycleOwner ->
+                    viewLifecycleOwner?.lifecycle?.addObserver(object : DefaultLifecycleObserver {
+                        override fun onDestroy(owner: LifecycleOwner) {
+                            _value?.let { onClear(it) }
+                            _value = null
+                        }
+                    })
+                }
+            }
+        })
+    }
+
+    @Suppress("UNCHECKED_CAST") // This is an unnecessary cast to handle kotlin's null safety
+    override fun getValue(thisRef: Fragment, property: KProperty<*>): T {
+        return _value as T
+    }
+
+    override fun setValue(thisRef: Fragment, property: KProperty<*>, value: T) {
+        _value = value
+    }
+}
+
+class AutoClearedLoader<T>(private val nullable: Boolean, private val onClear: (T) -> Unit) {
+    operator fun provideDelegate(
+        thisRef: Fragment,
+        property: KProperty<*>
+    ): ReadWriteProperty<Fragment, T> {
+        // NOTE: This can be done through reflection: property.returnType.isMarkedNullable
+        // This is cooler and way more awesome To be added if we can find more good use cases of reflection.
+        // To be approved by Team Leads
+        return if (nullable) {
+            AutoClearedNullableValue(thisRef, onClear)
+        } else {
+            AutoClearedValue(thisRef, onClear)
+        }
+    }
+}
+
+/**
  * Creates an [AutoClearedValue] associated with this fragment.
  * This should be used for Bindings, ViewPager Adapters, and RecyclerViewAdapters
  * (Any View Adapter/Binding in a fragment)
+ *
+ * @param onClear called before the value is null'd out if not null
  */
-fun <T : Any> Fragment.autoCleared() = AutoClearedValue<T>(this)
+@Suppress("unused") // Used to scope to Fragments
+fun <T: Any> Fragment.autoCleared(onClear: (T) -> Unit = {}): AutoClearedLoader<T> = AutoClearedLoader(nullable = false, onClear)
+/**
+ * Creates an [AutoClearedValue] associated with this fragment.
+ * This should be used for Bindings, ViewPager Adapters, and RecyclerViewAdapters, MenuItems
+ * (Any View Adapter/Binding in a fragment)
+ *
+ * @param onClear called before the value is null'd out if not null
+ */
+@Suppress("unused") // Used to scope to Fragments
+fun <T: Any?> Fragment.autoClearedNullable(onClear: (T?) -> Unit = {}): AutoClearedLoader<T?> = AutoClearedLoader(nullable = true, onClear)

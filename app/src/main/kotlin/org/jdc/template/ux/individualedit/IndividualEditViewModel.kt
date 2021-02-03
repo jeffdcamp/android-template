@@ -8,10 +8,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.launch
 import org.jdc.template.R
-import org.jdc.template.util.coroutine.channel.ViewModelChannel
-import org.jdc.template.util.delegates.requireSavedState
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.repository.IndividualRepository
+import org.jdc.template.util.coroutine.channel.ViewModelChannel
+import org.jdc.template.util.delegates.requireSavedState
 import java.time.LocalDate
 import java.time.LocalTime
 import javax.inject.Inject
@@ -25,7 +25,7 @@ class IndividualEditViewModel
     private val _eventChannel: ViewModelChannel<Event> = ViewModelChannel(this)
     val eventChannel: ReceiveChannel<Event> = _eventChannel
 
-    private val individualId: Long by requireSavedState(savedStateHandle, "individualId")
+    private val individualId: Long by requireSavedState(savedStateHandle)
     private var individual = Individual()
 
     // Fields
