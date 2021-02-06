@@ -48,7 +48,7 @@ object Deps {
     const val ARCH_WORK_GCM = "androidx.work:work-gcm:$WORKMANAGER_VERSION" // Remove with min SDK 23
     const val WORKMANAGER_TOOLS = "org.dbtools:workmanager-tools:1.14.0"
 
-    const val ANDROID_MATERIAL = "com.google.android.material:material:1.3.0-rc01" // https://github.com/material-components/material-components-android/releases
+    const val ANDROID_MATERIAL = "com.google.android.material:material:1.3.0" // https://github.com/material-components/material-components-android/releases
 
     // Play Services
     const val PLAYSERVICE_CORE = "com.google.android.play:core-ktx:1.8.1" // https://developer.android.com/reference/com/google/android/play/core/release-notes
@@ -64,7 +64,7 @@ object Deps {
     const val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics-ktx"
 
     // Code
-    const val KOTLIN_SERIALIZATION = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1"
+    const val KOTLIN_SERIALIZATION = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0-RC"
     const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINES_VERSION"
     const val RETROFIT = "com.squareup.retrofit2:retrofit:2.9.0"
     const val TIMBER = "com.jakewharton.timber:timber:4.7.1"
@@ -109,7 +109,7 @@ object Deps {
     const val TEST_ANDROIDX_JUNIT = "androidx.test.ext:junit:1.1.2"
 
     // Test - JUnit
-    private const val JUNIT_VERSION = "5.7.0"
+    private const val JUNIT_VERSION = "5.7.1"
     const val TEST_JUNIT = "org.junit.jupiter:junit-jupiter:$JUNIT_VERSION"
     const val TEST_JUNIT_ENGINE = "org.junit.jupiter:junit-jupiter-engine:$JUNIT_VERSION"
     const val TEST_OKHTTP_MOCKWEBSERVER = "com.squareup.okhttp3:mockwebserver:$OKHTTP_VERSION"
