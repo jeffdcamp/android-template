@@ -1,7 +1,7 @@
 // Versions for Dependencies AND Build Plugins
 const val KOTLIN_VERSION = "1.4.30"
 private const val COROUTINES_VERSION = "1.4.2"
-const val DAGGER_HILT_VERSION = "2.31.2-alpha"
+const val DAGGER_HILT_VERSION = "2.32-alpha"
 const val ANDROIDX_NAVIGATION_VERSION = "2.3.3"
 
 object BuildDeps {
@@ -28,12 +28,12 @@ object Deps {
     const val ANDROIDX_PREFERENCE = "androidx.preference:preference-ktx:1.1.1"
     const val ANDROIDX_CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:2.0.4"
     const val ANDROIDX_CORE = "androidx.core:core-ktx:1.5.0-beta01"
-    const val ANDROIDX_ACTIVITY_KTX = "androidx.activity:activity-ktx:1.2.0-rc01"
-    const val ANDROIDX_FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.3.0-rc02"
+    const val ANDROIDX_ACTIVITY_KTX = "androidx.activity:activity-ktx:1.2.0"
+    const val ANDROIDX_FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.3.0"
     const val ANDROIDX_STARTUP = "androidx.startup:startup-runtime:1.0.0"
     const val ANDROID_DATASTORE_PREFS = "androidx.datastore:datastore-preferences:1.0.0-alpha06"
 
-    private const val LIFECYCLE_VERSION = "2.3.0-rc01"
+    private const val LIFECYCLE_VERSION = "2.3.0"
     const val ARCH_LIFECYCLE_RUNTIME = "androidx.lifecycle:lifecycle-runtime-ktx:$LIFECYCLE_VERSION"
     const val ARCH_LIFECYCLE_VIEWMODEL = "androidx.lifecycle:lifecycle-viewmodel-ktx:$LIFECYCLE_VERSION"
     const val ARCH_LIFECYCLE_SAVE_STATE = "androidx.lifecycle:lifecycle-viewmodel-savedstate:$LIFECYCLE_VERSION"
@@ -79,7 +79,7 @@ object Deps {
     const val ANDROIDX_HILT_COMPILER = "androidx.hilt:hilt-compiler:$ANDROIDX_HILT_VERSION"
 
     // Standard dagger is needed for unit tests ONLY
-    private const val DAGGER_VERSION = "2.31.2"
+    private const val DAGGER_VERSION = "2.32"
     const val DAGGER = "com.google.dagger:dagger:$DAGGER_VERSION"
     const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
 
