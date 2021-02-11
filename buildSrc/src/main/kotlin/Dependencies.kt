@@ -5,7 +5,7 @@ const val DAGGER_HILT_VERSION = "2.32-alpha"
 const val ANDROIDX_NAVIGATION_VERSION = "2.3.3"
 
 object BuildDeps {
-    const val ANDROID = "com.android.tools.build:gradle:7.0.0-alpha05"
+    const val ANDROID = "com.android.tools.build:gradle:7.0.0-alpha06"
     const val KOTLIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
     const val KOTLIN_SERIALIZATION = "org.jetbrains.kotlin:kotlin-serialization:$KOTLIN_VERSION"
     const val GOOGLE_SERVICES = "com.google.gms:google-services:4.3.5"
