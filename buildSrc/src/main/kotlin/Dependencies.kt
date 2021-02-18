@@ -10,7 +10,7 @@ object BuildDeps {
     const val KOTLIN_SERIALIZATION = "org.jetbrains.kotlin:kotlin-serialization:$KOTLIN_VERSION"
     const val GOOGLE_SERVICES = "com.google.gms:google-services:4.3.5"
     const val HILT = "com.google.dagger:hilt-android-gradle-plugin:$DAGGER_HILT_VERSION"
-    const val FIREBASE_CRASHLYTICS = "com.google.firebase:firebase-crashlytics-gradle:2.4.1"
+    const val FIREBASE_CRASHLYTICS = "com.google.firebase:firebase-crashlytics-gradle:2.5.0"
     const val FIREBASE_APP_DISTRIBUTION = "com.google.firebase:firebase-appdistribution-gradle:2.0.1"
     const val FIREBASE_PERF = "com.google.firebase:perf-plugin:1.3.4"
     const val SAFE_ARGS = "androidx.navigation:navigation-safe-args-gradle-plugin:$ANDROIDX_NAVIGATION_VERSION"
@@ -56,7 +56,7 @@ object Deps {
     // const val PLAYSERVICE_LICENSES = "com.google.android.gms:play-services-oss-licenses:17.0.0"
 
     // Firebase - https://firebase.google.com/support/release-notes/android
-    const val FIREBASE_BOM = "com.google.firebase:firebase-bom:26.4.0" // automatically sets the version for all firebase libs below
+    const val FIREBASE_BOM = "com.google.firebase:firebase-bom:26.5.0" // automatically sets the version for all firebase libs below
     const val FIREBASE_CORE = "com.google.firebase:firebase-core"
     const val FIREBASE_PERF = "com.google.firebase:firebase-perf"
     const val FIREBASE_CONFIG = "com.google.firebase:firebase-config-ktx"
@@ -84,7 +84,7 @@ object Deps {
     const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
 
     // Database
-    private const val ROOM_VERSION = "2.3.0-beta01"
+    private const val ROOM_VERSION = "2.3.0-beta02"
     const val ARCH_ROOM_RUNTIME = "androidx.room:room-runtime:$ROOM_VERSION"
     const val ARCH_ROOM_KTX = "androidx.room:room-ktx:$ROOM_VERSION"
     const val ARCH_ROOM_COMPILER = "androidx.room:room-compiler:$ROOM_VERSION"
