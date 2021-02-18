@@ -19,7 +19,7 @@ interface IndividualDao {
     suspend fun deleteAll()
 
     @Query("SELECT count(1) FROM Individual")
-    suspend fun findCount(): Long
+    suspend fun findCount(): Int
 
     @Query("SELECT * FROM Individual WHERE id = :id")
     suspend fun findById(id: Long): Individual?

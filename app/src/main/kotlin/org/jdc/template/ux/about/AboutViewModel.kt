@@ -186,7 +186,7 @@ class AboutViewModel
      */
     fun testTableChange() = viewModelScope.launch {
         // Sample tests
-        if (individualRepository.getIndividualCount() == 0L) {
+        if (individualRepository.getIndividualCount() == 0) {
             Timber.e("No data.. cannot perform test")
             return@launch
         }

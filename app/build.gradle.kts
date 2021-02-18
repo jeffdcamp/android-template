@@ -21,6 +21,7 @@ plugins {
     id ("de.undercouch.download")
     id("com.github.triplet.play")
     id("com.github.jk1.dependency-license-report")
+    //id("com.google.devtools.ksp")
 }
 
 // Manifest version information
@@ -248,6 +249,7 @@ dependencies {
     implementation(Deps.ARCH_ROOM_RUNTIME)
     implementation(Deps.ARCH_ROOM_KTX)
     kapt(Deps.ARCH_ROOM_COMPILER)
+    //ksp(Deps.ARCH_ROOM_COMPILER)
     implementation(Deps.DBTOOLS_ROOM)
 
     // Custom SQLite database

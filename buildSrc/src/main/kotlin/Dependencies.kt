@@ -6,6 +6,7 @@ const val ANDROIDX_NAVIGATION_VERSION = "2.3.3"
 
 object BuildDeps {
     const val ANDROID = "com.android.tools.build:gradle:7.0.0-alpha07"
+    const val KSP = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:1.4.30-1.0.0-alpha02"
     const val KOTLIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
     const val KOTLIN_SERIALIZATION = "org.jetbrains.kotlin:kotlin-serialization:$KOTLIN_VERSION"
     const val GOOGLE_SERVICES = "com.google.gms:google-services:4.3.5"

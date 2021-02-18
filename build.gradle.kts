@@ -9,6 +9,7 @@ buildscript {
     }
     dependencies {
         classpath(BuildDeps.ANDROID)
+        // classpath(BuildDeps.KSP)
         classpath(BuildDeps.KOTLIN)
         classpath(BuildDeps.KOTLIN_SERIALIZATION)
         classpath(BuildDeps.HILT)
