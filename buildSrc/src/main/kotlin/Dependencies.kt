@@ -8,7 +8,7 @@ object Libs {
 
         object Serialization {
             const val GRADLE_PLUGIN = "org.jetbrains.kotlin:kotlin-serialization:$VERSION"
-            const val JSON = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0-RC"
+            const val JSON = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0"
         }
 
 
