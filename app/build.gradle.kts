@@ -205,7 +205,7 @@ dependencies {
     // Firebase
     implementation(platform(Libs.Google.Firebase.BOM))
     implementation(Libs.Google.Firebase.CORE)
-//    implementation(Deps.FIREBASE_PERF)
+    //implementation(Libs.Google.Firebase.PERF)
     implementation(Libs.Google.Firebase.CONFIG)
     implementation(Libs.Google.Firebase.CRASHLYTICS)
     implementation(Libs.Google.Firebase.ANALYTICS)
@@ -227,7 +227,6 @@ dependencies {
     implementation(Libs.AndroidX.Lifecycle.VIEWMODEL_KTX)
     implementation(Libs.AndroidX.Lifecycle.VIEWMODEL_SAVESTATE)
     implementation(Libs.AndroidX.Lifecycle.COMMON_JAVA8)
-    implementation(Libs.AndroidX.Lifecycle.LIVE_DATA_KTX)
 
     // Navigation
     implementation(Libs.AndroidX.Navigation.FRAGMENT_KTX)

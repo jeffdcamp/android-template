@@ -58,7 +58,6 @@ object Libs {
             const val VIEWMODEL_KTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:$VERSION"
             const val VIEWMODEL_SAVESTATE = "androidx.lifecycle:lifecycle-viewmodel-savedstate:$VERSION"
             const val COMMON_JAVA8 = "androidx.lifecycle:lifecycle-common-java8:$VERSION"
-            const val LIVE_DATA_KTX = "androidx.lifecycle:lifecycle-livedata-ktx:$VERSION"
         }
 
         object Navigation {
