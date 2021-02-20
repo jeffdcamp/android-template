@@ -8,19 +8,20 @@ buildscript {
         maven("https://plugins.gradle.org/m2")
     }
     dependencies {
-        classpath(BuildDeps.ANDROID)
-        // classpath(BuildDeps.KSP)
-        classpath(BuildDeps.KOTLIN)
-        classpath(BuildDeps.KOTLIN_SERIALIZATION)
-        classpath(BuildDeps.HILT)
-        classpath(BuildDeps.SAFE_ARGS)
-        classpath(BuildDeps.FIREBASE_CRASHLYTICS)
-        classpath(BuildDeps.FIREBASE_APP_DISTRIBUTION)
-        classpath(BuildDeps.GOOGLE_SERVICES)
-        classpath(BuildDeps.GRADLE_VERSIONS)
-        classpath(BuildDeps.PLAY_PUBLISHER)
-        classpath(BuildDeps.LICENSE_REPORT)
-        classpath(BuildDeps.GRADLE_DETEKT)
+        classpath(Libs.ANDROID_GRADLE_PLUGIN)
+        // classpath(Plugins.Google.GRADLE_PLUGIN_KSP)
+        classpath(Libs.Kotlin.GRADLE_PLUGIN)
+        classpath(Libs.Kotlin.Serialization.GRADLE_PLUGIN)
+        classpath(Libs.Google.Hilt.GRADLE_PLUGIN)
+        classpath(Libs.AndroidX.Navigation.GRADLE_PLUGIN_SAFE_ARGS)
+        classpath(Libs.Google.Firebase.GRADLE_PLUGIN_CRASHLYTICS)
+        classpath(Libs.Google.Firebase.GRADLE_PLUGIN_APP_DISTRIBUTION)
+        // classpath(Libs.Google.Firebase.GRADLE_PLUGIN_PERF)
+        classpath(Libs.Google.GRADLE_PLUGIN_SERVICES)
+        classpath(Libs.GRADLE_PLUGIN_VERSIONS)
+        classpath(Libs.GRADLE_PLUGIN_PLAY_PUBLISHER)
+        classpath(Libs.GRADLE_PLUGIN_LICENSE_REPORT)
+        classpath(Libs.GRADLE_PLUGIN_GRADLE_DETEKT)
     }
 }
 

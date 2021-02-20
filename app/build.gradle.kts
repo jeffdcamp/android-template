@@ -24,13 +24,6 @@ plugins {
     //id("com.google.devtools.ksp")
 }
 
-// Manifest version information
-val buildTime = Date().time
-val versionCodeAppName = "android-template"
-val minVersionCode = 1001
-val appVersionCode = VersionCode.readVersionCode(versionCodeAppName, minVersionCode)
-val appVersionName = "1.0.0 ($appVersionCode.${System.getenv("BUILD_NUMBER")})"
-
 kapt {
     javacOptions {
         // Increase the max count of errors from annotation processors. (Default is 100)
@@ -54,15 +47,15 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
 }
 
 android {
-    compileSdkVersion(AndroidSdk.COMPILE)
+    compileSdkVersion(AppInfo.Sdk.COMPILE)
 
     defaultConfig {
-        minSdkVersion(AndroidSdk.MIN)
-        targetSdkVersion(AndroidSdk.TARGET)
+        minSdkVersion(AppInfo.Sdk.MIN)
+        targetSdkVersion(AppInfo.Sdk.TARGET)
 
-        applicationId = "org.jdc.template"
-        versionCode = appVersionCode
-        versionName = appVersionName
+        applicationId = AppInfo.APPLICATION_ID
+        versionCode = AppInfo.Version.CODE
+        versionName = AppInfo.Version.NAME
 
         buildConfigField("String", "BUILD_NUMBER", "\"${System.getProperty("BUILD_NUMBER")}\"")
         buildConfigField("String", "USER_AGENT_APP_NAME", "\"AndroidTemplate\"")
@@ -138,7 +131,7 @@ android {
             initWith(getByName("release"))
             versionNameSuffix = " ALPHA"
             applicationIdSuffix = ".alpha"
-            buildConfigField("long", "BUILD_TIME", "${buildTime}l")
+            buildConfigField("long", "BUILD_TIME", "${Date().time}l")
             // isDebuggable = true
             signingConfig = signingConfigs.getByName("upload")
 
@@ -152,7 +145,7 @@ android {
         create("beta") {
             initWith(getByName("release"))
             versionNameSuffix = " BETA"
-            buildConfigField("long", "BUILD_TIME", "${buildTime}l")
+            buildConfigField("long", "BUILD_TIME", "${Date().time}l")
             signingConfig = signingConfigs.getByName("upload")
 
             firebaseAppDistribution {
@@ -163,7 +156,7 @@ android {
             }
         }
         getByName("release") {
-            buildConfigField("long", "BUILD_TIME", "${buildTime}l")
+            buildConfigField("long", "BUILD_TIME", "${Date().time}l")
             versionNameSuffix = ""
             //minifyEnabled true
             //shrinkResources true
@@ -193,64 +186,64 @@ android {
 
 dependencies {
     // Android
-    coreLibraryDesugaring(Deps.ANDROID_DESUGAR_JDK_LIBS)
-    implementation(Deps.ANDROIDX_APPCOMPAT)
-    implementation(Deps.ANDROIDX_RECYCLERVIEW)
-    implementation(Deps.ANDROIDX_PREFERENCE)
-    implementation(Deps.ANDROID_MATERIAL)
-    implementation(Deps.ANDROIDX_CONSTRAINT_LAYOUT)
-    implementation(Deps.ANDROIDX_CORE)
-    implementation(Deps.ANDROIDX_ACTIVITY_KTX)
-    implementation(Deps.ANDROIDX_FRAGMENT_KTX)
-    implementation(Deps.ANDROIDX_STARTUP)
-    implementation(Deps.ANDROID_DATASTORE_PREFS)
+    coreLibraryDesugaring(Libs.DESUGAR)
+    implementation(Libs.AndroidX.APPCOMPAT)
+    implementation(Libs.AndroidX.Layout.RECYCLERVIEW)
+    implementation(Libs.AndroidX.PREFERENCE_KTX)
+    implementation(Libs.Google.MATERIAL)
+    implementation(Libs.AndroidX.Layout.CONSTRAINT)
+    implementation(Libs.AndroidX.CORE_KTX)
+    implementation(Libs.AndroidX.ACTIVITY_KTX)
+    implementation(Libs.AndroidX.FRAGMENT_KTX)
+    implementation(Libs.AndroidX.STARTUP)
+    implementation(Libs.AndroidX.DATASTORE_PREFS)
 
     // Play Service
-    implementation(Deps.PLAYSERVICE_CORE)
-    implementation(Deps.PLAYSERVICE_KOTLINX_COROUTINES)
+    implementation(Libs.Google.Play.CORE)
+    implementation(Libs.Kotlin.Coroutines.PLAY_SERVICES)
 
     // Firebase
-    implementation(platform(Deps.FIREBASE_BOM))
-    implementation(Deps.FIREBASE_CORE)
+    implementation(platform(Libs.Google.Firebase.BOM))
+    implementation(Libs.Google.Firebase.CORE)
 //    implementation(Deps.FIREBASE_PERF)
-    implementation(Deps.FIREBASE_CONFIG)
-    implementation(Deps.FIREBASE_CRASHLYTICS)
-    implementation(Deps.FIREBASE_ANALYTICS)
+    implementation(Libs.Google.Firebase.CONFIG)
+    implementation(Libs.Google.Firebase.CRASHLYTICS)
+    implementation(Libs.Google.Firebase.ANALYTICS)
 
     // Code
-    implementation(Deps.KOTLIN_SERIALIZATION)
-    implementation(Deps.COROUTINES)
-    implementation(Deps.TIMBER)
+    implementation(Libs.Kotlin.Serialization.JSON)
+    implementation(Libs.Kotlin.Coroutines.ANDROID)
+    implementation(Libs.TIMBER)
 
     // Inject
-    implementation(Deps.HILT)
-    kapt(Deps.HILT_COMPILER)
-    implementation(Deps.ANDROIDX_HILT_WORK)
-    implementation(Deps.ANDROIDX_HILT_VIEWMODEL)
-    kapt(Deps.ANDROIDX_HILT_COMPILER)
+    implementation(Libs.Google.Hilt.ANDROID)
+    kapt(Libs.Google.Hilt.COMPILER)
+    implementation(Libs.AndroidX.Hilt.VIEWMODEL)
+    implementation(Libs.AndroidX.Hilt.WORK)
+    kapt(Libs.AndroidX.Hilt.COMPILER)
 
     // Android Architecture Components
-    implementation(Deps.ARCH_LIFECYCLE_RUNTIME)
-    implementation(Deps.ARCH_LIFECYCLE_VIEWMODEL)
-    implementation(Deps.ARCH_LIFECYCLE_SAVE_STATE)
-    implementation(Deps.LIFECYCLE_COMMON)
-    implementation(Deps.LIVE_DATA_KTX)
+    implementation(Libs.AndroidX.Lifecycle.RUNTIME)
+    implementation(Libs.AndroidX.Lifecycle.VIEWMODEL_KTX)
+    implementation(Libs.AndroidX.Lifecycle.VIEWMODEL_SAVESTATE)
+    implementation(Libs.AndroidX.Lifecycle.COMMON_JAVA8)
+    implementation(Libs.AndroidX.Lifecycle.LIVE_DATA_KTX)
 
     // Navigation
-    implementation(Deps.ARCH_NAVIGATION_FRAGMENT)
-    implementation(Deps.ARCH_NAVIGATION_UI)
+    implementation(Libs.AndroidX.Navigation.FRAGMENT_KTX)
+    implementation(Libs.AndroidX.Navigation.UI_KTX)
 
     // WorkManager
-    implementation(Deps.ARCH_WORK_RUNTIME)
-    implementation(Deps.ARCH_WORK_GCM)
-    implementation(Deps.WORKMANAGER_TOOLS)
+    implementation(Libs.AndroidX.WorkManager.RUNTIME)
+    implementation(Libs.AndroidX.WorkManager.GCM)
+    implementation(Libs.WORKMANAGER_TOOLS)
 
     // Database
-    implementation(Deps.ARCH_ROOM_RUNTIME)
-    implementation(Deps.ARCH_ROOM_KTX)
-    kapt(Deps.ARCH_ROOM_COMPILER)
-    //ksp(Deps.ARCH_ROOM_COMPILER)
-    implementation(Deps.DBTOOLS_ROOM)
+    implementation(Libs.AndroidX.Room.RUNTIME)
+    implementation(Libs.AndroidX.Room.KTX)
+    kapt(Libs.AndroidX.Room.COMPILER)
+    //ksp(Deps.AndroidX.Room.COMPILER)
+    implementation(Libs.DBTools.ROOM)
 
     // Custom SQLite database
     // (for use of SqliteOrgSQLiteOpenHelperFactory in AppModule.kt)
@@ -262,37 +255,35 @@ dependencies {
     // debugimplementation("com.amitshekhar.android:debug-db:1.0.6")
 
     // Network
-    implementation(Deps.OKHTTP)
-    implementation(Deps.OKHTTP_LOGGING_INTERCEPTOR)
-    implementation(Deps.RETROFIT)
-//    implementation(Deps.KOTLIN_RETROFIT_CONVERTER) // todo: temp disabled till support for Kotlin 1.4.0
+    implementation(platform(Libs.OkHttp.BOM))
+    implementation(Libs.OkHttp.OKHTTP)
+    implementation(Libs.OkHttp.LOGGING_INTERCEPTOR)
+    implementation(Libs.RETROFIT)
 
     // Dev
-    debugImplementation(Deps.LEAK_CANARY)
+    debugImplementation(Libs.LEAK_CANARY)
 
     // Test (Integration)
-    androidTestImplementation(Deps.TEST_ESPRESSO_CORE)
-    androidTestImplementation(Deps.TEST_ESPRESSO_CONTRIB)
-    androidTestImplementation(Deps.TEST_RUNNER)
-    androidTestImplementation(Deps.TEST_RULES)
-    androidTestImplementation(Deps.TEST_ANDROIDX_JUNIT)
+    androidTestImplementation(Libs.AndroidX.Test.Espresso.CORE)
+    androidTestImplementation(Libs.AndroidX.Test.Espresso.CONTRIB)
+    androidTestImplementation(Libs.AndroidX.Test.RUNNER)
+    androidTestImplementation(Libs.AndroidX.Test.RULES)
+    androidTestImplementation(Libs.AndroidX.Test.JUNIT_EXT)
 
     // Test (Unit)
-    testImplementation(Deps.TEST_JUNIT)
-    testRuntimeOnly(Deps.TEST_JUNIT_ENGINE)
-    testImplementation(Deps.TEST_MOCKITO_KOTLIN)
-    testImplementation(Deps.TEST_MOCKITO_CORE)
-    testImplementation(Deps.TEST_KOTLIN_COROUTINES_TEST)
-    testImplementation(Deps.TEST_OKHTTP_MOCKWEBSERVER)
-    testImplementation(Deps.TEST_XERIAL_SQLITE)
-    testImplementation(Deps.TEST_ARCH_ROOM_TESTING)
-    testImplementation(Deps.TEST_DBTOOLS_ROOM_JDBC_TEST)
+    testImplementation(Libs.Test.JUnit.JUNIT)
+    testRuntimeOnly(Libs.Test.JUnit.ENGINE)
+    testImplementation(Libs.Test.MOCKITO_KOTLIN)
+    testImplementation(Libs.Test.MOCKITO_CORE)
+    testImplementation(Libs.Kotlin.Coroutines.TEST)
+    testImplementation(Libs.OkHttp.MOCKWEBSERVER)
+    testImplementation(Libs.Test.XERIAL_SQLITE)
+    testImplementation(Libs.DBTools.ROOM_JDBC_TEST)
 
     // use regular dagger for unit tests
     // (2020-06-11: "Currently, Hilt only supports Android instrumentation and Robolectric tests. Hilt cannot be used in vanilla JVM tests,
     // but it does not prevent you from writing these tests as you would normally." (https://dagger.dev/hilt/testing)
-    testImplementation(Deps.DAGGER)
-    kaptTest(Deps.DAGGER_COMPILER)
+    kaptTest(Libs.DAGGER_COMPILER)
 }
 
 // ===== TEST TASKS =====
@@ -310,7 +301,7 @@ fun getAnalyticsKey(): String {
 
 tasks.register("incrementVersionCode") {
     doLast {
-        VersionCode.incrementVersionCode(versionCodeAppName, minVersionCode)
+        VersionCode.incrementVersionCode(AppInfo.Version.APP_NAME, AppInfo.Version.MIN)
     }
 }
 
@@ -370,7 +361,7 @@ licenseReport {
     renderers = arrayOf<ReportRenderer>(
             JsonReportRenderer("../../../src/main/assets/licenses.json"), // required for acknowledgements screen in app
             SimpleHtmlReportRenderer("licenses-simple.html"),
-            InventoryHtmlReportRenderer("licenses-groups.html", versionCodeAppName), // identify unique licenses
+            InventoryHtmlReportRenderer("licenses-groups.html", AppInfo.Version.APP_NAME), // identify unique licenses
             CsvReportRenderer("licenses.csv") // preferred by legal (spreadsheet form)
     )
 
