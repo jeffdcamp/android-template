@@ -270,10 +270,10 @@ dependencies {
     androidTestImplementation(Libs.AndroidX.Test.JUNIT_EXT)
 
     // Test (Unit)
-    testImplementation(Libs.Test.JUnit.JUNIT)
-    testRuntimeOnly(Libs.Test.JUnit.ENGINE)
-    testImplementation(Libs.Test.MOCKITO_KOTLIN)
-    testImplementation(Libs.Test.MOCKITO_CORE)
+    testImplementation(Libs.JUnit.JUNIT)
+    testRuntimeOnly(Libs.JUnit.ENGINE)
+    testImplementation(Libs.Mockito.KOTLIN)
+    testImplementation(Libs.Mockito.CORE)
     testImplementation(Libs.Kotlin.Coroutines.TEST)
     testImplementation(Libs.OkHttp.MOCKWEBSERVER)
     testImplementation(Libs.Test.XERIAL_SQLITE)
@@ -282,7 +282,7 @@ dependencies {
     // use regular dagger for unit tests
     // (2020-06-11: "Currently, Hilt only supports Android instrumentation and Robolectric tests. Hilt cannot be used in vanilla JVM tests,
     // but it does not prevent you from writing these tests as you would normally." (https://dagger.dev/hilt/testing)
-    kaptTest(Libs.DAGGER_COMPILER)
+    kaptTest(Libs.Google.DAGGER_COMPILER)
 }
 
 // ===== TEST TASKS =====

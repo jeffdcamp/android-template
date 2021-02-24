@@ -9,7 +9,6 @@ object Libs {
             const val JSON = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0"
         }
 
-
         object Coroutines {
             private const val VERSION = "1.4.2"
 
@@ -91,7 +90,7 @@ object Libs {
         const val KSP_GRADLE_PLUGIN = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:1.4.30-1.0.0-alpha02"
         const val SERVICES_GRADLE_PLUGIN = "com.google.gms:google-services:4.3.5"
         const val MATERIAL = "com.google.android.material:material:1.3.0" // https://github.com/material-components/material-components-android/releases
-
+        const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:2.32" // Standard dagger is needed for unit tests ONLY
 
         object Firebase {
             const val CRASHLYTICS_GRADLE_PLUGIN = "com.google.firebase:firebase-crashlytics-gradle:2.5.0"
@@ -131,7 +130,6 @@ object Libs {
     const val WORKMANAGER_TOOLS = "org.dbtools:workmanager-tools:1.14.0"
     const val RETROFIT = "com.squareup.retrofit2:retrofit:2.9.0"
     const val TIMBER = "com.jakewharton.timber:timber:4.7.1"
-    const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:2.32" // Standard dagger is needed for unit tests ONLY
     const val LEAK_CANARY = "com.squareup.leakcanary:leakcanary-android:2.6"
 
     object DBTools {
@@ -148,15 +146,18 @@ object Libs {
         const val MOCKWEBSERVER = "com.squareup.okhttp3:mockwebserver"
     }
 
-    object Test {
-        const val MOCKITO_CORE = "org.mockito:mockito-core:3.8.0"
-        const val XERIAL_SQLITE = "org.xerial:sqlite-jdbc:3.34.0"
-        const val MOCKITO_KOTLIN = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
+    object Mockito {
+        const val CORE = "org.mockito:mockito-core:3.8.0"
+        const val KOTLIN = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
+    }
 
-        object JUnit {
-            private const val VERSION = "5.7.1"
-            const val JUNIT = "org.junit.jupiter:junit-jupiter:$VERSION"
-            const val ENGINE = "org.junit.jupiter:junit-jupiter-engine:$VERSION"
-        }
+    object JUnit {
+        private const val VERSION = "5.7.1"
+        const val JUNIT = "org.junit.jupiter:junit-jupiter:$VERSION"
+        const val ENGINE = "org.junit.jupiter:junit-jupiter-engine:$VERSION"
+    }
+
+    object Test {
+        const val XERIAL_SQLITE = "org.xerial:sqlite-jdbc:3.34.0"
     }
 }
