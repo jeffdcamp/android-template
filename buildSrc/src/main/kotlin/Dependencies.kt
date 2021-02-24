@@ -28,14 +28,14 @@ object Libs {
     object AndroidX {
         const val APPCOMPAT = "androidx.appcompat:appcompat:1.3.0-beta01"
         const val PREFERENCE_KTX = "androidx.preference:preference-ktx:1.1.1"
-        const val CORE_KTX = "androidx.core:core-ktx:1.5.0-beta01"
+        const val CORE_KTX = "androidx.core:core-ktx:1.5.0-beta02"
         const val ACTIVITY_KTX = "androidx.activity:activity-ktx:1.2.0"
         const val FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.3.0"
         const val STARTUP = "androidx.startup:startup-runtime:1.0.0"
         const val DATASTORE_PREFS = "androidx.datastore:datastore-preferences:1.0.0-alpha07"
 
         object Layout {
-            const val RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.2.0-beta01"
+            const val RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.2.0-beta02"
             const val CONSTRAINT = "androidx.constraintlayout:constraintlayout:2.0.4"
         }
 
@@ -124,7 +124,7 @@ object Libs {
 
     // ===== 3rd Party =====
     const val VERSIONS_GRADLE_PLUGIN = "com.github.ben-manes:gradle-versions-plugin:0.36.0"
-    const val PLAY_PUBLISHER_GRADLE_PLUGIN = "com.github.triplet.gradle:play-publisher:3.2.0-agp4.2-2"
+    const val PLAY_PUBLISHER_GRADLE_PLUGIN = "com.github.triplet.gradle:play-publisher:3.3.0-agp4.2"
     const val LICENSE_REPORT_GRADLE_PLUGIN = "com.github.jk1:gradle-license-report:1.16"
     const val DETEKT_GRADLE_PLUGIN = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.15.0"
 
