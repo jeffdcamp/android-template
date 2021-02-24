@@ -1,6 +1,4 @@
 object Libs {
-    const val ANDROID_GRADLE_PLUGIN = "com.android.tools.build:gradle:7.0.0-alpha07"
-
     // ===== Kotlin =====
     object Kotlin {
         private const val VERSION = "1.4.30"
@@ -22,7 +20,10 @@ object Libs {
     }
 
     // ===== Google/Android/AndroidX =====
-    const val DESUGAR = "com.android.tools:desugar_jdk_libs:1.1.1"
+    object Android {
+        const val GRADLE_PLUGIN = "com.android.tools.build:gradle:7.0.0-alpha08"
+        const val DESUGAR = "com.android.tools:desugar_jdk_libs:1.1.1"
+    }
 
     object AndroidX {
         const val APPCOMPAT = "androidx.appcompat:appcompat:1.3.0-beta01"
@@ -62,7 +63,7 @@ object Libs {
 
         object Navigation {
             private const val VERSION = "2.3.3"
-            const val GRADLE_PLUGIN_SAFE_ARGS = "androidx.navigation:navigation-safe-args-gradle-plugin:$VERSION"
+            const val SAFE_ARGS_GRADLE_PLUGIN = "androidx.navigation:navigation-safe-args-gradle-plugin:$VERSION"
             const val FRAGMENT_KTX = "androidx.navigation:navigation-fragment-ktx:$VERSION"
             const val UI_KTX = "androidx.navigation:navigation-ui-ktx:$VERSION"
         }
@@ -87,15 +88,15 @@ object Libs {
     }
 
     object Google {
-        const val GRADLE_PLUGIN_KSP = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:1.4.30-1.0.0-alpha02"
-        const val GRADLE_PLUGIN_SERVICES = "com.google.gms:google-services:4.3.5"
+        const val KSP_GRADLE_PLUGIN = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:1.4.30-1.0.0-alpha02"
+        const val SERVICES_GRADLE_PLUGIN = "com.google.gms:google-services:4.3.5"
         const val MATERIAL = "com.google.android.material:material:1.3.0" // https://github.com/material-components/material-components-android/releases
 
 
         object Firebase {
-            const val GRADLE_PLUGIN_CRASHLYTICS = "com.google.firebase:firebase-crashlytics-gradle:2.5.0"
-            const val GRADLE_PLUGIN_APP_DISTRIBUTION = "com.google.firebase:firebase-appdistribution-gradle:2.0.1"
-            const val GRADLE_PLUGIN_PERF = "com.google.firebase:perf-plugin:1.3.4"
+            const val CRASHLYTICS_GRADLE_PLUGIN = "com.google.firebase:firebase-crashlytics-gradle:2.5.0"
+            const val APP_DISTRIBUTION_GRADLE_PLUGIN = "com.google.firebase:firebase-appdistribution-gradle:2.0.1"
+            const val PERF_GRADLE_PLUGIN = "com.google.firebase:perf-plugin:1.3.4"
 
             // Firebase - https://firebase.google.com/support/release-notes/android
             const val BOM = "com.google.firebase:firebase-bom:26.5.0" // automatically sets the version for all firebase libs below
@@ -122,10 +123,10 @@ object Libs {
     }
 
     // ===== 3rd Party =====
-    const val GRADLE_PLUGIN_VERSIONS = "com.github.ben-manes:gradle-versions-plugin:0.36.0"
-    const val GRADLE_PLUGIN_PLAY_PUBLISHER = "com.github.triplet.gradle:play-publisher:3.2.0-agp4.2-2"
-    const val GRADLE_PLUGIN_LICENSE_REPORT = "com.github.jk1:gradle-license-report:1.16"
-    const val GRADLE_PLUGIN_GRADLE_DETEKT = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.15.0"
+    const val VERSIONS_GRADLE_PLUGIN = "com.github.ben-manes:gradle-versions-plugin:0.36.0"
+    const val PLAY_PUBLISHER_GRADLE_PLUGIN = "com.github.triplet.gradle:play-publisher:3.2.0-agp4.2-2"
+    const val LICENSE_REPORT_GRADLE_PLUGIN = "com.github.jk1:gradle-license-report:1.16"
+    const val DETEKT_GRADLE_PLUGIN = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.15.0"
 
     const val WORKMANAGER_TOOLS = "org.dbtools:workmanager-tools:1.14.0"
     const val RETROFIT = "com.squareup.retrofit2:retrofit:2.9.0"
@@ -148,7 +149,7 @@ object Libs {
     }
 
     object Test {
-        const val MOCKITO_CORE = "org.mockito:mockito-core:3.7.7"
+        const val MOCKITO_CORE = "org.mockito:mockito-core:3.8.0"
         const val XERIAL_SQLITE = "org.xerial:sqlite-jdbc:3.34.0"
         const val MOCKITO_KOTLIN = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
 

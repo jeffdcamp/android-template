@@ -8,20 +8,20 @@ buildscript {
         maven("https://plugins.gradle.org/m2")
     }
     dependencies {
-        classpath(Libs.ANDROID_GRADLE_PLUGIN)
-        // classpath(Plugins.Google.GRADLE_PLUGIN_KSP)
+        classpath(Libs.Android.GRADLE_PLUGIN)
+        // classpath(Plugins.Google.KSP_GRADLE_PLUGIN)
         classpath(Libs.Kotlin.GRADLE_PLUGIN)
         classpath(Libs.Kotlin.Serialization.GRADLE_PLUGIN)
         classpath(Libs.Google.Hilt.GRADLE_PLUGIN)
-        classpath(Libs.AndroidX.Navigation.GRADLE_PLUGIN_SAFE_ARGS)
-        classpath(Libs.Google.Firebase.GRADLE_PLUGIN_CRASHLYTICS)
-        classpath(Libs.Google.Firebase.GRADLE_PLUGIN_APP_DISTRIBUTION)
-        // classpath(Libs.Google.Firebase.GRADLE_PLUGIN_PERF)
-        classpath(Libs.Google.GRADLE_PLUGIN_SERVICES)
-        classpath(Libs.GRADLE_PLUGIN_VERSIONS)
-        classpath(Libs.GRADLE_PLUGIN_PLAY_PUBLISHER)
-        classpath(Libs.GRADLE_PLUGIN_LICENSE_REPORT)
-        classpath(Libs.GRADLE_PLUGIN_GRADLE_DETEKT)
+        classpath(Libs.AndroidX.Navigation.SAFE_ARGS_GRADLE_PLUGIN)
+        classpath(Libs.Google.Firebase.CRASHLYTICS_GRADLE_PLUGIN)
+        classpath(Libs.Google.Firebase.APP_DISTRIBUTION_GRADLE_PLUGIN)
+        // classpath(Libs.Google.Firebase.PERF_GRADLE_PLUGIN)
+        classpath(Libs.Google.SERVICES_GRADLE_PLUGIN)
+        classpath(Libs.VERSIONS_GRADLE_PLUGIN)
+        classpath(Libs.PLAY_PUBLISHER_GRADLE_PLUGIN)
+        classpath(Libs.LICENSE_REPORT_GRADLE_PLUGIN)
+        classpath(Libs.DETEKT_GRADLE_PLUGIN)
     }
 }
 

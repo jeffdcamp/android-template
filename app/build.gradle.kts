@@ -186,7 +186,7 @@ android {
 
 dependencies {
     // Android
-    coreLibraryDesugaring(Libs.DESUGAR)
+    coreLibraryDesugaring(Libs.Android.DESUGAR)
     implementation(Libs.AndroidX.APPCOMPAT)
     implementation(Libs.AndroidX.Layout.RECYCLERVIEW)
     implementation(Libs.AndroidX.PREFERENCE_KTX)
