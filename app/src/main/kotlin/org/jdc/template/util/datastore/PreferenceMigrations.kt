@@ -158,10 +158,9 @@ class PreferenceMigrations(
             toVersion: Int,
             sharedPreferencesName: String = context.packageName + "_preferences", // default provided by PreferenceManager.getDefaultSharedPreferences(context)
             keysToMigrate: Set<String>? = null,
-            deleteEmptyPreferences: Boolean = true,
             shouldRunMigration: suspend (Preferences) -> Boolean = { it[PREFERENCES_VERSION_KEY] == null },
             migrate: suspend (SharedPreferencesView, Preferences) -> Preferences
-        ) = SharedPreferencesMigration(context, sharedPreferencesName, keysToMigrate, deleteEmptyPreferences, shouldRunMigration, migrate = { sharedPrefs, currentData ->
+        ) = SharedPreferencesMigration(context, sharedPreferencesName, keysToMigrate, shouldRunMigration, migrate = { sharedPrefs, currentData ->
             val mutablePreferences = migrate(sharedPrefs, currentData).toMutablePreferences()
 
             mutablePreferences[PREFERENCES_VERSION_KEY] = toVersion

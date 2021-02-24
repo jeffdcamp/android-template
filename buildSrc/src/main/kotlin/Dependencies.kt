@@ -32,7 +32,7 @@ object Libs {
         const val ACTIVITY_KTX = "androidx.activity:activity-ktx:1.2.0"
         const val FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.3.0"
         const val STARTUP = "androidx.startup:startup-runtime:1.0.0"
-        const val DATASTORE_PREFS = "androidx.datastore:datastore-preferences:1.0.0-alpha06"
+        const val DATASTORE_PREFS = "androidx.datastore:datastore-preferences:1.0.0-alpha07"
 
         object Layout {
             const val RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.2.0-beta01"

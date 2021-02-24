@@ -1,6 +1,7 @@
 package org.jdc.template.model.datastore
 
 import android.app.Application
+import android.content.Context
 import android.os.Build
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -8,14 +9,14 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.datastore.preferences.createDataStore
+import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import org.jdc.template.model.data.DisplayThemeType
 import org.jdc.template.model.datastore.migration.DevicePreferenceMigration1To3
 import org.jdc.template.model.datastore.migration.DevicePreferenceMigration2
 import org.jdc.template.model.datastore.migration.DevicePreferenceMigration3
 import org.jdc.template.model.datastore.migration.SharedPreferenceMigration
-import org.jdc.template.model.data.DisplayThemeType
 import org.jdc.template.util.datastore.PreferenceMigrations
 import org.jdc.template.util.ext.enumValueOfOrDefault
 import java.util.UUID
@@ -26,11 +27,11 @@ import javax.inject.Singleton
 @Singleton
 class DevicePreferenceDataSource
 @Inject constructor(
-    application: Application
+    private val application: Application
 ) {
     private val version = 3
 
-    private val dataStore: DataStore<Preferences> = application.createDataStore(
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
         name = "device",
         migrations = listOf(
             PreferenceMigrations.sharedPreferenceMigration(application, toVersion = 1, migrate = { sharedPrefs, currentData ->
@@ -40,29 +41,29 @@ class DevicePreferenceDataSource
         )
     )
 
-    val themeFlow: Flow<DisplayThemeType> = dataStore.data.map { preferences -> enumValueOfOrDefault(preferences[Keys.THEME], getThemeDefault()) }
+    val themeFlow: Flow<DisplayThemeType> = application.dataStore.data.map { preferences -> enumValueOfOrDefault(preferences[Keys.THEME], getThemeDefault()) }
     suspend fun setTheme(theme: DisplayThemeType) {
-        dataStore.edit { preferences -> preferences[Keys.THEME] = theme.toString() }
+        application.dataStore.edit { preferences -> preferences[Keys.THEME] = theme.toString() }
     }
 
-    val lastInstalledVersionCodeFlow: Flow<Int> = dataStore.data.map { preferences -> preferences[Keys.LAST_INSTALLED_VERSION_CODE] ?: 0 }
+    val lastInstalledVersionCodeFlow: Flow<Int> = application.dataStore.data.map { preferences -> preferences[Keys.LAST_INSTALLED_VERSION_CODE] ?: 0 }
     suspend fun setLastInstalledVersionCode(versionCode: Int) {
-        dataStore.edit { preferences -> preferences[Keys.LAST_INSTALLED_VERSION_CODE] = versionCode }
+        application.dataStore.edit { preferences -> preferences[Keys.LAST_INSTALLED_VERSION_CODE] = versionCode }
     }
 
-    val workSchedulerVersionFlow: Flow<Int> = dataStore.data.map { preferences -> preferences[Keys.WORK_SCHEDULER_VERSION] ?: 0 }
+    val workSchedulerVersionFlow: Flow<Int> = application.dataStore.data.map { preferences -> preferences[Keys.WORK_SCHEDULER_VERSION] ?: 0 }
     suspend fun setWorkSchedulerVersion(version: Int) {
-        dataStore.edit { preferences -> preferences[Keys.WORK_SCHEDULER_VERSION] = version }
+        application.dataStore.edit { preferences -> preferences[Keys.WORK_SCHEDULER_VERSION] = version }
     }
 
-    val developerModeFlow: Flow<Boolean> = dataStore.data.map { preferences -> preferences[Keys.DEV_MODE] ?: false }
+    val developerModeFlow: Flow<Boolean> = application.dataStore.data.map { preferences -> preferences[Keys.DEV_MODE] ?: false }
     suspend fun setDeveloperMode(enabled: Boolean) {
-        dataStore.edit { preferences -> preferences[Keys.DEV_MODE] = enabled }
+        application.dataStore.edit { preferences -> preferences[Keys.DEV_MODE] = enabled }
     }
 
-    val appInstanceIdFlow: Flow<String> = dataStore.data.map { preferences -> preferences[Keys.APP_INSTANCE_ID] ?: UUID.randomUUID().toString() }
+    val appInstanceIdFlow: Flow<String> = application.dataStore.data.map { preferences -> preferences[Keys.APP_INSTANCE_ID] ?: UUID.randomUUID().toString() }
 
-    val appInfoFlow: Flow<AppInfo> = dataStore.data.map { preferences ->
+    val appInfoFlow: Flow<AppInfo> = application.dataStore.data.map { preferences ->
         AppInfo(
             preferences[Keys.DEV_MODE] ?: false,
             preferences[Keys.APP_INSTANCE_ID] ?: UUID.randomUUID().toString(),
@@ -72,7 +73,7 @@ class DevicePreferenceDataSource
     }
 
     suspend fun setAppInfoFlow(appInfo: AppInfo) {
-        dataStore.edit { preferences ->
+        application.dataStore.edit { preferences ->
             preferences[Keys.DEV_MODE] = appInfo.devMode
             preferences[Keys.APP_INSTANCE_ID] = appInfo.appInstanceId
             preferences[Keys.WORK_SCHEDULER_VERSION] = appInfo.workerVersion
@@ -90,7 +91,7 @@ class DevicePreferenceDataSource
     }
 
     suspend fun clearAll() {
-        dataStore.edit { it.clear() }
+        application.dataStore.edit { it.clear() }
     }
 
     object Keys {
