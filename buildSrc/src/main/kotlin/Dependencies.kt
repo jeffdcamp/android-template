@@ -35,7 +35,7 @@ object Libs {
 
         object Layout {
             const val RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.2.0-beta02"
-            const val CONSTRAINT = "androidx.constraintlayout:constraintlayout:2.0.4"
+            const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:2.0.4"
         }
 
         object Room {
@@ -54,7 +54,7 @@ object Libs {
 
         object Lifecycle {
             private const val VERSION = "2.3.0"
-            const val RUNTIME = "androidx.lifecycle:lifecycle-runtime-ktx:$VERSION"
+            const val RUNTIME_KTX = "androidx.lifecycle:lifecycle-runtime-ktx:$VERSION"
             const val VIEWMODEL_KTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:$VERSION"
             const val VIEWMODEL_SAVESTATE = "androidx.lifecycle:lifecycle-viewmodel-savedstate:$VERSION"
             const val COMMON_JAVA8 = "androidx.lifecycle:lifecycle-common-java8:$VERSION"
@@ -152,9 +152,9 @@ object Libs {
     }
 
     object JUnit {
-        private const val VERSION = "5.7.1"
-        const val JUNIT = "org.junit.jupiter:junit-jupiter:$VERSION"
-        const val ENGINE = "org.junit.jupiter:junit-jupiter-engine:$VERSION"
+        const val BOM = "org.junit:junit-bom:5.7.1"
+        const val JUPITER = "org.junit.jupiter:junit-jupiter"
+        const val ENGINE = "org.junit.jupiter:junit-jupiter-engine"
     }
 
     object Test {

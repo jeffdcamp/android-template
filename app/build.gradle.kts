@@ -82,7 +82,7 @@ android {
         dataBinding = true
     }
 
-    lintOptions {
+    lint {
         isAbortOnError = true
         disable("InvalidPackage")
     }
@@ -191,7 +191,7 @@ dependencies {
     implementation(Libs.AndroidX.Layout.RECYCLERVIEW)
     implementation(Libs.AndroidX.PREFERENCE_KTX)
     implementation(Libs.Google.MATERIAL)
-    implementation(Libs.AndroidX.Layout.CONSTRAINT)
+    implementation(Libs.AndroidX.Layout.CONSTRAINT_LAYOUT)
     implementation(Libs.AndroidX.CORE_KTX)
     implementation(Libs.AndroidX.ACTIVITY_KTX)
     implementation(Libs.AndroidX.FRAGMENT_KTX)
@@ -223,7 +223,7 @@ dependencies {
     kapt(Libs.AndroidX.Hilt.COMPILER)
 
     // Android Architecture Components
-    implementation(Libs.AndroidX.Lifecycle.RUNTIME)
+    implementation(Libs.AndroidX.Lifecycle.RUNTIME_KTX)
     implementation(Libs.AndroidX.Lifecycle.VIEWMODEL_KTX)
     implementation(Libs.AndroidX.Lifecycle.VIEWMODEL_SAVESTATE)
     implementation(Libs.AndroidX.Lifecycle.COMMON_JAVA8)
@@ -270,7 +270,8 @@ dependencies {
     androidTestImplementation(Libs.AndroidX.Test.JUNIT_EXT)
 
     // Test (Unit)
-    testImplementation(Libs.JUnit.JUNIT)
+    testImplementation(platform(Libs.JUnit.BOM))
+    testImplementation(Libs.JUnit.JUPITER)
     testRuntimeOnly(Libs.JUnit.ENGINE)
     testImplementation(Libs.Mockito.KOTLIN)
     testImplementation(Libs.Mockito.CORE)
