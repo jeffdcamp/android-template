@@ -47,11 +47,11 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
 }
 
 android {
-    compileSdkVersion(AppInfo.Sdk.COMPILE)
+    compileSdkVersion(AppInfo.AndroidSdk.COMPILE)
 
     defaultConfig {
-        minSdkVersion(AppInfo.Sdk.MIN)
-        targetSdkVersion(AppInfo.Sdk.TARGET)
+        minSdkVersion(AppInfo.AndroidSdk.MIN)
+        targetSdkVersion(AppInfo.AndroidSdk.TARGET)
 
         applicationId = AppInfo.APPLICATION_ID
         versionCode = AppInfo.Version.CODE

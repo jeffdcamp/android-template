@@ -11,7 +11,7 @@ object AppInfo {
         val NAME = "1.0.0 ($CODE.${System.getenv("BUILD_NUMBER")})"
     }
 
-    object Sdk {
+    object AndroidSdk {
         const val MIN = 21
         const val COMPILE = 30
         const val TARGET = 30

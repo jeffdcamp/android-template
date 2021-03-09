@@ -10,7 +10,7 @@ object Libs {
         }
 
         object Coroutines {
-            private const val VERSION = "1.4.2"
+            private const val VERSION = "1.4.3"
 
             const val ANDROID = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$VERSION"
             const val PLAY_SERVICES = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$VERSION"
@@ -20,7 +20,7 @@ object Libs {
 
     // ===== Google/Android/AndroidX =====
     object Android {
-        const val GRADLE_PLUGIN = "com.android.tools.build:gradle:7.0.0-alpha08"
+        const val GRADLE_PLUGIN = "com.android.tools.build:gradle:7.0.0-alpha09"
         const val DESUGAR = "com.android.tools:desugar_jdk_libs:1.1.1"
     }
 
@@ -93,12 +93,12 @@ object Libs {
         const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:2.33" // Standard dagger is needed for unit tests ONLY
 
         object Firebase {
-            const val CRASHLYTICS_GRADLE_PLUGIN = "com.google.firebase:firebase-crashlytics-gradle:2.5.0"
-            const val APP_DISTRIBUTION_GRADLE_PLUGIN = "com.google.firebase:firebase-appdistribution-gradle:2.0.1"
+            const val CRASHLYTICS_GRADLE_PLUGIN = "com.google.firebase:firebase-crashlytics-gradle:2.5.1"
+            const val APP_DISTRIBUTION_GRADLE_PLUGIN = "com.google.firebase:firebase-appdistribution-gradle:2.1.0"
             const val PERF_GRADLE_PLUGIN = "com.google.firebase:perf-plugin:1.3.4"
 
             // Firebase - https://firebase.google.com/support/release-notes/android
-            const val BOM = "com.google.firebase:firebase-bom:26.5.0" // automatically sets the version for all firebase libs below
+            const val BOM = "com.google.firebase:firebase-bom:26.6.0" // automatically sets the version for all firebase libs below
             const val CORE = "com.google.firebase:firebase-core"
             const val PERF = "com.google.firebase:firebase-perf"
             const val CONFIG = "com.google.firebase:firebase-config-ktx"
@@ -122,7 +122,7 @@ object Libs {
     }
 
     // ===== 3rd Party =====
-    const val VERSIONS_GRADLE_PLUGIN = "com.github.ben-manes:gradle-versions-plugin:0.36.0"
+    const val VERSIONS_GRADLE_PLUGIN = "com.github.ben-manes:gradle-versions-plugin:0.38.0"
     const val PLAY_PUBLISHER_GRADLE_PLUGIN = "com.github.triplet.gradle:play-publisher:3.3.0-agp4.2"
     const val LICENSE_REPORT_GRADLE_PLUGIN = "com.github.jk1:gradle-license-report:1.16"
     const val DETEKT_GRADLE_PLUGIN = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.15.0"
