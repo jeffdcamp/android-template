@@ -33,12 +33,14 @@ class DevicePreferenceDataSource
 
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
         name = "device",
-        migrations = listOf(
-            PreferenceMigrations.sharedPreferenceMigration(application, toVersion = 1, migrate = { sharedPrefs, currentData ->
-                SharedPreferenceMigration.migrateSharedPreferences(sharedPrefs, currentData)
-            }),
-            PreferenceMigrations(version, listOf(DevicePreferenceMigration2, DevicePreferenceMigration1To3, DevicePreferenceMigration3))
-        )
+        produceMigrations = { applicationContext ->
+            listOf(
+                PreferenceMigrations.sharedPreferenceMigration(applicationContext, toVersion = 1, migrate = { sharedPrefs, currentData ->
+                    SharedPreferenceMigration.migrateSharedPreferences(sharedPrefs, currentData)
+                }),
+                PreferenceMigrations(version, listOf(DevicePreferenceMigration2, DevicePreferenceMigration1To3, DevicePreferenceMigration3))
+            )
+        }
     )
 
     val themeFlow: Flow<DisplayThemeType> = application.dataStore.data.map { preferences -> enumValueOfOrDefault(preferences[Keys.THEME], getThemeDefault()) }

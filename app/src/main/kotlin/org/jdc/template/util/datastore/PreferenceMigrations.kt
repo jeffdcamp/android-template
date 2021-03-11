@@ -153,11 +153,27 @@ class PreferenceMigrations(
     }
 
     companion object {
+        // We have to have 2 sharedPreferenceMigration functions because 'keysToMigrate' default value is an internal property that they do a REFERENCE comparison against (MIGRATE_ALL_KEYS)
         fun sharedPreferenceMigration(
             context: Context,
             toVersion: Int,
             sharedPreferencesName: String = context.packageName + "_preferences", // default provided by PreferenceManager.getDefaultSharedPreferences(context)
-            keysToMigrate: Set<String>? = null,
+            shouldRunMigration: suspend (Preferences) -> Boolean = { it[PREFERENCES_VERSION_KEY] == null },
+            migrate: suspend (SharedPreferencesView, Preferences) -> Preferences
+        ) = SharedPreferencesMigration(context, sharedPreferencesName, shouldRunMigration = shouldRunMigration, migrate = { sharedPrefs, currentData ->
+            val mutablePreferences = migrate(sharedPrefs, currentData).toMutablePreferences()
+
+            mutablePreferences[PREFERENCES_VERSION_KEY] = toVersion
+
+            mutablePreferences.toPreferences()
+        })
+
+        // We have to have 2 sharedPreferenceMigration functions because 'keysToMigrate' default value is an internal property that they do a REFERENCE comparison against (MIGRATE_ALL_KEYS)
+        fun sharedPreferenceMigration(
+            context: Context,
+            toVersion: Int,
+            keysToMigrate: Set<String>,
+            sharedPreferencesName: String = context.packageName + "_preferences", // default provided by PreferenceManager.getDefaultSharedPreferences(context)
             shouldRunMigration: suspend (Preferences) -> Boolean = { it[PREFERENCES_VERSION_KEY] == null },
             migrate: suspend (SharedPreferencesView, Preferences) -> Preferences
         ) = SharedPreferencesMigration(context, sharedPreferencesName, keysToMigrate, shouldRunMigration, migrate = { sharedPrefs, currentData ->

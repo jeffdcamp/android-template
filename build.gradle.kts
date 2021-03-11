@@ -9,7 +9,7 @@ buildscript {
     }
     dependencies {
         classpath(Libs.Android.GRADLE_PLUGIN)
-        // classpath(Plugins.Google.KSP_GRADLE_PLUGIN)
+        //classpath(Libs.Google.KSP_GRADLE_PLUGIN)
         classpath(Libs.Kotlin.GRADLE_PLUGIN)
         classpath(Libs.Kotlin.Serialization.GRADLE_PLUGIN)
         classpath(Libs.Google.Hilt.GRADLE_PLUGIN)

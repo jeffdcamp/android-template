@@ -27,11 +27,11 @@ object Libs {
     object AndroidX {
         const val APPCOMPAT = "androidx.appcompat:appcompat:1.3.0-beta01"
         const val PREFERENCE_KTX = "androidx.preference:preference-ktx:1.1.1"
-        const val CORE_KTX = "androidx.core:core-ktx:1.5.0-beta02"
-        const val ACTIVITY_KTX = "androidx.activity:activity-ktx:1.2.0"
-        const val FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.3.0"
+        const val CORE_KTX = "androidx.core:core-ktx:1.5.0-beta03"
+        const val ACTIVITY_KTX = "androidx.activity:activity-ktx:1.2.1"
+        const val FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.3.0" // don't go to 1.3.1 till fixed https://issuetracker.google.com/issues/182388985
         const val STARTUP = "androidx.startup:startup-runtime:1.0.0"
-        const val DATASTORE_PREFS = "androidx.datastore:datastore-preferences:1.0.0-alpha07"
+        const val DATASTORE_PREFS = "androidx.datastore:datastore-preferences:1.0.0-alpha08"
 
         object Layout {
             const val RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.2.0-beta02"
@@ -39,17 +39,15 @@ object Libs {
         }
 
         object Room {
-            private const val VERSION = "2.3.0-beta02"
+            private const val VERSION = "2.3.0-beta03"
             const val RUNTIME = "androidx.room:room-runtime:$VERSION"
             const val KTX = "androidx.room:room-ktx:$VERSION"
             const val COMPILER = "androidx.room:room-compiler:$VERSION"
         }
 
         object Hilt {
-            private const val VERSION = "1.0.0-alpha03"
-            const val VIEWMODEL = "androidx.hilt:hilt-lifecycle-viewmodel:$VERSION"
+            private const val VERSION = "1.0.0-beta01"
             const val WORK = "androidx.hilt:hilt-work:$VERSION"
-            const val COMPILER = "androidx.hilt:hilt-compiler:$VERSION"
         }
 
         object Lifecycle {
@@ -61,7 +59,7 @@ object Libs {
         }
 
         object Navigation {
-            private const val VERSION = "2.3.3"
+            private const val VERSION = "2.3.4"
             const val SAFE_ARGS_GRADLE_PLUGIN = "androidx.navigation:navigation-safe-args-gradle-plugin:$VERSION"
             const val FRAGMENT_KTX = "androidx.navigation:navigation-fragment-ktx:$VERSION"
             const val UI_KTX = "androidx.navigation:navigation-ui-ktx:$VERSION"
@@ -87,7 +85,7 @@ object Libs {
     }
 
     object Google {
-        const val KSP_GRADLE_PLUGIN = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:1.4.30-1.0.0-alpha02"
+        const val KSP_GRADLE_PLUGIN = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:1.4.30-1.0.0-alpha05" // https://maven.google.com/web/index.html#com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin
         const val SERVICES_GRADLE_PLUGIN = "com.google.gms:google-services:4.3.5"
         const val MATERIAL = "com.google.android.material:material:1.3.0" // https://github.com/material-components/material-components-android/releases
         const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:2.33" // Standard dagger is needed for unit tests ONLY
@@ -98,7 +96,7 @@ object Libs {
             const val PERF_GRADLE_PLUGIN = "com.google.firebase:perf-plugin:1.3.4"
 
             // Firebase - https://firebase.google.com/support/release-notes/android
-            const val BOM = "com.google.firebase:firebase-bom:26.6.0" // automatically sets the version for all firebase libs below
+            const val BOM = "com.google.firebase:firebase-bom:26.7.0" // automatically sets the version for all firebase libs below
             const val CORE = "com.google.firebase:firebase-core"
             const val PERF = "com.google.firebase:firebase-perf"
             const val CONFIG = "com.google.firebase:firebase-config-ktx"
@@ -133,7 +131,7 @@ object Libs {
     const val LEAK_CANARY = "com.squareup.leakcanary:leakcanary-android:2.6"
 
     object DBTools {
-        private const val VERSION = "6.0.0-beta02"
+        private const val VERSION = "6.0.0-beta03"
         const val ROOM = "org.dbtools:dbtools-room:$VERSION"
         const val ROOM_SQLITE = "org.dbtools:dbtools-room-sqliteorg:$VERSION"
         const val ROOM_JDBC_TEST = "org.dbtools:dbtools-room-jdbc-test:$VERSION"

@@ -10,6 +10,7 @@ import kotlinx.coroutines.runBlocking
 import org.dbtools.android.room.jdbc.JdbcSQLiteOpenHelperFactory
 import org.jdc.template.TestFilesystem
 import org.jdc.template.inject.CommonTestModule
+import org.jdc.template.model.datastore.UserPreferenceDataSource
 import org.jdc.template.model.db.main.MainDatabase
 import org.jdc.template.model.db.main.MainDatabaseWrapper
 import org.jdc.template.model.db.main.individual.Individual
@@ -70,6 +71,12 @@ class IndividualRepositoryTest {
 @Module
 @DisableInstallInCheck // prevent Hilt from checking for @InstallIn (https://issuetracker.google.com/issues/158758786)
 class IndividualRepositoryTestModule {
+    @Provides
+    @Singleton
+    fun provideUserPreferenceDataSource(): UserPreferenceDataSource {
+        return mock(UserPreferenceDataSource::class.java)
+    }
+
     @Provides
     @Singleton
     fun provideMainDatabaseWrapper(application: Application): MainDatabaseWrapper {

@@ -29,6 +29,8 @@ kapt {
         // Increase the max count of errors from annotation processors. (Default is 100)
         option("-Xmaxerrs", 500)
     }
+
+    correctErrorTypes = true // prevent NonExistentClass in errors (https://kotlinlang.org/docs/kapt.html#non-existent-type-correction)
 }
 
 // Kotlin Libraries targeting Java8 bytecode can cause the following error (such as okHttp 4.x):
@@ -218,9 +220,7 @@ dependencies {
     // Inject
     implementation(Libs.Google.Hilt.ANDROID)
     kapt(Libs.Google.Hilt.COMPILER)
-    implementation(Libs.AndroidX.Hilt.VIEWMODEL)
     implementation(Libs.AndroidX.Hilt.WORK)
-    kapt(Libs.AndroidX.Hilt.COMPILER)
 
     // Android Architecture Components
     implementation(Libs.AndroidX.Lifecycle.RUNTIME_KTX)
@@ -241,7 +241,7 @@ dependencies {
     implementation(Libs.AndroidX.Room.RUNTIME)
     implementation(Libs.AndroidX.Room.KTX)
     kapt(Libs.AndroidX.Room.COMPILER)
-    //ksp(Deps.AndroidX.Room.COMPILER)
+    //ksp(Libs.AndroidX.Room.COMPILER)
     implementation(Libs.DBTools.ROOM)
 
     // Custom SQLite database
