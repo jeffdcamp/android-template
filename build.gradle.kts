@@ -5,7 +5,8 @@ buildscript {
         mavenLocal()
         google()
         mavenCentral()
-        maven("https://plugins.gradle.org/m2")
+//        jcenter() // 2021/03/15: required by detekt / Jetpack Compose (because of Kotlin Dependency)
+        gradlePluginPortal()
     }
     dependencies {
         classpath(Libs.Android.GRADLE_PLUGIN)
@@ -30,6 +31,7 @@ allprojects {
         mavenLocal()
         google()
         mavenCentral()
+//        jcenter() // 2021/03/15: required by detekt / Jetpack Compose (because of Kotlin Dependency)
 //        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
     }
 
