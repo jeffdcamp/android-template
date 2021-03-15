@@ -218,8 +218,9 @@ dependencies {
     implementation(Libs.TIMBER)
 
     // Inject
-    implementation(Libs.Google.Hilt.ANDROID)
     kapt(Libs.Google.Hilt.COMPILER)
+    kapt(Libs.AndroidX.Hilt.COMPILER)
+    implementation(Libs.Google.Hilt.ANDROID)
     implementation(Libs.AndroidX.Hilt.WORK)
 
     // Android Architecture Components

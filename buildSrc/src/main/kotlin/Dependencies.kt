@@ -20,7 +20,7 @@ object Libs {
 
     // ===== Google/Android/AndroidX =====
     object Android {
-        const val GRADLE_PLUGIN = "com.android.tools.build:gradle:7.0.0-alpha09"
+        const val GRADLE_PLUGIN = "com.android.tools.build:gradle:7.0.0-alpha10"
         const val DESUGAR = "com.android.tools:desugar_jdk_libs:1.1.5"
     }
 
@@ -48,6 +48,7 @@ object Libs {
         object Hilt {
             private const val VERSION = "1.0.0-beta01"
             const val WORK = "androidx.hilt:hilt-work:$VERSION"
+            const val COMPILER = "androidx.hilt:hilt-compiler:$VERSION" // required for workers (NoSuchMethodException will throw during runtime when running a worker) (https://developer.android.com/training/dependency-injection/hilt-jetpack#workmanager)
         }
 
         object Lifecycle {
@@ -123,7 +124,7 @@ object Libs {
     const val VERSIONS_GRADLE_PLUGIN = "com.github.ben-manes:gradle-versions-plugin:0.38.0"
     const val PLAY_PUBLISHER_GRADLE_PLUGIN = "com.github.triplet.gradle:play-publisher:3.3.0-agp4.2"
     const val LICENSE_REPORT_GRADLE_PLUGIN = "com.github.jk1:gradle-license-report:1.16"
-    const val DETEKT_GRADLE_PLUGIN = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.15.0"
+    const val DETEKT_GRADLE_PLUGIN = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.16.0"
 
     const val WORKMANAGER_TOOLS = "org.dbtools:workmanager-tools:1.14.0"
     const val RETROFIT = "com.squareup.retrofit2:retrofit:2.9.0"
