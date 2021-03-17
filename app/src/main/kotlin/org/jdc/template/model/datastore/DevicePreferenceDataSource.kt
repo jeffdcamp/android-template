@@ -4,9 +4,11 @@ import android.app.Application
 import android.content.Context
 import android.os.Build
 import androidx.datastore.core.DataStore
+import androidx.datastore.core.handlers.ReplaceFileCorruptionHandler
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -19,6 +21,7 @@ import org.jdc.template.model.datastore.migration.DevicePreferenceMigration3
 import org.jdc.template.model.datastore.migration.SharedPreferenceMigration
 import org.jdc.template.util.datastore.PreferenceMigrations
 import org.jdc.template.util.ext.enumValueOfOrDefault
+import timber.log.Timber
 import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -40,7 +43,11 @@ class DevicePreferenceDataSource
                 }),
                 PreferenceMigrations(version, listOf(DevicePreferenceMigration2, DevicePreferenceMigration1To3, DevicePreferenceMigration3))
             )
-        }
+        },
+        corruptionHandler = ReplaceFileCorruptionHandler {
+            Timber.e(it, "DevicePreferenceDataSource Corrupted... recreating...")
+            emptyPreferences()
+        },
     )
 
     val themeFlow: Flow<DisplayThemeType> = application.dataStore.data.map { preferences -> enumValueOfOrDefault(preferences[Keys.THEME], getThemeDefault()) }
