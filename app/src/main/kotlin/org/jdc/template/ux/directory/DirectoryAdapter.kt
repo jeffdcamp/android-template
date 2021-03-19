@@ -3,11 +3,11 @@ package org.jdc.template.ux.directory
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import org.jdc.template.databinding.ListItemBinding
+import org.jdc.template.model.db.main.directoryitem.DirectoryItem
+import org.jdc.template.ui.widget.recycleview.ViewBindingViewHolder
 import org.jdc.template.util.ext.inflater
 import org.jdc.template.util.ext.setOnClickListener
-import org.jdc.template.model.db.main.directoryitem.DirectoryItem
 
 class DirectoryAdapter(
     private val viewModel: DirectoryViewModel
@@ -25,7 +25,7 @@ class DirectoryAdapter(
         holder.binding.listItemTextView.text = getItem(position).getFullName()
     }
 
-    class ViewHolder(parent: ViewGroup, val binding: ListItemBinding = ListItemBinding.inflate(parent.inflater(), parent, false)) : RecyclerView.ViewHolder(binding.root)
+    class ViewHolder(parent: ViewGroup) : ViewBindingViewHolder<ListItemBinding>(ListItemBinding.inflate(parent.inflater(), parent, false))
 
     companion object {
         private val DIFF_CALLBACK: DiffUtil.ItemCallback<DirectoryItem> = object : DiffUtil.ItemCallback<DirectoryItem>() {
