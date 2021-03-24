@@ -29,7 +29,7 @@ object Libs {
         const val PREFERENCE_KTX = "androidx.preference:preference-ktx:1.1.1"
         const val CORE_KTX = "androidx.core:core-ktx:1.5.0-rc01"
         const val ACTIVITY_KTX = "androidx.activity:activity-ktx:1.2.2"
-        const val FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.3.2" // don't go to 1.3.1 till fixed https://issuetracker.google.com/issues/182388985
+        const val FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.3.2"
         const val STARTUP = "androidx.startup:startup-runtime:1.0.0"
         const val DATASTORE_PREFS = "androidx.datastore:datastore-preferences:1.0.0-alpha08"
 
