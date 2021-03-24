@@ -1,7 +1,7 @@
 object Libs {
     // ===== Kotlin =====
     object Kotlin {
-        private const val VERSION = "1.4.31"
+        private const val VERSION = "1.4.32"
         const val GRADLE_PLUGIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:$VERSION"
 
         object Serialization {
@@ -25,21 +25,21 @@ object Libs {
     }
 
     object AndroidX {
-        const val APPCOMPAT = "androidx.appcompat:appcompat:1.3.0-beta01"
+        const val APPCOMPAT = "androidx.appcompat:appcompat:1.3.0-rc01"
         const val PREFERENCE_KTX = "androidx.preference:preference-ktx:1.1.1"
-        const val CORE_KTX = "androidx.core:core-ktx:1.5.0-beta03"
-        const val ACTIVITY_KTX = "androidx.activity:activity-ktx:1.2.1"
-        const val FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.3.0" // don't go to 1.3.1 till fixed https://issuetracker.google.com/issues/182388985
+        const val CORE_KTX = "androidx.core:core-ktx:1.5.0-rc01"
+        const val ACTIVITY_KTX = "androidx.activity:activity-ktx:1.2.2"
+        const val FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.3.2" // don't go to 1.3.1 till fixed https://issuetracker.google.com/issues/182388985
         const val STARTUP = "androidx.startup:startup-runtime:1.0.0"
         const val DATASTORE_PREFS = "androidx.datastore:datastore-preferences:1.0.0-alpha08"
 
         object Layout {
-            const val RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.2.0-beta02"
+            const val RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.2.0-rc01"
             const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:2.0.4"
         }
 
         object Room {
-            private const val VERSION = "2.3.0-beta03"
+            private const val VERSION = "2.3.0-rc01"
             const val RUNTIME = "androidx.room:room-runtime:$VERSION"
             const val KTX = "androidx.room:room-ktx:$VERSION"
             const val COMPILER = "androidx.room:room-compiler:$VERSION"
@@ -52,7 +52,7 @@ object Libs {
         }
 
         object Lifecycle {
-            private const val VERSION = "2.3.0"
+            private const val VERSION = "2.3.1"
             const val RUNTIME_KTX = "androidx.lifecycle:lifecycle-runtime-ktx:$VERSION"
             const val VIEWMODEL_KTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:$VERSION"
             const val VIEWMODEL_SAVESTATE = "androidx.lifecycle:lifecycle-viewmodel-savedstate:$VERSION"
@@ -132,7 +132,7 @@ object Libs {
     const val LEAK_CANARY = "com.squareup.leakcanary:leakcanary-android:2.6"
 
     object DBTools {
-        private const val VERSION = "6.0.0-beta03"
+        private const val VERSION = "6.0.0-rc01"
         const val ROOM = "org.dbtools:dbtools-room:$VERSION"
         const val ROOM_SQLITE = "org.dbtools:dbtools-room-sqliteorg:$VERSION"
         const val ROOM_JDBC_TEST = "org.dbtools:dbtools-room-jdbc-test:$VERSION"
