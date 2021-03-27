@@ -97,7 +97,7 @@ object Libs {
             const val PERF_GRADLE_PLUGIN = "com.google.firebase:perf-plugin:1.3.4"
 
             // Firebase - https://firebase.google.com/support/release-notes/android
-            const val BOM = "com.google.firebase:firebase-bom:26.7.0" // automatically sets the version for all firebase libs below
+            const val BOM = "com.google.firebase:firebase-bom:26.8.0" // automatically sets the version for all firebase libs below
             const val CORE = "com.google.firebase:firebase-core"
             const val PERF = "com.google.firebase:firebase-perf"
             const val CONFIG = "com.google.firebase:firebase-config-ktx"
@@ -129,7 +129,7 @@ object Libs {
     const val WORKMANAGER_TOOLS = "org.dbtools:workmanager-tools:1.14.0"
     const val RETROFIT = "com.squareup.retrofit2:retrofit:2.9.0"
     const val TIMBER = "com.jakewharton.timber:timber:4.7.1"
-    const val LEAK_CANARY = "com.squareup.leakcanary:leakcanary-android:2.6"
+    const val LEAK_CANARY = "com.squareup.leakcanary:leakcanary-android:2.7"
 
     object DBTools {
         private const val VERSION = "6.0.0-rc01"
