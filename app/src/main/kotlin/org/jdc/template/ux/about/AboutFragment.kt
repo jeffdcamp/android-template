@@ -32,21 +32,31 @@ class AboutFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.viewModel = this@AboutFragment.viewModel
-        binding.lifecycleOwner = this@AboutFragment
 
         activity?.setTitle(R.string.about_title)
         viewModel.logAnalytics()
 
+        binding.versionTextView.text = viewModel.appVersion
+        setupClickListeners()
         setupViewModelObservers()
     }
 
     private fun setupViewModelObservers() {
         withLifecycleOwner(this) {
-            viewModel.resetServiceEnabledFlow.collectWhenStarted {
-                binding.restServiceEnabledTextView.text = it.toString()
+            viewModel.resetServiceEnabledFlow.collectWhenStarted { enabled ->
+                binding.restServiceEnabledTextView.text = enabled.toString()
             }
         }
+    }
+
+    private fun setupClickListeners() {
+        binding.createDatabaseButton.setOnClickListener { viewModel.createSampleDataWithInjection() }
+        binding.restTestButton.setOnClickListener { viewModel.testQueryWebServiceCall() }
+        binding.textTableChangeButton.setOnClickListener { viewModel.testTableChange() }
+        binding.work1TestButton.setOnClickListener { viewModel.workManagerSimpleTest() }
+        binding.work2TestButton.setOnClickListener { viewModel.workManagerSyncTest() }
+        binding.testTableChangeButton.setOnClickListener { viewModel.testTableChange() }
+        binding.testButton.setOnClickListener { viewModel.testStuff() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

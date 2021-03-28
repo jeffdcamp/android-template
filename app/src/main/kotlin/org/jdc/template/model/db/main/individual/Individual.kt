@@ -22,6 +22,5 @@ data class Individual(
     var email: String = "",
     var available: Boolean = false
 ) {
-
     fun getFullName() = "$firstName $lastName"
 }

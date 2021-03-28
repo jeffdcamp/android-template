@@ -1,11 +1,14 @@
 package org.jdc.template.ux.individualedit
 
-import androidx.databinding.ObservableField
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.ReceiveChannel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import org.jdc.template.R
 import org.jdc.template.model.db.main.individual.Individual
@@ -27,43 +30,34 @@ class IndividualEditViewModel
 
     private val individualId: Long by requireSavedState(savedStateHandle)
     private var individual = Individual()
-
-    // Fields
-    val firstName = ObservableField<String>()
-    val lastName = ObservableField<String>()
-    val phone = ObservableField<String>()
-    val email = ObservableField<String>()
-    val birthDate = ObservableField<LocalDate?>()
-    val alarmTime = ObservableField<LocalTime>()
-
-    init {
-        loadIndividual()
-    }
-
-    private fun loadIndividual() = viewModelScope.launch {
-        individualRepository.getIndividual(individualId)?.let {
-            individual = it
-
-            firstName.set(it.firstName)
-            lastName.set(it.lastName)
-            phone.set(it.phone)
-            email.set(it.email)
-            birthDate.set(it.birthDate)
-            alarmTime.set(it.alarmTime)
+    var loadedIndividualFlow: Flow<Individual> = flow {
+        individualRepository.getIndividual(individualId)?.let { individual ->
+            this@IndividualEditViewModel.individual = individual
+            emit(individual)
+            _birthDateTextFlow.value = individual.birthDate
+            _alarmTimeTextFlow.value = individual.alarmTime
         }
     }
 
-    fun saveIndividual() = viewModelScope.launch {
+    private val _birthDateTextFlow = MutableStateFlow<LocalDate?>(null)
+    val birthDateTextFlow: Flow<LocalDate> get() = _birthDateTextFlow.filterNotNull()
+
+    private val _alarmTimeTextFlow = MutableStateFlow<LocalTime?>(null)
+    val alarmTimeTextFlow: Flow<LocalTime> get() = _alarmTimeTextFlow.filterNotNull()
+
+    fun saveIndividual(firstName: String, lastName: String, phone: String, email: String) = viewModelScope.launch {
         if (!validate()) {
             return@launch
         }
 
-        individual.firstName = firstName.get() ?: return@launch
-        individual.lastName = lastName.get() ?: ""
-        individual.phone = phone.get() ?: ""
-        individual.email = email.get() ?: ""
-        individual.birthDate = birthDate.get()
-        individual.alarmTime = alarmTime.get() ?: LocalTime.now()
+        individual.firstName = firstName
+        individual.lastName = lastName
+        individual.phone = phone
+        individual.email = email
+
+        // changed via setBirthDate and setAlarmTime
+        // individual.birthDate = birthDate
+        // individual.alarmTime = alarmTime
 
         individualRepository.saveIndividual(individual)
 
@@ -71,7 +65,7 @@ class IndividualEditViewModel
     }
 
     private fun validate(): Boolean {
-        if (firstName.get().isNullOrBlank()) {
+        if (individual.firstName.isBlank()) {
             _eventChannel.sendAsync(Event.ValidationSaveError(FieldValidationError.FIRST_NAME_REQUIRED))
             return false
         }
@@ -80,11 +74,21 @@ class IndividualEditViewModel
     }
 
     fun onBirthDateClicked() {
-        _eventChannel.sendAsync(Event.ShowBirthDateSelection(birthDate.get() ?: LocalDate.now()))
+        _eventChannel.sendAsync(Event.ShowBirthDateSelection(individual.birthDate ?: LocalDate.now()))
     }
 
     fun onAlarmTimeClicked() {
-        _eventChannel.sendAsync(Event.ShowAlarmTimeSelection(alarmTime.get() ?: LocalTime.now()))
+        _eventChannel.sendAsync(Event.ShowAlarmTimeSelection(individual.alarmTime ?: LocalTime.now()))
+    }
+
+    fun setBirthDate(birthDate: LocalDate) {
+        individual.birthDate = birthDate
+        _birthDateTextFlow.value = birthDate
+    }
+
+    fun setAlarmTime(alarmTime: LocalTime) {
+        individual.alarmTime = alarmTime
+        _alarmTimeTextFlow.value = alarmTime
     }
 
     enum class FieldValidationError(val errorMessageId: Int) {

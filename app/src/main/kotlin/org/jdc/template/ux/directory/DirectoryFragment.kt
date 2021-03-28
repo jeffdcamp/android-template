@@ -14,10 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
 import org.jdc.template.databinding.DirectoryFragmentBinding
+import org.jdc.template.ui.menu.CommonMenu
 import org.jdc.template.util.ext.autoCleared
 import org.jdc.template.util.ext.getScrollPosition
 import org.jdc.template.util.ext.withLifecycleOwner
-import org.jdc.template.ui.menu.CommonMenu
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -40,14 +40,14 @@ class DirectoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.viewModel = this@DirectoryFragment.viewModel
-        binding.lifecycleOwner = this@DirectoryFragment
 
         setupRecyclerView()
 
         activity?.setTitle(R.string.app_name)
 
         savedInstanceState?.let { restoreState(it) }
+
+        binding.newFloatingActionButton.setOnClickListener { viewModel.addIndividual() }
 
         setupViewModelObservers()
     }

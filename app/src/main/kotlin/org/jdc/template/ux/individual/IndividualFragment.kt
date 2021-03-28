@@ -14,6 +14,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
 import org.jdc.template.databinding.IndividualFragmentBinding
+import org.jdc.template.model.db.main.individual.Individual
+import org.jdc.template.ui.DateUiUtil
 import org.jdc.template.util.ext.autoCleared
 import org.jdc.template.util.ext.withLifecycleOwner
 
@@ -34,15 +36,14 @@ class IndividualFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.lifecycleOwner = this@IndividualFragment
 
         setupViewModelObservers()
     }
 
     private fun setupViewModelObservers() {
         withLifecycleOwner(this) {
-            viewModel.individualFlow.collectWhenStarted {
-                binding.individual = it
+            viewModel.individualFlow.collectWhenStarted { individual ->
+                showIndividual(individual)
             }
 
             // Events
@@ -77,6 +78,15 @@ class IndividualFragment : Fragment() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun showIndividual(individual: Individual) {
+        binding.nameTextView.text = individual.getFullName()
+        binding.phoneTextView.text = individual.phone
+        binding.emailTextView.text = individual.email
+
+        binding.birthDateTextView.text = DateUiUtil.getLocalDateText(requireContext(), individual.birthDate)
+        binding.alarmTimeTextView.text = DateUiUtil.getLocalTimeText(requireContext(), individual.alarmTime)
     }
 
     private fun promptDeleteIndividual() {

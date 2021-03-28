@@ -15,6 +15,8 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
 import org.jdc.template.databinding.IndividualEditFragmentBinding
+import org.jdc.template.model.db.main.individual.Individual
+import org.jdc.template.ui.DateUiUtil
 import org.jdc.template.util.ext.autoCleared
 import org.jdc.template.util.ext.withLifecycleOwner
 import java.time.LocalDate
@@ -37,14 +39,17 @@ class IndividualEditFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.viewModel = this@IndividualEditFragment.viewModel
-        binding.lifecycleOwner = this@IndividualEditFragment
 
+        setupClickListeners()
         setupViewModelObservers()
     }
 
     private fun setupViewModelObservers() {
         withLifecycleOwner(this) {
+            viewModel.loadedIndividualFlow.collectWhenStarted { individual -> showIndividual(individual) }
+            viewModel.birthDateTextFlow.collectWhenStarted { birthDate -> binding.birthDateEditText.setText(DateUiUtil.getLocalDateText(requireContext(), birthDate)) }
+            viewModel.alarmTimeTextFlow.collectWhenStarted { alarmTime -> binding.alarmTimeEditText.setText(DateUiUtil.getLocalTimeText(requireContext(), alarmTime)) }
+
             // Events
             viewModel.eventChannel.receiveWhenStarted { event -> handleEvent(event) }
         }
@@ -71,7 +76,12 @@ class IndividualEditFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_item_save -> {
-                viewModel.saveIndividual()
+                viewModel.saveIndividual(
+                    firstName = binding.firstNameEditText.text.toString(),
+                    lastName = binding.lastNameEditText.text.toString(),
+                    phone = binding.lastNameEditText.text.toString(),
+                    email = binding.emailEditText.text.toString()
+                )
                 true
             }
 
@@ -79,9 +89,25 @@ class IndividualEditFragment : Fragment() {
         }
     }
 
+    private fun setupClickListeners() {
+        binding.birthDateEditText.setOnClickListener { viewModel.onBirthDateClicked() }
+        binding.alarmTimeEditText.setOnClickListener { viewModel.onAlarmTimeClicked() }
+    }
+
+    private fun showIndividual(individual: Individual) {
+        binding.firstNameEditText.setText(individual.firstName)
+        binding.lastNameEditText.setText(individual.lastName)
+        binding.phoneEditText.setText(individual.phone)
+        binding.emailEditText.setText(individual.email)
+
+        // set UI from Flow
+        // binding.birthDateEditText.setText(DateUiUtil.getLocalDateText(requireContext(), individual.birthDate))
+        // binding.alarmTimeEditText.setText(DateUiUtil.getLocalTimeText(requireContext(), individual.alarmTime))
+    }
+
     private fun showBirthDateSelector(date: LocalDate) {
         val birthDatePickerDialog = DatePickerDialog(requireActivity(), { _, year, monthOfYear, dayOfMonth ->
-            viewModel.birthDate.set(LocalDate.of(year, monthOfYear + 1, dayOfMonth)) // + 1 because core Java Date is 0 based
+            viewModel.setBirthDate(LocalDate.of(year, monthOfYear + 1, dayOfMonth)) // + 1 because core Java Date is 0 based
         }, date.year, date.monthValue - 1, date.dayOfMonth) // - 1 because core Java Date is 0 based
 
         birthDatePickerDialog.show()
@@ -89,7 +115,7 @@ class IndividualEditFragment : Fragment() {
 
     private fun showAlarmTimeSelector(time: LocalTime) {
         val alarmTimePickerDialog = TimePickerDialog(requireActivity(), { _, hourOfDay, minute ->
-            viewModel.alarmTime.set(LocalTime.of(hourOfDay, minute))
+            viewModel.setAlarmTime(LocalTime.of(hourOfDay, minute))
         }, time.hour, time.minute, false)
 
         alarmTimePickerDialog.show()
