@@ -5,7 +5,7 @@ buildscript {
         mavenLocal()
         google()
         mavenCentral()
-//        jcenter() // 2021/03/15: required by detekt / Jetpack Compose (because of Kotlin Dependency)
+        jcenter() // 2021/03/15: required by detekt / Jetpack Compose (because of Kotlin Dependency)
         gradlePluginPortal()
     }
     dependencies {
@@ -26,19 +26,27 @@ buildscript {
     }
 }
 
+@OptIn(ExperimentalStdlibApi::class) // to use buildList (remove with Kotlin 1.5?)
 allprojects {
     repositories {
         mavenLocal()
         google()
         mavenCentral()
-//        jcenter() // 2021/03/15: required by detekt / Jetpack Compose (because of Kotlin Dependency)
+        jcenter() // 2021/03/15: required by detekt / Jetpack Compose (because of Kotlin Dependency)
 //        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
     }
 
     // Gradle Dependency Check
     apply(plugin = "com.github.ben-manes.versions") // ./gradlew dependencyUpdates -Drevision=release
-    val excludeVersionContaining = listOf("alpha", "eap") // example: "alpha", "beta"
-    val ignoreArtifacts = listOf("datastore-preferences", "hilt-android", "startup-runtime") // some artifacts may be OK to check for "alpha"... add these exceptions here
+    val excludeVersionContaining = listOf("alpha", "eap", "M1") // example: "alpha", "beta"
+    // some artifacts may be OK to check for "alpha"... add these exceptions here
+    val ignoreArtifacts = buildList {
+        // early adoption items
+        addAll(listOf("datastore-preferences"))
+
+        // Arctic Fox
+        addAll(listOf("gradle", "viewbinding"))
+    }
 
     tasks.named<DependencyUpdatesTask>("dependencyUpdates") {
         resolutionStrategy {
