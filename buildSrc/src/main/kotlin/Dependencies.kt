@@ -52,7 +52,7 @@ object Libs {
         }
 
         object Lifecycle {
-            private const val VERSION = "2.3.1"
+            private const val VERSION = "2.4.0-alpha01"
             const val RUNTIME_KTX = "androidx.lifecycle:lifecycle-runtime-ktx:$VERSION"
             const val VIEWMODEL_KTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:$VERSION"
             const val VIEWMODEL_SAVESTATE = "androidx.lifecycle:lifecycle-viewmodel-savedstate:$VERSION"

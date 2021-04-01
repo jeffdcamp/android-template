@@ -2,8 +2,9 @@
 
 package org.jdc.template.util.ext
 
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.addRepeatingJob
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.flow.Flow
@@ -17,7 +18,7 @@ class LifecycleGroup(val lifecycleOwner: LifecycleOwner) {
      * value is cancelled.
      **/
     inline fun <T> Flow<T>.collectLatestWhenStarted(crossinline block: suspend (T) -> Unit): Job {
-        return lifecycleOwner.lifecycleScope.launchWhenStarted {
+        return lifecycleOwner.addRepeatingJob(Lifecycle.State.STARTED) {
             this@collectLatestWhenStarted.collectLatest {
                 block(it)
             }
@@ -27,7 +28,7 @@ class LifecycleGroup(val lifecycleOwner: LifecycleOwner) {
      * Recommended for the majority of use cases
      */
     inline fun <T> ReceiveChannel<T>.receiveWhenStarted(crossinline block: suspend (T) -> Unit): Job {
-        return lifecycleOwner.lifecycleScope.launchWhenStarted {
+        return lifecycleOwner.addRepeatingJob(Lifecycle.State.STARTED) {
             for (event in this@receiveWhenStarted) {
                 block(event)
             }
@@ -37,7 +38,7 @@ class LifecycleGroup(val lifecycleOwner: LifecycleOwner) {
      * Recommended for when every emit needs to be processed to completion.
      */
     inline fun <T> Flow<T>.collectWhenStarted(crossinline block: suspend (T) -> Unit): Job {
-        return lifecycleOwner.lifecycleScope.launchWhenStarted {
+        return lifecycleOwner.addRepeatingJob(Lifecycle.State.STARTED) {
             this@collectWhenStarted.collect {
                 block(it)
             }
@@ -48,7 +49,7 @@ class LifecycleGroup(val lifecycleOwner: LifecycleOwner) {
      * If fragments need to be updated in the background use [collectLatestWhenStarted]
      */
     inline fun <T> Flow<T>.collectLatestWhenResumed(crossinline block: suspend (T) -> Unit): Job {
-        return lifecycleOwner.lifecycleScope.launchWhenResumed {
+        return lifecycleOwner.addRepeatingJob(Lifecycle.State.RESUMED) {
             this@collectLatestWhenResumed.collectLatest {
                 block(it)
             }
@@ -58,7 +59,7 @@ class LifecycleGroup(val lifecycleOwner: LifecycleOwner) {
      * Recommended for collecting inside a fragment in a viewpager and you need to process every emit to completion
      */
     inline fun <T> Flow<T>.collectWhenResumed(crossinline block: suspend (T) -> Unit): Job {
-        return lifecycleOwner.lifecycleScope.launchWhenResumed {
+        return lifecycleOwner.addRepeatingJob(Lifecycle.State.RESUMED) {
             this@collectWhenResumed.collect {
                 block(it)
             }
@@ -68,7 +69,7 @@ class LifecycleGroup(val lifecycleOwner: LifecycleOwner) {
      * Recommended for receiving inside a fragment in a viewpager as only the active Fragment will be affected.
      */
     inline fun <T> ReceiveChannel<T>.receiveWhenResumed(crossinline block: suspend (T) -> Unit): Job {
-        return lifecycleOwner.lifecycleScope.launchWhenResumed {
+        return lifecycleOwner.addRepeatingJob(Lifecycle.State.RESUMED) {
             for (e in this@receiveWhenResumed) {
                 block(e)
             }

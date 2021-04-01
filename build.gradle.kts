@@ -42,7 +42,7 @@ allprojects {
     // some artifacts may be OK to check for "alpha"... add these exceptions here
     val ignoreArtifacts = buildList {
         // early adoption items
-        addAll(listOf("datastore-preferences"))
+        addAll(listOf("datastore-preferences", "lifecycle-runtime-ktx", "lifecycle-viewmodel-ktx", "lifecycle-viewmodel-savedstate", "lifecycle-common-java8"))
 
         // Arctic Fox
         addAll(listOf("gradle", "viewbinding"))
