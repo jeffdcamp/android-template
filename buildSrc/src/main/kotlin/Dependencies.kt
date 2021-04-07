@@ -20,7 +20,7 @@ object Libs {
 
     // ===== Google/Android/AndroidX =====
     object Android {
-        const val GRADLE_PLUGIN = "com.android.tools.build:gradle:7.0.0-alpha12"
+        const val GRADLE_PLUGIN = "com.android.tools.build:gradle:7.0.0-alpha14"
         const val DESUGAR = "com.android.tools:desugar_jdk_libs:1.1.5"
     }
 
@@ -34,7 +34,7 @@ object Libs {
         const val DATASTORE_PREFS = "androidx.datastore:datastore-preferences:1.0.0-alpha08"
 
         object Layout {
-            const val RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.2.0-rc01"
+            const val RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.2.0"
             const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:2.0.4"
         }
 
@@ -60,7 +60,7 @@ object Libs {
         }
 
         object Navigation {
-            private const val VERSION = "2.3.4"
+            private const val VERSION = "2.3.5"
             const val SAFE_ARGS_GRADLE_PLUGIN = "androidx.navigation:navigation-safe-args-gradle-plugin:$VERSION"
             const val FRAGMENT_KTX = "androidx.navigation:navigation-fragment-ktx:$VERSION"
             const val UI_KTX = "androidx.navigation:navigation-ui-ktx:$VERSION"
@@ -146,7 +146,7 @@ object Libs {
     }
 
     object Mockito {
-        const val CORE = "org.mockito:mockito-core:3.8.0"
+        const val CORE = "org.mockito:mockito-core:3.9.0"
         const val KOTLIN = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
     }
 
