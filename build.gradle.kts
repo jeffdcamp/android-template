@@ -16,7 +16,6 @@ buildscript {
         classpath(Libs.Google.Hilt.GRADLE_PLUGIN)
         classpath(Libs.AndroidX.Navigation.SAFE_ARGS_GRADLE_PLUGIN)
         classpath(Libs.Google.Firebase.CRASHLYTICS_GRADLE_PLUGIN)
-        classpath(Libs.Google.Firebase.APP_DISTRIBUTION_GRADLE_PLUGIN)
         // classpath(Libs.Google.Firebase.PERF_GRADLE_PLUGIN)
         classpath(Libs.Google.SERVICES_GRADLE_PLUGIN)
         classpath(Libs.VERSIONS_GRADLE_PLUGIN)

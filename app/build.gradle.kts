@@ -16,7 +16,6 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.firebase.crashlytics")
-    id("com.google.firebase.appdistribution")
     id("io.gitlab.arturbosch.detekt")
     id ("de.undercouch.download")
     id("com.github.triplet.play")
@@ -135,26 +134,12 @@ android {
             buildConfigField("long", "BUILD_TIME", "${Date().time}l")
             // isDebuggable = true
             signingConfig = signingConfigs.getByName("upload")
-
-            firebaseAppDistribution {
-                val androidTemplateServiceCredentialsFile: String? by project
-                serviceCredentialsFile = androidTemplateServiceCredentialsFile
-                groups = "mobile-dev-team, mobile-qa-team"
-                releaseNotesFile = "commit-changelog.txt"
-            }
         }
         create("beta") {
             initWith(getByName("release"))
             versionNameSuffix = " BETA"
             buildConfigField("long", "BUILD_TIME", "${Date().time}l")
             signingConfig = signingConfigs.getByName("upload")
-
-            firebaseAppDistribution {
-                val androidTemplateServiceCredentialsFile: String? by project
-                serviceCredentialsFile = androidTemplateServiceCredentialsFile
-                groups = "mobile-dev-team, mobile-qa-team"
-                releaseNotesFile = "commit-changelog.txt"
-            }
         }
         getByName("release") {
             buildConfigField("long", "BUILD_TIME", "${Date().time}l")
@@ -162,13 +147,6 @@ android {
             //minifyEnabled true
             //shrinkResources true
             signingConfig = signingConfigs.getByName("upload")
-
-            firebaseAppDistribution {
-                val androidTemplateServiceCredentialsFile: String? by project
-                serviceCredentialsFile = androidTemplateServiceCredentialsFile
-                groups = "mobile-dev-team, mobile-qa-team"
-                releaseNotesFile = "commit-changelog.txt"
-            }
         }
     }
 

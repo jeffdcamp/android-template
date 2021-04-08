@@ -93,7 +93,6 @@ object Libs {
 
         object Firebase {
             const val CRASHLYTICS_GRADLE_PLUGIN = "com.google.firebase:firebase-crashlytics-gradle:2.5.2"
-            const val APP_DISTRIBUTION_GRADLE_PLUGIN = "com.google.firebase:firebase-appdistribution-gradle:2.1.0"
             const val PERF_GRADLE_PLUGIN = "com.google.firebase:perf-plugin:1.3.4"
 
             // Firebase - https://firebase.google.com/support/release-notes/android

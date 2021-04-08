@@ -1,10 +1,16 @@
 pipeline {
     agent any
 
+    // Build server setup
+    // 1. Be sure to install firebase CLI (curl -sL https://firebase.tools | bash)  (https://firebase.google.com/docs/cli#install-cli-mac-linux)
+
     environment {
         APP_ARCHIVE_NAME = 'app'
         APP_MODULE_NAME = 'android-template'
         CHANGELOG_CMD = 'git log --date=format:"%Y-%m-%d" --pretty="format: * %s% b (%an, %cd)" | head -n 10 > commit-changelog.txt'
+        FIREBASE_GROUPS = 'mobile-dev-team, mobile-qa-team'
+        FIREBASE_APP_DIST_CMD = "firebase appdistribution:distribute $APK_PATH --app $FIREBASE_ID --release-notes-file commit-changelog.txt --groups \"$FIREBASE_GROUPS\""
+        GOOGLE_APPLICATION_CREDENTIALS = "$HOME/google-service-accounts/${APP_MODULE_NAME}.json"
     }
 
     tools {
@@ -61,6 +67,12 @@ pipeline {
             }
         }
         stage("Alpha") {
+            environment {
+                APK_PATH = 'app/build/outputs/apk/alpha/app-debug.apk'
+                BUNLE_PATH = 'app/build/outputs/apk/alpha/app-debug.aab'
+                FIREBASE_ID = '1:292666345594:android:d99c39cc0cb61625' // from your project google-services.json client_info
+            }
+
             when {
                 branch 'master'
             }
@@ -68,8 +80,7 @@ pipeline {
             stages {
                 stage("Build") {
                     steps {
-                        sh "${CHANGELOG_CMD}"
-                        sh './gradlew clean assembleAlpha bundleAlpha appDistributionUploadAlpha'
+                        sh './gradlew clean assembleAlpha bundleAlpha'
                     }
                 }
                 stage("Test") {
@@ -103,6 +114,12 @@ pipeline {
                         }
                     }
                 }
+                stage("App Distribution") {
+                    steps {
+                        sh "${CHANGELOG_CMD}"
+                        sh "${FIREBASE_APP_DIST_CMD}"
+                    }
+                }
                 stage("Deploy to Play Store Alpha") {
 //                    steps {
 //                        sh './gradlew publishAlphaApk'
@@ -113,78 +130,19 @@ pipeline {
                 }
             }
         }
-        stage("Preview") {
-            when {
-                branch 'preview'
-            }
-
-            stages {
-                stage("Build") {
-                    steps {
-                        sh "${CHANGELOG_CMD}"
-                        sh './gradlew clean assemblePreview bundlePreview appDistributionUploadPreview'
-                    }
-                    post {
-                        always {
-                            archiveArtifacts "app/build/outputs/apk/preview/${APP_ARCHIVE_NAME}-preview.apk"
-                        }
-                    }
-                }
-                stage("Test") {
-                    steps {
-                        sh './gradlew testPreviewUnitTest'
-                    }
-                    post {
-                        always {
-                            junit '**/build/test-results/**/TEST-*.xml'
-                        }
-                    }
-                }
-                stage("Lint") {
-                    steps {
-                        sh './gradlew lintPreview'
-                    }
-                    post {
-                        always {
-                            androidLint()
-                            archiveArtifacts 'app/build/reports/*.html'
-                        }
-                    }
-                }
-                stage("Detekt") {
-                    steps {
-                        sh './gradlew downloadDetektConfig detekt'
-                    }
-                    post {
-                        always {
-                            archiveArtifacts '*/build/reports/detekt/*.html'
-                        }
-                    }
-                }
-                stage("Deploy to Play Store Preview") {
-//                    steps {
-//                        sh './gradlew publishPreviewApk'
-//                    }
-                    steps {
-                        sh './gradlew publishPreviewBundle --artifact-dir app/build/outputs/bundle/preview'
-                    }
-                    post {
-                        always {
-                            archiveArtifacts "app/build/outputs/bundle/preview/${APP_ARCHIVE_NAME}-preview.aab"
-                        }
-                    }
-                }
-            }
-        }
         stage("Beta") {
+            environment {
+                APK_PATH = 'app/build/outputs/apk/alpha/app-debug.apk'
+                BUNLE_PATH = 'app/build/outputs/apk/alpha/app-debug.aab'
+                FIREBASE_ID = '1:292666345594:android:79471cfe9138c223' // from your project google-services.json client_info
+            }
             when {
                 branch 'beta'
             }
             stages {
                 stage("Build") {
                     steps {
-                        sh "${CHANGELOG_CMD}"
-                        sh './gradlew clean assembleBeta bundleBeta appDistributionUploadRelease'
+                        sh './gradlew clean assembleBeta bundleBeta'
                     }
                     post {
                         always {
@@ -223,6 +181,12 @@ pipeline {
                         }
                     }
                 }
+                stage("App Distribution") {
+                    steps {
+                        sh "${CHANGELOG_CMD}"
+                        sh "${FIREBASE_APP_DIST_CMD}"
+                    }
+                }
                 stage("Deploy to Play Store") {
 //                    steps {
 //                        sh './gradlew publishBetaApk'
@@ -239,6 +203,11 @@ pipeline {
             }
         }
         stage("Release") {
+            environment {
+                APK_PATH = 'app/build/outputs/apk/alpha/app-debug.apk'
+                BUNLE_PATH = 'app/build/outputs/apk/alpha/app-debug.aab'
+                FIREBASE_ID = '1:292666345594:android:79471cfe9138c223' // from your project google-services.json client_info
+            }
             when {
                 branch 'release'
             }
@@ -283,6 +252,12 @@ pipeline {
                         always {
                             archiveArtifacts '*/build/reports/detekt/*.html'
                         }
+                    }
+                }
+                stage("App Distribution") {
+                    steps {
+                        sh "${CHANGELOG_CMD}"
+                        sh "${FIREBASE_APP_DIST_CMD}"
                     }
                 }
                 stage("Deploy to Play Store") {
