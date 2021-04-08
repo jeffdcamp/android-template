@@ -7,11 +7,8 @@ pipeline {
     environment {
         APP_ARCHIVE_NAME = 'app'
         APP_MODULE_NAME = 'android-template'
-//        APK_PATH = "\"app/build/outputs/apk/\$APP_BUILD_TYPE/app-\$APP_BUILD_TYPE.apk\""
-//        BUNLE_PATH = "\"app/build/outputs/apk/\$APP_BUILD_TYPE/app-\$APP_BUILD_TYPE.aab\""
         CHANGELOG_CMD = 'git log --date=format:"%Y-%m-%d" --pretty="format: * %s% b (%an, %cd)" | head -n 10 > commit-changelog.txt'
         FIREBASE_GROUPS = 'mobile-dev-team, mobile-qa-team'
-//        FIREBASE_APP_DIST_CMD = "firebase appdistribution:distribute \$APK_PATH --app \$FIREBASE_ID --release-notes-file commit-changelog.txt --groups \"\$FIREBASE_GROUPS\""
         FIREBASE_APP_DIST_CMD = "firebase appdistribution:distribute app/build/outputs/apk/\$APP_BUILD_TYPE/app-\$APP_BUILD_TYPE.apk --app \$FIREBASE_ID --release-notes-file commit-changelog.txt --groups \"\$FIREBASE_GROUPS\""
         GOOGLE_APPLICATION_CREDENTIALS = "${HOME}/google-service-accounts/${APP_MODULE_NAME}.json"
     }
@@ -81,54 +78,50 @@ pipeline {
             stages {
                 stage("Build") {
                     steps {
-//                        sh './gradlew clean assembleAlpha bundleAlpha'
-                        sh './gradlew clean assembleAlpha'
+                        sh './gradlew clean assembleAlpha bundleAlpha'
                     }
                 }
-//                stage("Test") {
-//                    steps {
-//                        sh './gradlew testAlphaUnitTest'
-//                    }
-//                    post {
-//                        always {
-//                            junit '**/build/test-results/**/TEST-*.xml'
-//                        }
-//                    }
-//                }
-//                stage("Lint") {
-//                    steps {
-//                        sh './gradlew lintAlpha'
-//                    }
-//                    post {
-//                        always {
-//                            archiveArtifacts 'app/build/reports/*.html'
-//                        }
-//                    }
-//                }
-//                stage("Detekt") {
-//                    steps {
-//                        sh './gradlew downloadDetektConfig detekt'
-//                    }
-//                    post {
-//                        always {
-//                            archiveArtifacts '*/build/reports/detekt/*.html'
-//                        }
-//                    }
-//                }
+                stage("Test") {
+                    steps {
+                        sh './gradlew testAlphaUnitTest'
+                    }
+                    post {
+                        always {
+                            junit '**/build/test-results/**/TEST-*.xml'
+                        }
+                    }
+                }
+                stage("Lint") {
+                    steps {
+                        sh './gradlew lintAlpha'
+                    }
+                    post {
+                        always {
+                            archiveArtifacts 'app/build/reports/*.html'
+                        }
+                    }
+                }
+                stage("Detekt") {
+                    steps {
+                        sh './gradlew downloadDetektConfig detekt'
+                    }
+                    post {
+                        always {
+                            archiveArtifacts '*/build/reports/detekt/*.html'
+                        }
+                    }
+                }
                 stage("App Distribution") {
                     steps {
                         sh "${CHANGELOG_CMD}"
                         sh "${FIREBASE_APP_DIST_CMD}"
                     }
                 }
-//                stage("Deploy to Play Store Alpha") {
-////                    steps {
-////                        sh './gradlew publishAlphaApk'
-////                    }
-//                    steps {
-//                        sh './gradlew publishAlphaBundle --artifact-dir app/build/outputs/bundle/alpha'
-//                    }
-//                }
+                stage("Deploy to Play Store Alpha") {
+                    steps {
+                        sh "./gradlew publishAlphaBundle --artifact-dir app/build/outputs/bundle/${APP_BUILD_TYPE}"
+                    }
+                }
             }
         }
         stage("Beta") {
@@ -146,7 +139,7 @@ pipeline {
                     }
                     post {
                         always {
-                            archiveArtifacts "app/build/outputs/apk/beta/${APP_ARCHIVE_NAME}-beta.apk"
+                            archiveArtifacts "app/build/outputs/apk/${APP_BUILD_TYPE}/${APP_ARCHIVE_NAME}-${APP_BUILD_TYPE}.apk"
                         }
                     }
                 }
@@ -187,15 +180,12 @@ pipeline {
                     }
                 }
                 stage("Deploy to Play Store") {
-//                    steps {
-//                        sh './gradlew publishBetaApk'
-//                    }
                     steps {
-                        sh './gradlew publishBetaBundle --artifact-dir app/build/outputs/bundle/beta'
+                        sh "./gradlew publishBetaBundle --artifact-dir app/build/outputs/bundle/${APP_BUILD_TYPE}"
                     }
                     post {
                         always {
-                            archiveArtifacts "app/build/outputs/bundle/beta/${APP_ARCHIVE_NAME}-beta.aab"
+                            archiveArtifacts "app/build/outputs/bundle/${APP_BUILD_TYPE}/${APP_ARCHIVE_NAME}-${APP_BUILD_TYPE}.aab"
                         }
                     }
                 }
@@ -217,7 +207,7 @@ pipeline {
                     }
                     post {
                         always {
-                            archiveArtifacts "app/build/outputs/apk/release/${APP_ARCHIVE_NAME}-release.apk"
+                            archiveArtifacts "app/build/outputs/apk/${APP_BUILD_TYPE}/${APP_ARCHIVE_NAME}-${APP_BUILD_TYPE}.apk"
                         }
                     }
                 }
@@ -258,15 +248,12 @@ pipeline {
                     }
                 }
                 stage("Deploy to Play Store") {
-//                    steps {
-//                        sh './gradlew publishReleaseApk'
-//                    }
                     steps {
-                        sh './gradlew publishReleaseBundle --artifact-dir app/build/outputs/bundle/release'
+                        sh "./gradlew publishReleaseBundle --artifact-dir app/build/outputs/bundle/${APP_BUILD_TYPE}"
                     }
                     post {
                         always {
-                            archiveArtifacts "app/build/outputs/bundle/release/${APP_ARCHIVE_NAME}-release.aab"
+                            archiveArtifacts "app/build/outputs/bundle/${APP_BUILD_TYPE}/${APP_ARCHIVE_NAME}-${APP_BUILD_TYPE}.aab"
                         }
                     }
                 }
