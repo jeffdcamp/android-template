@@ -7,10 +7,12 @@ pipeline {
     environment {
         APP_ARCHIVE_NAME = 'app'
         APP_MODULE_NAME = 'android-template'
+        APK_PATH = "app/build/outputs/apk/\$APP_BUILD_TYPE/app-\$APP_BUILD_TYPE.apk"
+        BUNLE_PATH = "app/build/outputs/apk/\$APP_BUILD_TYPE/app-\$APP_BUILD_TYPE.aab"
         CHANGELOG_CMD = 'git log --date=format:"%Y-%m-%d" --pretty="format: * %s% b (%an, %cd)" | head -n 10 > commit-changelog.txt'
         FIREBASE_GROUPS = 'mobile-dev-team, mobile-qa-team'
         FIREBASE_APP_DIST_CMD = "firebase appdistribution:distribute \$APK_PATH --app \$FIREBASE_ID --release-notes-file commit-changelog.txt --groups \"\$FIREBASE_GROUPS\""
-        GOOGLE_APPLICATION_CREDENTIALS = "$HOME/google-service-accounts/${APP_MODULE_NAME}.json"
+        GOOGLE_APPLICATION_CREDENTIALS = "${HOME}/google-service-accounts/${APP_MODULE_NAME}.json"
     }
 
     tools {
@@ -68,10 +70,7 @@ pipeline {
         stage("Alpha") {
             environment {
                 APP_BUILD_TYPE = "alpha"
-                APK_PATH = "app/build/outputs/apk/$APP_BUILD_TYPE/app-${APP_BUILD_TYPE}.apk"
-                BUNLE_PATH = "app/build/outputs/apk/$APP_BUILD_TYPE/app-${APP_BUILD_TYPE}.aab"
                 FIREBASE_ID = '1:292666345594:android:d99c39cc0cb61625' // from your project google-services.json client_info
-//                FIREBASE_APP_DIST_CMD = "firebase appdistribution:distribute $APK_PATH --app $FIREBASE_ID --release-notes-file commit-changelog.txt --groups \"$FIREBASE_GROUPS\""
             }
 
             when {
@@ -134,10 +133,7 @@ pipeline {
         stage("Beta") {
             environment {
                 APP_BUILD_TYPE = "beta"
-                APK_PATH = "app/build/outputs/apk/$APP_BUILD_TYPE/app-${APP_BUILD_TYPE}.apk"
-                BUNLE_PATH = "app/build/outputs/apk/$APP_BUILD_TYPE/app-${APP_BUILD_TYPE}.aab"
                 FIREBASE_ID = '1:292666345594:android:79471cfe9138c223' // from your project google-services.json client_info
-//                FIREBASE_APP_DIST_CMD = "firebase appdistribution:distribute $APK_PATH --app $FIREBASE_ID --release-notes-file commit-changelog.txt --groups \"$FIREBASE_GROUPS\""
             }
             when {
                 branch 'beta'
@@ -207,10 +203,7 @@ pipeline {
         stage("Release") {
             environment {
                 APP_BUILD_TYPE = "release"
-                APK_PATH = "app/build/outputs/apk/$APP_BUILD_TYPE/app-${APP_BUILD_TYPE}.apk"
-                BUNLE_PATH = "app/build/outputs/apk/$APP_BUILD_TYPE/app-${APP_BUILD_TYPE}.aab"
                 FIREBASE_ID = '1:292666345594:android:79471cfe9138c223' // from your project google-services.json client_info
-                FIREBASE_APP_DIST_CMD = "firebase appdistribution:distribute $APK_PATH --app $FIREBASE_ID --release-notes-file commit-changelog.txt --groups \"$FIREBASE_GROUPS\""
             }
             when {
                 branch 'release'
