@@ -49,7 +49,6 @@ pipeline {
                     }
                     post {
                         always {
-                            androidLint()
                             archiveArtifacts 'app/build/reports/*.html'
                         }
                     }
@@ -99,7 +98,6 @@ pipeline {
                     }
                     post {
                         always {
-                            androidLint()
                             archiveArtifacts 'app/build/reports/*.html'
                         }
                     }
@@ -166,7 +164,6 @@ pipeline {
                     }
                     post {
                         always {
-                            androidLint()
                             archiveArtifacts 'app/build/reports/*.html'
                         }
                     }
@@ -239,7 +236,6 @@ pipeline {
                     }
                     post {
                         always {
-                            androidLint()
                             archiveArtifacts 'app/build/reports/*.html'
                         }
                     }
