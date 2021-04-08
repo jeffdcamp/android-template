@@ -9,7 +9,7 @@ pipeline {
         APP_MODULE_NAME = 'android-template'
         CHANGELOG_CMD = 'git log --date=format:"%Y-%m-%d" --pretty="format: * %s% b (%an, %cd)" | head -n 10 > commit-changelog.txt'
         FIREBASE_GROUPS = 'mobile-dev-team, mobile-qa-team'
-        FIREBASE_APP_DIST_CMD = "firebase appdistribution:distribute $APK_PATH --app $FIREBASE_ID --release-notes-file commit-changelog.txt --groups \"$FIREBASE_GROUPS\""
+        FIREBASE_APP_DIST_CMD = "firebase appdistribution:distribute ${APK_PATH} --app ${FIREBASE_ID} --release-notes-file commit-changelog.txt --groups \"${FIREBASE_GROUPS}\""
         GOOGLE_APPLICATION_CREDENTIALS = "$HOME/google-service-accounts/${APP_MODULE_NAME}.json"
     }
 
@@ -67,9 +67,11 @@ pipeline {
         }
         stage("Alpha") {
             environment {
-                APK_PATH = 'app/build/outputs/apk/alpha/app-debug.apk'
-                BUNLE_PATH = 'app/build/outputs/apk/alpha/app-debug.aab'
+                APP_BUILD_TYPE = "alpha"
+                APK_PATH = "app/build/outputs/apk/$APP_BUILD_TYPE/app-${APP_BUILD_TYPE}.apk"
+                BUNLE_PATH = "app/build/outputs/apk/$APP_BUILD_TYPE/app-${APP_BUILD_TYPE}.aab"
                 FIREBASE_ID = '1:292666345594:android:d99c39cc0cb61625' // from your project google-services.json client_info
+//                FIREBASE_APP_DIST_CMD = "firebase appdistribution:distribute $APK_PATH --app $FIREBASE_ID --release-notes-file commit-changelog.txt --groups \"$FIREBASE_GROUPS\""
             }
 
             when {
@@ -79,60 +81,63 @@ pipeline {
             stages {
                 stage("Build") {
                     steps {
-                        sh './gradlew clean assembleAlpha bundleAlpha'
+//                        sh './gradlew clean assembleAlpha bundleAlpha'
+                        sh './gradlew clean assembleAlpha'
                     }
                 }
-                stage("Test") {
-                    steps {
-                        sh './gradlew testAlphaUnitTest'
-                    }
-                    post {
-                        always {
-                            junit '**/build/test-results/**/TEST-*.xml'
-                        }
-                    }
-                }
-                stage("Lint") {
-                    steps {
-                        sh './gradlew lintAlpha'
-                    }
-                    post {
-                        always {
-                            archiveArtifacts 'app/build/reports/*.html'
-                        }
-                    }
-                }
-                stage("Detekt") {
-                    steps {
-                        sh './gradlew downloadDetektConfig detekt'
-                    }
-                    post {
-                        always {
-                            archiveArtifacts '*/build/reports/detekt/*.html'
-                        }
-                    }
-                }
+//                stage("Test") {
+//                    steps {
+//                        sh './gradlew testAlphaUnitTest'
+//                    }
+//                    post {
+//                        always {
+//                            junit '**/build/test-results/**/TEST-*.xml'
+//                        }
+//                    }
+//                }
+//                stage("Lint") {
+//                    steps {
+//                        sh './gradlew lintAlpha'
+//                    }
+//                    post {
+//                        always {
+//                            archiveArtifacts 'app/build/reports/*.html'
+//                        }
+//                    }
+//                }
+//                stage("Detekt") {
+//                    steps {
+//                        sh './gradlew downloadDetektConfig detekt'
+//                    }
+//                    post {
+//                        always {
+//                            archiveArtifacts '*/build/reports/detekt/*.html'
+//                        }
+//                    }
+//                }
                 stage("App Distribution") {
                     steps {
                         sh "${CHANGELOG_CMD}"
                         sh "${FIREBASE_APP_DIST_CMD}"
                     }
                 }
-                stage("Deploy to Play Store Alpha") {
+//                stage("Deploy to Play Store Alpha") {
+////                    steps {
+////                        sh './gradlew publishAlphaApk'
+////                    }
 //                    steps {
-//                        sh './gradlew publishAlphaApk'
+//                        sh './gradlew publishAlphaBundle --artifact-dir app/build/outputs/bundle/alpha'
 //                    }
-                    steps {
-                        sh './gradlew publishAlphaBundle --artifact-dir app/build/outputs/bundle/alpha'
-                    }
-                }
+//                }
             }
         }
         stage("Beta") {
             environment {
-                APK_PATH = 'app/build/outputs/apk/beta/app-debug.apk'
-                BUNLE_PATH = 'app/build/outputs/apk/beta/app-debug.aab'
+                APP_BUILD_TYPE = "beta"
+                APK_PATH = "app/build/outputs/apk/$APP_BUILD_TYPE/app-${APP_BUILD_TYPE}.apk"
+                BUNLE_PATH = "app/build/outputs/apk/$APP_BUILD_TYPE/app-${APP_BUILD_TYPE}.aab"
                 FIREBASE_ID = '1:292666345594:android:79471cfe9138c223' // from your project google-services.json client_info
+//                FIREBASE_APP_DIST_CMD = "firebase appdistribution:distribute $APK_PATH --app $FIREBASE_ID --release-notes-file commit-changelog.txt --groups \"$FIREBASE_GROUPS\""
             }
             when {
                 branch 'beta'
@@ -201,9 +206,11 @@ pipeline {
         }
         stage("Release") {
             environment {
-                APK_PATH = 'app/build/outputs/apk/release/app-debug.apk'
-                BUNLE_PATH = 'app/build/outputs/apk/release/app-debug.aab'
+                APP_BUILD_TYPE = "release"
+                APK_PATH = "app/build/outputs/apk/$APP_BUILD_TYPE/app-${APP_BUILD_TYPE}.apk"
+                BUNLE_PATH = "app/build/outputs/apk/$APP_BUILD_TYPE/app-${APP_BUILD_TYPE}.aab"
                 FIREBASE_ID = '1:292666345594:android:79471cfe9138c223' // from your project google-services.json client_info
+                FIREBASE_APP_DIST_CMD = "firebase appdistribution:distribute $APK_PATH --app $FIREBASE_ID --release-notes-file commit-changelog.txt --groups \"$FIREBASE_GROUPS\""
             }
             when {
                 branch 'release'
