@@ -71,7 +71,7 @@ pipeline {
         stage("Alpha") {
             environment {
                 APP_BUILD_TYPE = "alpha"
-                FIREBASE_ID = '1:292666345594:android:d99c39cc0cb61625' // from your project google-services.json client_info
+                FIREBASE_ID = '1:292666345594:android:21903887d2d5200065d3c3' // from your project google-services.json client_info
             }
 
             when {
