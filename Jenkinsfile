@@ -132,8 +132,8 @@ pipeline {
         }
         stage("Beta") {
             environment {
-                APK_PATH = 'app/build/outputs/apk/alpha/app-debug.apk'
-                BUNLE_PATH = 'app/build/outputs/apk/alpha/app-debug.aab'
+                APK_PATH = 'app/build/outputs/apk/beta/app-debug.apk'
+                BUNLE_PATH = 'app/build/outputs/apk/beta/app-debug.aab'
                 FIREBASE_ID = '1:292666345594:android:79471cfe9138c223' // from your project google-services.json client_info
             }
             when {
@@ -204,8 +204,8 @@ pipeline {
         }
         stage("Release") {
             environment {
-                APK_PATH = 'app/build/outputs/apk/alpha/app-debug.apk'
-                BUNLE_PATH = 'app/build/outputs/apk/alpha/app-debug.aab'
+                APK_PATH = 'app/build/outputs/apk/release/app-debug.apk'
+                BUNLE_PATH = 'app/build/outputs/apk/release/app-debug.aab'
                 FIREBASE_ID = '1:292666345594:android:79471cfe9138c223' // from your project google-services.json client_info
             }
             when {
