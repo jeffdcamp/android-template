@@ -89,7 +89,7 @@ object Libs {
         const val KSP_GRADLE_PLUGIN = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:1.4.30-1.0.0-alpha05" // https://maven.google.com/web/index.html#com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin
         const val SERVICES_GRADLE_PLUGIN = "com.google.gms:google-services:4.3.5"
         const val MATERIAL = "com.google.android.material:material:1.3.0" // https://github.com/material-components/material-components-android/releases
-        const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:2.33" // Standard dagger is needed for unit tests ONLY
+        const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:2.34" // Standard dagger is needed for unit tests ONLY
 
         object Firebase {
             const val CRASHLYTICS_GRADLE_PLUGIN = "com.google.firebase:firebase-crashlytics-gradle:2.5.2"
@@ -105,7 +105,7 @@ object Libs {
         }
 
         object Hilt {
-            private const val VERSION = "2.33-beta"
+            private const val VERSION = "2.34-beta"
             const val GRADLE_PLUGIN = "com.google.dagger:hilt-android-gradle-plugin:$VERSION"
             const val ANDROID = "com.google.dagger:hilt-android:$VERSION"
             const val COMPILER = "com.google.dagger:hilt-compiler:$VERSION"
