@@ -1,8 +1,34 @@
+// ==== Jenkins build server setup ====
+// 1. Install Jenkins
+// 2. Install Jenkins Blue Ocean plugin (Pipeline builds)
+// 3. Install Java in Jenkins
+//     - Get tar.gz link from https://adoptopenjdk.net/ (Example: https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.10%2B9/OpenJDK11U-jdk_x64_linux_hotspot_11.0.10_9.tar.gz)
+//     - Manage Jenkins > Global Tool Configuration > JDK > JDK installations...
+//     - Add JDK
+//         - Name: Java 11
+//         - Add Installer > Extract *.zip/*.tar.gz (remove default Oracle installation)
+//         - Label: master
+//         - Download Url: <use above url>
+//         - Subdirectory of extracted archive: <open the tar.gz file and use the root folder name here>
+//     - Save
+// 4. Install Android SDK
+//     - Download latest Android SDK (https://developer.android.com/studio#command-tools) (Example: https://dl.google.com/android/repository/commandlinetools-linux-6858069_latest.zip)
+//     - mkdir /opt/Android
+//     - unzip downloaded file...
+//     - move contents into /opt/Android/cmdline-tools/latest
+//     - cd /opt/Android/cmdline-tools/latest/bin
+//     - ./sdkmanager --update
+//     - ./sdkmanager --licenses
+//     - grant rights for jenkins user to /opt/Android dir
+// 5. Configure Android Environment Variables in Jenkins
+//     - Manage Jenkins>Configure System. Under Global Settings
+//     - ANDROID_HOME=/opt/Android
+//     - Save
+// 6. For Firebase App Distribution, install firebase CLI (curl -sL https://firebase.tools | bash)  (https://firebase.google.com/docs/cli#install-cli-mac-linux)
+// 7. Add PipeLine for this project to Jenkins
+
 pipeline {
     agent any
-
-    // Build server setup
-    // 1. Be sure to install firebase CLI (curl -sL https://firebase.tools | bash)  (https://firebase.google.com/docs/cli#install-cli-mac-linux)
 
     environment {
         APP_ARCHIVE_NAME = 'app'
@@ -119,7 +145,7 @@ pipeline {
                 }
                 stage("Deploy to Play Store Alpha") {
                     steps {
-                        sh "./gradlew publishAlphaBundle --artifact-dir app/build/outputs/bundle/${APP_BUILD_TYPE}"
+                        sh "./gradlew publishAlphaBundle --artifact-dir app/build/outputs/bundle/alpha"
                     }
                 }
             }
