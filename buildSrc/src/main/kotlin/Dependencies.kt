@@ -121,7 +121,7 @@ object Libs {
 
     // ===== 3rd Party =====
     const val VERSIONS_GRADLE_PLUGIN = "com.github.ben-manes:gradle-versions-plugin:0.38.0"
-    const val PLAY_PUBLISHER_GRADLE_PLUGIN = "com.github.triplet.gradle:play-publisher:3.3.0-agp4.2"
+    const val PLAY_PUBLISHER_GRADLE_PLUGIN = "com.github.triplet.gradle:play-publisher:3.4.0-agp7.0"
     const val LICENSE_REPORT_GRADLE_PLUGIN = "com.github.jk1:gradle-license-report:1.16"
     const val DETEKT_GRADLE_PLUGIN = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.16.0"
 

@@ -107,42 +107,42 @@ pipeline {
                         sh './gradlew clean assembleAlpha bundleAlpha'
                     }
                 }
-//                stage("Test") {
-//                    steps {
-//                        sh './gradlew testAlphaUnitTest'
-//                    }
-//                    post {
-//                        always {
-//                            junit '**/build/test-results/**/TEST-*.xml'
-//                        }
-//                    }
-//                }
-//                stage("Lint") {
-//                    steps {
-//                        sh './gradlew lintAlpha'
-//                    }
-//                    post {
-//                        always {
-//                            archiveArtifacts 'app/build/reports/*.html'
-//                        }
-//                    }
-//                }
-//                stage("Detekt") {
-//                    steps {
-//                        sh './gradlew downloadDetektConfig detekt'
-//                    }
-//                    post {
-//                        always {
-//                            archiveArtifacts '*/build/reports/detekt/*.html'
-//                        }
-//                    }
-//                }
-//                stage("App Distribution") {
-//                    steps {
-//                        sh "${CHANGELOG_CMD}"
-//                        sh "${FIREBASE_APP_DIST_CMD}"
-//                    }
-//                }
+                stage("Test") {
+                    steps {
+                        sh './gradlew testAlphaUnitTest'
+                    }
+                    post {
+                        always {
+                            junit '**/build/test-results/**/TEST-*.xml'
+                        }
+                    }
+                }
+                stage("Lint") {
+                    steps {
+                        sh './gradlew lintAlpha'
+                    }
+                    post {
+                        always {
+                            archiveArtifacts 'app/build/reports/*.html'
+                        }
+                    }
+                }
+                stage("Detekt") {
+                    steps {
+                        sh './gradlew downloadDetektConfig detekt'
+                    }
+                    post {
+                        always {
+                            archiveArtifacts '*/build/reports/detekt/*.html'
+                        }
+                    }
+                }
+                stage("App Distribution") {
+                    steps {
+                        sh "${CHANGELOG_CMD}"
+                        sh "${FIREBASE_APP_DIST_CMD}"
+                    }
+                }
                 stage("Deploy to Play Store Alpha") {
                     steps {
                         sh './gradlew publishAlphaBundle --artifact-dir app/build/outputs/bundle/alpha'
