@@ -29,9 +29,9 @@ object Libs {
         const val PREFERENCE_KTX = "androidx.preference:preference-ktx:1.1.1"
         const val CORE_KTX = "androidx.core:core-ktx:1.5.0-rc01"
         const val ACTIVITY_KTX = "androidx.activity:activity-ktx:1.2.2"
-        const val FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.3.2"
+        const val FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.3.3"
         const val STARTUP = "androidx.startup:startup-runtime:1.0.0"
-        const val DATASTORE_PREFS = "androidx.datastore:datastore-preferences:1.0.0-alpha08"
+        const val DATASTORE_PREFS = "androidx.datastore:datastore-preferences:1.0.0-beta01"
 
         object Layout {
             const val RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.2.0"
@@ -39,7 +39,7 @@ object Libs {
         }
 
         object Room {
-            private const val VERSION = "2.3.0-rc01"
+            private const val VERSION = "2.3.0"
             const val RUNTIME = "androidx.room:room-runtime:$VERSION"
             const val KTX = "androidx.room:room-ktx:$VERSION"
             const val COMPILER = "androidx.room:room-compiler:$VERSION"
@@ -89,14 +89,14 @@ object Libs {
         const val KSP_GRADLE_PLUGIN = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:1.4.30-1.0.0-alpha05" // https://maven.google.com/web/index.html#com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin
         const val SERVICES_GRADLE_PLUGIN = "com.google.gms:google-services:4.3.5"
         const val MATERIAL = "com.google.android.material:material:1.3.0" // https://github.com/material-components/material-components-android/releases
-        const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:2.34.1" // Standard dagger is needed for unit tests ONLY
+        const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:2.35" // Standard dagger is needed for unit tests ONLY
 
         object Firebase {
             const val CRASHLYTICS_GRADLE_PLUGIN = "com.google.firebase:firebase-crashlytics-gradle:2.5.2"
             const val PERF_GRADLE_PLUGIN = "com.google.firebase:perf-plugin:1.3.4"
 
             // Firebase - https://firebase.google.com/support/release-notes/android
-            const val BOM = "com.google.firebase:firebase-bom:27.0.0" // automatically sets the version for all firebase libs below
+            const val BOM = "com.google.firebase:firebase-bom:27.1.0" // automatically sets the version for all firebase libs below
             const val CORE = "com.google.firebase:firebase-core"
             const val PERF = "com.google.firebase:firebase-perf"
             const val CONFIG = "com.google.firebase:firebase-config-ktx"
@@ -105,7 +105,7 @@ object Libs {
         }
 
         object Hilt {
-            private const val VERSION = "2.34.1-beta"
+            private const val VERSION = "2.35"
             const val GRADLE_PLUGIN = "com.google.dagger:hilt-android-gradle-plugin:$VERSION"
             const val ANDROID = "com.google.dagger:hilt-android:$VERSION"
             const val COMPILER = "com.google.dagger:hilt-compiler:$VERSION"
@@ -131,7 +131,7 @@ object Libs {
     const val LEAK_CANARY = "com.squareup.leakcanary:leakcanary-android:2.7"
 
     object DBTools {
-        private const val VERSION = "6.0.0-rc01"
+        private const val VERSION = "6.0.0"
         const val ROOM = "org.dbtools:dbtools-room:$VERSION"
         const val ROOM_SQLITE = "org.dbtools:dbtools-room-sqliteorg:$VERSION"
         const val ROOM_JDBC_TEST = "org.dbtools:dbtools-room-jdbc-test:$VERSION"
