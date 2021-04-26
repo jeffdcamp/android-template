@@ -1,12 +1,12 @@
 object Libs {
     // ===== Kotlin =====
     object Kotlin {
-        private const val VERSION = "1.5.0-RC"
+        private const val VERSION = "1.5.0"
         const val GRADLE_PLUGIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:$VERSION"
 
         object Serialization {
             const val GRADLE_PLUGIN = "org.jetbrains.kotlin:kotlin-serialization:$VERSION"
-            const val JSON = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0"
+            const val JSON = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.0"
         }
 
         object Coroutines {
