@@ -20,7 +20,7 @@ object Libs {
 
     // ===== Google/Android/AndroidX =====
     object Android {
-        const val GRADLE_PLUGIN = "com.android.tools.build:gradle:7.0.0-alpha14"
+        const val GRADLE_PLUGIN = "com.android.tools.build:gradle:7.0.0-alpha15"
         const val DESUGAR = "com.android.tools:desugar_jdk_libs:1.1.5"
     }
 

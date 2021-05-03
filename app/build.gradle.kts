@@ -119,7 +119,7 @@ android {
     }
 
     buildTypes {
-        getByName("debug") {
+        debug {
             versionNameSuffix = " DEV"
             applicationIdSuffix = ".dev"
             buildConfigField("long", "BUILD_TIME", "0l") // to improve build times, do allow change on every build
@@ -128,7 +128,11 @@ android {
             // signingConfig = signingConfigs.getByName("upload")
         }
         create("alpha") {
-            initWith(getByName("release"))
+            // todo remove initWith(...)?
+            // * 2021-04-30 no longer exists with AGP 7.0.0-alpha15
+            // * Code for in AGP 7.0.0-alpha14 AbstractBuildType.initWith() only copies values from other variant... which is covered below (see https://android.googlesource.com/platform/tools/base/+/mirror-goog-studio-master-dev/build-system/gradle-core/src/main/java/com/android/builder/core/AbstractBuildType.kt)
+            // initWith(getByName("release"))
+
             versionNameSuffix = " ALPHA"
             applicationIdSuffix = ".alpha"
             buildConfigField("long", "BUILD_TIME", "${Date().time}l")
@@ -136,16 +140,18 @@ android {
             signingConfig = signingConfigs.getByName("upload")
         }
         create("beta") {
-            initWith(getByName("release"))
+            // todo remove initWith(...)?
+            // * 2021-04-30 no longer exists with AGP 7.0.0-alpha15
+            // * Code for in AGP 7.0.0-alpha14 AbstractBuildType.initWith() only copies values from other variant... which is covered below (see https://android.googlesource.com/platform/tools/base/+/mirror-goog-studio-master-dev/build-system/gradle-core/src/main/java/com/android/builder/core/AbstractBuildType.kt)
+            // initWith(getByName("release"))
+
             versionNameSuffix = " BETA"
             buildConfigField("long", "BUILD_TIME", "${Date().time}l")
             signingConfig = signingConfigs.getByName("upload")
         }
-        getByName("release") {
-            buildConfigField("long", "BUILD_TIME", "${Date().time}l")
+        release {
             versionNameSuffix = ""
-            //minifyEnabled true
-            //shrinkResources true
+            buildConfigField("long", "BUILD_TIME", "${Date().time}l")
             signingConfig = signingConfigs.getByName("upload")
         }
     }
