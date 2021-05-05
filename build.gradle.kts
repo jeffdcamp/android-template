@@ -5,7 +5,6 @@ buildscript {
         mavenLocal()
         google()
         mavenCentral()
-        jcenter() // 2021/03/15: required by detekt / Jetpack Compose (because of Kotlin Dependency)
         gradlePluginPortal()
     }
 
@@ -35,7 +34,6 @@ allprojects {
         mavenLocal()
         google()
         mavenCentral()
-        jcenter() // 2021/03/15: required by detekt / Jetpack Compose (because of Kotlin Dependency)
 //        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
     }
 
