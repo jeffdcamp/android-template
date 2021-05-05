@@ -171,103 +171,100 @@ android {
 
 dependencies {
     // Android
-    coreLibraryDesugaring(Libs.Android.DESUGAR)
-    implementation(Libs.AndroidX.APPCOMPAT)
-    implementation(Libs.AndroidX.Layout.RECYCLERVIEW)
-    implementation(Libs.AndroidX.PREFERENCE_KTX)
-    implementation(Libs.Google.MATERIAL)
-    implementation(Libs.AndroidX.Layout.CONSTRAINT_LAYOUT)
-    implementation(Libs.AndroidX.CORE_KTX)
-    implementation(Libs.AndroidX.ACTIVITY_KTX)
-    implementation(Libs.AndroidX.FRAGMENT_KTX)
-    implementation(Libs.AndroidX.STARTUP)
-    implementation(Libs.AndroidX.DATASTORE_PREFS)
+    coreLibraryDesugaring(libs.android.desugar)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.recyclerview)
+    implementation(libs.androidx.preference)
+    implementation(libs.google.material)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.core)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.fragment)
+    implementation(libs.androidx.startup)
+    implementation(libs.androidx.datastorePrefs)
 
     // Play Service
-    implementation(Libs.Google.Play.CORE)
-    implementation(Libs.Kotlin.Coroutines.PLAY_SERVICES)
+    implementation(libs.google.play.core)
+    implementation(libs.kotlin.coroutines.playServices)
 
     // Firebase
-    implementation(platform(Libs.Google.Firebase.BOM))
-    implementation(Libs.Google.Firebase.CORE)
-    //implementation(Libs.Google.Firebase.PERF)
-    implementation(Libs.Google.Firebase.CONFIG)
-    implementation(Libs.Google.Firebase.CRASHLYTICS)
-    implementation(Libs.Google.Firebase.ANALYTICS)
+    implementation(platform(libs.google.firebase.bom))
+    implementation(libs.google.firebase.core)
+    //implementation(libs.google.firebase.perf)
+    implementation(libs.google.firebase.config)
+    implementation(libs.google.firebase.crashlytics)
+    implementation(libs.google.firebase.analytics)
 
     // Code
-    implementation(Libs.Kotlin.Serialization.JSON)
-    implementation(Libs.Kotlin.Coroutines.ANDROID)
-    implementation(Libs.TIMBER)
+    implementation(libs.kotlin.serialization.json)
+    implementation(libs.kotlin.coroutines.android)
+    implementation(libs.timber)
 
     // Inject
-    kapt(Libs.Google.Hilt.COMPILER)
-    kapt(Libs.AndroidX.Hilt.COMPILER)
-    implementation(Libs.Google.Hilt.ANDROID)
-    implementation(Libs.AndroidX.Hilt.WORK)
+    kapt(libs.google.hilt.compiler)
+    kapt(libs.androidx.hilt.compiler)
+    implementation(libs.google.hilt.library)
+    implementation(libs.androidx.hilt.work)
 
     // Android Architecture Components
-    implementation(Libs.AndroidX.Lifecycle.RUNTIME_KTX)
-    implementation(Libs.AndroidX.Lifecycle.VIEWMODEL_KTX)
-    implementation(Libs.AndroidX.Lifecycle.VIEWMODEL_SAVESTATE)
-    implementation(Libs.AndroidX.Lifecycle.COMMON_JAVA8)
+    implementation(libs.androidx.lifecycle.runtime)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.savedstate)
+    implementation(libs.androidx.lifecycle.common.java8)
 
     // Navigation
-    implementation(Libs.AndroidX.Navigation.FRAGMENT_KTX)
-    implementation(Libs.AndroidX.Navigation.UI_KTX)
+    implementation(libs.androidx.navigation.fragment)
+    implementation(libs.androidx.navigation.ui)
 
     // WorkManager
-    implementation(Libs.AndroidX.WorkManager.RUNTIME)
-    implementation(Libs.AndroidX.WorkManager.GCM)
-    implementation(Libs.WORKMANAGER_TOOLS)
+    implementation(libs.androidx.work.runtime)
+    implementation(libs.androidx.work.gcm)
+    implementation(libs.workmanagertools)
 
     // Database
-    implementation(Libs.AndroidX.Room.RUNTIME)
-    implementation(Libs.AndroidX.Room.KTX)
-    kapt(Libs.AndroidX.Room.COMPILER)
-    //ksp(Libs.AndroidX.Room.COMPILER)
-    implementation(Libs.DBTools.ROOM)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    kapt(libs.androidx.room.compiler)
+    //ksp(libs.androidx.Room.COMPILER)
+    implementation(libs.dbtools.room)
 
     // Custom SQLite database
     // (for use of SqliteOrgSQLiteOpenHelperFactory in AppModule.kt)
-    //implementation(Deps.DBTOOLS_ROOM_SQLITE)
-
-    // Debug Database (emulator: adb forward tcp:8080 tcp:8080) (https://github.com/amitshekhariitbhu/Android-Debug-Database)
-    // Device: Look for "DebugDB" in logcat for the address
-    // Emulator: 'adb forward tcp:8080 tcp:8080' then localhost:8080 from browser
-    // debugimplementation("com.amitshekhar.android:debug-db:1.0.6")
+    //implementation(libs.dbtoolsDBTOOLS_ROOM_SQLITE)
 
     // Network
-    implementation(platform(Libs.OkHttp.BOM))
-    implementation(Libs.OkHttp.OKHTTP)
-    implementation(Libs.OkHttp.LOGGING_INTERCEPTOR)
-    implementation(Libs.RETROFIT)
+    implementation(platform(libs.okhttp.bom))
+    implementation(libs.okhttp.okhttp)
+    implementation(libs.okhttp.loggingInterceptor)
+    implementation(libs.retrofit.retrofit)
 
     // Dev
-    debugImplementation(Libs.LEAK_CANARY)
+    debugImplementation(libs.leakCanary)
 
     // Test (Integration)
-    androidTestImplementation(Libs.AndroidX.Test.Espresso.CORE)
-    androidTestImplementation(Libs.AndroidX.Test.Espresso.CONTRIB)
-    androidTestImplementation(Libs.AndroidX.Test.RUNNER)
-    androidTestImplementation(Libs.AndroidX.Test.RULES)
-    androidTestImplementation(Libs.AndroidX.Test.JUNIT_EXT)
+    androidTestImplementation(libs.androidx.test.espresso.core)
+    androidTestImplementation(libs.androidx.test.espresso.contrib)
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.androidx.test.rules)
+    androidTestImplementation(libs.androidx.test.junit)
 
     // Test (Unit)
-    testImplementation(platform(Libs.JUnit.BOM))
-    testImplementation(Libs.JUnit.JUPITER)
-    testRuntimeOnly(Libs.JUnit.ENGINE)
-    testImplementation(Libs.Mockito.KOTLIN)
-    testImplementation(Libs.Mockito.CORE)
-    testImplementation(Libs.Kotlin.Coroutines.TEST)
-    testImplementation(Libs.OkHttp.MOCKWEBSERVER)
-    testImplementation(Libs.Test.XERIAL_SQLITE)
-    testImplementation(Libs.DBTools.ROOM_JDBC_TEST)
+    testImplementation(platform(libs.junit.bom))
+    testImplementation(libs.junit.jupiter)
+    testRuntimeOnly(libs.junit.engine)
+    testImplementation(libs.mockK)
+    testImplementation(libs.truth)
+//    testImplementation(libs.mockito.kotlin)
+//    testImplementation(libs.mockito.core)
+    testImplementation(libs.kotlin.coroutines.test)
+    testImplementation(libs.okhttp.mockwebserver)
+    testImplementation(libs.xerial.sqlite)
+    testImplementation(libs.dbtools.roomJdbcTest)
 
     // use regular dagger for unit tests
     // (2020-06-11: "Currently, Hilt only supports Android instrumentation and Robolectric tests. Hilt cannot be used in vanilla JVM tests,
     // but it does not prevent you from writing these tests as you would normally." (https://dagger.dev/hilt/testing)
-    kaptTest(Libs.Google.DAGGER_COMPILER)
+    kaptTest(libs.dagger.compiler)
 }
 
 // ===== TEST TASKS =====
@@ -309,7 +306,7 @@ tasks {
 
 // ./gradlew detekt
 detekt {
-    failFast = true // fail build on any finding
+    allRules = true // fail build on any finding
     buildUponDefaultConfig = true // preconfigure defaults
     config = files("$projectDir/build/config/detektConfig.yml") // point to your custom config defining rules to run, overwriting default behavior
 //    baseline = file("$projectDir/config/baseline.xml") // a way of suppressing issues before introducing detekt

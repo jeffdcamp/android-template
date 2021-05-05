@@ -8,20 +8,24 @@ buildscript {
         jcenter() // 2021/03/15: required by detekt / Jetpack Compose (because of Kotlin Dependency)
         gradlePluginPortal()
     }
+
     dependencies {
-        classpath(Libs.Android.GRADLE_PLUGIN)
+        // workaround for no support of "libs" in buildscript (https://github.com/gradle/gradle/issues/16958#issuecomment-827140071) (https://discuss.gradle.org/t/trouble-using-centralized-dependency-versions-in-buildsrc-plugins-and-buildscript-classpath/39421)
+        val libs = project.extensions.getByType<VersionCatalogsExtension>().named("libs") as org.gradle.accessors.dm.LibrariesForLibs
+
+        classpath(libs.android.gradlePlugin)
         //classpath(Libs.Google.KSP_GRADLE_PLUGIN)
-        classpath(Libs.Kotlin.GRADLE_PLUGIN)
-        classpath(Libs.Kotlin.Serialization.GRADLE_PLUGIN)
-        classpath(Libs.Google.Hilt.GRADLE_PLUGIN)
-        classpath(Libs.AndroidX.Navigation.SAFE_ARGS_GRADLE_PLUGIN)
-        classpath(Libs.Google.Firebase.CRASHLYTICS_GRADLE_PLUGIN)
-        // classpath(Libs.Google.Firebase.PERF_GRADLE_PLUGIN)
-        classpath(Libs.Google.SERVICES_GRADLE_PLUGIN)
-        classpath(Libs.VERSIONS_GRADLE_PLUGIN)
-        classpath(Libs.PLAY_PUBLISHER_GRADLE_PLUGIN)
-        classpath(Libs.LICENSE_REPORT_GRADLE_PLUGIN)
-        classpath(Libs.DETEKT_GRADLE_PLUGIN)
+        classpath(libs.kotlin.gradlePlugin)
+        classpath(libs.kotlin.serialization.gradlePlugin)
+        classpath(libs.google.hilt.gradlePlugin)
+        classpath(libs.androidx.navigation.safeArgsGradlePlugin)
+        classpath(libs.google.firebase.crashlyticsGradlePlugin)
+        // classpath(libs.google.firebase.perfGradlePlugin)
+        classpath(libs.google.servicesgradlePlugin)
+        classpath(libs.gradleVersions.gradlePlugin)
+        classpath(libs.playPublisher.gradlePlugin)
+        classpath(libs.licenseReport.gradlePlugin)
+        classpath(libs.detekt.gradlePlugin)
     }
 }
 
