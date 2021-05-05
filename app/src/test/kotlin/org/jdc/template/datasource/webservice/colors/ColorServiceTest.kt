@@ -24,6 +24,7 @@ class ColorServiceTest {
 
     @Inject
     lateinit var colorService: ColorService
+
     @Inject
     lateinit var mockWebServer: MockWebServer
 
@@ -31,7 +32,6 @@ class ColorServiceTest {
     fun setup() {
         LoggingUtil.setupSingleLineLogging(true)
 
-        MockitoAnnotations.openMocks(this)
         Timber.plant(JavaTree())
 
         val component = DaggerColorServiceTestComponent.builder().build()

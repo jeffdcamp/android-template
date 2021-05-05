@@ -2,10 +2,12 @@ package org.jdc.template.model.repository
 
 import android.app.Application
 import androidx.room.Room
+import com.google.common.truth.Truth.assertThat
 import dagger.Component
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.migration.DisableInstallInCheck
+import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
 import org.dbtools.android.room.jdbc.JdbcSQLiteOpenHelperFactory
 import org.jdc.template.TestFilesystem
@@ -16,11 +18,8 @@ import org.jdc.template.model.db.main.MainDatabaseWrapper
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.util.log.JavaTree
 import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.mockito.Mockito.mock
-import org.mockito.MockitoAnnotations
 import timber.log.Timber
 import java.time.LocalTime
 import javax.inject.Inject
@@ -33,7 +32,6 @@ class IndividualRepositoryTest {
 
     @BeforeEach
     fun setUp() {
-        MockitoAnnotations.openMocks(this)
         Timber.plant(JavaTree())
         TestFilesystem.deleteFilesystem()
 
@@ -74,7 +72,7 @@ class IndividualRepositoryTestModule {
     @Provides
     @Singleton
     fun provideUserPreferenceDataSource(): UserPreferenceDataSource {
-        return mock(UserPreferenceDataSource::class.java)
+        return mockk()
     }
 
     @Provides
@@ -95,7 +93,7 @@ class MainDatabaseTestWrapper(
 ) : MainDatabaseWrapper(application) {
 
     override fun createDatabase(): MainDatabase {
-        return Room.databaseBuilder(mock(Application::class.java), MainDatabase::class.java, MainDatabase.DATABASE_NAME)
+        return Room.databaseBuilder(mockk<Application>(), MainDatabase::class.java, MainDatabase.DATABASE_NAME)
             .allowMainThreadQueries()
             .openHelperFactory(JdbcSQLiteOpenHelperFactory(TestFilesystem.INTERNAL_DATABASES_DIR_PATH))
             .build()

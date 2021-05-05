@@ -1,20 +1,18 @@
 package org.jdc.template.inject
 
 import android.app.Application
-import com.nhaarman.mockitokotlin2.whenever
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.migration.DisableInstallInCheck
+import io.mockk.every
+import io.mockk.mockk
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.mockwebserver.MockWebServer
 import org.jdc.template.TestFilesystem
-import org.jdc.template.util.json.asConverterFactory
 import org.jdc.template.model.webservice.colors.ColorService
-import org.mockito.ArgumentMatchers.anyString
-import org.mockito.Mockito.doAnswer
-import org.mockito.Mockito.mock
+import org.jdc.template.util.json.asConverterFactory
 import retrofit2.Retrofit
 import java.io.File
 import java.util.concurrent.TimeUnit
@@ -27,18 +25,19 @@ class CommonTestModule {
     @Provides
     @Singleton
     internal fun provideApplication(): Application {
-        val application = mock(Application::class.java)
+        val application = mockk<Application>()
 
-        whenever(application.filesDir).thenReturn(TestFilesystem.INTERNAL_FILES_DIR)
+        every { application.filesDir } returns TestFilesystem.INTERNAL_FILES_DIR
 
-        doAnswer { invocation ->
-            val type = invocation.getArgument<String>(0)
+        every { application.getExternalFilesDir(any()) } answers {
+            val type = firstArg<String?>()
+
             if (type != null) {
-                return@doAnswer File(TestFilesystem.EXTERNAL_FILES_DIR, type)
+                File(TestFilesystem.EXTERNAL_FILES_DIR, type)
             } else {
-                return@doAnswer TestFilesystem.EXTERNAL_FILES_DIR
+                TestFilesystem.EXTERNAL_FILES_DIR
             }
-        }.whenever(application).getExternalFilesDir(anyString())
+        }
 
         return application
     }
