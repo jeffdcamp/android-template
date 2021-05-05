@@ -32,27 +32,12 @@ kapt {
     correctErrorTypes = true // prevent NonExistentClass in errors (https://kotlinlang.org/docs/kapt.html#non-existent-type-correction)
 }
 
-// Kotlin Libraries targeting Java8 bytecode can cause the following error (such as okHttp 4.x):
-// "Cannot inline bytecode built with JVM target 1.8 into bytecode that is being built with JVM target 1.6. Please specify proper '-jvm-target' option"
-// The following is added to allow the Kotlin Compiler to compile properly
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
-    kotlinOptions.languageVersion = "1.4"
-    kotlinOptions.freeCompilerArgs += listOf(
-        "-Xopt-in=kotlin.ExperimentalStdlibApi",
-        "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-        "-Xopt-in=kotlinx.coroutines.FlowPreview",
-        "-Xopt-in=kotlin.time.ExperimentalTime",
-        "-Xopt-in=kotlinx.serialization.ExperimentalSerializationApi"
-    )
-}
-
 android {
-    compileSdkVersion(AppInfo.AndroidSdk.COMPILE)
+    compileSdk = AppInfo.AndroidSdk.COMPILE
 
     defaultConfig {
-        minSdkVersion(AppInfo.AndroidSdk.MIN)
-        targetSdkVersion(AppInfo.AndroidSdk.TARGET)
+        minSdk = AppInfo.AndroidSdk.MIN
+        targetSdk = AppInfo.AndroidSdk.TARGET
 
         applicationId = AppInfo.APPLICATION_ID
         versionCode = AppInfo.Version.CODE
@@ -76,6 +61,18 @@ android {
     compileOptions {
         // Flag to enable support for the new language APIs
         isCoreLibraryDesugaringEnabled = true
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+        languageVersion = "1.4"
+        freeCompilerArgs += listOf(
+            "-Xopt-in=kotlin.ExperimentalStdlibApi",
+            "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+            "-Xopt-in=kotlinx.coroutines.FlowPreview",
+            "-Xopt-in=kotlin.time.ExperimentalTime",
+            "-Xopt-in=kotlinx.serialization.ExperimentalSerializationApi"
+        )
     }
 
     buildFeatures {
