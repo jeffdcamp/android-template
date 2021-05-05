@@ -1,21 +1,17 @@
 package org.jdc.template.datasource.webservice.colors
 
+import com.google.common.truth.Truth.assertThat
 import dagger.Component
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.jdc.template.LoggingUtil
 import org.jdc.template.inject.CommonTestModule
-import org.jdc.template.util.log.JavaTree
 import org.jdc.template.model.repository.IndividualRepositoryTestModule
 import org.jdc.template.model.webservice.colors.ColorService
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertFalse
-import org.junit.jupiter.api.Assertions.assertNotNull
-import org.junit.jupiter.api.Assertions.assertTrue
+import org.jdc.template.util.log.JavaTree
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.mockito.MockitoAnnotations
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -43,15 +39,16 @@ class ColorServiceTest {
         mockWebServer.enqueue(MockResponse().setResponseCode(200).setBody(COLORS_RESPONSE))
 
         val response = colorService.colors()
-        assertTrue(response.isSuccessful)
+        assertThat(response.isSuccessful).isTrue()
 
         val colors = response.body()
-        assertNotNull(colors)
-        assertEquals(1, colors!!.colors.size)
+        checkNotNull(colors)
+        assertThat(colors).isNotNull()
+        assertThat(colors.colors.size).isEqualTo(1)
 
-        val color = colors.colors[0]
-        assertEquals("White", color.colorName)
-        assertEquals("#FFFFFF", color.hexValue)
+        val color = colors.colors.first()
+        assertThat(color.colorName).isEqualTo("White")
+        assertThat(color.hexValue).isEqualTo("#FFFFFF")
     }
 
     @Test
@@ -59,7 +56,7 @@ class ColorServiceTest {
         mockWebServer.enqueue(MockResponse().setResponseCode(500).setBody("""{"error": "Oh No!" }"""))
         val response = colorService.colors()
 
-        assertFalse(response.isSuccessful)
+        assertThat(response.isSuccessful).isFalse()
     }
 
     companion object {

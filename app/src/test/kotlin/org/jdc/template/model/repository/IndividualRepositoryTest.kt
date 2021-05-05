@@ -51,18 +51,18 @@ class IndividualRepositoryTest {
         individual.alarmTime = LocalTime.now()
         individualRepository.saveIndividual(individual)
 
-        assertEquals(1, individualRepository.getIndividualCount())
+        assertThat(individualRepository.getIndividualCount()).isEqualTo(1)
 
         // === UPDATE ===
         individual.firstName = "Jeffery"
         individualRepository.saveIndividual(individual)
 
         val dbFirstName = individualRepository.getIndividualFirstName(individual.id)
-        assertEquals("Jeffery", dbFirstName)
+        assertThat(dbFirstName).isEqualTo("Jeffery")
 
         // === DELETE ===
         individualRepository.deleteIndividual(individual.id)
-        assertEquals(0, individualRepository.getIndividualCount())
+        assertThat(individualRepository.getIndividualCount()).isEqualTo(0)
     }
 }
 
