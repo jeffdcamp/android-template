@@ -1,11 +1,3 @@
-import com.github.jk1.license.filter.DependencyFilter
-import com.github.jk1.license.filter.ExcludeTransitiveDependenciesFilter
-import com.github.jk1.license.filter.LicenseBundleNormalizer
-import com.github.jk1.license.render.CsvReportRenderer
-import com.github.jk1.license.render.InventoryHtmlReportRenderer
-import com.github.jk1.license.render.JsonReportRenderer
-import com.github.jk1.license.render.ReportRenderer
-import com.github.jk1.license.render.SimpleHtmlReportRenderer
 import java.util.Date
 
 plugins {
@@ -19,7 +11,7 @@ plugins {
     id("io.gitlab.arturbosch.detekt")
     id ("de.undercouch.download")
     id("com.github.triplet.play")
-    id("com.github.jk1.dependency-license-report")
+    id("org.dbtools.license-manager")
     //id("com.google.devtools.ksp")
 }
 
@@ -330,33 +322,12 @@ play {
 //    defaultToAppBundles.set(true)
 //}
 
-// ./gradlew generateLicenseReport
-licenseReport {
-    // only include run-time dependencies
-    configurations = arrayOf("releaseRuntimeClasspath")
-
-    // Renderers
-    renderers = arrayOf<ReportRenderer>(
-            JsonReportRenderer("../../../src/main/assets/licenses.json"), // required for acknowledgements screen in app
-            SimpleHtmlReportRenderer("licenses-simple.html"),
-            InventoryHtmlReportRenderer("licenses-groups.html", AppInfo.Version.APP_NAME), // identify unique licenses
-            CsvReportRenderer("licenses.csv") // preferred by legal (spreadsheet form)
-    )
-
-    // Filters
-    filters = arrayOf<DependencyFilter>(
-            LicenseBundleNormalizer(), //  group common known licenses
-            ExcludeTransitiveDependenciesFilter() // only include top level dependencies
-    )
-
-    // excludes
-    excludeGroups = arrayOf(
-            // Internal created libraries
-            "org.jdc",
-
-            // Commercial Licenses
-            "com.xxx.xxx"
-    )
+// ./gradlew createLicenseReports
+// ./gradlew --stacktrace -i createLicenseReports
+licenseManager {
+    variantName = "release"
+    outputDir = "./app/src/main/assets"
+    excludeGroups = listOf("org.dbtools")
 }
 
 // this must be at the bottom of the file

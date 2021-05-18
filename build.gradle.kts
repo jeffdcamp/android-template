@@ -23,8 +23,8 @@ buildscript {
         classpath(libs.google.servicesgradlePlugin)
         classpath(libs.gradleVersions.gradlePlugin)
         classpath(libs.playPublisher.gradlePlugin)
-        classpath(libs.licenseReport.gradlePlugin)
         classpath(libs.detekt.gradlePlugin)
+        classpath(libs.dbtools.licenseManager)
     }
 }
 

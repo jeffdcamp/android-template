@@ -78,9 +78,10 @@ class AcknowledgmentsFragment : Fragment() {
                 <p>
                     <strong>${dependency.moduleName ?: notAvailableText}</strong><br/>
                     <strong>URL: </strong>${if (dependency.moduleUrl != null) "<a href='${dependency.moduleUrl}'>${dependency.moduleUrl}</a>" else notAvailableText} <br/>
-                    <strong>License: </strong>${dependency.moduleLicense ?: notAvailableText} - ${if (dependency.moduleLicenseUrl != null) "<a href='${dependency.moduleLicenseUrl}'>${dependency.moduleLicenseUrl}" else notAvailableText}</a>
+                    <strong>License: </strong>${dependency.moduleLicense ?: notAvailableText} - ${if (dependency.moduleLicenseUrl != null) "<a href='${dependency.moduleLicenseUrl}'>${dependency.moduleLicenseUrl}" else ""}</a>
                 </p>
                 <hr/>
+                
             """.trimIndent()
 
             dependenciesHtml.append(dependencyHtml)
