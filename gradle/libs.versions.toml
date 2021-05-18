@@ -94,7 +94,7 @@ dagger-dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
 
 detekt-gradlePlugin = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.17.0"
 
-dbtools-licenseManager = "org.dbtools:licence-manager-gradle-plugin:0.0.2"
+dbtools-licenseManager = "org.dbtools:licence-manager-gradle-plugin:1.0.0-alpha01"
 
 dbtools-room = { module = "org.dbtools:dbtools-room", version.ref = "dbtools" }
 dbtools-roomSqlite = { module = "org.dbtools:dbtools-room-sqliteorg", version.ref = "dbtools" }

@@ -13,19 +13,12 @@ import android.webkit.WebViewClient
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
-import org.intellij.lang.annotations.Language
 import org.jdc.template.R
 import org.jdc.template.databinding.AcknowledgmentsFragmentBinding
 import timber.log.Timber
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class AcknowledgmentsFragment : Fragment() {
-    @Inject
-    lateinit var json: Json
-
     private lateinit var binding: AcknowledgmentsFragmentBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -53,55 +46,16 @@ class AcknowledgmentsFragment : Fragment() {
     private fun loadLicenses() {
         // read and load html
         try {
-            val jsonFilename = "licenses.json"
+            val htmlFilename = "licenses.html"
 
             // read the file
-            val licenseJson = requireContext().assets.open(jsonFilename).bufferedReader().use { it.readText() }
+            val html = requireContext().assets.open(htmlFilename).bufferedReader().use { it.readText() }
 
-            val licensesDto = json.decodeFromString(LicensesDto.serializer(), licenseJson)
-
-            val html = renderHtml(licensesDto.dependencies)
             binding.webview.loadData(html, "text/html", "utf-8")
         } catch (expected: Exception) {
             Timber.e(expected, "Failed to render Acknowledgments html")
             binding.webview.loadData("Failed to load licenses:\n [${expected.message}]", "text/html", "utf-8")
         }
-    }
-
-    private fun renderHtml(dependencies: List<LicenseDto>): String {
-        val dependenciesHtml = StringBuffer()
-        val notAvailableText = getString(R.string.not_available)
-        dependencies.forEach { dependency ->
-            @Suppress("MaxLineLength") // html
-            @Language("HTML")
-            val dependencyHtml = """
-                <p>
-                    <strong>${dependency.moduleName ?: notAvailableText}</strong><br/>
-                    <strong>URL: </strong>${if (dependency.moduleUrl != null) "<a href='${dependency.moduleUrl}'>${dependency.moduleUrl}</a>" else notAvailableText} <br/>
-                    <strong>License: </strong>${dependency.moduleLicense ?: notAvailableText} - ${if (dependency.moduleLicenseUrl != null) "<a href='${dependency.moduleLicenseUrl}'>${dependency.moduleLicenseUrl}" else ""}</a>
-                </p>
-                <hr/>
-                
-            """.trimIndent()
-
-            dependenciesHtml.append(dependencyHtml)
-        }
-
-        @Suppress("UnnecessaryVariable")
-        @Language("HTML")
-        val html = """
-                <html>
-                    <style>
-                        a { word-wrap: break-word;}
-                        strong { word-wrap: break-word;}
-                    </style>
-                    <body>
-                        $dependenciesHtml
-                    </body>
-                </html>
-        """.trimIndent()
-
-        return html
     }
 }
 
@@ -126,15 +80,3 @@ private class NewAcknowledgmentsWebViewClient : WebViewClient() {
         return true
     }
 }
-
-@Serializable
-private data class LicenseDto(
-    val moduleName: String? = null,
-    val moduleUrl: String? = null,
-    val moduleVersion: String? = null,
-    val moduleLicense: String? = null,
-    val moduleLicenseUrl: String? = null
-)
-
-@Serializable
-private data class LicensesDto(val dependencies: List<LicenseDto>)
