@@ -16,7 +16,6 @@ import org.jdc.template.R
 import org.jdc.template.databinding.DirectoryFragmentBinding
 import org.jdc.template.ui.menu.CommonMenu
 import org.jdc.template.util.ext.autoCleared
-import org.jdc.template.util.ext.getScrollPosition
 import org.jdc.template.util.ext.withLifecycleOwner
 import javax.inject.Inject
 
@@ -44,8 +43,6 @@ class DirectoryFragment : Fragment() {
         setupRecyclerView()
 
         activity?.setTitle(R.string.app_name)
-
-        savedInstanceState?.let { restoreState(it) }
 
         binding.newFloatingActionButton.setOnClickListener { viewModel.addIndividual() }
 
@@ -84,14 +81,5 @@ class DirectoryFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return commonMenu.onOptionsItemSelected(findNavController(), item) || super.onOptionsItemSelected(item)
-    }
-
-    override fun onSaveInstanceState(bundle: Bundle) {
-        super.onSaveInstanceState(bundle)
-        bundle.putInt("scrollPosition", binding.recyclerView.getScrollPosition())
-    }
-
-    private fun restoreState(bundle: Bundle) {
-        binding.recyclerView.scrollToPosition(bundle.getInt("scrollPosition", 0))
     }
 }

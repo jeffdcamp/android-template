@@ -7,6 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
@@ -40,10 +41,10 @@ class IndividualEditViewModel
     }
 
     private val _birthDateTextFlow = MutableStateFlow<LocalDate?>(null)
-    val birthDateTextFlow: Flow<LocalDate> get() = _birthDateTextFlow.filterNotNull()
+    val birthDateTextFlow: Flow<LocalDate> = _birthDateTextFlow.asStateFlow().filterNotNull()
 
     private val _alarmTimeTextFlow = MutableStateFlow<LocalTime?>(null)
-    val alarmTimeTextFlow: Flow<LocalTime> get() = _alarmTimeTextFlow.filterNotNull()
+    val alarmTimeTextFlow: Flow<LocalTime> = _alarmTimeTextFlow.asStateFlow().filterNotNull()
 
     fun saveIndividual(firstName: String, lastName: String, phone: String, email: String) = viewModelScope.launch {
         if (!validate()) {
