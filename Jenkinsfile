@@ -102,6 +102,16 @@ pipeline {
             }
 
             stages {
+                stage("License") {
+                    steps {
+                        sh './gradlew createLicenseReport'
+                    }
+                    post {
+                        always {
+                            archiveArtifacts "**/build/licenses/*.html"
+                        }
+                    }
+                }
                 stage("Build") {
                     steps {
                         sh './gradlew clean assembleAlpha bundleAlpha'
@@ -159,6 +169,16 @@ pipeline {
                 branch 'beta'
             }
             stages {
+                stage("License") {
+                    steps {
+                        sh './gradlew createLicenseReport'
+                    }
+                    post {
+                        always {
+                            archiveArtifacts "**/build/licenses/*.html"
+                        }
+                    }
+                }
                 stage("Build") {
                     steps {
                         sh './gradlew clean assembleBeta bundleBeta'
@@ -226,6 +246,16 @@ pipeline {
                 branch 'release'
             }
             stages {
+                stage("License") {
+                    steps {
+                        sh './gradlew createLicenseReport'
+                    }
+                    post {
+                        always {
+                            archiveArtifacts "**/build/licenses/*.html"
+                        }
+                    }
+                }
                 stage("Build") {
                     steps {
                         sh "${CHANGELOG_CMD}"

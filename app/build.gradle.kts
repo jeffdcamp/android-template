@@ -326,7 +326,7 @@ play {
 // ./gradlew --stacktrace -i createLicenseReports
 licenseManager {
     variantName = "release"
-    outputDir = "./app/src/main/assets"
+    outputDirs = listOf("./src/main/assets", "./build/licenses")
     excludeGroups = listOf("org.dbtools")
     createHtmlReport = true
 }
