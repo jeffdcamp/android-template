@@ -47,17 +47,17 @@
             android:value="@integer/google_play_services_version"
             />
 
-        <!-- Remove the default initializer for WorkManager -->
-        <provider
-            android:name="androidx.work.impl.WorkManagerInitializer"
-            android:authorities="${applicationId}.workmanager-init"
-            tools:node="remove" />
-
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"
             android:exported="false"
             tools:node="merge">
+            <!-- Disable default WorkManagerInitializer (Initialization is handled in custom WorkManagerInitializer to support Injection) -->
+            <meta-data
+                android:name="androidx.work.WorkManagerInitializer"
+                android:value="androidx.startup"
+                tools:node="remove" />
+
             <meta-data android:name="org.jdc.template.startup.NotificationInitializer"
                 android:value="androidx.startup" />
             <meta-data android:name="org.jdc.template.startup.LoggingInitializer"
