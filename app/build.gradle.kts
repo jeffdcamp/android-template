@@ -74,6 +74,7 @@ android {
     lint {
         isAbortOnError = true
         disable("InvalidPackage")
+        disable("DialogFragmentCallbacksDetector") // issue with fragment-ktx
     }
 
     // defined values my* in ~/.gradle/gradle.properties
