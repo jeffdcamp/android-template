@@ -47,10 +47,6 @@ class IndividualEditViewModel
     val alarmTimeTextFlow: Flow<LocalTime> = _alarmTimeTextFlow.asStateFlow().filterNotNull()
 
     fun saveIndividual(firstName: String, lastName: String, phone: String, email: String) = viewModelScope.launch {
-        if (!validate()) {
-            return@launch
-        }
-
         individual.firstName = firstName
         individual.lastName = lastName
         individual.phone = phone
@@ -59,6 +55,10 @@ class IndividualEditViewModel
         // changed via setBirthDate and setAlarmTime
         // individual.birthDate = birthDate
         // individual.alarmTime = alarmTime
+
+        if (!validate()) {
+            return@launch
+        }
 
         individualRepository.saveIndividual(individual)
 
