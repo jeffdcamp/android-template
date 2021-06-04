@@ -196,6 +196,7 @@ dependencies {
     implementation(libs.androidx.hilt.work)
 
     // Android Architecture Components
+    implementation(libs.androidx.lifecycle.process)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.savedstate)

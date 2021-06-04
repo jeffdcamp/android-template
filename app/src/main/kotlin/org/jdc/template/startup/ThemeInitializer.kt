@@ -6,8 +6,8 @@ import dagger.hilt.EntryPoint
 import dagger.hilt.EntryPoints
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.jdc.template.coroutine.ProcessScope
 import org.jdc.template.ui.ThemeManager
 
 class ThemeInitializer : Initializer<Unit> {
@@ -16,7 +16,7 @@ class ThemeInitializer : Initializer<Unit> {
         val applicationContext = checkNotNull(context.applicationContext) { "Missing Application Context" }
         val injector = EntryPoints.get(applicationContext, ThemeInitializerInjector::class.java)
 
-        GlobalScope.launch {
+        ProcessScope.launch {
             injector.getThemeManager().applyTheme()
         }
     }

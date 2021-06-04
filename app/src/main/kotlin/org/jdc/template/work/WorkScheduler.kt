@@ -13,9 +13,9 @@ import androidx.work.PeriodicWorkRequest
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.jdc.template.BuildConfig
+import org.jdc.template.coroutine.ProcessScope
 import org.jdc.template.model.repository.SettingsRepository
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -30,7 +30,7 @@ class WorkScheduler
 ) {
     private val workManager: WorkManager = WorkManager.getInstance(context)
 
-    fun startPeriodicWorkSchedules() = GlobalScope.launch {
+    fun startPeriodicWorkSchedules() = ProcessScope.launch {
         // cancel all work if the version changed
         if (settingsRepository.getWorkSchedulerVersion() != WORK_SCHEDULER_VERSION) {
             workManager.cancelAllWork()
