@@ -3,6 +3,7 @@ package org.jdc.template.ux.individual
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavDirections
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.flow.Flow
@@ -41,11 +42,11 @@ class IndividualViewModel
 
     fun editIndividual() {
         analytics.logEvent(Analytics.EVENT_EDIT_INDIVIDUAL)
-        _eventChannel.sendAsync(Event.EditIndividualEvent(individualId))
+        _eventChannel.sendAsync(Event.Navigate(IndividualFragmentDirections.actionToIndividualEditFragment(individualId)))
     }
 
     sealed class Event {
-        data class EditIndividualEvent(val individualId: Long) : Event()
+        class Navigate(val direction: NavDirections) : Event()
         object IndividualDeletedEvent : Event()
     }
 }

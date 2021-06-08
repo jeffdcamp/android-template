@@ -62,8 +62,7 @@ class DirectoryFragment : Fragment() {
 
     private fun handleEvent(event: DirectoryViewModel.Event) {
         when (event) {
-            is DirectoryViewModel.Event.NewIndividualEvent -> findNavController().navigate(DirectoryFragmentDirections.actionToIndividualEditFragment())
-            is DirectoryViewModel.Event.ShowIndividualEvent -> findNavController().navigate(DirectoryFragmentDirections.actionToIndividualFragment(event.individualId))
+            is DirectoryViewModel.Event.Navigate -> findNavController().navigate(event.direction)
         }
     }
 

@@ -1,6 +1,7 @@
 package org.jdc.template.ux.directory
 
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavDirections
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.flow.Flow
@@ -21,15 +22,14 @@ class DirectoryViewModel
         get() = individualRepository.getDirectoryListFlow()
 
     fun addIndividual() {
-        _eventChannel.sendAsync(Event.NewIndividualEvent)
+        _eventChannel.sendAsync(Event.Navigate(DirectoryFragmentDirections.actionToIndividualEditFragment()))
     }
 
     fun onDirectoryIndividualClicked(directoryListItem: DirectoryItem) {
-        _eventChannel.sendAsync(Event.ShowIndividualEvent(directoryListItem.id))
+        _eventChannel.sendAsync(Event.Navigate(DirectoryFragmentDirections.actionToIndividualFragment(directoryListItem.id)))
     }
 
     sealed class Event {
-        object NewIndividualEvent : Event()
-        data class ShowIndividualEvent(val individualId: Long) : Event()
+        class Navigate(val direction: NavDirections) : Event()
     }
 }
