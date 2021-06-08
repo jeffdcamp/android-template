@@ -79,7 +79,7 @@ class IndividualEditFragment : Fragment() {
                 viewModel.saveIndividual(
                     firstName = binding.firstNameEditText.text.toString(),
                     lastName = binding.lastNameEditText.text.toString(),
-                    phone = binding.lastNameEditText.text.toString(),
+                    phone = binding.phoneEditText.text.toString(),
                     email = binding.emailEditText.text.toString()
                 )
                 true
