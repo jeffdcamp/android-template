@@ -43,7 +43,11 @@ allprojects {
     // some artifacts may be OK to check for "alpha"... add these exceptions here
     val ignoreArtifacts = buildList {
         // early adoption items
-        addAll(listOf("lifecycle-runtime-ktx", "lifecycle-viewmodel-ktx", "lifecycle-viewmodel-savedstate", "lifecycle-common-java8"))
+        addAll(listOf(
+            "lifecycle-runtime-ktx", "lifecycle-viewmodel-ktx", "lifecycle-viewmodel-savedstate", "lifecycle-common-java8", "lifecycle-process",
+            "navigation-fragment-ktx", "navigation-ui-ktx", "navigation-safe-args-gradle-plugin",
+            "fragment-ktx"
+        ))
     }
 
     tasks.named<DependencyUpdatesTask>("dependencyUpdates") {
