@@ -216,7 +216,7 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     kapt(libs.androidx.room.compiler)
-    //ksp(libs.androidx.Room.COMPILER)
+    //ksp(libs.androidx.room.compiler)
     implementation(libs.dbtools.room)
 
     // Custom SQLite database

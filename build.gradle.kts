@@ -13,7 +13,7 @@ buildscript {
         val libs = project.extensions.getByType<VersionCatalogsExtension>().named("libs") as org.gradle.accessors.dm.LibrariesForLibs
 
         classpath(libs.android.gradlePlugin)
-        //classpath(Libs.Google.KSP_GRADLE_PLUGIN)
+//        classpath(libs.google.kspGradlePlugin)
         classpath(libs.kotlin.gradlePlugin)
         classpath(libs.kotlin.serialization.gradlePlugin)
         classpath(libs.google.hilt.gradlePlugin)
