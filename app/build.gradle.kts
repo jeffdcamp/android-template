@@ -252,8 +252,6 @@ dependencies {
     testRuntimeOnly(libs.junit.engine)
     testImplementation(libs.mockK)
     testImplementation(libs.truth)
-//    testImplementation(libs.mockito.kotlin)
-//    testImplementation(libs.mockito.core)
     testImplementation(libs.kotlin.coroutines.test)
     testImplementation(libs.okhttp.mockwebserver)
     testImplementation(libs.xerial.sqlite)
