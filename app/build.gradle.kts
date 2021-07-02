@@ -20,12 +20,12 @@ kapt {
         // Increase the max count of errors from annotation processors. (Default is 100)
         option("-Xmaxerrs", 500)
 
-        // These options are normally set automatically via the Hilt Gradle plugin, but we set them manually to workaround a bug in the Kotlin 1.5.20
-        // See bugs:
-        // Google Dagger: https://github.com/google/dagger/issues/2684
-        // Jetbrains: https://youtrack.jetbrains.com/issue/KT-47416
-        option("-Adagger.fastInit=ENABLED")
-        option("-Adagger.hilt.android.internal.disableAndroidSuperclassValidation=true")
+//        // These options are normally set automatically via the Hilt Gradle plugin, but we set them manually to workaround a bug in the Kotlin 1.5.20
+//        // See bugs:
+//        // Google Dagger: https://github.com/google/dagger/issues/2684
+//        // Jetbrains: https://youtrack.jetbrains.com/issue/KT-47416
+//        option("-Adagger.fastInit=ENABLED")
+//        option("-Adagger.hilt.android.internal.disableAndroidSuperclassValidation=true")
     }
 
     correctErrorTypes = true // prevent NonExistentClass in errors (https://kotlinlang.org/docs/kapt.html#non-existent-type-correction)

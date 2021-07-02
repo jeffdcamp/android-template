@@ -1,6 +1,6 @@
 [versions]
-agp = "7.0.0-beta03"
-kotlin = "1.5.20"
+agp = "7.0.0-beta05"
+kotlin = "1.5.10"
 coroutines = "1.5.0"
 
 accompanist = "0.7.1"
@@ -8,13 +8,13 @@ androidxhilt = "1.0.0"
 androidxlifecycle = "2.4.0-alpha02"
 androidxtest = "1.4.0"
 coil = "1.2.1"
-compose = "1.0.0-beta08"
+compose = "1.0.0-rc01"
 dagger = "2.37"
 dbtools = "6.1.0"
 espresso = "3.4.0"
 hilt = "2.37"
 ktlint = "0.40.0"
-navigation = "2.4.0-alpha03"
+navigation = "2.4.0-alpha04"
 paging = "3.0.0-beta02"
 retrofit = "2.9.0"
 room = "2.3.0"
@@ -111,7 +111,7 @@ google-crashlytics = { module = "com.google.firebase:firebase-crashlytics-ktx", 
 google-crashlyticsGradle = { module = "com.google.firebase:firebase-crashlytics-gradle", version = "2.5.1" }
 
 google-kspGradlePlugin = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version = "1.5.10-1.0.0-beta02" } # https://maven.google.com/web/index.html#com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin
-google-material = { module = "com.google.android.material:material", version = "1.4.0-rc01" } # https://github.com/material-components/material-components-android/releases
+google-material = { module = "com.google.android.material:material", version = "1.4.0" } # https://github.com/material-components/material-components-android/releases
 google-servicesgradlePlugin = { module = "com.google.gms:google-services", version = "4.3.8" }
 
 # Firebase - https://firebase.google.com/support/release-notes/android
