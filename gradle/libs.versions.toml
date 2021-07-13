@@ -71,6 +71,7 @@ androidx-test-runner = { module = "androidx.test:runner", version.ref = "android
 
 androidx-test-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
 androidx-test-espresso-contrib = { module = "androidx.test.espresso:espresso-contrib", version.ref = "espresso" }
+androidx-test-espresso-contrib = { module = "androidx.test.espresso:espresso-contrib", version.ref = "espresso" }
 
 androidx-work-runtime = { module = "androidx.work:work-runtime-ktx", version.ref = "work" }
 androidx-work-gcm = { module = "androidx.work:work-gcm", version.ref = "work" }
@@ -115,7 +116,7 @@ google-material = { module = "com.google.android.material:material", version = "
 google-servicesgradlePlugin = { module = "com.google.gms:google-services", version = "4.3.8" }
 
 # Firebase - https://firebase.google.com/support/release-notes/android
-google-firebase-bom = { module = "com.google.firebase:firebase-bom", version = "28.2.0" }
+google-firebase-bom = { module = "com.google.firebase:firebase-bom", version = "28.2.1" }
 google-firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx" }
 google-firebase-config = { module = "com.google.firebase:firebase-config-ktx" }
 google-firebase-core = { module = "com.google.firebase:firebase-core" }
