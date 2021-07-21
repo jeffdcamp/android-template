@@ -170,6 +170,7 @@ dependencies {
     implementation(libs.androidx.core)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.fragment)
+    implementation(libs.androidx.splashscreen)
     implementation(libs.androidx.startup)
     implementation(libs.androidx.datastorePrefs)
 

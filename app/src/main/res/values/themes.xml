@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.AndroidTemplate.Splash">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@drawable/branded_splash</item>
+    <style name="Theme.AndroidTemplate.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/material_white</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+        <item name="postSplashScreenTheme">@style/Theme.AndroidTemplate</item>
     </style>
 
     <style name="Theme.AndroidTemplate" parent="Theme.MaterialComponents.DayNight.NoActionBar">

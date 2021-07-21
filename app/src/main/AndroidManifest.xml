@@ -25,9 +25,9 @@
             />
 
         <!-- Activities -->
-        <activity
-            android:name=".ux.startup.StartupActivity"
+        <activity android:name=".ux.main.MainActivity"
             android:theme="@style/Theme.AndroidTemplate.Splash"
+            android:exported="true"
             >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -35,8 +35,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".ux.main.MainActivity">
+
             <!-- Support Manifest Merger to expand all deep links into <intent-filter/> elements -->
             <!--<nav-graph android:value="@navigation/nav-graph"/>-->
         </activity>

@@ -17,7 +17,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.hamcrest.Matchers.allOf
 import org.jdc.template.CustomMatchers.recyclerViewWithItemCount
 import org.jdc.template.R
-import org.jdc.template.ux.startup.StartupActivity
+import org.jdc.template.ux.main.MainActivity
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -29,7 +29,7 @@ import org.junit.runner.RunWith
 class SmokeTest {
 
     @get:Rule
-    var activityTestRule = ActivityScenarioRule(StartupActivity::class.java)
+    var activityTestRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
     fun smokeTest() {

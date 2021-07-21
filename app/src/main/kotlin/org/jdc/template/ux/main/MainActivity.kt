@@ -2,8 +2,11 @@ package org.jdc.template.ux.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.view.ViewTreeObserver
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,9 +32,39 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen()
+
         binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        startup(savedInstanceState)
+    }
+
+    private fun startup(savedInstanceState: Bundle?) {
+        viewModel.startup()
+
+        val content: View = findViewById(android.R.id.content)
+        content.viewTreeObserver.addOnPreDrawListener(
+            object : ViewTreeObserver.OnPreDrawListener {
+                override fun onPreDraw(): Boolean {
+                    // Check if the initial data is ready.
+                    return if (viewModel.isReady) {
+                        // The content is ready... start drawing.
+                        content.viewTreeObserver.removeOnPreDrawListener(this)
+
+                        // finish regular onCreate() code
+                        finishCreate(savedInstanceState)
+                        true
+                    } else {
+                        // The content is not ready... suspend.
+                        false
+                    }
+                }
+            }
+        )
+    }
+
+    private fun finishCreate(savedInstanceState: Bundle?) {
         setSupportActionBar(binding.appbar.mainToolbar)
 
         supportActionBar?.apply {
