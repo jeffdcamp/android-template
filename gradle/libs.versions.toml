@@ -8,7 +8,7 @@ androidxhilt = "1.0.0"
 androidxlifecycle = "2.4.0-alpha02"
 androidxtest = "1.4.0"
 coil = "1.2.1"
-compose = "1.0.0-rc01"
+compose = "1.0.0-rc02"
 dagger = "2.37"
 dbtools = "6.1.0"
 espresso = "3.4.0"
@@ -36,7 +36,7 @@ androidx-datastorePrefs = { module = "androidx.datastore:datastore-preferences",
 androidx-fragment = { module = "androidx.fragment:fragment-ktx", version = "1.4.0-alpha05" }
 androidx-preference = { module = "androidx.preference:preference-ktx", version = "1.1.1" }
 androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version = "1.2.1" }
-androidx-startup = { module = "androidx.startup:startup-runtime", version = "1.0.0" }
+androidx-startup = { module = "androidx.startup:startup-runtime", version = "1.1.0-rc01" }
 
 androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidxhilt" }
 androidx-hilt-compose = { module = "androidx.hilt:hilt-navigation-compose", version = "1.0.0-alpha02" }
@@ -51,7 +51,7 @@ androidx-lifecycle-viewmodel-savedstate = { module = "androidx.lifecycle:lifecyc
 
 
 #androidx-paging-common = { module = "androidx.paging:paging-common-ktx", version.ref = "paging" }
-#androidx-paging-compose = { module = "androidx.paging:paging-compose", version = "1.0.0-alpha09" }
+#androidx-paging-compose = { module = "androidx.paging:paging-compose", version = "1.0.0-alpha12" }
 #androidx-paging-runtime = { module = "androidx.paging:paging-runtime-ktx", version.ref = "paging" }
 
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
@@ -80,7 +80,9 @@ androidx-work-gcm = { module = "androidx.work:work-gcm", version.ref = "work" }
 coil-coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 coil-gif = { module = "io.coil-kt:coil-gif", version.ref = "coil" }
 
+compose-activity = { module = "androidx.activity:activity-compose", version = "1.3.0-beta01" }
 compose-animation-animation = { module = "androidx.compose.animation:animation", version.ref = "compose" }
+compose-constraintlayout = { module = "androidx.constraintlayout:constraintlayout-compose", version = "1.0.0-alpha08" }
 compose-foundation-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
 compose-foundation-layout = { module = "androidx.compose.foundation:foundation-layout", version.ref = "compose" }
 compose-material-iconsext = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose" }
@@ -91,9 +93,6 @@ compose-ui-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 compose-ui-util = { module = "androidx.compose.ui:ui-util", version.ref = "compose" }
 compose-ui-viewbinding = { module = "androidx.compose.ui:ui-viewbinding", version.ref = "compose" }
 compose-theme-adapter = { module = "com.google.android.material:compose-theme-adapter", version.ref = "compose" }
-
-compose-constraintlayout = { module = "androidx.constraintlayout:constraintlayout-compose", version = "1.0.0-alpha07" }
-compose-activity = { module = "androidx.activity:activity-compose", version = "1.3.0-beta01" }
 
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
 dagger-dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
