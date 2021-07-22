@@ -44,6 +44,9 @@ allprojects {
     val ignoreArtifacts = buildList {
         // early adoption items
         addAll(listOf(
+            // 2.7.0+ alpha is required when targeting SDK 31
+            "work-runtime-ktx", "work-gcm",
+
             "lifecycle-runtime-ktx", "lifecycle-viewmodel-ktx", "lifecycle-viewmodel-savedstate", "lifecycle-common-java8", "lifecycle-process",
             "navigation-fragment-ktx", "navigation-ui-ktx", "navigation-safe-args-gradle-plugin",
             "fragment-ktx"
