@@ -7,31 +7,32 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.composethemeadapter.MdcTheme
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
-import org.jdc.template.databinding.IndividualFragmentBinding
-import org.jdc.template.model.db.main.individual.Individual
-import org.jdc.template.ui.DateUiUtil
-import org.jdc.template.util.ext.autoCleared
 import org.jdc.template.util.ext.withLifecycleOwner
 
 @AndroidEntryPoint
 class IndividualFragment : Fragment() {
     private val viewModel: IndividualViewModel by viewModels()
 
-    private var binding: IndividualFragmentBinding by autoCleared()
-
     init {
         setHasOptionsMenu(true)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = IndividualFragmentBinding.inflate(inflater, container, false)
-        return binding.root
+        return ComposeView(requireContext()).apply {
+            setContent {
+                MdcTheme {
+                    IndividualScreen()
+                }
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,10 +43,6 @@ class IndividualFragment : Fragment() {
 
     private fun setupViewModelObservers() {
         withLifecycleOwner(this) {
-            viewModel.individualFlow.collectWhenStarted { individual ->
-                showIndividual(individual)
-            }
-
             // Events
             viewModel.eventChannel.receiveWhenStarted { event -> handleEvent(event) }
         }
@@ -75,15 +72,6 @@ class IndividualFragment : Fragment() {
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    private fun showIndividual(individual: Individual) {
-        binding.nameTextView.text = individual.getFullName()
-        binding.phoneTextView.text = individual.phone
-        binding.emailTextView.text = individual.email
-
-        binding.birthDateTextView.text = DateUiUtil.getLocalDateText(requireContext(), individual.birthDate)
-        binding.alarmTimeTextView.text = DateUiUtil.getLocalTimeText(requireContext(), individual.alarmTime)
     }
 
     private fun promptDeleteIndividual() {
