@@ -51,17 +51,6 @@ fun IndividualSummary(individual: Individual) {
 
 @Composable
 fun IndividualSummaryItem(text: String, label: String? = null, textStyle: TextStyle = MaterialTheme.typography.body1) {//@Preview
-//@Composable
-//fun TestIndividual() {
-//    IndividualSummary(individual = Individual(
-//        firstName = "Jeff",
-//        lastName = "Campbell",
-//        phone = "801-555-1234",
-//        email = "bob@bob.com",
-//        birthDate = LocalDate.MIN,
-//        alarmTime = LocalTime.MIN
-//    ))
-//}
     if (text.isBlank()) {
         return
     }
