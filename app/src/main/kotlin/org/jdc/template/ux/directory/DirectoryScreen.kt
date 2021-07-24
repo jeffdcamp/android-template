@@ -48,7 +48,7 @@ fun DirectoryScreen() {
         FloatingActionButton(
             onClick = { viewModel.addIndividual() },
             modifier = Modifier
-                .align(Alignment.BottomCenter)
+                .align(Alignment.BottomEnd)
                 .padding(16.dp)
         ) {
             Icon(Icons.Filled.Add, contentDescription = "Add")
