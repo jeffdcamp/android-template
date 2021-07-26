@@ -7,8 +7,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
+import androidx.compose.material.ListItem
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -21,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.jdc.template.ui.compose.toLifecycleFlow
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun DirectoryScreen() {
     val viewModel: DirectoryViewModel = viewModel()
@@ -28,12 +31,15 @@ fun DirectoryScreen() {
     val directoryList by viewModel.directoryListFlow.toLifecycleFlow().collectAsState(initial = emptyList())
 
     Box(Modifier.fillMaxSize()) {
-
         LazyColumn(modifier = Modifier.fillMaxWidth()) {
             items(directoryList) { individual ->
-                RowItem(individual.getFullName()) {
-                    viewModel.onDirectoryIndividualClicked(individual)
-                }
+                // https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#listitem
+                ListItem(
+                    Modifier
+                        .clickable { viewModel.onDirectoryIndividualClicked(individual) },
+                )
+                { Text(individual.getFullName()) }
+
             }
         }
 
@@ -46,17 +52,4 @@ fun DirectoryScreen() {
             Icon(Icons.Filled.Add, contentDescription = "Add")
         }
     }
-}
-
-@Composable
-fun RowItem(name: String, onClick: () -> Unit) {
-    Text(
-        text = name,
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable {
-                onClick()
-            }
-            .padding(24.dp)
-    )
 }

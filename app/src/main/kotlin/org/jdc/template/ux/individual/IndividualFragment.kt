@@ -7,6 +7,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.material.Surface
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
@@ -31,7 +32,9 @@ class IndividualFragment : Fragment() {
             setContent {
                 CompositionLocalProvider(LocalNavController provides findNavController()) {
                     MdcTheme {
-                        IndividualScreen()
+                        Surface {
+                            IndividualScreen()
+                        }
                     }
                 }
             }

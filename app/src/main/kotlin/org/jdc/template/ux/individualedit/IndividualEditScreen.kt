@@ -48,7 +48,7 @@ fun IndividualEditScreen() {
     )
 
     val simpleDialogData by viewModel.simpleDialogData.collectAsState()
-    SimpleDialog(simpleDialogData, viewModel::hideInfoDialog, onConfirmButtonClicked = viewModel::hideInfoDialog)
+    SimpleDialog(simpleDialogData.visible, title = simpleDialogData.title, text = simpleDialogData.text, onDismissRequest = viewModel::hideInfoDialog,  onConfirmButtonClicked = viewModel::hideInfoDialog)
 }
 
 @Composable

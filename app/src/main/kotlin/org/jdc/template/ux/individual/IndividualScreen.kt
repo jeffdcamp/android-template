@@ -28,10 +28,10 @@ fun IndividualScreen() {
     val viewModel: IndividualViewModel = viewModel()
 
     val individual by viewModel.individualFlow.toLifecycleFlow().collectAsState(Individual())
-    IndividualSummary(individual = individual)
+    IndividualSummary(individual)
 
     val simpleDialogData by viewModel.simpleDialogData.collectAsState()
-    SimpleDialog(simpleDialogData, viewModel::hideInfoDialog,
+    SimpleDialog(simpleDialogData.visible, title = simpleDialogData.title, text = simpleDialogData.text, onDismissRequest = viewModel::hideInfoDialog,
         onConfirmButtonClicked = {
             viewModel.deleteIndividual()
             navController?.popBackStack()

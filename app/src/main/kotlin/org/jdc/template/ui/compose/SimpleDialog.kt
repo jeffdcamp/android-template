@@ -1,7 +1,6 @@
 package org.jdc.template.ui.compose
 
 import androidx.compose.material.AlertDialog
-import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
@@ -17,26 +16,38 @@ data class SimpleDialogData(
 
 @Composable
 fun SimpleDialog(
-    simpleDialogData: SimpleDialogData,
+    visible: Boolean,
     onDismissRequest: () -> Unit,
+    title: String? = null,
+    text: String? = null,
     confirmButtonText: String = stringResource(R.string.ok),
     onConfirmButtonClicked: (() -> Unit)? = null,
     dismissButtonText: String = stringResource(R.string.cancel),
     onDismissButtonClicked: (() -> Unit)? = null
 ) {
-    if (simpleDialogData.visible) {
+    if (visible) {
+        require(title != null || text != null) { "Title or Text is required (if visible)" }
+
         AlertDialog(
             onDismissRequest = { onDismissRequest() },
-            title = { simpleDialogData.title?.let { Text(it) } },
-            text = { simpleDialogData.text?.let { Text(it) } },
+            title = if (title != null) {
+                { Text(title) }
+            } else {
+                null
+            },
+            text = if (text != null) {
+                { Text(text) }
+            } else {
+                null
+            },
             confirmButton = {
                 if (onConfirmButtonClicked != null) {
-                    Button(
+                    TextButton(
                         onClick = {
                             onConfirmButtonClicked()
                         }
                     ) {
-                        Text(confirmButtonText)
+                        Text(confirmButtonText.toUpperCase(Locale.getDefault()))
                     }
                 }
             },
