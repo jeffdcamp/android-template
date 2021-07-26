@@ -189,7 +189,7 @@ dependencies {
     implementation(libs.compose.material.material)
 //    implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
-    implementation(libs.compose.constraintlayout)
+//    implementation(libs.compose.constraintlayout)
     implementation(libs.compose.activity)
     implementation(libs.compose.theme.adapter)
 
