@@ -15,30 +15,22 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import org.jdc.template.ui.compose.toLifecycleFlow
 
 @Composable
 fun DirectoryScreen() {
     val viewModel: DirectoryViewModel = viewModel()
 
-    val lifecycleOwner = LocalLifecycleOwner.current
-    val directoryListFlow = viewModel.directoryListFlow
-    val lifecycleListFlow = remember(directoryListFlow, lifecycleOwner) {
-        directoryListFlow.flowWithLifecycle(lifecycleOwner.lifecycle, Lifecycle.State.STARTED)
-    }
+    val directoryList by viewModel.directoryListFlow.toLifecycleFlow().collectAsState(initial = emptyList())
 
     Box(Modifier.fillMaxSize()) {
-        val list by lifecycleListFlow.collectAsState(initial = emptyList())
 
         LazyColumn(modifier = Modifier.fillMaxWidth()) {
-            items(list) { individual ->
+            items(directoryList) { individual ->
                 RowItem(individual.getFullName()) {
                     viewModel.onDirectoryIndividualClicked(individual)
                 }

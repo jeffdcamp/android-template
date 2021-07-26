@@ -1,5 +1,6 @@
 package org.jdc.template.ux.individualedit
 
+import android.app.Application
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,13 +8,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.jdc.template.R
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.repository.IndividualRepository
+import org.jdc.template.ui.compose.SimpleDialogData
 import org.jdc.template.util.coroutine.channel.ViewModelChannel
 import org.jdc.template.util.delegates.requireSavedState
 import java.time.LocalDate
@@ -23,6 +23,7 @@ import javax.inject.Inject
 @HiltViewModel
 class IndividualEditViewModel
 @Inject constructor(
+    private val application: Application,
     private val individualRepository: IndividualRepository,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
@@ -31,34 +32,56 @@ class IndividualEditViewModel
 
     private val individualId: Long by requireSavedState(savedStateHandle)
     private var individual = Individual()
-    var loadedIndividualFlow: Flow<Individual> = flow {
+
+    // hold state for Compose views
+    private val _firstNameFlow = MutableStateFlow("")
+    val firstNameFlow: StateFlow<String> = _firstNameFlow
+
+    private val _lastNameFlow = MutableStateFlow("")
+    val lastNameFlow: StateFlow<String> = _lastNameFlow
+
+    private val _phoneNumberFlow = MutableStateFlow("")
+    val phoneNumberFlow: StateFlow<String> = _phoneNumberFlow
+
+    private val _emailFlow = MutableStateFlow("")
+    val emailFlow: StateFlow<String> = _emailFlow
+
+    private val _birthDateFlow = MutableStateFlow<LocalDate?>(null)
+    val birthDateFlow: Flow<LocalDate?> = _birthDateFlow
+
+    private val _alarmTimeFlow = MutableStateFlow<LocalTime?>(null)
+    val alarmTimeFlow: Flow<LocalTime?> = _alarmTimeFlow
+
+    private val _simpleDialogData = MutableStateFlow(SimpleDialogData())
+    val simpleDialogData: StateFlow<SimpleDialogData> = _simpleDialogData
+
+    init {
+        loadIndividual()
+    }
+
+    private fun loadIndividual() = viewModelScope.launch {
         individualRepository.getIndividual(individualId)?.let { individual ->
             this@IndividualEditViewModel.individual = individual
-            emit(individual)
-            _birthDateTextFlow.value = individual.birthDate
-            _alarmTimeTextFlow.value = individual.alarmTime
+            _firstNameFlow.value = individual.firstName
+            _lastNameFlow.value = individual.lastName
+            _phoneNumberFlow.value = individual.phone
+            _emailFlow.value = individual.email
+            _birthDateFlow.value = individual.birthDate
+            _alarmTimeFlow.value = individual.alarmTime
         }
     }
 
-    private val _birthDateTextFlow = MutableStateFlow<LocalDate?>(null)
-    val birthDateTextFlow: Flow<LocalDate> = _birthDateTextFlow.asStateFlow().filterNotNull()
-
-    private val _alarmTimeTextFlow = MutableStateFlow<LocalTime?>(null)
-    val alarmTimeTextFlow: Flow<LocalTime> = _alarmTimeTextFlow.asStateFlow().filterNotNull()
-
-    fun saveIndividual(firstName: String, lastName: String, phone: String, email: String) = viewModelScope.launch {
-        individual.firstName = firstName
-        individual.lastName = lastName
-        individual.phone = phone
-        individual.email = email
-
-        // changed via setBirthDate and setAlarmTime
-        // individual.birthDate = birthDate
-        // individual.alarmTime = alarmTime
-
+    fun saveIndividual() = viewModelScope.launch {
         if (!validate()) {
             return@launch
         }
+
+        individual.firstName = _firstNameFlow.value
+        individual.lastName = _lastNameFlow.value
+        individual.phone = _phoneNumberFlow.value
+        individual.email = _emailFlow.value
+        individual.birthDate = _birthDateFlow.value
+        individual.alarmTime = _alarmTimeFlow.value
 
         individualRepository.saveIndividual(individual)
 
@@ -66,40 +89,54 @@ class IndividualEditViewModel
     }
 
     private fun validate(): Boolean {
-        if (individual.firstName.isBlank()) {
-            _eventChannel.sendAsync(Event.ValidationSaveError(FieldValidationError.FIRST_NAME_REQUIRED))
+        if (_firstNameFlow.value.isBlank()) {
+            val text = application.getString(R.string.x_required, application.getString(R.string.first_name))
+            _simpleDialogData.value = SimpleDialogData(true, application.getString(R.string.error), text)
             return false
         }
 
         return true
     }
 
+    fun hideInfoDialog() {
+        _simpleDialogData.value = SimpleDialogData()
+    }
+
+    fun setFirstName(value: String) {
+        _firstNameFlow.value = value
+    }
+
+    fun setLastName(value: String) {
+        _lastNameFlow.value = value
+    }
+
+    fun setPhoneNumber(value: String) {
+        _phoneNumberFlow.value = value
+    }
+
+    fun setEmail(value: String) {
+        _emailFlow.value = value
+    }
+
+    fun setBirthDate(birthDate: LocalDate?) {
+        _birthDateFlow.value = birthDate
+    }
+
+    fun setAlarmTime(alarmTime: LocalTime?) {
+        _alarmTimeFlow.value = alarmTime
+    }
+
     fun onBirthDateClicked() {
-        _eventChannel.sendAsync(Event.ShowBirthDateSelection(individual.birthDate ?: LocalDate.now()))
+        _eventChannel.sendAsync(Event.ShowBirthDateSelection(_birthDateFlow.value ?: LocalDate.now()))
     }
 
     fun onAlarmTimeClicked() {
-        _eventChannel.sendAsync(Event.ShowAlarmTimeSelection(individual.alarmTime ?: LocalTime.now()))
-    }
-
-    fun setBirthDate(birthDate: LocalDate) {
-        individual.birthDate = birthDate
-        _birthDateTextFlow.value = birthDate
-    }
-
-    fun setAlarmTime(alarmTime: LocalTime) {
-        individual.alarmTime = alarmTime
-        _alarmTimeTextFlow.value = alarmTime
-    }
-
-    enum class FieldValidationError(val errorMessageId: Int) {
-        FIRST_NAME_REQUIRED(R.string.required),
+        _eventChannel.sendAsync(Event.ShowAlarmTimeSelection(_alarmTimeFlow.value ?: LocalTime.now()))
     }
 
     sealed class Event {
         object IndividualSaved : Event()
         class ShowBirthDateSelection(val date: LocalDate) : Event()
         class ShowAlarmTimeSelection(val time: LocalTime) : Event()
-        class ValidationSaveError(val error: FieldValidationError) : Event()
     }
 }

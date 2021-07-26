@@ -7,14 +7,15 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.composethemeadapter.MdcTheme
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
+import org.jdc.template.ui.compose.LocalNavController
 import org.jdc.template.util.ext.withLifecycleOwner
 
 @AndroidEntryPoint
@@ -28,8 +29,10 @@ class IndividualFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return ComposeView(requireContext()).apply {
             setContent {
-                MdcTheme {
-                    IndividualScreen()
+                CompositionLocalProvider(LocalNavController provides findNavController()) {
+                    MdcTheme {
+                        IndividualScreen()
+                    }
                 }
             }
         }
@@ -51,7 +54,6 @@ class IndividualFragment : Fragment() {
     private fun handleEvent(event: IndividualViewModel.Event) {
         when (event) {
             is IndividualViewModel.Event.Navigate -> findNavController().navigate(event.direction)
-            is IndividualViewModel.Event.IndividualDeletedEvent -> findNavController().popBackStack()
         }
     }
 
@@ -67,20 +69,10 @@ class IndividualFragment : Fragment() {
                 true
             }
             R.id.menu_item_delete -> {
-                promptDeleteIndividual()
+                viewModel.onDeleteClicked()
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    private fun promptDeleteIndividual() {
-        MaterialAlertDialogBuilder(requireActivity())
-            .setMessage(R.string.delete_individual_confirm)
-            .setPositiveButton(R.string.delete) { _, _ ->
-                viewModel.deleteIndividual()
-            }
-            .setNegativeButton(R.string.cancel) { _, _ -> }
-            .show()
     }
 }

@@ -16,6 +16,7 @@
     <string name="edit_individual">Edit Individual</string>
     <string name="edit">Edit</string>
     <string name="required">Required</string>
+    <string name="x_required">%s Required</string>
     <string name="no_content">No Content</string>
     <string name="settings">Settings</string>
     <string name="search">Search</string>

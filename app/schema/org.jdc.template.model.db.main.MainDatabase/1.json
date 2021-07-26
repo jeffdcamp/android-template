@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "aaf29643d023832cb7f2e5cb55eb1ef2",
+    "identityHash": "29ccf3efd963e452a095c85b9a84801d",
     "entities": [
       {
         "tableName": "Individual",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `householdId` INTEGER NOT NULL, `individualType` TEXT NOT NULL, `firstName` TEXT NOT NULL, `lastName` TEXT NOT NULL, `birthDate` TEXT, `alarmTime` TEXT NOT NULL, `lastModified` TEXT NOT NULL, `phone` TEXT NOT NULL, `email` TEXT NOT NULL, `available` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `householdId` INTEGER NOT NULL, `individualType` TEXT NOT NULL, `firstName` TEXT NOT NULL, `lastName` TEXT NOT NULL, `birthDate` TEXT, `alarmTime` TEXT, `lastModified` TEXT NOT NULL, `phone` TEXT NOT NULL, `email` TEXT NOT NULL, `available` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -48,7 +48,7 @@
             "fieldPath": "alarmTime",
             "columnName": "alarmTime",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "lastModified",
@@ -119,7 +119,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'aaf29643d023832cb7f2e5cb55eb1ef2')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '29ccf3efd963e452a095c85b9a84801d')"
     ]
   }
 }

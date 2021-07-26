@@ -9,37 +9,41 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.jdc.template.R
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.ui.DateUiUtil
+import org.jdc.template.ui.compose.LocalNavController
+import org.jdc.template.ui.compose.SimpleDialog
+import org.jdc.template.ui.compose.toLifecycleFlow
 
 @Composable
 fun IndividualScreen() {
+    val navController = LocalNavController.current
     val viewModel: IndividualViewModel = viewModel()
 
-    val lifecycleOwner = LocalLifecycleOwner.current
-    val individualFlow = viewModel.individualFlow
-    val lifecycleListFlow = remember(individualFlow, lifecycleOwner) {
-        individualFlow.flowWithLifecycle(lifecycleOwner.lifecycle, Lifecycle.State.STARTED)
-    }
-
-    val individual by lifecycleListFlow.collectAsState(Individual())
+    val individual by viewModel.individualFlow.toLifecycleFlow().collectAsState(Individual())
     IndividualSummary(individual = individual)
+
+    val simpleDialogData by viewModel.simpleDialogData.collectAsState()
+    SimpleDialog(simpleDialogData, viewModel::hideInfoDialog,
+        onConfirmButtonClicked = {
+            viewModel.deleteIndividual()
+            navController?.popBackStack()
+        },
+        onDismissButtonClicked = viewModel::hideInfoDialog
+    )
 }
 
 @Composable
-fun IndividualSummary(individual: Individual) {
+fun IndividualSummary(individual: Individual?) {
+    individual ?: return
+
     Column(Modifier.verticalScroll(rememberScrollState())) {
         IndividualSummaryItem(individual.getFullName(), textStyle = MaterialTheme.typography.h5)
         IndividualSummaryItem(individual.phone, stringResource(R.string.phone))
@@ -50,7 +54,7 @@ fun IndividualSummary(individual: Individual) {
 }
 
 @Composable
-fun IndividualSummaryItem(text: String, label: String? = null, textStyle: TextStyle = MaterialTheme.typography.body1) {//@Preview
+fun IndividualSummaryItem(text: String, label: String? = null, textStyle: TextStyle = MaterialTheme.typography.body1) {
     if (text.isBlank()) {
         return
     }
@@ -72,15 +76,17 @@ fun IndividualSummaryItem(text: String, label: String? = null, textStyle: TextSt
     }
 }
 
-@Preview
-@Composable
-fun TestIndividual() {
-    IndividualSummary(individual = Individual(
-        firstName = "Jeff",
-        lastName = "Campbell",
-        phone = "801-555-1234",
-        email = "bob@bob.com",
-//        birthDate = LocalDate.MIN,
-//        alarmTime = LocalTime.MIN
-    ))
-}
+//@Preview
+//@Composable
+//fun TestIndividual() {
+//    IndividualSummary(
+//        individual = Individual(
+//            firstName = "Jeff",
+//            lastName = "Campbell",
+//            phone = "801-555-1234",
+//            email = "bob@bob.com",
+////        birthDate = LocalDate.MIN,
+////        alarmTime = LocalTime.MIN
+//        )
+//    )
+//}
