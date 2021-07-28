@@ -7,7 +7,7 @@ import androidx.room.DatabaseView
     value = DirectoryItem.VIEW_QUERY
 )
 data class DirectoryItem(
-    val id: Long,
+    val individualId: String,
     val firstName: String,
     val lastName: String
 ) {
@@ -15,6 +15,6 @@ data class DirectoryItem(
 
     companion object {
         const val VIEW_NAME = "DirectoryItem"
-        const val VIEW_QUERY = "SELECT id, lastName, firstName FROM Individual"
+        const val VIEW_QUERY = "SELECT id AS individualId, lastName, firstName FROM Individual"
     }
 }

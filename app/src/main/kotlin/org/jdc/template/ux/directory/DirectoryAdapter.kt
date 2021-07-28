@@ -30,7 +30,7 @@ class DirectoryAdapter(
     companion object {
         private val DIFF_CALLBACK: DiffUtil.ItemCallback<DirectoryItem> = object : DiffUtil.ItemCallback<DirectoryItem>() {
             override fun areItemsTheSame(oldItem: DirectoryItem, newItem: DirectoryItem): Boolean {
-                return oldItem.id == newItem.id
+                return oldItem.individualId == newItem.individualId
             }
 
             override fun areContentsTheSame(oldItem: DirectoryItem, newItem: DirectoryItem): Boolean {

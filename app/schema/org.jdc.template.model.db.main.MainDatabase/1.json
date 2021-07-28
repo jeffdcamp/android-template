@@ -2,23 +2,23 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "aaf29643d023832cb7f2e5cb55eb1ef2",
+    "identityHash": "07fdd410610a2c0caf8e3e1e27971c1d",
     "entities": [
       {
         "tableName": "Individual",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `householdId` INTEGER NOT NULL, `individualType` TEXT NOT NULL, `firstName` TEXT NOT NULL, `lastName` TEXT NOT NULL, `birthDate` TEXT, `alarmTime` TEXT NOT NULL, `lastModified` TEXT NOT NULL, `phone` TEXT NOT NULL, `email` TEXT NOT NULL, `available` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `householdId` TEXT, `individualType` TEXT NOT NULL, `firstName` TEXT, `lastName` TEXT, `birthDate` TEXT, `alarmTime` TEXT NOT NULL, `lastModified` TEXT NOT NULL, `phone` TEXT, `email` TEXT, `available` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
             "fieldPath": "householdId",
             "columnName": "householdId",
-            "affinity": "INTEGER",
-            "notNull": true
+            "affinity": "TEXT",
+            "notNull": false
           },
           {
             "fieldPath": "individualType",
@@ -30,13 +30,13 @@
             "fieldPath": "firstName",
             "columnName": "firstName",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "lastName",
             "columnName": "lastName",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "birthDate",
@@ -60,13 +60,13 @@
             "fieldPath": "phone",
             "columnName": "phone",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "email",
             "columnName": "email",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "available",
@@ -79,19 +79,19 @@
           "columnNames": [
             "id"
           ],
-          "autoGenerate": true
+          "autoGenerate": false
         },
         "indices": [],
         "foreignKeys": []
       },
       {
         "tableName": "Household",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -105,7 +105,7 @@
           "columnNames": [
             "id"
           ],
-          "autoGenerate": true
+          "autoGenerate": false
         },
         "indices": [],
         "foreignKeys": []
@@ -114,12 +114,12 @@
     "views": [
       {
         "viewName": "DirectoryItem",
-        "createSql": "CREATE VIEW `${VIEW_NAME}` AS SELECT id, lastName, firstName FROM Individual"
+        "createSql": "CREATE VIEW `${VIEW_NAME}` AS SELECT id AS individualId, lastName, firstName FROM Individual"
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'aaf29643d023832cb7f2e5cb55eb1ef2')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '07fdd410610a2c0caf8e3e1e27971c1d')"
     ]
   }
 }

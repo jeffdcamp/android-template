@@ -26,7 +26,7 @@ class DirectoryViewModel
     }
 
     fun onDirectoryIndividualClicked(directoryListItem: DirectoryItem) {
-        _eventChannel.sendAsync(Event.Navigate(DirectoryFragmentDirections.actionToIndividualFragment(directoryListItem.id)))
+        _eventChannel.sendAsync(Event.Navigate(DirectoryFragmentDirections.actionToIndividualFragment(directoryListItem.individualId)))
     }
 
     sealed class Event {

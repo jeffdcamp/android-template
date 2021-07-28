@@ -29,7 +29,7 @@ class IndividualEditViewModel
     private val _eventChannel: ViewModelChannel<Event> = ViewModelChannel(this)
     val eventChannel: ReceiveChannel<Event> = _eventChannel
 
-    private val individualId: Long by requireSavedState(savedStateHandle)
+    private val individualId: String by requireSavedState(savedStateHandle)
     private var individual = Individual()
     var loadedIndividualFlow: Flow<Individual> = flow {
         individualRepository.getIndividual(individualId)?.let { individual ->
@@ -47,10 +47,10 @@ class IndividualEditViewModel
     val alarmTimeTextFlow: Flow<LocalTime> = _alarmTimeTextFlow.asStateFlow().filterNotNull()
 
     fun saveIndividual(firstName: String, lastName: String, phone: String, email: String) = viewModelScope.launch {
-        individual.firstName = firstName
-        individual.lastName = lastName
-        individual.phone = phone
-        individual.email = email
+        individual.firstName = valueOrNull(firstName)
+        individual.lastName = valueOrNull(lastName)
+        individual.phone = valueOrNull(phone)
+        individual.email = valueOrNull(email)
 
         // changed via setBirthDate and setAlarmTime
         // individual.birthDate = birthDate
@@ -65,8 +65,16 @@ class IndividualEditViewModel
         _eventChannel.sendAsync(Event.IndividualSaved)
     }
 
+    private fun valueOrNull(value: String): String? {
+        return if (value.isBlank()) {
+            null
+        } else {
+            value
+        }
+    }
+
     private fun validate(): Boolean {
-        if (individual.firstName.isBlank()) {
+        if (individual.firstName.isNullOrBlank()) {
             _eventChannel.sendAsync(Event.ValidationSaveError(FieldValidationError.FIRST_NAME_REQUIRED))
             return false
         }

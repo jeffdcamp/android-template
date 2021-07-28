@@ -50,7 +50,7 @@ class AboutFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
-        binding.createDatabaseButton.setOnClickListener { viewModel.createSampleDataWithInjection() }
+        binding.createDatabaseButton.setOnClickListener { viewModel.createSampleData() }
         binding.restTestButton.setOnClickListener { viewModel.testQueryWebServiceCall() }
         binding.textTableChangeButton.setOnClickListener { viewModel.testTableChange() }
         binding.work1TestButton.setOnClickListener { viewModel.workManagerSimpleTest() }

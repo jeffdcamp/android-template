@@ -95,10 +95,10 @@ class IndividualEditFragment : Fragment() {
     }
 
     private fun showIndividual(individual: Individual) {
-        binding.firstNameEditText.setText(individual.firstName)
-        binding.lastNameEditText.setText(individual.lastName)
-        binding.phoneEditText.setText(individual.phone)
-        binding.emailEditText.setText(individual.email)
+        binding.firstNameEditText.setText(individual.firstName ?: "")
+        binding.lastNameEditText.setText(individual.lastName ?: "")
+        binding.phoneEditText.setText(individual.phone ?: "")
+        binding.emailEditText.setText(individual.email ?: "")
 
         // set UI from Flow
         // binding.birthDateEditText.setText(DateUiUtil.getLocalDateText(requireContext(), individual.birthDate))
