@@ -33,7 +33,7 @@
             />
         <argument
             android:name="individualId"
-            app:argType="long"
+            app:argType="string"
             />
     </fragment>
     <fragment
@@ -44,8 +44,9 @@
         >
         <argument
             android:name="individualId"
-            android:defaultValue="0L"
-            app:argType="long"
+            app:nullable="true"
+            android:defaultValue="@null"
+            app:argType="string"
             />
     </fragment>
     <fragment

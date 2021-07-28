@@ -54,8 +54,8 @@ fun IndividualSummary(individual: Individual?) {
 }
 
 @Composable
-fun IndividualSummaryItem(text: String, label: String? = null, textStyle: TextStyle = MaterialTheme.typography.body1) {
-    if (text.isBlank()) {
+fun IndividualSummaryItem(text: String?, label: String? = null, textStyle: TextStyle = MaterialTheme.typography.body1) {
+    if (text.isNullOrBlank()) {
         return
     }
     Column {

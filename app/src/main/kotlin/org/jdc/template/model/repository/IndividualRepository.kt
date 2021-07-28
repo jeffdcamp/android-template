@@ -30,34 +30,22 @@ class IndividualRepository
     suspend fun setDirectorySort(byLastName: Boolean) {
         userPreferenceDataSource.setDirectorySort(byLastName)
     }
-    suspend fun getIndividual(individualId: Long) = individualDao().findById(individualId)
-    fun getIndividualFlow(individualId: Long) = individualDao().findByIdFlow(individualId)
+    suspend fun getIndividual(individualId: String) = individualDao().findById(individualId)
+    fun getIndividualFlow(individualId: String) = individualDao().findByIdFlow(individualId)
     suspend fun getAllIndividuals() = individualDao().findAll()
     suspend fun getIndividualCount() = individualDao().findCount()
-    suspend fun getIndividualFirstName(individualId: Long) = individualDao().findFirstName(individualId)
+    suspend fun getIndividualFirstName(individualId: String) = individualDao().findFirstName(individualId)
 
     suspend fun saveIndividual(individual: Individual) {
-        if (individual.id <= 0) {
-            val newId = individualDao().insert(individual)
-            individual.id = newId
-        } else {
-            individualDao().update(individual)
-        }
+        individualDao().insert(individual)
     }
 
     private suspend fun saveHousehold(household: Household) {
-        if (household.id <= 0) {
-            val newId = householdDao().insert(household)
-            household.id = newId
-        } else {
-            householdDao().update(household)
-        }
+        householdDao().insert(household)
     }
 
-    suspend fun saveNewHousehold(lastName: String, individuals: List<Individual>) {
+    suspend fun saveNewHousehold(household: Household, individuals: List<Individual>) {
         mainDatabase().withTransaction {
-            val household = Household()
-            household.name = lastName
             saveHousehold(household)
 
             individuals.forEach { individual ->
@@ -67,7 +55,7 @@ class IndividualRepository
         }
     }
 
-    suspend fun deleteIndividual(individualId: Long) = individualDao().deleteById(individualId)
+    suspend fun deleteIndividual(individualId: String) = individualDao().deleteById(individualId)
 
     suspend fun deleteAllIndividuals() {
         mainDatabase().withTransaction {

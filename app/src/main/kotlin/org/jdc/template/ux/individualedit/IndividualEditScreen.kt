@@ -28,7 +28,6 @@ import java.time.LocalTime
 fun IndividualEditScreen() {
     val viewModel: IndividualEditViewModel = viewModel()
 
-
     val firstName: String by viewModel.firstNameFlow.collectAsState()
     val lastName: String by viewModel.lastNameFlow.collectAsState()
     val phoneNumber: String by viewModel.phoneNumberFlow.collectAsState()

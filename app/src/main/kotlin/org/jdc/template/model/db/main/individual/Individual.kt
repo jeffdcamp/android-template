@@ -6,21 +6,22 @@ import org.jdc.template.model.db.main.type.IndividualType
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.OffsetDateTime
+import java.util.UUID
 
 @Entity
 data class Individual(
-    @PrimaryKey(autoGenerate = true)
-    var id: Long = 0,
-    var householdId: Long = 0,
+    @PrimaryKey
+    var id: String = UUID.randomUUID().toString(),
+    var householdId: String? = null,
     var individualType: IndividualType = IndividualType.HEAD,
-    var firstName: String = "",
-    var lastName: String = "",
+    var firstName: String? = null,
+    var lastName: String? = null,
     var birthDate: LocalDate? = null,
     var alarmTime: LocalTime? = null,
     var lastModified: OffsetDateTime = OffsetDateTime.now(),
-    var phone: String = "",
-    var email: String = "",
+    var phone: String? = null,
+    var email: String? = null,
     var available: Boolean = false
 ) {
-    fun getFullName() = "$firstName $lastName"
+    fun getFullName(): String = "${firstName ?: ""} ${lastName ?: ""}"
 }

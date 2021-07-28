@@ -30,7 +30,7 @@ class IndividualEditViewModel
     private val _eventChannel: ViewModelChannel<Event> = ViewModelChannel(this)
     val eventChannel: ReceiveChannel<Event> = _eventChannel
 
-    private val individualId: Long by requireSavedState(savedStateHandle)
+    private val individualId: String by requireSavedState(savedStateHandle)
     private var individual = Individual()
 
     // hold state for Compose views
@@ -62,10 +62,10 @@ class IndividualEditViewModel
     private fun loadIndividual() = viewModelScope.launch {
         individualRepository.getIndividual(individualId)?.let { individual ->
             this@IndividualEditViewModel.individual = individual
-            _firstNameFlow.value = individual.firstName
-            _lastNameFlow.value = individual.lastName
-            _phoneNumberFlow.value = individual.phone
-            _emailFlow.value = individual.email
+            _firstNameFlow.value = individual.firstName ?: ""
+            _lastNameFlow.value = individual.lastName ?: ""
+            _phoneNumberFlow.value = individual.phone ?: ""
+            _emailFlow.value = individual.email ?: ""
             _birthDateFlow.value = individual.birthDate
             _alarmTimeFlow.value = individual.alarmTime
         }
@@ -76,16 +76,24 @@ class IndividualEditViewModel
             return@launch
         }
 
-        individual.firstName = _firstNameFlow.value
-        individual.lastName = _lastNameFlow.value
-        individual.phone = _phoneNumberFlow.value
-        individual.email = _emailFlow.value
+        individual.firstName = valueOrNull(_firstNameFlow.value)
+        individual.lastName = valueOrNull(_lastNameFlow.value)
+        individual.phone = valueOrNull(_phoneNumberFlow.value)
+        individual.email = valueOrNull(_emailFlow.value)
         individual.birthDate = _birthDateFlow.value
         individual.alarmTime = _alarmTimeFlow.value
 
         individualRepository.saveIndividual(individual)
 
         _eventChannel.sendAsync(Event.IndividualSaved)
+    }
+
+    private fun valueOrNull(value: String): String? {
+        return if (value.isBlank()) {
+            null
+        } else {
+            value
+        }
     }
 
     private fun validate(): Boolean {

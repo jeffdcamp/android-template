@@ -31,7 +31,7 @@ class IndividualViewModel
     private val _eventChannel: ViewModelChannel<Event> = ViewModelChannel(this)
     val eventChannel: ReceiveChannel<Event> = _eventChannel
 
-    private val individualId: Long by requireSavedState(savedStateHandle)
+    private val individualId: String by requireSavedState(savedStateHandle)
     val individualFlow: Flow<Individual>
         get() = individualRepository.getIndividualFlow(individualId)
 
