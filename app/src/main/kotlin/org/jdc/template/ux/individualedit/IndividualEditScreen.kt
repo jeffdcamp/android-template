@@ -51,7 +51,7 @@ fun IndividualEditScreen() {
 }
 
 @Composable
-fun IndividualEditFields(
+private fun IndividualEditFields(
     firstNameHoisted: Hoisted<String>,
     lastNameHoisted: Hoisted<String>,
     phoneNumberHoisted: Hoisted<String>,
@@ -73,7 +73,7 @@ fun IndividualEditFields(
 }
 
 @Composable
-fun IndividualEditField(label: String, text: Hoisted<String>) {
+private fun IndividualEditField(label: String, text: Hoisted<String>) {
     TextField(
         value = text.value,
         onValueChange = { text.onChange(it) },
@@ -85,7 +85,7 @@ fun IndividualEditField(label: String, text: Hoisted<String>) {
 }
 
 @Composable
-fun IndividualClickableEditField(label: String, text: String, onClick: () -> Unit) {
+private fun IndividualClickableEditField(label: String, text: String, onClick: () -> Unit) {
     TextField(
         value = text,
         onValueChange = { },

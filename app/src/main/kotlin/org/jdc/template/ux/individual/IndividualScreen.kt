@@ -41,7 +41,7 @@ fun IndividualScreen() {
 }
 
 @Composable
-fun IndividualSummary(individual: Individual?) {
+private fun IndividualSummary(individual: Individual?) {
     individual ?: return
 
     Column(Modifier.verticalScroll(rememberScrollState())) {
@@ -54,7 +54,7 @@ fun IndividualSummary(individual: Individual?) {
 }
 
 @Composable
-fun IndividualSummaryItem(text: String?, label: String? = null, textStyle: TextStyle = MaterialTheme.typography.body1) {
+private fun IndividualSummaryItem(text: String?, label: String? = null, textStyle: TextStyle = MaterialTheme.typography.body1) {
     if (text.isNullOrBlank()) {
         return
     }
