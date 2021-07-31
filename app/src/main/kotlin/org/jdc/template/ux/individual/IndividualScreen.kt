@@ -27,7 +27,7 @@ fun IndividualScreen() {
     val navController = LocalNavController.current
     val viewModel: IndividualViewModel = viewModel()
 
-    val individual by viewModel.individualFlow.collectAsLifecycleState(Individual())
+    val individual: Individual by viewModel.individualFlow.collectAsLifecycleState(Individual())
     IndividualSummary(individual)
 
     val simpleDialogData by viewModel.simpleDialogData.collectAsState()

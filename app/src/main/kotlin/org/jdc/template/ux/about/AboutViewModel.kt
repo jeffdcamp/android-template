@@ -39,7 +39,6 @@ class AboutViewModel
 ) : ViewModel() {
 
     var appVersion = BuildConfig.VERSION_NAME
-    var appBuildDateTime = BuildConfig.BUILD_TIME
     val resetServiceEnabledFlow: Flow<Boolean> = flow {
         emit(remoteConfig.isColorServiceEnabled())
     }
@@ -219,12 +218,6 @@ class AboutViewModel
             individualRepository.saveIndividual(individual)
         } else {
             Timber.e("Cannot find individual")
-        }
-    }
-
-    fun testStuff() = viewModelScope.launch {
-        individualRepository.getAllMembers().forEach {
-            Timber.i("Member Info: $it")
         }
     }
 }
