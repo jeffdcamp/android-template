@@ -170,13 +170,13 @@ android {
 dependencies {
     // Android
     coreLibraryDesugaring(libs.android.desugar)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.recyclerview)
+    implementation(libs.androidx.appcompat) // AppCompatActivity
+//    implementation(libs.androidx.recyclerview)
     implementation(libs.androidx.preference)
-    implementation(libs.google.material)
-    implementation(libs.androidx.constraintlayout)
-    implementation(libs.androidx.core)
-    implementation(libs.androidx.activity)
+//    implementation(libs.google.material)
+//    implementation(libs.androidx.constraintlayout)
+//    implementation(libs.androidx.core)
+//    implementation(libs.androidx.activity)
     implementation(libs.androidx.fragment)
     implementation(libs.androidx.splashscreen)
     implementation(libs.androidx.startup)
