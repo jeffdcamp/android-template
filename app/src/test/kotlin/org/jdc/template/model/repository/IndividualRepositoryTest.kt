@@ -39,10 +39,6 @@ class IndividualRepositoryTest {
         component.inject(this)
     }
 
-    @AfterEach
-    fun tearDown() {
-    }
-
     @Test
     fun testIndividual() = runBlocking {
         // === CREATE / INSERT ===

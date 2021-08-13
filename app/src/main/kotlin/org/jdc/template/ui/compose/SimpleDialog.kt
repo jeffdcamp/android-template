@@ -8,12 +8,6 @@ import androidx.compose.ui.res.stringResource
 import org.jdc.template.R
 import java.util.Locale
 
-data class SimpleDialogData(
-    val visible: Boolean = false,
-    val title: String? = null,
-    val text: String? = null
-)
-
 @Composable
 fun SimpleDialog(
     visible: Boolean,
@@ -65,3 +59,9 @@ fun SimpleDialog(
         )
     }
 }
+
+data class SimpleDialogData(
+    val visible: Boolean = false,
+    val title: String? = null,
+    val text: String? = null
+)
