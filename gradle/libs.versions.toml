@@ -1,5 +1,5 @@
 [versions]
-agp = "7.0.0"
+agp = "7.0.1"
 kotlin = "1.5.21"
 coroutines = "1.5.1"
 
@@ -14,18 +14,23 @@ dbtools = "6.1.0"
 espresso = "3.4.0"
 hilt = "2.38.1"
 ktlint = "0.40.0"
-navigation = "2.4.0-alpha06"
+navigation = "2.4.0-alpha07"
 paging = "3.0.0-beta02"
 retrofit = "2.9.0"
 room = "2.3.0"
 work = "2.7.0-alpha05" # 2.7.0+ is required to RUN workmanager on Android 12 and targeting SDK 31 (pre-2.7.0 workmanager crashes on Android 12 when targeting SDK 31)
+
+[plugins]
+detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.18.0" }
+playPublisher = { id = "com.github.triplet.play", version = "3.6.0" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
 [libraries]
 accompanist-coil = { module = "com.google.accompanist:accompanist-coil", version.ref = "accompanist" }
 accompanist-flowlayout = { module = "com.google.accompanist:accompanist-flowlayout", version.ref = "accompanist" }
 accompanist-insets = { module = "com.google.accompanist:accompanist-insets", version.ref = "accompanist" }
 
-android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
+android-gradlePluginClasspath = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 android-desugar = { module = "com.android.tools:desugar_jdk_libs", version = "1.1.5" }
 
 androidx-activity = { module = "androidx.activity:activity-ktx", version = "1.3.0" }
@@ -33,7 +38,7 @@ androidx-appcompat = { module = "androidx.appcompat:appcompat", version = "1.3.1
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version = "2.0.4" }
 androidx-core = { module = "androidx.core:core-ktx", version = "1.6.0" }
 androidx-datastorePrefs = { module = "androidx.datastore:datastore-preferences", version = "1.0.0" }
-androidx-fragment = { module = "androidx.fragment:fragment-ktx", version = "1.4.0-alpha06" }
+androidx-fragment = { module = "androidx.fragment:fragment-ktx", version = "1.4.0-alpha07" }
 androidx-preference = { module = "androidx.preference:preference-ktx", version = "1.1.1" }
 androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version = "1.2.1" }
 androidx-startup = { module = "androidx.startup:startup-runtime", version = "1.1.0" }
@@ -56,7 +61,7 @@ androidx-lifecycle-viewmodel-savedstate = { module = "androidx.lifecycle:lifecyc
 
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
 androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
-androidx-navigation-safeArgsGradlePlugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigation" }
+androidx-navigation-safeArgsGradlePluginClasspath = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigation" }
 androidx-navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
 
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
@@ -77,7 +82,7 @@ androidx-test-espresso-contrib = { module = "androidx.test.espresso:espresso-con
 androidx-work-runtime = { module = "androidx.work:work-runtime-ktx", version.ref = "work" }
 androidx-work-gcm = { module = "androidx.work:work-gcm", version.ref = "work" }
 
-coil-coil = { module = "io.coil-kt:coil", version.ref = "coil" }
+coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 coil-gif = { module = "io.coil-kt:coil-gif", version.ref = "coil" }
 
 compose-activity = { module = "androidx.activity:activity-compose", version = "1.3.0" }
@@ -87,19 +92,17 @@ compose-foundation-foundation = { module = "androidx.compose.foundation:foundati
 compose-foundation-layout = { module = "androidx.compose.foundation:foundation-layout", version.ref = "compose" }
 compose-material-iconsext = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose" }
 compose-material-material = { module = "androidx.compose.material:material", version.ref = "compose" }
+compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 compose-ui-test = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
-compose-ui-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 compose-ui-util = { module = "androidx.compose.ui:ui-util", version.ref = "compose" }
 compose-ui-viewbinding = { module = "androidx.compose.ui:ui-viewbinding", version.ref = "compose" }
 compose-theme-adapter = { module = "com.google.android.material:compose-theme-adapter", version.ref = "compose" }
 
+dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
-dagger-dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
 
-detekt-gradlePlugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version = "1.18.0" }
-
-dbtools-licenseManager = { module = "org.dbtools:license-manager-gradle-plugin", version = "1.0.0" }
+dbtools-licenseManager-gradlePluginClasspath = { module = "org.dbtools:license-manager-gradle-plugin", version = "1.0.0" }
 
 dbtools-room = { module = "org.dbtools:dbtools-room", version.ref = "dbtools" }
 dbtools-roomSqlite = { module = "org.dbtools:dbtools-room-sqliteorg", version.ref = "dbtools" }
@@ -111,9 +114,9 @@ google-analytics = { module = "com.google.firebase:firebase-analytics-ktx", vers
 google-crashlytics = { module = "com.google.firebase:firebase-crashlytics-ktx", version = "17.4.0" }
 google-crashlyticsGradle = { module = "com.google.firebase:firebase-crashlytics-gradle", version = "2.5.1" }
 
-google-kspGradlePlugin = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version = "1.5.21-1.0.0-beta06" } # https://maven.google.com/web/index.html#com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin
+google-kspGradlePluginClasspath = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version = "1.5.21-1.0.0-beta06" } # https://maven.google.com/web/index.html#com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin
 google-material = { module = "com.google.android.material:material", version = "1.4.0" } # https://github.com/material-components/material-components-android/releases
-google-servicesgradlePlugin = { module = "com.google.gms:google-services", version = "4.3.10" } # NOTE 4.3.9 is NOT compatible with firebase-bom 28.3.1
+google-servicesgradlePluginClasspath = { module = "com.google.gms:google-services", version = "4.3.10" } # NOTE 4.3.9 is NOT compatible with firebase-bom 28.3.1
 
 # Firebase - https://firebase.google.com/support/release-notes/android
 google-firebase-bom = { module = "com.google.firebase:firebase-bom", version = "28.3.1" }
@@ -121,12 +124,12 @@ google-firebase-analytics = { module = "com.google.firebase:firebase-analytics-k
 google-firebase-config = { module = "com.google.firebase:firebase-config-ktx" }
 google-firebase-core = { module = "com.google.firebase:firebase-core" }
 google-firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics-ktx" }
-google-firebase-crashlyticsGradlePlugin = { module = "com.google.firebase:firebase-crashlytics-gradle", version = "2.7.1" }
+google-firebase-crashlyticsGradlePluginClasspath = { module = "com.google.firebase:firebase-crashlytics-gradle", version = "2.7.1" }
 google-firebase-perf = { module = "com.google.firebase:firebase-perf" }
-google-firebase-perfGradlePlugin = { module = "com.google.firebase:perf-plugin", version = "1.3.4" }
+google-firebase-perfGradlePluginClasspath = { module = "com.google.firebase:perf-plugin", version = "1.3.4" }
 
 google-hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
-google-hilt-gradlePlugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hilt" }
+google-hilt-gradlePluginClasspath = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hilt" }
 google-hilt-library = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 google-hilt-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
 
@@ -142,23 +145,20 @@ kotlin-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-co
 kotlin-coroutines-playServices = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "coroutines" }
 kotlin-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 kotlin-extensions = { module = "org.jetbrains.kotlin:kotlin-android-extensions", version.ref = "kotlin" }
-kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
-kotlin-serialization-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
+kotlin-gradlePluginClasspath = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.2.2" }
 #kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
 
 leakCanary = { module = "com.squareup.leakcanary:leakcanary-android", version = "2.7" }
 
 okhttp-bom = { module = "com.squareup.okhttp3:okhttp-bom", version = "4.9.1" }
+okhttp = { module = "com.squareup.okhttp3:okhttp" }
 okhttp-loggingInterceptor = { module = "com.squareup.okhttp3:logging-interceptor" }
-okhttp-okhttp = { module = "com.squareup.okhttp3:okhttp" }
 okhttp-mockwebserver = { module = "com.squareup.okhttp3:mockwebserver" }
 
 mockK = { module = "io.mockk:mockk", version = "1.12.0" }
 
-playPublisher-gradlePlugin = { module = "com.github.triplet.gradle:play-publisher", version = "3.6.0" }
-
-retrofit-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 
 #store = { module = "com.dropbox.mobile.store:store4", version = "4.0.0" }
 
@@ -166,7 +166,7 @@ timber = { module = "com.jakewharton.timber:timber", version = "5.0.1" }
 
 truth = { module = "com.google.truth:truth", version = "1.1.3" }
 
-gradleVersions-gradlePlugin = { module = "com.github.ben-manes:gradle-versions-plugin", version = "0.39.0" }
+gradleVersions-gradlePluginClasspath = { module = "com.github.ben-manes:gradle-versions-plugin", version = "0.39.0" }
 
 workmanagertools = { module = "org.dbtools:workmanager-tools", version = "1.15.0-rc01" }
 

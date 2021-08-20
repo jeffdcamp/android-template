@@ -4,14 +4,14 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("kapt")
-    id("kotlinx-serialization")
     id("dagger.hilt.android.plugin")
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.firebase.crashlytics")
-    id("io.gitlab.arturbosch.detekt")
-    id ("de.undercouch.download")
-    id("com.github.triplet.play")
     id("org.dbtools.license-manager")
+    id("de.undercouch.download")
+    alias(libs.plugins.detekt)
+    alias(libs.plugins.playPublisher)
+    alias(libs.plugins.kotlin.serialization)
     //id("com.google.devtools.ksp")
 }
 
@@ -183,7 +183,7 @@ dependencies {
     implementation(libs.androidx.datastorePrefs)
 
     // Compose
-    implementation(libs.compose.ui.ui)
+    implementation(libs.compose.ui)
     implementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.util)
     implementation(libs.compose.material.material)
@@ -245,9 +245,9 @@ dependencies {
 
     // Network
     implementation(platform(libs.okhttp.bom))
-    implementation(libs.okhttp.okhttp)
+    implementation(libs.okhttp)
     implementation(libs.okhttp.loggingInterceptor)
-    implementation(libs.retrofit.retrofit)
+    implementation(libs.retrofit)
 
     // Dev
     debugImplementation(libs.leakCanary)

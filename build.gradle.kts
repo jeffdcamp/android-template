@@ -9,22 +9,16 @@ buildscript {
     }
 
     dependencies {
-        // workaround for no support of "libs" in buildscript (https://github.com/gradle/gradle/issues/16958#issuecomment-827140071) (https://discuss.gradle.org/t/trouble-using-centralized-dependency-versions-in-buildsrc-plugins-and-buildscript-classpath/39421)
-        val libs = project.extensions.getByType<VersionCatalogsExtension>().named("libs") as org.gradle.accessors.dm.LibrariesForLibs
-
-        classpath(libs.android.gradlePlugin)
-//        classpath(libs.google.kspGradlePlugin)
-        classpath(libs.kotlin.gradlePlugin)
-        classpath(libs.kotlin.serialization.gradlePlugin)
-        classpath(libs.google.hilt.gradlePlugin)
-        classpath(libs.androidx.navigation.safeArgsGradlePlugin)
-        classpath(libs.google.firebase.crashlyticsGradlePlugin)
-        // classpath(libs.google.firebase.perfGradlePlugin)
-        classpath(libs.google.servicesgradlePlugin)
-        classpath(libs.gradleVersions.gradlePlugin)
-        classpath(libs.playPublisher.gradlePlugin)
-        classpath(libs.detekt.gradlePlugin)
-        classpath(libs.dbtools.licenseManager)
+        classpath(libs.android.gradlePluginClasspath)
+//        classpath(libs.google.kspGradlePluginClasspath)
+        classpath(libs.kotlin.gradlePluginClasspath)
+        classpath(libs.google.hilt.gradlePluginClasspath)
+        classpath(libs.androidx.navigation.safeArgsGradlePluginClasspath)
+        classpath(libs.google.firebase.crashlyticsGradlePluginClasspath)
+        // classpath(libs.google.firebase.perfGradlePluginClasspath)
+        classpath(libs.google.servicesgradlePluginClasspath)
+        classpath(libs.gradleVersions.gradlePluginClasspath)
+        classpath(libs.dbtools.licenseManager.gradlePluginClasspath)
     }
 }
 
