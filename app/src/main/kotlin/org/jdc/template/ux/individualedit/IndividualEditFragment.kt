@@ -19,6 +19,7 @@ import com.google.android.material.composethemeadapter.MdcTheme
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
 import org.jdc.template.ui.compose.LocalNavController
+import org.jdc.template.ui.theme.AppTheme
 import org.jdc.template.util.ext.withLifecycleOwner
 import java.time.LocalDate
 import java.time.LocalTime
@@ -35,7 +36,7 @@ class IndividualEditFragment : Fragment() {
         return ComposeView(requireContext()).apply {
             setContent {
                 CompositionLocalProvider(LocalNavController provides findNavController()) {
-                    MdcTheme {
+                    AppTheme {
                         Surface {
                             IndividualEditScreen()
                         }

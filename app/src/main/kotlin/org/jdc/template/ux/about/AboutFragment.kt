@@ -17,6 +17,7 @@ import com.google.android.material.composethemeadapter.MdcTheme
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
 import org.jdc.template.ui.compose.LocalNavController
+import org.jdc.template.ui.theme.AppTheme
 
 @AndroidEntryPoint
 class AboutFragment : Fragment() {
@@ -30,7 +31,7 @@ class AboutFragment : Fragment() {
         return ComposeView(requireContext()).apply {
             setContent {
                 CompositionLocalProvider(LocalNavController provides findNavController()) {
-                    MdcTheme {
+                    AppTheme {
                         Surface {
                             AboutScreen()
                         }

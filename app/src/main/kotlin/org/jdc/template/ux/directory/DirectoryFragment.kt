@@ -18,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
 import org.jdc.template.ui.compose.LocalNavController
 import org.jdc.template.ui.menu.CommonMenu
+import org.jdc.template.ui.theme.AppTheme
 import org.jdc.template.util.ext.withLifecycleOwner
 import javax.inject.Inject
 
@@ -36,7 +37,7 @@ class DirectoryFragment : Fragment() {
         return ComposeView(requireContext()).apply {
             setContent {
                 CompositionLocalProvider(LocalNavController provides findNavController()) {
-                    MdcTheme {
+                    AppTheme {
                         Surface {
                             DirectoryScreen()
                         }
