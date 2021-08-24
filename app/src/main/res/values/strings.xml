@@ -29,6 +29,7 @@
     <string name="licenses">Licenses</string>
     <string name="acknowledgments">Acknowledgments</string>
     <string name="directory">Directory</string>
+    <string name="sort_by_last_name">Sort by last name</string>
 
     <!-- Navigation Drawer -->
     <string name="drawer_main">Main</string>

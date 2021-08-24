@@ -48,7 +48,7 @@ fun IndividualEditScreen() {
 
     val simpleDialogData by viewModel.simpleDialogData.collectAsState()
     SimpleDialog(
-        simpleDialogData.visible,
+        visible = simpleDialogData.visible,
         title = simpleDialogData.title,
         text = simpleDialogData.text,
         onDismissRequest = viewModel::hideInfoDialog,
