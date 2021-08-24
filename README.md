@@ -5,6 +5,7 @@ Sample Android app that utilizes common best practices
 
 **Features**
 
+* Compose
 * Kotlin
 * Kotlin Coroutines
 * Kotlin Serialization (json)
@@ -15,16 +16,13 @@ Sample Android app that utilizes common best practices
     * Room
     * Navigation
     * WorkManager
-    * Data Binding / View Binding
+    * Startup Initializer
 * Dagger dependency injection using Jetpack Hilt
 * Material styles and themes
-* Fragment, ViewModel, Worker constructor Injection support
+* Datastore
 * CoreLibraryDesugaring (support java.time)
-* Constraint Layout
-* RecyclerView / ListAdapter / ViewHolder
 * Retrofit / Okhttp3
-* Espresso Tests
-* JUnit tests / mockito
+* JUnit tests / mockk
 * Timber
 * Firebase Analytics
 * Gradle Play Publisher (Triple-T)
