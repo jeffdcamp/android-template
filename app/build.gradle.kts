@@ -171,12 +171,7 @@ dependencies {
     // Android
     coreLibraryDesugaring(libs.android.desugar)
     implementation(libs.androidx.appcompat) // AppCompatActivity
-//    implementation(libs.androidx.recyclerview)
     implementation(libs.androidx.preference)
-//    implementation(libs.google.material)
-//    implementation(libs.androidx.constraintlayout)
-//    implementation(libs.androidx.core)
-//    implementation(libs.androidx.activity)
     implementation(libs.androidx.fragment)
     implementation(libs.androidx.splashscreen)
     implementation(libs.androidx.startup)
@@ -241,7 +236,7 @@ dependencies {
 
     // Custom SQLite database
     // (for use of SqliteOrgSQLiteOpenHelperFactory in AppModule.kt)
-    //implementation(libs.dbtoolsDBTOOLS_ROOM_SQLITE)
+    //implementation(libs.dbtools.roomSqlite)
 
     // Network
     implementation(platform(libs.okhttp.bom))
@@ -324,21 +319,13 @@ detekt {
     }
 }
 
-// TripleT / Google Play Publisher (3.1.x)
+// TripleT / Google Play Publisher
 play {
     val myServiceAccountCreds: String? by project
     serviceAccountCredentials.set(File(myServiceAccountCreds ?: "api-playstore-dummy.json"))
     track.set("internal")
     defaultToAppBundles.set(true)
 }
-
-// TripleT / Google Play Publisher (3.2+?)
-//configure<com.github.triplet.gradle.play.PlayPublisherExtension> {
-//    val myServiceAccountCreds: String? by project
-//    serviceAccountCredentials.set(file(myServiceAccountCreds ?: "api-playstore-dummy.json"))
-//    promoteTrack.set("internal")
-//    defaultToAppBundles.set(true)
-//}
 
 // ./gradlew createLicenseReports
 // ./gradlew --stacktrace -i createLicenseReports
