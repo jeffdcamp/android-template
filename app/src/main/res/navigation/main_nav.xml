@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainNavigation"
     app:startDestination="@id/directoryFragment"
     >
@@ -10,7 +9,6 @@
         android:id="@+id/directoryFragment"
         android:name="org.jdc.template.ux.directory.DirectoryFragment"
         android:label="@string/directory"
-        tools:layout="@layout/directory_fragment"
         >
         <action
             android:id="@+id/action_to_individualFragment"
@@ -25,7 +23,6 @@
         android:id="@+id/individualFragment"
         android:name="org.jdc.template.ux.individual.IndividualFragment"
         android:label="@string/individual"
-        tools:layout="@layout/individual_fragment"
         >
         <action
             android:id="@+id/action_to_individualEditFragment"
@@ -40,7 +37,6 @@
         android:id="@+id/individualEditFragment"
         android:name="org.jdc.template.ux.individualedit.IndividualEditFragment"
         android:label="@string/edit_individual"
-        tools:layout="@layout/individual_edit_fragment"
         >
         <argument
             android:name="individualId"
@@ -63,18 +59,16 @@
         android:id="@+id/workManagerFragment"
         android:name="org.dbtools.android.work.ux.monitor.WorkManagerStatusFragment"
         android:label="Work Manager Status"
-        tools:layout="@layout/work_manager_status_fragment"
         >
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
         android:name="org.jdc.template.ux.about.AboutFragment"
         android:label="@string/about"
-        tools:layout="@layout/about_fragment"
         >
         <action
             android:id="@+id/action_to_acknowledgmentsFragment"
-            app:destination="@id/acknowledgmentsFragment"
+            app:destination="@id/acknowledgementsFragment"
             />
     </fragment>
     <action
@@ -86,8 +80,8 @@
         app:destination="@id/aboutFragment"
         />
     <fragment
-        android:id="@+id/acknowledgmentsFragment"
-        android:name="org.jdc.template.ux.about.AcknowledgmentsFragment"
+        android:id="@+id/acknowledgementsFragment"
+        android:name="org.jdc.template.ux.acknowledgement.AcknowledgmentsFragment"
         android:label="@string/acknowledgments"
         />
 </navigation>

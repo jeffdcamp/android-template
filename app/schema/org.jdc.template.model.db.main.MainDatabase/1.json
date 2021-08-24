@@ -6,7 +6,7 @@
     "entities": [
       {
         "tableName": "Individual",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `householdId` TEXT, `individualType` TEXT NOT NULL, `firstName` TEXT, `lastName` TEXT, `birthDate` TEXT, `alarmTime` TEXT NOT NULL, `lastModified` TEXT NOT NULL, `phone` TEXT, `email` TEXT, `available` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `householdId` TEXT, `individualType` TEXT NOT NULL, `firstName` TEXT, `lastName` TEXT, `birthDate` TEXT, `alarmTime` TEXT, `lastModified` TEXT NOT NULL, `phone` TEXT, `email` TEXT, `available` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -48,7 +48,7 @@
             "fieldPath": "alarmTime",
             "columnName": "alarmTime",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "lastModified",

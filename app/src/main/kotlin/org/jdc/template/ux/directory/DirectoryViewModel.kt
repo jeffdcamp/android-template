@@ -18,7 +18,7 @@ class DirectoryViewModel
     private val _eventChannel: ViewModelChannel<Event> = ViewModelChannel(this)
     val eventChannel: ReceiveChannel<Event> = _eventChannel
 
-    val directoryListFlow: Flow<List<DirectoryItem>> // change to ShareFlow.shareIn(viewModelScope) when available (in coroutine library https://github.com/Kotlin/kotlinx.coroutines/issues/2069)
+    val directoryListFlow: Flow<List<DirectoryItem>>
         get() = individualRepository.getDirectoryListFlow()
 
     fun addIndividual() {

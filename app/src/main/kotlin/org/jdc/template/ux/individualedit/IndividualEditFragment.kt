@@ -9,15 +9,17 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.material.Surface
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.composethemeadapter.MdcTheme
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
-import org.jdc.template.databinding.IndividualEditFragmentBinding
-import org.jdc.template.model.db.main.individual.Individual
-import org.jdc.template.ui.DateUiUtil
-import org.jdc.template.util.ext.autoCleared
+import org.jdc.template.ui.compose.LocalNavController
+import org.jdc.template.ui.theme.AppTheme
 import org.jdc.template.util.ext.withLifecycleOwner
 import java.time.LocalDate
 import java.time.LocalTime
@@ -26,30 +28,31 @@ import java.time.LocalTime
 class IndividualEditFragment : Fragment() {
     private val viewModel: IndividualEditViewModel by viewModels()
 
-    private var binding: IndividualEditFragmentBinding by autoCleared()
-
     init {
         setHasOptionsMenu(true)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = IndividualEditFragmentBinding.inflate(inflater, container, false)
-        return binding.root
+        return ComposeView(requireContext()).apply {
+            setContent {
+                CompositionLocalProvider(LocalNavController provides findNavController()) {
+                    AppTheme {
+                        Surface {
+                            IndividualEditScreen()
+                        }
+                    }
+                }
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        setupClickListeners()
         setupViewModelObservers()
     }
 
     private fun setupViewModelObservers() {
         withLifecycleOwner(this) {
-            viewModel.loadedIndividualFlow.collectWhenStarted { individual -> showIndividual(individual) }
-            viewModel.birthDateTextFlow.collectWhenStarted { birthDate -> binding.birthDateEditText.setText(DateUiUtil.getLocalDateText(requireContext(), birthDate)) }
-            viewModel.alarmTimeTextFlow.collectWhenStarted { alarmTime -> binding.alarmTimeEditText.setText(DateUiUtil.getLocalTimeText(requireContext(), alarmTime)) }
-
             // Events
             viewModel.eventChannel.receiveWhenStarted { event -> handleEvent(event) }
         }
@@ -60,11 +63,6 @@ class IndividualEditFragment : Fragment() {
             is IndividualEditViewModel.Event.IndividualSaved -> findNavController().popBackStack()
             is IndividualEditViewModel.Event.ShowBirthDateSelection -> showBirthDateSelector(event.date)
             is IndividualEditViewModel.Event.ShowAlarmTimeSelection -> showAlarmTimeSelector(event.time)
-            is IndividualEditViewModel.Event.ValidationSaveError -> {
-                when (event.error) {
-                    IndividualEditViewModel.FieldValidationError.FIRST_NAME_REQUIRED -> binding.firstNameLayout.error = getString(event.error.errorMessageId)
-                }
-            }
         }
     }
 
@@ -76,12 +74,7 @@ class IndividualEditFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_item_save -> {
-                viewModel.saveIndividual(
-                    firstName = binding.firstNameEditText.text.toString(),
-                    lastName = binding.lastNameEditText.text.toString(),
-                    phone = binding.phoneEditText.text.toString(),
-                    email = binding.emailEditText.text.toString()
-                )
+                viewModel.saveIndividual()
                 true
             }
 
@@ -89,22 +82,7 @@ class IndividualEditFragment : Fragment() {
         }
     }
 
-    private fun setupClickListeners() {
-        binding.birthDateEditText.setOnClickListener { viewModel.onBirthDateClicked() }
-        binding.alarmTimeEditText.setOnClickListener { viewModel.onAlarmTimeClicked() }
-    }
-
-    private fun showIndividual(individual: Individual) {
-        binding.firstNameEditText.setText(individual.firstName ?: "")
-        binding.lastNameEditText.setText(individual.lastName ?: "")
-        binding.phoneEditText.setText(individual.phone ?: "")
-        binding.emailEditText.setText(individual.email ?: "")
-
-        // set UI from Flow
-        // binding.birthDateEditText.setText(DateUiUtil.getLocalDateText(requireContext(), individual.birthDate))
-        // binding.alarmTimeEditText.setText(DateUiUtil.getLocalTimeText(requireContext(), individual.alarmTime))
-    }
-
+    // TODO: Move to Compose when DatePickers are available for Compose (https://material.io/blog/jetpack-compose-beta)
     private fun showBirthDateSelector(date: LocalDate) {
         val birthDatePickerDialog = DatePickerDialog(requireActivity(), { _, year, monthOfYear, dayOfMonth ->
             viewModel.setBirthDate(LocalDate.of(year, monthOfYear + 1, dayOfMonth)) // + 1 because core Java Date is 0 based
@@ -113,6 +91,7 @@ class IndividualEditFragment : Fragment() {
         birthDatePickerDialog.show()
     }
 
+    // TODO: Move to Compose when TimePickers are available for Compose (https://material.io/blog/jetpack-compose-beta)
     private fun showAlarmTimeSelector(time: LocalTime) {
         val alarmTimePickerDialog = TimePickerDialog(requireActivity(), { _, hourOfDay, minute ->
             viewModel.setAlarmTime(LocalTime.of(hourOfDay, minute))

@@ -17,7 +17,7 @@ data class Individual(
     var firstName: String? = null,
     var lastName: String? = null,
     var birthDate: LocalDate? = null,
-    var alarmTime: LocalTime = LocalTime.now(),
+    var alarmTime: LocalTime? = null,
     var lastModified: OffsetDateTime = OffsetDateTime.now(),
     var phone: String? = null,
     var email: String? = null,

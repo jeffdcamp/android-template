@@ -63,12 +63,20 @@ android {
             "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
             "-Xopt-in=kotlinx.coroutines.FlowPreview",
             "-Xopt-in=kotlin.time.ExperimentalTime",
-            "-Xopt-in=kotlinx.serialization.ExperimentalSerializationApi"
+            "-Xopt-in=kotlinx.serialization.ExperimentalSerializationApi",
+
+            // use the following to ignore enforcement version of Kotlin with Compose
+            //"-P", "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
         )
     }
 
     buildFeatures {
+        compose = true
         viewBinding = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.compose.get()
     }
 
     lint {
@@ -162,17 +170,23 @@ android {
 dependencies {
     // Android
     coreLibraryDesugaring(libs.android.desugar)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.recyclerview)
+    implementation(libs.androidx.appcompat) // AppCompatActivity
     implementation(libs.androidx.preference)
-    implementation(libs.google.material)
-    implementation(libs.androidx.constraintlayout)
-    implementation(libs.androidx.core)
-    implementation(libs.androidx.activity)
     implementation(libs.androidx.fragment)
     implementation(libs.androidx.splashscreen)
     implementation(libs.androidx.startup)
     implementation(libs.androidx.datastorePrefs)
+
+    // Compose
+    implementation(libs.compose.ui)
+    implementation(libs.compose.ui.tooling)
+    implementation(libs.compose.ui.util)
+    implementation(libs.compose.material.material)
+//    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+//    implementation(libs.compose.constraintlayout)
+    implementation(libs.compose.activity)
+    implementation(libs.compose.theme.adapter)
 
     // Play Service
     implementation(libs.google.play.core)
@@ -211,7 +225,7 @@ dependencies {
     // WorkManager
     implementation(libs.androidx.work.runtime)
     implementation(libs.androidx.work.gcm)
-//    implementation(libs.workmanagertools)
+    implementation(libs.workmanagertools)
 
     // Database
     implementation(libs.androidx.room.runtime)
@@ -222,7 +236,7 @@ dependencies {
 
     // Custom SQLite database
     // (for use of SqliteOrgSQLiteOpenHelperFactory in AppModule.kt)
-    //implementation(libs.dbtoolsDBTOOLS_ROOM_SQLITE)
+    //implementation(libs.dbtools.roomSqlite)
 
     // Network
     implementation(platform(libs.okhttp.bom))
@@ -234,8 +248,6 @@ dependencies {
     debugImplementation(libs.leakCanary)
 
     // Test (Integration)
-    androidTestImplementation(libs.androidx.test.espresso.core)
-    androidTestImplementation(libs.androidx.test.espresso.contrib)
     androidTestImplementation(libs.androidx.test.runner)
     androidTestImplementation(libs.androidx.test.rules)
     androidTestImplementation(libs.androidx.test.junit)
@@ -307,21 +319,13 @@ detekt {
     }
 }
 
-// TripleT / Google Play Publisher (3.1.x)
+// TripleT / Google Play Publisher
 play {
     val myServiceAccountCreds: String? by project
     serviceAccountCredentials.set(File(myServiceAccountCreds ?: "api-playstore-dummy.json"))
     track.set("internal")
     defaultToAppBundles.set(true)
 }
-
-// TripleT / Google Play Publisher (3.2+?)
-//configure<com.github.triplet.gradle.play.PlayPublisherExtension> {
-//    val myServiceAccountCreds: String? by project
-//    serviceAccountCredentials.set(file(myServiceAccountCreds ?: "api-playstore-dummy.json"))
-//    promoteTrack.set("internal")
-//    defaultToAppBundles.set(true)
-//}
 
 // ./gradlew createLicenseReports
 // ./gradlew --stacktrace -i createLicenseReports

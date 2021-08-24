@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun finishCreate(savedInstanceState: Bundle?) {
-        setSupportActionBar(binding.appbar.mainToolbar)
+        setSupportActionBar(binding.mainToolbar)
 
         supportActionBar?.apply {
             setHomeButtonEnabled(true)
