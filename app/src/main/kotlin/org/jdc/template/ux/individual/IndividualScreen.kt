@@ -19,8 +19,8 @@ import org.jdc.template.R
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.ui.DateUiUtil
 import org.jdc.template.ui.compose.LocalNavController
-import org.jdc.template.ui.compose.SimpleDialog
 import org.jdc.template.ui.compose.collectAsLifecycleState
+import org.jdc.template.ui.compose.dialog.MessageDialog
 
 @Composable
 fun IndividualScreen() {
@@ -30,14 +30,20 @@ fun IndividualScreen() {
     val individual: Individual by viewModel.individualFlow.collectAsLifecycleState(Individual())
     IndividualSummary(individual)
 
-    val simpleDialogData by viewModel.simpleDialogData.collectAsState()
-    SimpleDialog(simpleDialogData.visible, title = simpleDialogData.title, text = simpleDialogData.text, onDismissRequest = viewModel::hideInfoDialog,
-        onConfirmButtonClicked = {
-            viewModel.deleteIndividual()
-            navController?.popBackStack()
-        },
-        onDismissButtonClicked = viewModel::hideInfoDialog
-    )
+    val messageDialogData by viewModel.messageDialogData.collectAsState()
+
+    if (messageDialogData.visible) {
+        MessageDialog(
+            title = messageDialogData.title,
+            text = messageDialogData.text,
+            onDismissRequest = { viewModel.hideInfoDialog() },
+            onConfirmButtonClicked = {
+                viewModel.deleteIndividual()
+                navController?.popBackStack()
+            },
+            onDismissButtonClicked = { viewModel.hideInfoDialog() }
+        )
+    }
 }
 
 @Composable

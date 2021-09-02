@@ -22,42 +22,59 @@ import org.jdc.template.R
 import org.jdc.template.ui.compose.LocalNavController
 import org.jdc.template.ui.compose.RadioDialog
 import org.jdc.template.ui.compose.collectAsLifecycleState
+import org.jdc.template.ui.compose.dialog.InputDialog
 
 @Composable
 fun SettingsScreen() {
     val navController = LocalNavController.current
     val viewModel: SettingsViewModel = viewModel()
+
+    // subtitles
     val currentThemeTitleFlow = viewModel.currentThemeTitleFlow
+    val currentLastInstalledVersionCodeFlow = viewModel.currentLastInstalledVersionCodeFlow
+
+    // switch values
     val sortByLastName by viewModel.sortByLastNameFlow.collectAsLifecycleState(false)
+
+    // dialog data
+    val themeRadioDialogData by viewModel.themeRadioDialogData.collectAsState()
+    val lastInstalledVersionCodeDialogData by viewModel.lastInstalledVersionCodeDialogData.collectAsState()
 
     Column {
         SettingsHeader(stringResource(R.string.display))
-        ThemeSetting(currentThemeTitleFlow) {
-            viewModel.onThemeSettingClicked()
-        }
+        ClickableSetting(stringResource(R.string.theme), currentThemeTitleFlow) { viewModel.onThemeSettingClicked() }
         SwitchSetting(stringResource(R.string.sort_by_last_name), checked = sortByLastName) { checked ->
             viewModel.setSortByLastName(checked)
         }
 
         // not translated because this should not be visible for release builds
         SettingsHeader("Developer Options")
-        BasicClickableSetting(text = "Work Manager Status", secondaryText = "Show status of all background workers") {
+        ClickableSetting(text = "Work Manager Status", secondaryText = "Show status of all background workers") {
             navController?.navigate(SettingsFragmentDirections.actionToWorkManagerFragment())
+        }
+        ClickableSetting(text = "Last Installed Version Code", currentLastInstalledVersionCodeFlow) {
+            viewModel.onLastInstalledVersionCodeClicked()
         }
     }
 
-    val radioDialogData by viewModel.radioDialogData.collectAsState()
-    RadioDialog(
-        visible = radioDialogData.visible,
-        title = radioDialogData.title,
-        items = radioDialogData.items,
-        onItemSelected = { selectedTheme ->
-            viewModel.setTheme(selectedTheme)
-        },
-        onDismissButtonClicked = {
-            viewModel.dismissThemeDialog()
-        }
-    )
+    // Dialogs
+    if (themeRadioDialogData.visible) {
+        RadioDialog(
+            title = themeRadioDialogData.title,
+            items = themeRadioDialogData.items,
+            onItemSelected = { viewModel.setTheme(it) },
+            onDismissButtonClicked = { viewModel.dismissThemeDialog() }
+        )
+    }
+
+    if (lastInstalledVersionCodeDialogData.visible) {
+        InputDialog(
+            title = lastInstalledVersionCodeDialogData.title,
+            initialTextFieldText = lastInstalledVersionCodeDialogData.initialTextFieldText,
+            onConfirmButtonClicked = { text -> viewModel.setLastInstalledVersionCode(text) },
+            onDismissButtonClicked = { viewModel.dismissSetLastInstalledVersionCodeDialog() }
+        )
+    }
 }
 
 @Composable
@@ -67,23 +84,6 @@ private fun SettingsHeader(text: String) {
         modifier = Modifier.padding(start = 72.dp, top = 16.dp, bottom = 4.dp), // start is the icon (blank) with padding (16 + 40) + setting text padding (16)
         style = MaterialTheme.typography.body2,
         color = MaterialTheme.colors.secondary
-    )
-}
-
-@Composable
-private fun ThemeSetting(currentThemeTitleFlow: Flow<String>, onClickBody: (() -> Unit)) {
-    val currentThemeTitle by currentThemeTitleFlow.collectAsLifecycleState("")
-
-    ListItem(
-        modifier = Modifier
-            .clickable { onClickBody() },
-        icon = {},
-        text = {
-            Text(stringResource(R.string.theme))
-        },
-        secondaryText = {
-            Text(currentThemeTitle)
-        }
     )
 }
 
@@ -115,7 +115,7 @@ private fun SwitchSetting(
 }
 
 @Composable
-private fun BasicClickableSetting(
+private fun ClickableSetting(
     text: String,
     secondaryText: String? = null,
     icon: @Composable (() -> Unit)? = null,
@@ -136,4 +136,20 @@ private fun BasicClickableSetting(
     )
 }
 
+@Composable
+private fun ClickableSetting(
+    text: String,
+    currentValueFlow: Flow<String>,
+    icon: @Composable (() -> Unit)? = null,
+    onClickBody: (() -> Unit)? = null
+) {
+    val currentValue by currentValueFlow.collectAsLifecycleState("")
+
+    ClickableSetting(
+        text = text,
+        secondaryText = currentValue,
+        icon = icon,
+        onClickBody = onClickBody
+    )
+}
 

@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -18,8 +17,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.jdc.template.R
 import org.jdc.template.ui.DateUiUtil
+import org.jdc.template.ui.compose.DayNightTextField
 import org.jdc.template.ui.compose.Hoisted
-import org.jdc.template.ui.compose.SimpleDialog
+import org.jdc.template.ui.compose.dialog.MessageDialog
 import org.jdc.template.ui.compose.hoist
 import java.time.LocalDate
 import java.time.LocalTime
@@ -46,14 +46,15 @@ fun IndividualEditScreen() {
         viewModel::onAlarmTimeClicked
     )
 
-    val simpleDialogData by viewModel.simpleDialogData.collectAsState()
-    SimpleDialog(
-        visible = simpleDialogData.visible,
-        title = simpleDialogData.title,
-        text = simpleDialogData.text,
-        onDismissRequest = viewModel::hideInfoDialog,
-        onConfirmButtonClicked = viewModel::hideInfoDialog
-    )
+    val messageDialogData by viewModel.messageDialogData.collectAsState()
+    if (messageDialogData.visible) {
+        MessageDialog(
+            title = messageDialogData.title,
+            text = messageDialogData.text,
+            onDismissRequest = viewModel::hideInfoDialog,
+            onConfirmButtonClicked = viewModel::hideInfoDialog
+        )
+    }
 }
 
 @Composable
@@ -80,7 +81,7 @@ private fun IndividualEditFields(
 
 @Composable
 private fun IndividualEditField(label: String, text: Hoisted<String>) {
-    TextField(
+    DayNightTextField(
         value = text.value,
         onValueChange = { text.onChange(it) },
         label = { Text(label) },
@@ -92,7 +93,7 @@ private fun IndividualEditField(label: String, text: Hoisted<String>) {
 
 @Composable
 private fun IndividualClickableEditField(label: String, text: String, onClick: () -> Unit) {
-    TextField(
+    DayNightTextField(
         value = text,
         onValueChange = { },
         enabled = false,

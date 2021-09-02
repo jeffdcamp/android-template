@@ -2,6 +2,8 @@ package org.jdc.template.model.repository
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import org.jdc.template.coroutine.ProcessScope
 import org.jdc.template.model.data.DisplayThemeType
 import org.jdc.template.model.datastore.DevicePreferenceDataSource
 import org.jdc.template.model.datastore.UserPreferenceDataSource
@@ -31,8 +33,9 @@ class SettingsRepository
 
     suspend fun getAppInstanceId(): String = devicePreferenceDataSource.appInstanceIdFlow.first()
 
+    val lastInstalledVersionCodeFlow: Flow<Int> = devicePreferenceDataSource.lastInstalledVersionCodeFlow
     suspend fun getLastInstalledVersionCode(): Int = devicePreferenceDataSource.lastInstalledVersionCodeFlow.first()
-    suspend fun setLastInstalledVersionCode(version: Int) {
+    fun setLastInstalledVersionCodeAsync(version: Int) = ProcessScope.launch {
         devicePreferenceDataSource.setLastInstalledVersionCode(version)
     }
 

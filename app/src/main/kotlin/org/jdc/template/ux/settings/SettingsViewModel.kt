@@ -16,6 +16,7 @@ import org.jdc.template.model.repository.SettingsRepository
 import org.jdc.template.ui.compose.RadioDialogData
 import org.jdc.template.ui.compose.RadioDialogDataItem
 import org.jdc.template.ui.compose.RadioDialogDataItems
+import org.jdc.template.ui.compose.dialog.InputDialogData
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,12 +26,20 @@ class SettingsViewModel
     private val settingsRepository: SettingsRepository
 ) : ViewModel() {
 
-    private val _radioDialogData = MutableStateFlow(RadioDialogData<DisplayThemeType>())
-    val radioDialogData: StateFlow<RadioDialogData<DisplayThemeType>> = _radioDialogData
+    private val _themeRadioDialogData = MutableStateFlow(RadioDialogData<DisplayThemeType>())
+    val themeRadioDialogData: StateFlow<RadioDialogData<DisplayThemeType>> = _themeRadioDialogData
+
+    private val _lastInstalledVersionCodeDialogData = MutableStateFlow(InputDialogData())
+    val lastInstalledVersionCodeDialogData: StateFlow<InputDialogData> = _lastInstalledVersionCodeDialogData
 
     val currentThemeTitleFlow: Flow<String>
         get() = settingsRepository.themeFlow.map { theme ->
             theme.getString(application)
+        }
+
+    val currentLastInstalledVersionCodeFlow: Flow<String>
+        get() = settingsRepository.lastInstalledVersionCodeFlow.map { versionCode ->
+            versionCode.toString()
         }
 
     val sortByLastNameFlow: Flow<Boolean>
@@ -41,7 +50,7 @@ class SettingsViewModel
 
         val radioItems = DisplayThemeType.values().map { RadioDialogDataItem(it, it.getString(application)) }
 
-        _radioDialogData.value = RadioDialogData(
+        _themeRadioDialogData.value = RadioDialogData(
             visible = true,
             title = application.getText(R.string.theme).toString(),
             items = RadioDialogDataItems(radioItems, currentTheme)
@@ -54,7 +63,23 @@ class SettingsViewModel
     }
 
     fun dismissThemeDialog() {
-        _radioDialogData.value = RadioDialogData(visible = false)
+        _themeRadioDialogData.value = RadioDialogData(visible = false)
+    }
+
+    fun onLastInstalledVersionCodeClicked() = viewModelScope.launch {
+        val currentValue = settingsRepository.getLastInstalledVersionCode()
+        _lastInstalledVersionCodeDialogData.value = InputDialogData(true, "Version Code", currentValue.toString())
+    }
+
+    fun setLastInstalledVersionCode(value: String) {
+        value.toIntOrNull()?.let {
+            settingsRepository.setLastInstalledVersionCodeAsync(it)
+        }
+        dismissSetLastInstalledVersionCodeDialog()
+    }
+
+    fun dismissSetLastInstalledVersionCodeDialog() {
+        _lastInstalledVersionCodeDialogData.value = InputDialogData(visible = false)
     }
 
     fun setSortByLastName(checked: Boolean) = viewModelScope.launch {

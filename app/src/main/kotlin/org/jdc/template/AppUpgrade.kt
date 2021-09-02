@@ -17,7 +17,7 @@ class AppUpgrade
 
         if (lastInstalledVersionCode == 0) {
             Timber.i("Skipping app upgrade on fresh install")
-            settingsRepository.setLastInstalledVersionCode(BuildConfig.VERSION_CODE)
+            settingsRepository.setLastInstalledVersionCodeAsync(BuildConfig.VERSION_CODE)
             return@runBlocking
         }
 
@@ -26,6 +26,6 @@ class AppUpgrade
 //        }
 
         // set the current version
-        settingsRepository.setLastInstalledVersionCode(BuildConfig.VERSION_CODE)
+        settingsRepository.setLastInstalledVersionCodeAsync(BuildConfig.VERSION_CODE)
     }
 }

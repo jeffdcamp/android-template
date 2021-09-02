@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import org.jdc.template.R
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.repository.IndividualRepository
-import org.jdc.template.ui.compose.SimpleDialogData
+import org.jdc.template.ui.compose.dialog.MessageDialogData
 import org.jdc.template.util.coroutine.channel.ViewModelChannel
 import org.jdc.template.util.delegates.requireSavedState
 import java.time.LocalDate
@@ -52,8 +52,8 @@ class IndividualEditViewModel
     private val _alarmTimeFlow = MutableStateFlow<LocalTime?>(null)
     val alarmTimeFlow: Flow<LocalTime?> = _alarmTimeFlow
 
-    private val _simpleDialogData = MutableStateFlow(SimpleDialogData())
-    val simpleDialogData: StateFlow<SimpleDialogData> = _simpleDialogData
+    private val _messageDialogData = MutableStateFlow(MessageDialogData())
+    val messageDialogData: StateFlow<MessageDialogData> = _messageDialogData
 
     init {
         loadIndividual()
@@ -99,7 +99,7 @@ class IndividualEditViewModel
     private fun validate(): Boolean {
         if (_firstNameFlow.value.isBlank()) {
             val text = application.getString(R.string.x_required, application.getString(R.string.first_name))
-            _simpleDialogData.value = SimpleDialogData(true, application.getString(R.string.error), text)
+            _messageDialogData.value = MessageDialogData(true, application.getString(R.string.error), text)
             return false
         }
 
@@ -107,7 +107,7 @@ class IndividualEditViewModel
     }
 
     fun hideInfoDialog() {
-        _simpleDialogData.value = SimpleDialogData()
+        _messageDialogData.value = MessageDialogData()
     }
 
     fun setFirstName(value: String) {

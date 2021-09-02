@@ -15,7 +15,7 @@ import org.jdc.template.R
 import org.jdc.template.analytics.Analytics
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.repository.IndividualRepository
-import org.jdc.template.ui.compose.SimpleDialogData
+import org.jdc.template.ui.compose.dialog.MessageDialogData
 import org.jdc.template.util.coroutine.channel.ViewModelChannel
 import org.jdc.template.util.delegates.requireSavedState
 import javax.inject.Inject
@@ -35,15 +35,15 @@ class IndividualViewModel
     val individualFlow: Flow<Individual>
         get() = individualRepository.getIndividualFlow(individualId)
 
-    private val _simpleDialogData = MutableStateFlow(SimpleDialogData())
-    val simpleDialogData: StateFlow<SimpleDialogData> = _simpleDialogData
+    private val _messageDialogData = MutableStateFlow(MessageDialogData())
+    val messageDialogData: StateFlow<MessageDialogData> = _messageDialogData
 
     init {
         analytics.logEvent(Analytics.EVENT_VIEW_INDIVIDUAL)
     }
 
     fun onDeleteClicked() {
-        _simpleDialogData.value = SimpleDialogData(true, text = application.getString(R.string.delete_individual_confirm))
+        _messageDialogData.value = MessageDialogData(true, text = application.getString(R.string.delete_individual_confirm))
     }
 
     fun deleteIndividual() = viewModelScope.launch {
@@ -57,7 +57,7 @@ class IndividualViewModel
     }
 
     fun hideInfoDialog() {
-        _simpleDialogData.value = SimpleDialogData()
+        _messageDialogData.value = MessageDialogData()
     }
 
     sealed class Event {
