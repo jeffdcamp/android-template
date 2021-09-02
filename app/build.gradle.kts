@@ -186,7 +186,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 //    implementation(libs.compose.constraintlayout)
     implementation(libs.compose.activity)
-    implementation(libs.compose.theme.adapter)
+//    implementation(libs.compose.theme.adapter) // enables reuse of Material themes defined in XML for theming in Jetpack Compose
 
     // Play Service
     implementation(libs.google.play.core)
