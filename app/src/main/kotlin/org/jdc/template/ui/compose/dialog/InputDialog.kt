@@ -35,6 +35,7 @@ fun InputDialog(
     onConfirmButtonClicked: ((String) -> Unit)? = null,
     dismissButtonText: String = stringResource(R.string.cancel),
     onDismissButtonClicked: (() -> Unit)? = null,
+    minLength: Int = -1,
     maxLength: Int = -1,
     properties: DialogProperties = DialogProperties(),
     shape: Shape = MaterialTheme.shapes.medium,
@@ -94,16 +95,6 @@ fun InputDialog(
                         .padding(all = 8.dp)
 
                 ) {
-                    if (onConfirmButtonClicked != null) {
-                        TextButton(
-                            onClick = {
-                                onConfirmButtonClicked(textValue)
-                            }
-                        ) {
-                            Text(confirmButtonText.toUpperCase(Locale.getDefault()))
-                        }
-                    }
-
                     if (onDismissButtonClicked != null) {
                         TextButton(
                             onClick = {
@@ -111,6 +102,16 @@ fun InputDialog(
                             }
                         ) {
                             Text(dismissButtonText.toUpperCase(Locale.getDefault()))
+                        }
+                    }
+                    if (onConfirmButtonClicked != null) {
+                        TextButton(
+                            enabled = minLength == -1 || textValue.length >= minLength,
+                            onClick = {
+                                onConfirmButtonClicked(textValue)
+                            }
+                        ) {
+                            Text(confirmButtonText.toUpperCase(Locale.getDefault()))
                         }
                     }
                 }

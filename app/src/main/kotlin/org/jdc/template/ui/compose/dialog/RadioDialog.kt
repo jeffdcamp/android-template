@@ -1,4 +1,4 @@
-package org.jdc.template.ui.compose
+package org.jdc.template.ui.compose.dialog
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -83,16 +83,6 @@ fun <T> RadioDialog(
                         .fillMaxWidth()
                         .padding(all = 8.dp)
                 ) {
-                    if (onConfirmButtonClicked != null) {
-                        TextButton(
-                            onClick = {
-                                onConfirmButtonClicked()
-                            }
-                        ) {
-                            Text(confirmButtonText.toUpperCase(Locale.getDefault()))
-                        }
-                    }
-
                     if (onDismissButtonClicked != null) {
                         TextButton(
                             onClick = {
@@ -100,6 +90,15 @@ fun <T> RadioDialog(
                             }
                         ) {
                             Text(dismissButtonText.toUpperCase(Locale.getDefault()))
+                        }
+                    }
+                    if (onConfirmButtonClicked != null) {
+                        TextButton(
+                            onClick = {
+                                onConfirmButtonClicked()
+                            }
+                        ) {
+                            Text(confirmButtonText.toUpperCase(Locale.getDefault()))
                         }
                     }
                 }

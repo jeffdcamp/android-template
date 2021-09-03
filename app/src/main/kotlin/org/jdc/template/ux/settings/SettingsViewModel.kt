@@ -13,9 +13,9 @@ import kotlinx.coroutines.launch
 import org.jdc.template.R
 import org.jdc.template.model.data.DisplayThemeType
 import org.jdc.template.model.repository.SettingsRepository
-import org.jdc.template.ui.compose.RadioDialogData
-import org.jdc.template.ui.compose.RadioDialogDataItem
-import org.jdc.template.ui.compose.RadioDialogDataItems
+import org.jdc.template.ui.compose.dialog.RadioDialogData
+import org.jdc.template.ui.compose.dialog.RadioDialogDataItem
+import org.jdc.template.ui.compose.dialog.RadioDialogDataItems
 import org.jdc.template.ui.compose.dialog.InputDialogData
 import javax.inject.Inject
 

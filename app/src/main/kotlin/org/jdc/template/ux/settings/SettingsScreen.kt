@@ -11,9 +11,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.jdc.template.R
 import org.jdc.template.ui.compose.LocalNavController
-import org.jdc.template.ui.compose.RadioDialog
 import org.jdc.template.ui.compose.collectAsLifecycleState
 import org.jdc.template.ui.compose.dialog.InputDialog
+import org.jdc.template.ui.compose.dialog.RadioDialog
 import org.jdc.template.ui.compose.setting.Setting
 
 @Composable
@@ -54,7 +54,9 @@ fun SettingsScreen() {
             title = lastInstalledVersionCodeDialogData.title,
             initialTextFieldText = lastInstalledVersionCodeDialogData.initialTextFieldText,
             onConfirmButtonClicked = { text -> viewModel.setLastInstalledVersionCode(text) },
-            onDismissButtonClicked = { viewModel.dismissSetLastInstalledVersionCodeDialog() }
+            onDismissButtonClicked = { viewModel.dismissSetLastInstalledVersionCodeDialog() },
+            minLength = 1,
+            maxLength = 20
         )
     }
 }
