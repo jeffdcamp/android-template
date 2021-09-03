@@ -1,4 +1,4 @@
-package org.jdc.template.ui.compose.settings
+package org.jdc.template.ui.compose.setting
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding

@@ -14,7 +14,7 @@ import org.jdc.template.ui.compose.LocalNavController
 import org.jdc.template.ui.compose.RadioDialog
 import org.jdc.template.ui.compose.collectAsLifecycleState
 import org.jdc.template.ui.compose.dialog.InputDialog
-import org.jdc.template.ui.compose.settings.Setting
+import org.jdc.template.ui.compose.setting.Setting
 
 @Composable
 fun SettingsScreen() {
