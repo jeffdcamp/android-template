@@ -111,7 +111,6 @@ google-analytics = { module = "com.google.firebase:firebase-analytics-ktx", vers
 google-crashlytics = { module = "com.google.firebase:firebase-crashlytics-ktx", version = "17.4.0" }
 google-crashlyticsGradle = { module = "com.google.firebase:firebase-crashlytics-gradle", version = "2.5.1" }
 
-google-kspGradlePluginClasspath = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version = "1.5.21-1.0.0-beta06" } # https://maven.google.com/web/index.html#com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin
 google-material = { module = "com.google.android.material:material", version = "1.4.0" } # https://github.com/material-components/material-components-android/releases
 google-servicesgradlePluginClasspath = { module = "com.google.gms:google-services", version = "4.3.10" } # NOTE 4.3.9 is NOT compatible with firebase-bom 28.3.1
 

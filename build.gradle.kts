@@ -10,7 +10,6 @@ buildscript {
 
     dependencies {
         classpath(libs.android.gradlePluginClasspath)
-//        classpath(libs.google.kspGradlePluginClasspath)
         classpath(libs.kotlin.gradlePluginClasspath)
         classpath(libs.google.hilt.gradlePluginClasspath)
         classpath(libs.androidx.navigation.safeArgsGradlePluginClasspath)
