@@ -9,7 +9,7 @@ plugins {
     id("com.google.firebase.crashlytics")
     id("org.dbtools.license-manager")
     id("de.undercouch.download")
-//    alias(libs.plugins.ksp)
+    alias(libs.plugins.ksp)
     alias(libs.plugins.detekt)
     alias(libs.plugins.playPublisher)
     alias(libs.plugins.kotlin.serialization)
@@ -40,10 +40,9 @@ android {
         buildConfigField("String", "ANALYTICS_KEY", "\"${getAnalyticsKey()}\"")
 
         // used by Room, to test migrations
-        javaCompileOptions {
-            annotationProcessorOptions {
-                argument("room.schemaLocation", "$projectDir/schema")
-            }
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas")
+            arg("room.incremental", "true")
         }
 
         // Espresso
@@ -231,8 +230,7 @@ dependencies {
     // Database
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
-    kapt(libs.androidx.room.compiler)
-    //ksp(libs.androidx.room.compiler)
+    ksp(libs.androidx.room.compiler)
     implementation(libs.dbtools.room)
 
     // Custom SQLite database

@@ -50,7 +50,13 @@ allprojects {
         // 2.7.0+ alpha is required when targeting SDK 31 AND running on Android 12 device
         addAll(listOf("work-runtime-ktx", "work-gcm"))
 
-        // Compose
+        // Room (2.4.0+ to support ksp)
+        addAll(listOf("room-compiler", "room-ktx", "room-runtime"))
+
+        // Compose Core (1.1.0+ to support ksp)
+        addAll(listOf("compiler", "ui", "ui-tooling", "ui-util", "activity-ktx", "material"))
+
+        // Compose Extras
         addAll(listOf("navigation-compose", "constraintlayout-compose", "activity-compose", "paging-compose", "activity-ktx"))
     }
 
