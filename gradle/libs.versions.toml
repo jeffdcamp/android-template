@@ -20,6 +20,7 @@ room = "2.3.0"
 work = "2.7.0-beta01" # 2.7.0+ is required to RUN workmanager on Android 12 and targeting SDK 31 (pre-2.7.0 workmanager crashes on Android 12 when targeting SDK 31)
 
 [plugins]
+ksp = { id = "com.google.devtools.ksp", version = "1.5.30-1.0.0" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.18.1" }
 playPublisher = { id = "com.github.triplet.play", version = "3.6.0" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
