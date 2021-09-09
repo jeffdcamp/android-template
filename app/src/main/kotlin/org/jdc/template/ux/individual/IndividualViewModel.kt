@@ -35,15 +35,15 @@ class IndividualViewModel
     val individualFlow: Flow<Individual>
         get() = individualRepository.getIndividualFlow(individualId)
 
-    private val _messageDialogData = MutableStateFlow(MessageDialogData())
-    val messageDialogData: StateFlow<MessageDialogData> = _messageDialogData
+    private val _messageDialogDataFlow = MutableStateFlow(MessageDialogData())
+    val messageDialogDataFlow: StateFlow<MessageDialogData> = _messageDialogDataFlow
 
     init {
         analytics.logEvent(Analytics.EVENT_VIEW_INDIVIDUAL)
     }
 
     fun onDeleteClicked() {
-        _messageDialogData.value = MessageDialogData(true, text = application.getString(R.string.delete_individual_confirm))
+        _messageDialogDataFlow.value = MessageDialogData(true, text = application.getString(R.string.delete_individual_confirm))
     }
 
     fun deleteIndividual() = viewModelScope.launch {
@@ -57,7 +57,7 @@ class IndividualViewModel
     }
 
     fun hideInfoDialog() {
-        _messageDialogData.value = MessageDialogData()
+        _messageDialogDataFlow.value = MessageDialogData()
     }
 
     sealed class Event {

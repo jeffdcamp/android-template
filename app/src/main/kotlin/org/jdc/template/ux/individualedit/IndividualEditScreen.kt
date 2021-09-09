@@ -46,7 +46,7 @@ fun IndividualEditScreen() {
         viewModel::onAlarmTimeClicked
     )
 
-    val messageDialogData by viewModel.messageDialogData.collectAsState()
+    val messageDialogData by viewModel.messageDialogDataFlow.collectAsState()
     if (messageDialogData.visible) {
         MessageDialog(
             title = messageDialogData.title,

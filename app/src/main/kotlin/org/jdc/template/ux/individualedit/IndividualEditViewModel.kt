@@ -52,8 +52,8 @@ class IndividualEditViewModel
     private val _alarmTimeFlow = MutableStateFlow<LocalTime?>(null)
     val alarmTimeFlow: Flow<LocalTime?> = _alarmTimeFlow
 
-    private val _messageDialogData = MutableStateFlow(MessageDialogData())
-    val messageDialogData: StateFlow<MessageDialogData> = _messageDialogData
+    private val _messageDialogDataFlow = MutableStateFlow(MessageDialogData())
+    val messageDialogDataFlow: StateFlow<MessageDialogData> = _messageDialogDataFlow
 
     init {
         loadIndividual()
@@ -99,7 +99,7 @@ class IndividualEditViewModel
     private fun validate(): Boolean {
         if (_firstNameFlow.value.isBlank()) {
             val text = application.getString(R.string.x_required, application.getString(R.string.first_name))
-            _messageDialogData.value = MessageDialogData(true, application.getString(R.string.error), text)
+            _messageDialogDataFlow.value = MessageDialogData(true, application.getString(R.string.error), text)
             return false
         }
 
@@ -107,7 +107,7 @@ class IndividualEditViewModel
     }
 
     fun hideInfoDialog() {
-        _messageDialogData.value = MessageDialogData()
+        _messageDialogDataFlow.value = MessageDialogData()
     }
 
     fun setFirstName(value: String) {

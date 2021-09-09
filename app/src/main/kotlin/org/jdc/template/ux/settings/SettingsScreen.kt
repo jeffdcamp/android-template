@@ -38,7 +38,7 @@ fun SettingsScreen() {
     }
 
     // Dialogs
-    val themeRadioDialogData by viewModel.themeRadioDialogData.collectAsState()
+    val themeRadioDialogData by viewModel.themeRadioDialogDataFlow.collectAsState()
     if (themeRadioDialogData.visible) {
         RadioDialog(
             title = themeRadioDialogData.title,
@@ -48,7 +48,7 @@ fun SettingsScreen() {
         )
     }
 
-    val lastInstalledVersionCodeDialogData by viewModel.lastInstalledVersionCodeDialogData.collectAsState()
+    val lastInstalledVersionCodeDialogData by viewModel.lastInstalledVersionCodeDialogDataFlow.collectAsState()
     if (lastInstalledVersionCodeDialogData.visible) {
         InputDialog(
             title = lastInstalledVersionCodeDialogData.title,

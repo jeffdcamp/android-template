@@ -30,7 +30,7 @@ fun IndividualScreen() {
     val individual: Individual by viewModel.individualFlow.collectAsLifecycleState(Individual())
     IndividualSummary(individual)
 
-    val messageDialogData by viewModel.messageDialogData.collectAsState()
+    val messageDialogData by viewModel.messageDialogDataFlow.collectAsState()
 
     if (messageDialogData.visible) {
         MessageDialog(
