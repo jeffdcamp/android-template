@@ -32,6 +32,7 @@ class AppModule {
             ignoreUnknownKeys = true
             allowSpecialFloatingPointValues = true
             useArrayPolymorphism = true
+            explicitNulls = false
         }
     }
 

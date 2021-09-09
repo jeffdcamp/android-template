@@ -9,10 +9,10 @@ plugins {
     id("com.google.firebase.crashlytics")
     id("org.dbtools.license-manager")
     id("de.undercouch.download")
+//    alias(libs.plugins.ksp)
     alias(libs.plugins.detekt)
     alias(libs.plugins.playPublisher)
     alias(libs.plugins.kotlin.serialization)
-    //id("com.google.devtools.ksp")
 }
 
 kapt {
