@@ -6,6 +6,7 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.dbtools.android.room.CloseableDatabaseWrapper
+import org.dbtools.android.room.android.AndroidSQLiteOpenHelperFactory
 import org.dbtools.android.room.ext.createAllViews
 import org.dbtools.android.room.ext.dropAllViews
 import org.dbtools.android.room.ext.recreateAllViews
@@ -19,7 +20,10 @@ open class MainDatabaseWrapper
 ) : CloseableDatabaseWrapper<MainDatabase>(context) {
 
     override fun createDatabase(): MainDatabase {
+        val openHelperFactory = AndroidSQLiteOpenHelperFactory()
+
         return Room.databaseBuilder(context, MainDatabase::class.java, MainDatabase.DATABASE_NAME)
+            .openHelperFactory(openHelperFactory)
             .addMigrations(object : Migration(1, 2) {
                 override fun migrate(database: SupportSQLiteDatabase) {
                     // ONLY views are changed
