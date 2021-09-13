@@ -3,10 +3,8 @@ package org.jdc.template.ui.theme
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -14,6 +12,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.runtime.structuralEqualityPolicy
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 
 @Suppress("LongParameterList")
 class AppColors(
@@ -101,16 +100,29 @@ object AppTheme {
     val colors: AppColors
         @Composable get() = LocalAppColors.current
 
+//    val typography: Typography
+//        @Composable
+//        @ReadOnlyComposable
+//        get() = MaterialTheme.typography
+
+//    val shapes: Shapes
+//        @Composable
+//        @ReadOnlyComposable
+//        get() = MaterialTheme.shapes
+
+    // Dimensions
+    val isTablet: Boolean
+        @Composable get() {
+            return LocalConfiguration.current.smallestScreenWidthDp >= 600
+        }
+
+    // other customizations
 //    val switchColors: SwitchColors
 //        @Composable get() = SwitchDefaults.colors(
 //            checkedThumbColor = colors.primary,
 //            uncheckedThumbColor = colors.uncheckedSwitchThumb,
 //        )
 
-    val typography: Typography
-        @Composable
-        @ReadOnlyComposable
-        get() = MaterialTheme.typography
 }
 
 @Composable
