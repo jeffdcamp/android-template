@@ -15,7 +15,7 @@ import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.ui.compose.dialog.MessageDialogData
 import org.jdc.template.util.coroutine.channel.ViewModelChannel
-import org.jdc.template.util.delegates.requireSavedState
+import org.jdc.template.util.delegates.savedState
 import java.time.LocalDate
 import java.time.LocalTime
 import javax.inject.Inject
@@ -30,7 +30,7 @@ class IndividualEditViewModel
     private val _eventChannel: ViewModelChannel<Event> = ViewModelChannel(this)
     val eventChannel: ReceiveChannel<Event> = _eventChannel
 
-    private val individualId: String by requireSavedState(savedStateHandle)
+    private val individualId: String? by savedState(savedStateHandle, null)
     private var individual = Individual()
 
     // hold state for Compose views
@@ -56,19 +56,30 @@ class IndividualEditViewModel
     val messageDialogDataFlow: StateFlow<MessageDialogData> = _messageDialogDataFlow
 
     init {
-        loadIndividual()
+        individualId?.let { id ->
+            loadIndividual(id)
+        } ?: newIndividual()
     }
 
-    private fun loadIndividual() = viewModelScope.launch {
-        individualRepository.getIndividual(individualId)?.let { individual ->
-            this@IndividualEditViewModel.individual = individual
-            _firstNameFlow.value = individual.firstName ?: ""
-            _lastNameFlow.value = individual.lastName ?: ""
-            _phoneNumberFlow.value = individual.phone ?: ""
-            _emailFlow.value = individual.email ?: ""
-            _birthDateFlow.value = individual.birthDate
-            _alarmTimeFlow.value = individual.alarmTime
+    private fun newIndividual() = viewModelScope.launch {
+        setIndividual(Individual())
+    }
+
+    private fun loadIndividual(id: String) = viewModelScope.launch {
+        individualRepository.getIndividual(id)?.let { loadedIndividual ->
+            setIndividual(loadedIndividual)
         }
+    }
+
+    private fun setIndividual(individual: Individual) {
+        this@IndividualEditViewModel.individual = individual
+
+        _firstNameFlow.value = individual.firstName ?: ""
+        _lastNameFlow.value = individual.lastName ?: ""
+        _phoneNumberFlow.value = individual.phone ?: ""
+        _emailFlow.value = individual.email ?: ""
+        _birthDateFlow.value = individual.birthDate
+        _alarmTimeFlow.value = individual.alarmTime
     }
 
     fun saveIndividual() = viewModelScope.launch {

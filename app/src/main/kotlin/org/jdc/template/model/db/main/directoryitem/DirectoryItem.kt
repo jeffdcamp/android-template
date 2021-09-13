@@ -9,9 +9,9 @@ import androidx.room.DatabaseView
 data class DirectoryItem(
     val individualId: String,
     val firstName: String,
-    val lastName: String
+    val lastName: String?
 ) {
-    fun getFullName() = "$firstName $lastName"
+    fun getFullName() = "$firstName ${lastName ?: ""}"
 
     companion object {
         const val VIEW_NAME = "DirectoryItem"
