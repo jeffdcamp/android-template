@@ -15,6 +15,7 @@ import org.jdc.template.ui.compose.collectAsLifecycleState
 import org.jdc.template.ui.compose.dialog.InputDialog
 import org.jdc.template.ui.compose.dialog.RadioDialog
 import org.jdc.template.ui.compose.setting.Setting
+import org.jdc.template.ui.navigation.WorkManagerStatusRoute
 
 @Composable
 fun SettingsScreen() {
@@ -32,7 +33,7 @@ fun SettingsScreen() {
         // not translated because this should not be visible for release builds
         Setting.Header("Developer Options")
         Setting.Clickable(text = "Work Manager Status", secondaryText = "Show status of all background workers") {
-            navController?.navigate(SettingsFragmentDirections.actionToWorkManagerFragment())
+            navController?.navigate(WorkManagerStatusRoute.route)
         }
         Setting.Clickable(text = "Last Installed Version Code", viewModel.currentLastInstalledVersionCodeFlow) { viewModel.onLastInstalledVersionCodeClicked() }
     }

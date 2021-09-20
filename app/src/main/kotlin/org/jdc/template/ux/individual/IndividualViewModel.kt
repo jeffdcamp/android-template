@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavDirections
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.flow.Flow
@@ -18,6 +17,7 @@ import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.ui.compose.dialog.MessageDialogData
 import org.jdc.template.util.coroutine.channel.ViewModelChannel
 import org.jdc.template.util.delegates.requireSavedState
+import org.jdc.template.ux.individualedit.IndividualEditRoute
 import javax.inject.Inject
 
 @HiltViewModel
@@ -53,7 +53,7 @@ class IndividualViewModel
 
     fun editIndividual() {
         analytics.logEvent(Analytics.EVENT_EDIT_INDIVIDUAL)
-        _eventChannel.sendAsync(Event.Navigate(IndividualFragmentDirections.actionToIndividualEditFragment(individualId)))
+        _eventChannel.sendAsync(Event.Navigate(IndividualEditRoute.createRoute(individualId)))
     }
 
     fun hideInfoDialog() {
@@ -61,6 +61,6 @@ class IndividualViewModel
     }
 
     sealed class Event {
-        class Navigate(val direction: NavDirections) : Event()
+        class Navigate(val route: String) : Event()
     }
 }

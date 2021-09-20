@@ -60,7 +60,7 @@ class DirectoryFragment : Fragment() {
 
     private fun handleEvent(event: DirectoryViewModel.Event) {
         when (event) {
-            is DirectoryViewModel.Event.Navigate -> findNavController().navigate(event.direction)
+            is DirectoryViewModel.Event.Navigate -> findNavController().navigate(event.route)
         }
     }
 
@@ -74,3 +74,4 @@ class DirectoryFragment : Fragment() {
         return commonMenu.onOptionsItemSelected(findNavController(), item) || super.onOptionsItemSelected(item)
     }
 }
+

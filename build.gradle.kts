@@ -12,7 +12,6 @@ buildscript {
         classpath(libs.android.gradlePluginClasspath)
         classpath(libs.kotlin.gradlePluginClasspath)
         classpath(libs.google.hilt.gradlePluginClasspath)
-        classpath(libs.androidx.navigation.safeArgsGradlePluginClasspath)
         classpath(libs.google.firebase.crashlyticsGradlePluginClasspath)
         // classpath(libs.google.firebase.perfGradlePluginClasspath)
         classpath(libs.google.servicesgradlePluginClasspath)

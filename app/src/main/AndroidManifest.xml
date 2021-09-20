@@ -36,8 +36,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-            <!-- Support Manifest Merger to expand all deep links into <intent-filter/> elements -->
-            <!--<nav-graph android:value="@navigation/nav-graph"/>-->
+            <!-- Support navigation deep linking -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="android-template" />
+            </intent-filter>
         </activity>
 
         <!-- Google Play Services -->

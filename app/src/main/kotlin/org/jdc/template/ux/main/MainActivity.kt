@@ -13,6 +13,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
 import org.jdc.template.databinding.MainActivityBinding
 import org.jdc.template.ui.ThemeManager
+import org.jdc.template.ui.navigation.MainNav
+import org.jdc.template.ui.navigation.NavUriLogger
 import org.jdc.template.util.ext.withLifecycleOwner
 import javax.inject.Inject
 
@@ -25,8 +27,11 @@ class MainActivity : AppCompatActivity() {
     private val viewModel: MainViewModel by viewModels()
 
     private lateinit var binding: MainActivityBinding
+
     private val navController by lazy {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.mainNavHostFragment) as NavHostFragment
+        navHostFragment.navController.graph = MainNav.createNavGraph(this, navHostFragment)
+        navHostFragment.navController.addOnDestinationChangedListener(NavUriLogger()) // debug logging
         navHostFragment.navController
     }
 

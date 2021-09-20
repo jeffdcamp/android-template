@@ -5,7 +5,6 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("dagger.hilt.android.plugin")
-    id("androidx.navigation.safeargs.kotlin")
     id("com.google.firebase.crashlytics")
     id("org.dbtools.license-manager")
     id("de.undercouch.download")

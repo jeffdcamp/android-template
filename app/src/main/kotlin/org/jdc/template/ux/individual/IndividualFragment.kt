@@ -56,7 +56,7 @@ class IndividualFragment : Fragment() {
 
     private fun handleEvent(event: IndividualViewModel.Event) {
         when (event) {
-            is IndividualViewModel.Event.Navigate -> findNavController().navigate(event.direction)
+            is IndividualViewModel.Event.Navigate -> findNavController().navigate(event.route)
         }
     }
 
