@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.Divider
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -18,7 +17,6 @@ import org.jdc.template.BuildConfig
 import org.jdc.template.R
 import org.jdc.template.ui.compose.collectAsLifecycleState
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun AboutScreen() {
     val viewModel: AboutViewModel = viewModel()
