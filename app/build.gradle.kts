@@ -290,7 +290,7 @@ tasks.register("incrementVersionCode") {
 tasks.register<de.undercouch.gradle.tasks.download.Download>("downloadDetektConfig") {
     download {
         onlyIf { !file("build/config/detektConfig.yml").exists() }
-        src("https://raw.githubusercontent.com/ChurchofJesusChrist/AndroidPublic/master/detektConfig2.yml")
+        src("https://raw.githubusercontent.com/ICSEng/AndroidPublic/main/detektConfig.yml")
         dest("build/config/detektConfig.yml")
     }
 }

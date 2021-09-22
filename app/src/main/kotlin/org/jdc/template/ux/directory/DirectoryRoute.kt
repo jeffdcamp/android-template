@@ -1,6 +1,6 @@
 package org.jdc.template.ux.directory
 
 import org.jdc.template.R
-import org.jdc.template.ui.navigation.SimpleNavRoute
+import org.jdc.template.ui.navigation.SimpleNavFragmentRoute
 
-object DirectoryRoute: SimpleNavRoute("directory", R.string.directory)
+object DirectoryRoute: SimpleNavFragmentRoute("directory", R.string.directory)

@@ -5,10 +5,10 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavDestinationBuilder
 import androidx.navigation.NavType
 import org.jdc.template.R
-import org.jdc.template.ui.navigation.NavRoute
+import org.jdc.template.ui.navigation.NavFragmentRoute
 import org.jdc.template.ui.navigation.RouteUtil
 
-object IndividualRoute : NavRoute() {
+object IndividualRoute : NavFragmentRoute() {
     override fun getLabel(context: Context): String {
         return context.getString(R.string.individual)
     }

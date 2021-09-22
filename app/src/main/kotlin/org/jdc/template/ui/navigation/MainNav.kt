@@ -15,6 +15,8 @@ import org.jdc.template.ux.individual.IndividualFragment
 import org.jdc.template.ux.individual.IndividualRoute
 import org.jdc.template.ux.individualedit.IndividualEditFragment
 import org.jdc.template.ux.individualedit.IndividualEditRoute
+import org.jdc.template.ux.main.TestActivity
+import org.jdc.template.ux.main.TestRoute
 import org.jdc.template.ux.settings.SettingsFragment
 import org.jdc.template.ux.settings.SettingsRoute
 
@@ -28,6 +30,8 @@ object MainNav {
             SettingsRoute.addNavigationRoute<SettingsFragment>(this, context)
             AboutRoute.addNavigationRoute<AboutFragment>(this, context)
             AcknowledgmentsRoute.addNavigationRoute<AcknowledgmentsFragment>(this, context)
+
+            TestRoute.addNavigationRoute<TestActivity>(this)
 
             // Library routes
             WorkManagerStatusRoute.addNavigationRoute<WorkManagerStatusFragment>(this, context)

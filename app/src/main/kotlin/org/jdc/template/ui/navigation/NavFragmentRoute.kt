@@ -1,3 +1,5 @@
+@file:Suppress("MemberVisibilityCanBePrivate")
+
 package org.jdc.template.ui.navigation
 
 import android.content.Context
@@ -7,14 +9,14 @@ import androidx.navigation.NavDestinationBuilder
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.fragment.fragment
 
-abstract class NavRoute {
+abstract class NavFragmentRoute {
     /**
      * Route definition
      */
     abstract fun defineRoute(): String
 
     /**
-     * Define arguments, routes, deeplinks, etc
+     * Define arguments, routes, deeplinks, etc for the default fragment
      */
     abstract fun <D: NavDestination> NavDestinationBuilder<D>.setupNav()
 
@@ -23,6 +25,7 @@ abstract class NavRoute {
      */
     inline fun <reified T: Fragment> addNavigationRoute(navGraphBuilder: NavGraphBuilder, context: Context) {
         navGraphBuilder.apply {
+            // default fragment
             fragment<T>(defineRoute()) {
                 label = getLabel(context)
                 setupNav()
@@ -39,8 +42,9 @@ abstract class NavRoute {
 /**
  * Simple Route that requires no arguments
  */
-abstract class SimpleNavRoute(val route: String, val labelId: Int? = null) : NavRoute() {
+abstract class SimpleNavFragmentRoute(val route: String, val labelId: Int? = null) : NavFragmentRoute() {
     override fun defineRoute(): String = route
+
     override fun <D : NavDestination> NavDestinationBuilder<D>.setupNav() {
     }
 

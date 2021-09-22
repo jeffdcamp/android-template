@@ -1,6 +1,6 @@
 package org.jdc.template.ux.acknowledgement
 
 import org.jdc.template.R
-import org.jdc.template.ui.navigation.SimpleNavRoute
+import org.jdc.template.ui.navigation.SimpleNavFragmentRoute
 
-object AcknowledgmentsRoute : SimpleNavRoute("acknowledgments", R.string.acknowledgments)
+object AcknowledgmentsRoute : SimpleNavFragmentRoute("acknowledgments", R.string.acknowledgments)
