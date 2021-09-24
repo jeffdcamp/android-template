@@ -11,7 +11,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.jdc.template.R
 import org.jdc.template.ui.compose.LocalNavController
-import org.jdc.template.ui.compose.collectAsLifecycleState
 import org.jdc.template.ui.compose.dialog.InputDialog
 import org.jdc.template.ui.compose.dialog.RadioDialog
 import org.jdc.template.ui.compose.setting.Setting
@@ -22,13 +21,10 @@ fun SettingsScreen() {
     val navController = LocalNavController.current
     val viewModel: SettingsViewModel = viewModel()
 
-    // switch values
-    val sortByLastName by viewModel.sortByLastNameFlow.collectAsLifecycleState(false)
-
     Column {
         Setting.Header(stringResource(R.string.display))
         Setting.Clickable(stringResource(R.string.theme), viewModel.currentThemeTitleFlow) { viewModel.onThemeSettingClicked() }
-        Setting.Switch(stringResource(R.string.sort_by_last_name), checked = sortByLastName) { viewModel.setSortByLastName(it) }
+        Setting.Switch(stringResource(R.string.sort_by_last_name), viewModel.sortByLastNameFlow, false) { viewModel.setSortByLastName(it) }
 
         // not translated because this should not be visible for release builds
         Setting.Header("Developer Options")

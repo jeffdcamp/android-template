@@ -53,6 +53,37 @@ object Setting {
         )
     }
 
+    @ExperimentalMaterialApi
+    @Composable
+    fun Switch(
+        text: String,
+        currentCheckedValueFlow: Flow<Boolean>,
+        defaultCheckedValue: Boolean,
+        secondaryText: String? = null,
+        icon: @Composable (() -> Unit)? = null,
+        onClickBody: ((Boolean) -> Unit)? = null
+    ) {
+        val currentValueChecked by currentCheckedValueFlow.collectAsLifecycleState(defaultCheckedValue)
+
+        ListItem(
+            icon = { icon?.invoke() },
+            text = {
+                Text(text)
+            },
+            secondaryText = if (secondaryText != null) {
+                { Text(secondaryText) }
+            } else {
+                null
+            },
+            trailing = {
+                Switch(
+                    checked = currentValueChecked,
+                    onCheckedChange = onClickBody
+                )
+            }
+        )
+    }
+
     @OptIn(ExperimentalMaterialApi::class)
     @Composable
     fun Clickable(
