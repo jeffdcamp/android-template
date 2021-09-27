@@ -29,7 +29,7 @@ fun SettingsScreen() {
         // not translated because this should not be visible for release builds
         Setting.Header("Developer Options")
         Setting.Clickable(text = "Work Manager Status", secondaryText = "Show status of all background workers") {
-            navController?.navigate(WorkManagerStatusRoute.route)
+            navController?.navigate(WorkManagerStatusRoute.createRoute())
         }
         Setting.Clickable(text = "Last Installed Version Code", viewModel.currentLastInstalledVersionCodeFlow) { viewModel.onLastInstalledVersionCodeClicked() }
     }

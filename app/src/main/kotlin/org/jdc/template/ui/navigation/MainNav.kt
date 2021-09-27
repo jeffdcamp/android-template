@@ -22,7 +22,7 @@ import org.jdc.template.ux.settings.SettingsRoute
 
 object MainNav {
     fun createNavGraph(context: Context, navHostFragment: NavHostFragment): NavGraph {
-        return navHostFragment.createGraph(startDestination = DirectoryRoute.route) {
+        return navHostFragment.createGraph(startDestination = DirectoryRoute.routeDefinition) {
             // App routes
             DirectoryRoute.addNavigationRoute<DirectoryFragment>(this, context)
             IndividualRoute.addNavigationRoute<IndividualFragment>(this, context)
@@ -31,7 +31,7 @@ object MainNav {
             AboutRoute.addNavigationRoute<AboutFragment>(this, context)
             AcknowledgmentsRoute.addNavigationRoute<AcknowledgmentsFragment>(this, context)
 
-            TestRoute.addNavigationRoute<TestActivity>(this)
+            TestRoute.addNavigationRoute<TestActivity>(this, context)
 
             // Library routes
             WorkManagerStatusRoute.addNavigationRoute<WorkManagerStatusFragment>(this, context)

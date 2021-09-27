@@ -13,9 +13,7 @@ object IndividualEditRoute: NavFragmentRoute() {
         return context.getString(R.string.edit_individual)
     }
 
-    override fun defineRoute(): String {
-        return "individualEdit?${RouteUtil.defineOptionalArgs(Arg.INDIVIDUAL_ID)}"
-    }
+    override val routeDefinition: String = "individualEdit?${RouteUtil.defineOptionalArgs(Arg.INDIVIDUAL_ID)}"
 
     fun createRoute(individualId: String? = null): String {
         return "individualEdit?${RouteUtil.optionalArgs(mapOf(Arg.INDIVIDUAL_ID to individualId))}"

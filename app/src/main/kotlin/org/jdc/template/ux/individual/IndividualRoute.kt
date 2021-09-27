@@ -13,7 +13,7 @@ object IndividualRoute : NavFragmentRoute() {
         return context.getString(R.string.individual)
     }
 
-    override fun defineRoute(): String = "individual/${RouteUtil.defineArg(Arg.INDIVIDUAL_ID)}" // individual/individualId={individualId}
+    override val routeDefinition: String = "individual/${RouteUtil.defineArg(Arg.INDIVIDUAL_ID)}" // individual/individualId={individualId}
 
     fun createRoute(individualId: String): String {
         return "individual/$individualId"  // individual/123456
@@ -27,7 +27,7 @@ object IndividualRoute : NavFragmentRoute() {
         // Test Deeplink (change the id as needed)
         // ./adb shell am start -W -a android.intent.action.VIEW -d "android-template://individual/dee40424-f42d-48ab-a13d-bae76b3bb3cd"
         deepLink {
-            uriPattern = "android-template://${defineRoute()}"
+            uriPattern = "android-template://${routeDefinition}"
         }
     }
 

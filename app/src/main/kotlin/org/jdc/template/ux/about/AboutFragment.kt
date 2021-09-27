@@ -55,7 +55,7 @@ class AboutFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_item_licenses -> {
-                findNavController().navigate(AcknowledgmentsRoute.route)
+                findNavController().navigate(AcknowledgmentsRoute.createRoute())
                 true
             }
             else -> super.onOptionsItemSelected(item)

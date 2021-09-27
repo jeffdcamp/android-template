@@ -1,7 +1,11 @@
 package org.jdc.template.ui.navigation
 
+import java.net.URLEncoder
+
 @Suppress("MemberVisibilityCanBePrivate")
 object RouteUtil {
+    const val DEFAULT_STRING_LIST_DELIMITER = "\u241E"
+
     /**
      * Used to define a route
      *
@@ -32,7 +36,14 @@ object RouteUtil {
             argNameValues.entries
         }
 
-        return entries.joinToString("&") { "${it.key}=${it.value}" }
+        return entries.joinToString("&") {
+            val value = when (val v = it.value) {
+                is String -> encodeArg(v)
+                else -> v
+            }
+
+            "${it.key}=${value}"
+        }
     }
 
     /**
@@ -51,5 +62,24 @@ object RouteUtil {
      */
     fun optionalArgs(vararg argNameValues: Pair<String, Any?>, excludeNullValues: Boolean = true): String {
         return optionalArgs(argNameValues.toList(), excludeNullValues)
+    }
+
+    /**
+     * URLEncoder String argument
+     */
+    fun encodeArg(value: String?): String? = value?.let { URLEncoder.encode(it, "utf-8") }
+
+    /**
+     * Used to transform List<String> to a String to be used with ListNavType.StringListType
+     */
+    fun listToString(list: List<String>?, separator: String = DEFAULT_STRING_LIST_DELIMITER): String? {
+        return list?.map { encodeArg(it) }?.joinToString(separator = separator)
+    }
+
+    /**
+     * Used to transform List<Int> to a String to be used with ListNavType.StringListType
+     */
+    fun listToString(list: List<Number>?): String? {
+        return list?.joinToString(separator = DEFAULT_STRING_LIST_DELIMITER)
     }
 }

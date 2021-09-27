@@ -13,7 +13,14 @@ abstract class NavFragmentRoute {
     /**
      * Route definition
      */
-    abstract fun defineRoute(): String
+    abstract val routeDefinition: String
+
+    /**
+     * Route used when navigating
+     *
+     * Each class that implements NavActivityRoute should implement this method with the needed args to fulfil the routeDefinition
+     */
+    // fun createRoute(): String = routeDefinition
 
     /**
      * Define arguments, routes, deeplinks, etc for the default fragment
@@ -26,7 +33,7 @@ abstract class NavFragmentRoute {
     inline fun <reified T: Fragment> addNavigationRoute(navGraphBuilder: NavGraphBuilder, context: Context) {
         navGraphBuilder.apply {
             // default fragment
-            fragment<T>(defineRoute()) {
+            fragment<T>(routeDefinition) {
                 label = getLabel(context)
                 setupNav()
             }
@@ -42,8 +49,11 @@ abstract class NavFragmentRoute {
 /**
  * Simple Route that requires no arguments
  */
-abstract class SimpleNavFragmentRoute(val route: String, val labelId: Int? = null) : NavFragmentRoute() {
-    override fun defineRoute(): String = route
+abstract class SimpleNavFragmentRoute(override val routeDefinition: String, val labelId: Int? = null) : NavFragmentRoute() {
+    /**
+     * Route used when navigating
+     */
+    fun createRoute(): String = routeDefinition
 
     override fun <D : NavDestination> NavDestinationBuilder<D>.setupNav() {
     }

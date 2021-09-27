@@ -16,11 +16,11 @@ class CommonMenu
         return when (item.itemId) {
             R.id.menu_item_search -> true
             R.id.menu_item_settings -> {
-                navController.navigate(SettingsRoute.route)
+                navController.navigate(SettingsRoute.createRoute())
                 true
             }
             R.id.menu_item_about -> {
-                navController.navigate(AboutRoute.route)
+                navController.navigate(AboutRoute.createRoute())
                 true
             }
             else -> {
