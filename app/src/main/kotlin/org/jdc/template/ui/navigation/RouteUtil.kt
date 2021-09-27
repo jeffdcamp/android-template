@@ -4,7 +4,7 @@ import java.net.URLEncoder
 
 @Suppress("MemberVisibilityCanBePrivate")
 object RouteUtil {
-    const val DEFAULT_STRING_LIST_DELIMITER = "\u241E"
+    const val DEFAULT_STRING_LIST_DELIMITER = "\u241E" // ASCII record separator character
 
     /**
      * Used to define a route
@@ -29,14 +29,8 @@ object RouteUtil {
      *
      * Usage: val route = "individual$RouteUtil.optionalArgs(mapOf("individualId" to "1234","enabled" to true))"
      */
-    fun optionalArgs(argNameValues: Map<String, Any?>, excludeNullValues: Boolean = true): String {
-        val entries = if (excludeNullValues) {
-            argNameValues.entries.filter { it.value != null }
-        } else {
-            argNameValues.entries
-        }
-
-        return entries.joinToString("&") {
+    fun optionalArgs(argNameValues: Map<String, Any?>): String {
+        return argNameValues.filterValues { it != null }.entries.joinToString("&") {
             val value = when (val v = it.value) {
                 is String -> encodeArg(v)
                 else -> v
@@ -51,8 +45,8 @@ object RouteUtil {
      *
      * Usage: val route = "individual$RouteUtil.optionalArgs(mapOf("individualId" to "1234","enabled" to true))"
      */
-    fun optionalArgs(argNameValues: List<Pair<String, Any?>>, excludeNullValues: Boolean = true): String {
-        return optionalArgs(argNameValues.associate { it }, excludeNullValues)
+    fun optionalArgs(argNameValues: List<Pair<String, Any?>>): String {
+        return optionalArgs(argNameValues.associate { it })
     }
 
     /**
@@ -60,8 +54,8 @@ object RouteUtil {
      *
      * Usage: val route = "individual$RouteUtil.optionalArgs(mapOf("individualId" to "1234","enabled" to true))"
      */
-    fun optionalArgs(vararg argNameValues: Pair<String, Any?>, excludeNullValues: Boolean = true): String {
-        return optionalArgs(argNameValues.toList(), excludeNullValues)
+    fun optionalArgs(vararg argNameValues: Pair<String, Any?>): String {
+        return optionalArgs(argNameValues.toList())
     }
 
     /**
