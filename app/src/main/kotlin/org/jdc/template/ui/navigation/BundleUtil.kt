@@ -11,6 +11,9 @@ object BundleUtil {
             argNameValues.forEach {
                 val key = it.first
                 when (val value = it.second) {
+                    null -> {
+                        // ignore
+                    }
                     is IBinder -> putBinder(key, value)
                     is Bundle -> putBundle(key, value)
                     is Byte -> putByte(key, value)
