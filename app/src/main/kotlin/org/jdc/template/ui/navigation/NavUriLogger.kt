@@ -15,7 +15,6 @@ import timber.log.Timber
 @Suppress("MemberVisibilityCanBePrivate")
 class NavUriLogger(val prefix: String = "", var priority: Int = Log.DEBUG) : NavController.OnDestinationChangedListener {
     override fun onDestinationChanged(controller: NavController, destination: NavDestination, arguments: Bundle?) {
-        destination.route
         (arguments?.get(NavController.KEY_DEEP_LINK_INTENT) as? Intent)?.data?.let { deepLinkUri ->
             val uri = deepLinkUri.toString()
             if (uri.startsWith(ROUTE_PREFIX)) {
