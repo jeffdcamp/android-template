@@ -67,13 +67,21 @@ object RouteUtil {
      * Used to transform List<String> to a String to be used with ListNavType.StringListType
      */
     fun listToString(list: List<String>?, separator: String = DEFAULT_STRING_LIST_DELIMITER): String? {
-        return list?.map { encodeArg(it) }?.joinToString(separator = separator)
+        if (list.isNullOrEmpty()) {
+            return null
+        }
+
+        return list.map { encodeArg(it) }.joinToString(separator = separator)
     }
 
     /**
      * Used to transform List<Int> to a String to be used with ListNavType.StringListType
      */
     fun listToString(list: List<Number>?): String? {
-        return list?.joinToString(separator = DEFAULT_STRING_LIST_DELIMITER)
+        if (list.isNullOrEmpty()) {
+            return null
+        }
+
+        return list.joinToString(separator = DEFAULT_STRING_LIST_DELIMITER)
     }
 }
