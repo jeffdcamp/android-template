@@ -30,9 +30,10 @@ class MainActivity : AppCompatActivity() {
 
     private val navController by lazy {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.mainNavHostFragment) as NavHostFragment
-        navHostFragment.navController.graph = MainNav.createNavGraph(this, navHostFragment)
-        navHostFragment.navController.addOnDestinationChangedListener(NavUriLogger()) // debug logging
-        navHostFragment.navController
+        navHostFragment.navController.apply {
+            graph = MainNav.createNavGraph(this@MainActivity, navHostFragment)
+            addOnDestinationChangedListener(NavUriLogger()) // debug logging
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
