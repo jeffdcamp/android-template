@@ -30,7 +30,9 @@ allprojects {
     }
 
     // Gradle Dependency Check
-    apply(plugin = "com.github.ben-manes.versions") // ./gradlew dependencyUpdates -Drevision=release
+    // ./gradlew dependencyUpdates -Drevision=release
+    // ./gradlew dependencyUpdates -Drevision=release --refresh-dependencies
+    apply(plugin = "com.github.ben-manes.versions")
     val excludeVersionContaining = listOf("alpha", "eap", "M1") // example: "alpha", "beta"
     // some artifacts may be OK to check for "alpha"... add these exceptions here
     val ignoreArtifacts = buildList {
