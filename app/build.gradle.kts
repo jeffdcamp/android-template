@@ -40,7 +40,7 @@ android {
 
         // used by Room, to test migrations
         ksp {
-            arg("room.schemaLocation", "$projectDir/schemas")
+            arg("room.schemaLocation", "$projectDir/schema")
             arg("room.incremental", "true")
         }
 
