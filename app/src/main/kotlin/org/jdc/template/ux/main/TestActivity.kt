@@ -3,7 +3,7 @@ package org.jdc.template.ux.main
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
-import org.jdc.template.databinding.TestActivityBinding
+import org.jdc.template.R
 import org.jdc.template.ui.navigation.SimpleNavActivityRoute
 
 /**
@@ -11,13 +11,9 @@ import org.jdc.template.ui.navigation.SimpleNavActivityRoute
  */
 @AndroidEntryPoint
 class TestActivity : AppCompatActivity() {
-    private lateinit var binding: TestActivityBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding = TestActivityBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.test_activity)
     }
 }
 

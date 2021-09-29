@@ -11,7 +11,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
-import org.jdc.template.databinding.MainActivityBinding
 import org.jdc.template.ui.ThemeManager
 import org.jdc.template.ui.navigation.MainNav
 import org.jdc.template.ui.navigation.NavUriLogger
@@ -26,8 +25,6 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel: MainViewModel by viewModels()
 
-    private lateinit var binding: MainActivityBinding
-
     private val navController by lazy {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.mainNavHostFragment) as NavHostFragment
         navHostFragment.navController.apply {
@@ -40,8 +37,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         installSplashScreen()
 
-        binding = MainActivityBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.main_activity)
 
         startup(savedInstanceState)
     }
@@ -71,7 +67,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun finishCreate(savedInstanceState: Bundle?) {
-        setSupportActionBar(binding.mainToolbar)
+        setSupportActionBar(findViewById(R.id.mainToolbar))
 
         supportActionBar?.apply {
             setHomeButtonEnabled(true)
