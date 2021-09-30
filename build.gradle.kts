@@ -42,7 +42,7 @@ allprojects {
             "navigation-fragment-ktx", "navigation-ui-ktx", "navigation-safe-args-gradle-plugin",
             "fragment-ktx"
         ))
-        addAll(listOf("datastore-preferences", "lifecycle-runtime-ktx", "lifecycle-viewmodel-ktx", "lifecycle-viewmodel-savedstate", "lifecycle-common-java8"))
+        addAll(listOf("core-splashscreen", "lifecycle-runtime-ktx", "lifecycle-viewmodel-ktx", "lifecycle-viewmodel-savedstate", "lifecycle-common-java8"))
 
 //        // Arctic Fox
 //        addAll(listOf("gradle", "viewbinding"))
