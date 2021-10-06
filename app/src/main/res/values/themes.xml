@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.AndroidTemplate.Splash" parent="Theme.SplashScreen">
+<!--    <style name="Theme.AndroidTemplate.Splash" parent="Theme.SplashScreen">-->
+<!--        <item name="windowSplashScreenBackground">@color/material_white</item>-->
+<!--        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>-->
+<!--        <item name="postSplashScreenTheme">@style/Theme.AndroidTemplate</item>-->
+<!--    </style>-->
+    <!-- Workaround for issue for large splash images on SDK > 31 (use above and remove v31/themes.xml when fixed https://issuetracker.google.com/issues/201724091) -->
+    <style name="Theme.AndroidTemplate.Splash" parent="Theme.SplashScreen.IconBackground">
         <item name="windowSplashScreenBackground">@color/material_white</item>
-        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+        <item name ="windowSplashScreenIconBackgroundColor">@color/ic_launcher_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
         <item name="postSplashScreenTheme">@style/Theme.AndroidTemplate</item>
     </style>
 
