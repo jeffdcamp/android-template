@@ -232,7 +232,8 @@ dependencies {
     implementation(libs.dbtools.room)
 
     // Custom SQLite database
-    // (for use of SqliteOrgSQLiteOpenHelperFactory in AppModule.kt)
+    // (for use of SqliteOrgSQLiteOpenHelperFactory)
+    // implementation(libs.dbtools.room)
     //implementation(libs.dbtools.roomSqlite)
 
     // Network
