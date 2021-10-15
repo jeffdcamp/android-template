@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources xmlns:its="http://www.w3.org/2005/11/its" its:version="1.0">
     <!-- MyApplication -->
-    <string name="app_name">My Application</string>
+    <string name="app_name">Android Template</string>
     <string name="app_launcher_name">Template</string>
 
     <!-- General -->
