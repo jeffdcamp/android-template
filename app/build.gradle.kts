@@ -77,9 +77,8 @@ android {
     }
 
     lint {
-        isAbortOnError = true
-        disable("InvalidPackage")
-        disable("DialogFragmentCallbacksDetector") // issue with fragment-ktx (https://issuetracker.google.com/issues/189967522) should be fixed with 1.4.0-alpha03+
+        abortOnError = true
+        disable.addAll(listOf("InvalidPackage", "DialogFragmentCallbacksDetector"))
     }
 
     // defined values my* in ~/.gradle/gradle.properties
