@@ -5,15 +5,15 @@ coroutines = "1.5.2"
 
 accompanist = "0.7.1"
 androidxhilt = "1.0.0"
-androidxlifecycle = "2.4.0-rc01"
+androidxlifecycle = "2.4.0"
 androidxtest = "1.4.0"
 coil = "1.3.1"
-compose = "1.1.0-alpha06"
+compose = "1.1.0-beta01"
 dagger = "2.39.1"
 dbtools = "7.0.0-beta02"
 hilt = "2.39.1"
 ktlint = "0.40.0"
-navigation = "2.4.0-alpha10"
+navigation = "2.4.0-beta01"
 paging = "3.0.0-beta02"
 retrofit = "2.9.0"
 room = "2.4.0-beta01"
@@ -34,7 +34,7 @@ android-gradlePluginClasspath = { module = "com.android.tools.build:gradle", ver
 android-desugar = { module = "com.android.tools:desugar_jdk_libs", version = "1.1.5" }
 
 androidx-activity = { module = "androidx.activity:activity-ktx", version = "1.4.0-beta01" }
-androidx-appcompat = { module = "androidx.appcompat:appcompat", version = "1.4.0-beta01" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version = "1.4.0-rc01" }
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version = "2.0.4" }
 androidx-core = { module = "androidx.core:core-ktx", version = "1.7.0-beta02" }
 androidx-datastorePrefs = { module = "androidx.datastore:datastore-preferences", version = "1.0.0" }
@@ -81,7 +81,7 @@ androidx-work-gcm = { module = "androidx.work:work-gcm", version.ref = "work" }
 coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 coil-gif = { module = "io.coil-kt:coil-gif", version.ref = "coil" }
 
-compose-activity = { module = "androidx.activity:activity-compose", version = "1.4.0-rc01" }
+compose-activity = { module = "androidx.activity:activity-compose", version = "1.4.0" }
 compose-animation-animation = { module = "androidx.compose.animation:animation", version.ref = "compose" }
 compose-constraintlayout = { module = "androidx.constraintlayout:constraintlayout-compose", version = "1.0.0-alpha08" }
 compose-foundation-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
