@@ -1,5 +1,5 @@
 [versions]
-agp = "7.1.0-beta01"
+agp = "7.1.0-beta02"
 kotlin = "1.5.31"
 coroutines = "1.5.2"
 
@@ -9,9 +9,9 @@ androidxlifecycle = "2.4.0"
 androidxtest = "1.4.0"
 coil = "1.3.1"
 compose = "1.1.0-beta01"
-dagger = "2.39.1"
+dagger = "2.40"
 dbtools = "7.0.0-beta02"
-hilt = "2.39.1"
+hilt = "2.40"
 ktlint = "0.40.0"
 navigation = "2.4.0-beta01"
 paging = "3.0.0-beta02"
@@ -88,6 +88,7 @@ compose-foundation-foundation = { module = "androidx.compose.foundation:foundati
 compose-foundation-layout = { module = "androidx.compose.foundation:foundation-layout", version.ref = "compose" }
 compose-material-iconsext = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose" }
 compose-material-material = { module = "androidx.compose.material:material", version.ref = "compose" }
+compose-material-material3 = { module = "androidx.compose.material3:material3", version = "1.0.0-alpha01" }
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 compose-ui-test = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
