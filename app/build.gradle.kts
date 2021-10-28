@@ -77,6 +77,7 @@ android {
     }
 
     lint {
+        ignoreTestSources = true
         abortOnError = true
         disable.addAll(listOf("InvalidPackage", "DialogFragmentCallbacksDetector"))
     }
@@ -178,6 +179,7 @@ dependencies {
     implementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.util)
     implementation(libs.compose.material.material)
+//    implementation(libs.compose.material.material3)
 //    implementation(libs.compose.material.iconsext)
 //    implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
