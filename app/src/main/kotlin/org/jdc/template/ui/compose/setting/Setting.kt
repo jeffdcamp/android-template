@@ -8,11 +8,11 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Switch
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.flow.Flow
-import org.jdc.template.ui.compose.collectAsLifecycleState
+import kotlinx.coroutines.flow.StateFlow
 
 object Setting {
     @Composable
@@ -57,13 +57,12 @@ object Setting {
     @Composable
     fun Switch(
         text: String,
-        currentCheckedValueFlow: Flow<Boolean>,
-        defaultCheckedValue: Boolean,
+        currentCheckedValueFlow: StateFlow<Boolean>,
         secondaryText: String? = null,
         icon: @Composable (() -> Unit)? = null,
         onClickBody: ((Boolean) -> Unit)? = null
     ) {
-        val currentValueChecked by currentCheckedValueFlow.collectAsLifecycleState(defaultCheckedValue)
+        val currentValueChecked by currentCheckedValueFlow.collectAsState()
 
         ListItem(
             icon = { icon?.invoke() },
@@ -110,11 +109,11 @@ object Setting {
     @Composable
     fun Clickable(
         text: String,
-        currentValueFlow: Flow<String>,
+        currentValueFlow: StateFlow<String?>,
         icon: @Composable (() -> Unit)? = null,
         onClickBody: (() -> Unit)? = null
     ) {
-        val currentValue by currentValueFlow.collectAsLifecycleState("")
+        val currentValue by currentValueFlow.collectAsState()
 
         Clickable(
             text = text,

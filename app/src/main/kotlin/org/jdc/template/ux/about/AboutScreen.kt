@@ -8,14 +8,14 @@ import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 import org.jdc.template.BuildConfig
 import org.jdc.template.R
-import org.jdc.template.ui.compose.collectAsLifecycleState
 
 @Composable
 fun AboutScreen() {
@@ -43,7 +43,7 @@ fun AboutScreen() {
 private fun ApplicationAboutTitle() {
     Column {
         Text(
-            stringResource(id = R.string.about_title),
+            stringResource(R.string.about_title),
             style = MaterialTheme.typography.h4
         )
         Text(
@@ -54,8 +54,8 @@ private fun ApplicationAboutTitle() {
 }
 
 @Composable
-private fun RestServicesStatus(restServicesEnabledFlow: Flow<Boolean>) {
-    val restServicesEnabled = restServicesEnabledFlow.collectAsLifecycleState(false)
+private fun RestServicesStatus(restServicesEnabledFlow: StateFlow<Boolean>) {
+    val restServicesEnabled = restServicesEnabledFlow.collectAsState()
     Text("Rest Services Enabled: ${restServicesEnabled.value}")
 }
 

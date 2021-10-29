@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.jdc.template.BuildConfig
 import org.jdc.template.analytics.Analytics
@@ -39,9 +39,7 @@ class AboutViewModel
 ) : ViewModel() {
 
     var appVersion = BuildConfig.VERSION_NAME
-    val resetServiceEnabledFlow: Flow<Boolean> = flow {
-        emit(remoteConfig.isColorServiceEnabled())
-    }
+    val resetServiceEnabledFlow: StateFlow<Boolean> = MutableStateFlow(remoteConfig.isColorServiceEnabled())
 
     fun logAnalytics() {
         analytics.logEvent(Analytics.EVENT_VIEW_ABOUT)

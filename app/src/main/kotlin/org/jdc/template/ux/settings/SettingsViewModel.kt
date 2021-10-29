@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
@@ -17,6 +16,7 @@ import org.jdc.template.ui.compose.dialog.InputDialogData
 import org.jdc.template.ui.compose.dialog.RadioDialogData
 import org.jdc.template.ui.compose.dialog.RadioDialogDataItem
 import org.jdc.template.ui.compose.dialog.RadioDialogDataItems
+import org.jdc.template.util.ext.stateInDefault
 import javax.inject.Inject
 
 @HiltViewModel
@@ -32,18 +32,11 @@ class SettingsViewModel
     private val _lastInstalledVersionCodeDialogDataFlow = MutableStateFlow(InputDialogData())
     val lastInstalledVersionCodeDialogDataFlow: StateFlow<InputDialogData> = _lastInstalledVersionCodeDialogDataFlow
 
-    val currentThemeTitleFlow: Flow<String>
-        get() = settingsRepository.themeFlow.map { theme ->
-            theme.getString(application)
-        }
+    val currentThemeTitleFlow: StateFlow<String?> = settingsRepository.themeFlow.map { theme -> theme.getString(application) }.stateInDefault(viewModelScope, null)
 
-    val currentLastInstalledVersionCodeFlow: Flow<String>
-        get() = settingsRepository.lastInstalledVersionCodeFlow.map { versionCode ->
-            versionCode.toString()
-        }
+    val currentLastInstalledVersionCodeFlow: StateFlow<String?> = settingsRepository.lastInstalledVersionCodeFlow.map { versionCode -> versionCode.toString() }.stateInDefault(viewModelScope, null)
 
-    val sortByLastNameFlow: Flow<Boolean>
-        get() = settingsRepository.directorySortByLastNameFlow
+    val sortByLastNameFlow: StateFlow<Boolean> = settingsRepository.directorySortByLastNameFlow.stateInDefault(viewModelScope, false)
 
     fun onThemeSettingClicked() = viewModelScope.launch {
         val currentTheme = settingsRepository.themeFlow.first()

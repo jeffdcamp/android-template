@@ -32,8 +32,8 @@ fun IndividualEditScreen() {
     val lastName: String by viewModel.lastNameFlow.collectAsState()
     val phoneNumber: String by viewModel.phoneNumberFlow.collectAsState()
     val email: String by viewModel.emailFlow.collectAsState()
-    val birthDate: LocalDate? by viewModel.birthDateFlow.collectAsState(null)
-    val alarmTime: LocalTime? by viewModel.alarmTimeFlow.collectAsState(null)
+    val birthDate: LocalDate? by viewModel.birthDateFlow.collectAsState()
+    val alarmTime: LocalTime? by viewModel.alarmTimeFlow.collectAsState()
 
     IndividualEditFields(
         firstName.hoist(viewModel::setFirstName),

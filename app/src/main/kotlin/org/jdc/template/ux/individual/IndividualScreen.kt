@@ -19,7 +19,6 @@ import org.jdc.template.R
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.ui.DateUiUtil
 import org.jdc.template.ui.compose.LocalNavController
-import org.jdc.template.ui.compose.collectAsLifecycleState
 import org.jdc.template.ui.compose.dialog.MessageDialog
 
 @Composable
@@ -27,7 +26,7 @@ fun IndividualScreen() {
     val navController = LocalNavController.current
     val viewModel: IndividualViewModel = viewModel()
 
-    val individual: Individual by viewModel.individualFlow.collectAsLifecycleState(Individual())
+    val individual: Individual? by viewModel.individualFlow.collectAsState()
     IndividualSummary(individual)
 
     val messageDialogData by viewModel.messageDialogDataFlow.collectAsState()

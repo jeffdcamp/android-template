@@ -15,19 +15,19 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import org.jdc.template.ui.compose.collectAsLifecycleState
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun DirectoryScreen() {
     val viewModel: DirectoryViewModel = viewModel()
 
-    val directoryList by viewModel.directoryListFlow.collectAsLifecycleState(initial = emptyList())
+    val directoryList by viewModel.directoryListFlow.collectAsState()
 
     Box(Modifier.fillMaxSize()) {
         LazyColumn(modifier = Modifier.fillMaxWidth()) {

@@ -24,7 +24,7 @@ fun SettingsScreen() {
     Column {
         Setting.Header(stringResource(R.string.display))
         Setting.Clickable(stringResource(R.string.theme), viewModel.currentThemeTitleFlow) { viewModel.onThemeSettingClicked() }
-        Setting.Switch(stringResource(R.string.sort_by_last_name), viewModel.sortByLastNameFlow, false) { viewModel.setSortByLastName(it) }
+        Setting.Switch(stringResource(R.string.sort_by_last_name), viewModel.sortByLastNameFlow) { viewModel.setSortByLastName(it) }
 
         // not translated because this should not be visible for release builds
         Setting.Header("Developer Options")

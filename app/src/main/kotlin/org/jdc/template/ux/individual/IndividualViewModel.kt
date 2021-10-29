@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.ReceiveChannel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -17,6 +16,7 @@ import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.ui.compose.dialog.MessageDialogData
 import org.jdc.template.util.coroutine.channel.ViewModelChannel
 import org.jdc.template.util.delegates.requireSavedState
+import org.jdc.template.util.ext.stateInDefault
 import org.jdc.template.ux.individualedit.IndividualEditRoute
 import javax.inject.Inject
 
@@ -32,8 +32,7 @@ class IndividualViewModel
     val eventChannel: ReceiveChannel<Event> = _eventChannel
 
     private val individualId: String by requireSavedState(savedStateHandle)
-    val individualFlow: Flow<Individual>
-        get() = individualRepository.getIndividualFlow(individualId)
+    val individualFlow: StateFlow<Individual?> = individualRepository.getIndividualFlow(individualId).stateInDefault(viewModelScope, null)
 
     private val _messageDialogDataFlow = MutableStateFlow(MessageDialogData())
     val messageDialogDataFlow: StateFlow<MessageDialogData> = _messageDialogDataFlow

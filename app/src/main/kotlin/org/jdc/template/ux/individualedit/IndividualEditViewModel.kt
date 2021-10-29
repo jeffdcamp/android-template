@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.ReceiveChannel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -47,10 +46,10 @@ class IndividualEditViewModel
     val emailFlow: StateFlow<String> = _emailFlow
 
     private val _birthDateFlow = MutableStateFlow<LocalDate?>(null)
-    val birthDateFlow: Flow<LocalDate?> = _birthDateFlow
+    val birthDateFlow: StateFlow<LocalDate?> = _birthDateFlow
 
     private val _alarmTimeFlow = MutableStateFlow<LocalTime?>(null)
-    val alarmTimeFlow: Flow<LocalTime?> = _alarmTimeFlow
+    val alarmTimeFlow: StateFlow<LocalTime?> = _alarmTimeFlow
 
     private val _messageDialogDataFlow = MutableStateFlow(MessageDialogData())
     val messageDialogDataFlow: StateFlow<MessageDialogData> = _messageDialogDataFlow
