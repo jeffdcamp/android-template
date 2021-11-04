@@ -332,7 +332,6 @@ licenseManager {
     variantName = "release"
     outputDirs = listOf("./src/main/assets", "./build/licenses")
     excludeGroups = listOf("org.dbtools")
-    createHtmlReport = true
 }
 
 // this must be at the bottom of the file
