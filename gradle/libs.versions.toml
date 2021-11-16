@@ -9,9 +9,9 @@ androidxlifecycle = "2.4.0"
 androidxtest = "1.4.0"
 coil = "1.3.1"
 compose = "1.1.0-beta02"
-dagger = "2.40"
+dagger = "2.40.1"
 dbtools = "7.0.0-beta03"
-hilt = "2.40"
+hilt = "2.40.1"
 ktlint = "0.40.0"
 navigation = "2.4.0-beta02"
 paging = "3.0.0-beta02"
@@ -142,7 +142,7 @@ kotlin-coroutines-playServices = { module = "org.jetbrains.kotlinx:kotlinx-corou
 kotlin-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 kotlin-extensions = { module = "org.jetbrains.kotlin:kotlin-android-extensions", version.ref = "kotlin" }
 kotlin-gradlePluginClasspath = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
-kotlin-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.3.0" }
+kotlin-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.3.1" }
 
 leakCanary = { module = "com.squareup.leakcanary:leakcanary-android", version = "2.7" }
 
