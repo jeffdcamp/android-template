@@ -12,22 +12,4 @@
         <!-- Note #2: use "materialThemeOverlay" on other material widgets instead -->
         <item name="android:theme">@style/ThemeOverlay.AndroidTemplate.MainToolbar</item>
     </style>
-
-    <!-- Lists -->
-    <style name="Widget.AndroidTemplate.ListItemLayout" parent="">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">?listPreferredItemHeight</item>
-        <item name="android:paddingLeft">16dp</item>
-        <item name="android:paddingRight">16dp</item>
-        <item name="android:paddingTop">8dp</item>
-        <item name="android:paddingBottom">8dp</item>
-        <item name="android:background">?selectableItemBackground</item> <!-- background will not highlight when row is tapped without this -->
-        <item name="android:gravity">center_vertical</item>
-    </style>
-
-    <!-- Text -->
-    <style name="Widget.AndroidTemplate.EditTextField" parent="@style/TextAppearance.MaterialComponents.Body1">
-        <!-- prevent full-screen edit when phone in landscape -->
-        <item name="android:imeOptions">flagNoExtractUi</item>
-    </style>
 </resources>

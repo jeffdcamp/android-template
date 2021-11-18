@@ -1,10 +1,9 @@
 package org.jdc.template.ux.about
 
-import android.content.Context
+import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -30,7 +29,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AboutViewModel
 @Inject constructor(
-    @ApplicationContext private val context: Context,
+    private val application: Application,
     private val analytics: Analytics,
     private val individualRepository: IndividualRepository,
     private val colorService: ColorService,
@@ -131,7 +130,7 @@ class AboutViewModel
 
         if (response.isSuccessful) {
             // delete any existing file
-            val outputFile = File(context.externalCacheDir, "ws-out.json")
+            val outputFile = File(application.externalCacheDir, "ws-out.json")
             if (outputFile.exists()) {
                 outputFile.delete()
             }
