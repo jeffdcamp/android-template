@@ -42,6 +42,7 @@ android {
         ksp {
             arg("room.schemaLocation", "$projectDir/schema")
             arg("room.incremental", "true")
+//            arg("room.useNullAwareTypeAnalysis", "false") // optional param to turn OFF TypeConverter analyzer (introduced in Room 2.4.0-beta02)
         }
 
         // Espresso
@@ -168,7 +169,6 @@ dependencies {
     // Android
     coreLibraryDesugaring(libs.android.desugar)
     implementation(libs.androidx.appcompat) // AppCompatActivity
-    implementation(libs.androidx.preference)
     implementation(libs.androidx.fragment)
     implementation(libs.androidx.splashscreen)
     implementation(libs.androidx.startup)
@@ -185,7 +185,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 //    implementation(libs.compose.constraintlayout)
     implementation(libs.compose.activity)
-//    implementation(libs.compose.theme.adapter) // enables reuse of Material themes defined in XML for theming in Jetpack Compose
 
     // Play Service
     implementation(libs.google.play.core)
