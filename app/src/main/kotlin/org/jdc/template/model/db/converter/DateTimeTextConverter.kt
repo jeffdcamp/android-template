@@ -7,20 +7,31 @@ import java.time.OffsetDateTime
 
 object DateTimeTextConverter {
     @TypeConverter
-    fun fromStringToOffsetDateTime(value: String?): OffsetDateTime? = ThreeTenFormatter.dbStringToOffsetDateTime(value)
+    fun fromStringToOffsetDateTimeNullable(value: String?): OffsetDateTime? = ThreeTenFormatter.dbStringToOffsetDateTimeNullable(value)
+    @TypeConverter
+    fun fromOffsetDateTimeToStringNullable(value: OffsetDateTime?): String? = ThreeTenFormatter.offsetDateTimeToDBStringNullable(value)
+    @TypeConverter
+    fun fromStringToOffsetDateTimeNotNull(value: String): OffsetDateTime = ThreeTenFormatter.dbStringToOffsetDateTimeNotNull(value)
+    @TypeConverter
+    fun fromOffsetDateTimeToStringNotNull(value: OffsetDateTime): String = ThreeTenFormatter.offsetDateTimeToDBStringNotNull(value)
+
 
     @TypeConverter
-    fun fromOffsetDateTimeToString(value: OffsetDateTime?): String? = ThreeTenFormatter.offsetDateTimeToDBString(value)
+    fun fromStringToLocalDateNullable(value: String?): LocalDate? = ThreeTenFormatter.dbStringToLocalDateNullable(value)
+    @TypeConverter
+    fun fromLocalDateToStringNullable(value: LocalDate?): String? = ThreeTenFormatter.localDateToDBStringNullable(value)
+    @TypeConverter
+    fun fromStringToLocalDateNotNull(value: String): LocalDate = ThreeTenFormatter.dbStringToLocalDateNotNull(value)
+    @TypeConverter
+    fun fromLocalDateToStringNotNull(value: LocalDate): String = ThreeTenFormatter.localDateToDBStringNotNull(value)
+
 
     @TypeConverter
-    fun fromStringToLocalDate(value: String?): LocalDate? = ThreeTenFormatter.dbStringToLocalDate(value)
-
+    fun fromStringToLocalTimeNullable(value: String?): LocalTime? = ThreeTenFormatter.dbStringToLocalTimeNullable(value)
     @TypeConverter
-    fun fromLocalDateToString(value: LocalDate?): String? = ThreeTenFormatter.localDateToDBString(value)
-
+    fun fromLocalTimeToStringNullable(value: LocalTime?): String? = ThreeTenFormatter.localTimeToDBStringNullable(value)
     @TypeConverter
-    fun fromStringToLocalTime(value: String?): LocalTime? = ThreeTenFormatter.dbStringToLocalTime(value)
-
+    fun fromStringToLocalTimeNotNull(value: String): LocalTime = ThreeTenFormatter.dbStringToLocalTimeNotNull(value)
     @TypeConverter
-    fun fromLocalTimeToString(value: LocalTime?): String? = ThreeTenFormatter.localTimeToDBString(value)
+    fun fromLocalTimeToStringNotNull(value: LocalTime): String = ThreeTenFormatter.localTimeToDBStringNotNull(value)
 }
