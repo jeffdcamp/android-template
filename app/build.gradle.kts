@@ -174,16 +174,15 @@ dependencies {
     implementation(libs.androidx.datastorePrefs)
 
     // Compose
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.tooling)
-    implementation(libs.compose.ui.util)
     implementation(libs.compose.material.material)
 //    implementation(libs.compose.material.material3)
 //    implementation(libs.compose.material.iconsext)
 //    implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
-//    implementation(libs.compose.constraintlayout)
-    implementation(libs.compose.activity)
 
     // Play Service
     implementation(libs.google.play.core)

@@ -7,11 +7,11 @@ accompanist = "0.7.1"
 androidxhilt = "1.0.0"
 androidxlifecycle = "2.4.0"
 androidxtest = "1.4.0"
-coil = "1.3.1"
+coil = "1.4.0"
 compose = "1.1.0-beta04"
-dagger = "2.40.3"
-dbtools = "7.0.0-beta03"
-hilt = "2.40.3"
+dagger = "2.40.4"
+dbtools = "7.0.0-beta04"
+hilt = "2.40.4"
 ktlint = "0.40.0"
 navigation = "2.4.0-beta02"
 paging = "3.0.0-beta02"
@@ -33,7 +33,8 @@ accompanist-insets = { module = "com.google.accompanist:accompanist-insets", ver
 android-gradlePluginClasspath = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 android-desugar = { module = "com.android.tools:desugar_jdk_libs", version = "1.1.5" }
 
-androidx-activity = { module = "androidx.activity:activity-ktx", version = "1.4.0-beta01" }
+androidx-activity = { module = "androidx.activity:activity-ktx", version = "1.4.0" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version = "1.4.0" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version = "1.4.0" }
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version = "2.0.4" }
 androidx-core = { module = "androidx.core:core-ktx", version = "1.7.0-beta02" }
@@ -78,22 +79,15 @@ androidx-work-runtime = { module = "androidx.work:work-runtime-ktx", version.ref
 androidx-work-gcm = { module = "androidx.work:work-gcm", version.ref = "work" }
 
 coil = { module = "io.coil-kt:coil", version.ref = "coil" }
-coil-gif = { module = "io.coil-kt:coil-gif", version.ref = "coil" }
+coil-compose = { module = "io.coil-kt:coil-compose", version = "coil" }
 
-compose-activity = { module = "androidx.activity:activity-compose", version = "1.4.0" }
 compose-animation-animation = { module = "androidx.compose.animation:animation", version.ref = "compose" }
-compose-constraintlayout = { module = "androidx.constraintlayout:constraintlayout-compose", version = "1.0.0-alpha08" }
-compose-foundation-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
-compose-foundation-layout = { module = "androidx.compose.foundation:foundation-layout", version.ref = "compose" }
-compose-material-iconsext = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose" }
-compose-material-material = { module = "androidx.compose.material:material", version.ref = "compose" }
+compose-material-iconsext = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose" } # Material design icons (extended)
+compose-material-material = { module = "androidx.compose.material:material", version.ref = "compose" } # Material Design
 compose-material-material3 = { module = "androidx.compose.material3:material3", version = "1.0.0-alpha01" }
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 compose-ui-test = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
-compose-ui-util = { module = "androidx.compose.ui:ui-util", version.ref = "compose" }
-compose-ui-viewbinding = { module = "androidx.compose.ui:ui-viewbinding", version.ref = "compose" }
-compose-theme-adapter = { module = "com.google.android.material:compose-theme-adapter", version = "1.0.1" } # enables reuse of Material themes defined in XML for theming in Jetpack Compose
+compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" } # Tooling support (Previews, etc.)
 
 dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
@@ -154,15 +148,13 @@ mockK = { module = "io.mockk:mockk", version = "1.12.1" }
 
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 
-#store = { module = "com.dropbox.mobile.store:store4", version = "4.0.0" }
-
 timber = { module = "com.jakewharton.timber:timber", version = "5.0.1" }
 
 truth = { module = "com.google.truth:truth", version = "1.1.3" }
 
 gradleVersions-gradlePluginClasspath = { module = "com.github.ben-manes:gradle-versions-plugin", version = "0.39.0" }
 
-workmanagertools = { module = "org.dbtools:workmanager-tools", version = "1.16.0" }
+workmanagertools = { module = "org.dbtools:workmanager-tools", version = "1.17.0" }
 
 xerial-sqlite = { module = "org.xerial:sqlite-jdbc", version = "3.36.0.3" }
 
