@@ -29,6 +29,10 @@ allprojects {
 //        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
     }
 
+    // Gradle Dependency Reports
+    // ./gradlew -q app:dependencies --configuration debugCompileClasspath > deps.txt
+    // ./gradlew app:dependencies --scan.
+
     // Gradle Dependency Check
     // ./gradlew dependencyUpdates -Drevision=release
     // ./gradlew dependencyUpdates -Drevision=release --refresh-dependencies
