@@ -56,7 +56,6 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8"
-        languageVersion = "1.4"
         freeCompilerArgs += listOf(
             "-Xopt-in=kotlin.ExperimentalStdlibApi",
             "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",

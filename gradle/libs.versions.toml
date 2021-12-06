@@ -1,5 +1,5 @@
 [versions]
-agp = "7.1.0-beta03"
+agp = "7.1.0-beta04"
 kotlin = "1.6.0"
 coroutines = "1.6.0-RC"
 
