@@ -2,7 +2,6 @@ package org.jdc.template.ui.compose.setting
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ListItem
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Switch
@@ -25,7 +24,6 @@ object Setting {
         )
     }
 
-    @ExperimentalMaterialApi
     @Composable
     fun Switch(
         text: String,
@@ -53,7 +51,6 @@ object Setting {
         )
     }
 
-    @ExperimentalMaterialApi
     @Composable
     fun Switch(
         text: String,
@@ -83,7 +80,6 @@ object Setting {
         )
     }
 
-    @OptIn(ExperimentalMaterialApi::class)
     @Composable
     fun Clickable(
         text: String,
