@@ -57,7 +57,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
         freeCompilerArgs += listOf(
+            "-Xopt-in=kotlin.RequiresOptIn",
             "-Xopt-in=androidx.compose.material.ExperimentalMaterialApi",
+            "-Xopt-in=kotlinx.coroutines.InternalCoroutinesApi", // todo remove when break from 1.6.0-RC2 is resolved (https://github.com/Kotlin/kotlinx.coroutines/issues/3078)
 
             // use the following to ignore enforcement version of Kotlin with Compose
             //"-P", "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"

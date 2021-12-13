@@ -211,7 +211,7 @@ pipeline {
                 }
                 stage("Detekt") {
                     steps {
-                        sh './gradlew downloadDetektConfig detekt'
+                        sh './gradlew detekt'
                     }
                     post {
                         always {
