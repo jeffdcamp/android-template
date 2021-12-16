@@ -1,5 +1,6 @@
 package org.jdc.template.ux.individual
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -13,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.jdc.template.R
@@ -20,6 +22,7 @@ import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.ui.DateUiUtil
 import org.jdc.template.ui.compose.LocalNavController
 import org.jdc.template.ui.compose.dialog.MessageDialog
+import org.jdc.template.ui.theme.AppTheme
 
 @Composable
 fun IndividualScreen() {
@@ -81,17 +84,20 @@ private fun IndividualSummaryItem(text: String?, label: String? = null, textStyl
     }
 }
 
-//@Preview
-//@Composable
-//fun TestIndividual() {
-//    IndividualSummary(
-//        individual = Individual(
-//            firstName = "Jeff",
-//            lastName = "Campbell",
-//            phone = "801-555-1234",
-//            email = "bob@bob.com",
-////        birthDate = LocalDate.MIN,
-////        alarmTime = LocalTime.MIN
-//        )
-//    )
-//}
+@Preview(group = "light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
+@Preview(group = "dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
+@Composable
+fun TestIndividual() {
+    AppTheme {
+        IndividualSummary(
+            individual = Individual(
+                firstName = "Jeff",
+                lastName = "Campbell",
+                phone = "801-555-0001",
+                email = "bob@bob.com",
+//        birthDate = LocalDate.MIN,
+//        alarmTime = LocalTime.MIN
+            )
+        )
+    }
+}
