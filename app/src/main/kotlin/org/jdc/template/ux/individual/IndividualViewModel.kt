@@ -2,10 +2,8 @@ package org.jdc.template.ux.individual
 
 import android.app.Application
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -13,8 +11,8 @@ import org.jdc.template.R
 import org.jdc.template.analytics.Analytics
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.repository.IndividualRepository
+import org.jdc.template.ui.BaseViewModel
 import org.jdc.template.ui.compose.dialog.MessageDialogData
-import org.jdc.template.util.coroutine.channel.ViewModelChannel
 import org.jdc.template.util.delegates.requireSavedState
 import org.jdc.template.util.ext.stateInDefault
 import org.jdc.template.ux.individualedit.IndividualEditRoute
@@ -27,10 +25,7 @@ class IndividualViewModel
     private val analytics: Analytics,
     private val individualRepository: IndividualRepository,
     savedStateHandle: SavedStateHandle
-) : ViewModel() {
-    private val _eventChannel: ViewModelChannel<Event> = ViewModelChannel(this)
-    val eventChannel: ReceiveChannel<Event> = _eventChannel
-
+) : BaseViewModel() {
     private val individualId: String by requireSavedState(savedStateHandle)
     val individualFlow: StateFlow<Individual?> = individualRepository.getIndividualFlow(individualId).stateInDefault(viewModelScope, null)
 
@@ -52,14 +47,10 @@ class IndividualViewModel
 
     fun editIndividual() {
         analytics.logEvent(Analytics.EVENT_EDIT_INDIVIDUAL)
-        _eventChannel.sendAsync(Event.Navigate(IndividualEditRoute.createRoute(individualId)))
+        navigate(IndividualEditRoute.createRoute(individualId))
     }
 
     fun hideInfoDialog() {
         _messageDialogDataFlow.value = MessageDialogData()
-    }
-
-    sealed class Event {
-        class Navigate(val route: String) : Event()
     }
 }

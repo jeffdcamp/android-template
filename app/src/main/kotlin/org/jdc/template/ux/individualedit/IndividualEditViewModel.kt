@@ -2,18 +2,17 @@ package org.jdc.template.ux.individualedit
 
 import android.app.Application
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.jdc.template.R
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.repository.IndividualRepository
+import org.jdc.template.ui.BaseViewModel
 import org.jdc.template.ui.compose.dialog.MessageDialogData
-import org.jdc.template.util.coroutine.channel.ViewModelChannel
 import org.jdc.template.util.delegates.savedState
 import java.time.LocalDate
 import java.time.LocalTime
@@ -25,12 +24,15 @@ class IndividualEditViewModel
     private val application: Application,
     private val individualRepository: IndividualRepository,
     savedStateHandle: SavedStateHandle
-) : ViewModel() {
-    private val _eventChannel: ViewModelChannel<Event> = ViewModelChannel(this)
-    val eventChannel: ReceiveChannel<Event> = _eventChannel
-
+) : BaseViewModel() {
     private val individualId: String? by savedState(savedStateHandle, null)
     private var individual = Individual()
+
+    private val _showBirthDateFlow = MutableStateFlow<LocalDate?>(null)
+    val showBirthDateFlow: StateFlow<LocalDate?> = _showBirthDateFlow.asStateFlow()
+
+    private val _showAlarmTimeFlow = MutableStateFlow<LocalTime?>(null)
+    val showAlarmTimeFlow: StateFlow<LocalTime?> = _showAlarmTimeFlow.asStateFlow()
 
     // hold state for Compose views
     private val _firstNameFlow = MutableStateFlow("")
@@ -95,7 +97,7 @@ class IndividualEditViewModel
 
         individualRepository.saveIndividual(individual)
 
-        _eventChannel.sendAsync(Event.IndividualSaved)
+        popBackstack()
     }
 
     private fun valueOrNull(value: String): String? {
@@ -145,16 +147,26 @@ class IndividualEditViewModel
     }
 
     fun onBirthDateClicked() {
-        _eventChannel.sendAsync(Event.ShowBirthDateSelection(_birthDateFlow.value ?: LocalDate.now()))
+        showBirthDate(_birthDateFlow.value ?: LocalDate.now())
     }
 
     fun onAlarmTimeClicked() {
-        _eventChannel.sendAsync(Event.ShowAlarmTimeSelection(_alarmTimeFlow.value ?: LocalTime.now()))
+        showAlarmTime(_alarmTimeFlow.value ?: LocalTime.now())
     }
 
-    sealed class Event {
-        object IndividualSaved : Event()
-        class ShowBirthDateSelection(val date: LocalDate) : Event()
-        class ShowAlarmTimeSelection(val time: LocalTime) : Event()
+    private fun showBirthDate(localDate: LocalDate) {
+        _showBirthDateFlow.compareAndSet(null, localDate)
+    }
+
+    fun resetShowBirthDate(localDate: LocalDate) {
+        _showBirthDateFlow.compareAndSet(localDate, null)
+    }
+
+    private fun showAlarmTime(localTime: LocalTime) {
+        _showAlarmTimeFlow.compareAndSet(null, localTime)
+    }
+
+    fun resetShowAlarmTime(localTime: LocalTime) {
+        _showAlarmTimeFlow.compareAndSet(localTime, null)
     }
 }

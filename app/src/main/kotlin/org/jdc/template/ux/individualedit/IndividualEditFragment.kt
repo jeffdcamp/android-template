@@ -52,16 +52,19 @@ class IndividualEditFragment : Fragment() {
 
     private fun setupViewModelObservers() {
         withLifecycleOwner(this) {
-            // Events
-            viewModel.eventChannel.receiveWhenStarted { event -> handleEvent(event) }
-        }
-    }
-
-    private fun handleEvent(event: IndividualEditViewModel.Event) {
-        when (event) {
-            is IndividualEditViewModel.Event.IndividualSaved -> findNavController().popBackStack()
-            is IndividualEditViewModel.Event.ShowBirthDateSelection -> showBirthDateSelector(event.date)
-            is IndividualEditViewModel.Event.ShowAlarmTimeSelection -> showAlarmTimeSelector(event.time)
+            viewModel.navigateRouteFlow.collectWhenStarted { navigationData -> navigationData?.navigate(findNavController(), viewModel) }
+            viewModel.showBirthDateFlow.collectWhenStarted {
+                it?.let { date ->
+                    showBirthDateSelector(date)
+                    viewModel.resetShowBirthDate(date)
+                }
+            }
+            viewModel.showAlarmTimeFlow.collectWhenStarted {
+                it?.let { time ->
+                    showAlarmTimeSelector(time)
+                    viewModel.resetShowAlarmTime(time)
+                }
+            }
         }
     }
 

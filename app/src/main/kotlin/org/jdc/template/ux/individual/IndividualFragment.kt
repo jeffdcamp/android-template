@@ -49,14 +49,9 @@ class IndividualFragment : Fragment() {
 
     private fun setupViewModelObservers() {
         withLifecycleOwner(this) {
-            // Events
-            viewModel.eventChannel.receiveWhenStarted { event -> handleEvent(event) }
-        }
-    }
-
-    private fun handleEvent(event: IndividualViewModel.Event) {
-        when (event) {
-            is IndividualViewModel.Event.Navigate -> findNavController().navigate(event.route)
+            viewModel.navigateRouteFlow.collectWhenStarted { navigationData ->
+                navigationData?.navigate(findNavController(), viewModel)
+            }
         }
     }
 

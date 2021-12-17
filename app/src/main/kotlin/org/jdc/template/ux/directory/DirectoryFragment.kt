@@ -53,14 +53,9 @@ class DirectoryFragment : Fragment() {
 
     private fun setupViewModelObservers() {
         withLifecycleOwner(this) {
-            // Events
-            viewModel.eventChannel.receiveWhenStarted { event -> handleEvent(event) }
-        }
-    }
-
-    private fun handleEvent(event: DirectoryViewModel.Event) {
-        when (event) {
-            is DirectoryViewModel.Event.Navigate -> findNavController().navigate(event.route)
+            viewModel.navigateRouteFlow.collectWhenStarted { navigationData ->
+                navigationData?.navigate(findNavController(), viewModel)
+            }
         }
     }
 
