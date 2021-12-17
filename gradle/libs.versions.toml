@@ -1,6 +1,6 @@
 [versions]
 agp = "7.1.0-beta05"
-kotlin = "1.6.0"
+kotlin = "1.6.10"
 coroutines = "1.6.0-RC3"
 
 accompanist = "0.7.1"
@@ -9,6 +9,7 @@ androidxlifecycle = "2.4.0"
 androidxtest = "1.4.0"
 coil = "1.4.0"
 compose = "1.1.0-rc01"
+compose-compiler = "1.1.0-rc02"
 dagger = "2.40.5"
 dbtools = "7.0.0-beta04"
 hilt = "2.40.5"
@@ -20,7 +21,7 @@ room = "2.4.0"
 work = "2.7.1"
 
 [plugins]
-ksp = { id = "com.google.devtools.ksp", version = "1.6.0-1.0.1" }
+ksp = { id = "com.google.devtools.ksp", version = "1.6.10-1.0.2" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.19.0" }
 playPublisher = { id = "com.github.triplet.play", version = "3.7.0" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
@@ -108,7 +109,7 @@ google-material = { module = "com.google.android.material:material", version = "
 google-servicesgradlePluginClasspath = { module = "com.google.gms:google-services", version = "4.3.10" } # NOTE 4.3.9 is NOT compatible with firebase-bom 28.3.1
 
 # Firebase - https://firebase.google.com/support/release-notes/android
-google-firebase-bom = { module = "com.google.firebase:firebase-bom", version = "29.0.2" }
+google-firebase-bom = { module = "com.google.firebase:firebase-bom", version = "29.0.3" }
 google-firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx" }
 google-firebase-config = { module = "com.google.firebase:firebase-config-ktx" }
 google-firebase-core = { module = "com.google.firebase:firebase-core" }
