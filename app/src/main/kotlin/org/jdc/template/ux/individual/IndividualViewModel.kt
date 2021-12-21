@@ -2,6 +2,7 @@ package org.jdc.template.ux.individual
 
 import android.app.Application
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,7 +12,8 @@ import org.jdc.template.R
 import org.jdc.template.analytics.Analytics
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.repository.IndividualRepository
-import org.jdc.template.ui.BaseViewModel
+import org.jdc.template.ui.ViewModelNav
+import org.jdc.template.ui.ViewModelNavImpl
 import org.jdc.template.ui.compose.dialog.MessageDialogData
 import org.jdc.template.util.delegates.requireSavedState
 import org.jdc.template.util.ext.stateInDefault
@@ -25,7 +27,7 @@ class IndividualViewModel
     private val analytics: Analytics,
     private val individualRepository: IndividualRepository,
     savedStateHandle: SavedStateHandle
-) : BaseViewModel() {
+) :  ViewModel(), ViewModelNav by ViewModelNavImpl() {
     private val individualId: String by requireSavedState(savedStateHandle)
     val individualFlow: StateFlow<Individual?> = individualRepository.getIndividualFlow(individualId).stateInDefault(viewModelScope, null)
 

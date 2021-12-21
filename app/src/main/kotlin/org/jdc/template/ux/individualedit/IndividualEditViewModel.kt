@@ -2,6 +2,7 @@ package org.jdc.template.ux.individualedit
 
 import android.app.Application
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,7 +12,8 @@ import kotlinx.coroutines.launch
 import org.jdc.template.R
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.repository.IndividualRepository
-import org.jdc.template.ui.BaseViewModel
+import org.jdc.template.ui.ViewModelNav
+import org.jdc.template.ui.ViewModelNavImpl
 import org.jdc.template.ui.compose.dialog.MessageDialogData
 import org.jdc.template.util.delegates.savedState
 import java.time.LocalDate
@@ -24,7 +26,7 @@ class IndividualEditViewModel
     private val application: Application,
     private val individualRepository: IndividualRepository,
     savedStateHandle: SavedStateHandle
-) : BaseViewModel() {
+) :  ViewModel(), ViewModelNav by ViewModelNavImpl() {
     private val individualId: String? by savedState(savedStateHandle, null)
     private var individual = Individual()
 
@@ -97,7 +99,7 @@ class IndividualEditViewModel
 
         individualRepository.saveIndividual(individual)
 
-        popBackstack()
+        popBackStack()
     }
 
     private fun valueOrNull(value: String): String? {
