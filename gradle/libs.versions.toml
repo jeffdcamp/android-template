@@ -1,9 +1,9 @@
 [versions]
 agp = "7.1.0-beta05"
 kotlin = "1.6.10"
-coroutines = "1.6.0-RC3"
+coroutines = "1.6.0"
 
-accompanist = "0.7.1"
+accompanist = "0.22.0-rc"
 androidxhilt = "1.0.0"
 androidxlifecycle = "2.4.0"
 androidxtest = "1.4.0"
