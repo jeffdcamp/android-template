@@ -19,11 +19,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
+import org.jdc.template.ui.HandleNavigation
+import org.jdc.template.ui.compose.LocalNavController
 
 @Composable
-fun DirectoryScreen() {
-    val viewModel: DirectoryViewModel = viewModel()
+fun DirectoryScreen(viewModel: DirectoryViewModel = hiltViewModel()) {
+    val navController = LocalNavController.current
 
     val directoryList by viewModel.directoryListFlow.collectAsState()
 
@@ -49,4 +51,6 @@ fun DirectoryScreen() {
             Icon(Icons.Filled.Add, contentDescription = "Add")
         }
     }
+
+    HandleNavigation(viewModel, navController, viewModel.navigateRouteFlow)
 }

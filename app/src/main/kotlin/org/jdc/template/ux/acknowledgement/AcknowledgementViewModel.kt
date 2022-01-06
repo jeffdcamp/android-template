@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import org.jdc.template.ui.ViewModelNav
+import org.jdc.template.ui.ViewModelNavImpl
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -12,7 +14,7 @@ import javax.inject.Inject
 class AcknowledgementViewModel
 @Inject constructor(
     private val application: Application
-) : ViewModel() {
+) : ViewModel(), ViewModelNav by ViewModelNavImpl() {
 
     private val _acknowledgementHtmlStateFlow = MutableStateFlow<String?>(null)
     val acknowledgementHtmlFlow: StateFlow<String?> = _acknowledgementHtmlStateFlow

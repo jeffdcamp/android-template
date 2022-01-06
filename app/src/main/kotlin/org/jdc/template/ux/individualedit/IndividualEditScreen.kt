@@ -14,19 +14,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import org.jdc.template.R
 import org.jdc.template.ui.DateUiUtil
+import org.jdc.template.ui.HandleNavigation
 import org.jdc.template.ui.compose.DayNightTextField
 import org.jdc.template.ui.compose.Hoisted
+import org.jdc.template.ui.compose.LocalNavController
 import org.jdc.template.ui.compose.dialog.MessageDialog
 import org.jdc.template.ui.compose.hoist
 import java.time.LocalDate
 import java.time.LocalTime
 
 @Composable
-fun IndividualEditScreen() {
-    val viewModel: IndividualEditViewModel = viewModel()
+fun IndividualEditScreen(viewModel: IndividualEditViewModel = hiltViewModel()) {
+    val navController = LocalNavController.current
 
     val firstName: String by viewModel.firstNameFlow.collectAsState()
     val lastName: String by viewModel.lastNameFlow.collectAsState()
@@ -55,6 +57,8 @@ fun IndividualEditScreen() {
             onConfirmButtonClicked = viewModel::hideInfoDialog
         )
     }
+
+    HandleNavigation(viewModel, navController, viewModel.navigateRouteFlow)
 }
 
 @Composable

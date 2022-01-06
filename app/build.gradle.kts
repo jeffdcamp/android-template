@@ -36,7 +36,6 @@ android {
 
         buildConfigField("String", "BUILD_NUMBER", "\"${System.getProperty("BUILD_NUMBER")}\"")
         buildConfigField("String", "USER_AGENT_APP_NAME", "\"AndroidTemplate\"")
-        buildConfigField("String", "ANALYTICS_KEY", "\"${getAnalyticsKey()}\"")
 
         // used by Room, to test migrations
         ksp {
@@ -214,6 +213,7 @@ dependencies {
     // Navigation
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.navigation.ui)
+    implementation(libs.androidx.hilt.navigation.compose)
 
     // WorkManager
     implementation(libs.androidx.work.runtime)
@@ -267,12 +267,6 @@ dependencies {
 // create JUnit reports
 tasks.withType<Test> {
     useJUnitPlatform()
-}
-
-// Rename and place "myAnalyticsKey" in global gradle.properties
-fun getAnalyticsKey(): String {
-    val myAnalyticsKey: String? by project
-    return myAnalyticsKey ?: ""
 }
 
 tasks.register("incrementVersionCode") {

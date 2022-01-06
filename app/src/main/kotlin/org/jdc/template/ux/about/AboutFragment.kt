@@ -17,7 +17,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
 import org.jdc.template.ui.compose.LocalNavController
 import org.jdc.template.ui.theme.AppTheme
-import org.jdc.template.ux.acknowledgement.AcknowledgmentsRoute
 
 @AndroidEntryPoint
 class AboutFragment : Fragment() {
@@ -55,7 +54,7 @@ class AboutFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_item_licenses -> {
-                findNavController().navigate(AcknowledgmentsRoute.createRoute())
+                viewModel.licensesClicked()
                 true
             }
             else -> super.onOptionsItemSelected(item)

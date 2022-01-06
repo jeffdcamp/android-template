@@ -17,7 +17,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
 import org.jdc.template.ui.compose.LocalNavController
 import org.jdc.template.ui.theme.AppTheme
-import org.jdc.template.util.ext.withLifecycleOwner
 
 @AndroidEntryPoint
 class IndividualFragment : Fragment() {
@@ -37,20 +36,6 @@ class IndividualFragment : Fragment() {
                         }
                     }
                 }
-            }
-        }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        setupViewModelObservers()
-    }
-
-    private fun setupViewModelObservers() {
-        withLifecycleOwner(this) {
-            viewModel.navigateRouteFlow.collectWhenStarted { navigationData ->
-                navigationData?.navigate(findNavController(), viewModel)
             }
         }
     }

@@ -52,7 +52,6 @@ class IndividualEditFragment : Fragment() {
 
     private fun setupViewModelObservers() {
         withLifecycleOwner(this) {
-            viewModel.navigateRouteFlow.collectWhenStarted { navigationData -> navigationData?.navigate(findNavController(), viewModel) }
             viewModel.showBirthDateFlow.collectWhenStarted {
                 it?.let { date ->
                     showBirthDateSelector(date)

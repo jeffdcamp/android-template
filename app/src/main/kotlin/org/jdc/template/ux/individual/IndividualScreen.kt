@@ -16,36 +16,34 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
+import kotlinx.coroutines.flow.StateFlow
 import org.jdc.template.R
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.ui.DateUiUtil
+import org.jdc.template.ui.HandleNavigation
 import org.jdc.template.ui.compose.LocalNavController
 import org.jdc.template.ui.compose.dialog.MessageDialog
+import org.jdc.template.ui.compose.dialog.MessageDialogData
 import org.jdc.template.ui.theme.AppTheme
 
 @Composable
-fun IndividualScreen() {
+fun IndividualScreen(viewModel: IndividualViewModel = hiltViewModel()) {
     val navController = LocalNavController.current
-    val viewModel: IndividualViewModel = viewModel()
 
     val individual: Individual? by viewModel.individualFlow.collectAsState()
     IndividualSummary(individual)
 
-    val messageDialogData by viewModel.messageDialogDataFlow.collectAsState()
+    ShowMessageDialog(
+        messageDialogDataFlow = viewModel.messageDialogDataFlow,
+        onConfirmButtonClicked = {
+            viewModel.deleteIndividual()
+            navController?.popBackStack()
+        },
+        onDismissRequest = { viewModel.hideInfoDialog() }
+    )
 
-    if (messageDialogData.visible) {
-        MessageDialog(
-            title = messageDialogData.title,
-            text = messageDialogData.text,
-            onDismissRequest = { viewModel.hideInfoDialog() },
-            onConfirmButtonClicked = {
-                viewModel.deleteIndividual()
-                navController?.popBackStack()
-            },
-            onDismissButtonClicked = { viewModel.hideInfoDialog() }
-        )
-    }
+    HandleNavigation(viewModel, navController, viewModel.navigateRouteFlow)
 }
 
 @Composable
@@ -80,6 +78,27 @@ private fun IndividualSummaryItem(text: String?, label: String? = null, textStyl
             style = textStyle,
             modifier = Modifier
                 .padding(start = 16.dp, top = if (label != null) 4.dp else 16.dp)
+        )
+    }
+}
+
+@Composable
+private fun ShowMessageDialog(
+    messageDialogDataFlow: StateFlow<MessageDialogData>,
+    onDismissRequest: () -> Unit,
+    onConfirmButtonClicked: () -> Unit
+) {
+    val messageDialogData by messageDialogDataFlow.collectAsState()
+
+    if (messageDialogData.visible) {
+        MessageDialog(
+            title = messageDialogData.title,
+            text = messageDialogData.text,
+            onDismissRequest = { onDismissRequest() },
+            onConfirmButtonClicked = {
+                onConfirmButtonClicked()
+            },
+            onDismissButtonClicked = { onDismissRequest() }
         )
     }
 }

@@ -12,14 +12,17 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.flow.StateFlow
 import org.jdc.template.BuildConfig
 import org.jdc.template.R
+import org.jdc.template.ui.HandleNavigation
+import org.jdc.template.ui.compose.LocalNavController
 
 @Composable
-fun AboutScreen() {
-    val viewModel: AboutViewModel = viewModel()
+fun AboutScreen(viewModel: AboutViewModel = hiltViewModel()) {
+    val navController = LocalNavController.current
+
     val restServicesEnabledFlow = viewModel.resetServiceEnabledFlow
 
     Column(
@@ -37,6 +40,8 @@ fun AboutScreen() {
         TestButton("TEST SIMPLE WORKMANAGER") { viewModel.workManagerSimpleTest() }
         TestButton("TEST SYNC WORKMANAGER") { viewModel.workManagerSyncTest() }
     }
+
+    HandleNavigation(viewModel, navController, viewModel.navigateRouteFlow)
 }
 
 @Composable

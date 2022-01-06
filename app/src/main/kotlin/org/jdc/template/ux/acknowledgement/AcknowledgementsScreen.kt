@@ -17,13 +17,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.flow.StateFlow
+import org.jdc.template.ui.HandleNavigation
+import org.jdc.template.ui.compose.LocalNavController
 
 @Composable
-fun AcknowledgementScreen() {
-    val viewModel: AcknowledgementViewModel = viewModel()
+fun AcknowledgementScreen(viewModel: AcknowledgementViewModel = viewModel()) {
+    val navController = LocalNavController.current
+
     val acknowledgementHtmlFlow = viewModel.acknowledgementHtmlFlow
 
     AcknowledgementWebview(acknowledgementHtmlFlow)
+
+    HandleNavigation(viewModel, navController, viewModel.navigateRouteFlow)
 }
 
 @Composable

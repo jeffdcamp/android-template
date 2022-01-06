@@ -17,7 +17,10 @@ import org.jdc.template.model.db.main.type.IndividualType
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.model.webservice.colors.ColorService
 import org.jdc.template.model.webservice.colors.dto.ColorsDto
+import org.jdc.template.ui.ViewModelNav
+import org.jdc.template.ui.ViewModelNavImpl
 import org.jdc.template.util.ext.saveBodyToFile
+import org.jdc.template.ux.acknowledgement.AcknowledgmentsRoute
 import org.jdc.template.work.WorkScheduler
 import retrofit2.Response
 import timber.log.Timber
@@ -35,7 +38,7 @@ class AboutViewModel
     private val colorService: ColorService,
     private val workScheduler: WorkScheduler,
     private val remoteConfig: RemoteConfig
-) : ViewModel() {
+) : ViewModel(), ViewModelNav by ViewModelNavImpl() {
 
     var appVersion = BuildConfig.VERSION_NAME
     val resetServiceEnabledFlow: StateFlow<Boolean> = MutableStateFlow(remoteConfig.isColorServiceEnabled())
@@ -216,5 +219,9 @@ class AboutViewModel
         } else {
             Timber.e("Cannot find individual")
         }
+    }
+
+    fun licensesClicked() {
+        navigate(AcknowledgmentsRoute.createRoute())
     }
 }

@@ -1,47 +1,50 @@
 package org.jdc.template.ui
 
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.navigation.NavController
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 interface ViewModelNav {
-    val navigateRouteFlow: StateFlow<ViewModelNavType?>
+    val navigateRouteFlow: StateFlow<ViewModelNavigator?>
 
     fun navigate(route: String, popBackStack: Boolean = false)
     fun popBackStack(popToRoute: String? = null, inclusive: Boolean = false)
-    fun navigate(navigationData: ViewModelNavType)
-    fun resetNavigate(navigationData: ViewModelNavType)
+    fun navigate(viewModelNavigator: ViewModelNavigator)
+    fun resetNavigate(viewModelNavigator: ViewModelNavigator)
 }
 
 class ViewModelNavImpl : ViewModelNav {
-    private val _navigateRouteFlow = MutableStateFlow<ViewModelNavType?>(null)
-    override val navigateRouteFlow: StateFlow<ViewModelNavType?> = _navigateRouteFlow.asStateFlow()
+    private val _navigateRouteFlow = MutableStateFlow<ViewModelNavigator?>(null)
+    override val navigateRouteFlow: StateFlow<ViewModelNavigator?> = _navigateRouteFlow.asStateFlow()
 
     override fun navigate(route: String, popBackStack: Boolean) {
-        _navigateRouteFlow.compareAndSet(null, if (popBackStack) ViewModelNavType.PopAndNavigate(route) else ViewModelNavType.Navigate(route))
+        _navigateRouteFlow.compareAndSet(null, if (popBackStack) ViewModelNavigator.PopAndNavigate(route) else ViewModelNavigator.Navigate(route))
     }
 
     override fun popBackStack(popToRoute: String?, inclusive: Boolean) {
-        _navigateRouteFlow.compareAndSet(null, ViewModelNavType.Pop(popToRoute, inclusive))
+        _navigateRouteFlow.compareAndSet(null, ViewModelNavigator.Pop(popToRoute, inclusive))
     }
 
-    override fun navigate(navigationData: ViewModelNavType) {
-        _navigateRouteFlow.compareAndSet(null, navigationData)
+    override fun navigate(viewModelNavigator: ViewModelNavigator) {
+        _navigateRouteFlow.compareAndSet(null, viewModelNavigator)
     }
 
-    override fun resetNavigate(navigationData: ViewModelNavType) {
-        _navigateRouteFlow.compareAndSet(navigationData, null)
+    override fun resetNavigate(viewModelNavigator: ViewModelNavigator) {
+        _navigateRouteFlow.compareAndSet(viewModelNavigator, null)
     }
 }
 
-sealed class ViewModelNavType {
+sealed class ViewModelNavigator {
     /**
      * @return true if navController.popBackStack() called AND was successful
      */
     abstract fun navigate(navController: NavController, viewModelNav: ViewModelNav): Boolean
 
-    class Navigate(private val route: String): ViewModelNavType() {
+    class Navigate(private val route: String): ViewModelNavigator() {
         override fun navigate(navController: NavController, viewModelNav: ViewModelNav): Boolean {
             navController.navigate(route)
 
@@ -50,7 +53,7 @@ sealed class ViewModelNavType {
         }
     }
 
-    class PopAndNavigate(private val route: String): ViewModelNavType() {
+    class PopAndNavigate(private val route: String): ViewModelNavigator() {
         override fun navigate(navController: NavController, viewModelNav: ViewModelNav): Boolean {
             val stackPopped = navController.popBackStack()
             navController.navigate(route)
@@ -60,7 +63,7 @@ sealed class ViewModelNavType {
         }
     }
 
-    class Pop(private val popToRoute: String?, private val inclusive: Boolean = false): ViewModelNavType() {
+    class Pop(private val popToRoute: String?, private val inclusive: Boolean = false): ViewModelNavigator() {
         override fun navigate(navController: NavController, viewModelNav: ViewModelNav): Boolean {
             val stackPopped = if (popToRoute == null) {
                 navController.popBackStack()
@@ -71,5 +74,18 @@ sealed class ViewModelNavType {
             viewModelNav.resetNavigate(this)
             return stackPopped
         }
+    }
+}
+
+@Composable
+fun HandleNavigation(
+    viewModelNav: ViewModelNav,
+    navController: NavController?,
+    navigatorFlow: StateFlow<ViewModelNavigator?>
+) {
+    val navigator by navigatorFlow.collectAsState()
+
+    if (navController != null) {
+        navigator?.navigate(navController, viewModelNav)
     }
 }
