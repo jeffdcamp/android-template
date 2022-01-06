@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import org.jdc.template.ui.ViewModelNav
-import org.jdc.template.ui.ViewModelNavImpl
+import org.jdc.template.ui.navigation.ViewModelNav
+import org.jdc.template.ui.navigation.ViewModelNavImpl
 import timber.log.Timber
 import javax.inject.Inject
 

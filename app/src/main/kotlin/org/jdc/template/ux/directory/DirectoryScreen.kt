@@ -20,7 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import org.jdc.template.ui.HandleNavigation
+import org.jdc.template.ui.navigation.HandleNavigation
 import org.jdc.template.ui.compose.LocalNavController
 
 @Composable

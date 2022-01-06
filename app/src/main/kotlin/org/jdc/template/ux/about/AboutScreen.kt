@@ -16,8 +16,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.flow.StateFlow
 import org.jdc.template.BuildConfig
 import org.jdc.template.R
-import org.jdc.template.ui.HandleNavigation
 import org.jdc.template.ui.compose.LocalNavController
+import org.jdc.template.ui.navigation.HandleNavigation
 
 @Composable
 fun AboutScreen(viewModel: AboutViewModel = hiltViewModel()) {

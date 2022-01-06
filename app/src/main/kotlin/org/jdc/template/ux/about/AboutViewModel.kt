@@ -17,8 +17,8 @@ import org.jdc.template.model.db.main.type.IndividualType
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.model.webservice.colors.ColorService
 import org.jdc.template.model.webservice.colors.dto.ColorsDto
-import org.jdc.template.ui.ViewModelNav
-import org.jdc.template.ui.ViewModelNavImpl
+import org.jdc.template.ui.navigation.ViewModelNav
+import org.jdc.template.ui.navigation.ViewModelNavImpl
 import org.jdc.template.util.ext.saveBodyToFile
 import org.jdc.template.ux.acknowledgement.AcknowledgmentsRoute
 import org.jdc.template.work.WorkScheduler

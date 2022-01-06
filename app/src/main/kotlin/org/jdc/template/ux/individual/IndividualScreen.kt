@@ -21,7 +21,7 @@ import kotlinx.coroutines.flow.StateFlow
 import org.jdc.template.R
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.ui.DateUiUtil
-import org.jdc.template.ui.HandleNavigation
+import org.jdc.template.ui.navigation.HandleNavigation
 import org.jdc.template.ui.compose.LocalNavController
 import org.jdc.template.ui.compose.dialog.MessageDialog
 import org.jdc.template.ui.compose.dialog.MessageDialogData

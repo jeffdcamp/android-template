@@ -6,8 +6,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
 import org.jdc.template.model.db.main.directoryitem.DirectoryItem
 import org.jdc.template.model.repository.IndividualRepository
-import org.jdc.template.ui.ViewModelNav
-import org.jdc.template.ui.ViewModelNavImpl
+import org.jdc.template.ui.navigation.ViewModelNav
+import org.jdc.template.ui.navigation.ViewModelNavImpl
 import org.jdc.template.util.ext.stateInDefault
 import org.jdc.template.ux.individual.IndividualRoute
 import org.jdc.template.ux.individualedit.IndividualEditRoute

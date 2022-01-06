@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import org.jdc.template.R
 import org.jdc.template.ui.DateUiUtil
-import org.jdc.template.ui.HandleNavigation
+import org.jdc.template.ui.navigation.HandleNavigation
 import org.jdc.template.ui.compose.DayNightTextField
 import org.jdc.template.ui.compose.Hoisted
 import org.jdc.template.ui.compose.LocalNavController
