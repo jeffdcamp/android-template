@@ -12,9 +12,9 @@ import kotlinx.coroutines.launch
 import org.jdc.template.R
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.repository.IndividualRepository
+import org.jdc.template.ui.compose.dialog.MessageDialogData
 import org.jdc.template.ui.navigation.ViewModelNav
 import org.jdc.template.ui.navigation.ViewModelNavImpl
-import org.jdc.template.ui.compose.dialog.MessageDialogData
 import org.jdc.template.util.delegates.savedState
 import java.time.LocalDate
 import java.time.LocalTime
@@ -38,25 +38,25 @@ class IndividualEditViewModel
 
     // hold state for Compose views
     private val _firstNameFlow = MutableStateFlow("")
-    val firstNameFlow: StateFlow<String> = _firstNameFlow
+    val firstNameFlow: StateFlow<String> = _firstNameFlow.asStateFlow()
 
     private val _lastNameFlow = MutableStateFlow("")
-    val lastNameFlow: StateFlow<String> = _lastNameFlow
+    val lastNameFlow: StateFlow<String> = _lastNameFlow.asStateFlow()
 
     private val _phoneNumberFlow = MutableStateFlow("")
-    val phoneNumberFlow: StateFlow<String> = _phoneNumberFlow
+    val phoneNumberFlow: StateFlow<String> = _phoneNumberFlow.asStateFlow()
 
     private val _emailFlow = MutableStateFlow("")
-    val emailFlow: StateFlow<String> = _emailFlow
+    val emailFlow: StateFlow<String> = _emailFlow.asStateFlow()
 
     private val _birthDateFlow = MutableStateFlow<LocalDate?>(null)
-    val birthDateFlow: StateFlow<LocalDate?> = _birthDateFlow
+    val birthDateFlow: StateFlow<LocalDate?> = _birthDateFlow.asStateFlow()
 
     private val _alarmTimeFlow = MutableStateFlow<LocalTime?>(null)
-    val alarmTimeFlow: StateFlow<LocalTime?> = _alarmTimeFlow
+    val alarmTimeFlow: StateFlow<LocalTime?> = _alarmTimeFlow.asStateFlow()
 
     private val _messageDialogDataFlow = MutableStateFlow(MessageDialogData())
-    val messageDialogDataFlow: StateFlow<MessageDialogData> = _messageDialogDataFlow
+    val messageDialogDataFlow: StateFlow<MessageDialogData> = _messageDialogDataFlow.asStateFlow()
 
     init {
         individualId?.let { id ->
