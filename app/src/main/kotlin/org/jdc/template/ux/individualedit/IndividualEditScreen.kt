@@ -15,38 +15,51 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import kotlinx.coroutines.flow.StateFlow
 import org.jdc.template.R
 import org.jdc.template.ui.DateUiUtil
-import org.jdc.template.ui.navigation.HandleNavigation
 import org.jdc.template.ui.compose.DayNightTextField
-import org.jdc.template.ui.compose.Hoisted
 import org.jdc.template.ui.compose.LocalNavController
 import org.jdc.template.ui.compose.dialog.MessageDialog
-import org.jdc.template.ui.compose.hoist
+import org.jdc.template.ui.navigation.HandleNavigation
 import java.time.LocalDate
 import java.time.LocalTime
+
+private class IndividualState(
+    val firstNameFlow: StateFlow<String>,
+    val firstNameOnChange: (String) -> Unit,
+    val lastNameFlow: StateFlow<String>,
+    val lastNameOnChange: (String) -> Unit,
+    val phoneFlow: StateFlow<String>,
+    val phoneOnChange: (String) -> Unit,
+    val emailFlow: StateFlow<String>,
+    val emailOnChange: (String) -> Unit,
+    val birthDateFlow: StateFlow<LocalDate?>,
+    val birthDateClicked: () -> Unit,
+    val alarmTimeFlow: StateFlow<LocalTime?>,
+    val alarmTimeClicked: () -> Unit
+)
 
 @Composable
 fun IndividualEditScreen(viewModel: IndividualEditViewModel = hiltViewModel()) {
     val navController = LocalNavController.current
 
-    val firstName: String by viewModel.firstNameFlow.collectAsState()
-    val lastName: String by viewModel.lastNameFlow.collectAsState()
-    val phoneNumber: String by viewModel.phoneNumberFlow.collectAsState()
-    val email: String by viewModel.emailFlow.collectAsState()
-    val birthDate: LocalDate? by viewModel.birthDateFlow.collectAsState()
-    val alarmTime: LocalTime? by viewModel.alarmTimeFlow.collectAsState()
-
-    IndividualEditFields(
-        firstName.hoist(viewModel::setFirstName),
-        lastName.hoist(viewModel::setLastName),
-        phoneNumber.hoist(viewModel::setPhoneNumber),
-        email.hoist(viewModel::setEmail),
-        birthDate.hoist(viewModel::setBirthDate),
-        alarmTime.hoist(viewModel::setAlarmTime),
-        viewModel::onBirthDateClicked,
-        viewModel::onAlarmTimeClicked
+    val individualState = IndividualState(
+        viewModel.firstNameFlow,
+        { viewModel.setFirstName(it) },
+        viewModel.lastNameFlow,
+        { viewModel.setLastName(it) },
+        viewModel.phoneNumberFlow,
+        { viewModel.setPhoneNumber(it) },
+        viewModel.emailFlow,
+        { viewModel.setEmail(it) },
+        viewModel.birthDateFlow,
+        { viewModel.onBirthDateClicked() },
+        viewModel.alarmTimeFlow,
+        { viewModel.onAlarmTimeClicked() }
     )
+
+    IndividualEditFields(individualState)
 
     val messageDialogData by viewModel.messageDialogDataFlow.collectAsState()
     if (messageDialogData.visible) {
@@ -63,36 +76,45 @@ fun IndividualEditScreen(viewModel: IndividualEditViewModel = hiltViewModel()) {
 
 @Composable
 private fun IndividualEditFields(
-    firstNameHoisted: Hoisted<String>,
-    lastNameHoisted: Hoisted<String>,
-    phoneNumberHoisted: Hoisted<String>,
-    emailHoisted: Hoisted<String>,
-    birthDateHoisted: Hoisted<LocalDate?>,
-    alarmTimeHoisted: Hoisted<LocalTime?>,
-    onBirthdayClicked: () -> Unit,
-    onAlarmClicked: () -> Unit
+    individualState: IndividualState
 ) {
     Column(Modifier.verticalScroll(rememberScrollState())) {
-        IndividualEditField(stringResource(R.string.first_name), firstNameHoisted)
-        IndividualEditField(stringResource(R.string.last_name), lastNameHoisted)
-        IndividualEditField(stringResource(R.string.phone), phoneNumberHoisted)
-        IndividualEditField(stringResource(R.string.email), emailHoisted)
+        IndividualEditField(stringResource(R.string.first_name), individualState.firstNameFlow, individualState.firstNameOnChange)
+        IndividualEditField(stringResource(R.string.last_name), individualState.lastNameFlow, individualState.lastNameOnChange)
+        IndividualEditField(stringResource(R.string.phone), individualState.phoneFlow, individualState.phoneOnChange)
+        IndividualEditField(stringResource(R.string.email), individualState.emailFlow, individualState.emailOnChange)
 
-        IndividualClickableEditField(stringResource(R.string.birth_date), DateUiUtil.getLocalDateText(LocalContext.current, birthDateHoisted.value), onBirthdayClicked)
-        IndividualClickableEditField(stringResource(R.string.alarm_time), DateUiUtil.getLocalTimeText(LocalContext.current, alarmTimeHoisted.value), onAlarmClicked)
+        DateClickableEditField(stringResource(R.string.birth_date), individualState.birthDateFlow, individualState.birthDateClicked)
+        TimeClickableEditField(stringResource(R.string.birth_date), individualState.alarmTimeFlow, individualState.alarmTimeClicked)
     }
 }
 
 @Composable
-private fun IndividualEditField(label: String, text: Hoisted<String>) {
+private fun IndividualEditField(label: String, textFlow: StateFlow<String>, onChange: (String) -> Unit) {
+    val text by textFlow.collectAsState()
+
     DayNightTextField(
-        value = text.value,
-        onValueChange = { text.onChange(it) },
+        value = text,
+        onValueChange = { onChange(it) },
         label = { Text(label) },
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = 16.dp, end = 16.dp, top = 16.dp)
     )
+}
+
+@Composable
+private fun DateClickableEditField(label: String, localDateFlow: StateFlow<LocalDate?>, onClick: () -> Unit) {
+    val date by localDateFlow.collectAsState()
+    val text = DateUiUtil.getLocalDateText(LocalContext.current, date)
+    IndividualClickableEditField(label, text, onClick)
+}
+
+@Composable
+private fun TimeClickableEditField(label: String, localTimeFlow: StateFlow<LocalTime?>, onClick: () -> Unit) {
+    val time by localTimeFlow.collectAsState()
+    val text = DateUiUtil.getLocalTimeText(LocalContext.current, time)
+    IndividualClickableEditField(label, text, onClick)
 }
 
 @Composable
