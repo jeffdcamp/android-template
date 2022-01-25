@@ -14,15 +14,6 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 }
 
-kapt {
-    javacOptions {
-        // Increase the max count of errors from annotation processors. (Default is 100)
-        option("-Xmaxerrs", 500)
-    }
-
-    correctErrorTypes = true // prevent NonExistentClass in errors (https://kotlinlang.org/docs/kapt.html#non-existent-type-correction)
-}
-
 android {
     compileSdk = AppInfo.AndroidSdk.COMPILE
 
