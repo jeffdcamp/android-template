@@ -8,12 +8,12 @@ androidxhilt = "1.0.0"
 androidxlifecycle = "2.4.0"
 androidxtest = "1.4.0"
 coil = "1.4.0"
-compose = "1.2.0-alpha01"
+compose = "1.2.0-alpha02"
 dagger = "2.40.5"
 dbtools = "7.0.1"
 hilt = "2.40.5"
 ktlint = "0.40.0"
-navigation = "2.4.0-rc01"
+navigation = "2.4.0"
 paging = "3.0.0-beta02"
 retrofit = "2.9.0"
 room = "2.4.1"
@@ -39,12 +39,12 @@ androidx-appcompat = { module = "androidx.appcompat:appcompat", version = "1.4.1
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version = "2.0.4" }
 androidx-core = { module = "androidx.core:core-ktx", version = "1.7.0-beta02" }
 androidx-datastorePrefs = { module = "androidx.datastore:datastore-preferences", version = "1.0.0" }
-androidx-fragment = { module = "androidx.fragment:fragment-ktx", version = "1.4.0" }
+androidx-fragment = { module = "androidx.fragment:fragment-ktx", version = "1.4.1" }
 androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version = "1.2.1" }
 androidx-startup = { module = "androidx.startup:startup-runtime", version = "1.1.0" }
 
 androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidxhilt" }
-androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version = "1.0.0-rc01" }
+androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version = "1.0.0" }
 androidx-hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "androidxhilt" }
 
 androidx-lifecycle-common-java8 = { module = "androidx.lifecycle:lifecycle-common-java8", version.ref = "androidxlifecycle" }
