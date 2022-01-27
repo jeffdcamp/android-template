@@ -1,27 +1,38 @@
 package org.jdc.template.ui.compose.dialog
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusOrder
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import kotlinx.coroutines.delay
 import org.jdc.template.R
 import org.jdc.template.ui.compose.DayNightTextField
 import java.util.Locale
@@ -46,8 +57,7 @@ fun InputDialog(
     var textFieldValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue(initialTextFieldText ?: "", TextRange(initialTextFieldText?.length ?: 0))) }
 
     // Test: request focus on TextField
-//    val focusRequester = remember { FocusRequester() }
-//    val keyboardController = LocalSoftwareKeyboardController.current // keyboardController?.show()
+    val focusRequester = remember { FocusRequester() }
 
     Dialog(
         onDismissRequest = onDismissRequest,
@@ -67,6 +77,8 @@ fun InputDialog(
                     )
                 }
 
+                val keyboardController = LocalSoftwareKeyboardController.current
+
                 // Text Field
                 DayNightTextField(
                     value = textFieldValue,
@@ -85,9 +97,15 @@ fun InputDialog(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 16.dp, start = 16.dp, end = 16.dp)
-//                        .focusRequester(focusRequester)
+                        .focusRequester(focusRequester),
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                    keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() })
                 )
 
+                LaunchedEffect(Unit) {
+                    delay(200) // Need to have a small delay or the keyboard does not appear on the focus: https://issuetracker.google.com/issues/204502668
+                    focusRequester.requestFocus()
+                }
 
                 // Buttons
                 Row(
@@ -117,12 +135,6 @@ fun InputDialog(
                         }
                     }
                 }
-
-                // Delay requesting focus on TextField so it does not happen during composition
-//                DisposableEffect(Unit) {
-//                    focusRequester.requestFocus()
-//                    onDispose { }
-//                }
             }
         }
     }
@@ -153,8 +165,8 @@ fun TwoInputDialog(
     var textFieldValueSecond by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue(initialTextFieldTextSecond ?: "", TextRange(initialTextFieldTextSecond?.length ?: 0))) }
 
     // Test: request focus on TextField
-//    val focusRequester = remember { FocusRequester() }
-//    val keyboardController = LocalSoftwareKeyboardController.current // keyboardController?.show()
+    val focusRequester = remember { FocusRequester() }
+    val (item1, item2) = remember { FocusRequester.createRefs() }
 
     Dialog(
         onDismissRequest = onDismissRequest,
@@ -174,7 +186,9 @@ fun TwoInputDialog(
                     )
                 }
 
-                // Text Fields
+                val keyboardController = LocalSoftwareKeyboardController.current
+
+                // First Text Field
                 DayNightTextField(
                     value = textFieldValueFirst,
                     onValueChange = { newTextFieldValue ->
@@ -192,8 +206,16 @@ fun TwoInputDialog(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 16.dp, start = 16.dp, end = 16.dp)
-//                        .focusRequester(focusRequester)
+                        .focusOrder(item1) {
+                            next = item2
+                            down = item2
+                            previous = item2
+                            up = item2
+                        },
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 )
+
+                // Second Text Field
                 DayNightTextField(
                     value = textFieldValueSecond,
                     onValueChange = { newTextFieldValue ->
@@ -211,9 +233,20 @@ fun TwoInputDialog(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 16.dp, start = 16.dp, end = 16.dp)
-//                        .focusRequester(focusRequester)
+                        .focusOrder(item2) {
+                            next = item1
+                            down = item1
+                            previous = item1
+                            up = item1
+                        },
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                    keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() })
                 )
 
+                LaunchedEffect(Unit) {
+                    delay(200) // Need to have a small delay or the keyboard does not appear on the focus: https://issuetracker.google.com/issues/204502668
+                    focusRequester.requestFocus()
+                }
 
                 // Buttons
                 Row(
