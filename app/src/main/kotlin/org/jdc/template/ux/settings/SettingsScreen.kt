@@ -1,9 +1,12 @@
 package org.jdc.template.ux.settings
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.jdc.template.R
@@ -17,8 +20,11 @@ import org.jdc.template.ui.navigation.WorkManagerStatusRoute
 fun SettingsScreen() {
     val navController = LocalNavController.current
     val viewModel: SettingsViewModel = viewModel()
+    val scrollState = rememberScrollState()
 
-    Column {
+    Column(
+        Modifier.verticalScroll(scrollState)
+    ) {
         Setting.Header(stringResource(R.string.display))
         Setting.Clickable(stringResource(R.string.theme), viewModel.currentThemeTitleFlow) { viewModel.onThemeSettingClicked() }
         Setting.Switch(stringResource(R.string.sort_by_last_name), viewModel.sortByLastNameFlow) { viewModel.setSortByLastName(it) }
