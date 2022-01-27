@@ -40,7 +40,7 @@ fun MessageDialog(
                         onConfirmButtonClicked()
                     }
                 ) {
-                    Text(confirmButtonText.toUpperCase(Locale.getDefault()))
+                    Text(confirmButtonText.uppercase(Locale.getDefault()))
                 }
             }
         },
@@ -51,7 +51,7 @@ fun MessageDialog(
                         onDismissButtonClicked()
                     }
                 ) {
-                    Text(dismissButtonText.toUpperCase(Locale.getDefault()))
+                    Text(dismissButtonText.uppercase(Locale.getDefault()))
                 }
             }
         }
