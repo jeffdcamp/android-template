@@ -3,7 +3,7 @@ agp = "7.1.0"
 kotlin = "1.6.10"
 coroutines = "1.6.0"
 
-accompanist = "0.22.0-rc"
+accompanist = "0.24.1-alpha"
 androidxhilt = "1.0.0"
 androidxlifecycle = "2.4.0"
 androidxtest = "1.4.0"
