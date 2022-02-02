@@ -41,7 +41,7 @@ fun AboutScreen(viewModel: AboutViewModel = hiltViewModel()) {
         TestButton("TEST SYNC WORKMANAGER") { viewModel.workManagerSyncTest() }
     }
 
-    HandleNavigation(viewModel, navController, viewModel.navigateRouteFlow)
+    HandleNavigation(viewModel, navController, viewModel.navigatorFlow)
 }
 
 @Composable

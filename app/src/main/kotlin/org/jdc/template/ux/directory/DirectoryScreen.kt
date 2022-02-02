@@ -20,8 +20,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import org.jdc.template.ui.navigation.HandleNavigation
 import org.jdc.template.ui.compose.LocalNavController
+import org.jdc.template.ui.navigation.HandleNavigation
 
 @Composable
 fun DirectoryScreen(viewModel: DirectoryViewModel = hiltViewModel()) {
@@ -52,5 +52,5 @@ fun DirectoryScreen(viewModel: DirectoryViewModel = hiltViewModel()) {
         }
     }
 
-    HandleNavigation(viewModel, navController, viewModel.navigateRouteFlow)
+    HandleNavigation(viewModel, navController, viewModel.navigatorFlow)
 }

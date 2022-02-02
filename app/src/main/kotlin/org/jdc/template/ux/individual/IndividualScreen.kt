@@ -43,7 +43,7 @@ fun IndividualScreen(viewModel: IndividualViewModel = hiltViewModel()) {
         onDismissRequest = { viewModel.hideInfoDialog() }
     )
 
-    HandleNavigation(viewModel, navController, viewModel.navigateRouteFlow)
+    HandleNavigation(viewModel, navController, viewModel.navigatorFlow)
 }
 
 @Composable

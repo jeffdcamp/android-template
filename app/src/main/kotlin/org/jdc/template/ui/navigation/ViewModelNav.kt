@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 interface ViewModelNav {
-    val navigateRouteFlow: StateFlow<ViewModelNavigator?>
+    val navigatorFlow: StateFlow<ViewModelNavigator?>
 
     fun navigate(route: String, popBackStack: Boolean = false)
     fun popBackStack(popToRoute: String? = null, inclusive: Boolean = false)
@@ -18,23 +18,23 @@ interface ViewModelNav {
 }
 
 class ViewModelNavImpl : ViewModelNav {
-    private val _navigateRouteFlow = MutableStateFlow<ViewModelNavigator?>(null)
-    override val navigateRouteFlow: StateFlow<ViewModelNavigator?> = _navigateRouteFlow.asStateFlow()
+    private val _navigatorFlow = MutableStateFlow<ViewModelNavigator?>(null)
+    override val navigatorFlow: StateFlow<ViewModelNavigator?> = _navigatorFlow.asStateFlow()
 
     override fun navigate(route: String, popBackStack: Boolean) {
-        _navigateRouteFlow.compareAndSet(null, if (popBackStack) ViewModelNavigator.PopAndNavigate(route) else ViewModelNavigator.Navigate(route))
+        _navigatorFlow.compareAndSet(null, if (popBackStack) ViewModelNavigator.PopAndNavigate(route) else ViewModelNavigator.Navigate(route))
     }
 
     override fun popBackStack(popToRoute: String?, inclusive: Boolean) {
-        _navigateRouteFlow.compareAndSet(null, ViewModelNavigator.Pop(popToRoute, inclusive))
+        _navigatorFlow.compareAndSet(null, ViewModelNavigator.Pop(popToRoute, inclusive))
     }
 
     override fun navigate(viewModelNavigator: ViewModelNavigator) {
-        _navigateRouteFlow.compareAndSet(null, viewModelNavigator)
+        _navigatorFlow.compareAndSet(null, viewModelNavigator)
     }
 
     override fun resetNavigate(viewModelNavigator: ViewModelNavigator) {
-        _navigateRouteFlow.compareAndSet(viewModelNavigator, null)
+        _navigatorFlow.compareAndSet(viewModelNavigator, null)
     }
 }
 

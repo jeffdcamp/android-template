@@ -28,7 +28,7 @@ fun AcknowledgementScreen(viewModel: AcknowledgementViewModel = viewModel()) {
 
     AcknowledgementWebview(acknowledgementHtmlFlow)
 
-    HandleNavigation(viewModel, navController, viewModel.navigateRouteFlow)
+    HandleNavigation(viewModel, navController, viewModel.navigatorFlow)
 }
 
 @Composable

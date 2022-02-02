@@ -71,7 +71,7 @@ fun IndividualEditScreen(viewModel: IndividualEditViewModel = hiltViewModel()) {
         )
     }
 
-    HandleNavigation(viewModel, navController, viewModel.navigateRouteFlow)
+    HandleNavigation(viewModel, navController, viewModel.navigatorFlow)
 }
 
 @Composable
