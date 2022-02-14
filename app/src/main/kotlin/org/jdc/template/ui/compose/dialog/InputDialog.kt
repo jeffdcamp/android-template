@@ -52,7 +52,7 @@ fun InputDialog(
     properties: DialogProperties = DialogProperties(),
     shape: Shape = MaterialTheme.shapes.medium,
     backgroundColor: Color = MaterialTheme.colors.surface,
-    textButtonColor: Color = MaterialTheme.colors.primary, // This is specifically for handling theming in Gospel Library. May not want in Commons.
+    textButtonColor: Color = MaterialTheme.colors.primary, // This is specifically for handling theming in this app. May not want in Commons.
 ) {
     var textFieldValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue(initialTextFieldText ?: "", TextRange(initialTextFieldText?.length ?: 0))) }
 
@@ -159,7 +159,7 @@ fun TwoInputDialog(
     properties: DialogProperties = DialogProperties(),
     shape: Shape = MaterialTheme.shapes.medium,
     backgroundColor: Color = MaterialTheme.colors.surface,
-    textButtonColor: Color = MaterialTheme.colors.primary, // This is specifically for handling theming in Gospel Library. May not want in Commons.
+    textButtonColor: Color = MaterialTheme.colors.primary, // This is specifically for handling theming in this app. May not want in Commons.
 ) {
     var textFieldValueFirst by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue(initialTextFieldTextFirst ?: "", TextRange(initialTextFieldTextFirst?.length ?: 0))) }
     var textFieldValueSecond by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue(initialTextFieldTextSecond ?: "", TextRange(initialTextFieldTextSecond?.length ?: 0))) }
