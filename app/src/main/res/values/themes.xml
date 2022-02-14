@@ -6,14 +6,14 @@
 <!--        <item name="postSplashScreenTheme">@style/Theme.AndroidTemplate</item>-->
 <!--    </style>-->
     <!-- Workaround for issue for large splash images on SDK > 31 (use above and remove v31/themes.xml when fixed https://issuetracker.google.com/issues/201724091) -->
-    <style name="Theme.AndroidTemplate.Splash" parent="Theme.SplashScreen.IconBackground">
+    <style name="AppTheme.Splash" parent="Theme.SplashScreen.IconBackground">
         <item name="windowSplashScreenBackground">@color/material_white</item>
         <item name ="windowSplashScreenIconBackgroundColor">@color/ic_launcher_background</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
-        <item name="postSplashScreenTheme">@style/Theme.AndroidTemplate</item>
+        <item name="postSplashScreenTheme">@style/AppTheme</item>
     </style>
 
-    <style name="Theme.AndroidTemplate" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Color Theme Definitions -->
         <!-- https://material.io/develop/android/theming/color/ -->
 

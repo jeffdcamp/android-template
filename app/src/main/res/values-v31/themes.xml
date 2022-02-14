@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.AndroidTemplate.Splash" parent="Theme.SplashScreen">
+    <style name="AppTheme.Splash" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/material_white</item>
         <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
-        <item name="postSplashScreenTheme">@style/Theme.AndroidTemplate</item>
+        <item name="postSplashScreenTheme">@style/AppTheme</item>
     </style>
 </resources>
