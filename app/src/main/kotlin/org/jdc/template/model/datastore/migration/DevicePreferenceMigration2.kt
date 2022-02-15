@@ -3,7 +3,7 @@ package org.jdc.template.model.datastore.migration
 import androidx.datastore.preferences.core.Preferences
 import org.jdc.template.util.datastore.PreferenceMigration
 
-object DevicePreferenceMigration2: PreferenceMigration(1, 2) {
+object DevicePreferenceMigration2 : PreferenceMigration(1, 2) {
     override suspend fun migrate(currentData: Preferences): Preferences {
         val mutablePreferences = currentData.toMutablePreferences()
 

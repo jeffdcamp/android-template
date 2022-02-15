@@ -12,9 +12,9 @@ import org.jdc.template.R
 import org.jdc.template.analytics.Analytics
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.repository.IndividualRepository
+import org.jdc.template.ui.compose.dialog.MessageDialogData
 import org.jdc.template.ui.navigation.ViewModelNav
 import org.jdc.template.ui.navigation.ViewModelNavImpl
-import org.jdc.template.ui.compose.dialog.MessageDialogData
 import org.jdc.template.util.delegates.requireSavedState
 import org.jdc.template.util.ext.stateInDefault
 import org.jdc.template.ux.individualedit.IndividualEditRoute
@@ -27,7 +27,7 @@ class IndividualViewModel
     private val analytics: Analytics,
     private val individualRepository: IndividualRepository,
     savedStateHandle: SavedStateHandle
-) :  ViewModel(), ViewModelNav by ViewModelNavImpl() {
+) : ViewModel(), ViewModelNav by ViewModelNavImpl() {
     private val individualId: String by requireSavedState(savedStateHandle)
     val individualFlow: StateFlow<Individual?> = individualRepository.getIndividualFlow(individualId).stateInDefault(viewModelScope, null)
 

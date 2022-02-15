@@ -140,6 +140,7 @@ fun InputDialog(
     }
 }
 
+@Suppress("LongMethod")
 @Composable
 fun TwoInputDialog(
     onDismissRequest: (() -> Unit) = {},
@@ -161,8 +162,12 @@ fun TwoInputDialog(
     backgroundColor: Color = MaterialTheme.colors.surface,
     textButtonColor: Color = MaterialTheme.colors.primary, // This is specifically for handling theming in this app. May not want in Commons.
 ) {
-    var textFieldValueFirst by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue(initialTextFieldTextFirst ?: "", TextRange(initialTextFieldTextFirst?.length ?: 0))) }
-    var textFieldValueSecond by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue(initialTextFieldTextSecond ?: "", TextRange(initialTextFieldTextSecond?.length ?: 0))) }
+    var textFieldValueFirst by rememberSaveable(stateSaver = TextFieldValue.Saver) {
+        mutableStateOf(TextFieldValue(initialTextFieldTextFirst ?: "", TextRange(initialTextFieldTextFirst?.length ?: 0)))
+    }
+    var textFieldValueSecond by rememberSaveable(stateSaver = TextFieldValue.Saver) {
+        mutableStateOf(TextFieldValue(initialTextFieldTextSecond ?: "", TextRange(initialTextFieldTextSecond?.length ?: 0)))
+    }
 
     // Test: request focus on TextField
     val focusRequester = remember { FocusRequester() }
@@ -276,12 +281,6 @@ fun TwoInputDialog(
                         }
                     }
                 }
-
-                // Delay requesting focus on TextField so it does not happen during composition
-//                DisposableEffect(Unit) {
-//                    focusRequester.requestFocus()
-//                    onDispose { }
-//                }
             }
         }
     }

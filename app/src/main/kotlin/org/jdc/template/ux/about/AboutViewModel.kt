@@ -76,7 +76,6 @@ class AboutViewModel
         individual1a.birthDate = LocalDate.of(1970, 1, 1)
         individual1a.alarmTime = LocalTime.of(7, 0)
 
-
         val household2 = Household().apply {
             name = "Miller"
         }

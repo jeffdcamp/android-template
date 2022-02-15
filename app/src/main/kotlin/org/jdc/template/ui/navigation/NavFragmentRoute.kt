@@ -25,12 +25,12 @@ abstract class NavFragmentRoute {
     /**
      * Define arguments, routes, deeplinks, etc for the default fragment
      */
-    abstract fun <D: NavDestination> NavDestinationBuilder<D>.setupNav()
+    abstract fun <D : NavDestination> NavDestinationBuilder<D>.setupNav()
 
     /**
      * Used when creating navigation graph
      */
-    inline fun <reified T: Fragment> addNavigationRoute(navGraphBuilder: NavGraphBuilder, context: Context) {
+    inline fun <reified T : Fragment> addNavigationRoute(navGraphBuilder: NavGraphBuilder, context: Context) {
         navGraphBuilder.apply {
             // default fragment
             fragment<T>(routeDefinition) {

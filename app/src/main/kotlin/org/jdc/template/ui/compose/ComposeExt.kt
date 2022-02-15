@@ -35,9 +35,9 @@ val LocalNavController = staticCompositionLocalOf<NavController?> { null }
 @Suppress("NOTHING_TO_INLINE")
 @Composable
 inline fun <T : R, R> Flow<T>.collectAsLifecycleState(
-        initial: R,
-        state: Lifecycle.State = Lifecycle.State.STARTED,
-        context: CoroutineContext = EmptyCoroutineContext
+    initial: R,
+    state: Lifecycle.State = Lifecycle.State.STARTED,
+    context: CoroutineContext = EmptyCoroutineContext
 ): State<R> {
     val lifecycleOwner = LocalLifecycleOwner.current
     val rememberedFlow = remember(this, lifecycleOwner) {

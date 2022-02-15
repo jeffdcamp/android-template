@@ -36,9 +36,9 @@ fun DirectoryScreen(viewModel: DirectoryViewModel = hiltViewModel()) {
                 ListItem(
                     Modifier
                         .clickable { viewModel.onDirectoryIndividualClicked(individual) },
-                )
-                { Text(individual.getFullName()) }
-
+                ) {
+                    Text(individual.getFullName())
+                }
             }
         }
 

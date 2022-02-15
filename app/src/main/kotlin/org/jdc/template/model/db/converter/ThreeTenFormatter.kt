@@ -47,7 +47,6 @@ object ThreeTenFormatter {
             } catch (ex: DateTimeParseException) {
                 throw IllegalArgumentException("Cannot parse date text: $text", ex)
             }
-
         } else {
             null
         }
@@ -72,7 +71,6 @@ object ThreeTenFormatter {
             } catch (ex: DateTimeParseException) {
                 throw IllegalArgumentException("Cannot parse time text: $text", ex)
             }
-
         } else {
             null
         }

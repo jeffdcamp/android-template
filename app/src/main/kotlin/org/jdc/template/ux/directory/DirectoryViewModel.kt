@@ -17,7 +17,7 @@ import javax.inject.Inject
 class DirectoryViewModel
 @Inject constructor(
     individualRepository: IndividualRepository
-) :  ViewModel(), ViewModelNav by ViewModelNavImpl() {
+) : ViewModel(), ViewModelNav by ViewModelNavImpl() {
     val directoryListFlow: StateFlow<List<DirectoryItem>> = individualRepository.getDirectoryListFlow().stateInDefault(viewModelScope, emptyList())
 
     fun addIndividual() {

@@ -50,7 +50,7 @@ class PreferenceMigrations(
     private val version: Int,
     migrations: List<PreferenceMigration>,
     private val destructiveFallback: Boolean = false,
-): DataMigration<Preferences> {
+) : DataMigration<Preferences> {
 
     private val migrationTree = mutableMapOf<Int, TreeMap<Int, PreferenceMigration>>()
 

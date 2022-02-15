@@ -26,7 +26,6 @@ import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Singleton
 
-
 @Singleton
 class DevicePreferenceDataSource
 @Inject constructor(

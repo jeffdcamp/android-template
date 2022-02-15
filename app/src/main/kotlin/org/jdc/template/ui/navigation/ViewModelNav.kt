@@ -44,7 +44,7 @@ sealed class ViewModelNavigator {
      */
     abstract fun navigate(navController: NavController, viewModelNav: ViewModelNav): Boolean
 
-    class Navigate(private val route: String): ViewModelNavigator() {
+    class Navigate(private val route: String) : ViewModelNavigator() {
         override fun navigate(navController: NavController, viewModelNav: ViewModelNav): Boolean {
             navController.navigate(route)
 
@@ -53,7 +53,7 @@ sealed class ViewModelNavigator {
         }
     }
 
-    class PopAndNavigate(private val route: String): ViewModelNavigator() {
+    class PopAndNavigate(private val route: String) : ViewModelNavigator() {
         override fun navigate(navController: NavController, viewModelNav: ViewModelNav): Boolean {
             val stackPopped = navController.popBackStack()
             navController.navigate(route)
@@ -63,7 +63,7 @@ sealed class ViewModelNavigator {
         }
     }
 
-    class Pop(private val popToRoute: String?, private val inclusive: Boolean = false): ViewModelNavigator() {
+    class Pop(private val popToRoute: String?, private val inclusive: Boolean = false) : ViewModelNavigator() {
         override fun navigate(navController: NavController, viewModelNav: ViewModelNav): Boolean {
             val stackPopped = if (popToRoute == null) {
                 navController.popBackStack()

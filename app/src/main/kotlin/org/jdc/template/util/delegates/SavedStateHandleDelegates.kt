@@ -6,7 +6,7 @@ import androidx.lifecycle.SavedStateHandle
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
-private class MutableNullableSavedStateHandleDelegate<T: Any?>(
+private class MutableNullableSavedStateHandleDelegate<T : Any?>(
     private val savedStateHandle: SavedStateHandle,
     private val key: String
 ) : ReadWriteProperty<Any, T> {
@@ -68,7 +68,6 @@ class SavedStateLoader<T>(
             default != null -> MutableNonNullSavedStateHandleDelegate(savedStateHandle, keyActual, default)
             else -> MutableNullableSavedStateHandleDelegate(savedStateHandle, keyActual)
         }
-
     }
 }
 

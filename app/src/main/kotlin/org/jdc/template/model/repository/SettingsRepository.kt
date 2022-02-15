@@ -43,5 +43,4 @@ class SettingsRepository
     suspend fun setWorkSchedulerVersion(version: Int) {
         devicePreferenceDataSource.setWorkSchedulerVersion(version)
     }
-
 }

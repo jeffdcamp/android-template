@@ -1,6 +1,5 @@
 package org.jdc.template.work
 
-
 import android.content.Context
 import androidx.work.Constraints
 import androidx.work.CoroutineWorker

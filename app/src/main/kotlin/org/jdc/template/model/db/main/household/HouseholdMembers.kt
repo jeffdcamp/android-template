@@ -12,5 +12,3 @@ data class HouseholdMembers(
     @Relation(parentColumn = "id", entityColumn = "householdId", entity = Individual::class, projection = ["firstName"])
     var memberNames: List<String> = emptyList()
 )
-
-

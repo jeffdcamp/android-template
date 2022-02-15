@@ -60,6 +60,3 @@ fun SettingsScreen() {
         )
     }
 }
-
-
-

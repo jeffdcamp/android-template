@@ -26,7 +26,7 @@ class IndividualEditViewModel
     private val application: Application,
     private val individualRepository: IndividualRepository,
     savedStateHandle: SavedStateHandle
-) :  ViewModel(), ViewModelNav by ViewModelNavImpl() {
+) : ViewModel(), ViewModelNav by ViewModelNavImpl() {
     private val individualId: String? by savedState(savedStateHandle, null)
     private var individual = Individual()
 

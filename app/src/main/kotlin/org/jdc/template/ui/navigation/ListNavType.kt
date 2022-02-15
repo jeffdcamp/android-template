@@ -14,7 +14,7 @@ import androidx.navigation.NavType
  *      }
  */
 object ListNavType {
-    class StringListType(private val separator: String = RouteUtil.DEFAULT_STRING_LIST_DELIMITER): NavType<List<String>?>(true) {
+    class StringListType(private val separator: String = RouteUtil.DEFAULT_STRING_LIST_DELIMITER) : NavType<List<String>?>(true) {
         override fun parseValue(value: String): List<String> {
             return value.split(separator)
         }
@@ -24,7 +24,7 @@ object ListNavType {
         }
 
         override fun put(bundle: Bundle, key: String, value: List<String>?) {
-            bundle.putStringArrayList(key, value?.let { ArrayList(it) } )
+            bundle.putStringArrayList(key, value?.let { ArrayList(it) })
         }
     }
 }

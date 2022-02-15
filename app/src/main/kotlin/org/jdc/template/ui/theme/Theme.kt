@@ -122,7 +122,6 @@ object AppTheme {
 //            checkedThumbColor = colors.primary,
 //            uncheckedThumbColor = colors.uncheckedSwitchThumb,
 //        )
-
 }
 
 @Composable
@@ -180,4 +179,3 @@ fun darkColors(): AppColors {
         isLight = false
     )
 }
-

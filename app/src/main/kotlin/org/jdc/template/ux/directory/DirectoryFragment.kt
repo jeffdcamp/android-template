@@ -52,4 +52,3 @@ class DirectoryFragment : Fragment() {
         return commonMenu.onOptionsItemSelected(findNavController(), item) || super.onOptionsItemSelected(item)
     }
 }
-

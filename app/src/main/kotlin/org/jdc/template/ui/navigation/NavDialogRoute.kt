@@ -25,12 +25,12 @@ abstract class NavDialogRoute {
     /**
      * Define arguments, routes, deeplinks, etc for the default fragment
      */
-    abstract fun <D: NavDestination> NavDestinationBuilder<D>.setupNav()
+    abstract fun <D : NavDestination> NavDestinationBuilder<D>.setupNav()
 
     /**
      * Used when creating navigation graph
      */
-    inline fun <reified T: DialogFragment> addNavigationRoute(navGraphBuilder: NavGraphBuilder, context: Context) {
+    inline fun <reified T : DialogFragment> addNavigationRoute(navGraphBuilder: NavGraphBuilder, context: Context) {
         navGraphBuilder.apply {
             // default fragment
             dialog<T>(routeDefinition) {

@@ -99,7 +99,7 @@ abstract class BaseFirebaseRemoteConfig(@XmlRes remoteConfigDefaults: Int) {
         } catch (e: TimeoutException) {
             Timber.w("fetchAndActivateNow timeout occurred")
         } catch (expected: Exception) {
-            Timber.e(expected,"Failed to FetchAndActivate")
+            Timber.e(expected, "Failed to FetchAndActivate")
         }
 
         return false

@@ -6,8 +6,7 @@ import javax.inject.Singleton
 
 @Singleton
 class RemoteConfig
-@Inject constructor(
-) : BaseFirebaseRemoteConfig(R.xml.remote_config_defaults) {
+@Inject constructor() : BaseFirebaseRemoteConfig(R.xml.remote_config_defaults) {
 
     // app update
     fun isColorServiceEnabled(): Boolean = getBoolean("colorServiceEnabled")

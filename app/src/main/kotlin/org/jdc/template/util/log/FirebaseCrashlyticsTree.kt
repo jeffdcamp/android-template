@@ -24,4 +24,4 @@ class FirebaseCrashlyticsTree : Timber.Tree() {
             }
         }
     }
-} 
+}

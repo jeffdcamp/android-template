@@ -8,7 +8,7 @@ import org.jdc.template.R
 import org.jdc.template.ui.navigation.NavFragmentRoute
 import org.jdc.template.ui.navigation.RouteUtil
 
-object IndividualEditRoute: NavFragmentRoute() {
+object IndividualEditRoute : NavFragmentRoute() {
     override fun getLabel(context: Context): String {
         return context.getString(R.string.edit_individual)
     }

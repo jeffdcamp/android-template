@@ -15,7 +15,6 @@ object DateTimeTextConverter {
     @TypeConverter
     fun fromOffsetDateTimeToStringNotNull(value: OffsetDateTime): String = ThreeTenFormatter.offsetDateTimeToDBStringNotNull(value)
 
-
     @TypeConverter
     fun fromStringToLocalDateNullable(value: String?): LocalDate? = ThreeTenFormatter.dbStringToLocalDateNullable(value)
     @TypeConverter
@@ -24,7 +23,6 @@ object DateTimeTextConverter {
     fun fromStringToLocalDateNotNull(value: String): LocalDate = ThreeTenFormatter.dbStringToLocalDateNotNull(value)
     @TypeConverter
     fun fromLocalDateToStringNotNull(value: LocalDate): String = ThreeTenFormatter.localDateToDBStringNotNull(value)
-
 
     @TypeConverter
     fun fromStringToLocalTimeNullable(value: String?): LocalTime? = ThreeTenFormatter.dbStringToLocalTimeNullable(value)

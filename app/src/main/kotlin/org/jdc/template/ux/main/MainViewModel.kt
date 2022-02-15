@@ -22,7 +22,6 @@ class MainViewModel
         // run any startup/initialization code here (NOTE: these tasks should NOT exceed 1000ms (per Google Guidelines))
         Timber.i("Startup task...")
 
-
         // Startup finished
         isReady = true
         Timber.i("Startup finished")

@@ -283,4 +283,3 @@ object MaterialColor {
     val Grey800 = Color(0xFF424242)
     val Grey900 = Color(0xFF212121)
 }
-

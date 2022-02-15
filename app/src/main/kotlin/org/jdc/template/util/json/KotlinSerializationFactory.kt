@@ -18,7 +18,8 @@ internal class KotlinSerializationFactory(
     private val serializer: KotlinSerializationSerializer
 ) : Converter.Factory() {
     override fun responseBodyConverter(
-        type: Type, annotations: Array<out Annotation>,
+        type: Type,
+        annotations: Array<out Annotation>,
         retrofit: Retrofit
     ): Converter<ResponseBody, *> {
         val loader = serializer(type)
@@ -26,8 +27,10 @@ internal class KotlinSerializationFactory(
     }
 
     override fun requestBodyConverter(
-        type: Type, parameterAnnotations: Array<out Annotation>,
-        methodAnnotations: Array<out Annotation>, retrofit: Retrofit
+        type: Type,
+        parameterAnnotations: Array<out Annotation>,
+        methodAnnotations: Array<out Annotation>,
+        retrofit: Retrofit
     ): Converter<*, RequestBody> {
         val saver = serializer(type)
         return SerializationStrategyConverter(contentType, saver, serializer)
@@ -50,7 +53,7 @@ internal sealed class KotlinSerializationSerializer {
         }
     }
 
-    class FromBytes(private val format: BinaryFormat): KotlinSerializationSerializer() {
+    class FromBytes(private val format: BinaryFormat) : KotlinSerializationSerializer() {
         override fun <T> fromResponseBody(loader: DeserializationStrategy<T>, body: ResponseBody): T {
             val bytes = body.bytes()
             return format.decodeFromByteArray(loader, bytes)

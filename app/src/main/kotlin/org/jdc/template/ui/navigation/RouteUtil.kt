@@ -21,7 +21,7 @@ object RouteUtil {
      * Usage: fragment<T>("individual?${defineOptionalArgs("individualId","enabled")}") { ... }
      */
     fun defineOptionalArgs(vararg argNames: String): String {
-        return argNames.joinToString("&") { argName -> "${argName}={${argName}}" }
+        return argNames.joinToString("&") { argName -> "$argName={$argName}" }
     }
 
     /**
@@ -36,7 +36,7 @@ object RouteUtil {
                 else -> v
             }
 
-            "${it.key}=${value}"
+            "${it.key}=$value"
         }
     }
 

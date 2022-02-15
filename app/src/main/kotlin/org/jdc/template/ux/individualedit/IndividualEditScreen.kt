@@ -25,6 +25,7 @@ import org.jdc.template.ui.navigation.HandleNavigation
 import java.time.LocalDate
 import java.time.LocalTime
 
+@Suppress("LongParameterList")
 private class IndividualState(
     val firstNameFlow: StateFlow<String>,
     val firstNameOnChange: (String) -> Unit,
