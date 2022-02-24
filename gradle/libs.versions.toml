@@ -1,5 +1,5 @@
 [versions]
-agp = "7.1.1"
+agp = "7.1.2"
 kotlin = "1.6.10"
 coroutines = "1.6.0"
 
@@ -8,7 +8,7 @@ androidxhilt = "1.0.0"
 androidxlifecycle = "2.4.1"
 androidxtest = "1.4.0"
 coil = "1.4.0"
-compose = "1.2.0-alpha03"
+compose = "1.2.0-alpha04"
 dagger = "2.41"
 dbtools = "7.0.1"
 hilt = "2.41"
@@ -16,11 +16,11 @@ ktlint = "0.40.0"
 navigation = "2.4.1"
 paging = "3.0.0-beta02"
 retrofit = "2.9.0"
-room = "2.4.1"
+room = "2.4.2"
 work = "2.7.1"
 
 [plugins]
-ksp = { id = "com.google.devtools.ksp", version = "1.6.10-1.0.2" }
+ksp = { id = "com.google.devtools.ksp", version = "1.6.10-1.0.4" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.19.0" }
 playPublisher = { id = "com.github.triplet.play", version = "3.7.0" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
