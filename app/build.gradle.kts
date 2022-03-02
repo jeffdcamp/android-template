@@ -173,6 +173,10 @@ dependencies {
 //    implementation(libs.compose.material.iconsext)
 //    implementation(libs.androidx.navigation.compose)
 
+    // UI
+//    implementation(libs.coil)
+//    implementation(libs.coil.compose)
+
     // Play Service
     implementation(libs.google.play.core)
     implementation(libs.kotlin.coroutines.playServices)
