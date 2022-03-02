@@ -8,6 +8,7 @@ plugins {
     id("com.google.firebase.crashlytics")
     id("org.dbtools.license-manager")
     id("de.undercouch.download")
+    id("com.spotify.ruler")
     alias(libs.plugins.ksp)
     alias(libs.plugins.detekt)
     alias(libs.plugins.playPublisher)
@@ -265,6 +266,16 @@ tasks.register("incrementVersionCode") {
     doLast {
         VersionCode.incrementVersionCode(AppInfo.Version.APP_NAME, AppInfo.Version.MIN)
     }
+}
+
+// ===== Ruler =====
+
+// ./gradlew analyzeDebugBundle
+ruler {
+    abi.set("arm64-v8a")
+    locale.set("en")
+    screenDensity.set(375)
+    sdkVersion.set(31)
 }
 
 // ===== Detekt =====

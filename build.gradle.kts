@@ -17,6 +17,7 @@ buildscript {
         classpath(libs.google.servicesgradlePluginClasspath)
         classpath(libs.gradleVersions.gradlePluginClasspath)
         classpath(libs.dbtools.licenseManager.gradlePluginClasspath)
+        classpath(libs.ruler.gradlePluginClasspath)
     }
 }
 
