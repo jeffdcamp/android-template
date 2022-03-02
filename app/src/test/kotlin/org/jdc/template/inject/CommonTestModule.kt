@@ -25,7 +25,7 @@ class CommonTestModule {
     @Provides
     @Singleton
     internal fun provideApplication(): Application {
-        val application = mockk<Application>()
+        val application = mockk<Application>(relaxed = true)
 
         every { application.filesDir } returns TestFilesystem.INTERNAL_FILES_DIR
 
