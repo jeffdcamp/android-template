@@ -5,6 +5,7 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("dagger.hilt.android.plugin")
+    id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
     id("org.dbtools.license-manager")
     id("de.undercouch.download")
@@ -331,6 +332,3 @@ licenseManager {
     outputDirs = listOf("./src/main/assets", "./build/licenses")
     excludeGroups = listOf("org.dbtools")
 }
-
-// this must be at the bottom of the file
-apply(plugin = "com.google.gms.google-services")
