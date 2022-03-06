@@ -40,7 +40,7 @@ fun DayNightTextField(
     maxLines: Int = Int.MAX_VALUE,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     shape: Shape = MaterialTheme.shapes.small,
-    colors: TextFieldColors = TextFieldDefaults.outlinedTextFieldColors()
+    colors: TextFieldColors = if (MaterialTheme.colors.isLight) TextFieldDefaults.outlinedTextFieldColors() else TextFieldDefaults.textFieldColors()
 ) {
     var textFieldValueState by remember { mutableStateOf(TextFieldValue(text = value)) }
     val textFieldValue = textFieldValueState.copy(text = value)
@@ -93,7 +93,7 @@ fun DayNightTextField(
     maxLines: Int = Int.MAX_VALUE,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     shape: Shape = MaterialTheme.shapes.small,
-    colors: TextFieldColors = TextFieldDefaults.outlinedTextFieldColors()
+    colors: TextFieldColors = if (MaterialTheme.colors.isLight) TextFieldDefaults.outlinedTextFieldColors() else TextFieldDefaults.textFieldColors()
 ) {
     if (MaterialTheme.colors.isLight) {
         OutlinedTextField(
