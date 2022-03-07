@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.navigation.NavGraph
 import androidx.navigation.createGraph
 import androidx.navigation.fragment.NavHostFragment
-import org.dbtools.android.work.ux.monitor.WorkManagerStatusFragment
 import org.jdc.template.ux.about.AboutFragment
 import org.jdc.template.ux.about.AboutRoute
 import org.jdc.template.ux.acknowledgement.AcknowledgmentsFragment
@@ -19,6 +18,7 @@ import org.jdc.template.ux.main.TestActivity
 import org.jdc.template.ux.main.TestRoute
 import org.jdc.template.ux.settings.SettingsFragment
 import org.jdc.template.ux.settings.SettingsRoute
+import org.jdc.template.ux.settings.WorkManagerMonitorFragment
 
 object MainNav {
     fun createNavGraph(context: Context, navHostFragment: NavHostFragment): NavGraph {
@@ -34,7 +34,7 @@ object MainNav {
             TestRoute.addNavigationRoute<TestActivity>(this, context)
 
             // Library routes
-            WorkManagerStatusRoute.addNavigationRoute<WorkManagerStatusFragment>(this, context)
+            WorkManagerStatusRoute.addNavigationRoute<WorkManagerMonitorFragment>(this, context)
         }
     }
 }
