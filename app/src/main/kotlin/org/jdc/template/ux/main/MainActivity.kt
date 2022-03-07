@@ -8,7 +8,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupActionBarWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
 import org.jdc.template.ui.ThemeManager
@@ -67,24 +66,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun finishCreate(savedInstanceState: Bundle?) {
-        setSupportActionBar(findViewById(R.id.mainToolbar))
-
-        supportActionBar?.apply {
-            setHomeButtonEnabled(true)
-            setDisplayHomeAsUpEnabled(true)
-        }
-
-        setupActionBarWithNavController(navController)
+        // call navController to init
+        navController
 
         withLifecycleOwner(this) {
             viewModel.themeFlow.collectWhenStarted { theme ->
                 themeManager.applyTheme(theme)
             }
         }
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp()
     }
 
     override fun onNewIntent(intent: Intent?) {

@@ -142,6 +142,7 @@ class IndividualEditViewModel
 
     fun setBirthDate(birthDate: LocalDate?) {
         _birthDateFlow.value = birthDate
+        _showBirthDateFlow.value = null
     }
 
     fun setAlarmTime(alarmTime: LocalTime?) {
@@ -160,12 +161,20 @@ class IndividualEditViewModel
         _showBirthDateFlow.compareAndSet(null, localDate)
     }
 
+    fun resetShowBirthDate() {
+        _showBirthDateFlow.value = null
+    }
+
     fun resetShowBirthDate(localDate: LocalDate) {
-        _showBirthDateFlow.compareAndSet(localDate, null)
+//        _showBirthDateFlow.compareAndSet(localDate, null)
     }
 
     private fun showAlarmTime(localTime: LocalTime) {
         _showAlarmTimeFlow.compareAndSet(null, localTime)
+    }
+
+    fun resetShowAlarmTime() {
+        _showAlarmTimeFlow.value = null
     }
 
     fun resetShowAlarmTime(localTime: LocalTime) {

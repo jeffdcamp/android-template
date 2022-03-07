@@ -7,6 +7,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -21,18 +24,30 @@ import kotlinx.coroutines.flow.StateFlow
 import org.jdc.template.R
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.ui.DateUiUtil
-import org.jdc.template.ui.navigation.HandleNavigation
 import org.jdc.template.ui.compose.LocalNavController
+import org.jdc.template.ui.compose.appbar.AppBarMenu
+import org.jdc.template.ui.compose.appbar.AppBarMenuItem
+import org.jdc.template.ui.compose.appbar.AppScaffold
 import org.jdc.template.ui.compose.dialog.MessageDialog
 import org.jdc.template.ui.compose.dialog.MessageDialogData
+import org.jdc.template.ui.navigation.HandleNavigation
 import org.jdc.template.ui.theme.AppTheme
 
 @Composable
 fun IndividualScreen(viewModel: IndividualViewModel = hiltViewModel()) {
     val navController = LocalNavController.current
 
-    val individual: Individual? by viewModel.individualFlow.collectAsState()
-    IndividualSummary(individual)
+    val appBarMenuItems = listOf(
+        AppBarMenuItem.Icon(Icons.Default.Edit, stringResource(R.string.edit)) { viewModel.editIndividual() },
+        AppBarMenuItem.Icon(Icons.Default.Delete, stringResource(R.string.delete)) { viewModel.deleteIndividual() }
+    )
+
+    AppScaffold(
+        title = stringResource(R.string.individual),
+        actions = { AppBarMenu(appBarMenuItems) }
+    ) {
+        IndividualContent(viewModel.individualFlow)
+    }
 
     ShowMessageDialog(
         messageDialogDataFlow = viewModel.messageDialogDataFlow,
@@ -44,6 +59,12 @@ fun IndividualScreen(viewModel: IndividualViewModel = hiltViewModel()) {
     )
 
     HandleNavigation(viewModel, navController, viewModel.navigatorFlow)
+}
+
+@Composable
+private fun IndividualContent(individualFlow: StateFlow<Individual?>) {
+    val individual: Individual? by individualFlow.collectAsState()
+    IndividualSummary(individual)
 }
 
 @Composable

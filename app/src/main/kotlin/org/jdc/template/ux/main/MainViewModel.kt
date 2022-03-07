@@ -15,6 +15,8 @@ class MainViewModel
 @Inject constructor(
     private val settingsRepository: SettingsRepository
 ) : ViewModel() {
+    val themeFlow: Flow<DisplayThemeType> get() = settingsRepository.themeFlow
+
     var isReady: Boolean = false
         private set
 
@@ -26,6 +28,4 @@ class MainViewModel
         isReady = true
         Timber.i("Startup finished")
     }
-
-    val themeFlow: Flow<DisplayThemeType> get() = settingsRepository.themeFlow
 }

@@ -24,7 +24,7 @@ class DirectoryViewModel
         navigate(IndividualEditRoute.createRoute())
     }
 
-    fun onDirectoryIndividualClicked(directoryListItem: DirectoryItem) {
-        navigate(IndividualRoute.createRoute(directoryListItem.individualId))
+    fun onDirectoryIndividualClicked(individualId: String) {
+        navigate(IndividualRoute.createRoute(individualId))
     }
 }

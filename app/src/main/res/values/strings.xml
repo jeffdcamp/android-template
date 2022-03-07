@@ -6,6 +6,8 @@
 
     <!-- General -->
     <string name="about">About</string>
+    <string name="add">Add</string>
+    <string name="back">Back</string>
     <string name="ok">OK</string>
     <string name="save">Save</string>
     <string name="delete">Delete</string>
@@ -27,6 +29,7 @@
     <string name="acknowledgments">Acknowledgments</string>
     <string name="directory">Directory</string>
     <string name="sort_by_last_name">Sort by last name</string>
+    <string name="overflow_menu">Overflow Menu</string>
 
     <!-- Individual -->
     <string name="delete_individual_confirm">Are you sure you want to delete this individual?</string>

@@ -14,19 +14,26 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.flow.StateFlow
-import org.jdc.template.ui.navigation.HandleNavigation
+import org.jdc.template.R
 import org.jdc.template.ui.compose.LocalNavController
+import org.jdc.template.ui.compose.appbar.AppScaffold
+import org.jdc.template.ui.navigation.HandleNavigation
 
 @Composable
-fun AcknowledgementScreen(viewModel: AcknowledgementViewModel = viewModel()) {
+fun AcknowledgementScreen(viewModel: AcknowledgementViewModel = hiltViewModel()) {
     val navController = LocalNavController.current
 
     val acknowledgementHtmlFlow = viewModel.acknowledgementHtmlFlow
 
-    AcknowledgementWebview(acknowledgementHtmlFlow)
+    AppScaffold(
+        title = stringResource(R.string.acknowledgments)
+    ) {
+        AcknowledgementWebview(acknowledgementHtmlFlow)
+    }
 
     HandleNavigation(viewModel, navController, viewModel.navigatorFlow)
 }

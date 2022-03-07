@@ -20,6 +20,11 @@ import org.jdc.template.R
 import org.jdc.template.ui.DateUiUtil
 import org.jdc.template.ui.compose.DayNightTextField
 import org.jdc.template.ui.compose.LocalNavController
+import org.jdc.template.ui.compose.appbar.AppBarMenu
+import org.jdc.template.ui.compose.appbar.AppBarMenuItem
+import org.jdc.template.ui.compose.appbar.AppScaffold
+import org.jdc.template.ui.compose.dialog.MaterialDatePickerDialog
+import org.jdc.template.ui.compose.dialog.MaterialTimePickerDialog
 import org.jdc.template.ui.compose.dialog.MessageDialog
 import org.jdc.template.ui.navigation.HandleNavigation
 import java.time.LocalDate
@@ -60,7 +65,16 @@ fun IndividualEditScreen(viewModel: IndividualEditViewModel = hiltViewModel()) {
         { viewModel.onAlarmTimeClicked() }
     )
 
-    IndividualEditFields(individualState)
+    val appBarMenuItems = listOf(
+        AppBarMenuItem.Text(stringResource(R.string.save)) { viewModel.saveIndividual() }
+    )
+
+    AppScaffold(
+        title = stringResource(R.string.edit_individual),
+        actions = { AppBarMenu(appBarMenuItems) }
+    ) {
+        IndividualEditFields(individualState)
+    }
 
     val messageDialogData by viewModel.messageDialogDataFlow.collectAsState()
     if (messageDialogData.visible) {
@@ -72,12 +86,22 @@ fun IndividualEditScreen(viewModel: IndividualEditViewModel = hiltViewModel()) {
         )
     }
 
+    BirthDateDialog(viewModel.showBirthDateFlow, { viewModel.resetShowBirthDate() }) {
+        viewModel.setBirthDate(it)
+        viewModel.resetShowBirthDate()
+    }
+
+    AlarmTimeDialog(viewModel.showAlarmTimeFlow, { viewModel.resetShowAlarmTime() }) {
+        viewModel.setAlarmTime(it)
+        viewModel.resetShowAlarmTime()
+    }
+
     HandleNavigation(viewModel, navController, viewModel.navigatorFlow)
 }
 
 @Composable
 private fun IndividualEditFields(
-    individualState: IndividualState
+    individualState: IndividualState,
 ) {
     Column(Modifier.verticalScroll(rememberScrollState())) {
         IndividualEditField(stringResource(R.string.first_name), individualState.firstNameFlow, individualState.firstNameOnChange)
@@ -135,3 +159,30 @@ private fun IndividualClickableEditField(label: String, text: String, onClick: (
             )
     )
 }
+
+@Composable
+fun BirthDateDialog(
+    showBirthDateFlow: StateFlow<LocalDate?>,
+    onDismiss: (() -> Unit)? = null,
+    onDateSelected: (LocalDate) -> Unit,
+) {
+    val showBirthDate by showBirthDateFlow.collectAsState()
+
+    showBirthDate?.let { birthDate ->
+        MaterialDatePickerDialog(date = birthDate, onDismiss = onDismiss, onDateSelected = onDateSelected)
+    }
+}
+
+@Composable
+fun AlarmTimeDialog(
+    showAlarmTimeFlow: StateFlow<LocalTime?>,
+    onDismiss: (() -> Unit)? = null,
+    onTimeSelected: (LocalTime) -> Unit,
+) {
+    val showAlarmDate by showAlarmTimeFlow.collectAsState()
+
+    showAlarmDate?.let { time ->
+        MaterialTimePickerDialog(time = time, onDismiss = onDismiss, onTimeSelected = onTimeSelected)
+    }
+}
+

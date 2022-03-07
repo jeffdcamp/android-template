@@ -17,13 +17,46 @@ import kotlinx.coroutines.flow.StateFlow
 import org.jdc.template.BuildConfig
 import org.jdc.template.R
 import org.jdc.template.ui.compose.LocalNavController
+import org.jdc.template.ui.compose.appbar.AppBarMenu
+import org.jdc.template.ui.compose.appbar.AppBarMenuItem
+import org.jdc.template.ui.compose.appbar.AppScaffold
 import org.jdc.template.ui.navigation.HandleNavigation
 
 @Composable
 fun AboutScreen(viewModel: AboutViewModel = hiltViewModel()) {
     val navController = LocalNavController.current
 
-    val restServicesEnabledFlow = viewModel.resetServiceEnabledFlow
+    val appBarMenuItems = listOf(
+        AppBarMenuItem.OverflowItem(stringResource(R.string.acknowledgments)) { viewModel.licensesClicked() }
+    )
+
+    AppScaffold(
+        title = stringResource(R.string.about),
+        actions = { AppBarMenu(appBarMenuItems) }
+    ) {
+        AboutScreenContent(
+            viewModel.resetServiceEnabledFlow,
+            createSampleData = { viewModel.createSampleData() },
+            testTableChange = { viewModel.testTableChange() },
+            testQueryWebServiceCall = { viewModel.testQueryWebServiceCall() },
+            workManagerSyncTest = { viewModel.workManagerSyncTest() },
+            workManagerSimpleTest = { viewModel.workManagerSimpleTest() }
+        )
+    }
+
+    HandleNavigation(viewModel, navController, viewModel.navigatorFlow)
+}
+
+@Composable
+private fun AboutScreenContent(
+    resetServiceEnabledFlow: StateFlow<Boolean>,
+    createSampleData: () -> Unit,
+    testQueryWebServiceCall: () -> Unit,
+    testTableChange: () -> Unit,
+    workManagerSimpleTest: () -> Unit,
+    workManagerSyncTest: () -> Unit,
+
+) {
 
     Column(
         Modifier
@@ -33,15 +66,13 @@ fun AboutScreen(viewModel: AboutViewModel = hiltViewModel()) {
         ApplicationAboutTitle()
 
         Divider(Modifier.padding(top = 16.dp, bottom = 16.dp))
-        RestServicesStatus(restServicesEnabledFlow)
-        TestButton("CREATE DATABASE") { viewModel.createSampleData() }
-        TestButton("TEST REST CALL") { viewModel.testQueryWebServiceCall() }
-        TestButton("TEST TABLE CHANGES") { viewModel.testTableChange() }
-        TestButton("TEST SIMPLE WORKMANAGER") { viewModel.workManagerSimpleTest() }
-        TestButton("TEST SYNC WORKMANAGER") { viewModel.workManagerSyncTest() }
+        RestServicesStatus(resetServiceEnabledFlow)
+        TestButton("CREATE DATABASE") { createSampleData() }
+        TestButton("TEST REST CALL") { testQueryWebServiceCall() }
+        TestButton("TEST TABLE CHANGES") { testTableChange() }
+        TestButton("TEST SIMPLE WORKMANAGER") { workManagerSimpleTest() }
+        TestButton("TEST SYNC WORKMANAGER") { workManagerSyncTest() }
     }
-
-    HandleNavigation(viewModel, navController, viewModel.navigatorFlow)
 }
 
 @Composable
