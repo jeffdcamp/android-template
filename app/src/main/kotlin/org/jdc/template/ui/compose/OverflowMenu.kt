@@ -26,7 +26,7 @@ fun AppBarOverflowMenu(menuItems: List<OverflowItem>) {
     }) {
         Icon(
             imageVector = Icons.Default.MoreVert,
-            contentDescription = stringResource(R.string.overflow_menu)
+            contentDescription = stringResource(R.string.more_options)
         )
     }
     DropdownMenu(
