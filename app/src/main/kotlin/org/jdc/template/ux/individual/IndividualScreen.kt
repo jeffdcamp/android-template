@@ -39,7 +39,7 @@ fun IndividualScreen(viewModel: IndividualViewModel = hiltViewModel()) {
 
     val appBarMenuItems = listOf(
         AppBarMenuItem.Icon(Icons.Default.Edit, stringResource(R.string.edit)) { viewModel.editIndividual() },
-        AppBarMenuItem.Icon(Icons.Default.Delete, stringResource(R.string.delete)) { viewModel.deleteIndividual() }
+        AppBarMenuItem.Icon(Icons.Default.Delete, stringResource(R.string.delete)) { viewModel.onDeleteClicked() }
     )
 
     AppScaffold(
