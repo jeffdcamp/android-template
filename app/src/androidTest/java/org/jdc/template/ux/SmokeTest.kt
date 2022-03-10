@@ -54,6 +54,7 @@ class SmokeTest {
         composeTestRule.onNodeWithText(stringResource(R.string.save)).performClick()
 
         // Validate new individual was created and is visible (from DirectoryScreen)... then click on it
+        composeTestRule.waitForIdle() // wait for render to complete
         composeTestRule.onNodeWithText("Bob Anderson").assertIsDisplayed()
 
         // then click on new individual
@@ -90,6 +91,7 @@ class SmokeTest {
         composeTestRule.onNodeWithText(stringResource(R.string.save)).performClick()
 
         // Validate edit (from IndividualScreen)
+        composeTestRule.waitForIdle() // wait for render to complete
         composeTestRule.onNodeWithText("Jeff1 Campbell").assertIsDisplayed()
         composeTestRule.onNodeWithText("801-555-0000").assertIsDisplayed()
         composeTestRule.onNodeWithText("January 1, 1970").assertIsDisplayed()
