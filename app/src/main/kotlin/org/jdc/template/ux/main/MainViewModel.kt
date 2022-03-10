@@ -6,6 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import org.jdc.template.model.data.DisplayThemeType
+import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.model.repository.SettingsRepository
 import timber.log.Timber
 import javax.inject.Inject
@@ -13,7 +14,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel
 @Inject constructor(
-    private val settingsRepository: SettingsRepository
+    private val settingsRepository: SettingsRepository,
+    private val individualRepository: IndividualRepository
 ) : ViewModel() {
     val themeFlow: Flow<DisplayThemeType> get() = settingsRepository.themeFlow
 
@@ -27,5 +29,9 @@ class MainViewModel
         // Startup finished
         isReady = true
         Timber.i("Startup finished")
+    }
+
+    suspend fun createSampleData() {
+        individualRepository.createSampleData()
     }
 }

@@ -48,6 +48,8 @@ allprojects {
 
         // Compose Extras
         addAll(listOf("navigation-compose", "constraintlayout-compose", "activity-compose", "paging-compose", "activity-ktx"))
+        // Compose Test
+        addAll(listOf("ui-test-junit4", "ui-test-manifest"))
     }
 
     tasks.named<DependencyUpdatesTask>("dependencyUpdates") {

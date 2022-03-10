@@ -12,10 +12,13 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import org.jdc.template.R
 import org.jdc.template.ui.DateUiUtil
 import org.jdc.template.ui.compose.DayNightTextField
@@ -26,12 +29,13 @@ import org.jdc.template.ui.compose.appbar.AppScaffold
 import org.jdc.template.ui.compose.dialog.MaterialDatePickerDialog
 import org.jdc.template.ui.compose.dialog.MaterialTimePickerDialog
 import org.jdc.template.ui.compose.dialog.MessageDialog
+import org.jdc.template.ui.compose.dialog.MessageDialogData
 import org.jdc.template.ui.navigation.HandleNavigation
 import java.time.LocalDate
 import java.time.LocalTime
 
 @Suppress("LongParameterList")
-private class IndividualState(
+class IndividualState(
     val firstNameFlow: StateFlow<String>,
     val firstNameOnChange: (String) -> Unit,
     val lastNameFlow: StateFlow<String>,
@@ -100,14 +104,14 @@ fun IndividualEditScreen(viewModel: IndividualEditViewModel = hiltViewModel()) {
 }
 
 @Composable
-private fun IndividualEditFields(
+fun IndividualEditFields(
     individualState: IndividualState,
 ) {
     Column(Modifier.verticalScroll(rememberScrollState())) {
-        IndividualEditField(stringResource(R.string.first_name), individualState.firstNameFlow, individualState.firstNameOnChange)
-        IndividualEditField(stringResource(R.string.last_name), individualState.lastNameFlow, individualState.lastNameOnChange)
-        IndividualEditField(stringResource(R.string.phone), individualState.phoneFlow, individualState.phoneOnChange)
-        IndividualEditField(stringResource(R.string.email), individualState.emailFlow, individualState.emailOnChange)
+        IndividualEditField(stringResource(R.string.first_name), individualState.firstNameFlow, "firstNameEditTextTag", individualState.firstNameOnChange)
+        IndividualEditField(stringResource(R.string.last_name), individualState.lastNameFlow, "lastNameEditTextTag", individualState.lastNameOnChange)
+        IndividualEditField(stringResource(R.string.phone), individualState.phoneFlow, "phoneEditTextTag", individualState.phoneOnChange)
+        IndividualEditField(stringResource(R.string.email), individualState.emailFlow, "emailEditTextTag", individualState.emailOnChange)
 
         DateClickableEditField(stringResource(R.string.birth_date), individualState.birthDateFlow, individualState.birthDateClicked)
         TimeClickableEditField(stringResource(R.string.birth_date), individualState.alarmTimeFlow, individualState.alarmTimeClicked)
@@ -115,7 +119,7 @@ private fun IndividualEditFields(
 }
 
 @Composable
-private fun IndividualEditField(label: String, textFlow: StateFlow<String>, onChange: (String) -> Unit) {
+private fun IndividualEditField(label: String, textFlow: StateFlow<String>, testTag: String, onChange: (String) -> Unit) {
     val text by textFlow.collectAsState()
 
     DayNightTextField(
@@ -125,6 +129,7 @@ private fun IndividualEditField(label: String, textFlow: StateFlow<String>, onCh
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = 16.dp, end = 16.dp, top = 16.dp)
+            .testTag(testTag)
     )
 }
 
