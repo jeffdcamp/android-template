@@ -1,5 +1,6 @@
 package org.jdc.template.model.repository
 
+import androidx.annotation.VisibleForTesting
 import androidx.room.withTransaction
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flatMapLatest
@@ -75,6 +76,7 @@ class IndividualRepository
     /**
      * Creates sample data WITH using injection
      */
+    @VisibleForTesting
     suspend fun createSampleData() = withContext(Dispatchers.IO) {
         // clear any existing items
         deleteAllIndividuals()

@@ -1,5 +1,6 @@
 package org.jdc.template.ux.main
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,6 +32,7 @@ class MainViewModel
         Timber.i("Startup finished")
     }
 
+    @VisibleForTesting
     suspend fun createSampleData() {
         individualRepository.createSampleData()
     }
