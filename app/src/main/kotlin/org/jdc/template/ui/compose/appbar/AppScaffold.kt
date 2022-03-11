@@ -20,10 +20,38 @@ import org.jdc.template.ui.theme.AppTheme
 @Composable
 internal fun AppScaffold(
     title: String,
+    subtitle: String? = null,
     navigationIcon: ImageVector = Icons.Filled.ArrowBack,
     onNavigationClick: (() -> Unit)? = null,
     appBarTextColor: Color? = null,
     appBarBackgroundColor: Color? = null,
+    autoSizeTitle: Boolean = false,
+    actions: @Composable (RowScope.() -> Unit)? = null,
+    content: @Composable (PaddingValues) -> Unit,
+) {
+    val navController = LocalNavController.current
+
+    Scaffold(
+        topBar = {
+            AppTopAppBar(
+                title = title,
+                subtitle = subtitle,
+                autoSizeTitle = autoSizeTitle,
+                navigationIcon = navigationIcon,
+                onNavigationClick = { if (onNavigationClick == null) navController?.popBackStack() else onNavigationClick() },
+                actions = actions,
+            )
+        },
+    ) {
+        content(it)
+    }
+}
+
+@Composable
+internal fun AppScaffold(
+    title: @Composable () -> Unit,
+    navigationIcon: ImageVector = Icons.Filled.ArrowBack,
+    onNavigationClick: (() -> Unit)? = null,
     actions: @Composable (RowScope.() -> Unit)? = null,
     content: @Composable (PaddingValues) -> Unit,
 ) {

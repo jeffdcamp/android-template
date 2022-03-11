@@ -9,7 +9,6 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -31,9 +30,35 @@ import org.jdc.template.ui.theme.AppTheme
 @Composable
 internal fun AppTopAppBar(
     title: String,
+    subtitle: String? = null,
     navigationIcon: ImageVector = Icons.Filled.ArrowBack,
     onNavigationClick: (() -> Unit)? = null,
     appBarTextColor: Color? = null,
+    appBarBackgroundColor: Color? = null,
+    autoSizeTitle: Boolean = false,
+    actions: @Composable (RowScope.() -> Unit)? = null,
+) {
+    AppTopAppBar(
+        title = {
+            AppBarTitle(
+                title = title,
+                subtitle = subtitle,
+                color = appBarTextColor ?: Color.Unspecified,
+                autoSizeTitle = autoSizeTitle
+            )
+        },
+        navigationIcon = navigationIcon,
+        onNavigationClick = onNavigationClick,
+        appBarBackgroundColor = appBarBackgroundColor,
+        actions = actions
+    )
+}
+
+@Composable
+internal fun AppTopAppBar(
+    title: @Composable () -> Unit,
+    navigationIcon: ImageVector = Icons.Filled.ArrowBack,
+    onNavigationClick: (() -> Unit)? = null,
     appBarBackgroundColor: Color? = null,
     actions: @Composable (RowScope.() -> Unit)? = null,
 ) {
@@ -41,15 +66,10 @@ internal fun AppTopAppBar(
     val emptyBackStack = navController?.previousBackStackEntry == null
 
     TopAppBar(
-        title = {
-            Text(
-                text = title,
-                color = appBarTextColor ?: Color.Unspecified
-            )
-        },
+        title = title,
         backgroundColor = appBarBackgroundColor ?: MaterialTheme.colors.primarySurface,
         navigationIcon = if (emptyBackStack) null else {
-             {
+            {
                 Icon(
                     modifier = Modifier
                         .clickable { onNavigationClick?.invoke() }
@@ -78,6 +98,7 @@ private fun AboutTopAppBarPreview() {
     AppTheme {
         AppTopAppBar(
             title = "App Bar Title",
+            subtitle = "Test",
             onNavigationClick = {},
             actions = {
                 IconButton(onClick = { }) { Icon(imageVector = Icons.Outlined.Info, contentDescription = null) }
