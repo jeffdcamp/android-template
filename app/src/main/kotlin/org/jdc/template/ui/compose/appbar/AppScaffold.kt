@@ -36,6 +36,8 @@ internal fun AppScaffold(
             AppTopAppBar(
                 title = title,
                 subtitle = subtitle,
+                appBarTextColor = appBarTextColor,
+                appBarBackgroundColor = appBarBackgroundColor,
                 autoSizeTitle = autoSizeTitle,
                 navigationIcon = navigationIcon,
                 onNavigationClick = { if (onNavigationClick == null) navController?.popBackStack() else onNavigationClick() },
