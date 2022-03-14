@@ -16,9 +16,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import org.jdc.template.R
 import org.jdc.template.ui.DateUiUtil
 import org.jdc.template.ui.compose.DayNightTextField
@@ -29,7 +27,6 @@ import org.jdc.template.ui.compose.appbar.AppScaffold
 import org.jdc.template.ui.compose.dialog.MaterialDatePickerDialog
 import org.jdc.template.ui.compose.dialog.MaterialTimePickerDialog
 import org.jdc.template.ui.compose.dialog.MessageDialog
-import org.jdc.template.ui.compose.dialog.MessageDialogData
 import org.jdc.template.ui.navigation.HandleNavigation
 import java.time.LocalDate
 import java.time.LocalTime

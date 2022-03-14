@@ -11,8 +11,8 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.jdc.template.BuildConfig
-import org.jdc.template.util.json.asConverterFactory
 import org.jdc.template.model.webservice.colors.ColorService
+import org.jdc.template.util.json.asConverterFactory
 import retrofit2.Retrofit
 import retrofit2.create
 import java.io.UnsupportedEncodingException
