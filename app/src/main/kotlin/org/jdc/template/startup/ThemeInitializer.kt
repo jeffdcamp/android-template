@@ -7,7 +7,7 @@ import dagger.hilt.EntryPoints
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.launch
-import org.jdc.template.coroutine.ProcessScope
+import org.jdc.template.util.coroutine.ProcessScope
 import org.jdc.template.ui.ThemeManager
 
 class ThemeInitializer : Initializer<Unit> {

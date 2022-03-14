@@ -14,7 +14,7 @@ import androidx.work.WorkManager
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import org.jdc.template.BuildConfig
-import org.jdc.template.coroutine.ProcessScope
+import org.jdc.template.util.coroutine.ProcessScope
 import org.jdc.template.model.repository.SettingsRepository
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject

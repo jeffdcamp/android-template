@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package org.jdc.template.coroutine
+package org.jdc.template.util.coroutine
 
 import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.lifecycle.lifecycleScope

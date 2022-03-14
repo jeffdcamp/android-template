@@ -3,7 +3,7 @@ package org.jdc.template.model.repository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import org.jdc.template.coroutine.ProcessScope
+import org.jdc.template.util.coroutine.ProcessScope
 import org.jdc.template.model.data.DisplayThemeType
 import org.jdc.template.model.datastore.DevicePreferenceDataSource
 import org.jdc.template.model.datastore.UserPreferenceDataSource
