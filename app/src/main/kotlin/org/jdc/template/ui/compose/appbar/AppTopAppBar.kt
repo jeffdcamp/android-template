@@ -1,9 +1,7 @@
 package org.jdc.template.ui.compose.appbar
 
 import android.content.res.Configuration
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -22,7 +20,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import org.jdc.template.R
 import org.jdc.template.ui.compose.LocalNavController
 import org.jdc.template.ui.theme.AppTheme
@@ -58,6 +55,7 @@ internal fun AppTopAppBar(
 internal fun AppTopAppBar(
     title: @Composable () -> Unit,
     navigationIcon: ImageVector = Icons.Filled.ArrowBack,
+    navigationIconContentDescription: String = stringResource(id = R.string.back),
     onNavigationClick: (() -> Unit)? = null,
     appBarBackgroundColor: Color? = null,
     actions: @Composable (RowScope.() -> Unit)? = null,
@@ -70,13 +68,13 @@ internal fun AppTopAppBar(
         backgroundColor = appBarBackgroundColor ?: MaterialTheme.colors.primarySurface,
         navigationIcon = if (emptyBackStack) null else {
             {
-                Icon(
-                    modifier = Modifier
-                        .clickable { onNavigationClick?.invoke() }
-                        .padding(start = 12.dp),
-                    imageVector = navigationIcon,
-                    contentDescription = stringResource(id = R.string.back),
-                )
+                IconButton(onClick = { onNavigationClick?.invoke() }) {
+                    Icon(
+                        imageVector = navigationIcon,
+                        contentDescription = navigationIconContentDescription,
+                        modifier = Modifier
+                    )
+                }
             }
         },
         actions = {
