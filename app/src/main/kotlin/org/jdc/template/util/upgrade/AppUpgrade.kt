@@ -1,7 +1,8 @@
-package org.jdc.template
+package org.jdc.template.util.upgrade
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
+import org.jdc.template.BuildConfig
 import org.jdc.template.model.repository.SettingsRepository
 import timber.log.Timber
 import javax.inject.Inject

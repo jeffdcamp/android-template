@@ -6,7 +6,7 @@ import dagger.hilt.EntryPoint
 import dagger.hilt.EntryPoints
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import org.jdc.template.AppUpgrade
+import org.jdc.template.util.upgrade.AppUpgrade
 
 class AppUpgradeInitializer : Initializer<Unit> {
 
