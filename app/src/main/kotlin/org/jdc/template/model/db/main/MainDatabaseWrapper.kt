@@ -2,14 +2,11 @@ package org.jdc.template.model.db.main
 
 import android.content.Context
 import androidx.room.Room
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.dbtools.android.room.CloseableDatabaseWrapper
 import org.dbtools.android.room.android.AndroidSQLiteOpenHelperFactory
-import org.dbtools.android.room.ext.createAllViews
-import org.dbtools.android.room.ext.dropAllViews
-import org.dbtools.android.room.ext.recreateAllViews
+import org.jdc.template.model.db.main.migration.MainMigration2
+import org.jdc.template.model.db.main.migration.MainMigration3
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -24,27 +21,10 @@ open class MainDatabaseWrapper
 
         return Room.databaseBuilder(context, MainDatabase::class.java, MainDatabase.DATABASE_NAME)
             .openHelperFactory(openHelperFactory)
-            .addMigrations(object : Migration(1, 2) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    // ONLY views are changed
-
-                    // drop and recreate views
-                    database.recreateAllViews(MainDatabase.DATABASE_VIEW_QUERIES)
-                }
-            })
-            .addMigrations(object : Migration(2, 3) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    // BOTH views and tables are changed
-
-                    // drop views
-                    database.dropAllViews()
-
-                    // do other database migrations here
-
-                    // recreate views
-                    database.createAllViews(MainDatabase.DATABASE_VIEW_QUERIES)
-                }
-            })
+            .addMigrations(
+                MainMigration2(),
+                MainMigration3()
+            )
             // Debug -- Show SQL statements
             // .setLoggingQueryCallback(MainDatabase.DATABASE_NAME)
             .build()
