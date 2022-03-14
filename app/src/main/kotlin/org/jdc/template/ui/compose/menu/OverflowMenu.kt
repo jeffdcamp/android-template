@@ -1,4 +1,4 @@
-package org.jdc.template.ui.compose
+package org.jdc.template.ui.compose.menu
 
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
@@ -14,20 +14,25 @@ import androidx.compose.ui.res.stringResource
 import org.jdc.template.R
 
 @Composable
-fun AppBarOverflowMenu(menuItems: List<OverflowItem>) {
+fun OverflowMenu(
+    menuItems: List<OverflowMenuItem>,
+    showIcon: Boolean = true
+) {
     if (menuItems.isEmpty()) {
         return
     }
 
     val expanded = remember { mutableStateOf(false) }
 
-    IconButton(onClick = {
-        expanded.value = true
-    }) {
-        Icon(
-            imageVector = Icons.Default.MoreVert,
-            contentDescription = stringResource(R.string.more_options)
-        )
+    if (showIcon) {
+        IconButton(onClick = {
+            expanded.value = true
+        }) {
+            Icon(
+                imageVector = Icons.Default.MoreVert,
+                contentDescription = stringResource(R.string.more_options)
+            )
+        }
     }
     DropdownMenu(
         expanded = expanded.value,
@@ -43,4 +48,4 @@ fun AppBarOverflowMenu(menuItems: List<OverflowItem>) {
     }
 }
 
-class OverflowItem(val text: String, val action: () -> Unit)
+class OverflowMenuItem(val text: String, val action: () -> Unit)

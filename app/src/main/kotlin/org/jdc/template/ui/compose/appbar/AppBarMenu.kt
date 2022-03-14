@@ -21,8 +21,8 @@ import org.jdc.template.R
 
 @Composable
 fun AppBarMenu(menuItems: List<AppBarMenuItem>) {
-    val itemsOnBar = menuItems.filter { it !is AppBarMenuItem.OverflowItem }
-    val overflowItems = menuItems.filterIsInstance<AppBarMenuItem.OverflowItem>()
+    val itemsOnBar = menuItems.filter { it !is AppBarMenuItem.OverflowMenuItem }
+    val overflowMenuItems = menuItems.filterIsInstance<AppBarMenuItem.OverflowMenuItem>()
 
     // show items on bar first (in the order received)
     itemsOnBar.forEach {
@@ -35,7 +35,7 @@ fun AppBarMenu(menuItems: List<AppBarMenuItem>) {
     }
 
     // Show overflow items
-    AppBarOverflowMenu(overflowItems)
+    AppBarOverflowMenu(overflowMenuItems)
 }
 
 @Composable
@@ -78,7 +78,7 @@ fun AppBarText(menuItem: AppBarMenuItem.Text) {
 }
 
 @Composable
-fun AppBarOverflowMenu(menuItems: List<AppBarMenuItem.OverflowItem>) {
+fun AppBarOverflowMenu(menuItems: List<AppBarMenuItem.OverflowMenuItem>) {
     if (menuItems.isEmpty()) {
         return
     }
@@ -112,6 +112,6 @@ sealed class AppBarMenuItem {
     class Icon(val imageVector: ImageVector, val text: String, val action: () -> Unit) : AppBarMenuItem()
     class IconPainter(val painter: Painter, val text: String, val action: () -> Unit) : AppBarMenuItem() // support older image assets
     class Text(val text: String, val action: () -> Unit) : AppBarMenuItem()
-    class OverflowItem(val text: String, val action: () -> Unit) : AppBarMenuItem()
+    class OverflowMenuItem(val text: String, val action: () -> Unit) : AppBarMenuItem()
 }
 

@@ -42,8 +42,8 @@ fun DirectoryScreen(viewModel: DirectoryViewModel = hiltViewModel()) {
         AppBarMenuItem.Icon(Icons.Default.Search, stringResource(R.string.search)) {},
 
         // overflow
-        AppBarMenuItem.OverflowItem(stringResource(R.string.settings)) { navController?.navigate(SettingsRoute.createRoute()) },
-        AppBarMenuItem.OverflowItem(stringResource(R.string.about)) { navController?.navigate(AboutRoute.createRoute()) },
+        AppBarMenuItem.OverflowMenuItem(stringResource(R.string.settings)) { navController?.navigate(SettingsRoute.createRoute()) },
+        AppBarMenuItem.OverflowMenuItem(stringResource(R.string.about)) { navController?.navigate(AboutRoute.createRoute()) },
     )
 
     AppScaffold(

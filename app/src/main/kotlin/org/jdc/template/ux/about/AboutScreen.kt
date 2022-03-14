@@ -27,7 +27,7 @@ fun AboutScreen(viewModel: AboutViewModel = hiltViewModel()) {
     val navController = LocalNavController.current
 
     val appBarMenuItems = listOf(
-        AppBarMenuItem.OverflowItem(stringResource(R.string.acknowledgments)) { viewModel.licensesClicked() }
+        AppBarMenuItem.OverflowMenuItem(stringResource(R.string.acknowledgments)) { viewModel.licensesClicked() }
     )
 
     AppScaffold(
