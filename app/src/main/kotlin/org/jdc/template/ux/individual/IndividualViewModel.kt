@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.jdc.template.R
 import org.jdc.template.analytics.Analytics
@@ -28,11 +29,11 @@ class IndividualViewModel
     private val individualRepository: IndividualRepository,
     savedStateHandle: SavedStateHandle
 ) : ViewModel(), ViewModelNav by ViewModelNavImpl() {
-    private val individualId: String by requireSavedState(savedStateHandle)
+    private val individualId: String by requireSavedState(savedStateHandle, IndividualRoute.Arg.INDIVIDUAL_ID)
     val individualFlow: StateFlow<Individual?> = individualRepository.getIndividualFlow(individualId).stateInDefault(viewModelScope, null)
 
     private val _messageDialogDataFlow = MutableStateFlow(MessageDialogData())
-    val messageDialogDataFlow: StateFlow<MessageDialogData> = _messageDialogDataFlow
+    val messageDialogDataFlow: StateFlow<MessageDialogData> = _messageDialogDataFlow.asStateFlow()
 
     init {
         analytics.logEvent(Analytics.EVENT_VIEW_INDIVIDUAL)

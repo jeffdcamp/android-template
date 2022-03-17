@@ -7,9 +7,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import org.jdc.template.BuildConfig
-import org.jdc.template.analytics.Analytics
 import org.jdc.template.model.config.RemoteConfig
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.model.webservice.colors.ColorService
@@ -28,19 +27,13 @@ import javax.inject.Inject
 class AboutViewModel
 @Inject constructor(
     private val application: Application,
-    private val analytics: Analytics,
     private val individualRepository: IndividualRepository,
     private val colorService: ColorService,
     private val workScheduler: WorkScheduler,
     private val remoteConfig: RemoteConfig
 ) : ViewModel(), ViewModelNav by ViewModelNavImpl() {
 
-    var appVersion = BuildConfig.VERSION_NAME
-    val resetServiceEnabledFlow: StateFlow<Boolean> = MutableStateFlow(remoteConfig.isColorServiceEnabled())
-
-    fun logAnalytics() {
-        analytics.logEvent(Analytics.EVENT_VIEW_ABOUT)
-    }
+    val resetServiceEnabledFlow: StateFlow<Boolean> = MutableStateFlow(remoteConfig.isColorServiceEnabled()).asStateFlow()
 
     /**
      * Simple web service call
