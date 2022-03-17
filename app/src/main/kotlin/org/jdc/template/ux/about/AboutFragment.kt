@@ -7,7 +7,5 @@ import org.jdc.template.ui.compose.ComposeFragment
 @AndroidEntryPoint
 class AboutFragment : ComposeFragment() {
     @Composable
-    override fun ComposeScreen() {
-        AboutScreen()
-    }
+    override fun ComposeScreen() = AboutScreen()
 }

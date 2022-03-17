@@ -7,7 +7,5 @@ import org.jdc.template.ui.compose.ComposeFragment
 @AndroidEntryPoint
 class IndividualEditFragment : ComposeFragment() {
     @Composable
-    override fun ComposeScreen() {
-        IndividualEditScreen()
-    }
+    override fun ComposeScreen() = IndividualEditScreen()
 }
