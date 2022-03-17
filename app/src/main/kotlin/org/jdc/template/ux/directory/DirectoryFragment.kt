@@ -2,12 +2,12 @@ package org.jdc.template.ux.directory
 
 import androidx.compose.runtime.Composable
 import dagger.hilt.android.AndroidEntryPoint
-import org.jdc.template.ui.compose.SimpleComposeFragment
+import org.jdc.template.ui.compose.ComposeFragment
 
 @AndroidEntryPoint
-class DirectoryFragment : SimpleComposeFragment() {
+class DirectoryFragment : ComposeFragment() {
     @Composable
-    override fun ContentScreen() {
+    override fun ComposeScreen() {
         DirectoryScreen()
     }
 }

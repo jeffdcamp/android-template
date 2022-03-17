@@ -14,17 +14,17 @@ import org.jdc.template.ui.theme.AppTheme
 /**
  * Simplify the Fragments till fragments are removed in favor of NavigationCompose
  */
-abstract class SimpleComposeFragment : Fragment() {
+abstract class ComposeFragment : Fragment() {
 
     @Composable
-    abstract fun ContentScreen()
+    abstract fun ComposeScreen()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return ComposeView(requireContext()).apply {
             setContent {
                 CompositionLocalProvider(LocalNavController provides findNavController()) {
                     AppTheme {
-                        ContentScreen()
+                        ComposeScreen()
                     }
                 }
             }

@@ -2,12 +2,12 @@ package org.jdc.template.ux.acknowledgement
 
 import androidx.compose.runtime.Composable
 import dagger.hilt.android.AndroidEntryPoint
-import org.jdc.template.ui.compose.SimpleComposeFragment
+import org.jdc.template.ui.compose.ComposeFragment
 
 @AndroidEntryPoint
-class AcknowledgmentsFragment : SimpleComposeFragment() {
+class AcknowledgmentsFragment : ComposeFragment() {
     @Composable
-    override fun ContentScreen() {
+    override fun ComposeScreen() {
         AcknowledgementScreen()
     }
 }
