@@ -51,7 +51,7 @@ class SettingsViewModel
     }
 
     fun setTheme(theme: DisplayThemeType) = viewModelScope.launch {
-        settingsRepository.setTheme(theme)
+        settingsRepository.setThemeAsync(theme)
         dismissThemeDialog()
     }
 
@@ -75,7 +75,7 @@ class SettingsViewModel
         _lastInstalledVersionCodeDialogDataFlow.value = InputDialogData(visible = false)
     }
 
-    fun setSortByLastName(checked: Boolean) = viewModelScope.launch {
-        settingsRepository.setSortByLastName(checked)
+    fun setSortByLastName(checked: Boolean) {
+        settingsRepository.setSortByLastNameAsync(checked)
     }
 }

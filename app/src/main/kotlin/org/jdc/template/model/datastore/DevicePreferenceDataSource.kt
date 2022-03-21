@@ -2,7 +2,6 @@ package org.jdc.template.model.datastore
 
 import android.app.Application
 import android.content.Context
-import android.os.Build
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.handlers.ReplaceFileCorruptionHandler
 import androidx.datastore.preferences.core.Preferences
@@ -12,8 +11,6 @@ import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import org.jdc.template.model.data.DisplayThemeType
 import org.jdc.template.model.datastore.migration.DevicePreferenceMigration1To3
 import org.jdc.template.model.datastore.migration.DevicePreferenceMigration2
@@ -29,7 +26,7 @@ import javax.inject.Singleton
 @Singleton
 class DevicePreferenceDataSource
 @Inject constructor(
-    private val application: Application
+    private val application: Application,
 ) {
     private val version = 3
 
@@ -49,54 +46,29 @@ class DevicePreferenceDataSource
         },
     )
 
-    val themeFlow: Flow<DisplayThemeType> = application.dataStore.data.map { preferences -> enumValueOfOrDefault(preferences[Keys.THEME], getThemeDefault()) }
-    suspend fun setTheme(theme: DisplayThemeType) {
-        application.dataStore.edit { preferences -> preferences[Keys.THEME] = theme.toString() }
-    }
+    val themePref: DatastorePrefItem<DisplayThemeType> = DatastorePrefItem.createEnum(application.dataStore, Keys.THEME) { enumValueOfOrDefault(it, PrefsDefaults.SYSTEM_THEME_TYPE) }
+    val lastInstalledVersionCodePref: DatastorePrefItem<Int> = DatastorePrefItem.create(application.dataStore, Keys.LAST_INSTALLED_VERSION_CODE, 0)
+    val workSchedulerVersionPref: DatastorePrefItem<Int> = DatastorePrefItem.create(application.dataStore, Keys.WORK_SCHEDULER_VERSION, 0)
+    val developerModePref: DatastorePrefItem<Boolean> = DatastorePrefItem.create(application.dataStore, Keys.DEV_MODE, false)
+    val appInstanceIdPref: DatastorePrefItem<String> = DatastorePrefItem.create(application.dataStore, Keys.APP_INSTANCE_ID, UUID.randomUUID().toString())
 
-    val lastInstalledVersionCodeFlow: Flow<Int> = application.dataStore.data.map { preferences -> preferences[Keys.LAST_INSTALLED_VERSION_CODE] ?: 0 }
-    suspend fun setLastInstalledVersionCode(versionCode: Int) {
-        application.dataStore.edit { preferences -> preferences[Keys.LAST_INSTALLED_VERSION_CODE] = versionCode }
-    }
-
-    val workSchedulerVersionFlow: Flow<Int> = application.dataStore.data.map { preferences -> preferences[Keys.WORK_SCHEDULER_VERSION] ?: 0 }
-    suspend fun setWorkSchedulerVersion(version: Int) {
-        application.dataStore.edit { preferences -> preferences[Keys.WORK_SCHEDULER_VERSION] = version }
-    }
-
-    val developerModeFlow: Flow<Boolean> = application.dataStore.data.map { preferences -> preferences[Keys.DEV_MODE] ?: false }
-    suspend fun setDeveloperMode(enabled: Boolean) {
-        application.dataStore.edit { preferences -> preferences[Keys.DEV_MODE] = enabled }
-    }
-
-    val appInstanceIdFlow: Flow<String> = application.dataStore.data.map { preferences -> preferences[Keys.APP_INSTANCE_ID] ?: UUID.randomUUID().toString() }
-
-    val appInfoFlow: Flow<AppInfo> = application.dataStore.data.map { preferences ->
-        AppInfo(
-            preferences[Keys.DEV_MODE] ?: false,
-            preferences[Keys.APP_INSTANCE_ID] ?: UUID.randomUUID().toString(),
-            preferences[Keys.WORK_SCHEDULER_VERSION] ?: 0,
-            preferences[Keys.LAST_INSTALLED_VERSION_CODE] ?: 0
-        )
-    }
-
-    suspend fun setAppInfoFlow(appInfo: AppInfo) {
-        application.dataStore.edit { preferences ->
+    val appInfoPref: DatastorePrefItem<AppInfo> = DatastorePrefItem.createCustom(
+        dataStore = application.dataStore,
+        read = { preferences ->
+            AppInfo(
+                preferences[Keys.DEV_MODE] ?: false,
+                preferences[Keys.APP_INSTANCE_ID] ?: UUID.randomUUID().toString(),
+                preferences[Keys.WORK_SCHEDULER_VERSION] ?: 0,
+                preferences[Keys.LAST_INSTALLED_VERSION_CODE] ?: 0
+            )
+        },
+        write = { preferences, appInfo ->
             preferences[Keys.DEV_MODE] = appInfo.devMode
             preferences[Keys.APP_INSTANCE_ID] = appInfo.appInstanceId
             preferences[Keys.WORK_SCHEDULER_VERSION] = appInfo.workerVersion
             preferences[Keys.LAST_INSTALLED_VERSION_CODE] = appInfo.lastInstallVersionCode
         }
-    }
-
-    private fun getThemeDefault(): DisplayThemeType {
-        return if (Build.VERSION.SDK_INT > 28) {
-            // support Android Q System Theme
-            DisplayThemeType.SYSTEM_DEFAULT
-        } else {
-            DisplayThemeType.LIGHT
-        }
-    }
+    )
 
     suspend fun clearAll() {
         application.dataStore.edit { it.clear() }

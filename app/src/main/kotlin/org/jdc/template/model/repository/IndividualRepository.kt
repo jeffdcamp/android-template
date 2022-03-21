@@ -5,7 +5,6 @@ import androidx.room.withTransaction
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.withContext
-import org.jdc.template.model.datastore.UserPreferenceDataSource
 import org.jdc.template.model.db.main.MainDatabaseWrapper
 import org.jdc.template.model.db.main.household.Household
 import org.jdc.template.model.db.main.individual.Individual
@@ -19,7 +18,7 @@ import javax.inject.Singleton
 class IndividualRepository
 @Inject constructor(
     private val mainDatabaseWrapper: MainDatabaseWrapper,
-    private val userPreferenceDataSource: UserPreferenceDataSource
+    private val settingsRepository: SettingsRepository
 ) {
     private fun mainDatabase() = mainDatabaseWrapper.getDatabase()
 
@@ -27,14 +26,14 @@ class IndividualRepository
     private fun householdDao() = mainDatabase().householdDao
     private fun directoryItemDao() = mainDatabase().directoryItemDao
 
-    fun getDirectoryListFlow() = userPreferenceDataSource.directorySortByLastNameFlow.flatMapLatest { byLastName ->
+    fun getDirectoryListFlow() = settingsRepository.directorySortByLastNameFlow.flatMapLatest { byLastName ->
         when {
             byLastName -> directoryItemDao().findAllDirectItemsByLastNameFlow()
             else -> directoryItemDao().findAllDirectItemsByFirstNameFlow()
         }
     }
-    suspend fun setDirectorySort(byLastName: Boolean) {
-        userPreferenceDataSource.setDirectorySort(byLastName)
+    fun setDirectorySort(byLastName: Boolean) {
+        settingsRepository.setSortByLastNameAsync(byLastName)
     }
     suspend fun getIndividual(individualId: String) = individualDao().findById(individualId)
     fun getIndividualFlow(individualId: String) = individualDao().findByIdFlow(individualId)

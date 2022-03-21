@@ -4,11 +4,13 @@ import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.jdc.template.model.data.DisplayThemeType
+import org.jdc.template.model.datastore.PrefsDefaults
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.model.repository.SettingsRepository
+import org.jdc.template.util.ext.stateInDefault
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -18,7 +20,7 @@ class MainViewModel
     private val settingsRepository: SettingsRepository,
     private val individualRepository: IndividualRepository
 ) : ViewModel() {
-    val themeFlow: Flow<DisplayThemeType> get() = settingsRepository.themeFlow
+    val themeFlow: StateFlow<DisplayThemeType> get() = settingsRepository.themeFlow.stateInDefault(viewModelScope, PrefsDefaults.SYSTEM_THEME_TYPE)
 
     var isReady: Boolean = false
         private set

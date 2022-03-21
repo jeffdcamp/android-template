@@ -9,8 +9,6 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStore
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -28,10 +26,7 @@ class UserPreferenceDataSource
         }
     )
 
-    val directorySortByLastNameFlow: Flow<Boolean> = application.dataStore.data.map { preferences -> preferences[Keys.DIRECTORY_SORT] ?: true }
-    suspend fun setDirectorySort(sortAscending: Boolean) {
-        application.dataStore.edit { preferences -> preferences[Keys.DIRECTORY_SORT] = sortAscending }
-    }
+    val directorySortByLastNamePref: DatastorePrefItem<Boolean> = DatastorePrefItem.create(application.dataStore, Keys.DIRECTORY_SORT, true)
 
     suspend fun clearAll() {
         application.dataStore.edit { it.clear() }

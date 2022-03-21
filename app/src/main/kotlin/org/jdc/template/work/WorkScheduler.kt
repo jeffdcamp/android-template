@@ -14,8 +14,8 @@ import androidx.work.WorkManager
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import org.jdc.template.BuildConfig
-import org.jdc.template.util.coroutine.ProcessScope
 import org.jdc.template.model.repository.SettingsRepository
+import org.jdc.template.util.coroutine.ProcessScope
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -33,7 +33,7 @@ class WorkScheduler
         // cancel all work if the version changed
         if (settingsRepository.getWorkSchedulerVersion() != WORK_SCHEDULER_VERSION) {
             workManager.cancelAllWork()
-            settingsRepository.setWorkSchedulerVersion(WORK_SCHEDULER_VERSION)
+            settingsRepository.setWorkSchedulerVersionAsync(WORK_SCHEDULER_VERSION)
         }
 
         @Suppress("ConstantConditionIf")
