@@ -37,8 +37,10 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
-    - name: Decode Keystore
-      run: echo ${{ secrets.UPLOAD_KEYSTORE }} | base64 -d -i > upload-keystore
+    - name: Setup
+      run: | 
+         echo ${{ secrets.UPLOAD_KEYSTORE }} | base64 -d -i > upload-keystore 
+         echo ${{ secrets.APP_DISTRIBUTION_KEYS }} > app/app-distribution.json 
 
     - name: License
       run: ./gradlew createLicenseReport
