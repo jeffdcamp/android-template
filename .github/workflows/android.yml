@@ -8,6 +8,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    environment: Alpha
 
     # GRADLE_OPTS do not impact the JVM used by the daemon to do the actual builds (gradle.properties is where you configure the daemon's JVM).
     # This only impacts the configuration of the JVM that runs the gradle client. MaxMetaspaceSize is unbounded by default, which leads to a
