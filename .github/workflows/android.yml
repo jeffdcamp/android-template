@@ -38,9 +38,12 @@ jobs:
       run: chmod +x gradlew
 
     - name: Setup
-      run: | 
-         echo ${{ secrets.UPLOAD_KEYSTORE }} | base64 -d -i > app/upload-keystore 
-         echo ${{ secrets.APP_DISTRIBUTION_KEYS }} > app/app-distribution.json 
+      run: |
+        git log --date=format:"%Y-%m-%d" --pretty="format: * %s% b (%an, %cd)" | head -n 10 > app/commit-changelog.txt
+        echo TESTING123 
+        echo ${{ secrets.TESTING }} is the value
+        echo ${{ secrets.UPLOAD_KEYSTORE }} | base64 -di > app/upload-keystore 
+        echo ${{ secrets.APP_DISTRIBUTION_KEYS }} > app/app-distribution.json 
 
     - name: License
       run: ./gradlew createLicenseReport
