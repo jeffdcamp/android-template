@@ -18,7 +18,7 @@ jobs:
       GRADLE_OPTS: -Dorg.gradle.jvmargs="-XX:MaxMetaspaceSize=2g"
       APP_BUILD_TYPE: "alpha"
       FIREBASE_ID: '1:292666345594:android:21903887d2d5200065d3c3' # from your project google-services.json client_info
-      APP_ARCHIVE_NAME: 'app'
+      APP_ARCHIVE_NAME: app
       APP_MODULE_NAME: 'android-template'
       CHANGELOG_CMD: 'git log --date=format:"%Y-%m-%d" --pretty="format: * %s% b (%an, %cd)" | head -n 10 > commit-changelog.txt'
       FIREBASE_GROUPS: 'mobile-dev-team, mobile-qa-team'
@@ -49,8 +49,26 @@ jobs:
     - name: Lint
       run: ./gradlew lintAlpha
 
-    - name: Lint
+    - name: Detekt
       run: ./gradlew downloadDetektConfig detekt
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-outputs
+        path: app/build/outputs
+
+    - name: Upload build reports
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-reports
+        path: |
+          **/build/licenses/*.html
+          **/build/test-results/**/TEST-*.xml
+          app/build/reports/*.html
+          */build/reports/detekt/*.html
+          
 
 #    - name: App Distribution
 #      run: ./gradlew downloadDetektConfig detekt

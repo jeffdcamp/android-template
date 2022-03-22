@@ -122,7 +122,7 @@ android {
             applicationIdSuffix = ".alpha"
             buildConfigField("long", "BUILD_TIME", "${Date().time}l")
             // isDebuggable = true
-            signingConfig = signingConfigs.getByName("upload")
+//            signingConfig = signingConfigs.getByName("upload")
         }
         create("beta") {
             // todo remove initWith(...)?
