@@ -3,13 +3,27 @@ name: Android CI
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
+
+    # GRADLE_OPTS do not impact the JVM used by the daemon to do the actual builds (gradle.properties is where you configure the daemon's JVM).
+    # This only impacts the configuration of the JVM that runs the gradle client. MaxMetaspaceSize is unbounded by default, which leads to a
+    # condition where the unbounded metaspace allocations starve some other component of the build, and the gradle daemon disappears.
+    # https://docs.gradle.org/6.7.1/userguide/build_environment.html#sec:gradle_environment_variables
+    # https://stackoverflow.com/a/69348586/2476068
+    env:
+      GRADLE_OPTS: -Dorg.gradle.jvmargs="-XX:MaxMetaspaceSize=2g"
+      APP_BUILD_TYPE: "alpha"
+      FIREBASE_ID: '1:292666345594:android:21903887d2d5200065d3c3' # from your project google-services.json client_info
+      APP_ARCHIVE_NAME: 'app'
+      APP_MODULE_NAME: 'android-template'
+      CHANGELOG_CMD: 'git log --date=format:"%Y-%m-%d" --pretty="format: * %s% b (%an, %cd)" | head -n 10 > commit-changelog.txt'
+      FIREBASE_GROUPS: 'mobile-dev-team, mobile-qa-team'
+      FIREBASE_APP_DIST_CMD: "firebase appdistribution:distribute app/build/outputs/apk/\$APP_BUILD_TYPE/app-\$APP_BUILD_TYPE.apk --app \$FIREBASE_ID --release-notes-file commit-changelog.txt --groups \"\$FIREBASE_GROUPS\""
+      GOOGLE_APPLICATION_CREDENTIALS: "${HOME}/google-service-accounts/${APP_MODULE_NAME}.json"
 
     steps:
     - uses: actions/checkout@v2
@@ -22,5 +36,33 @@ jobs:
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-    - name: Build with Gradle
-      run: ./gradlew build
+
+    - name: License
+      run: ./gradlew createLicenseReport
+
+    - name: Build
+      run: ./gradlew clean assembleAlpha bundleAlpha
+
+    - name: Test
+      run: ./gradlew testAlphaUnitTest
+
+    - name: Lint
+      run: ./gradlew lintAlpha
+
+    - name: Lint
+      run: ./gradlew downloadDetektConfig detekt
+
+#    - name: App Distribution
+#      run: ./gradlew downloadDetektConfig detekt
+#    - name: Deploy to Play Store
+#      run: ./gradlew downloadDetektConfig detekt
+
+#  - name: Deploy to Play Store
+#      uses: r0adkll/upload-google-play@v1
+#      with:
+#        serviceAccountJsonPlainText: ${{ secrets.PUBLISHER_PROPERTIES }}
+#        packageName: org.jdc.
+#        releaseFiles: app/build/outputs/apk/release/*.aab
+#        track: internal
+#        status: completed
+
