@@ -39,7 +39,7 @@ jobs:
 
     - name: Setup
       run: | 
-         echo ${{ secrets.UPLOAD_KEYSTORE }} | base64 -d -i > upload-keystore 
+         echo ${{ secrets.UPLOAD_KEYSTORE }} | base64 -d -i > app/upload-keystore 
          echo ${{ secrets.APP_DISTRIBUTION_KEYS }} > app/app-distribution.json 
 
     - name: License
