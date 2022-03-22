@@ -80,11 +80,19 @@ android {
             val appUploadKeyAlias: String by project
             val appUploadKeyPassword: String by project
 
+            val envSigningKeystore = System.getenv("SIGNING_KEYSTORE")
             if (appUploadKeystore != null) {
+                // From Global gradle.properties (local or Jenkinsfile)
                 storeFile = File(appUploadKeystore)
                 storePassword = appUploadKeystorePassword
                 keyAlias = appUploadKeyAlias
                 keyPassword = appUploadKeyPassword
+            } else if (envSigningKeystore != null){
+                // From environment (local or Github Actions)
+                storeFile = file(envSigningKeystore)
+                storePassword = System.getenv("SIGNING_STORE_PASSWORD")
+                keyAlias = System.getenv("SIGNING_KEY_ALIAS")
+                keyPassword = System.getenv("SIGNING_KEY_PASSWORD")
             }
         }
 
@@ -94,11 +102,19 @@ android {
             val appProdKeyAlias: String by project
             val appProdKeyPassword: String by project
 
+            val envSigningKeystore = System.getenv("SIGNING_KEYSTORE")
             if (appProdKeystore != null) {
+                // From Global gradle.properties (local or Jenkinsfile)
                 storeFile = File(appProdKeystore)
                 storePassword = appProdKeystorePassword
                 keyAlias = appProdKeyAlias
                 keyPassword = appProdKeyPassword
+            } else if (envSigningKeystore != null){
+                // From environment (local or Github Actions)
+                storeFile = file(envSigningKeystore)
+                storePassword = System.getenv("SIGNING_STORE_PASSWORD")
+                keyAlias = System.getenv("SIGNING_KEY_ALIAS")
+                keyPassword = System.getenv("SIGNING_KEY_PASSWORD")
             }
         }
     }

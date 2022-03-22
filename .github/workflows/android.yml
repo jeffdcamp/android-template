@@ -46,10 +46,10 @@ jobs:
     - name: Build
       run: ./gradlew clean assembleAlpha bundleAlpha
       env:
-        appUploadKeystore: upload-keystore
-        appUploadKeystorePassword: ${{ secrets.SIGNING_KEY_ALIAS }}
-        appUploadKeyAlias: ${{ secrets.SIGNING_KEY_PASSWORD }}
-        appUploadKeyPassword: ${{ secrets.SIGNING_STORE_PASSWORD }}
+        SIGNING_KEYSTORE: upload-keystore
+        SIGNING_STORE_PASSWORD: ${{ secrets.UPLOAD_SIGNING_STORE_PASSWORD }}
+        SIGNING_KEY_ALIAS: ${{ secrets.UPLOAD_SIGNING_KEY_ALIAS }}
+        SIGNING_KEY_PASSWORD: ${{ secrets.UPLOAD_SIGNING_KEY_PASSWORD }}
 
     - name: Test
       run: ./gradlew testAlphaUnitTest
