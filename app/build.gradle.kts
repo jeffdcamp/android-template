@@ -75,30 +75,30 @@ android {
     // defined values my* in ~/.gradle/gradle.properties
     signingConfigs {
         create("upload") {
-            val myUploadKeystore: String? by project
-            val myUploadKeystorePassword: String by project
-            val myUploadKeyAlias: String by project
-            val myUploadKeyPassword: String by project
+            val appUploadKeystore: String? by project
+            val appUploadKeystorePassword: String by project
+            val appUploadKeyAlias: String by project
+            val appUploadKeyPassword: String by project
 
-            if (myUploadKeystore != null) {
-                storeFile = File(myUploadKeystore)
-                storePassword = myUploadKeystorePassword
-                keyAlias = myUploadKeyAlias
-                keyPassword = myUploadKeyPassword
+            if (appUploadKeystore != null) {
+                storeFile = File(appUploadKeystore)
+                storePassword = appUploadKeystorePassword
+                keyAlias = appUploadKeyAlias
+                keyPassword = appUploadKeyPassword
             }
         }
 
         create("prod") {
-            val myProdKeystore: String? by project
-            val myProdKeystorePassword: String by project
-            val myProdKeyAlias: String by project
-            val myProdKeyPassword: String by project
+            val appProdKeystore: String? by project
+            val appProdKeystorePassword: String by project
+            val appProdKeyAlias: String by project
+            val appProdKeyPassword: String by project
 
-            if (myProdKeystore != null) {
-                storeFile = File(myProdKeystore)
-                storePassword = myProdKeystorePassword
-                keyAlias = myProdKeyAlias
-                keyPassword = myProdKeyPassword
+            if (appProdKeystore != null) {
+                storeFile = File(appProdKeystore)
+                storePassword = appProdKeystorePassword
+                keyAlias = appProdKeyAlias
+                keyPassword = appProdKeyPassword
             }
         }
     }
@@ -122,7 +122,7 @@ android {
             applicationIdSuffix = ".alpha"
             buildConfigField("long", "BUILD_TIME", "${Date().time}l")
             // isDebuggable = true
-//            signingConfig = signingConfigs.getByName("upload")
+            signingConfig = signingConfigs.getByName("upload")
         }
         create("beta") {
             // todo remove initWith(...)?
