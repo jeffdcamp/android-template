@@ -1,3 +1,4 @@
+@file:Suppress("MatchingDeclarationName")
 package org.jdc.template.ux.individualedit
 
 import androidx.compose.foundation.clickable
