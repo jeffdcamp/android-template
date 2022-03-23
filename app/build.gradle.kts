@@ -123,7 +123,7 @@ android {
     // read the "androidTemplateServiceCredentialsFile" from Gradle properties
     val androidTemplateServiceCredentialsFile: String? by project
 
-    val serviceCredentialsFileFromEnv = "app-distribution.json"
+    val serviceCredentialsFileFromEnv = "app-distribution.json" // matches filename in Gradle Actions yml
     val serviceCredentialsFileFromGradle = androidTemplateServiceCredentialsFile
     val firebaseServiceCredentialsFile: String? = if (File(serviceCredentialsFileFromEnv).exists()) serviceCredentialsFileFromEnv else serviceCredentialsFileFromGradle
     val firebaseGroups = "mobile-dev-team, mobile-qa-team"
@@ -144,9 +144,6 @@ android {
             buildConfigField("long", "BUILD_TIME", "${Date().time}l")
             // isDebuggable = true
             signingConfig = signingConfigs.getByName("upload")
-
-            println("+++  $serviceCredentialsFileFromEnv  ")
-            println("***  $firebaseServiceCredentialsFile  ")
 
             firebaseAppDistribution {
                 serviceCredentialsFile = firebaseServiceCredentialsFile
@@ -355,8 +352,16 @@ tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
 
 // TripleT / Google Play Publisher
 play {
-    val myServiceAccountCreds: String? by project
-    serviceAccountCredentials.set(File(myServiceAccountCreds ?: "api-playstore-dummy.json"))
+    val myServiceAccountCreds: String? by project // from Gradle (Jenkins)
+    val playstoreFileFromEnv = "playstore.json" // from Env (matches filename in Gradle Actions yml)
+    val playstoreFileFromGradle = myServiceAccountCreds
+
+    println("+++  $playstoreFileFromEnv  ")
+    println("***  $playstoreFileFromGradle  ")
+
+    val playstoreFile: String? = if (File(playstoreFileFromEnv).exists()) playstoreFileFromEnv else playstoreFileFromGradle
+
+    serviceAccountCredentials.set(File(playstoreFile))
     track.set("internal")
     defaultToAppBundles.set(true)
 }

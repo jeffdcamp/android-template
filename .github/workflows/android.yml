@@ -34,10 +34,12 @@ jobs:
       env:
         ENCODED_STRING: ${{ secrets.UPLOAD_KEYSTORE }}
         APP_DISTRIBUTION_KEYS: ${{ secrets.APP_DISTRIBUTION_KEYS }}
+        PLAYSTORE_KEYS: ${{ secrets.PLAYSTORE_KEYS }}
       run: |
         git log --date=format:"%Y-%m-%d" --pretty="format: * %s% b (%an, %cd)" | head -n 10 > commit-changelog.txt
         echo $ENCODED_STRING | base64 -d -i > app/upload-keystore
         echo $APP_DISTRIBUTION_KEYS > app-distribution.json
+        echo PLAYSTORE_KEYS > playstore.json
 
     - name: License
       run: ./gradlew createLicenseReport
@@ -81,18 +83,3 @@ jobs:
           **/build/test-results/**/TEST-*.xml
           app/build/reports/*.html
           */build/reports/detekt/*.html
-
-#    - name: App Distribution
-#      run: ./gradlew downloadDetektConfig detekt
-#    - name: Deploy to Play Store
-#      run: ./gradlew downloadDetektConfig detekt
-
-#  - name: Deploy to Play Store
-#      uses: r0adkll/upload-google-play@v1
-#      with:
-#        serviceAccountJsonPlainText: ${{ secrets.PUBLISHER_PROPERTIES }}
-#        packageName: org.jdc.
-#        releaseFiles: app/build/outputs/apk/release/*.aab
-#        track: internal
-#        status: completed
-
