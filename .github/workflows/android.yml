@@ -40,17 +40,10 @@ jobs:
 
     - name: Setup
       env:
-        TESTING_TOKEN: ${{ secrets.TEST }}
         APP_BUILD_TYPE2: XYZ
       run: |
         git log --date=format:"%Y-%m-%d" --pretty="format: * %s% b (%an, %cd)" | head -n 10 > app/commit-changelog.txt
-        echo TESTING123 
-        echo ${{ secrets.TEST }} is the value
-        echo "$TESTING_TOKEN is the other value"
-        echo "$APP_BUILD_TYPE is the app build type"
-        echo $APP_BUILD_TYPE is ALSO the app build type
-        echo $APP_BUILD_TYPE2 is ALSO the app build type 2
-        echo ${{ secrets.UPLOAD_KEYSTORE }} | base64 -di > app/upload-keystore
+        echo ${{ secrets.UPLOAD_KEYSTORE }} | base64 -d -i > app/upload-keystore
         echo ${{ secrets.APP_DISTRIBUTION_KEYS }} > app/app-distribution.json
 
     - name: License
