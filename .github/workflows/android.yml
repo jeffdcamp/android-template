@@ -36,7 +36,7 @@ jobs:
         ENCODED_STRING: ${{ secrets.UPLOAD_KEYSTORE }}
         APP_DISTRIBUTION_KEYS: ${{ secrets.APP_DISTRIBUTION_KEYS }}
       run: |
-        git log --date=format:"%Y-%m-%d" --pretty="format: * %s% b (%an, %cd)" | head -n 10 > app/commit-changelog.txt
+        $CHANGELOG_CMD
         echo $ENCODED_STRING | base64 -d -i > app/upload-keystore
         echo $APP_DISTRIBUTION_KEYS > app/app-distribution.json
 
