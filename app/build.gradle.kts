@@ -356,7 +356,7 @@ play {
     val playstoreFileFromEnv = "playstore.json" // from Env (matches filename in Gradle Actions yml)
     val playstoreFileFromGradle = myServiceAccountCreds
 
-    println("+++  $playstoreFileFromEnv  (${File(playstoreFileFromEnv).exists()}")
+    println("+++  $playstoreFileFromEnv  (${File(playstoreFileFromEnv).exists()})")
     println("***  $playstoreFileFromGradle  ")
 
     val playstoreFile: String = if (File(playstoreFileFromEnv).exists()) playstoreFileFromEnv else playstoreFileFromGradle ?: ""
