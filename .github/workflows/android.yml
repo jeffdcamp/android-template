@@ -8,7 +8,6 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    environment: Alpha
 
     # GRADLE_OPTS do not impact the JVM used by the daemon to do the actual builds (gradle.properties is where you configure the daemon's JVM).
     # This only impacts the configuration of the JVM that runs the gradle client. MaxMetaspaceSize is unbounded by default, which leads to a
@@ -39,8 +38,6 @@ jobs:
       run: chmod +x gradlew
 
     - name: Setup
-      env:
-        APP_BUILD_TYPE2: XYZ
       run: |
         git log --date=format:"%Y-%m-%d" --pretty="format: * %s% b (%an, %cd)" | head -n 10 > app/commit-changelog.txt
         echo ${{ secrets.UPLOAD_KEYSTORE }} | base64 -d -i > app/upload-keystore
