@@ -67,6 +67,7 @@ jobs:
     - name: Firebase App Distribution
       uses: wzieba/Firebase-Distribution-Github-Action@v1
       with:
+        appId: ${{ secrets.FIREBASE_APP_ID }}
         serviceCredentialsFile: app-distribution.json
         groups: mobile-dev-team, mobile-qa-team
         releaseNotesFile: commit-changelog.txt
