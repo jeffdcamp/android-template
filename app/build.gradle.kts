@@ -145,6 +145,7 @@ android {
             // isDebuggable = true
             signingConfig = signingConfigs.getByName("upload")
 
+            println("+++  $serviceCredentialsFileFromEnv  ")
             println("***  $firebaseServiceCredentialsFile  ")
 
             firebaseAppDistribution {
