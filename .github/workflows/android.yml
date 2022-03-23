@@ -52,22 +52,31 @@ jobs:
         SIGNING_KEY_ALIAS: ${{ secrets.UPLOAD_SIGNING_KEY_ALIAS }}
         SIGNING_KEY_PASSWORD: ${{ secrets.UPLOAD_SIGNING_KEY_PASSWORD }}
 
-    - name: Test
-      run: ./gradlew testAlphaUnitTest
+#    - name: Test
+#      run: ./gradlew testAlphaUnitTest
+#
+#    - name: Lint
+#      run: ./gradlew lintAlpha
+#
+#    - name: Detekt
+#      run: ./gradlew downloadDetektConfig detekt
 
-    - name: Lint
-      run: ./gradlew lintAlpha
+#    - name: App Distribution
+#      run: ./gradlew appDistributionUploadAlpha
 
-    - name: Detekt
-      run: ./gradlew downloadDetektConfig detekt
+    - name: Firebase App Distribution
+      uses: wzieba/Firebase-Distribution-Github-Action@v1
+      with:
+        appId: ${{ secrets.FIREBASE_APP_ID }}
+        token: ${{ secrets.FIREBASE_TOKEN }}
+        groups: mobile-dev-team, mobile-qa-team
+        releaseNotesFile: commit-changelog.txt
+        file: app/build/outputs/apk/alpha/app-alpha.apk
 
-    - name: App Distribution
-      run: ./gradlew appDistributionUploadAlpha
-
-    - name: Deploy to Play Store
-      env:
-        ANDROID_PUBLISHER_CREDENTIALS: ${{ secrets.UPLOAD_SIGNING_STORE_PASSWORD }}
-      run: ./gradlew publishAlphaBundle --artifact-dir app/build/outputs/bundle/alpha
+#    - name: Deploy to Play Store
+#      env:
+#        ANDROID_PUBLISHER_CREDENTIALS: ${{ secrets.UPLOAD_SIGNING_STORE_PASSWORD }}
+#      run: ./gradlew publishAlphaBundle --artifact-dir app/build/outputs/bundle/alpha
 
     - name: Upload artifact
       uses: actions/upload-artifact@v3

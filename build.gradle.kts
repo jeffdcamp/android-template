@@ -14,7 +14,7 @@ buildscript {
         classpath(libs.google.hilt.gradlePluginClasspath)
         classpath(libs.google.firebase.crashlyticsGradlePluginClasspath)
         // classpath(libs.google.firebase.perfGradlePluginClasspath)
-        classpath(libs.google.firebase.appDistGradlePluginClasspath)
+//        classpath(libs.google.firebase.appDistGradlePluginClasspath)
         classpath(libs.google.servicesgradlePluginClasspath)
         classpath(libs.gradleVersions.gradlePluginClasspath)
         classpath(libs.dbtools.licenseManager.gradlePluginClasspath)

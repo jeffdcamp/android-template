@@ -7,7 +7,7 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
-    id("com.google.firebase.appdistribution")
+//    id("com.google.firebase.appdistribution")
     id("org.dbtools.license-manager")
     id("de.undercouch.download")
     id("com.spotify.ruler")
@@ -145,33 +145,33 @@ android {
             // isDebuggable = true
             signingConfig = signingConfigs.getByName("upload")
 
-            firebaseAppDistribution {
-                serviceCredentialsFile = firebaseServiceCredentialsFile
-                groups = firebaseGroups
-                releaseNotesFile = firebaseReleaseNotesFile
-            }
+//            firebaseAppDistribution {
+//                serviceCredentialsFile = firebaseServiceCredentialsFile
+//                groups = firebaseGroups
+//                releaseNotesFile = firebaseReleaseNotesFile
+//            }
         }
         create("beta") {
             versionNameSuffix = " BETA"
             buildConfigField("long", "BUILD_TIME", "${Date().time}l")
             signingConfig = signingConfigs.getByName("upload")
 
-            release {
-                versionNameSuffix = ""
-                buildConfigField("long", "BUILD_TIME", "${Date().time}l")
-                signingConfig = signingConfigs.getByName("upload")
-            }
+//            firebaseAppDistribution {
+//                serviceCredentialsFile = firebaseServiceCredentialsFile
+//                groups = firebaseGroups
+//                releaseNotesFile = firebaseReleaseNotesFile
+//            }
         }
         release {
             versionNameSuffix = ""
             buildConfigField("long", "BUILD_TIME", "${Date().time}l")
             signingConfig = signingConfigs.getByName("upload")
 
-            release {
-                versionNameSuffix = ""
-                buildConfigField("long", "BUILD_TIME", "${Date().time}l")
-                signingConfig = signingConfigs.getByName("upload")
-            }
+//            firebaseAppDistribution {
+//                serviceCredentialsFile = firebaseServiceCredentialsFile
+//                groups = firebaseGroups
+//                releaseNotesFile = firebaseReleaseNotesFile
+//            }
         }
     }
 
@@ -354,8 +354,8 @@ tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
 play {
     // try to get the credentials from gradle properties (ex: Jenkins) OR try to pull from env.ANDROID_PUBLISHER_CREDENTIALS (Gradle Actions)
     val myServiceAccountCreds: String? by project
-    if (myServiceAccountCreds != null) {
-        serviceAccountCredentials.set(File(myServiceAccountCreds))
+    myServiceAccountCreds?.let { filename ->
+        serviceAccountCredentials.set(File(filename))
     }
 
     track.set("internal")
