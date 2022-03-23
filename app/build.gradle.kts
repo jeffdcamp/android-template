@@ -356,10 +356,12 @@ play {
     val playstoreFileFromEnv = "playstore.json" // from Env (matches filename in Gradle Actions yml)
     val playstoreFileFromGradle = myServiceAccountCreds
 
-    println("+++  $playstoreFileFromEnv  ")
+    println("+++  $playstoreFileFromEnv  (${File(playstoreFileFromEnv).exists())}")
     println("***  $playstoreFileFromGradle  ")
 
     val playstoreFile: String = if (File(playstoreFileFromEnv).exists()) playstoreFileFromEnv else playstoreFileFromGradle ?: ""
+
+    println("!!!  $playstoreFileFromGradle -> ${File(playstoreFile).absolutePath} ")
 
     serviceAccountCredentials.set(File(playstoreFile))
     track.set("internal")
