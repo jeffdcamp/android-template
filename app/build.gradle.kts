@@ -361,9 +361,10 @@ play {
 
     val playstoreFile: String = if (File(playstoreFileFromEnv).exists()) playstoreFileFromEnv else playstoreFileFromGradle ?: ""
 
-    println("!!!  $playstoreFileFromGradle -> ${File(playstoreFile).absolutePath} ")
+    val serviceAccountCredentialsFile = File(playstoreFile)
+    println("!!!  $playstoreFileFromGradle -> ${serviceAccountCredentialsFile.absolutePath} (exists: ${serviceAccountCredentialsFile.exists()})")
 
-    serviceAccountCredentials.set(File(playstoreFile))
+    serviceAccountCredentials.set(serviceAccountCredentialsFile)
     track.set("internal")
     defaultToAppBundles.set(true)
 }
