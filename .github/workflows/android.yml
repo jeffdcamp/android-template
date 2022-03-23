@@ -39,7 +39,7 @@ jobs:
         git log --date=format:"%Y-%m-%d" --pretty="format: * %s% b (%an, %cd)" | head -n 10 > commit-changelog.txt
         echo $ENCODED_STRING | base64 -d -i > app/upload-keystore
         echo $APP_DISTRIBUTION_KEYS > app-distribution.json
-        echo PLAYSTORE_KEYS > playstore.json
+        echo PLAYSTORE_KEYS > app/playstore.json
 
     - name: License
       run: ./gradlew createLicenseReport
