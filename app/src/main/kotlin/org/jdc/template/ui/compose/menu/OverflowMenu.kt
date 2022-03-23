@@ -20,6 +20,7 @@ import org.jdc.template.R
 @Composable
 fun OverflowMenu(
     menuItems: List<OverflowMenuItem>,
+    modifier: Modifier = Modifier,
     showIcon: Boolean = true
 ) {
     if (menuItems.isEmpty()) {
@@ -29,9 +30,12 @@ fun OverflowMenu(
     val expanded = remember { mutableStateOf(false) }
 
     if (showIcon) {
-        IconButton(onClick = {
-            expanded.value = true
-        }) {
+        IconButton(
+            onClick = {
+                expanded.value = true
+            },
+            modifier = modifier
+        ) {
             Icon(
                 imageVector = Icons.Default.MoreVert,
                 contentDescription = stringResource(R.string.more_options)
