@@ -7,6 +7,7 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
+    id("com.google.firebase.appdistribution")
     id("org.dbtools.license-manager")
     id("de.undercouch.download")
     id("com.spotify.ruler")
@@ -119,6 +120,15 @@ android {
         }
     }
 
+    // read the "androidTemplateServiceCredentialsFile" from Gradle properties
+    val androidTemplateServiceCredentialsFile: String? by project
+
+    val serviceCredentialsFileFromEnv = "app-distribution.json"
+    val serviceCredentialsFileFromGradle = androidTemplateServiceCredentialsFile
+    val firebaseServiceCredentialsFile: String? = if (File(serviceCredentialsFileFromEnv).exists()) serviceCredentialsFileFromEnv else serviceCredentialsFileFromGradle
+    val firebaseGroups = "mobile-dev-team, mobile-qa-team"
+    val firebaseReleaseNotesFile = "commit-changelog.txt"
+
     buildTypes {
         debug {
             versionNameSuffix = " DEV"
@@ -129,31 +139,41 @@ android {
             // signingConfig = signingConfigs.getByName("upload")
         }
         create("alpha") {
-            // todo remove initWith(...)?
-            // * 2021-04-30 no longer exists with AGP 7.0.0-alpha15
-            // * Code for in AGP 7.0.0-alpha14 AbstractBuildType.initWith() only copies values from other variant... which is covered below (see https://android.googlesource.com/platform/tools/base/+/mirror-goog-studio-master-dev/build-system/gradle-core/src/main/java/com/android/builder/core/AbstractBuildType.kt)
-            // initWith(getByName("release"))
-
             versionNameSuffix = " ALPHA"
             applicationIdSuffix = ".alpha"
             buildConfigField("long", "BUILD_TIME", "${Date().time}l")
             // isDebuggable = true
             signingConfig = signingConfigs.getByName("upload")
+
+            println("***  $firebaseServiceCredentialsFile  ")
+
+            firebaseAppDistribution {
+                serviceCredentialsFile = firebaseServiceCredentialsFile
+                groups = firebaseGroups
+                releaseNotesFile = firebaseReleaseNotesFile
+            }
         }
         create("beta") {
-            // todo remove initWith(...)?
-            // * 2021-04-30 no longer exists with AGP 7.0.0-alpha15
-            // * Code for in AGP 7.0.0-alpha14 AbstractBuildType.initWith() only copies values from other variant... which is covered below (see https://android.googlesource.com/platform/tools/base/+/mirror-goog-studio-master-dev/build-system/gradle-core/src/main/java/com/android/builder/core/AbstractBuildType.kt)
-            // initWith(getByName("release"))
-
             versionNameSuffix = " BETA"
             buildConfigField("long", "BUILD_TIME", "${Date().time}l")
             signingConfig = signingConfigs.getByName("upload")
+
+            release {
+                versionNameSuffix = ""
+                buildConfigField("long", "BUILD_TIME", "${Date().time}l")
+                signingConfig = signingConfigs.getByName("upload")
+            }
         }
         release {
             versionNameSuffix = ""
             buildConfigField("long", "BUILD_TIME", "${Date().time}l")
             signingConfig = signingConfigs.getByName("upload")
+
+            release {
+                versionNameSuffix = ""
+                buildConfigField("long", "BUILD_TIME", "${Date().time}l")
+                signingConfig = signingConfigs.getByName("upload")
+            }
         }
     }
 

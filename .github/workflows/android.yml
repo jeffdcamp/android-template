@@ -16,14 +16,8 @@ jobs:
     # https://stackoverflow.com/a/69348586/2476068
     env:
       GRADLE_OPTS: -Dorg.gradle.jvmargs="-XX:MaxMetaspaceSize=2g"
-      APP_BUILD_TYPE: "alpha"
-      FIREBASE_ID: '1:292666345594:android:21903887d2d5200065d3c3' # from your project google-services.json client_info
-      APP_ARCHIVE_NAME: app
       APP_MODULE_NAME: 'android-template'
       CHANGELOG_CMD: 'git log --date=format:"%Y-%m-%d" --pretty="format: * %s% b (%an, %cd)" | head -n 10 > commit-changelog.txt'
-      FIREBASE_GROUPS: 'mobile-dev-team, mobile-qa-team'
-#      FIREBASE_APP_DIST_CMD: "firebase appdistribution:distribute app/build/outputs/apk/\$APP_BUILD_TYPE/app-\$APP_BUILD_TYPE.apk --app \$FIREBASE_ID --release-notes-file commit-changelog.txt --groups \"\$FIREBASE_GROUPS\""
-#      GOOGLE_APPLICATION_CREDENTIALS: "${HOME}/google-service-accounts/${APP_MODULE_NAME}.json"
 
     steps:
     - uses: actions/checkout@v2
@@ -65,6 +59,12 @@ jobs:
 
     - name: Detekt
       run: ./gradlew downloadDetektConfig detekt
+
+    - name: App Distribution
+      run: ./gradlew appDistributionUploadAlpha
+
+    - name: Deploy to Play Store
+      run: ./gradlew publishAlphaBundle --artifact-dir app/build/outputs/bundle/alpha
 
     - name: Upload artifact
       uses: actions/upload-artifact@v3

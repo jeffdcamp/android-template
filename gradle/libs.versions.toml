@@ -104,6 +104,7 @@ google-servicesgradlePluginClasspath = { module = "com.google.gms:google-service
 
 # Firebase - https://firebase.google.com/support/release-notes/android
 google-firebase-bom = { module = "com.google.firebase:firebase-bom", version = "29.2.1" }
+google-firebase-appDistGradlePluginClasspath = { module = "com.google.firebase:firebase-appdistribution-gradle", version = "3.0.1" }
 google-firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx" }
 google-firebase-config = { module = "com.google.firebase:firebase-config-ktx" }
 google-firebase-core = { module = "com.google.firebase:firebase-core" }

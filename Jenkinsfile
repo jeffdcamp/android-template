@@ -34,9 +34,9 @@ pipeline {
         APP_ARCHIVE_NAME = 'app'
         APP_MODULE_NAME = 'android-template'
         CHANGELOG_CMD = 'git log --date=format:"%Y-%m-%d" --pretty="format: * %s% b (%an, %cd)" | head -n 10 > commit-changelog.txt'
-        FIREBASE_GROUPS = 'mobile-dev-team, mobile-qa-team'
-        FIREBASE_APP_DIST_CMD = "firebase appdistribution:distribute app/build/outputs/apk/\$APP_BUILD_TYPE/app-\$APP_BUILD_TYPE.apk --app \$FIREBASE_ID --release-notes-file commit-changelog.txt --groups \"\$FIREBASE_GROUPS\""
-        GOOGLE_APPLICATION_CREDENTIALS = "${HOME}/google-service-accounts/${APP_MODULE_NAME}.json"
+//        FIREBASE_GROUPS = 'mobile-dev-team, mobile-qa-team'
+//        FIREBASE_APP_DIST_CMD = "firebase appdistribution:distribute app/build/outputs/apk/\$APP_BUILD_TYPE/app-\$APP_BUILD_TYPE.apk --app \$FIREBASE_ID --release-notes-file commit-changelog.txt --groups \"\$FIREBASE_GROUPS\""
+//        GOOGLE_APPLICATION_CREDENTIALS = "${HOME}/google-service-accounts/${APP_MODULE_NAME}.json"
     }
 
     tools {
@@ -150,7 +150,8 @@ pipeline {
                 stage("App Distribution") {
                     steps {
                         sh "${CHANGELOG_CMD}"
-                        sh "${FIREBASE_APP_DIST_CMD}"
+                        sh './gradlew appDistributionUploadAlpha'
+//                        sh "${FIREBASE_APP_DIST_CMD}"
                     }
                 }
                 stage("Deploy to Play Store Alpha") {
@@ -222,7 +223,8 @@ pipeline {
                 stage("App Distribution") {
                     steps {
                         sh "${CHANGELOG_CMD}"
-                        sh "${FIREBASE_APP_DIST_CMD}"
+                        sh './gradlew appDistributionUploadAlpha'
+//                        sh "${FIREBASE_APP_DIST_CMD}"
                     }
                 }
                 stage("Deploy to Play Store") {
@@ -300,7 +302,8 @@ pipeline {
                 stage("App Distribution") {
                     steps {
                         sh "${CHANGELOG_CMD}"
-                        sh "${FIREBASE_APP_DIST_CMD}"
+                        sh './gradlew appDistributionUploadAlpha'
+//                        sh "${FIREBASE_APP_DIST_CMD}"
                     }
                 }
                 stage("Deploy to Play Store") {
