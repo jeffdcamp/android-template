@@ -359,7 +359,7 @@ play {
     println("+++  $playstoreFileFromEnv  ")
     println("***  $playstoreFileFromGradle  ")
 
-    val playstoreFile: String? = if (File(playstoreFileFromEnv).exists()) playstoreFileFromEnv else playstoreFileFromGradle
+    val playstoreFile: String = if (File(playstoreFileFromEnv).exists()) playstoreFileFromEnv else playstoreFileFromGradle ?: ""
 
     serviceAccountCredentials.set(File(playstoreFile))
     track.set("internal")
