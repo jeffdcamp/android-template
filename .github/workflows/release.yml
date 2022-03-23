@@ -1,8 +1,8 @@
-name: Android CI
+name: Release CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ release ]
 
 jobs:
   build:
@@ -16,7 +16,6 @@ jobs:
     # https://stackoverflow.com/a/69348586/2476068
     env:
       GRADLE_OPTS: -Dorg.gradle.jvmargs="-XX:MaxMetaspaceSize=2g"
-      APP_MODULE_NAME: 'android-template'
 
     steps:
     - uses: actions/checkout@v2
@@ -45,7 +44,7 @@ jobs:
       run: ./gradlew createLicenseReport
 
     - name: Build
-      run: ./gradlew clean assembleAlpha bundleAlpha
+      run: ./gradlew clean assembleRelease bundleRelease
       env:
         SIGNING_KEYSTORE: upload-keystore
         SIGNING_STORE_PASSWORD: ${{ secrets.UPLOAD_SIGNING_STORE_PASSWORD }}
@@ -53,21 +52,21 @@ jobs:
         SIGNING_KEY_PASSWORD: ${{ secrets.UPLOAD_SIGNING_KEY_PASSWORD }}
 
     - name: Test
-      run: ./gradlew testAlphaUnitTest
+      run: ./gradlew testReleaseUnitTest
 
     - name: Lint
-      run: ./gradlew lintAlpha
+      run: ./gradlew lintRelease
 
     - name: Detekt
       run: ./gradlew downloadDetektConfig detekt
 
     - name: App Distribution
-      run: ./gradlew appDistributionUploadAlpha
+      run: ./gradlew appDistributionUploadRelease
 
-#    - name: Deploy to Play Store
-#      env:
-#        ANDROID_PUBLISHER_CREDENTIALS: ${{ secrets.UPLOAD_SIGNING_STORE_PASSWORD }}
-#      run: ./gradlew publishAlphaBundle --artifact-dir app/build/outputs/bundle/alpha
+    - name: Deploy to Play Store
+      env:
+        ANDROID_PUBLISHER_CREDENTIALS: ${{ secrets.UPLOAD_SIGNING_STORE_PASSWORD }}
+      run: ./gradlew publishReleaseBundle --artifact-dir app/build/outputs/bundle/release
 
     - name: Upload artifact
       uses: actions/upload-artifact@v3
