@@ -7,13 +7,13 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
-//    id("com.google.firebase.appdistribution")
+    id("com.google.firebase.appdistribution")
     id("org.dbtools.license-manager")
     id("de.undercouch.download")
     id("com.spotify.ruler")
     alias(libs.plugins.ksp)
     alias(libs.plugins.detekt)
-    alias(libs.plugins.playPublisher)
+    id("com.github.triplet.play")
     alias(libs.plugins.kotlin.serialization)
 }
 
@@ -145,33 +145,33 @@ android {
             // isDebuggable = true
             signingConfig = signingConfigs.getByName("upload")
 
-//            firebaseAppDistribution {
-//                serviceCredentialsFile = firebaseServiceCredentialsFile
-//                groups = firebaseGroups
-//                releaseNotesFile = firebaseReleaseNotesFile
-//            }
+            firebaseAppDistribution {
+                serviceCredentialsFile = firebaseServiceCredentialsFile
+                groups = firebaseGroups
+                releaseNotesFile = firebaseReleaseNotesFile
+            }
         }
         create("beta") {
             versionNameSuffix = " BETA"
             buildConfigField("long", "BUILD_TIME", "${Date().time}l")
             signingConfig = signingConfigs.getByName("upload")
 
-//            firebaseAppDistribution {
-//                serviceCredentialsFile = firebaseServiceCredentialsFile
-//                groups = firebaseGroups
-//                releaseNotesFile = firebaseReleaseNotesFile
-//            }
+            firebaseAppDistribution {
+                serviceCredentialsFile = firebaseServiceCredentialsFile
+                groups = firebaseGroups
+                releaseNotesFile = firebaseReleaseNotesFile
+            }
         }
         release {
             versionNameSuffix = ""
             buildConfigField("long", "BUILD_TIME", "${Date().time}l")
             signingConfig = signingConfigs.getByName("upload")
 
-//            firebaseAppDistribution {
-//                serviceCredentialsFile = firebaseServiceCredentialsFile
-//                groups = firebaseGroups
-//                releaseNotesFile = firebaseReleaseNotesFile
-//            }
+            firebaseAppDistribution {
+                serviceCredentialsFile = firebaseServiceCredentialsFile
+                groups = firebaseGroups
+                releaseNotesFile = firebaseReleaseNotesFile
+            }
         }
     }
 

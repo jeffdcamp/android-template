@@ -14,12 +14,19 @@ buildscript {
         classpath(libs.google.hilt.gradlePluginClasspath)
         classpath(libs.google.firebase.crashlyticsGradlePluginClasspath)
         // classpath(libs.google.firebase.perfGradlePluginClasspath)
-//        classpath(libs.google.firebase.appDistGradlePluginClasspath)
+        classpath(libs.google.firebase.appDistGradlePluginClasspath)
         classpath(libs.google.servicesgradlePluginClasspath)
         classpath(libs.gradleVersions.gradlePluginClasspath)
         classpath(libs.dbtools.licenseManager.gradlePluginClasspath)
         classpath(libs.ruler.gradlePluginClasspath)
     }
+}
+
+plugins {
+    // Work-around to fix conflict with "Firebase AppDistribution" and "Triple-T" (both depend on different 'com.google.http-client')
+    // - Be sure to match this version to Triple-T version "android-publisher" in https://github.com/Triple-T/gradle-play-publisher/blob/master/settings.gradle.kts
+    // - Tiple-T issue https://github.com/Triple-T/gradle-play-publisher/issues/901
+    id("com.github.triplet.play") version "3.7.0" apply false
 }
 
 @OptIn(ExperimentalStdlibApi::class) // to use buildList (remove with Kotlin 1.5?)
