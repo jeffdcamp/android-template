@@ -352,19 +352,12 @@ tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
 
 // TripleT / Google Play Publisher
 play {
-    val myServiceAccountCreds: String? by project // from Gradle (Jenkins)
-    val playstoreFileFromEnv = "playstore.json" // from Env (matches filename in Gradle Actions yml)
-    val playstoreFileFromGradle = myServiceAccountCreds
+    // try to get the credentials from gradle properties (ex: Jenkins) OR try to pull from env.ANDROID_PUBLISHER_CREDENTIALS (Gradle Actions)
+    val myServiceAccountCreds: String? by project
+    if (myServiceAccountCreds != null) {
+        serviceAccountCredentials.set(File(myServiceAccountCreds))
+    }
 
-    println("+++  $playstoreFileFromEnv  (${File(playstoreFileFromEnv).exists()})")
-    println("***  $playstoreFileFromGradle  ")
-
-    val playstoreFile: String = if (File(playstoreFileFromEnv).exists()) playstoreFileFromEnv else playstoreFileFromGradle ?: ""
-
-    val serviceAccountCredentialsFile = File(playstoreFile)
-    println("!!!  $playstoreFileFromGradle -> ${serviceAccountCredentialsFile.absolutePath} (exists: ${serviceAccountCredentialsFile.exists()})")
-
-    serviceAccountCredentials.set(serviceAccountCredentialsFile)
     track.set("internal")
     defaultToAppBundles.set(true)
 }
