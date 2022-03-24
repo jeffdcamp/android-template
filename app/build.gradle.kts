@@ -51,6 +51,7 @@ android {
         jvmTarget = "1.8"
         freeCompilerArgs += listOf(
             "-Xopt-in=kotlin.RequiresOptIn",
+            "-Xopt-in=androidx.compose.material3.ExperimentalMaterial3Api",
             "-Xopt-in=androidx.compose.material.ExperimentalMaterialApi",
             "-Xopt-in=androidx.compose.ui.ExperimentalComposeUiApi",
 
@@ -203,8 +204,8 @@ dependencies {
 
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.tooling)
-    implementation(libs.compose.material.material)
-//    implementation(libs.compose.material.material3)
+//    implementation(libs.compose.material.material)
+    implementation(libs.compose.material.material3)
 //    implementation(libs.compose.material.iconsext)
 //    implementation(libs.androidx.navigation.compose)
 

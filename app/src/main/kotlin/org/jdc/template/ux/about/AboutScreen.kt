@@ -3,10 +3,10 @@ package org.jdc.template.ux.about
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Button
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
@@ -80,11 +80,11 @@ private fun ApplicationAboutTitle() {
     Column {
         Text(
             stringResource(R.string.about_title),
-            style = MaterialTheme.typography.h4
+            style = MaterialTheme.typography.headlineLarge
         )
         Text(
             BuildConfig.VERSION_NAME,
-            style = MaterialTheme.typography.body2
+            style = MaterialTheme.typography.bodyMedium
         )
     }
 }

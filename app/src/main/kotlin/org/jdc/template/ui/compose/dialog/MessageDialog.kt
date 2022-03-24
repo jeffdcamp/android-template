@@ -1,13 +1,15 @@
 package org.jdc.template.ui.compose.dialog
 
-import androidx.compose.material.AlertDialog
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import android.content.res.Configuration
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import org.jdc.template.R
-import java.util.Locale
+import org.jdc.template.ui.theme.AppTheme
 
 @Composable
 fun MessageDialog(
@@ -24,12 +26,12 @@ fun MessageDialog(
     AlertDialog(
         onDismissRequest = { onDismissRequest() },
         title = if (title != null) {
-            { Text(title, style = MaterialTheme.typography.h6) }
+            { Text(title, style = MaterialTheme.typography.headlineSmall) }
         } else {
             null
         },
         text = if (text != null) {
-            { Text(text, style = MaterialTheme.typography.body1) }
+            { Text(text, style = MaterialTheme.typography.bodyMedium) }
         } else {
             null
         },
@@ -40,7 +42,7 @@ fun MessageDialog(
                         onConfirmButtonClicked()
                     }
                 ) {
-                    Text(confirmButtonText.uppercase(Locale.getDefault()))
+                    Text(confirmButtonText)
                 }
             }
         },
@@ -51,7 +53,7 @@ fun MessageDialog(
                         onDismissButtonClicked()
                     }
                 ) {
-                    Text(dismissButtonText.uppercase(Locale.getDefault()))
+                    Text(dismissButtonText)
                 }
             }
         }
@@ -63,3 +65,18 @@ data class MessageDialogData(
     val title: String? = null,
     val text: String? = null
 )
+
+@Preview(group = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
+@Preview(group = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
+@Composable
+private fun TestMessageDialog() {
+    AppTheme {
+        MessageDialog(
+            title = "Title",
+            text = "This is the content that goes in the text",
+            onDismissRequest = { },
+            onConfirmButtonClicked = { },
+            onDismissButtonClicked = { }
+        )
+    }
+}

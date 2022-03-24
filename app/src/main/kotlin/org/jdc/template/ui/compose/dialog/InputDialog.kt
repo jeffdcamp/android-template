@@ -1,5 +1,6 @@
 package org.jdc.template.ui.compose.dialog
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -7,10 +8,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -29,13 +30,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import kotlinx.coroutines.delay
 import org.jdc.template.R
 import org.jdc.template.ui.compose.DayNightTextField
-import java.util.Locale
+import org.jdc.template.ui.theme.AppTheme
 
 @Composable
 fun InputDialog(
@@ -50,9 +52,9 @@ fun InputDialog(
     minLength: Int = -1,
     maxLength: Int = -1,
     properties: DialogProperties = DialogProperties(),
-    shape: Shape = MaterialTheme.shapes.medium,
-    backgroundColor: Color = MaterialTheme.colors.surface,
-    textButtonColor: Color = MaterialTheme.colors.primary, // This is specifically for handling theming in this app. May not want in Commons.
+    shape: Shape = DialogDefaults.DefaultCorner,
+    backgroundColor: Color = MaterialTheme.colorScheme.surface,
+    textButtonColor: Color = MaterialTheme.colorScheme.primary, // This is specifically for handling theming in this app. May not want in Commons.
 ) {
     var textFieldValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue(initialTextFieldText ?: "", TextRange(initialTextFieldText?.length ?: 0))) }
 
@@ -67,13 +69,14 @@ fun InputDialog(
             shape = shape,
             color = backgroundColor
         ) {
-            Column {
+            Column(
+                modifier = Modifier.padding(DialogDefaults.DialogPadding)
+            ) {
                 // Title
                 if (title != null) {
                     Text(
                         text = title,
-                        style = MaterialTheme.typography.h6,
-                        modifier = Modifier.padding(top = 16.dp, start = 16.dp)
+                        style = MaterialTheme.typography.headlineSmall
                     )
                 }
 
@@ -96,7 +99,7 @@ fun InputDialog(
                     } else null,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 16.dp, start = 16.dp, end = 16.dp)
+                        .padding(top = 16.dp)
                         .focusRequester(focusRequester),
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                     keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() })
@@ -112,8 +115,7 @@ fun InputDialog(
                     horizontalArrangement = Arrangement.End,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(all = 8.dp)
-
+                        .padding(top = 24.dp)
                 ) {
                     if (onDismissButtonClicked != null) {
                         TextButton(
@@ -121,7 +123,7 @@ fun InputDialog(
                                 onDismissButtonClicked()
                             }
                         ) {
-                            Text(dismissButtonText.uppercase(Locale.getDefault()), color = textButtonColor)
+                            Text(dismissButtonText, color = textButtonColor)
                         }
                     }
                     if (onConfirmButtonClicked != null) {
@@ -131,7 +133,7 @@ fun InputDialog(
                                 onConfirmButtonClicked(textFieldValue.text)
                             }
                         ) {
-                            Text(confirmButtonText.uppercase(Locale.getDefault()), color = textButtonColor)
+                            Text(confirmButtonText, color = textButtonColor)
                         }
                     }
                 }
@@ -158,9 +160,9 @@ fun TwoInputDialog(
     minLengthSecond: Int = -1,
     maxLengthSecond: Int = -1,
     properties: DialogProperties = DialogProperties(),
-    shape: Shape = MaterialTheme.shapes.medium,
-    backgroundColor: Color = MaterialTheme.colors.surface,
-    textButtonColor: Color = MaterialTheme.colors.primary, // This is specifically for handling theming in this app. May not want in Commons.
+    shape: Shape = DialogDefaults.DefaultCorner,
+    backgroundColor: Color = MaterialTheme.colorScheme.surface,
+    textButtonColor: Color = MaterialTheme.colorScheme.primary, // This is specifically for handling theming in this app. May not want in Commons.
 ) {
     var textFieldValueFirst by rememberSaveable(stateSaver = TextFieldValue.Saver) {
         mutableStateOf(TextFieldValue(initialTextFieldTextFirst ?: "", TextRange(initialTextFieldTextFirst?.length ?: 0)))
@@ -181,13 +183,14 @@ fun TwoInputDialog(
             shape = shape,
             color = backgroundColor
         ) {
-            Column {
+            Column(
+                modifier = Modifier.padding(DialogDefaults.DialogPadding)
+            ) {
                 // Title
                 if (title != null) {
                     Text(
                         text = title,
-                        style = MaterialTheme.typography.h6,
-                        modifier = Modifier.padding(top = 16.dp, start = 16.dp)
+                        style = MaterialTheme.typography.headlineSmall,
                     )
                 }
 
@@ -210,7 +213,7 @@ fun TwoInputDialog(
                     } else null,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 16.dp, start = 16.dp, end = 16.dp)
+                        .padding(top = 16.dp)
                         .focusOrder(item1) {
                             next = item2
                             down = item2
@@ -237,7 +240,7 @@ fun TwoInputDialog(
                     } else null,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 16.dp, start = 16.dp, end = 16.dp)
+                        .padding(top = 16.dp)
                         .focusOrder(item2) {
                             next = item1
                             down = item1
@@ -258,8 +261,7 @@ fun TwoInputDialog(
                     horizontalArrangement = Arrangement.End,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(all = 8.dp)
-
+                        .padding(top = 24.dp)
                 ) {
                     if (onDismissButtonClicked != null) {
                         TextButton(
@@ -267,7 +269,7 @@ fun TwoInputDialog(
                                 onDismissButtonClicked()
                             }
                         ) {
-                            Text(dismissButtonText.uppercase(Locale.getDefault()), color = textButtonColor)
+                            Text(dismissButtonText, color = textButtonColor)
                         }
                     }
                     if (onConfirmButtonClicked != null) {
@@ -277,7 +279,7 @@ fun TwoInputDialog(
                                 onConfirmButtonClicked(Pair(textFieldValueFirst.text, textFieldValueSecond.text))
                             }
                         ) {
-                            Text(confirmButtonText.uppercase(Locale.getDefault()), color = textButtonColor)
+                            Text(confirmButtonText, color = textButtonColor)
                         }
                     }
                 }
@@ -298,3 +300,34 @@ data class TwoInputDialogData(
     val initialTextFieldTextFirst: String? = null,
     val initialTextFieldTextSecond: String? = null
 )
+
+@Preview(group = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
+@Preview(group = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
+@Composable
+private fun TestInputDialog() {
+    AppTheme {
+        InputDialog(
+            title = "Title",
+            initialTextFieldText = "Default Value",
+            onConfirmButtonClicked = { },
+            onDismissButtonClicked = { },
+            minLength = 1,
+            maxLength = 20
+        )
+    }
+}
+
+@Preview(group = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
+@Preview(group = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
+@Composable
+private fun TestTwoInputDialog() {
+    AppTheme {
+        TwoInputDialog(
+            title = "Title",
+            initialTextFieldTextFirst = "First",
+            initialTextFieldTextSecond = "Second",
+            onConfirmButtonClicked = { },
+            onDismissButtonClicked = { }
+        )
+    }
+}

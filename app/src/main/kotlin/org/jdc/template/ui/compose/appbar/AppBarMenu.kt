@@ -1,15 +1,14 @@
 package org.jdc.template.ui.compose.appbar
 
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -75,7 +74,7 @@ fun AppBarText(menuItem: AppBarMenuItem.Text) {
     TextButton(
         onClick = { menuItem.action() },
     ) {
-        Text(menuItem.text, color = MaterialTheme.colors.onPrimary)
+        Text(menuItem.text)
     }
 }
 
@@ -105,21 +104,24 @@ fun AppBarOverflowMenu(menuItems: List<AppBarMenuItem.OverflowMenuItem>) {
         val textWithoutIconPadding = if (menuItemsWithIconCount > 0) (36.dp) else 0.dp // 36.dp == 24.dp (icon size) + 12.dp (gap)
 
         menuItems.forEach { menuItem ->
-            DropdownMenuItem(onClick = {
-                menuItem.action()
-                expanded.value = false
-            }) {
-                if (menuItem.icon != null) {
-                    Icon(
-                        imageVector = menuItem.icon,
-                        contentDescription = menuItem.text,
-                        modifier = Modifier.padding(end = 12.dp)
-                    )
-                    Text(text = menuItem.text)
-                } else {
-                    Text(text = menuItem.text, modifier = Modifier.padding(start = textWithoutIconPadding))
+            DropdownMenuItem(
+                onClick = {
+                    menuItem.action()
+                    expanded.value = false
+                },
+                text = {
+                    if (menuItem.icon != null) {
+                        Icon(
+                            imageVector = menuItem.icon,
+                            contentDescription = menuItem.text,
+                            modifier = Modifier.padding(end = 12.dp)
+                        )
+                        Text(text = menuItem.text)
+                    } else {
+                        Text(text = menuItem.text, modifier = Modifier.padding(start = textWithoutIconPadding))
+                    }
                 }
-            }
+            )
         }
     }
 }

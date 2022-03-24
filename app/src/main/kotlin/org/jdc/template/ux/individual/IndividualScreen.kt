@@ -5,11 +5,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material.icons.outlined.Edit
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -38,8 +38,8 @@ fun IndividualScreen(viewModel: IndividualViewModel = hiltViewModel()) {
     val navController = LocalNavController.current
 
     val appBarMenuItems = listOf(
-        AppBarMenuItem.Icon(Icons.Default.Edit, stringResource(R.string.edit)) { viewModel.editIndividual() },
-        AppBarMenuItem.Icon(Icons.Default.Delete, stringResource(R.string.delete)) { viewModel.onDeleteClicked() }
+        AppBarMenuItem.Icon(Icons.Outlined.Edit, stringResource(R.string.edit)) { viewModel.editIndividual() },
+        AppBarMenuItem.Icon(Icons.Outlined.Delete, stringResource(R.string.delete)) { viewModel.onDeleteClicked() }
     )
 
     AppScaffold(
@@ -72,7 +72,7 @@ private fun IndividualSummary(individual: Individual?) {
     individual ?: return
 
     Column(Modifier.verticalScroll(rememberScrollState())) {
-        IndividualSummaryItem(individual.getFullName(), textStyle = MaterialTheme.typography.h5)
+        IndividualSummaryItem(individual.getFullName(), textStyle = MaterialTheme.typography.headlineSmall)
         IndividualSummaryItem(individual.phone, stringResource(R.string.phone))
         IndividualSummaryItem(individual.email, stringResource(R.string.email))
         IndividualSummaryItem(DateUiUtil.getLocalDateText(LocalContext.current, individual.birthDate), stringResource(R.string.birth_date))
@@ -81,7 +81,7 @@ private fun IndividualSummary(individual: Individual?) {
 }
 
 @Composable
-private fun IndividualSummaryItem(text: String?, label: String? = null, textStyle: TextStyle = MaterialTheme.typography.body1) {
+private fun IndividualSummaryItem(text: String?, label: String? = null, textStyle: TextStyle = MaterialTheme.typography.bodyMedium) {
     if (text.isNullOrBlank()) {
         return
     }
@@ -89,7 +89,7 @@ private fun IndividualSummaryItem(text: String?, label: String? = null, textStyl
         if (label != null) {
             Text(
                 text = label,
-                style = MaterialTheme.typography.caption,
+                style = MaterialTheme.typography.bodySmall,
                 modifier = Modifier
                     .padding(start = 16.dp, top = 16.dp)
             )

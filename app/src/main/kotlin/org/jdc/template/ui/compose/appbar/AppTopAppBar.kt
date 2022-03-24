@@ -2,19 +2,14 @@ package org.jdc.template.ui.compose.appbar
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.LocalContentAlpha
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Settings
-import androidx.compose.material.primarySurface
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.SmallTopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -63,11 +58,10 @@ internal fun AppTopAppBar(
     val navController = LocalNavController.current
     val emptyBackStack = navController?.previousBackStackEntry == null
 
-    TopAppBar(
+    SmallTopAppBar(
         title = title,
-        backgroundColor = appBarBackgroundColor ?: MaterialTheme.colors.primarySurface,
-        navigationIcon = if (emptyBackStack) null else {
-            {
+        navigationIcon = {
+            if (!emptyBackStack) {
                 IconButton(onClick = { onNavigationClick?.invoke() }) {
                     Icon(
                         imageVector = navigationIcon,
@@ -80,10 +74,7 @@ internal fun AppTopAppBar(
         actions = {
             // Wrapping content so that the action icons have the same color as the navigation icon and title.
             if (actions != null) {
-                CompositionLocalProvider(
-                    LocalContentAlpha provides ContentAlpha.high,
-                    content = { actions() }
-                )
+                actions()
             }
         }
     )
