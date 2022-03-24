@@ -65,7 +65,7 @@ jobs:
 
     - name: Deploy to Play Store
       env:
-        ANDROID_PUBLISHER_CREDENTIALS: ${{ secrets.UPLOAD_SIGNING_STORE_PASSWORD }}
+        ANDROID_PUBLISHER_CREDENTIALS: ${{ secrets.PLAYSTORE_KEYS }}
       run: ./gradlew publishReleaseBundle --artifact-dir app/build/outputs/bundle/release
 
     - name: Upload artifact
