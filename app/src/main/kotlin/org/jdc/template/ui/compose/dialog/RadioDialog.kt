@@ -143,7 +143,7 @@ private fun <T> RadioDialogItems(radioDialogDataItems: RadioDialogDataItems<T>, 
 @Preview(group = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
 @Composable
 private fun TestRadioDialog() {
-    val radioItems = RadioDialogDataItems(
+    val radioItems: RadioDialogDataItems<String> = RadioDialogDataItems(
         listOf(
             RadioDialogDataItem("id1", "A"),
             RadioDialogDataItem("id2", "B"),
