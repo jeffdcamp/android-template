@@ -4,14 +4,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import org.jdc.template.R
 import org.jdc.template.ui.compose.LocalNavController
 import org.jdc.template.ui.compose.appbar.AppScaffold
+import org.jdc.template.ui.compose.dialog.HandleDialog
 import org.jdc.template.ui.compose.dialog.InputDialog
 import org.jdc.template.ui.compose.dialog.RadioDialog
 import org.jdc.template.ui.compose.setting.Setting
@@ -39,21 +38,19 @@ fun SettingsScreen(viewModel: SettingsViewModel = hiltViewModel()) {
         }
 
         // Dialogs
-        val themeRadioDialogData by viewModel.themeRadioDialogDataFlow.collectAsState()
-        if (themeRadioDialogData.visible) {
+        HandleDialog(viewModel.themeRadioDialogDataFlow) {
             RadioDialog(
-                title = themeRadioDialogData.title,
-                items = themeRadioDialogData.items,
-                onItemSelected = { viewModel.setTheme(it) },
+                title = it.title,
+                items = it.items,
+                onItemSelected = { selectedItem -> viewModel.setTheme(selectedItem) },
                 onDismissButtonClicked = { viewModel.dismissThemeDialog() }
             )
         }
 
-        val lastInstalledVersionCodeDialogData by viewModel.lastInstalledVersionCodeDialogDataFlow.collectAsState()
-        if (lastInstalledVersionCodeDialogData.visible) {
+        HandleDialog(viewModel.lastInstalledVersionCodeDialogDataFlow) {
             InputDialog(
-                title = lastInstalledVersionCodeDialogData.title,
-                initialTextFieldText = lastInstalledVersionCodeDialogData.initialTextFieldText,
+                title = it.title,
+                initialTextFieldText = it.initialTextFieldText,
                 onConfirmButtonClicked = { text -> viewModel.setLastInstalledVersionCode(text) },
                 onDismissButtonClicked = { viewModel.dismissSetLastInstalledVersionCodeDialog() },
                 minLength = 1,

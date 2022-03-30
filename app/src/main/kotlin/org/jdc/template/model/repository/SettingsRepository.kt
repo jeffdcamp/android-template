@@ -16,10 +16,10 @@ class SettingsRepository
     private val userPreferenceDataSource: UserPreferenceDataSource,
     private val devicePreferenceDataSource: DevicePreferenceDataSource,
 ) {
-    val themeFlow: Flow<DisplayThemeType> get() = devicePreferenceDataSource.themePref.flow
+    val themeFlow: Flow<DisplayThemeType> = devicePreferenceDataSource.themePref.flow
     fun setThemeAsync(theme: DisplayThemeType) = ProcessScope.launch { devicePreferenceDataSource.themePref.setValue(theme) }
 
-    val directorySortByLastNameFlow: Flow<Boolean> get() = userPreferenceDataSource.directorySortByLastNamePref.flow
+    val directorySortByLastNameFlow: Flow<Boolean> = userPreferenceDataSource.directorySortByLastNamePref.flow
     fun setSortByLastNameAsync(sortAscending: Boolean) = ProcessScope.launch { userPreferenceDataSource.directorySortByLastNamePref.setValue(sortAscending) }
 
     val isDeveloperModeEnabledFlow: Flow<Boolean> = devicePreferenceDataSource.developerModePref.flow

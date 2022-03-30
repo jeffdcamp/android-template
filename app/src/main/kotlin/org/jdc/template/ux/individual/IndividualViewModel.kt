@@ -32,20 +32,21 @@ class IndividualViewModel
     private val individualId: String by requireSavedState(savedStateHandle, IndividualRoute.Arg.INDIVIDUAL_ID)
     val individualFlow: StateFlow<Individual?> = individualRepository.getIndividualFlow(individualId).stateInDefault(viewModelScope, null)
 
-    private val _messageDialogDataFlow = MutableStateFlow(MessageDialogData())
-    val messageDialogDataFlow: StateFlow<MessageDialogData> = _messageDialogDataFlow.asStateFlow()
+    private val _deleteIndividualDialogDataFlow = MutableStateFlow(MessageDialogData())
+    val deleteIndividualDialogDataFlow: StateFlow<MessageDialogData> = _deleteIndividualDialogDataFlow.asStateFlow()
 
     init {
         analytics.logEvent(Analytics.EVENT_VIEW_INDIVIDUAL)
     }
 
     fun onDeleteClicked() {
-        _messageDialogDataFlow.value = MessageDialogData(true, text = application.getString(R.string.delete_individual_confirm))
+        _deleteIndividualDialogDataFlow.value = MessageDialogData(true, text = application.getString(R.string.delete_individual_confirm))
     }
 
     fun deleteIndividual() = viewModelScope.launch {
         analytics.logEvent(Analytics.EVENT_DELETE_INDIVIDUAL)
         individualRepository.deleteIndividual(individualId)
+        popBackStack()
     }
 
     fun editIndividual() {
@@ -53,7 +54,7 @@ class IndividualViewModel
         navigate(IndividualEditRoute.createRoute(individualId))
     }
 
-    fun hideInfoDialog() {
-        _messageDialogDataFlow.value = MessageDialogData()
+    fun dismissDeleteIndividualDialog() {
+        _deleteIndividualDialogDataFlow.value = MessageDialogData()
     }
 }

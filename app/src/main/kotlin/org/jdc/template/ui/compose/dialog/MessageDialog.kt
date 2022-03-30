@@ -59,7 +59,7 @@ fun MessageDialog(
 }
 
 data class MessageDialogData(
-    val visible: Boolean = false,
+    override val visible: Boolean = false,
     val title: String? = null,
     val text: String? = null
-)
+) : DialogData

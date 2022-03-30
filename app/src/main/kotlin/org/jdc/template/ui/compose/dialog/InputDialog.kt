@@ -287,14 +287,15 @@ fun TwoInputDialog(
 }
 
 data class InputDialogData(
-    val visible: Boolean = false,
+    override val visible: Boolean = false,
     val title: String? = null,
     val initialTextFieldText: String? = null
-)
+): DialogData
 
 data class TwoInputDialogData(
-    val visible: Boolean = false,
+    override val visible: Boolean = false,
     val title: String? = null,
+    val initialTextFieldText: String? = null,
     val initialTextFieldTextFirst: String? = null,
     val initialTextFieldTextSecond: String? = null
-)
+): DialogData

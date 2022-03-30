@@ -71,7 +71,9 @@ class MainActivity : AppCompatActivity() {
 
         withLifecycleOwner(this) {
             viewModel.themeFlow.collectWhenStarted { theme ->
-                themeManager.applyTheme(theme)
+                if (theme != null) {
+                    themeManager.applyTheme(theme)
+                }
             }
         }
     }

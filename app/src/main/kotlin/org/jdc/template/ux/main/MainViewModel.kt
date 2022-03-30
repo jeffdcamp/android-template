@@ -7,7 +7,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.jdc.template.model.data.DisplayThemeType
-import org.jdc.template.model.datastore.PrefsDefaults
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.model.repository.SettingsRepository
 import org.jdc.template.util.ext.stateInDefault
@@ -17,10 +16,10 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel
 @Inject constructor(
-    private val settingsRepository: SettingsRepository,
+    settingsRepository: SettingsRepository,
     private val individualRepository: IndividualRepository
 ) : ViewModel() {
-    val themeFlow: StateFlow<DisplayThemeType> get() = settingsRepository.themeFlow.stateInDefault(viewModelScope, PrefsDefaults.SYSTEM_THEME_TYPE)
+    val themeFlow: StateFlow<DisplayThemeType?> = settingsRepository.themeFlow.stateInDefault(viewModelScope, null)
 
     var isReady: Boolean = false
         private set

@@ -27,16 +27,6 @@ import androidx.compose.ui.window.DialogProperties
 import org.jdc.template.R
 import java.util.Locale
 
-data class RadioDialogData<T>(
-    val visible: Boolean = false,
-    val title: String? = null,
-    val items: RadioDialogDataItems<T>? = null,
-)
-
-data class RadioDialogDataItems<T>(val items: List<RadioDialogDataItem<T>>, val selectedItem: T)
-
-data class RadioDialogDataItem<T>(val item: T, val text: String)
-
 @Composable
 fun <T> RadioDialog(
     items: RadioDialogDataItems<T>?,
@@ -135,3 +125,13 @@ private fun <T> RadioDialogItems(radioDialogDataItems: RadioDialogDataItems<T>, 
         }
     }
 }
+
+data class RadioDialogData<T>(
+    override val visible: Boolean = false,
+    val title: String? = null,
+    val items: RadioDialogDataItems<T>? = null,
+) : DialogData
+
+data class RadioDialogDataItems<T>(val items: List<RadioDialogDataItem<T>>, val selectedItem: T)
+
+data class RadioDialogDataItem<T>(val item: T, val text: String)
