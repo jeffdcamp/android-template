@@ -11,12 +11,14 @@ interface DialogData {
 
 @Composable
 fun <T: DialogData> HandleDialog(
-    dialogDataFlow: StateFlow<T>,
+    dialogDataFlow: StateFlow<T?>,
     dialog: @Composable (T) -> Unit
 ) {
-    val dialogData: T by dialogDataFlow.collectAsState()
+    val dialogData by dialogDataFlow.collectAsState()
 
-    if (dialogData.visible) {
-        dialog(dialogData)
+    dialogData?.let {
+        if (it.visible) {
+            dialog(it)
+        }
     }
 }
