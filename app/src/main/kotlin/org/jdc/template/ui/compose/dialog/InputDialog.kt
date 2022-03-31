@@ -295,7 +295,6 @@ data class InputDialogData(
 data class TwoInputDialogData(
     override val visible: Boolean = false,
     val title: String? = null,
-    val initialTextFieldText: String? = null,
     val initialTextFieldTextFirst: String? = null,
     val initialTextFieldTextSecond: String? = null
 ): DialogData
