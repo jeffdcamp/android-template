@@ -321,9 +321,9 @@ ruler {
 // download detekt config file
 tasks.register<de.undercouch.gradle.tasks.download.Download>("downloadDetektConfig") {
     download {
-        onlyIf { !file("build/config/detektConfig.yml").exists() }
+        onlyIf { !file("$projectDir/build/config/detektConfig.yml").exists() }
         src("https://raw.githubusercontent.com/ICSEng/AndroidPublic/main/detektConfig.yml")
-        dest("build/config/detektConfig.yml")
+        dest("$projectDir/build/config/detektConfig.yml")
     }
 }
 
