@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      GRADLE_OPTS: --no-daemon -Dorg.gradle.jvmargs="-Xmx6G -XX:MaxMetaspaceSize=4G"
+      GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx6G -XX:MaxMetaspaceSize=4G"
 
     steps:
     - uses: actions/checkout@v2
