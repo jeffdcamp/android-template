@@ -9,13 +9,8 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    # GRADLE_OPTS do not impact the JVM used by the daemon to do the actual builds (gradle.properties is where you configure the daemon's JVM).
-    # This only impacts the configuration of the JVM that runs the gradle client. MaxMetaspaceSize is unbounded by default, which leads to a
-    # condition where the unbounded metaspace allocations starve some other component of the build, and the gradle daemon disappears.
-    # https://docs.gradle.org/6.7.1/userguide/build_environment.html#sec:gradle_environment_variables
-    # https://stackoverflow.com/a/69348586/2476068
     env:
-      GRADLE_OPTS: -Dorg.gradle.jvmargs="-XX:MaxMetaspaceSize=2g"
+      GRADLE_OPTS: --no-daemon -Dorg.gradle.jvmargs="-Xmx6G -XX:MaxMetaspaceSize=4G"
 
     steps:
     - uses: actions/checkout@v2
@@ -58,7 +53,7 @@ jobs:
       run: ./gradlew lintAlpha
 
     - name: Detekt
-      run: ./gradlew downloadDetektConfig detekt
+      run: ./gradlew detekt
 
     - name: App Distribution
       run: ./gradlew appDistributionUploadAlpha
