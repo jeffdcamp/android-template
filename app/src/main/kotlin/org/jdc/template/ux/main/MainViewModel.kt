@@ -7,20 +7,25 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.jdc.template.model.data.DisplayThemeType
-import org.jdc.template.model.datastore.PrefsDefaults
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.model.repository.SettingsRepository
+import org.jdc.template.ui.navigation.DefaultNavBarConfig
+import org.jdc.template.ui.navigation.NavBarConfig
+import org.jdc.template.ui.navigation.ViewModelNavBar
+import org.jdc.template.ui.navigation.ViewModelNavBarImpl
 import org.jdc.template.util.ext.stateInDefault
+import org.jdc.template.ux.about.AboutRoute
+import org.jdc.template.ux.directory.DirectoryRoute
 import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel
 @Inject constructor(
-    private val settingsRepository: SettingsRepository,
+    settingsRepository: SettingsRepository,
     private val individualRepository: IndividualRepository
-) : ViewModel() {
-    val themeFlow: StateFlow<DisplayThemeType> get() = settingsRepository.themeFlow.stateInDefault(viewModelScope, PrefsDefaults.SYSTEM_THEME_TYPE)
+) : ViewModel(), ViewModelNavBar<NavBarItem> by ViewModelNavBarImpl(NavBarItem.PEOPLE, createNavBarConfig()) {
+    val themeFlow: StateFlow<DisplayThemeType?> = settingsRepository.themeFlow.stateInDefault(viewModelScope, null)
 
     var isReady: Boolean = false
         private set
@@ -37,5 +42,16 @@ class MainViewModel
     @VisibleForTesting
     suspend fun createSampleData() {
         individualRepository.createSampleData()
+    }
+
+    companion object {
+        fun createNavBarConfig(): NavBarConfig<NavBarItem>  {
+            return DefaultNavBarConfig(
+                mapOf(
+                    NavBarItem.PEOPLE to DirectoryRoute.createRoute(),
+                    NavBarItem.ABOUT to AboutRoute.createRoute()
+                )
+            )
+        }
     }
 }

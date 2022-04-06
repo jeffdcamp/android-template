@@ -29,16 +29,6 @@ import androidx.compose.ui.window.DialogProperties
 import org.jdc.template.R
 import org.jdc.template.ui.theme.AppTheme
 
-data class RadioDialogData<T>(
-    val visible: Boolean = false,
-    val title: String? = null,
-    val items: RadioDialogDataItems<T>? = null,
-)
-
-data class RadioDialogDataItems<T>(val items: List<RadioDialogDataItem<T>>, val selectedItem: T)
-
-data class RadioDialogDataItem<T>(val item: T, val text: String)
-
 @Composable
 fun <T> RadioDialog(
     items: RadioDialogDataItems<T>?,
@@ -138,6 +128,17 @@ private fun <T> RadioDialogItems(radioDialogDataItems: RadioDialogDataItems<T>, 
         }
     }
 }
+
+data class RadioDialogData<T>(
+    override val visible: Boolean = false,
+    val title: String? = null,
+    val items: RadioDialogDataItems<T>? = null,
+) : DialogData
+
+data class RadioDialogDataItems<T>(val items: List<RadioDialogDataItem<T>>, val selectedItem: T)
+
+data class RadioDialogDataItem<T>(val item: T, val text: String)
+
 
 @Preview(group = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
 @Preview(group = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)

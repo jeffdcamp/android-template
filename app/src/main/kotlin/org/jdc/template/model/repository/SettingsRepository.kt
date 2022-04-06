@@ -22,13 +22,13 @@ class SettingsRepository
     val directorySortByLastNameFlow: Flow<Boolean> get() = userPreferenceDataSource.directorySortByLastNamePref.flow
     fun setSortByLastNameAsync(sortAscending: Boolean) = ProcessScope.launch { userPreferenceDataSource.directorySortByLastNamePref.setValue(sortAscending) }
 
-    val isDeveloperModeEnabledFlow: Flow<Boolean> = devicePreferenceDataSource.developerModePref.flow
+    val isDeveloperModeEnabledFlow: Flow<Boolean> get() = devicePreferenceDataSource.developerModePref.flow
     suspend fun isDeveloperModeEnabled(): Boolean = devicePreferenceDataSource.developerModePref.flow.first()
     fun setDeveloperMode(enabled: Boolean) = ProcessScope.launch { devicePreferenceDataSource.developerModePref.setValue(enabled) }
 
     suspend fun getAppInstanceId(): String = devicePreferenceDataSource.appInstanceIdPref.flow.first()
 
-    val lastInstalledVersionCodeFlow: Flow<Int> = devicePreferenceDataSource.lastInstalledVersionCodePref.flow
+    val lastInstalledVersionCodeFlow: Flow<Int> get()  = devicePreferenceDataSource.lastInstalledVersionCodePref.flow
     suspend fun getLastInstalledVersionCode(): Int = devicePreferenceDataSource.lastInstalledVersionCodePref.flow.first()
     fun setLastInstalledVersionCodeAsync(version: Int) = ProcessScope.launch { devicePreferenceDataSource.lastInstalledVersionCodePref.setValue(version) }
 

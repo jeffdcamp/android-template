@@ -28,8 +28,8 @@ import org.jdc.template.ui.compose.LocalNavController
 import org.jdc.template.ui.compose.appbar.AppBarMenu
 import org.jdc.template.ui.compose.appbar.AppBarMenuItem
 import org.jdc.template.ui.compose.appbar.AppScaffold
+import org.jdc.template.ui.compose.dialog.HandleDialog
 import org.jdc.template.ui.compose.dialog.MessageDialog
-import org.jdc.template.ui.compose.dialog.MessageDialogData
 import org.jdc.template.ui.navigation.HandleNavigation
 import org.jdc.template.ui.theme.AppTheme
 
@@ -49,14 +49,15 @@ fun IndividualScreen(viewModel: IndividualViewModel = hiltViewModel()) {
         IndividualContent(viewModel.individualFlow)
     }
 
-    ShowMessageDialog(
-        messageDialogDataFlow = viewModel.messageDialogDataFlow,
-        onConfirmButtonClicked = {
-            viewModel.deleteIndividual()
-            navController?.popBackStack()
-        },
-        onDismissRequest = { viewModel.hideInfoDialog() }
-    )
+    HandleDialog(viewModel.deleteIndividualDialogDataFlow) {
+        MessageDialog(
+            title = it.title,
+            text = it.text,
+            onConfirmButtonClicked = { viewModel.deleteIndividual() },
+            onDismissButtonClicked = { viewModel.dismissDeleteIndividualDialog() },
+            onDismissRequest = { viewModel.dismissDeleteIndividualDialog() }
+        )
+    }
 
     HandleNavigation(viewModel, navController, viewModel.navigatorFlow)
 }
@@ -99,27 +100,6 @@ private fun IndividualSummaryItem(text: String?, label: String? = null, textStyl
             style = textStyle,
             modifier = Modifier
                 .padding(start = 16.dp, top = if (label != null) 4.dp else 16.dp)
-        )
-    }
-}
-
-@Composable
-private fun ShowMessageDialog(
-    messageDialogDataFlow: StateFlow<MessageDialogData>,
-    onDismissRequest: () -> Unit,
-    onConfirmButtonClicked: () -> Unit
-) {
-    val messageDialogData by messageDialogDataFlow.collectAsState()
-
-    if (messageDialogData.visible) {
-        MessageDialog(
-            title = messageDialogData.title,
-            text = messageDialogData.text,
-            onDismissRequest = { onDismissRequest() },
-            onConfirmButtonClicked = {
-                onConfirmButtonClicked()
-            },
-            onDismissButtonClicked = { onDismissRequest() }
         )
     }
 }

@@ -16,13 +16,13 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import org.jdc.template.R
-import org.jdc.template.ui.compose.LocalNavController
 import org.jdc.template.ui.theme.AppTheme
 
 @Composable
 internal fun AppTopAppBar(
     title: String,
     subtitle: String? = null,
+    navigationIconVisible: Boolean = true,
     navigationIcon: ImageVector = Icons.Filled.ArrowBack,
     onNavigationClick: (() -> Unit)? = null,
     appBarTextColor: Color? = null,
@@ -39,6 +39,7 @@ internal fun AppTopAppBar(
                 autoSizeTitle = autoSizeTitle
             )
         },
+        navigationIconVisible = navigationIconVisible,
         navigationIcon = navigationIcon,
         onNavigationClick = onNavigationClick,
         appBarBackgroundColor = appBarBackgroundColor,
@@ -49,26 +50,22 @@ internal fun AppTopAppBar(
 @Composable
 internal fun AppTopAppBar(
     title: @Composable () -> Unit,
+    navigationIconVisible: Boolean = true,
     navigationIcon: ImageVector = Icons.Filled.ArrowBack,
     navigationIconContentDescription: String = stringResource(id = R.string.back),
     onNavigationClick: (() -> Unit)? = null,
     appBarBackgroundColor: Color? = null,
     actions: @Composable (RowScope.() -> Unit)? = null,
 ) {
-    val navController = LocalNavController.current
-    val emptyBackStack = navController?.previousBackStackEntry == null
-
     SmallTopAppBar(
         title = title,
-        navigationIcon = {
-            if (!emptyBackStack) {
-                IconButton(onClick = { onNavigationClick?.invoke() }) {
-                    Icon(
-                        imageVector = navigationIcon,
-                        contentDescription = navigationIconContentDescription,
-                        modifier = Modifier
-                    )
-                }
+        navigationIcon = if (!navigationIconVisible) null else {
+            IconButton(onClick = { onNavigationClick?.invoke() }) {
+                Icon(
+                    imageVector = navigationIcon,
+                    contentDescription = navigationIconContentDescription,
+                    modifier = Modifier
+                )
             }
         },
         actions = {

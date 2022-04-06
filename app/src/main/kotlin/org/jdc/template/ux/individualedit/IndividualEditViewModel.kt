@@ -103,10 +103,8 @@ class IndividualEditViewModel
     }
 
     private fun valueOrNull(value: String): String? {
-        return if (value.isBlank()) {
+        return value.ifBlank {
             null
-        } else {
-            value
         }
     }
 

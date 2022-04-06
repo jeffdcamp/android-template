@@ -32,6 +32,7 @@ fun AboutScreen(viewModel: AboutViewModel = hiltViewModel()) {
 
     AppScaffold(
         title = stringResource(R.string.about),
+        navigationIconVisible = false,
         actions = { AppBarMenu(appBarMenuItems) }
     ) {
         AboutScreenContent(

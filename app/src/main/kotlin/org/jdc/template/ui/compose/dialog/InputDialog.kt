@@ -289,17 +289,17 @@ fun TwoInputDialog(
 }
 
 data class InputDialogData(
-    val visible: Boolean = false,
+    override val visible: Boolean = false,
     val title: String? = null,
     val initialTextFieldText: String? = null
-)
+): DialogData
 
 data class TwoInputDialogData(
-    val visible: Boolean = false,
+    override val visible: Boolean = false,
     val title: String? = null,
     val initialTextFieldTextFirst: String? = null,
     val initialTextFieldTextSecond: String? = null
-)
+): DialogData
 
 @Preview(group = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
 @Preview(group = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)

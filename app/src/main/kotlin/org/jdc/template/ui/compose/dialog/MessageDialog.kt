@@ -61,9 +61,10 @@ fun MessageDialog(
 }
 
 data class MessageDialogData(
-    val visible: Boolean = false,
+    override val visible: Boolean = false,
     val title: String? = null,
     val text: String? = null
+) : DialogData
 )
 
 @Preview(group = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)

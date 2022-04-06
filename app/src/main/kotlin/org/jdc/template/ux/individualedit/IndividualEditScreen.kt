@@ -164,7 +164,7 @@ private fun IndividualClickableEditField(label: String, text: String, onClick: (
 }
 
 @Composable
-fun BirthDateDialog(
+private fun BirthDateDialog(
     showBirthDateFlow: StateFlow<LocalDate?>,
     onDismiss: (() -> Unit)? = null,
     onDateSelected: (LocalDate) -> Unit,
@@ -177,7 +177,7 @@ fun BirthDateDialog(
 }
 
 @Composable
-fun AlarmTimeDialog(
+private fun AlarmTimeDialog(
     showAlarmTimeFlow: StateFlow<LocalTime?>,
     onDismiss: (() -> Unit)? = null,
     onTimeSelected: (LocalTime) -> Unit,
