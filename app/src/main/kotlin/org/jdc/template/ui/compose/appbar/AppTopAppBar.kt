@@ -59,13 +59,15 @@ internal fun AppTopAppBar(
 ) {
     SmallTopAppBar(
         title = title,
-        navigationIcon = if (!navigationIconVisible) null else {
-            IconButton(onClick = { onNavigationClick?.invoke() }) {
-                Icon(
-                    imageVector = navigationIcon,
-                    contentDescription = navigationIconContentDescription,
-                    modifier = Modifier
-                )
+        navigationIcon = if (!navigationIconVisible) {{}} else {
+            {
+                IconButton(onClick = { onNavigationClick?.invoke() }) {
+                    Icon(
+                        imageVector = navigationIcon,
+                        contentDescription = navigationIconContentDescription,
+                        modifier = Modifier
+                    )
+                }
             }
         },
         actions = {
