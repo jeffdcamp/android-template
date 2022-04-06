@@ -21,6 +21,7 @@ import org.jdc.template.ui.theme.AppTheme
 internal fun AppScaffold(
     title: String,
     subtitle: String? = null,
+    navigationIconVisible: Boolean = true,
     navigationIcon: ImageVector = Icons.Filled.ArrowBack,
     onNavigationClick: (() -> Unit)? = null,
     appBarTextColor: Color? = null,
@@ -39,6 +40,7 @@ internal fun AppScaffold(
                 appBarTextColor = appBarTextColor,
                 appBarBackgroundColor = appBarBackgroundColor,
                 autoSizeTitle = autoSizeTitle,
+                navigationIconVisible = navigationIconVisible,
                 navigationIcon = navigationIcon,
                 onNavigationClick = { if (onNavigationClick == null) navController?.popBackStack() else onNavigationClick() },
                 actions = actions,
@@ -52,6 +54,7 @@ internal fun AppScaffold(
 @Composable
 internal fun AppScaffold(
     title: @Composable () -> Unit,
+    navigationIconVisible: Boolean = true,
     navigationIcon: ImageVector = Icons.Filled.ArrowBack,
     onNavigationClick: (() -> Unit)? = null,
     actions: @Composable (RowScope.() -> Unit)? = null,
@@ -63,6 +66,7 @@ internal fun AppScaffold(
         topBar = {
             AppTopAppBar(
                 title = title,
+                navigationIconVisible = navigationIconVisible,
                 navigationIcon = navigationIcon,
                 onNavigationClick = { if (onNavigationClick == null) navController?.popBackStack() else onNavigationClick() },
                 actions = actions,

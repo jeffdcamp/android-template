@@ -30,7 +30,6 @@ import org.jdc.template.ui.compose.appbar.AppBarMenu
 import org.jdc.template.ui.compose.appbar.AppBarMenuItem
 import org.jdc.template.ui.compose.appbar.AppScaffold
 import org.jdc.template.ui.navigation.HandleNavigation
-import org.jdc.template.ux.about.AboutRoute
 import org.jdc.template.ux.settings.SettingsRoute
 
 @Composable
@@ -42,12 +41,12 @@ fun DirectoryScreen(viewModel: DirectoryViewModel = hiltViewModel()) {
         AppBarMenuItem.Icon(Icons.Default.Search, stringResource(R.string.search)) {},
 
         // overflow
-        AppBarMenuItem.OverflowMenuItem(stringResource(R.string.settings)) { navController?.navigate(SettingsRoute.createRoute()) },
-        AppBarMenuItem.OverflowMenuItem(stringResource(R.string.about)) { navController?.navigate(AboutRoute.createRoute()) },
+        AppBarMenuItem.OverflowMenuItem(stringResource(R.string.settings)) { navController?.navigate(SettingsRoute.createRoute()) }
     )
 
     AppScaffold(
         title = stringResource(R.string.directory),
+        navigationIconVisible = false,
         actions = { AppBarMenu(appBarMenuItems) }
     ) {
         DirectoryContent(

@@ -81,7 +81,7 @@ sealed class ViewModelNavigator {
 fun HandleNavigation(
     viewModelNav: ViewModelNav,
     navController: NavController?,
-    navigatorFlow: StateFlow<ViewModelNavigator?>
+    navigatorFlow: StateFlow<ViewModelNavigator?>,
 ) {
     val navigator by navigatorFlow.collectAsState()
 

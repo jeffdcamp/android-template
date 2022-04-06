@@ -6,13 +6,20 @@ import android.view.View
 import android.view.ViewTreeObserver
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.fragment.NavHostFragment
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.R
 import org.jdc.template.ui.ThemeManager
+import org.jdc.template.ui.navigation.HandleNavBarNavigation
 import org.jdc.template.ui.navigation.MainNav
 import org.jdc.template.ui.navigation.NavUriLogger
+import org.jdc.template.ui.theme.AppTheme
 import org.jdc.template.util.ext.withLifecycleOwner
 import javax.inject.Inject
 
@@ -34,6 +41,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         installSplashScreen()
 
         setContentView(R.layout.main_activity)
@@ -69,6 +77,8 @@ class MainActivity : AppCompatActivity() {
         // call navController to init
         navController
 
+        setupBottomNavigation()
+
         withLifecycleOwner(this) {
             viewModel.themeFlow.collectWhenStarted { theme ->
                 if (theme != null) {
@@ -81,6 +91,30 @@ class MainActivity : AppCompatActivity() {
     override fun onNewIntent(intent: Intent?) {
         if (!navController.handleDeepLink(intent)) {
             super.onNewIntent(intent)
+        }
+    }
+
+    private fun setupBottomNavigation() {
+        val bottomNavBar: ComposeView = findViewById(R.id.bottomNavBar)
+        bottomNavBar.apply {
+            // Dispose the Composition when the view's LifecycleOwner
+            // is destroyed
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent {
+                // In Compose world
+                AppTheme {
+                    val viewModel: MainViewModel = hiltViewModel()
+
+                    val bottomNavItemType by viewModel.selectedNavBarFlow.collectAsState()
+
+                    BottomNav(
+                        bottomNavItemType,
+                        onNavItemClicked = { viewModel.onNavBarItemSelected(it) }
+                    )
+
+                    HandleNavBarNavigation(viewModel, navController, viewModel.navigatorFlow)
+                }
+            }
         }
     }
 }

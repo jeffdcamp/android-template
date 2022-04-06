@@ -209,6 +209,7 @@ dependencies {
 //    implementation(libs.androidx.navigation.compose)
 
     // UI
+    implementation(libs.androidx.constraintlayout)
 //    implementation(libs.coil)
 //    implementation(libs.coil.compose)
 
