@@ -3,7 +3,7 @@ package org.jdc.template.ui.compose.setting
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ListItem
-import androidx.compose.material.Switch
+import androidx.compose.material3.Switch
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
