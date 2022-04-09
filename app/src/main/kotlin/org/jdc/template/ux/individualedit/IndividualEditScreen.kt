@@ -112,7 +112,7 @@ fun IndividualEditFields(
         IndividualEditField(stringResource(R.string.email), individualState.emailFlow, "emailEditTextTag", individualState.emailOnChange)
 
         DateClickableEditField(stringResource(R.string.birth_date), individualState.birthDateFlow, individualState.birthDateClicked)
-        TimeClickableEditField(stringResource(R.string.birth_date), individualState.alarmTimeFlow, individualState.alarmTimeClicked)
+        TimeClickableEditField(stringResource(R.string.alarm_time), individualState.alarmTimeFlow, individualState.alarmTimeClicked)
     }
 }
 
