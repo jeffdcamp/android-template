@@ -26,7 +26,7 @@ class IndividualRepository
     private fun householdDao() = mainDatabase().householdDao
     private fun directoryItemDao() = mainDatabase().directoryItemDao
 
-    fun getDirectoryListFlow() = settingsRepository.directorySortByLastNameFlow.flatMapLatest { byLastName ->
+    fun getDirectoryListFlow(): Flow<List<DirectoryItem>> = settingsRepository.directorySortByLastNameFlow.flatMapLatest { byLastName ->
         when {
             byLastName -> directoryItemDao().findAllDirectItemsByLastNameFlow()
             else -> directoryItemDao().findAllDirectItemsByFirstNameFlow()
@@ -35,11 +35,11 @@ class IndividualRepository
     fun setDirectorySort(byLastName: Boolean) {
         settingsRepository.setSortByLastNameAsync(byLastName)
     }
-    suspend fun getIndividual(individualId: String) = individualDao().findById(individualId)
-    fun getIndividualFlow(individualId: String) = individualDao().findByIdFlow(individualId)
-    suspend fun getAllIndividuals() = individualDao().findAll()
-    suspend fun getIndividualCount() = individualDao().findCount()
-    suspend fun getIndividualFirstName(individualId: String) = individualDao().findFirstName(individualId)
+    suspend fun getIndividual(individualId: String): Individual? = individualDao().findById(individualId)
+    fun getIndividualFlow(individualId: String): Flow<Individual> = individualDao().findByIdFlow(individualId)
+    suspend fun getAllIndividuals(): List<Individual> = individualDao().findAll()
+    suspend fun getIndividualCount(): Int = individualDao().findCount()
+    suspend fun getIndividualFirstName(individualId: String): String? = individualDao().findFirstName(individualId)
 
     suspend fun saveIndividual(individual: Individual) {
         individualDao().insert(individual)
