@@ -13,14 +13,17 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import timber.log.Timber
 
+/**
+ * Used for MainScreen ViewModels that that have bottom NavigationBars or NavigationRails
+ */
 interface ViewModelNavBar<T : Enum<T>> {
     val navigatorFlow: StateFlow<ViewModelNavBarNavigator?>
     val selectedNavBarFlow: StateFlow<T?>
 
     fun navigate(route: String, popBackStack: Boolean = false)
     fun navigate(routes: List<String>)
-    fun navigateWithOptions(route: String, navOptions: NavOptions)
-    fun navigateWithOptions(route: String, optionsBuilder: NavOptionsBuilder.() -> Unit = {})
+    fun navigate(route: String, navOptions: NavOptions)
+    fun navigate(route: String, optionsBuilder: NavOptionsBuilder.() -> Unit)
     fun onNavBarItemSelected(selectedItem: T, route: String? = null)
     fun navBarNavigation(route: String, reselected: Boolean)
     fun resetNavigate(viewModelNavBarNavigator: ViewModelNavBarNavigator)
@@ -44,11 +47,11 @@ class ViewModelNavBarImpl<T : Enum<T>>(
         _navigatorFlow.compareAndSet(null, ViewModelNavBarNavigator.NavigateMultiple(routes))
     }
 
-    override fun navigateWithOptions(route: String, navOptions: NavOptions) {
+    override fun navigate(route: String, navOptions: NavOptions) {
         _navigatorFlow.compareAndSet(null, ViewModelNavBarNavigator.NavigateWithOptions(route, navOptions))
     }
 
-    override fun navigateWithOptions(route: String, optionsBuilder: NavOptionsBuilder.() -> Unit) {
+    override fun navigate(route: String, optionsBuilder: NavOptionsBuilder.() -> Unit) {
         _navigatorFlow.compareAndSet(null, ViewModelNavBarNavigator.NavigateWithOptions(route, navOptions(optionsBuilder)))
     }
 
@@ -109,7 +112,7 @@ sealed class ViewModelNavBarNavigator {
         }
     }
 
-    class NavigateMultiple(private val routes: List<String>): ViewModelNavBarNavigator() {
+    class NavigateMultiple(private val routes: List<String>) : ViewModelNavBarNavigator() {
         override fun <T : Enum<T>> navigate(navController: NavController, viewModelNav: ViewModelNavBar<T>): Boolean {
             routes.forEach { route ->
                 navController.navigate(route)
@@ -145,20 +148,16 @@ interface NavBarConfig<T : Enum<T>> {
 }
 
 class DefaultNavBarConfig<T : Enum<T>>(
-    private val navBarItemRouteMap: Map<T, String>
-): NavBarConfig<T> {
+    private val navBarItemRouteMap: Map<T, String>,
+) : NavBarConfig<T> {
     override fun getRouteByNavItem(navBarItem: T): String? = navBarItemRouteMap[navBarItem]
 }
 
 @Composable
-fun <T : Enum<T>>HandleNavBarNavigation(
+fun <T : Enum<T>> HandleNavBarNavigation(
     viewModelNavBar: ViewModelNavBar<T>,
-    navController: NavController?,
-    navigatorFlow: StateFlow<ViewModelNavBarNavigator?>
+    navController: NavController?
 ) {
-    val navigator by navigatorFlow.collectAsState()
-
-    if (navController != null) {
-        navigator?.navigate(navController, viewModelNavBar)
-    }
+    val navigator by viewModelNavBar.navigatorFlow.collectAsState()
+    navController?.let { navigator?.navigate(it, viewModelNavBar) }
 }

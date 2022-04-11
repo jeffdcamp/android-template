@@ -47,7 +47,7 @@ fun AboutScreen(
         )
     }
 
-    HandleNavigation(viewModel, navController, viewModel.navigatorFlow)
+    HandleNavigation(viewModel, navController)
 }
 
 @Composable
