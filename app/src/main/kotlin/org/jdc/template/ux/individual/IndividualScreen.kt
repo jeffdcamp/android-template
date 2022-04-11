@@ -27,11 +27,11 @@ import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.ui.DateUiUtil
 import org.jdc.template.ui.compose.appbar.AppBarMenu
 import org.jdc.template.ui.compose.appbar.AppBarMenuItem
-import org.jdc.template.ui.compose.appbar.AppScaffold
 import org.jdc.template.ui.compose.dialog.HandleDialog
 import org.jdc.template.ui.compose.dialog.MessageDialog
 import org.jdc.template.ui.navigation.HandleNavigation
 import org.jdc.template.ui.theme.AppTheme
+import org.jdc.template.ux.TemplateAppScaffoldWithNavBar
 
 @Composable
 fun IndividualScreen(
@@ -43,7 +43,7 @@ fun IndividualScreen(
         AppBarMenuItem.Icon(Icons.Default.Delete, stringResource(R.string.delete)) { viewModel.onDeleteClicked() }
     )
 
-    AppScaffold(
+    TemplateAppScaffoldWithNavBar(
         title = stringResource(R.string.individual),
         actions = { AppBarMenu(appBarMenuItems) },
         onNavigationClick = { navController.popBackStack() },

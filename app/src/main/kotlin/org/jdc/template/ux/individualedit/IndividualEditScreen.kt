@@ -24,11 +24,11 @@ import org.jdc.template.ui.DateUiUtil
 import org.jdc.template.ui.compose.DayNightTextField
 import org.jdc.template.ui.compose.appbar.AppBarMenu
 import org.jdc.template.ui.compose.appbar.AppBarMenuItem
-import org.jdc.template.ui.compose.appbar.AppScaffold
 import org.jdc.template.ui.compose.dialog.MaterialDatePickerDialog
 import org.jdc.template.ui.compose.dialog.MaterialTimePickerDialog
 import org.jdc.template.ui.compose.dialog.MessageDialog
 import org.jdc.template.ui.navigation.HandleNavigation
+import org.jdc.template.ux.TemplateAppScaffoldWithNavBar
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -73,7 +73,7 @@ fun IndividualEditScreen(
         AppBarMenuItem.Text(stringResource(R.string.save)) { viewModel.saveIndividual() }
     )
 
-    AppScaffold(
+    TemplateAppScaffoldWithNavBar(
         title = stringResource(R.string.edit_individual),
         actions = { AppBarMenu(appBarMenuItems) },
         onNavigationClick = { navController.popBackStack() },
