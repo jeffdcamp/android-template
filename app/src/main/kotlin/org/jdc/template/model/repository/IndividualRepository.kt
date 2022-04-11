@@ -3,9 +3,11 @@ package org.jdc.template.model.repository
 import androidx.annotation.VisibleForTesting
 import androidx.room.withTransaction
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.withContext
 import org.jdc.template.model.db.main.MainDatabaseWrapper
+import org.jdc.template.model.db.main.directoryitem.DirectoryItem
 import org.jdc.template.model.db.main.household.Household
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.db.main.type.IndividualType

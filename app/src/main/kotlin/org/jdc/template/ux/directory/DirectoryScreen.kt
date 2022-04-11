@@ -22,10 +22,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import kotlinx.coroutines.flow.StateFlow
 import org.jdc.template.R
 import org.jdc.template.model.db.main.directoryitem.DirectoryItem
-import org.jdc.template.ui.compose.LocalNavController
 import org.jdc.template.ui.compose.appbar.AppBarMenu
 import org.jdc.template.ui.compose.appbar.AppBarMenuItem
 import org.jdc.template.ui.compose.appbar.AppScaffold
@@ -33,15 +33,16 @@ import org.jdc.template.ui.navigation.HandleNavigation
 import org.jdc.template.ux.settings.SettingsRoute
 
 @Composable
-fun DirectoryScreen(viewModel: DirectoryViewModel = hiltViewModel()) {
-    val navController = LocalNavController.current
-
+fun DirectoryScreen(
+    navController: NavController,
+    viewModel: DirectoryViewModel = hiltViewModel()
+) {
     val appBarMenuItems = listOf(
         // icons
         AppBarMenuItem.Icon(Icons.Default.Search, stringResource(R.string.search)) {},
 
         // overflow
-        AppBarMenuItem.OverflowMenuItem(stringResource(R.string.settings)) { navController?.navigate(SettingsRoute.createRoute()) }
+        AppBarMenuItem.OverflowMenuItem(stringResource(R.string.settings)) { navController.navigate(SettingsRoute.createRoute()) }
     )
 
     AppScaffold(

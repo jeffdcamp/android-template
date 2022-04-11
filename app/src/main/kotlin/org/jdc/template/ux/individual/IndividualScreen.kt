@@ -20,11 +20,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import kotlinx.coroutines.flow.StateFlow
 import org.jdc.template.R
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.ui.DateUiUtil
-import org.jdc.template.ui.compose.LocalNavController
 import org.jdc.template.ui.compose.appbar.AppBarMenu
 import org.jdc.template.ui.compose.appbar.AppBarMenuItem
 import org.jdc.template.ui.compose.appbar.AppScaffold
@@ -34,9 +34,10 @@ import org.jdc.template.ui.navigation.HandleNavigation
 import org.jdc.template.ui.theme.AppTheme
 
 @Composable
-fun IndividualScreen(viewModel: IndividualViewModel = hiltViewModel()) {
-    val navController = LocalNavController.current
-
+fun IndividualScreen(
+    navController: NavController,
+    viewModel: IndividualViewModel = hiltViewModel()
+) {
     val appBarMenuItems = listOf(
         AppBarMenuItem.Icon(Icons.Default.Edit, stringResource(R.string.edit)) { viewModel.editIndividual() },
         AppBarMenuItem.Icon(Icons.Default.Delete, stringResource(R.string.delete)) { viewModel.onDeleteClicked() }
