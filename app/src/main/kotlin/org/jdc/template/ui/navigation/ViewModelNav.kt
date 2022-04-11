@@ -11,13 +11,16 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
+/**
+ * Used for typical ViewModels that have navigation
+ */
 interface ViewModelNav {
     val navigatorFlow: StateFlow<ViewModelNavigator?>
 
     fun navigate(route: String, popBackStack: Boolean = false)
     fun navigate(routes: List<String>)
-    fun navigateWithOptions(route: String, navOptions: NavOptions)
-    fun navigateWithOptions(route: String, optionsBuilder: NavOptionsBuilder.() -> Unit)
+    fun navigate(route: String, navOptions: NavOptions)
+    fun navigate(route: String, optionsBuilder: NavOptionsBuilder.() -> Unit)
     fun popBackStack(popToRoute: String? = null, inclusive: Boolean = false)
     fun navigate(viewModelNavigator: ViewModelNavigator)
     fun resetNavigate(viewModelNavigator: ViewModelNavigator)
@@ -35,11 +38,11 @@ class ViewModelNavImpl : ViewModelNav {
         _navigatorFlow.compareAndSet(null, ViewModelNavigator.NavigateMultiple(routes))
     }
 
-    override fun navigateWithOptions(route: String, navOptions: NavOptions) {
+    override fun navigate(route: String, navOptions: NavOptions) {
         _navigatorFlow.compareAndSet(null, ViewModelNavigator.NavigateWithOptions(route, navOptions))
     }
 
-    override fun navigateWithOptions(route: String, optionsBuilder: NavOptionsBuilder.() -> Unit) {
+    override fun navigate(route: String, optionsBuilder: NavOptionsBuilder.() -> Unit) {
         _navigatorFlow.compareAndSet(null, ViewModelNavigator.NavigateWithOptions(route, navOptions(optionsBuilder)))
     }
 
@@ -71,7 +74,7 @@ sealed class ViewModelNavigator {
         }
     }
 
-    class NavigateMultiple(private val routes: List<String>): ViewModelNavigator() {
+    class NavigateMultiple(private val routes: List<String>) : ViewModelNavigator() {
         override fun navigate(navController: NavController, viewModelNav: ViewModelNav): Boolean {
             routes.forEach { route ->
                 navController.navigate(route)
@@ -118,9 +121,8 @@ sealed class ViewModelNavigator {
 @Composable
 fun HandleNavigation(
     viewModelNav: ViewModelNav,
-    navController: NavController,
-    navigatorFlow: StateFlow<ViewModelNavigator?>,
+    navController: NavController?,
 ) {
-    val navigator by navigatorFlow.collectAsState()
-    navigator?.navigate(navController, viewModelNav)
+    val navigator by viewModelNav.navigatorFlow.collectAsState()
+    navController?.let { navigator?.navigate(it, viewModelNav) }
 }
