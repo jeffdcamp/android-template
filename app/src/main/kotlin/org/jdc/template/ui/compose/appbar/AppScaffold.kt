@@ -28,8 +28,6 @@ import org.jdc.template.ui.compose.icons.google.outlined.People
 import org.jdc.template.ui.theme.AppColor
 import org.jdc.template.ui.theme.AppTheme
 import org.jdc.template.ux.main.NavBarItem
-import timber.log.Timber
-
 
 @Composable
 internal fun AppScaffold(
@@ -62,7 +60,6 @@ internal fun AppScaffold(
         bottomBar = navBarData?.getBottomBar() ?: {}
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
-            Timber.e("+++ blah: ${navBarData?.isNavRail()}")
             if (navBarData?.isNavRail() == true) {
                 // Content with NavigationRail
                 Row {
