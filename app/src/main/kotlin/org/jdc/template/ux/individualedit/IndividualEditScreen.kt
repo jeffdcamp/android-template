@@ -73,7 +73,8 @@ fun IndividualEditScreen(viewModel: IndividualEditViewModel = hiltViewModel()) {
 
     AppScaffold(
         title = stringResource(R.string.edit_individual),
-        actions = { AppBarMenu(appBarMenuItems) }
+        actions = { AppBarMenu(appBarMenuItems) },
+        onNavigationClick = { navController.popBackStack() },
     ) {
         IndividualEditFields(individualState)
     }

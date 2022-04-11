@@ -21,7 +21,10 @@ fun SettingsScreen(viewModel: SettingsViewModel = hiltViewModel()) {
     val navController = LocalNavController.current
     val scrollState = rememberScrollState()
 
-    AppScaffold(title = stringResource(R.string.settings)) {
+    TemplateAppScaffoldWithNavBar(
+        title = stringResource(R.string.settings),
+        onNavigationClick = { navController?.popBackStack() }
+    ) {
         Column(
             Modifier.verticalScroll(scrollState)
         ) {
