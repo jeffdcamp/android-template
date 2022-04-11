@@ -7,8 +7,8 @@ data class AppNavBarData(
     private val navBar: @Composable (() -> Unit)? = null,
     private val navRail: @Composable (() -> Unit)? = null
 ) {
-    fun getBottomBar(): @Composable () -> Unit {
-        return if (navBar != null && !navBarAsRail) navBar else {{}}
+    fun getBottomBar(): @Composable (() -> Unit)? {
+        return if (navBar != null && !navBarAsRail) navBar else null
     }
 
     fun getNavRail(): @Composable (() -> Unit)? {
