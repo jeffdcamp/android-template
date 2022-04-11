@@ -50,11 +50,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".ux.main.TestActivity"
-            android:exported="true"
-            />
-
         <!-- Google Play Services -->
         <meta-data
             android:name="com.google.android.gms.version"
@@ -84,10 +79,6 @@
                 />
             <meta-data
                 android:name="org.jdc.template.startup.AppUpgradeInitializer"
-                android:value="androidx.startup"
-                />
-            <meta-data
-                android:name="org.jdc.template.startup.ThemeInitializer"
                 android:value="androidx.startup"
                 />
             <meta-data

@@ -17,18 +17,18 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import kotlinx.coroutines.flow.StateFlow
 import org.jdc.template.R
 import org.jdc.template.ui.DateUiUtil
 import org.jdc.template.ui.compose.DayNightTextField
-import org.jdc.template.ui.compose.LocalNavController
 import org.jdc.template.ui.compose.appbar.AppBarMenu
 import org.jdc.template.ui.compose.appbar.AppBarMenuItem
-import org.jdc.template.ui.compose.appbar.AppScaffold
 import org.jdc.template.ui.compose.dialog.MaterialDatePickerDialog
 import org.jdc.template.ui.compose.dialog.MaterialTimePickerDialog
 import org.jdc.template.ui.compose.dialog.MessageDialog
 import org.jdc.template.ui.navigation.HandleNavigation
+import org.jdc.template.ux.TemplateAppScaffoldWithNavBar
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -49,9 +49,10 @@ class IndividualState(
 )
 
 @Composable
-fun IndividualEditScreen(viewModel: IndividualEditViewModel = hiltViewModel()) {
-    val navController = LocalNavController.current
-
+fun IndividualEditScreen(
+    navController: NavController,
+    viewModel: IndividualEditViewModel = hiltViewModel()
+) {
     val individualState = IndividualState(
         viewModel.firstNameFlow,
         { viewModel.setFirstName(it) },
@@ -71,7 +72,7 @@ fun IndividualEditScreen(viewModel: IndividualEditViewModel = hiltViewModel()) {
         AppBarMenuItem.Text(stringResource(R.string.save)) { viewModel.saveIndividual() }
     )
 
-    AppScaffold(
+    TemplateAppScaffoldWithNavBar(
         title = stringResource(R.string.edit_individual),
         actions = { AppBarMenu(appBarMenuItems) },
         onNavigationClick = { navController.popBackStack() },

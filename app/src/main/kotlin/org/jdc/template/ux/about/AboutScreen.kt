@@ -13,24 +13,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import kotlinx.coroutines.flow.StateFlow
 import org.jdc.template.BuildConfig
 import org.jdc.template.R
-import org.jdc.template.ui.compose.LocalNavController
 import org.jdc.template.ui.compose.appbar.AppBarMenu
 import org.jdc.template.ui.compose.appbar.AppBarMenuItem
-import org.jdc.template.ui.compose.appbar.AppScaffold
 import org.jdc.template.ui.navigation.HandleNavigation
+import org.jdc.template.ux.TemplateAppScaffoldWithNavBar
 
 @Composable
-fun AboutScreen(viewModel: AboutViewModel = hiltViewModel()) {
-    val navController = LocalNavController.current
-
+fun AboutScreen(
+    navController: NavController,
+    viewModel: AboutViewModel = hiltViewModel()
+) {
     val appBarMenuItems = listOf(
         AppBarMenuItem.OverflowMenuItem(stringResource(R.string.acknowledgments)) { viewModel.licensesClicked() }
     )
 
-    AppScaffold(
+    TemplateAppScaffoldWithNavBar(
         title = stringResource(R.string.about),
         navigationIconVisible = false,
         actions = { AppBarMenu(appBarMenuItems) },

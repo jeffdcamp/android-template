@@ -1,27 +1,20 @@
 package org.jdc.template.ux.main
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
-import org.jdc.template.R
-import org.jdc.template.ui.compose.appnavbar.AppBottomNavigationItem
-import org.jdc.template.ui.compose.icons.google.outlined.People
-import org.jdc.template.ui.theme.AppTheme
+import androidx.compose.ui.platform.LocalContext
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.compose.rememberNavController
+import org.jdc.template.ui.navigation.HandleNavBarNavigation
+import org.jdc.template.util.ext.requireActivity
+import org.jdc.template.ux.NavGraph
 
 @Composable
-fun BottomNav(
-    selectedBarItem: NavBarItem?,
-    onNavItemClicked: (NavBarItem) -> Unit
+fun MainScreen(
+    viewModel: MainViewModel = hiltViewModel(LocalContext.current.requireActivity()) // make sure we share the same ViewModel here and in TemplateAppScaffoldWithNavBar
 ) {
-    Column {
-        Divider()
+    val navController = rememberNavController()
 
-        val selectedColor: Color = AppTheme.colors.primary
-        BottomNavigation(
-            backgroundColor = AppTheme.colors.surface,
-            contentColor = AppTheme.colors.onSurface,
-        ) {
-            AppBottomNavigationItem(NavBarItem.PEOPLE, Icons.Outlined.People, R.string.people, selectedBarItem, selectedColor) { onNavItemClicked(it) }
-            AppBottomNavigationItem(NavBarItem.ABOUT, Icons.Outlined.Info, R.string.about, selectedBarItem, selectedColor) { onNavItemClicked(it) }
-        }
-    }
+    NavGraph(navController)
+
+    HandleNavBarNavigation(viewModel, navController, viewModel.navigatorFlow)
 }

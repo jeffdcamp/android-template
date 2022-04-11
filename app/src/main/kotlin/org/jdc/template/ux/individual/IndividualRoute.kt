@@ -1,18 +1,12 @@
 package org.jdc.template.ux.individual
 
-import android.content.Context
-import androidx.navigation.NavDestination
-import androidx.navigation.NavDestinationBuilder
+import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavType
-import org.jdc.template.R
-import org.jdc.template.ui.navigation.NavFragmentRoute
+import androidx.navigation.navArgument
+import org.jdc.template.ui.navigation.NavComposeRoute
 import org.jdc.template.ui.navigation.RouteUtil
 
-object IndividualRoute : NavFragmentRoute() {
-    override fun getLabel(context: Context): String {
-        return context.getString(R.string.individual)
-    }
-
+object IndividualRoute : NavComposeRoute() {
     override val routeDefinition: String = "individual/${RouteUtil.defineArg(Arg.INDIVIDUAL_ID)}" // individual/individualId={individualId}
 
     fun createRoute(individualId: String): String {

@@ -10,7 +10,7 @@ import timber.log.Timber
 /**
  * Used to debug navigating Route and DeepLink
  *
- * Usage: navHostFragment.navController.addOnDestinationChangedListener(NavUriLogger())
+ * Usage: navController.addOnDestinationChangedListener(NavUriLogger())
  */
 @Suppress("MemberVisibilityCanBePrivate")
 class NavUriLogger(val prefix: String = "", var priority: Int = Log.DEBUG) : NavController.OnDestinationChangedListener {

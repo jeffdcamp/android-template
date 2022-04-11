@@ -108,6 +108,8 @@ class SmokeTest {
         val viewModel: MainViewModel by composeTestRule.activity.viewModels()
         runBlocking { viewModel.createSampleData() }
 
+        composeTestRule.waitForIdle() // wait for render to complete
+
         // Click on Individual from Directory
         composeTestRule.onNodeWithText("John Miller").performClick()
 
