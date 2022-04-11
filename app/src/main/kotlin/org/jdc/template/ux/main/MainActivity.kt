@@ -76,6 +76,9 @@ class MainActivity : AppCompatActivity() {
                     themeManager.applyTheme(theme)
                 }
             }
+            viewModel.navigatorFlow.collectWhenStarted {
+                it?.navigate(navController, viewModel)
+            }
         }
     }
 
