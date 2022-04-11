@@ -44,7 +44,8 @@ fun IndividualScreen(viewModel: IndividualViewModel = hiltViewModel()) {
 
     AppScaffold(
         title = stringResource(R.string.individual),
-        actions = { AppBarMenu(appBarMenuItems) }
+        actions = { AppBarMenu(appBarMenuItems) },
+        onNavigationClick = { navController.popBackStack() },
     ) {
         IndividualContent(viewModel.individualFlow)
     }

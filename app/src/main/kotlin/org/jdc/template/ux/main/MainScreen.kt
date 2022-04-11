@@ -1,10 +1,5 @@
 package org.jdc.template.ux.main
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.Divider
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Info
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import org.jdc.template.R

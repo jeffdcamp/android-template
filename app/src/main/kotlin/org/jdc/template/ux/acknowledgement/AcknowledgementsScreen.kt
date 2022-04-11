@@ -29,8 +29,9 @@ fun AcknowledgementScreen(viewModel: AcknowledgementViewModel = hiltViewModel())
 
     val acknowledgementHtmlFlow = viewModel.acknowledgementHtmlFlow
 
-    AppScaffold(
-        title = stringResource(R.string.acknowledgments)
+    TemplateAppScaffoldWithNavBar(
+        title = stringResource(R.string.acknowledgments),
+        onNavigationClick = { navController.popBackStack() }
     ) {
         AcknowledgementWebview(acknowledgementHtmlFlow)
     }
