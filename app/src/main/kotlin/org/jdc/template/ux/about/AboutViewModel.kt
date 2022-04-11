@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import org.jdc.template.domain.individual.CreateIndividualTestDataUseCase
 import org.jdc.template.model.config.RemoteConfig
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.model.webservice.colors.ColorService
@@ -30,7 +31,8 @@ class AboutViewModel
     private val individualRepository: IndividualRepository,
     private val colorService: ColorService,
     private val workScheduler: WorkScheduler,
-    private val remoteConfig: RemoteConfig
+    private val remoteConfig: RemoteConfig,
+    private val createIndividualTestDataUseCase: CreateIndividualTestDataUseCase
 ) : ViewModel(), ViewModelNav by ViewModelNavImpl() {
 
     val resetServiceEnabledFlow: StateFlow<Boolean> = MutableStateFlow(remoteConfig.isColorServiceEnabled()).asStateFlow()
@@ -167,6 +169,6 @@ class AboutViewModel
     }
 
     fun createSampleData() = viewModelScope.launch {
-        individualRepository.createSampleData()
+        createIndividualTestDataUseCase()
     }
 }

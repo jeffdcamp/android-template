@@ -13,16 +13,12 @@ object IndividualRoute : NavComposeRoute() {
         return "individual/$individualId" // individual/123456
     }
 
-    override fun <D : NavDestination> NavDestinationBuilder<D>.setupNav() {
-        argument(Arg.INDIVIDUAL_ID) {
-            type = NavType.StringType
-        }
-
-        // Test Deeplink (change the id as needed)
-        // ./adb shell am start -W -a android.intent.action.VIEW -d "android-template://individual/dee40424-f42d-48ab-a13d-bae76b3bb3cd"
-        deepLink {
-            uriPattern = "android-template://$routeDefinition"
-        }
+    override fun getArguments(): List<NamedNavArgument> {
+        return listOf(
+            navArgument(Arg.INDIVIDUAL_ID) {
+                type = NavType.StringType
+            }
+        )
     }
 
     object Arg {
