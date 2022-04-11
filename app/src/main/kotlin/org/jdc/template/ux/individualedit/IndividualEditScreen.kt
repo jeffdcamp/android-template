@@ -100,7 +100,7 @@ fun IndividualEditScreen(
         viewModel.resetShowAlarmTime()
     }
 
-    HandleNavigation(viewModel, navController, viewModel.navigatorFlow)
+    HandleNavigation(viewModel, navController)
 }
 
 @Composable
