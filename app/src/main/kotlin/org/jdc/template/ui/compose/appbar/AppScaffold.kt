@@ -31,6 +31,7 @@ import org.jdc.template.ux.main.NavBarItem
 @Composable
 internal fun AppScaffold(
     title: String,
+    modifier: Modifier = Modifier,
     subtitle: String? = null,
     navigationIconVisible: Boolean = true,
     navigationIcon: ImageVector = Icons.Filled.ArrowBack,
@@ -56,7 +57,8 @@ internal fun AppScaffold(
                 actions = actions,
             )
         },
-        bottomBar = navBarData?.getBottomBar() ?: {}
+        bottomBar = navBarData?.getBottomBar() ?: {},
+        modifier = modifier
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
             if (navBarData?.isNavRail() == true) {
@@ -76,6 +78,7 @@ internal fun AppScaffold(
 @Composable
 internal fun AppScaffold(
     title: @Composable () -> Unit,
+    modifier: Modifier = Modifier,
     navigationIconVisible: Boolean = true,
     navigationIcon: ImageVector = Icons.Filled.ArrowBack,
     onNavigationClick: (() -> Unit)? = null,
@@ -93,7 +96,8 @@ internal fun AppScaffold(
                 actions = actions,
             )
         },
-        bottomBar = navBarData?.getBottomBar() ?: {}
+        bottomBar = navBarData?.getBottomBar() ?: {},
+        modifier = modifier
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
             if (navBarData?.isNavRail() == true) {
