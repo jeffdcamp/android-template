@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<!--    <style name="Theme.AndroidTemplate.Splash" parent="Theme.SplashScreen">-->
-<!--        <item name="windowSplashScreenBackground">@color/material_white</item>-->
-<!--        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>-->
-<!--        <item name="postSplashScreenTheme">@style/Theme.AndroidTemplate</item>-->
-<!--    </style>-->
     <!-- Workaround for issue for large splash images on SDK > 31 (use above and remove v31/themes.xml when fixed https://issuetracker.google.com/issues/201724091) -->
     <style name="AppTheme.Splash" parent="Theme.SplashScreen.IconBackground">
         <item name="windowSplashScreenBackground">@color/material_white</item>
@@ -13,15 +8,9 @@
         <item name="postSplashScreenTheme">@style/AppTheme</item>
     </style>
 
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Color Theme Definitions -->
-        <!-- https://material.io/develop/android/theming/color/ -->
-
-        <!-- Needed for old view system DatePicker and TimePicker -->
-        <item name="colorPrimary">@color/material_red_700</item>
-        <item name="colorSecondary">@color/material_blue_700</item>
-
+    <style name="AppTheme" parent="android:Theme.Material.Light.NoActionBar">
         <!-- The color above the App (where the clock and battery icons are) -->
+        <!-- android:windowLightStatusBar is not supported in 21... so the text on the status bar would not be visible... pick a dark statusBarColor -->
         <item name="android:statusBarColor">@color/material_red_900</item>
     </style>
 </resources>

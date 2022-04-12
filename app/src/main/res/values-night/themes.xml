@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Color Theme Definitions -->
-        <!-- https://material.io/develop/android/theming/color/ -->
-
-        <!-- Needed for old view system DatePicker and TimePicker -->
-        <item name="colorPrimary">@color/material_red_500</item>
-        <item name="colorSecondary">@color/material_blue_500</item>
-
+    <style name="AppTheme" parent="android:Theme.Material.Light.NoActionBar">
         <!-- The color ABOVE the App (where the clock and battery icons are) -->
         <item name="android:statusBarColor">@color/material_grey_900</item>
     </style>
