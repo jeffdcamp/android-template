@@ -90,8 +90,8 @@ private fun AppNavigationBar(
             backgroundColor = AppTheme.colors.surface,
             contentColor = AppTheme.colors.onSurface,
         ) {
-            AppBottomNavigationItem(NavBarItem.PEOPLE, Icons.Outlined.People, R.string.people, selectedItem, selectedColor) { onNavItemClicked(it) }
-            AppBottomNavigationItem(NavBarItem.ABOUT, Icons.Outlined.Info, R.string.about, selectedItem, selectedColor) { onNavItemClicked(it) }
+            AppBottomNavigationItem(NavBarItem.PEOPLE, Icons.Outlined.People, selectedItem, selectedColor, R.string.people) { onNavItemClicked(it) }
+            AppBottomNavigationItem(NavBarItem.ABOUT, Icons.Outlined.Info, selectedItem, selectedColor, R.string.about) { onNavItemClicked(it) }
         }
     }
 }
@@ -105,8 +105,8 @@ private fun AppNavigationRail(
     val selectedColor: Color = AppTheme.colors.primary
     Row(modifier = modifier) {
         NavigationRail {
-            AppNavigationRailItem(NavBarItem.PEOPLE, Icons.Outlined.People, R.string.people, selectedItem, selectedColor) { onNavItemClicked(it) }
-            AppNavigationRailItem(NavBarItem.ABOUT, Icons.Outlined.Info, R.string.about, selectedItem, selectedColor) { onNavItemClicked(it) }
+            AppNavigationRailItem(NavBarItem.PEOPLE, Icons.Outlined.People, selectedItem, selectedColor, R.string.people) { onNavItemClicked(it) }
+            AppNavigationRailItem(NavBarItem.ABOUT, Icons.Outlined.Info, selectedItem, selectedColor, R.string.about) { onNavItemClicked(it) }
         }
     }
 }

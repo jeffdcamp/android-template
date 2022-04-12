@@ -16,18 +16,19 @@ import androidx.compose.ui.res.stringResource
 fun <T : Enum<T>> RowScope.AppBottomNavigationItem(
     navBarItem: T,
     imageVector: ImageVector,
-    @StringRes textResId: Int,
     selectedBarItem: T?,
     selectedColor: Color,
+    @StringRes textResId: Int? = null,
+    text: String? = null,
     onNavItemClicked: (T) -> Unit
 ) {
     BottomNavigationItem(
         icon = { Icon(imageVector, contentDescription = null) },
         label = {
-            Text(
-                stringResource(textResId),
-                maxLines = 1
-            )
+            when {
+                text != null -> Text(text, maxLines = 1)
+                textResId != null -> Text(stringResource(textResId), maxLines = 1)
+            }
         },
         selected = selectedBarItem == navBarItem,
         selectedContentColor = selectedColor,
