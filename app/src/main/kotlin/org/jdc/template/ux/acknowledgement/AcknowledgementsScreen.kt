@@ -17,20 +17,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import kotlinx.coroutines.flow.StateFlow
 import org.jdc.template.R
-import org.jdc.template.ui.compose.LocalNavController
-import org.jdc.template.ui.compose.appbar.AppScaffold
 import org.jdc.template.ui.navigation.HandleNavigation
+import org.jdc.template.ux.TemplateAppScaffoldWithNavBar
 
 @Composable
-fun AcknowledgementScreen(viewModel: AcknowledgementViewModel = hiltViewModel()) {
-    val navController = LocalNavController.current
-
+fun AcknowledgementScreen(
+    navController: NavController,
+    viewModel: AcknowledgementViewModel = hiltViewModel()
+) {
     val acknowledgementHtmlFlow = viewModel.acknowledgementHtmlFlow
 
-    AppScaffold(
-        title = stringResource(R.string.acknowledgments)
+    TemplateAppScaffoldWithNavBar(
+        title = stringResource(R.string.acknowledgments),
+        onNavigationClick = { navController.popBackStack() }
     ) {
         AcknowledgementWebview(acknowledgementHtmlFlow)
     }

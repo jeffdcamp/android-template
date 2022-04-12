@@ -54,6 +54,7 @@ android {
             "-Xopt-in=androidx.compose.material3.ExperimentalMaterial3Api",
             "-Xopt-in=androidx.compose.material.ExperimentalMaterialApi",
             "-Xopt-in=androidx.compose.ui.ExperimentalComposeUiApi",
+            "-Xopt-in=kotlin.experimental.ExperimentalTypeInference",
 
             // use the following to ignore enforcement version of Kotlin with Compose
             //"-P", "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
@@ -192,25 +193,21 @@ android {
 dependencies {
     // Android
     coreLibraryDesugaring(libs.android.desugar)
-    implementation(libs.androidx.appcompat) // AppCompatActivity
-    implementation(libs.androidx.fragment)
     implementation(libs.androidx.splashscreen)
     implementation(libs.androidx.startup)
     implementation(libs.androidx.datastorePrefs)
 
     // Compose
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
-
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.tooling)
 //    implementation(libs.compose.material.material)
     implementation(libs.compose.material.material3)
+//    implementation(libs.compose.material.material)
+//    implementation(libs.google.material)
+//    implementation(libs.compose.material.material3)
 //    implementation(libs.compose.material.iconsext)
-//    implementation(libs.androidx.navigation.compose)
 
     // UI
-    implementation(libs.androidx.constraintlayout)
 //    implementation(libs.coil)
 //    implementation(libs.coil.compose)
 
@@ -239,14 +236,10 @@ dependencies {
 
     // Android Architecture Components
     implementation(libs.androidx.lifecycle.process)
-    implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.savedstate)
-    implementation(libs.androidx.lifecycle.common.java8)
 
     // Navigation
-    implementation(libs.androidx.navigation.fragment)
-    implementation(libs.androidx.navigation.ui)
     implementation(libs.androidx.hilt.navigation.compose)
 
     // WorkManager

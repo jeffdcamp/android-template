@@ -7,21 +7,26 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import org.jdc.template.R
-import org.jdc.template.ui.compose.LocalNavController
-import org.jdc.template.ui.compose.appbar.AppScaffold
 import org.jdc.template.ui.compose.dialog.HandleDialog
 import org.jdc.template.ui.compose.dialog.InputDialog
 import org.jdc.template.ui.compose.dialog.RadioDialog
 import org.jdc.template.ui.compose.setting.Setting
 import org.jdc.template.ui.navigation.WorkManagerStatusRoute
+import org.jdc.template.ux.TemplateAppScaffoldWithNavBar
 
 @Composable
-fun SettingsScreen(viewModel: SettingsViewModel = hiltViewModel()) {
-    val navController = LocalNavController.current
+fun SettingsScreen(
+    navController: NavController? = null,
+    viewModel: SettingsViewModel = hiltViewModel()
+) {
     val scrollState = rememberScrollState()
 
-    AppScaffold(title = stringResource(R.string.settings)) {
+    TemplateAppScaffoldWithNavBar(
+        title = stringResource(R.string.settings),
+        onNavigationClick = { navController?.popBackStack() }
+    ) {
         Column(
             Modifier.verticalScroll(scrollState)
         ) {

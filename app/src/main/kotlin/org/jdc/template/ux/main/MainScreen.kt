@@ -1,23 +1,20 @@
 package org.jdc.template.ux.main
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material3.NavigationBar
 import androidx.compose.runtime.Composable
-import org.jdc.template.R
-import org.jdc.template.ui.compose.appnavbar.AppBottomNavigationItem
-import org.jdc.template.ui.compose.icons.google.outlined.People
+import androidx.compose.ui.platform.LocalContext
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.compose.rememberNavController
+import org.jdc.template.ui.navigation.HandleNavBarNavigation
+import org.jdc.template.util.ext.requireActivity
+import org.jdc.template.ux.NavGraph
 
 @Composable
-fun BottomNav(
-    selectedBarItem: NavBarItem?,
-    onNavItemClicked: (NavBarItem) -> Unit
+fun MainScreen(
+    viewModel: MainViewModel = hiltViewModel(LocalContext.current.requireActivity()) // make sure we share the same ViewModel here and in TemplateAppScaffoldWithNavBar
 ) {
-    Column {
-        NavigationBar {
-            AppBottomNavigationItem(NavBarItem.PEOPLE, Icons.Outlined.People, R.string.people, selectedBarItem) { onNavItemClicked(it) }
-            AppBottomNavigationItem(NavBarItem.ABOUT, Icons.Outlined.Info, R.string.about, selectedBarItem) { onNavItemClicked(it) }
-        }
-    }
+    val navController = rememberNavController()
+
+    NavGraph(navController)
+
+    HandleNavBarNavigation(viewModel, navController, viewModel.navigatorFlow)
 }

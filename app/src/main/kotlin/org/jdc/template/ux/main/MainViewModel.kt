@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import org.jdc.template.domain.individual.CreateIndividualTestDataUseCase
 import org.jdc.template.model.data.DisplayThemeType
-import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.model.repository.SettingsRepository
 import org.jdc.template.ui.navigation.DefaultNavBarConfig
 import org.jdc.template.ui.navigation.NavBarConfig
@@ -23,7 +23,7 @@ import javax.inject.Inject
 class MainViewModel
 @Inject constructor(
     settingsRepository: SettingsRepository,
-    private val individualRepository: IndividualRepository
+    private val createIndividualTestDataUseCase: CreateIndividualTestDataUseCase
 ) : ViewModel(), ViewModelNavBar<NavBarItem> by ViewModelNavBarImpl(NavBarItem.PEOPLE, createNavBarConfig()) {
     val themeFlow: StateFlow<DisplayThemeType?> = settingsRepository.themeFlow.stateInDefault(viewModelScope, null)
 
@@ -41,7 +41,7 @@ class MainViewModel
 
     @VisibleForTesting
     suspend fun createSampleData() {
-        individualRepository.createSampleData()
+        createIndividualTestDataUseCase()
     }
 
     companion object {
