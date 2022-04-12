@@ -4,12 +4,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.Divider
-import androidx.compose.material.NavigationRail
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationRail
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -83,15 +82,9 @@ private fun AppNavigationBar(
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier) {
-        Divider()
-
-        val selectedColor: Color = AppTheme.colors.primary
-        BottomNavigation(
-            backgroundColor = AppTheme.colors.surface,
-            contentColor = AppTheme.colors.onSurface,
-        ) {
-            AppBottomNavigationItem(NavBarItem.PEOPLE, Icons.Outlined.People, selectedItem, selectedColor, R.string.people) { onNavItemClicked(it) }
-            AppBottomNavigationItem(NavBarItem.ABOUT, Icons.Outlined.Info, selectedItem, selectedColor, R.string.about) { onNavItemClicked(it) }
+        NavigationBar {
+            AppBottomNavigationItem(NavBarItem.PEOPLE, Icons.Outlined.People, selectedItem, R.string.people) { onNavItemClicked(it) }
+            AppBottomNavigationItem(NavBarItem.ABOUT, Icons.Outlined.Info, selectedItem, R.string.about) { onNavItemClicked(it) }
         }
     }
 }
@@ -102,11 +95,10 @@ private fun AppNavigationRail(
     onNavItemClicked: (NavBarItem) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val selectedColor: Color = AppTheme.colors.primary
     Row(modifier = modifier) {
         NavigationRail {
-            AppNavigationRailItem(NavBarItem.PEOPLE, Icons.Outlined.People, selectedItem, selectedColor, R.string.people) { onNavItemClicked(it) }
-            AppNavigationRailItem(NavBarItem.ABOUT, Icons.Outlined.Info, selectedItem, selectedColor, R.string.about) { onNavItemClicked(it) }
+            AppNavigationRailItem(NavBarItem.PEOPLE, Icons.Outlined.People, selectedItem, R.string.people) { onNavItemClicked(it) }
+            AppNavigationRailItem(NavBarItem.ABOUT, Icons.Outlined.Info, selectedItem, R.string.about) { onNavItemClicked(it) }
         }
     }
 }

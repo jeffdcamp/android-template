@@ -2,9 +2,9 @@ package org.jdc.template.ui.compose.appnavbar
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
@@ -14,7 +14,6 @@ fun <T : Enum<T>> RowScope.AppBottomNavigationItem(
     navBarItem: T,
     imageVector: ImageVector,
     selectedBarItem: T?,
-    selectedColor: Color,
     @StringRes textResId: Int? = null,
     text: String? = null,
     onNavItemClicked: (T) -> Unit

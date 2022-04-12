@@ -6,17 +6,14 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.NavigationRail
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,7 +25,6 @@ import org.jdc.template.R
 import org.jdc.template.ui.compose.appnavbar.AppBottomNavigationItem
 import org.jdc.template.ui.compose.appnavbar.AppNavigationRailItem
 import org.jdc.template.ui.compose.icons.google.outlined.People
-import org.jdc.template.ui.theme.AppColor
 import org.jdc.template.ui.theme.AppTheme
 import org.jdc.template.ux.main.NavBarItem
 
@@ -136,23 +132,19 @@ private fun AboutScaffoldPreview() {
 @Composable
 private fun AboutScaffoldTabletPreview() {
     val selectedItem = NavBarItem.PEOPLE
-    val selectedColor: Color = AppColor.Red700Dark
 
     val navBarData = AppNavBarData(
         navBarAsRail = true,
         navBar = {
-            BottomNavigation(
-                backgroundColor = AppTheme.colors.surface,
-                contentColor = AppTheme.colors.onSurface,
-            ) {
-                AppBottomNavigationItem(NavBarItem.PEOPLE, Icons.Outlined.People, selectedItem, selectedColor, R.string.people) {  }
-                AppBottomNavigationItem(NavBarItem.ABOUT, Icons.Outlined.Info, selectedItem, selectedColor, R.string.about) {  }
+            NavigationBar {
+                AppBottomNavigationItem(NavBarItem.PEOPLE, Icons.Outlined.People, selectedItem, R.string.people) {  }
+                AppBottomNavigationItem(NavBarItem.ABOUT, Icons.Outlined.Info, selectedItem, R.string.about) {  }
             }
         },
         navRail = {
             NavigationRail {
-                AppNavigationRailItem(NavBarItem.PEOPLE, Icons.Outlined.People, selectedItem, selectedColor, R.string.people) {  }
-                AppNavigationRailItem(NavBarItem.ABOUT, Icons.Outlined.Info, selectedItem, selectedColor, R.string.about) {  }
+                AppNavigationRailItem(NavBarItem.PEOPLE, Icons.Outlined.People, selectedItem, R.string.people) {  }
+                AppNavigationRailItem(NavBarItem.ABOUT, Icons.Outlined.Info, selectedItem, R.string.about) {  }
             }
         }
     )
