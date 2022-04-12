@@ -5,6 +5,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavOptions
+import androidx.navigation.NavOptionsBuilder
+import androidx.navigation.navOptions
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,6 +18,8 @@ interface ViewModelNavBar<T : Enum<T>> {
     val selectedNavBarFlow: StateFlow<T?>
 
     fun navigate(route: String, popBackStack: Boolean = false)
+    fun navigate(route: String, navOptions: NavOptions)
+    fun navigate(route: String, optionsBuilder: NavOptionsBuilder.() -> Unit = {})
     fun onNavBarItemSelected(selectedItem: T, route: String? = null)
     fun navBarNavigation(route: String, reselected: Boolean)
     fun resetNavigate(viewModelNavBarNavigator: ViewModelNavBarNavigator)
@@ -32,6 +37,14 @@ class ViewModelNavBarImpl<T : Enum<T>>(
 
     override fun navigate(route: String, popBackStack: Boolean) {
         _navigatorFlow.compareAndSet(null, if (popBackStack) ViewModelNavBarNavigator.PopAndNavigate(route) else ViewModelNavBarNavigator.Navigate(route))
+    }
+
+    override fun navigate(route: String, navOptions: NavOptions) {
+        _navigatorFlow.compareAndSet(null, ViewModelNavBarNavigator.NavigateWithOptions(route, navOptions))
+    }
+
+    override fun navigate(route: String, optionsBuilder: NavOptionsBuilder.() -> Unit) {
+        _navigatorFlow.compareAndSet(null, ViewModelNavBarNavigator.NavigateWithOptions(route, navOptions(optionsBuilder)))
     }
 
     override fun navBarNavigation(route: String, reselected: Boolean) {
@@ -85,6 +98,15 @@ sealed class ViewModelNavBarNavigator {
     class Navigate(private val route: String) : ViewModelNavBarNavigator() {
         override fun <T : Enum<T>> navigate(navController: NavController, viewModelNav: ViewModelNavBar<T>): Boolean {
             navController.navigate(route)
+
+            viewModelNav.resetNavigate(this)
+            return false
+        }
+    }
+
+    class NavigateWithOptions(private val route: String, private val navOptions: NavOptions) : ViewModelNavBarNavigator() {
+        override fun <T : Enum<T>> navigate(navController: NavController, viewModelNav: ViewModelNavBar<T>): Boolean {
+            navController.navigate(route, navOptions)
 
             viewModelNav.resetNavigate(this)
             return false
