@@ -142,14 +142,14 @@ private fun AboutScaffoldTabletPreview() {
                 backgroundColor = AppTheme.colors.surface,
                 contentColor = AppTheme.colors.onSurface,
             ) {
-                AppBottomNavigationItem(NavBarItem.PEOPLE, Icons.Outlined.People, R.string.people, selectedItem, selectedColor) {  }
-                AppBottomNavigationItem(NavBarItem.ABOUT, Icons.Outlined.Info, R.string.about, selectedItem, selectedColor) {  }
+                AppBottomNavigationItem(NavBarItem.PEOPLE, Icons.Outlined.People, selectedItem, selectedColor, R.string.people) {  }
+                AppBottomNavigationItem(NavBarItem.ABOUT, Icons.Outlined.Info, selectedItem, selectedColor, R.string.about) {  }
             }
         },
         navRail = {
             NavigationRail {
-                AppNavigationRailItem(NavBarItem.PEOPLE, Icons.Outlined.People, R.string.people, selectedItem, selectedColor) {  }
-                AppNavigationRailItem(NavBarItem.ABOUT, Icons.Outlined.Info, R.string.about, selectedItem, selectedColor) {  }
+                AppNavigationRailItem(NavBarItem.PEOPLE, Icons.Outlined.People, selectedItem, selectedColor, R.string.people) {  }
+                AppNavigationRailItem(NavBarItem.ABOUT, Icons.Outlined.Info, selectedItem, selectedColor, R.string.about) {  }
             }
         }
     )
