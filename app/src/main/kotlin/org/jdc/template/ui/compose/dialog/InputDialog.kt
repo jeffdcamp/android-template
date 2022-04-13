@@ -21,7 +21,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusOrder
+import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
@@ -214,7 +214,8 @@ fun TwoInputDialog(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 16.dp)
-                        .focusOrder(item1) {
+                        .focusRequester(item1)
+                        .focusProperties {
                             next = item2
                             down = item2
                             previous = item2
@@ -241,7 +242,8 @@ fun TwoInputDialog(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 16.dp)
-                        .focusOrder(item2) {
+                        .focusRequester(item2)
+                        .focusProperties{
                             next = item1
                             down = item1
                             previous = item1
