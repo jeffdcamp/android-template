@@ -6,7 +6,6 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import org.jdc.template.R
 import java.util.Locale
 
 @Composable
@@ -14,9 +13,9 @@ fun MessageDialog(
     onDismissRequest: () -> Unit,
     title: String? = null,
     text: String? = null,
-    confirmButtonText: String = stringResource(R.string.ok),
+    confirmButtonText: String = stringResource(android.R.string.ok),
     onConfirmButtonClicked: (() -> Unit)? = null,
-    dismissButtonText: String = stringResource(R.string.cancel),
+    dismissButtonText: String = stringResource(android.R.string.cancel),
     onDismissButtonClicked: (() -> Unit)? = null
 ) {
     require(title != null || text != null) { "Title or Text is required (if visible)" }
