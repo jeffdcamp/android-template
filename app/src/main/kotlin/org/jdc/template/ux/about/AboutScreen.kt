@@ -20,7 +20,7 @@ import org.jdc.template.R
 import org.jdc.template.ui.compose.appbar.AppBarMenu
 import org.jdc.template.ui.compose.appbar.AppBarMenuItem
 import org.jdc.template.ui.navigation.HandleNavigation
-import org.jdc.template.ux.TemplateAppScaffoldWithNavBar
+import org.jdc.template.ux.MainAppScaffoldWithNavBar
 
 @Composable
 fun AboutScreen(
@@ -31,7 +31,7 @@ fun AboutScreen(
         AppBarMenuItem.OverflowMenuItem(stringResource(R.string.acknowledgments)) { viewModel.licensesClicked() }
     )
 
-    TemplateAppScaffoldWithNavBar(
+    MainAppScaffoldWithNavBar(
         title = stringResource(R.string.about),
         navigationIconVisible = false,
         actions = { AppBarMenu(appBarMenuItems) },

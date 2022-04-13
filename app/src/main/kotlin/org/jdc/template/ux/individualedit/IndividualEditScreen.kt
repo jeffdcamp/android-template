@@ -28,7 +28,7 @@ import org.jdc.template.ui.compose.dialog.MaterialDatePickerDialog
 import org.jdc.template.ui.compose.dialog.MaterialTimePickerDialog
 import org.jdc.template.ui.compose.dialog.MessageDialog
 import org.jdc.template.ui.navigation.HandleNavigation
-import org.jdc.template.ux.TemplateAppScaffoldWithNavBar
+import org.jdc.template.ux.MainAppScaffoldWithNavBar
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -72,7 +72,7 @@ fun IndividualEditScreen(
         AppBarMenuItem.Text(stringResource(R.string.save)) { viewModel.saveIndividual() }
     )
 
-    TemplateAppScaffoldWithNavBar(
+    MainAppScaffoldWithNavBar(
         title = stringResource(R.string.edit_individual),
         actions = { AppBarMenu(appBarMenuItems) },
         onNavigationClick = { navController.popBackStack() },

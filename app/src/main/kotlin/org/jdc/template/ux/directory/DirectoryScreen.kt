@@ -29,7 +29,7 @@ import org.jdc.template.model.db.main.directoryitem.DirectoryItem
 import org.jdc.template.ui.compose.appbar.AppBarMenu
 import org.jdc.template.ui.compose.appbar.AppBarMenuItem
 import org.jdc.template.ui.navigation.HandleNavigation
-import org.jdc.template.ux.TemplateAppScaffoldWithNavBar
+import org.jdc.template.ux.MainAppScaffoldWithNavBar
 
 @Composable
 fun DirectoryScreen(
@@ -44,7 +44,7 @@ fun DirectoryScreen(
         AppBarMenuItem.OverflowMenuItem(stringResource(R.string.settings)) { viewModel.onSettingsClicked() }
     )
 
-    TemplateAppScaffoldWithNavBar(
+    MainAppScaffoldWithNavBar(
         title = stringResource(R.string.directory),
         navigationIconVisible = false,
         actions = { AppBarMenu(appBarMenuItems) },
