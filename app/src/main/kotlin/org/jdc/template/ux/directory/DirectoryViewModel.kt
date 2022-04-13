@@ -11,6 +11,7 @@ import org.jdc.template.ui.navigation.ViewModelNavImpl
 import org.jdc.template.util.ext.stateInDefault
 import org.jdc.template.ux.individual.IndividualRoute
 import org.jdc.template.ux.individualedit.IndividualEditRoute
+import org.jdc.template.ux.settings.SettingsRoute
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,5 +27,9 @@ class DirectoryViewModel
 
     fun onDirectoryIndividualClicked(individualId: String) {
         navigate(IndividualRoute.createRoute(individualId))
+    }
+
+    fun onSettingsClicked() {
+        navigate(SettingsRoute.createRoute())
     }
 }
