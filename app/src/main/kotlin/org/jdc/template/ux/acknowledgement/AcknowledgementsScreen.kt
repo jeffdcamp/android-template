@@ -21,7 +21,7 @@ import androidx.navigation.NavController
 import kotlinx.coroutines.flow.StateFlow
 import org.jdc.template.R
 import org.jdc.template.ui.navigation.HandleNavigation
-import org.jdc.template.ux.TemplateAppScaffoldWithNavBar
+import org.jdc.template.ux.MainAppScaffoldWithNavBar
 
 @Composable
 fun AcknowledgementScreen(
@@ -30,7 +30,7 @@ fun AcknowledgementScreen(
 ) {
     val acknowledgementHtmlFlow = viewModel.acknowledgementHtmlFlow
 
-    TemplateAppScaffoldWithNavBar(
+    MainAppScaffoldWithNavBar(
         title = stringResource(R.string.acknowledgments),
         onNavigationClick = { navController.popBackStack() }
     ) {

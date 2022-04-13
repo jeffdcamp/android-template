@@ -31,7 +31,7 @@ import org.jdc.template.ui.compose.dialog.HandleDialog
 import org.jdc.template.ui.compose.dialog.MessageDialog
 import org.jdc.template.ui.navigation.HandleNavigation
 import org.jdc.template.ui.theme.AppTheme
-import org.jdc.template.ux.TemplateAppScaffoldWithNavBar
+import org.jdc.template.ux.MainAppScaffoldWithNavBar
 
 @Composable
 fun IndividualScreen(
@@ -43,7 +43,7 @@ fun IndividualScreen(
         AppBarMenuItem.Icon(Icons.Outlined.Delete, stringResource(R.string.delete)) { viewModel.onDeleteClicked() }
     )
 
-    TemplateAppScaffoldWithNavBar(
+    MainAppScaffoldWithNavBar(
         title = stringResource(R.string.individual),
         actions = { AppBarMenu(appBarMenuItems) },
         onNavigationClick = { navController.popBackStack() },
