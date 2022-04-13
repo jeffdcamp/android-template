@@ -18,8 +18,9 @@ interface ViewModelNavBar<T : Enum<T>> {
     val selectedNavBarFlow: StateFlow<T?>
 
     fun navigate(route: String, popBackStack: Boolean = false)
-    fun navigate(route: String, navOptions: NavOptions)
-    fun navigate(route: String, optionsBuilder: NavOptionsBuilder.() -> Unit = {})
+    fun navigate(routes: List<String>)
+    fun navigateWithOptions(route: String, navOptions: NavOptions)
+    fun navigateWithOptions(route: String, optionsBuilder: NavOptionsBuilder.() -> Unit = {})
     fun onNavBarItemSelected(selectedItem: T, route: String? = null)
     fun navBarNavigation(route: String, reselected: Boolean)
     fun resetNavigate(viewModelNavBarNavigator: ViewModelNavBarNavigator)
@@ -39,11 +40,15 @@ class ViewModelNavBarImpl<T : Enum<T>>(
         _navigatorFlow.compareAndSet(null, if (popBackStack) ViewModelNavBarNavigator.PopAndNavigate(route) else ViewModelNavBarNavigator.Navigate(route))
     }
 
-    override fun navigate(route: String, navOptions: NavOptions) {
+    override fun navigate(routes: List<String>) {
+        _navigatorFlow.compareAndSet(null, ViewModelNavBarNavigator.NavigateMultiple(routes))
+    }
+
+    override fun navigateWithOptions(route: String, navOptions: NavOptions) {
         _navigatorFlow.compareAndSet(null, ViewModelNavBarNavigator.NavigateWithOptions(route, navOptions))
     }
 
-    override fun navigate(route: String, optionsBuilder: NavOptionsBuilder.() -> Unit) {
+    override fun navigateWithOptions(route: String, optionsBuilder: NavOptionsBuilder.() -> Unit) {
         _navigatorFlow.compareAndSet(null, ViewModelNavBarNavigator.NavigateWithOptions(route, navOptions(optionsBuilder)))
     }
 
@@ -98,6 +103,17 @@ sealed class ViewModelNavBarNavigator {
     class Navigate(private val route: String) : ViewModelNavBarNavigator() {
         override fun <T : Enum<T>> navigate(navController: NavController, viewModelNav: ViewModelNavBar<T>): Boolean {
             navController.navigate(route)
+
+            viewModelNav.resetNavigate(this)
+            return false
+        }
+    }
+
+    class NavigateMultiple(private val routes: List<String>): ViewModelNavBarNavigator() {
+        override fun <T : Enum<T>> navigate(navController: NavController, viewModelNav: ViewModelNavBar<T>): Boolean {
+            routes.forEach { route ->
+                navController.navigate(route)
+            }
 
             viewModelNav.resetNavigate(this)
             return false
