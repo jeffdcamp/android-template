@@ -15,8 +15,9 @@ interface ViewModelNav {
     val navigatorFlow: StateFlow<ViewModelNavigator?>
 
     fun navigate(route: String, popBackStack: Boolean = false)
-    fun navigate(route: String, navOptions: NavOptions)
-    fun navigate(route: String, optionsBuilder: NavOptionsBuilder.() -> Unit)
+    fun navigate(routes: List<String>)
+    fun navigateWithOptions(route: String, navOptions: NavOptions)
+    fun navigateWithOptions(route: String, optionsBuilder: NavOptionsBuilder.() -> Unit)
     fun popBackStack(popToRoute: String? = null, inclusive: Boolean = false)
     fun navigate(viewModelNavigator: ViewModelNavigator)
     fun resetNavigate(viewModelNavigator: ViewModelNavigator)
@@ -30,11 +31,15 @@ class ViewModelNavImpl : ViewModelNav {
         _navigatorFlow.compareAndSet(null, if (popBackStack) ViewModelNavigator.PopAndNavigate(route) else ViewModelNavigator.Navigate(route))
     }
 
-    override fun navigate(route: String, navOptions: NavOptions) {
+    override fun navigate(routes: List<String>) {
+        _navigatorFlow.compareAndSet(null, ViewModelNavigator.NavigateMultiple(routes))
+    }
+
+    override fun navigateWithOptions(route: String, navOptions: NavOptions) {
         _navigatorFlow.compareAndSet(null, ViewModelNavigator.NavigateWithOptions(route, navOptions))
     }
 
-    override fun navigate(route: String, optionsBuilder: NavOptionsBuilder.() -> Unit) {
+    override fun navigateWithOptions(route: String, optionsBuilder: NavOptionsBuilder.() -> Unit) {
         _navigatorFlow.compareAndSet(null, ViewModelNavigator.NavigateWithOptions(route, navOptions(optionsBuilder)))
     }
 
@@ -60,6 +65,17 @@ sealed class ViewModelNavigator {
     class Navigate(private val route: String) : ViewModelNavigator() {
         override fun navigate(navController: NavController, viewModelNav: ViewModelNav): Boolean {
             navController.navigate(route)
+
+            viewModelNav.resetNavigate(this)
+            return false
+        }
+    }
+
+    class NavigateMultiple(private val routes: List<String>): ViewModelNavigator() {
+        override fun navigate(navController: NavController, viewModelNav: ViewModelNav): Boolean {
+            routes.forEach { route ->
+                navController.navigate(route)
+            }
 
             viewModelNav.resetNavigate(this)
             return false
