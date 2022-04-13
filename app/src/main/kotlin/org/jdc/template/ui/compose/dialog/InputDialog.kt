@@ -35,7 +35,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import kotlinx.coroutines.delay
-import org.jdc.template.R
 import org.jdc.template.ui.compose.DayNightTextField
 import org.jdc.template.ui.theme.AppTheme
 
@@ -45,9 +44,9 @@ fun InputDialog(
     title: String? = null,
     textFieldLabel: String? = null,
     initialTextFieldText: String? = null,
-    confirmButtonText: String = stringResource(R.string.ok),
+    confirmButtonText: String = stringResource(android.R.string.ok),
     onConfirmButtonClicked: ((String) -> Unit)? = null,
-    dismissButtonText: String = stringResource(R.string.cancel),
+    dismissButtonText: String = stringResource(android.R.string.cancel),
     onDismissButtonClicked: (() -> Unit)? = null,
     minLength: Int = -1,
     maxLength: Int = -1,
@@ -151,9 +150,9 @@ fun TwoInputDialog(
     initialTextFieldTextFirst: String? = null,
     textFieldLabelSecond: String? = null,
     initialTextFieldTextSecond: String? = null,
-    confirmButtonText: String = stringResource(R.string.ok),
+    confirmButtonText: String = stringResource(android.R.string.ok),
     onConfirmButtonClicked: ((Pair<String, String>) -> Unit)? = null,
-    dismissButtonText: String = stringResource(R.string.cancel),
+    dismissButtonText: String = stringResource(android.R.string.cancel),
     onDismissButtonClicked: (() -> Unit)? = null,
     minLengthFirst: Int = -1,
     maxLengthFirst: Int = -1,
