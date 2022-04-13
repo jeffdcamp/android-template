@@ -14,7 +14,7 @@ import org.jdc.template.ui.compose.dialog.InputDialog
 import org.jdc.template.ui.compose.dialog.RadioDialog
 import org.jdc.template.ui.compose.setting.Setting
 import org.jdc.template.ui.navigation.WorkManagerStatusRoute
-import org.jdc.template.ux.TemplateAppScaffoldWithNavBar
+import org.jdc.template.ux.MainAppScaffoldWithNavBar
 
 @Composable
 fun SettingsScreen(
@@ -23,7 +23,7 @@ fun SettingsScreen(
 ) {
     val scrollState = rememberScrollState()
 
-    TemplateAppScaffoldWithNavBar(
+    MainAppScaffoldWithNavBar(
         title = stringResource(R.string.settings),
         onNavigationClick = { navController.popBackStack() }
     ) {

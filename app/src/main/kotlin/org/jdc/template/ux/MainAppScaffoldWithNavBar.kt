@@ -30,7 +30,7 @@ import org.jdc.template.ux.main.MainViewModel
 import org.jdc.template.ux.main.NavBarItem
 
 @Composable
-internal fun TemplateAppScaffoldWithNavBar(
+internal fun MainAppScaffoldWithNavBar(
     title: String,
     subtitle: String? = null,
     navigationIconVisible: Boolean = true,
