@@ -24,7 +24,6 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import org.jdc.template.R
 import java.util.Locale
 
 @Composable
@@ -35,8 +34,8 @@ fun <T> RadioDialog(
     onConfirmButtonClicked: (() -> Unit)? = null,
     onDismissRequest: (() -> Unit) = {},
     onDismissButtonClicked: (() -> Unit)? = null,
-    confirmButtonText: String = stringResource(R.string.ok),
-    dismissButtonText: String = stringResource(R.string.cancel),
+    confirmButtonText: String = stringResource(android.R.string.ok),
+    dismissButtonText: String = stringResource(android.R.string.cancel),
     shape: Shape = MaterialTheme.shapes.medium,
     backgroundColor: Color = MaterialTheme.colors.surface,
     properties: DialogProperties = DialogProperties()
@@ -79,7 +78,7 @@ fun <T> RadioDialog(
                                 onDismissButtonClicked()
                             }
                         ) {
-                            Text(dismissButtonText.toUpperCase(Locale.getDefault()))
+                            Text(dismissButtonText.uppercase(Locale.getDefault()))
                         }
                     }
                     if (onConfirmButtonClicked != null) {
@@ -88,7 +87,7 @@ fun <T> RadioDialog(
                                 onConfirmButtonClicked()
                             }
                         ) {
-                            Text(confirmButtonText.toUpperCase(Locale.getDefault()))
+                            Text(confirmButtonText.uppercase(Locale.getDefault()))
                         }
                     }
                 }
