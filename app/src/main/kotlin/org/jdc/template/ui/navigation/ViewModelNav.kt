@@ -121,8 +121,7 @@ sealed class ViewModelNavigator {
 @Composable
 fun HandleNavigation(
     viewModelNav: ViewModelNav,
-    navController: NavController?,
-    navigatorFlow: StateFlow<ViewModelNavigator?>,
+    navController: NavController?
 ) {
     val navigator by viewModelNav.navigatorFlow.collectAsState()
     navController?.let { navigator?.navigate(it, viewModelNav) }

@@ -16,5 +16,5 @@ fun MainScreen(
 
     NavGraph(navController)
 
-    HandleNavBarNavigation(viewModel, navController, viewModel.navigatorFlow)
+    HandleNavBarNavigation(viewModel, navController)
 }
