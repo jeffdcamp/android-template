@@ -45,7 +45,7 @@ class SmokeTest {
         // Verify error message
         composeTestRule.onNodeWithText("Error").assertIsDisplayed()
         composeTestRule.onNodeWithText(stringResource(R.string.x_required, stringResource(R.string.first_name))).assertIsDisplayed()
-        composeTestRule.onNodeWithText(stringResource(R.string.ok)).performClick()
+        composeTestRule.onNodeWithText(stringResource(android.R.string.ok)).performClick()
 
         // Add the missing field
         composeTestRule.onNodeWithTag("firstNameEditTextTag").performTextReplacement("Bob")
@@ -115,7 +115,7 @@ class SmokeTest {
         composeTestRule.onNodeWithContentDescription(stringResource(R.string.delete)).performClick()
 
         // Confirm delete from Dialog
-        composeTestRule.onNodeWithText(stringResource(R.string.ok)).performClick()
+        composeTestRule.onNodeWithText(stringResource(android.R.string.ok)).performClick()
 
         // Validate delete (from DirectoryScreen)
         composeTestRule.onNodeWithText("John Miller").assertDoesNotExist()
