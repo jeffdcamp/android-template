@@ -208,6 +208,7 @@ dependencies {
 //    implementation(libs.compose.material.iconsext)
 
     // UI
+    implementation(libs.androidx.window)
 //    implementation(libs.coil)
 //    implementation(libs.coil.compose)
 
