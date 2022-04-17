@@ -8,28 +8,29 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationRail
+import androidx.compose.material3.PermanentNavigationDrawer
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import org.jdc.template.R
 import org.jdc.template.ui.compose.appnavbar.AppBottomNavigationItem
+import org.jdc.template.ui.compose.appnavbar.AppNavigationDrawerItem
+import org.jdc.template.ui.compose.appnavbar.AppNavigationDrawerLabel
 import org.jdc.template.ui.compose.appnavbar.AppNavigationRailItem
 import org.jdc.template.ui.compose.icons.google.outlined.People
 import org.jdc.template.ui.theme.AppTheme
 import org.jdc.template.ux.main.NavBarItem
 
 @Composable
-internal fun AppScaffold(
+fun AppScaffold(
     title: String,
     modifier: Modifier = Modifier,
     subtitle: String? = null,
@@ -43,40 +44,46 @@ internal fun AppScaffold(
     navBarData: AppNavBarData? = null,
     content: @Composable (PaddingValues) -> Unit,
 ) {
-    Scaffold(
-        topBar = {
-            AppTopAppBar(
-                title = title,
-                subtitle = subtitle,
-                appBarTextColor = appBarTextColor,
-                appBarBackgroundColor = appBarBackgroundColor,
-                autoSizeTitle = autoSizeTitle,
-                navigationIconVisible = navigationIconVisible,
-                navigationIcon = navigationIcon,
-                onNavigationClick = { onNavigationClick?.invoke() },
-                actions = actions,
-            )
-        },
-        bottomBar = navBarData?.getBottomBar() ?: {},
-        modifier = modifier
-    ) { innerPadding ->
-        Box(modifier = Modifier.padding(innerPadding)) {
-            if (navBarData?.isNavRail() == true) {
-                // Content with NavigationRail
-                Row {
-                    navBarData.getNavRail()?.invoke()
-                    content(innerPadding)
-                }
-            } else {
-                // Content
-                content(innerPadding)
+    val appTopAppBar: @Composable (() -> Unit) = {
+        AppTopAppBar(
+            title = title,
+            subtitle = subtitle,
+            appBarTextColor = appBarTextColor,
+            appBarBackgroundColor = appBarBackgroundColor,
+            autoSizeTitle = autoSizeTitle,
+            navigationIconVisible = navigationIconVisible,
+            navigationIcon = navigationIcon,
+            onNavigationClick = { onNavigationClick?.invoke() },
+            actions = actions,
+        )
+    }
+
+    if (navBarData?.appNavBarType == AppNavBarType.NAV_DRAWER) {
+        // NavDrawer
+        navBarData.navDrawer()?.invoke {
+            Scaffold(
+                topBar = appTopAppBar,
+                bottomBar = navBarData.bottomBar(),
+                modifier = modifier
+            ) { innerPadding ->
+                AppScaffoldContentWrapper(innerPadding, navBarData, content)
             }
+        }
+
+    } else {
+        // NavBar / NavRail
+        Scaffold(
+            topBar = appTopAppBar,
+            bottomBar = navBarData?.bottomBar() ?: {},
+            modifier = modifier
+        ) { innerPadding ->
+            AppScaffoldContentWrapper(innerPadding, navBarData, content)
         }
     }
 }
 
 @Composable
-internal fun AppScaffold(
+fun AppScaffold(
     title: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     navigationIconVisible: Boolean = true,
@@ -86,27 +93,58 @@ internal fun AppScaffold(
     navBarData: AppNavBarData? = null,
     content: @Composable (PaddingValues) -> Unit,
 ) {
-    Scaffold(
-        topBar = {
-            AppTopAppBar(
-                title = title,
-                navigationIconVisible = navigationIconVisible,
-                navigationIcon = navigationIcon,
-                onNavigationClick = { onNavigationClick?.invoke() },
-                actions = actions,
-            )
-        },
-        bottomBar = navBarData?.getBottomBar() ?: {},
-        modifier = modifier
-    ) { innerPadding ->
-        Box(modifier = Modifier.padding(innerPadding)) {
-            if (navBarData?.isNavRail() == true) {
+    val appTopAppBar: @Composable (() -> Unit) = {
+        AppTopAppBar(
+            title = title,
+            navigationIconVisible = navigationIconVisible,
+            navigationIcon = navigationIcon,
+            onNavigationClick = { onNavigationClick?.invoke() },
+            actions = actions,
+        )
+    }
+
+    if (navBarData?.appNavBarType == AppNavBarType.NAV_DRAWER) {
+        // NavDrawer
+        navBarData.navDrawer()?.invoke {
+            Scaffold(
+                topBar = appTopAppBar,
+                bottomBar = navBarData.bottomBar(),
+                modifier = modifier
+            ) { innerPadding ->
+                AppScaffoldContentWrapper(innerPadding, navBarData, content)
+            }
+        }
+    } else {
+        // NavBar / NavRail
+        Scaffold(
+            topBar = appTopAppBar,
+            bottomBar = navBarData?.bottomBar() ?: {},
+            modifier = modifier
+        ) { innerPadding ->
+            AppScaffoldContentWrapper(innerPadding, navBarData, content)
+        }
+    }
+}
+
+/**
+ * Content within a Scaffold for using either
+ */
+@Composable
+private fun AppScaffoldContentWrapper(
+    innerPadding: PaddingValues,
+    navBarData: AppNavBarData? = null,
+    content: @Composable (PaddingValues) -> Unit,
+) {
+    Box(modifier = Modifier.padding(innerPadding)) {
+        when (navBarData?.appNavBarType) {
+            AppNavBarType.NAV_RAIL -> {
                 // Content with NavigationRail
                 Row {
-                    navBarData.getNavRail()?.invoke()
+                    navBarData.navRail()?.invoke()
                     content(innerPadding)
                 }
-            } else {
+            }
+            else -> {
                 // Content
                 content(innerPadding)
             }
@@ -119,26 +157,51 @@ internal fun AppScaffold(
 @Composable
 private fun AboutScaffoldPreview() {
     AppTheme {
-        AppScaffold(
-            title = "Screen Title",
-            actions = {
-                IconButton(onClick = { }) {
-                    Icon(imageVector = Icons.Filled.Info, contentDescription = null)
-                }
-            }
-        ) {
+        AppScaffold("Screen Title") {
             Text(text = "Content goes here")
         }
     }
 }
 
-@Preview(group = "Tablet", widthDp = 700, heightDp = 1000, showBackground = true)
+@Preview(group = "Navigation", widthDp = 400, heightDp = 800, showBackground = true)
 @Composable
-private fun AboutScaffoldTabletPreview() {
-    val selectedItem = NavBarItem.PEOPLE
+private fun AboutScaffoldPhoneWithNavPreview() {
+    val navBarData = previewAppNavBarData(NavBarItem.PEOPLE, AppNavBarType.NAV_BAR)
 
-    val navBarData = AppNavBarData(
-        navBarAsRail = true,
+    AppTheme {
+        AppScaffold("Screen Title", navBarData = navBarData) {
+            Text(text = "Content goes here")
+        }
+    }
+}
+
+@Preview(group = "Navigation", widthDp = 600, heightDp = 1000, showBackground = true)
+@Composable
+private fun AboutScaffoldTabletWithNavPreview() {
+    val navBarData = previewAppNavBarData(NavBarItem.PEOPLE, AppNavBarType.NAV_RAIL)
+
+    AppTheme {
+        AppScaffold("Screen Title", navBarData = navBarData) {
+            Text(text = "Content goes here")
+        }
+    }
+}
+
+@Preview(group = "Navigation", widthDp = 1200, heightDp = 800, showBackground = true)
+@Composable
+private fun AboutScaffoldDesktopWithNavPreview() {
+    val navBarData = previewAppNavBarData(NavBarItem.PEOPLE, AppNavBarType.NAV_DRAWER)
+
+    AppTheme {
+        AppScaffold("Screen Title", navBarData = navBarData) {
+            Text(text = "Content goes here")
+        }
+    }
+}
+
+private fun previewAppNavBarData(selectedItem: NavBarItem, appNavBarType: AppNavBarType): AppNavBarData {
+    return AppNavBarData(
+        appNavBarType = appNavBarType,
         navBar = {
             NavigationBar {
                 AppBottomNavigationItem(NavBarItem.PEOPLE, Icons.Outlined.People, selectedItem, R.string.people) {  }
@@ -150,20 +213,17 @@ private fun AboutScaffoldTabletPreview() {
                 AppNavigationRailItem(NavBarItem.PEOPLE, Icons.Outlined.People, selectedItem, R.string.people) {  }
                 AppNavigationRailItem(NavBarItem.ABOUT, Icons.Outlined.Info, selectedItem, R.string.about) {  }
             }
+        },
+        navDrawer = { appScaffoldContent ->
+            PermanentNavigationDrawer(
+                drawerContent = {
+                    AppNavigationDrawerLabel(stringResource(R.string.app_name))
+                    AppNavigationDrawerItem(NavBarItem.PEOPLE, Icons.Outlined.People, selectedItem, R.string.people) {  }
+                    AppNavigationDrawerItem(NavBarItem.ABOUT, Icons.Outlined.Info, selectedItem, R.string.about) {  }
+                }
+            ) {
+                appScaffoldContent()
+            }
         }
     )
-
-    AppTheme {
-        AppScaffold(
-            title = "Screen Title",
-            actions = {
-                IconButton(onClick = { }) {
-                    Icon(imageVector = Icons.Filled.Info, contentDescription = null)
-                }
-            },
-            navBarData = navBarData
-        ) {
-            Text(text = "Content goes here")
-        }
-    }
 }
