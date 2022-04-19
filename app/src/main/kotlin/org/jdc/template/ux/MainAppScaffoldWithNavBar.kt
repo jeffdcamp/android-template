@@ -29,6 +29,7 @@ import org.jdc.template.ui.compose.appnavbar.AppNavigationDrawerLabel
 import org.jdc.template.ui.compose.appnavbar.AppNavigationRailItem
 import org.jdc.template.ui.compose.appnavbar.PermanentNavigationDrawer
 import org.jdc.template.ui.compose.icons.google.outlined.People
+import org.jdc.template.ui.compose.util.WindowSize
 import org.jdc.template.ui.compose.util.rememberWindowSizeType
 import org.jdc.template.ui.theme.AppTheme
 import org.jdc.template.util.ext.requireActivity
@@ -53,8 +54,14 @@ internal fun MainAppScaffoldWithNavBar(
     val viewModel: MainViewModel = hiltViewModel(activity)
     val selectedBarItem by viewModel.selectedNavBarFlow.collectAsState()
 
+    val appbarBarType = when(windowSize) {
+        WindowSize.COMPACT -> AppNavBarType.NAV_BAR
+        WindowSize.MEDIUM -> AppNavBarType.NAV_RAIL
+        WindowSize.EXPANDED -> AppNavBarType.NAV_RAIL
+    }
+
     val navBarData = AppNavBarData(
-        appNavBarType = AppNavBarType.byWindowSize(windowSize),
+        appNavBarType = appbarBarType,
         navBar = {
             AppNavigationBar(
                 selectedItem = selectedBarItem,
@@ -67,13 +74,13 @@ internal fun MainAppScaffoldWithNavBar(
                 onNavItemClicked = { viewModel.onNavBarItemSelected(it) }
             )
         },
-        navDrawer = { appScaffold ->
-            AppNavigationDrawer(
-                selectedItem = selectedBarItem,
-                onNavItemClicked = { viewModel.onNavBarItemSelected(it) },
-                appScaffoldContent = appScaffold
-            )
-        }
+//        navDrawer = { appScaffold ->
+//            AppNavigationDrawer(
+//                selectedItem = selectedBarItem,
+//                onNavItemClicked = { viewModel.onNavBarItemSelected(it) },
+//                appScaffoldContent = appScaffold
+//            )
+//        }
     )
 
     AppScaffold(
