@@ -1,5 +1,6 @@
 package org.jdc.template.ui.compose.menu
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
@@ -29,46 +30,49 @@ fun OverflowMenu(
 
     val expanded = remember { mutableStateOf(false) }
 
-    if (showIcon) {
-        IconButton(
-            onClick = {
-                expanded.value = true
-            },
-            modifier = modifier
-        ) {
-            Icon(
-                imageVector = Icons.Default.MoreVert,
-                contentDescription = stringResource(R.string.more_options)
-            )
-        }
-    }
-    DropdownMenu(
-        expanded = expanded.value,
-        onDismissRequest = { expanded.value = false }) {
-
-        // determine if there are any icons in the list... if so, make sure text without icons are all indented
-        val menuItemsWithIconCount = menuItems.count { it.icon != null }
-        val textWithoutIconPadding = if (menuItemsWithIconCount > 0) (36.dp) else 0.dp // 36.dp == 24.dp (icon size) + 12.dp (gap)
-
-        menuItems.forEach { menuItem ->
-            DropdownMenuItem(
+    // use Box to anchor the DropdownMenu
+    Box {
+        if (showIcon) {
+            IconButton(
                 onClick = {
-                    menuItem.action()
-                    expanded.value = false
+                    expanded.value = true
                 },
-                text = {
-                    if (menuItem.icon != null) {
-                        Icon(
-                            imageVector = menuItem.icon,
-                            contentDescription = menuItem.text,
-                            modifier = Modifier.padding(end = 12.dp)
-                        )
-                        Text(text = menuItem.text)
-                    } else {
-                        Text(text = menuItem.text, modifier = Modifier.padding(start = textWithoutIconPadding))
+                modifier = modifier
+            ) {
+                Icon(
+                    imageVector = Icons.Default.MoreVert,
+                    contentDescription = stringResource(R.string.more_options)
+                )
+            }
+        }
+        DropdownMenu(
+            expanded = expanded.value,
+            onDismissRequest = { expanded.value = false }) {
+
+            // determine if there are any icons in the list... if so, make sure text without icons are all indented
+            val menuItemsWithIconCount = menuItems.count { it.icon != null }
+            val textWithoutIconPadding = if (menuItemsWithIconCount > 0) (36.dp) else 0.dp // 36.dp == 24.dp (icon size) + 12.dp (gap)
+
+            menuItems.forEach { menuItem ->
+                DropdownMenuItem(
+                    onClick = {
+                        menuItem.action()
+                        expanded.value = false
+                    },
+                    text = {
+                        if (menuItem.icon != null) {
+                            Icon(
+                                imageVector = menuItem.icon,
+                                contentDescription = menuItem.text,
+                                modifier = Modifier.padding(end = 12.dp)
+                            )
+                            Text(text = menuItem.text)
+                        } else {
+                            Text(text = menuItem.text, modifier = Modifier.padding(start = textWithoutIconPadding))
+                        }
                     }
-                }
-            )
+                )
+            }
         }
     }
 }
