@@ -20,7 +20,7 @@ work = "2.7.1"
 
 [plugins]
 ksp = { id = "com.google.devtools.ksp", version = "1.6.10-1.0.4" }
-detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.19.0" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.20.0" }
 playPublisher = { id = "com.github.triplet.play", version = "3.7.0" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
