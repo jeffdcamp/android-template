@@ -18,14 +18,14 @@ import org.jdc.template.ux.MainAppScaffoldWithNavBar
 
 @Composable
 fun SettingsScreen(
-    navController: NavController,
+    navController: NavController? = null,
     viewModel: SettingsViewModel = hiltViewModel()
 ) {
     val scrollState = rememberScrollState()
 
     MainAppScaffoldWithNavBar(
         title = stringResource(R.string.settings),
-        onNavigationClick = { navController.popBackStack() }
+        onNavigationClick = { navController?.popBackStack() }
     ) {
         Column(
             Modifier.verticalScroll(scrollState)
@@ -37,7 +37,7 @@ fun SettingsScreen(
             // not translated because this should not be visible for release builds
             Setting.Header("Developer Options")
             Setting.Clickable(text = "Work Manager Status", secondaryText = "Show status of all background workers") {
-                navController.navigate(WorkManagerStatusRoute.createRoute())
+                navController?.navigate(WorkManagerStatusRoute.createRoute())
             }
             Setting.Clickable(text = "Last Installed Version Code", viewModel.currentLastInstalledVersionCodeFlow) { viewModel.onLastInstalledVersionCodeClicked() }
         }

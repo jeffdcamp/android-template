@@ -34,7 +34,7 @@ import org.jdc.template.ux.MainAppScaffoldWithNavBar
 @Composable
 fun DirectoryScreen(
     navController: NavController,
-    viewModel: DirectoryViewModel = hiltViewModel()
+    viewModel: DirectoryViewModel = hiltViewModel(),
 ) {
     val appBarMenuItems = listOf(
         // icons
@@ -47,7 +47,8 @@ fun DirectoryScreen(
     MainAppScaffoldWithNavBar(
         title = stringResource(R.string.directory),
         navigationIconVisible = false,
-        actions = { AppBarMenu(appBarMenuItems) }
+        actions = { AppBarMenu(appBarMenuItems) },
+        onNavigationClick = { navController.popBackStack() }
     ) {
         DirectoryContent(
             viewModel.directoryListFlow,

@@ -69,6 +69,8 @@ androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "
 
 androidx-splashscreen = { module = "androidx.core:core-splashscreen", version = "1.0.0-beta02" }
 
+androidx-window = { module = "androidx.window:window", version = "1.0.0" }
+
 androidx-work-runtime = { module = "androidx.work:work-runtime-ktx", version.ref = "work" }
 androidx-work-gcm = { module = "androidx.work:work-gcm", version.ref = "work" }
 

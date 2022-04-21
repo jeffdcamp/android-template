@@ -53,7 +53,6 @@ fun IndividualEditScreen(
     navController: NavController,
     viewModel: IndividualEditViewModel = hiltViewModel()
 ) {
-
     val individualState = IndividualState(
         viewModel.firstNameFlow,
         { viewModel.setFirstName(it) },
