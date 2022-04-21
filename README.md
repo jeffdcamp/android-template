@@ -6,6 +6,7 @@ Sample Android app that utilizes common best practices
 **Features**
 
 * Compose
+* Compose Navigation
 * Kotlin
 * Kotlin Coroutines
 * Kotlin Serialization (json)
