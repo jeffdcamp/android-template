@@ -12,6 +12,7 @@ dagger = "2.41"
 dbtools = "7.0.1"
 hilt = "2.41"
 ktlint = "0.40.0"
+material3 = "1.0.0-alpha10"
 navigation = "2.4.2"
 paging = "3.0.0-beta02"
 retrofit = "2.9.0"
@@ -80,11 +81,12 @@ coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 compose-animation-animation = { module = "androidx.compose.animation:animation", version.ref = "compose" }
 compose-material-iconsext = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose" } # Material design icons (extended)
 compose-material-material = { module = "androidx.compose.material:material", version.ref = "compose" } # Material Design
-compose-material-material3 = { module = "androidx.compose.material3:material3", version = "1.0.0-alpha01" }
+compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
 compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" } # Tooling support (Previews, etc.)
+compose-material3-windowsize = { module = "androidx.compose.material3:material3-window-size-class", version.ref = "material3" }
 
 dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }

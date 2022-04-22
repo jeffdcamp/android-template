@@ -51,6 +51,7 @@ android {
         jvmTarget = "1.8"
         freeCompilerArgs += listOf(
             "-Xopt-in=kotlin.RequiresOptIn",
+            "-Xopt-in=androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi",
             "-Xopt-in=androidx.compose.material.ExperimentalMaterialApi",
             "-Xopt-in=androidx.compose.ui.ExperimentalComposeUiApi",
             "-Xopt-in=kotlin.experimental.ExperimentalTypeInference",
@@ -200,8 +201,8 @@ dependencies {
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.tooling)
     implementation(libs.compose.material.material)
+    implementation(libs.compose.material3.windowsize)
     implementation(libs.google.material)
-//    implementation(libs.compose.material.material3)
 //    implementation(libs.compose.material.iconsext)
 
     // UI
