@@ -1,6 +1,7 @@
 package org.jdc.template.ui.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavController
@@ -158,6 +159,10 @@ fun <T : Enum<T>> HandleNavBarNavigation(
     viewModelNavBar: ViewModelNavBar<T>,
     navController: NavController?
 ) {
+    navController ?: return
     val navigator by viewModelNavBar.navigatorFlow.collectAsState()
-    navController?.let { navigator?.navigate(it, viewModelNavBar) }
+
+    LaunchedEffect(navigator) {
+        navigator?.navigate(navController, viewModelNavBar)
+    }
 }
