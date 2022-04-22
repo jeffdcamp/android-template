@@ -28,7 +28,7 @@ import org.jdc.template.ui.compose.appnavbar.AppNavigationDrawerItem
 import org.jdc.template.ui.compose.appnavbar.AppNavigationDrawerLabel
 import org.jdc.template.ui.compose.appnavbar.AppNavigationRailItem
 import org.jdc.template.ui.compose.icons.google.outlined.People
-import org.jdc.template.ui.compose.util.rememberWindowSizeType
+import org.jdc.template.ui.compose.util.rememberWindowSize
 import org.jdc.template.util.ext.requireActivity
 import org.jdc.template.ux.main.MainViewModel
 import org.jdc.template.ux.main.NavBarItem
@@ -47,7 +47,7 @@ internal fun MainAppScaffoldWithNavBar(
     content: @Composable (PaddingValues) -> Unit,
 ) {
     val activity = LocalContext.current.requireActivity()
-    val windowSize = activity.rememberWindowSizeType()
+    val windowSize = activity.rememberWindowSize()
     val viewModel: MainViewModel = hiltViewModel(activity)
     val selectedBarItem by viewModel.selectedNavBarFlow.collectAsState()
 
