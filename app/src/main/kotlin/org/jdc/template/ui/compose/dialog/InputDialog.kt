@@ -48,6 +48,8 @@ fun InputDialog(
     onConfirmButtonClicked: ((String) -> Unit)? = null,
     dismissButtonText: String = stringResource(android.R.string.cancel),
     onDismissButtonClicked: (() -> Unit)? = null,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    singleLine: Boolean = true,
     minLength: Int = -1,
     maxLength: Int = -1,
     properties: DialogProperties = DialogProperties(),
@@ -57,7 +59,6 @@ fun InputDialog(
 ) {
     var textFieldValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue(initialTextFieldText ?: "", TextRange(initialTextFieldText?.length ?: 0))) }
 
-    // Test: request focus on TextField
     val focusRequester = remember { FocusRequester() }
 
     Dialog(
@@ -91,7 +92,7 @@ fun InputDialog(
                             newTextFieldValue.text
                         }
 
-                        textFieldValue = newTextFieldValue.copy(newText, selection = TextRange(newText.length))
+                        textFieldValue = newTextFieldValue.copy(newText)
                     },
                     label = if (textFieldLabel != null) {
                         { Text(textFieldLabel) }
@@ -100,7 +101,8 @@ fun InputDialog(
                         .fillMaxWidth()
                         .padding(top = 16.dp)
                         .focusRequester(focusRequester),
-                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                    singleLine = singleLine,
+                    keyboardOptions = keyboardOptions.copy(imeAction = ImeAction.Done),
                     keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() })
                 )
 
@@ -141,7 +143,6 @@ fun InputDialog(
     }
 }
 
-@Suppress("LongMethod")
 @Composable
 fun TwoInputDialog(
     onDismissRequest: (() -> Unit) = {},
@@ -154,6 +155,8 @@ fun TwoInputDialog(
     onConfirmButtonClicked: ((Pair<String, String>) -> Unit)? = null,
     dismissButtonText: String = stringResource(android.R.string.cancel),
     onDismissButtonClicked: (() -> Unit)? = null,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    singleLine: Boolean = true,
     minLengthFirst: Int = -1,
     maxLengthFirst: Int = -1,
     minLengthSecond: Int = -1,
@@ -170,7 +173,6 @@ fun TwoInputDialog(
         mutableStateOf(TextFieldValue(initialTextFieldTextSecond ?: "", TextRange(initialTextFieldTextSecond?.length ?: 0)))
     }
 
-    // Test: request focus on TextField
     val focusRequester = remember { FocusRequester() }
     val (item1, item2) = remember { FocusRequester.createRefs() }
 
@@ -205,7 +207,7 @@ fun TwoInputDialog(
                             newTextFieldValue.text
                         }
 
-                        textFieldValueFirst = newTextFieldValue.copy(newText, selection = TextRange(newText.length))
+                        textFieldValueFirst = newTextFieldValue.copy(newText)
                     },
                     label = if (textFieldLabelFirst != null) {
                         { Text(textFieldLabelFirst) }
@@ -233,7 +235,7 @@ fun TwoInputDialog(
                             newTextFieldValue.text
                         }
 
-                        textFieldValueSecond = newTextFieldValue.copy(newText, selection = TextRange(newText.length))
+                        textFieldValueSecond = newTextFieldValue.copy(newText)
                     },
                     label = if (textFieldLabelSecond != null) {
                         { Text(textFieldLabelSecond) }
@@ -248,7 +250,8 @@ fun TwoInputDialog(
                             previous = item1
                             up = item1
                         },
-                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                    singleLine = singleLine,
+                    keyboardOptions = keyboardOptions.copy(imeAction = ImeAction.Done),
                     keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() })
                 )
 
