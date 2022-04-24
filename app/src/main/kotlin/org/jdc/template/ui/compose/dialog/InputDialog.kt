@@ -222,7 +222,8 @@ fun TwoInputDialog(
                             previous = item2
                             up = item2
                         },
-                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                    singleLine = singleLine,
+                    keyboardOptions = keyboardOptions.copy(imeAction = ImeAction.Next),
                 )
 
                 // Second Text Field
