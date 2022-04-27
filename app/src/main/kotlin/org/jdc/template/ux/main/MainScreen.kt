@@ -10,7 +10,7 @@ import org.jdc.template.ux.NavGraph
 
 @Composable
 fun MainScreen(
-    viewModel: MainViewModel = hiltViewModel(LocalContext.current.requireActivity()) // make sure we share the same ViewModel here and in TemplateAppScaffoldWithNavBar
+    viewModel: MainViewModel = hiltViewModel(LocalContext.current.requireActivity()) // make sure we share the same ViewModel here and in MainAppScaffoldWithNavBar
 ) {
     val navController = rememberNavController()
 

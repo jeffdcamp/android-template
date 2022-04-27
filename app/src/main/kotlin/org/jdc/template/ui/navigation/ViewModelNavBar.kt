@@ -1,9 +1,13 @@
 package org.jdc.template.ui.navigation
 
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavOptions
@@ -25,6 +29,7 @@ interface ViewModelNavBar<T : Enum<T>> {
     fun navigate(routes: List<String>)
     fun navigate(route: String, navOptions: NavOptions)
     fun navigate(route: String, optionsBuilder: NavOptionsBuilder.() -> Unit)
+    fun navigate(intent: Intent, options: Bundle? = null)
     fun onNavBarItemSelected(selectedItem: T, route: String? = null)
     fun navBarNavigation(route: String, reselected: Boolean)
     fun resetNavigate(viewModelNavBarNavigator: ViewModelNavBarNavigator)
@@ -56,6 +61,10 @@ class ViewModelNavBarImpl<T : Enum<T>>(
         _navigatorFlow.compareAndSet(null, ViewModelNavBarNavigator.NavigateWithOptions(route, navOptions(optionsBuilder)))
     }
 
+    override fun navigate(intent: Intent, options: Bundle?) {
+        _navigatorFlow.compareAndSet(null, ViewModelNavBarNavigator.NavigateIntent(intent, options))
+    }
+
     override fun navBarNavigation(route: String, reselected: Boolean) {
         _navigatorFlow.compareAndSet(null, ViewModelNavBarNavigator.NavBarNavigate(route, reselected))
     }
@@ -78,10 +87,10 @@ class ViewModelNavBarImpl<T : Enum<T>>(
 }
 
 sealed class ViewModelNavBarNavigator {
-    abstract fun <T : Enum<T>> navigate(navController: NavController, viewModelNav: ViewModelNavBar<T>): Boolean
+    abstract fun <T : Enum<T>> navigate(context: Context, navController: NavController, viewModelNav: ViewModelNavBar<T>): Boolean
 
     class NavBarNavigate(private val route: String, private val reselected: Boolean) : ViewModelNavBarNavigator() {
-        override fun <T : Enum<T>> navigate(navController: NavController, viewModelNav: ViewModelNavBar<T>): Boolean {
+        override fun <T : Enum<T>> navigate(context: Context, navController: NavController, viewModelNav: ViewModelNavBar<T>): Boolean {
             if (reselected) {
                 // clear back stack
                 navController.popBackStack(route, inclusive = false)
@@ -105,7 +114,7 @@ sealed class ViewModelNavBarNavigator {
     }
 
     class Navigate(private val route: String) : ViewModelNavBarNavigator() {
-        override fun <T : Enum<T>> navigate(navController: NavController, viewModelNav: ViewModelNavBar<T>): Boolean {
+        override fun <T : Enum<T>> navigate(context: Context, navController: NavController, viewModelNav: ViewModelNavBar<T>): Boolean {
             navController.navigate(route)
 
             viewModelNav.resetNavigate(this)
@@ -114,7 +123,7 @@ sealed class ViewModelNavBarNavigator {
     }
 
     class NavigateMultiple(private val routes: List<String>) : ViewModelNavBarNavigator() {
-        override fun <T : Enum<T>> navigate(navController: NavController, viewModelNav: ViewModelNavBar<T>): Boolean {
+        override fun <T : Enum<T>> navigate(context: Context, navController: NavController, viewModelNav: ViewModelNavBar<T>): Boolean {
             routes.forEach { route ->
                 navController.navigate(route)
             }
@@ -125,7 +134,7 @@ sealed class ViewModelNavBarNavigator {
     }
 
     class NavigateWithOptions(private val route: String, private val navOptions: NavOptions) : ViewModelNavBarNavigator() {
-        override fun <T : Enum<T>> navigate(navController: NavController, viewModelNav: ViewModelNavBar<T>): Boolean {
+        override fun <T : Enum<T>> navigate(context: Context, navController: NavController, viewModelNav: ViewModelNavBar<T>): Boolean {
             navController.navigate(route, navOptions)
 
             viewModelNav.resetNavigate(this)
@@ -133,8 +142,16 @@ sealed class ViewModelNavBarNavigator {
         }
     }
 
+    class NavigateIntent(val intent: Intent, val options: Bundle? = null) : ViewModelNavBarNavigator() {
+        override fun <T : Enum<T>> navigate(context: Context, navController: NavController, viewModelNav: ViewModelNavBar<T>): Boolean {
+            context.startActivity(intent, options)
+            viewModelNav.resetNavigate(this)
+            return false
+        }
+    }
+
     class PopAndNavigate(private val route: String) : ViewModelNavBarNavigator() {
-        override fun <T : Enum<T>> navigate(navController: NavController, viewModelNav: ViewModelNavBar<T>): Boolean {
+        override fun <T : Enum<T>> navigate(context: Context, navController: NavController, viewModelNav: ViewModelNavBar<T>): Boolean {
             val stackPopped = navController.popBackStack()
             navController.navigate(route)
 
@@ -162,7 +179,8 @@ fun <T : Enum<T>> HandleNavBarNavigation(
     navController ?: return
     val navigator by viewModelNavBar.navigatorFlow.collectAsState()
 
+    val context = LocalContext.current
     LaunchedEffect(navigator) {
-        navigator?.navigate(navController, viewModelNavBar)
+        navigator?.navigate(context, navController, viewModelNavBar)
     }
 }
