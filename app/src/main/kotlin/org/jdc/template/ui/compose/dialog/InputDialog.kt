@@ -141,6 +141,7 @@ fun InputDialog(
     }
 }
 
+@Suppress("LongMethod")
 @Composable
 fun TwoInputDialog(
     onDismissRequest: (() -> Unit) = {},
