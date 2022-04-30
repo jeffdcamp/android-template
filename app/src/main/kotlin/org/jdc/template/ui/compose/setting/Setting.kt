@@ -45,12 +45,14 @@ object Setting {
     @Composable
     fun Switch(
         text: String,
+        modifier: Modifier = Modifier,
         checked: Boolean = false,
         secondaryText: String? = null,
         icon: @Composable (() -> Unit)? = null,
         onClickBody: ((Boolean) -> Unit)? = null
     ) {
         ListItem(
+            modifier = modifier,
             icon = { icon?.invoke() },
             text = {
                 Text(text)
@@ -73,6 +75,7 @@ object Setting {
     fun Switch(
         text: String,
         currentCheckedValueFlow: StateFlow<Boolean>,
+        modifier: Modifier = Modifier,
         secondaryText: String? = null,
         icon: @Composable (() -> Unit)? = null,
         onClickBody: ((Boolean) -> Unit)? = null
@@ -80,6 +83,7 @@ object Setting {
         val currentValueChecked by currentCheckedValueFlow.collectAsState()
 
         ListItem(
+            modifier = modifier,
             icon = { icon?.invoke() },
             text = {
                 Text(text)
