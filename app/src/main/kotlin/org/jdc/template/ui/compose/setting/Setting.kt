@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ListItem
 import androidx.compose.material.MaterialTheme
@@ -25,6 +26,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -46,12 +48,15 @@ object Setting {
     @Composable
     fun Switch(
         text: String,
+        modifier: Modifier = Modifier,
         checked: Boolean = false,
         secondaryText: String? = null,
         icon: @Composable (() -> Unit)? = null,
         onClickBody: ((Boolean) -> Unit)? = null
     ) {
         ListItem(
+            modifier = modifier
+                .toggleable(checked, onValueChange = { onClickBody?.invoke(it) }, role = Role.Switch),
             icon = { icon?.invoke() },
             text = {
                 Text(text)
@@ -64,7 +69,7 @@ object Setting {
             trailing = {
                 Switch(
                     checked = checked,
-                    onCheckedChange = onClickBody
+                    onCheckedChange = null
                 )
             }
         )
@@ -74,6 +79,7 @@ object Setting {
     fun Switch(
         text: String,
         currentCheckedValueFlow: StateFlow<Boolean>,
+        modifier: Modifier = Modifier,
         secondaryText: String? = null,
         icon: @Composable (() -> Unit)? = null,
         onClickBody: ((Boolean) -> Unit)? = null
@@ -81,6 +87,8 @@ object Setting {
         val currentValueChecked by currentCheckedValueFlow.collectAsState()
 
         ListItem(
+            modifier = modifier
+                .toggleable(currentValueChecked, onValueChange = { onClickBody?.invoke(it) }, role = Role.Switch),
             icon = { icon?.invoke() },
             text = {
                 Text(text)
@@ -93,7 +101,7 @@ object Setting {
             trailing = {
                 Switch(
                     checked = currentValueChecked,
-                    onCheckedChange = onClickBody
+                    onCheckedChange = null
                 )
             }
         )
@@ -238,8 +246,9 @@ private fun SettingsPreview() {
             ) {
                 Setting.Header("Display")
                 Setting.Clickable("Theme", currentThemeTitleFlow) { }
+                Setting.Switch("Battery percentage", secondaryText = "Show battery percentage in status bar", checked = true) { }
                 Setting.Switch("Sort by last name", sortByLastNameFlow) { }
-                Setting.Slider("Playback Speed", playbackSpeedFlow, range = .5f..3f, steps = 30) { value ->  }
+                Setting.Slider("Playback Speed", playbackSpeedFlow, range = .5f..3f, steps = 30) { value -> }
 
                 // not translated because this should not be visible for release builds
                 Setting.Header("Developer Options")
