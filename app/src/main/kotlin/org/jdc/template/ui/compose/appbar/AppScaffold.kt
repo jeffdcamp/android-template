@@ -41,6 +41,7 @@ fun AppScaffold(
     appBarTextColor: Color? = null,
     appBarBackgroundColor: Color? = null,
     autoSizeTitle: Boolean = false,
+    hideNavigation: Boolean = false,
     actions: @Composable (RowScope.() -> Unit)? = null,
     navBarData: AppNavBarData? = null,
     content: @Composable (PaddingValues) -> Unit,
@@ -59,26 +60,36 @@ fun AppScaffold(
         )
     }
 
-    if (navBarData?.appNavBarType == AppNavBarType.NAV_DRAWER) {
-        // NavDrawer
-        navBarData.navDrawer()?.invoke {
+    when {
+        hideNavigation -> {
             Scaffold(
                 topBar = appTopAppBar,
-                bottomBar = navBarData.bottomBar(),
+                modifier = modifier
+            ) { innerPadding ->
+                AppScaffoldContentWrapper(innerPadding, content = content)
+            }
+        }
+        navBarData?.appNavBarType == AppNavBarType.NAV_DRAWER -> {
+            // NavDrawer
+            navBarData.navDrawer()?.invoke {
+                Scaffold(
+                    topBar = appTopAppBar,
+                    bottomBar = navBarData.bottomBar(),
+                    modifier = modifier
+                ) { innerPadding ->
+                    AppScaffoldContentWrapper(innerPadding, navBarData, content)
+                }
+            }
+        }
+        else -> {
+            // NavBar / NavRail
+            Scaffold(
+                topBar = appTopAppBar,
+                bottomBar = navBarData?.bottomBar() ?: {},
                 modifier = modifier
             ) { innerPadding ->
                 AppScaffoldContentWrapper(innerPadding, navBarData, content)
             }
-        }
-
-    } else {
-        // NavBar / NavRail
-        Scaffold(
-            topBar = appTopAppBar,
-            bottomBar = navBarData?.bottomBar() ?: {},
-            modifier = modifier
-        ) { innerPadding ->
-            AppScaffoldContentWrapper(innerPadding, navBarData, content)
         }
     }
 }
