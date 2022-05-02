@@ -43,6 +43,7 @@ internal fun MainAppScaffoldWithNavBar(
     appBarTextColor: Color? = null,
     appBarBackgroundColor: Color? = null,
     autoSizeTitle: Boolean = false,
+    hideNavigation: Boolean = false,
     actions: @Composable (RowScope.() -> Unit)? = null,
     content: @Composable (PaddingValues) -> Unit,
 ) {
@@ -83,6 +84,7 @@ internal fun MainAppScaffoldWithNavBar(
         appBarTextColor = appBarTextColor,
         appBarBackgroundColor = appBarBackgroundColor,
         autoSizeTitle = autoSizeTitle,
+        hideNavigation = hideNavigation,
         actions = actions,
         navBarData = navBarData,
         content = content

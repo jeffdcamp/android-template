@@ -25,7 +25,8 @@ fun SettingsScreen(
 
     MainAppScaffoldWithNavBar(
         title = stringResource(R.string.settings),
-        onNavigationClick = { navController?.popBackStack() }
+        hideNavigation = true,
+        onNavigationClick = { navController?.popBackStack() },
     ) {
         Column(
             Modifier.verticalScroll(scrollState)
