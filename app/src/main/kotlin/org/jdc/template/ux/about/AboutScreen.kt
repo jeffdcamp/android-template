@@ -102,7 +102,8 @@ private fun RestServicesStatus(restServicesEnabledFlow: StateFlow<Boolean>) {
 private fun TestButton(text: String, block: () -> Unit) {
     Button(
         modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
-        onClick = { block() }) {
+        onClick = { block() }
+    ) {
         Text(text)
     }
 }
