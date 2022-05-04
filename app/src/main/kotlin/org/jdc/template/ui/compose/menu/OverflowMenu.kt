@@ -1,6 +1,8 @@
 package org.jdc.template.ui.compose.menu
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
@@ -12,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
@@ -61,16 +64,22 @@ fun OverflowMenu(
                     },
                     text = {
                         if (menuItem.icon != null) {
-                            Icon(
-                                imageVector = menuItem.icon,
-                                contentDescription = menuItem.text,
-                                modifier = Modifier.padding(end = 12.dp)
-                            )
-                            Text(text = menuItem.text)
+                            Row {
+                                Icon(
+                                    imageVector = menuItem.icon,
+                                    contentDescription = menuItem.text,
+                                    modifier = Modifier.padding(end = 12.dp)
+                                )
+                                Text(
+                                    text = menuItem.text,
+                                    modifier = Modifier.align(Alignment.CenterVertically)
+                                )
+                            }
                         } else {
                             Text(text = menuItem.text, modifier = Modifier.padding(start = textWithoutIconPadding))
                         }
-                    }
+                    },
+                    modifier = Modifier.defaultMinSize(minWidth = 175.dp)
                 )
             }
         }
