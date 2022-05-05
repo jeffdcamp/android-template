@@ -23,9 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import kotlinx.coroutines.flow.StateFlow
 import org.jdc.template.R
-import org.jdc.template.model.db.main.directoryitem.DirectoryItem
 import org.jdc.template.ui.compose.appbar.AppBarMenu
 import org.jdc.template.ui.compose.appbar.AppBarMenuItem
 import org.jdc.template.ui.navigation.HandleNavigation
@@ -36,12 +34,14 @@ fun DirectoryScreen(
     navController: NavController,
     viewModel: DirectoryViewModel = hiltViewModel(),
 ) {
+    val uiState = viewModel.uiState
+
     val appBarMenuItems = listOf(
         // icons
         AppBarMenuItem.Icon(Icons.Default.Search, stringResource(R.string.search)) {},
 
         // overflow
-        AppBarMenuItem.OverflowMenuItem(stringResource(R.string.settings)) { viewModel.onSettingsClicked() }
+        AppBarMenuItem.OverflowMenuItem(stringResource(R.string.settings)) { uiState.onSettingsClicked() }
     )
 
     MainAppScaffoldWithNavBar(
@@ -51,9 +51,7 @@ fun DirectoryScreen(
         onNavigationClick = { navController.popBackStack() }
     ) {
         DirectoryContent(
-            viewModel.directoryListFlow,
-            onDirectoryIndividualClicked = { viewModel.onDirectoryIndividualClicked(it) },
-            onNewClicked = { viewModel.addIndividual() }
+            uiState,
         )
     }
 
@@ -62,11 +60,9 @@ fun DirectoryScreen(
 
 @Composable
 private fun DirectoryContent(
-    directoryListFlow: StateFlow<List<DirectoryItem>>,
-    onDirectoryIndividualClicked: (String) -> Unit,
-    onNewClicked: () -> Unit,
+    uiState: DirectoryUiState
 ) {
-    val directoryList by directoryListFlow.collectAsState()
+    val directoryList by uiState.directoryListFlow.collectAsState()
 
     Box(Modifier.fillMaxSize()) {
         LazyColumn(modifier = Modifier.fillMaxWidth()) {
@@ -74,7 +70,7 @@ private fun DirectoryContent(
                 // https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#listitem
                 ListItem(
                     Modifier
-                        .clickable { onDirectoryIndividualClicked(individual.individualId) },
+                        .clickable { uiState.onIndividualClicked(individual.individualId) },
                 ) {
                     Text(individual.getFullName())
                 }
@@ -82,7 +78,7 @@ private fun DirectoryContent(
         }
 
         FloatingActionButton(
-            onClick = { onNewClicked() },
+            onClick = { uiState.onNewClicked() },
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(16.dp)

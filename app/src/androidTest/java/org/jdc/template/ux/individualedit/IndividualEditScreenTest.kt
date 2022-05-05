@@ -7,8 +7,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import org.jdc.template.ui.theme.AppTheme
 import org.junit.Rule
 import org.junit.Test
-import java.time.LocalDate
-import java.time.LocalTime
 
 class IndividualEditScreenTest {
     @get:Rule
@@ -20,27 +18,21 @@ class IndividualEditScreenTest {
         val lastNameFlow = MutableStateFlow("Campbell")
         val phoneNumberFlow = MutableStateFlow("801-555-0000")
         val emailFlow = MutableStateFlow("")
-        val birthDateFlow = MutableStateFlow<LocalDate?>(null)
-        val alarmTimeFlow = MutableStateFlow<LocalTime?>(null)
 
-        val individualState = IndividualState(
-            firstNameFlow,
-            { firstNameFlow.value = it },
-            lastNameFlow,
-            { lastNameFlow.value = it },
-            phoneNumberFlow,
-            { phoneNumberFlow.value = it },
-            emailFlow,
-            { emailFlow.value = it },
-            birthDateFlow,
-            {},
-            alarmTimeFlow,
-            {}
+        val individualEditUiState = IndividualEditUiState(
+            firstNameFlow = firstNameFlow,
+            firstNameOnChange = { firstNameFlow.value = it },
+            lastNameFlow = lastNameFlow,
+            lastNameOnChange = { lastNameFlow.value = it },
+            phoneFlow = phoneNumberFlow,
+            phoneOnChange = { phoneNumberFlow.value = it },
+            emailFlow = emailFlow,
+            emailOnChange = { emailFlow.value = it }
         )
 
         composeTestRule.setContent {
             AppTheme {
-                IndividualEditFields(individualState)
+                IndividualEditFields(individualEditUiState)
             }
         }
 

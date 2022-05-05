@@ -21,6 +21,8 @@ fun SettingsScreen(
     navController: NavController? = null,
     viewModel: SettingsViewModel = hiltViewModel()
 ) {
+    val uiState = viewModel.uiState
+
     val scrollState = rememberScrollState()
 
     MainAppScaffoldWithNavBar(
@@ -32,33 +34,33 @@ fun SettingsScreen(
             Modifier.verticalScroll(scrollState)
         ) {
             Setting.Header(stringResource(R.string.display))
-            Setting.Clickable(stringResource(R.string.theme), viewModel.currentThemeTitleFlow) { viewModel.onThemeSettingClicked() }
-            Setting.Switch(stringResource(R.string.sort_by_last_name), viewModel.sortByLastNameFlow) { viewModel.setSortByLastName(it) }
+            Setting.Clickable(stringResource(R.string.theme), uiState.currentThemeTitleFlow) { uiState.onThemeSettingClicked() }
+            Setting.Switch(stringResource(R.string.sort_by_last_name), uiState.sortByLastNameFlow) { uiState.setSortByLastName(it) }
 
             // not translated because this should not be visible for release builds
             Setting.Header("Developer Options")
             Setting.Clickable(text = "Work Manager Status", secondaryText = "Show status of all background workers") {
                 navController?.navigate(WorkManagerStatusRoute.createRoute())
             }
-            Setting.Clickable(text = "Last Installed Version Code", viewModel.currentLastInstalledVersionCodeFlow) { viewModel.onLastInstalledVersionCodeClicked() }
+            Setting.Clickable(text = "Last Installed Version Code", uiState.currentLastInstalledVersionCodeFlow) { uiState.onLastInstalledVersionCodeClicked() }
         }
 
         // Dialogs
-        HandleDialog(viewModel.themeRadioDialogDataFlow) {
+        HandleDialog(uiState.themeRadioDialogDataFlow) {
             RadioDialog(
                 title = it.title,
                 items = it.items,
-                onItemSelected = { selectedItem -> viewModel.setTheme(selectedItem) },
-                onDismissButtonClicked = { viewModel.dismissThemeDialog() }
+                onItemSelected = { selectedItem -> uiState.setTheme(selectedItem) },
+                onDismissButtonClicked = { uiState.dismissThemeDialog() }
             )
         }
 
-        HandleDialog(viewModel.lastInstalledVersionCodeDialogDataFlow) {
+        HandleDialog(uiState.lastInstalledVersionCodeDialogDataFlow) {
             InputDialog(
                 title = it.title,
                 initialTextFieldText = it.initialTextFieldText,
-                onConfirmButtonClicked = { text -> viewModel.setLastInstalledVersionCode(text) },
-                onDismissButtonClicked = { viewModel.dismissSetLastInstalledVersionCodeDialog() },
+                onConfirmButtonClicked = { text -> uiState.setLastInstalledVersionCode(text) },
+                onDismissButtonClicked = { uiState.dismissSetLastInstalledVersionCodeDialog() },
                 minLength = 1,
                 maxLength = 20
             )

@@ -18,7 +18,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import kotlinx.coroutines.flow.StateFlow
 import org.jdc.template.R
 import org.jdc.template.ui.navigation.HandleNavigation
 import org.jdc.template.ux.MainAppScaffoldWithNavBar
@@ -28,21 +27,21 @@ fun AcknowledgementScreen(
     navController: NavController,
     viewModel: AcknowledgementViewModel = hiltViewModel()
 ) {
-    val acknowledgementHtmlFlow = viewModel.acknowledgementHtmlFlow
+    val uiState = viewModel.uiState
 
     MainAppScaffoldWithNavBar(
         title = stringResource(R.string.acknowledgments),
         onNavigationClick = { navController.popBackStack() }
     ) {
-        AcknowledgementWebview(acknowledgementHtmlFlow)
+        AcknowledgementWebview(uiState)
     }
 
     HandleNavigation(viewModel, navController)
 }
 
 @Composable
-private fun AcknowledgementWebview(acknowledgementHtmlFlow: StateFlow<String?>) {
-    val acknowledgementHtml: String? by acknowledgementHtmlFlow.collectAsState()
+private fun AcknowledgementWebview(uiState: AcknowledgementUiState) {
+    val acknowledgementHtml by uiState.acknowledgementHtmlFlow.collectAsState()
     val acknowledgementWebViewClient = remember { getWebviewClient() }
 
     AndroidView(

@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import org.jdc.template.ui.navigation.ViewModelNav
 import org.jdc.template.ui.navigation.ViewModelNavImpl
 import timber.log.Timber
@@ -16,8 +15,11 @@ class AcknowledgementViewModel
     private val application: Application
 ) : ViewModel(), ViewModelNav by ViewModelNavImpl() {
 
-    private val _acknowledgementHtmlStateFlow = MutableStateFlow<String?>(null)
-    val acknowledgementHtmlFlow: StateFlow<String?> = _acknowledgementHtmlStateFlow
+    private val acknowledgementHtmlStateFlow = MutableStateFlow<String?>(null)
+
+    val uiState = AcknowledgementUiState(
+        acknowledgementHtmlFlow = acknowledgementHtmlStateFlow
+    )
 
     init {
         loadLicenses()
@@ -28,10 +30,10 @@ class AcknowledgementViewModel
             val htmlFilename = "licenses.html"
 
             // read the file
-            _acknowledgementHtmlStateFlow.value = application.assets.open(htmlFilename).bufferedReader().use { it.readText() }
+            acknowledgementHtmlStateFlow.value = application.assets.open(htmlFilename).bufferedReader().use { it.readText() }
         } catch (expected: Exception) {
             Timber.e(expected, "Failed to render Acknowledgments html")
-            _acknowledgementHtmlStateFlow.value = "Failed to load licenses:\n [${expected.message}]"
+            acknowledgementHtmlStateFlow.value = "Failed to load licenses:\n [${expected.message}]"
         }
     }
 }
