@@ -23,3 +23,8 @@ fun MaterialTimePickerDialog(
 
     timePickerDialog.show()
 }
+
+data class TimeDialogData(
+    override val visible: Boolean = false,
+    val localTime: LocalTime? = null,
+) : DialogData
