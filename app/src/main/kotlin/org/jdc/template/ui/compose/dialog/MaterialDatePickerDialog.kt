@@ -23,3 +23,8 @@ fun MaterialDatePickerDialog(
 
     datePickerDialog.show()
 }
+
+data class DateDialogData(
+    override val visible: Boolean = false,
+    val localDate: LocalDate? = null,
+) : DialogData
