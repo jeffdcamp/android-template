@@ -24,6 +24,7 @@ import org.jdc.template.ui.DateUiUtil
 import org.jdc.template.ui.compose.DayNightTextField
 import org.jdc.template.ui.compose.appbar.AppBarMenu
 import org.jdc.template.ui.compose.appbar.AppBarMenuItem
+import org.jdc.template.ui.compose.dialog.HandleDialog
 import org.jdc.template.ui.compose.dialog.MaterialDatePickerDialog
 import org.jdc.template.ui.compose.dialog.MaterialTimePickerDialog
 import org.jdc.template.ui.compose.dialog.MessageDialog
@@ -32,44 +33,15 @@ import org.jdc.template.ux.MainAppScaffoldWithNavBar
 import java.time.LocalDate
 import java.time.LocalTime
 
-@Suppress("LongParameterList")
-class IndividualState(
-    val firstNameFlow: StateFlow<String>,
-    val firstNameOnChange: (String) -> Unit,
-    val lastNameFlow: StateFlow<String>,
-    val lastNameOnChange: (String) -> Unit,
-    val phoneFlow: StateFlow<String>,
-    val phoneOnChange: (String) -> Unit,
-    val emailFlow: StateFlow<String>,
-    val emailOnChange: (String) -> Unit,
-    val birthDateFlow: StateFlow<LocalDate?>,
-    val birthDateClicked: () -> Unit,
-    val alarmTimeFlow: StateFlow<LocalTime?>,
-    val alarmTimeClicked: () -> Unit
-)
-
 @Composable
 fun IndividualEditScreen(
     navController: NavController,
     viewModel: IndividualEditViewModel = hiltViewModel()
 ) {
-    val individualState = IndividualState(
-        viewModel.firstNameFlow,
-        { viewModel.setFirstName(it) },
-        viewModel.lastNameFlow,
-        { viewModel.setLastName(it) },
-        viewModel.phoneNumberFlow,
-        { viewModel.setPhoneNumber(it) },
-        viewModel.emailFlow,
-        { viewModel.setEmail(it) },
-        viewModel.birthDateFlow,
-        { viewModel.onBirthDateClicked() },
-        viewModel.alarmTimeFlow,
-        { viewModel.onAlarmTimeClicked() }
-    )
+    val uiState = viewModel.uiState
 
     val appBarMenuItems = listOf(
-        AppBarMenuItem.Text(stringResource(R.string.save)) { viewModel.saveIndividual() }
+        AppBarMenuItem.Text(stringResource(R.string.save)) { uiState.saveIndividual() }
     )
 
     MainAppScaffoldWithNavBar(
@@ -77,27 +49,28 @@ fun IndividualEditScreen(
         actions = { AppBarMenu(appBarMenuItems) },
         onNavigationClick = { navController.popBackStack() },
     ) {
-        IndividualEditFields(individualState)
+        IndividualEditFields(viewModel.uiState)
     }
 
-    val messageDialogData by viewModel.messageDialogDataFlow.collectAsState()
-    if (messageDialogData.visible) {
+    HandleDialog(uiState.messageDialogDataFlow) { dialogData ->
         MessageDialog(
-            title = messageDialogData.title,
-            text = messageDialogData.text,
-            onDismissRequest = viewModel::hideInfoDialog,
-            onConfirmButtonClicked = viewModel::hideInfoDialog
+            title = dialogData.title,
+            text = dialogData.text,
+            onDismissRequest = { uiState.hideMessageDialog() },
+            onConfirmButtonClicked = { uiState.hideMessageDialog() }
         )
     }
 
-    BirthDateDialog(viewModel.showBirthDateFlow, { viewModel.resetShowBirthDate() }) {
-        viewModel.setBirthDate(it)
-        viewModel.resetShowBirthDate()
+    HandleDialog(uiState.birthDateDialogData) { dialogData ->
+        dialogData.localDate?.let { date ->
+            MaterialDatePickerDialog(date, { uiState.dismissBirthDateDialog() }) { uiState.onBirthDateSelected(it) }
+        }
     }
 
-    AlarmTimeDialog(viewModel.showAlarmTimeFlow, { viewModel.resetShowAlarmTime() }) {
-        viewModel.setAlarmTime(it)
-        viewModel.resetShowAlarmTime()
+    HandleDialog(uiState.alarmTimeDialogData) { dialogData ->
+        dialogData.localTime?.let { time ->
+            MaterialTimePickerDialog(time, { uiState.dismissAlarmTimeDialog() }) { uiState.onAlarmTimeSelected(it) }
+        }
     }
 
     HandleNavigation(viewModel, navController)
@@ -105,16 +78,16 @@ fun IndividualEditScreen(
 
 @Composable
 fun IndividualEditFields(
-    individualState: IndividualState,
+    uiState: IndividualEditUiState
 ) {
     Column(Modifier.verticalScroll(rememberScrollState())) {
-        IndividualEditField(stringResource(R.string.first_name), individualState.firstNameFlow, "firstNameEditTextTag", individualState.firstNameOnChange)
-        IndividualEditField(stringResource(R.string.last_name), individualState.lastNameFlow, "lastNameEditTextTag", individualState.lastNameOnChange)
-        IndividualEditField(stringResource(R.string.phone), individualState.phoneFlow, "phoneEditTextTag", individualState.phoneOnChange)
-        IndividualEditField(stringResource(R.string.email), individualState.emailFlow, "emailEditTextTag", individualState.emailOnChange)
+        IndividualEditField(stringResource(R.string.first_name), uiState.firstNameFlow, "firstNameEditTextTag", uiState.firstNameOnChange)
+        IndividualEditField(stringResource(R.string.last_name), uiState.lastNameFlow, "lastNameEditTextTag", uiState.lastNameOnChange)
+        IndividualEditField(stringResource(R.string.phone), uiState.phoneFlow, "phoneEditTextTag", uiState.phoneOnChange)
+        IndividualEditField(stringResource(R.string.email), uiState.emailFlow, "emailEditTextTag", uiState.emailOnChange)
 
-        DateClickableEditField(stringResource(R.string.birth_date), individualState.birthDateFlow, individualState.birthDateClicked)
-        TimeClickableEditField(stringResource(R.string.alarm_time), individualState.alarmTimeFlow, individualState.alarmTimeClicked)
+        DateClickableEditField(stringResource(R.string.birth_date), uiState.birthDateFlow, uiState.birthDateClicked)
+        TimeClickableEditField(stringResource(R.string.alarm_time), uiState.alarmTimeFlow, uiState.alarmTimeClicked)
     }
 }
 
@@ -164,30 +137,3 @@ private fun IndividualClickableEditField(label: String, text: String, onClick: (
             )
     )
 }
-
-@Composable
-private fun BirthDateDialog(
-    showBirthDateFlow: StateFlow<LocalDate?>,
-    onDismiss: (() -> Unit)? = null,
-    onDateSelected: (LocalDate) -> Unit,
-) {
-    val showBirthDate by showBirthDateFlow.collectAsState()
-
-    showBirthDate?.let { birthDate ->
-        MaterialDatePickerDialog(date = birthDate, onDismiss = onDismiss, onDateSelected = onDateSelected)
-    }
-}
-
-@Composable
-private fun AlarmTimeDialog(
-    showAlarmTimeFlow: StateFlow<LocalTime?>,
-    onDismiss: (() -> Unit)? = null,
-    onTimeSelected: (LocalTime) -> Unit,
-) {
-    val showAlarmDate by showAlarmTimeFlow.collectAsState()
-
-    showAlarmDate?.let { time ->
-        MaterialTimePickerDialog(time = time, onDismiss = onDismiss, onTimeSelected = onTimeSelected)
-    }
-}
-

@@ -21,7 +21,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import kotlinx.coroutines.flow.StateFlow
 import org.jdc.template.R
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.ui.DateUiUtil
@@ -38,9 +37,11 @@ fun IndividualScreen(
     navController: NavController,
     viewModel: IndividualViewModel = hiltViewModel()
 ) {
+    val uiState = viewModel.uiState
+
     val appBarMenuItems = listOf(
-        AppBarMenuItem.Icon(Icons.Outlined.Edit, stringResource(R.string.edit)) { viewModel.editIndividual() },
-        AppBarMenuItem.Icon(Icons.Outlined.Delete, stringResource(R.string.delete)) { viewModel.onDeleteClicked() }
+        AppBarMenuItem.Icon(Icons.Outlined.Edit, stringResource(R.string.edit)) { uiState.onEdit() },
+        AppBarMenuItem.Icon(Icons.Outlined.Delete, stringResource(R.string.delete)) { uiState.onDelete() }
     )
 
     MainAppScaffoldWithNavBar(
@@ -48,16 +49,16 @@ fun IndividualScreen(
         actions = { AppBarMenu(appBarMenuItems) },
         onNavigationClick = { navController.popBackStack() },
     ) {
-        IndividualContent(viewModel.individualFlow)
+        IndividualContent(uiState)
     }
 
-    HandleDialog(viewModel.deleteIndividualDialogDataFlow) {
+    HandleDialog(uiState.deleteIndividualDialogDataFlow) {
         MessageDialog(
             title = it.title,
             text = it.text,
-            onConfirmButtonClicked = { viewModel.deleteIndividual() },
-            onDismissButtonClicked = { viewModel.dismissDeleteIndividualDialog() },
-            onDismissRequest = { viewModel.dismissDeleteIndividualDialog() }
+            onConfirmButtonClicked = { uiState.deleteIndividual() },
+            onDismissButtonClicked = { uiState.dismissDeleteIndividualDialog() },
+            onDismissRequest = { uiState.dismissDeleteIndividualDialog() }
         )
     }
 
@@ -65,15 +66,13 @@ fun IndividualScreen(
 }
 
 @Composable
-private fun IndividualContent(individualFlow: StateFlow<Individual?>) {
-    val individual: Individual? by individualFlow.collectAsState()
-    IndividualSummary(individual)
+private fun IndividualContent(uiState: IndividualUiState) {
+    val individual by uiState.individualFlow.collectAsState()
+    individual?.let { IndividualSummary(it) }
 }
 
 @Composable
-private fun IndividualSummary(individual: Individual?) {
-    individual ?: return
-
+private fun IndividualSummary(individual: Individual) {
     Column(Modifier.verticalScroll(rememberScrollState())) {
         IndividualSummaryItem(individual.getFullName(), textStyle = MaterialTheme.typography.headlineSmall)
         IndividualSummaryItem(individual.phone, stringResource(R.string.phone))
@@ -84,7 +83,11 @@ private fun IndividualSummary(individual: Individual?) {
 }
 
 @Composable
-private fun IndividualSummaryItem(text: String?, label: String? = null, textStyle: TextStyle = MaterialTheme.typography.bodyMedium) {
+private fun IndividualSummaryItem(
+    text: String?,
+    label: String? = null,
+    textStyle: TextStyle = MaterialTheme.typography.bodyMedium
+) {
     if (text.isNullOrBlank()) {
         return
     }
@@ -109,7 +112,7 @@ private fun IndividualSummaryItem(text: String?, label: String? = null, textStyl
 @Preview(group = "light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
 @Preview(group = "dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
 @Composable
-fun TestIndividual() {
+fun PreviewIndividual() {
     AppTheme {
         IndividualSummary(
             individual = Individual(

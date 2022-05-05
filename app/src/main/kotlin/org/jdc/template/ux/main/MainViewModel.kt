@@ -4,10 +4,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import org.jdc.template.domain.individual.CreateIndividualTestDataUseCase
-import org.jdc.template.model.data.DisplayThemeType
 import org.jdc.template.model.repository.SettingsRepository
 import org.jdc.template.ui.navigation.DefaultNavBarConfig
 import org.jdc.template.ui.navigation.NavBarConfig
@@ -16,7 +13,6 @@ import org.jdc.template.ui.navigation.ViewModelNavBarImpl
 import org.jdc.template.util.ext.stateInDefault
 import org.jdc.template.ux.about.AboutRoute
 import org.jdc.template.ux.directory.DirectoryRoute
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,19 +21,9 @@ class MainViewModel
     settingsRepository: SettingsRepository,
     private val createIndividualTestDataUseCase: CreateIndividualTestDataUseCase
 ) : ViewModel(), ViewModelNavBar<NavBarItem> by ViewModelNavBarImpl(NavBarItem.PEOPLE, createNavBarConfig()) {
-    val themeFlow: StateFlow<DisplayThemeType?> = settingsRepository.themeFlow.stateInDefault(viewModelScope, null)
-
-    var isReady: Boolean = false
-        private set
-
-    fun startup() = viewModelScope.launch {
-        // run any startup/initialization code here (NOTE: these tasks should NOT exceed 1000ms (per Google Guidelines))
-        Timber.i("Startup task...")
-
-        // Startup finished
-        isReady = true
-        Timber.i("Startup finished")
-    }
+    val uiState = MainUiState(
+        themeFlow = settingsRepository.themeFlow.stateInDefault(viewModelScope, null)
+    )
 
     @VisibleForTesting
     suspend fun createSampleData() {

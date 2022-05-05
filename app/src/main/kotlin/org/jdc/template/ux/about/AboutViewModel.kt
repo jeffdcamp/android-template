@@ -35,12 +35,26 @@ class AboutViewModel
     private val createIndividualTestDataUseCase: CreateIndividualTestDataUseCase
 ) : ViewModel(), ViewModelNav by ViewModelNavImpl() {
 
-    val resetServiceEnabledFlow: StateFlow<Boolean> = MutableStateFlow(remoteConfig.isColorServiceEnabled()).asStateFlow()
+    private val resetServiceEnabledFlow: StateFlow<Boolean> = MutableStateFlow(remoteConfig.isColorServiceEnabled()).asStateFlow()
+
+    val uiState: AboutUiState = AboutUiState(
+        resetServiceEnabledFlow = resetServiceEnabledFlow,
+        testQueryWebServiceCall = {},
+        testFullUrlQueryWebServiceCall = {},
+        testSaveQueryWebServiceCall = {},
+        workManagerSimpleTest = {},
+        workManagerSyncTest = {},
+        testTableChange = {},
+        licensesClicked = { navigate(AcknowledgmentsRoute.createRoute()) },
+        createSampleData = ::createSampleData,
+    )
+
+
 
     /**
      * Simple web service call
      */
-    fun testQueryWebServiceCall() = viewModelScope.launch {
+    private fun testQueryWebServiceCall() = viewModelScope.launch {
         if (!remoteConfig.isColorServiceEnabled()) {
             Timber.e("Color Service is NOT enabled... skipping")
             return@launch
@@ -58,7 +72,7 @@ class AboutViewModel
     /**
      * Simple web service call using the full url (instead of just an endpoint)
      */
-    fun testFullUrlQueryWebServiceCall() = viewModelScope.launch {
+    private fun testFullUrlQueryWebServiceCall() = viewModelScope.launch {
         val response = colorService.colorsByFullUrl(ColorService.FULL_URL)
 
         if (response.isSuccessful) {
@@ -71,7 +85,7 @@ class AboutViewModel
     /**
      * Web service call that saves response to file, then processes the file (best for large JSON payloads)
      */
-    fun testSaveQueryWebServiceCall() = viewModelScope.launch {
+    private fun testSaveQueryWebServiceCall() = viewModelScope.launch {
         val response = colorService.colorsToFile()
 
         if (response.isSuccessful) {
@@ -112,7 +126,7 @@ class AboutViewModel
     /**
      * Sample for creating a scheduled simple worker
      */
-    fun workManagerSimpleTest() = viewModelScope.launch {
+    private fun workManagerSimpleTest() = viewModelScope.launch {
         workScheduler.scheduleSimpleWork("test1")
         workScheduler.scheduleSimpleWork("test2")
 
@@ -124,7 +138,7 @@ class AboutViewModel
     /**
      * Sample for creating a scheduled sync worker
      */
-    fun workManagerSyncTest() = viewModelScope.launch {
+    private fun workManagerSyncTest() = viewModelScope.launch {
         workScheduler.scheduleSync()
         workScheduler.scheduleSync(true)
 
@@ -164,11 +178,7 @@ class AboutViewModel
         }
     }
 
-    fun licensesClicked() {
-        navigate(AcknowledgmentsRoute.createRoute())
-    }
-
-    fun createSampleData() = viewModelScope.launch {
+    private fun createSampleData() = viewModelScope.launch {
         createIndividualTestDataUseCase()
     }
 }

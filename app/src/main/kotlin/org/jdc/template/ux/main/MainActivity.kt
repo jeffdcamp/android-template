@@ -23,7 +23,8 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
 
         setContent {
-            val theme by viewModel.themeFlow.collectAsState()
+            val uiState = viewModel.uiState
+            val theme by uiState.themeFlow.collectAsState()
 
             val darkTheme = when(theme) {
                 DisplayThemeType.SYSTEM_DEFAULT -> isSystemInDarkTheme()

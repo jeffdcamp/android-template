@@ -9,12 +9,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import kotlinx.coroutines.flow.StateFlow
 import org.jdc.template.BuildConfig
 import org.jdc.template.R
 import org.jdc.template.ui.compose.appbar.AppBarMenu
@@ -27,8 +27,10 @@ fun AboutScreen(
     navController: NavController,
     viewModel: AboutViewModel = hiltViewModel()
 ) {
+    val uiState = viewModel.uiState
+
     val appBarMenuItems = listOf(
-        AppBarMenuItem.OverflowMenuItem(stringResource(R.string.acknowledgments)) { viewModel.licensesClicked() }
+        AppBarMenuItem.OverflowMenuItem(stringResource(R.string.acknowledgments)) { uiState.licensesClicked() }
     )
 
     MainAppScaffoldWithNavBar(
@@ -37,14 +39,7 @@ fun AboutScreen(
         actions = { AppBarMenu(appBarMenuItems) },
         onNavigationClick = { navController.popBackStack() }
     ) {
-        AboutScreenContent(
-            viewModel.resetServiceEnabledFlow,
-            createSampleData = { viewModel.createSampleData() },
-            testTableChange = { viewModel.testTableChange() },
-            testQueryWebServiceCall = { viewModel.testQueryWebServiceCall() },
-            workManagerSyncTest = { viewModel.workManagerSyncTest() },
-            workManagerSimpleTest = { viewModel.workManagerSimpleTest() }
-        )
+        AboutScreenContent(uiState)
     }
 
     HandleNavigation(viewModel, navController)
@@ -52,13 +47,7 @@ fun AboutScreen(
 
 @Composable
 private fun AboutScreenContent(
-    resetServiceEnabledFlow: StateFlow<Boolean>,
-    createSampleData: () -> Unit,
-    testQueryWebServiceCall: () -> Unit,
-    testTableChange: () -> Unit,
-    workManagerSimpleTest: () -> Unit,
-    workManagerSyncTest: () -> Unit,
-
+    uiState: AboutUiState
 ) {
 
     Column(
@@ -69,12 +58,12 @@ private fun AboutScreenContent(
         ApplicationAboutTitle()
 
         Divider(Modifier.padding(top = 16.dp, bottom = 16.dp))
-        RestServicesStatus(resetServiceEnabledFlow)
-        TestButton("CREATE DATABASE") { createSampleData() }
-        TestButton("TEST REST CALL") { testQueryWebServiceCall() }
-        TestButton("TEST TABLE CHANGES") { testTableChange() }
-        TestButton("TEST SIMPLE WORKMANAGER") { workManagerSimpleTest() }
-        TestButton("TEST SYNC WORKMANAGER") { workManagerSyncTest() }
+        RestServicesStatus(uiState)
+        TestButton("CREATE DATABASE") { uiState.createSampleData() }
+        TestButton("TEST REST CALL") { uiState.testQueryWebServiceCall() }
+        TestButton("TEST TABLE CHANGES") { uiState.testTableChange() }
+        TestButton("TEST SIMPLE WORKMANAGER") { uiState.workManagerSimpleTest() }
+        TestButton("TEST SYNC WORKMANAGER") { uiState.workManagerSyncTest() }
     }
 }
 
@@ -93,9 +82,9 @@ private fun ApplicationAboutTitle() {
 }
 
 @Composable
-private fun RestServicesStatus(restServicesEnabledFlow: StateFlow<Boolean>) {
-    val restServicesEnabled = restServicesEnabledFlow.collectAsState()
-    Text("Rest Services Enabled: ${restServicesEnabled.value}")
+private fun RestServicesStatus(uiState: AboutUiState) {
+    val restServicesEnabled by uiState.resetServiceEnabledFlow.collectAsState()
+    Text("Rest Services Enabled: $restServicesEnabled")
 }
 
 @Composable
