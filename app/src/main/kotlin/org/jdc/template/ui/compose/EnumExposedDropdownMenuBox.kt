@@ -1,10 +1,10 @@
 package org.jdc.template.ui.compose
 
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.ExposedDropdownMenuDefaults
-import androidx.compose.material3.Text
+import androidx.compose.material.DropdownMenuItem
+import androidx.compose.material.ExposedDropdownMenuBox
+import androidx.compose.material.ExposedDropdownMenuDefaults
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -46,7 +46,7 @@ fun <T: Enum<T>> EnumExposedDropdownMenuBox(
         ) {
             options.forEach { option ->
                 DropdownMenuItem(
-                    text = { Text(optionToText(option)) },
+                    content = { Text(optionToText(option)) },
                     onClick = {
                         onOptionSelected(option)
                         expanded = false

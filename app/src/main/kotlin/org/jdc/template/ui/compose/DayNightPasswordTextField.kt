@@ -4,12 +4,13 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.LocalTextStyle
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.TextFieldColors
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.LocalTextStyle
-import androidx.compose.material3.TextFieldColors
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -17,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
@@ -43,6 +45,7 @@ fun DayNightPasswordTextField(
     keyboardActions: KeyboardActions = KeyboardActions(),
     maxLines: Int = Int.MAX_VALUE,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    shape: Shape = MaterialTheme.shapes.small,
     colors: TextFieldColors = if (isSystemInDarkTheme()) TextFieldDefaults.textFieldColors() else TextFieldDefaults.outlinedTextFieldColors()
 ) {
     var textFieldValueState by remember { mutableStateOf(TextFieldValue(text = value)) }
@@ -68,6 +71,7 @@ fun DayNightPasswordTextField(
         keyboardActions = keyboardActions,
         maxLines = maxLines,
         interactionSource = interactionSource,
+        shape = shape,
         colors = colors
     )
 }
@@ -88,6 +92,7 @@ fun DayNightPasswordTextField(
     keyboardActions: KeyboardActions = KeyboardActions(),
     maxLines: Int = Int.MAX_VALUE,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    shape: Shape = MaterialTheme.shapes.small,
     colors: TextFieldColors = if (isSystemInDarkTheme()) TextFieldDefaults.textFieldColors() else TextFieldDefaults.outlinedTextFieldColors()
 ) {
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
@@ -117,6 +122,7 @@ fun DayNightPasswordTextField(
         singleLine = true,
         maxLines,
         interactionSource,
+        shape,
         colors
     )
 }
