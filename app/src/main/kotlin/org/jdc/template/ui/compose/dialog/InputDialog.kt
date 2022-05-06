@@ -174,7 +174,6 @@ fun TwoInputDialog(
         mutableStateOf(TextFieldValue(initialTextFieldTextSecond ?: "", TextRange(initialTextFieldTextSecond?.length ?: 0)))
     }
 
-    val focusRequester = remember { FocusRequester() }
     val (item1, item2) = remember { FocusRequester.createRefs() }
 
     Dialog(
@@ -259,7 +258,7 @@ fun TwoInputDialog(
 
                 LaunchedEffect(Unit) {
                     delay(200) // Need to have a small delay or the keyboard does not appear on the focus: https://issuetracker.google.com/issues/204502668
-                    focusRequester.requestFocus()
+                    item1.requestFocus()
                 }
 
                 // Buttons
