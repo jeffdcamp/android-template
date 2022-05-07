@@ -10,7 +10,9 @@ import kotlinx.coroutines.launch
 import org.jdc.template.R
 import org.jdc.template.analytics.Analytics
 import org.jdc.template.model.repository.IndividualRepository
-import org.jdc.template.ui.compose.dialog.MessageDialogData
+import org.jdc.template.ui.compose.dialog.DialogUiState
+import org.jdc.template.ui.compose.dialog.dismissDialog
+import org.jdc.template.ui.compose.dialog.showMessageDialog
 import org.jdc.template.ui.navigation.ViewModelNav
 import org.jdc.template.ui.navigation.ViewModelNavImpl
 import org.jdc.template.util.delegates.requireSavedState
@@ -27,17 +29,17 @@ class IndividualViewModel
     savedStateHandle: SavedStateHandle
 ) : ViewModel(), ViewModelNav by ViewModelNavImpl() {
     private val individualId: String by requireSavedState(savedStateHandle, IndividualRoute.Arg.INDIVIDUAL_ID)
-    private val deleteIndividualDialogDataFlow = MutableStateFlow(MessageDialogData())
+
+    private val dialogUiStateFlow = MutableStateFlow<DialogUiState<*>?>(null)
 
     val uiState: IndividualUiState = IndividualUiState(
+        dialogUiStateFlow = dialogUiStateFlow,
+
         individualFlow = individualRepository.getIndividualFlow(individualId).stateInDefault(viewModelScope, null),
 
         onEdit = ::editIndividual,
         onDelete = ::onDeleteClicked,
         deleteIndividual = ::deleteIndividual,
-
-        deleteIndividualDialogDataFlow = deleteIndividualDialogDataFlow,
-        dismissDeleteIndividualDialog = { deleteIndividualDialogDataFlow.value = MessageDialogData() },
     )
 
     init {
@@ -45,7 +47,7 @@ class IndividualViewModel
     }
 
     private fun onDeleteClicked() {
-        deleteIndividualDialogDataFlow.value = MessageDialogData(true, text = application.getString(R.string.delete_individual_confirm))
+        showMessageDialog(dialogUiStateFlow, text = application.getString(R.string.delete_individual_confirm), onConfirm = { deleteIndividual() }, onDismiss = { dismissDialog(dialogUiStateFlow) })
     }
 
     private fun deleteIndividual() = viewModelScope.launch {

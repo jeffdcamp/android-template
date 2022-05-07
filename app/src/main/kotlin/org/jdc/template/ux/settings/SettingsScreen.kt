@@ -9,9 +9,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import org.jdc.template.R
-import org.jdc.template.ui.compose.dialog.HandleDialog
-import org.jdc.template.ui.compose.dialog.InputDialog
-import org.jdc.template.ui.compose.dialog.RadioDialog
+import org.jdc.template.ui.compose.dialog.HandleDialogUiState
 import org.jdc.template.ui.compose.setting.Setting
 import org.jdc.template.ui.navigation.WorkManagerStatusRoute
 import org.jdc.template.ux.MainAppScaffoldWithNavBar
@@ -45,25 +43,6 @@ fun SettingsScreen(
             Setting.Clickable(text = "Last Installed Version Code", uiState.currentLastInstalledVersionCodeFlow) { uiState.onLastInstalledVersionCodeClicked() }
         }
 
-        // Dialogs
-        HandleDialog(uiState.themeRadioDialogDataFlow) {
-            RadioDialog(
-                title = it.title,
-                items = it.items,
-                onItemSelected = { selectedItem -> uiState.setTheme(selectedItem) },
-                onDismissButtonClicked = { uiState.dismissThemeDialog() }
-            )
-        }
-
-        HandleDialog(uiState.lastInstalledVersionCodeDialogDataFlow) {
-            InputDialog(
-                title = it.title,
-                initialTextFieldText = it.initialTextFieldText,
-                onConfirmButtonClicked = { text -> uiState.setLastInstalledVersionCode(text) },
-                onDismissButtonClicked = { uiState.dismissSetLastInstalledVersionCodeDialog() },
-                minLength = 1,
-                maxLength = 20
-            )
-        }
+        HandleDialogUiState(uiState.dialogUiStateFlow)
     }
 }

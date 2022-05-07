@@ -1,5 +1,6 @@
 package org.jdc.template.ui.compose.dialog
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,7 +21,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusProperties
+import androidx.compose.ui.focus.focusOrder
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
@@ -29,11 +30,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import kotlinx.coroutines.delay
 import org.jdc.template.ui.compose.DayNightTextField
+import org.jdc.template.ui.theme.AppTheme
 import java.util.Locale
 
 @Composable
@@ -44,10 +47,10 @@ fun InputDialog(
     initialTextFieldText: String? = null,
     confirmButtonText: String = stringResource(android.R.string.ok),
     onConfirmButtonClicked: ((String) -> Unit)? = null,
-    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    singleLine: Boolean = true,
     dismissButtonText: String = stringResource(android.R.string.cancel),
     onDismissButtonClicked: (() -> Unit)? = null,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    singleLine: Boolean = true,
     minLength: Int = -1,
     maxLength: Int = -1,
     properties: DialogProperties = DialogProperties(),
@@ -141,6 +144,46 @@ fun InputDialog(
     }
 }
 
+@Composable
+fun InputDialog(
+    dialogUiState: InputDialogUiState
+){
+    InputDialog(
+        onDismissRequest = { dialogUiState.onDismissRequest() },
+        title = dialogUiState.title,
+        textFieldLabel = dialogUiState.textFieldLabel,
+        initialTextFieldText = dialogUiState.initialTextFieldText,
+        confirmButtonText = dialogUiState.confirmButtonText ?: stringResource(android.R.string.ok),
+        onConfirmButtonClicked = { dialogUiState.onConfirm(it) },
+        dismissButtonText = dialogUiState.dismissButtonText ?: stringResource(android.R.string.cancel),
+        onDismissButtonClicked = { dialogUiState.onDismiss() },
+        keyboardOptions = dialogUiState.keyboardOptions ?: KeyboardOptions.Default,
+        singleLine = dialogUiState.singleLine,
+        minLength = dialogUiState.minLength,
+        maxLength = dialogUiState.maxLength,
+        properties = DialogProperties(),
+        shape = MaterialTheme.shapes.medium,
+        backgroundColor = MaterialTheme.colors.surface,
+        textButtonColor = MaterialTheme.colors.primary, // This is specifically for handling theming in this app. May not want in Commons.
+    )
+}
+
+data class InputDialogUiState(
+    val title: String? = null,
+    val textFieldLabel: String? = null,
+    val initialTextFieldText: String? = null,
+    val confirmButtonText: String? = null,
+    val dismissButtonText: String? = null,
+    val keyboardOptions: KeyboardOptions? = null,
+    val singleLine: Boolean = true,
+    val minLength: Int = -1,
+    val maxLength: Int = -1,
+    override val visible: Boolean = true,
+    override val onConfirm: (String) -> Unit = {},
+    override val onDismiss: () -> Unit = {},
+    override val onDismissRequest: () -> Unit = {},
+) : DialogUiState<String>
+
 @Suppress("LongMethod")
 @Composable
 fun TwoInputDialog(
@@ -213,7 +256,7 @@ fun TwoInputDialog(
                         .fillMaxWidth()
                         .padding(top = 16.dp, start = 16.dp, end = 16.dp)
                         .focusRequester(item1)
-                        .focusProperties {
+                        .focusOrder(item1) {
                             next = item2
                             down = item2
                             previous = item2
@@ -241,8 +284,7 @@ fun TwoInputDialog(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 16.dp, start = 16.dp, end = 16.dp)
-                        .focusRequester(item2)
-                        .focusProperties {
+                        .focusOrder(item2) {
                             next = item1
                             down = item1
                             previous = item1
@@ -291,15 +333,79 @@ fun TwoInputDialog(
     }
 }
 
-data class InputDialogData(
-    override val visible: Boolean = false,
-    val title: String? = null,
-    val initialTextFieldText: String? = null
-): DialogData
+@Composable
+fun TwoInputDialog(
+    dialogUiState: TwoInputDialogUiState
+){
+    TwoInputDialog(
+        onDismissRequest = { dialogUiState.onDismissRequest() },
+        title = dialogUiState.title,
+        textFieldLabelFirst = dialogUiState.textFieldLabelFirst,
+        initialTextFieldTextFirst = dialogUiState.initialTextFieldTextFirst,
+        textFieldLabelSecond = dialogUiState.textFieldLabelSecond,
+        initialTextFieldTextSecond = dialogUiState.initialTextFieldTextSecond,
+        confirmButtonText = dialogUiState.confirmButtonText ?: stringResource(android.R.string.ok),
+        onConfirmButtonClicked = { dialogUiState.onConfirm(it) },
+        dismissButtonText = dialogUiState.dismissButtonText ?: stringResource(android.R.string.cancel),
+        onDismissButtonClicked = { dialogUiState.onDismiss() },
+        keyboardOptions = dialogUiState.keyboardOptions ?: KeyboardOptions.Default,
+        singleLine = dialogUiState.singleLine,
+        minLengthFirst = dialogUiState.minLengthSecond,
+        maxLengthFirst = dialogUiState.maxLengthSecond,
+        properties = DialogProperties(),
+        shape = MaterialTheme.shapes.medium,
+        backgroundColor = MaterialTheme.colors.surface,
+        textButtonColor = MaterialTheme.colors.primary, // This is specifically for handling theming in this app. May not want in Commons.
+    )
+}
 
-data class TwoInputDialogData(
-    override val visible: Boolean = false,
+data class TwoInputDialogUiState(
     val title: String? = null,
+    val textFieldLabelFirst: String? = null,
     val initialTextFieldTextFirst: String? = null,
-    val initialTextFieldTextSecond: String? = null
-): DialogData
+    val textFieldLabelSecond: String? = null,
+    val initialTextFieldTextSecond: String? = null,
+    val confirmButtonText: String? = null,
+    val dismissButtonText: String? = null,
+    val keyboardOptions: KeyboardOptions? = null,
+    val singleLine: Boolean = true,
+    val minLengthFirst: Int = -1,
+    val maxLengthFirst: Int = -1,
+    val minLengthSecond: Int = -1,
+    val maxLengthSecond: Int = -1,
+    override val visible: Boolean = true,
+    override val onConfirm: (Pair<String, String>) -> Unit = {},
+    override val onDismiss: () -> Unit = {},
+    override val onDismissRequest: () -> Unit = {},
+) : DialogUiState<Pair<String, String>>
+
+@Preview(group = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
+@Preview(group = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
+@Composable
+private fun PreviewInputDialog() {
+    AppTheme {
+        InputDialog(
+            title = "Title",
+            initialTextFieldText = "Default Value",
+            onConfirmButtonClicked = { },
+            onDismissButtonClicked = { },
+            minLength = 1,
+            maxLength = 20
+        )
+    }
+}
+
+@Preview(group = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
+@Preview(group = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
+@Composable
+private fun PreviewTwoInputDialog() {
+    AppTheme() {
+        TwoInputDialog(
+            title = "Title",
+            initialTextFieldTextFirst = "First",
+            initialTextFieldTextSecond = "Second",
+            onConfirmButtonClicked = { },
+            onDismissButtonClicked = { }
+        )
+    }
+}

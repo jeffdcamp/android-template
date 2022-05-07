@@ -24,7 +24,23 @@ fun MaterialTimePickerDialog(
     timePickerDialog.show()
 }
 
-data class TimeDialogData(
-    override val visible: Boolean = false,
+@Composable
+fun MaterialTimePickerDialog(
+    dialogUiState: TimeDialogUiState
+){
+    dialogUiState.localTime?.let { time ->
+        MaterialTimePickerDialog(
+            time = time,
+            onDismiss = { dialogUiState.onDismiss() },
+            onTimeSelected = { dialogUiState.onConfirm(it) }
+        )
+    }
+}
+
+data class TimeDialogUiState(
     val localTime: LocalTime? = null,
-) : DialogData
+    override val visible: Boolean = true,
+    override val onConfirm: (LocalTime) -> Unit = {},
+    override val onDismiss: () -> Unit = {},
+    override val onDismissRequest: () -> Unit = {},
+) : DialogUiState<LocalTime>

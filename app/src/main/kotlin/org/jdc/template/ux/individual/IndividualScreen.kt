@@ -26,8 +26,7 @@ import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.ui.DateUiUtil
 import org.jdc.template.ui.compose.appbar.AppBarMenu
 import org.jdc.template.ui.compose.appbar.AppBarMenuItem
-import org.jdc.template.ui.compose.dialog.HandleDialog
-import org.jdc.template.ui.compose.dialog.MessageDialog
+import org.jdc.template.ui.compose.dialog.HandleDialogUiState
 import org.jdc.template.ui.navigation.HandleNavigation
 import org.jdc.template.ui.theme.AppTheme
 import org.jdc.template.ux.MainAppScaffoldWithNavBar
@@ -52,15 +51,7 @@ fun IndividualScreen(
         IndividualContent(uiState)
     }
 
-    HandleDialog(uiState.deleteIndividualDialogDataFlow) {
-        MessageDialog(
-            title = it.title,
-            text = it.text,
-            onConfirmButtonClicked = { uiState.deleteIndividual() },
-            onDismissButtonClicked = { uiState.dismissDeleteIndividualDialog() },
-            onDismissRequest = { uiState.dismissDeleteIndividualDialog() }
-        )
-    }
+    HandleDialogUiState(uiState.dialogUiStateFlow)
 
     HandleNavigation(viewModel, navController)
 }

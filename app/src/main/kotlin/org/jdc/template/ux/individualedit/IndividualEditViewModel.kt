@@ -10,9 +10,11 @@ import kotlinx.coroutines.launch
 import org.jdc.template.R
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.repository.IndividualRepository
-import org.jdc.template.ui.compose.dialog.DateDialogData
-import org.jdc.template.ui.compose.dialog.MessageDialogData
-import org.jdc.template.ui.compose.dialog.TimeDialogData
+import org.jdc.template.ui.compose.dialog.DateDialogUiState
+import org.jdc.template.ui.compose.dialog.DialogUiState
+import org.jdc.template.ui.compose.dialog.TimeDialogUiState
+import org.jdc.template.ui.compose.dialog.dismissDialog
+import org.jdc.template.ui.compose.dialog.showMessageDialog
 import org.jdc.template.ui.navigation.ViewModelNav
 import org.jdc.template.ui.navigation.ViewModelNavImpl
 import org.jdc.template.util.delegates.savedState
@@ -39,11 +41,11 @@ class IndividualEditViewModel
     private val alarmTimeFlow = MutableStateFlow<LocalTime?>(null)
 
     // Dialogs
-    private val messageDialogDataFlow = MutableStateFlow(MessageDialogData())
-    private val birthDateDialogDataFlow = MutableStateFlow(DateDialogData())
-    private val alarmTimeDialogDataFlow = MutableStateFlow(TimeDialogData())
+    private val dialogUiStateFlow = MutableStateFlow<DialogUiState<*>?>(null)
 
     val uiState: IndividualEditUiState = IndividualEditUiState(
+        dialogUiStateFlow = dialogUiStateFlow,
+
         firstNameFlow = firstNameFlow,
         firstNameOnChange = { firstNameFlow.value = it },
         lastNameFlow = lastNameFlow,
@@ -53,36 +55,14 @@ class IndividualEditViewModel
         emailFlow = emailFlow,
         emailOnChange = { emailFlow.value = it },
 
-        saveIndividual = ::saveIndividual,
-
-        messageDialogDataFlow = messageDialogDataFlow,
-        hideMessageDialog = {
-            messageDialogDataFlow.value = MessageDialogData() // dismiss
-        },
-
-        // Birth Date
         birthDateFlow = birthDateFlow,
-        birthDateDialogData = birthDateDialogDataFlow,
-        birthDateClicked = ::showBirthDate,
-        onBirthDateSelected = {
-            birthDateFlow.value = it
-            birthDateDialogDataFlow.value = DateDialogData() // dismiss
-        },
-        dismissBirthDateDialog = {
-            birthDateDialogDataFlow.value = DateDialogData() // dismiss
-        },
+        birthDateClicked = { showBirthDate() },
 
-        // Alarm Time
         alarmTimeFlow = alarmTimeFlow,
-        alarmTimeDialogData = alarmTimeDialogDataFlow,
         alarmTimeClicked = ::showAlarmTime,
-        onAlarmTimeSelected = {
-            alarmTimeFlow.value = it
-            alarmTimeDialogDataFlow.value = TimeDialogData() // dismiss
-        },
-        dismissAlarmTimeDialog = {
-            alarmTimeDialogDataFlow.value = TimeDialogData() // dismiss
-        }
+
+        // Events
+        saveIndividual = ::saveIndividual,
     )
 
     init {
@@ -138,7 +118,7 @@ class IndividualEditViewModel
     private fun validate(): Boolean {
         if (firstNameFlow.value.isBlank()) {
             val text = application.getString(R.string.x_required, application.getString(R.string.first_name))
-            messageDialogDataFlow.value = MessageDialogData(true, application.getString(R.string.error), text)
+            showMessageDialog(dialogUiStateFlow, title = application.getString(R.string.error), text = text)
             return false
         }
 
@@ -146,10 +126,28 @@ class IndividualEditViewModel
     }
 
     private fun showBirthDate() {
-        birthDateDialogDataFlow.value = DateDialogData(true, birthDateFlow.value ?: LocalDate.now())
+        dialogUiStateFlow.value = DateDialogUiState(
+            visible = true,
+            localDate = birthDateFlow.value ?: LocalDate.now(),
+            onConfirm = {
+                birthDateFlow.value = it
+                dismissDialog(dialogUiStateFlow)
+            },
+            onDismiss = { dismissDialog(dialogUiStateFlow) },
+            onDismissRequest = { dismissDialog(dialogUiStateFlow) }
+        )
     }
 
     private fun showAlarmTime() {
-        alarmTimeDialogDataFlow.value = TimeDialogData(true, alarmTimeFlow.value ?: LocalTime.now())
+        dialogUiStateFlow.value = TimeDialogUiState(
+            visible = true,
+            localTime = alarmTimeFlow.value ?: LocalTime.now(),
+            onConfirm = {
+                alarmTimeFlow.value = it
+                dismissDialog(dialogUiStateFlow)
+            },
+            onDismiss = { dismissDialog(dialogUiStateFlow) },
+            onDismissRequest = { dismissDialog(dialogUiStateFlow) }
+        )
     }
 }

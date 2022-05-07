@@ -5,6 +5,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import java.util.Locale
 
@@ -16,7 +17,8 @@ fun MessageDialog(
     confirmButtonText: String = stringResource(android.R.string.ok),
     onConfirmButtonClicked: (() -> Unit)? = null,
     dismissButtonText: String = stringResource(android.R.string.cancel),
-    onDismissButtonClicked: (() -> Unit)? = null
+    onDismissButtonClicked: (() -> Unit)? = null,
+    textButtonColor: Color = MaterialTheme.colors.primary
 ) {
     require(title != null || text != null) { "Title or Text is required (if visible)" }
 
@@ -39,7 +41,7 @@ fun MessageDialog(
                         onConfirmButtonClicked()
                     }
                 ) {
-                    Text(confirmButtonText.uppercase(Locale.getDefault()))
+                    Text(confirmButtonText.uppercase(Locale.getDefault()), color = textButtonColor)
                 }
             }
         },
@@ -50,15 +52,35 @@ fun MessageDialog(
                         onDismissButtonClicked()
                     }
                 ) {
-                    Text(dismissButtonText.uppercase(Locale.getDefault()))
+                    Text(dismissButtonText.uppercase(Locale.getDefault()), color = textButtonColor)
                 }
             }
         }
     )
 }
 
-data class MessageDialogData(
-    override val visible: Boolean = false,
+@Composable
+fun MessageDialog(
+    dialogUiState: MessageDialogUiState
+){
+    MessageDialog(
+        onDismissRequest = { dialogUiState.onDismissRequest() },
+        title = dialogUiState.title,
+        text = dialogUiState.text,
+        confirmButtonText = dialogUiState.confirmButtonText ?: stringResource(android.R.string.ok),
+        onConfirmButtonClicked = { dialogUiState.onConfirm(Unit) },
+        dismissButtonText = dialogUiState.dismissButtonText ?: stringResource(android.R.string.cancel),
+        onDismissButtonClicked = if (dialogUiState.onDismiss != null) { { dialogUiState.onDismiss.invoke() } } else null
+    )
+}
+
+data class MessageDialogUiState(
     val title: String? = null,
-    val text: String? = null
-) : DialogData
+    val text: String? = null,
+    val confirmButtonText: String? = null,
+    val dismissButtonText: String? = null,
+    override val visible: Boolean = true,
+    override val onConfirm: (Unit) -> Unit = {},
+    override val onDismiss: (() -> Unit)? = null,
+    override val onDismissRequest: () -> Unit = {},
+) : DialogUiState<Unit>

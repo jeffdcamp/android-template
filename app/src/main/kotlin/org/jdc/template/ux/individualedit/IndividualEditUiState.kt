@@ -2,14 +2,14 @@ package org.jdc.template.ux.individualedit
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import org.jdc.template.ui.compose.dialog.DateDialogData
-import org.jdc.template.ui.compose.dialog.MessageDialogData
-import org.jdc.template.ui.compose.dialog.TimeDialogData
+import org.jdc.template.ui.compose.dialog.DialogUiState
 import java.time.LocalDate
 import java.time.LocalTime
 
 @Suppress("LongParameterList")
 class IndividualEditUiState(
+    val dialogUiStateFlow: StateFlow<DialogUiState<*>?> = MutableStateFlow(null),
+
     // Data
     val firstNameFlow: StateFlow<String> = MutableStateFlow(""),
     val firstNameOnChange: (String) -> Unit = {},
@@ -20,22 +20,12 @@ class IndividualEditUiState(
     val emailFlow: StateFlow<String> = MutableStateFlow(""),
     val emailOnChange: (String) -> Unit = {},
 
+    val birthDateFlow: StateFlow<LocalDate?> = MutableStateFlow(null),
+    val birthDateClicked: () -> Unit = {},
+
+    val alarmTimeFlow: StateFlow<LocalTime?> = MutableStateFlow(null),
+    val alarmTimeClicked: () -> Unit = {},
+
     // Events
     val saveIndividual: () -> Unit = {},
-    val messageDialogDataFlow: StateFlow<MessageDialogData?> = MutableStateFlow(null),
-    val hideMessageDialog: () -> Unit = {},
-
-    // Dialog - Birth Date
-    val birthDateFlow: StateFlow<LocalDate?> = MutableStateFlow(null),
-    val birthDateDialogData: StateFlow<DateDialogData?> = MutableStateFlow(null),
-    val birthDateClicked: () -> Unit = {},
-    val onBirthDateSelected: (LocalDate) -> Unit = {},
-    val dismissBirthDateDialog: () -> Unit = {},
-
-    // Dialog - Alarm Time
-    val alarmTimeFlow: StateFlow<LocalTime?> = MutableStateFlow(null),
-    val alarmTimeDialogData: StateFlow<TimeDialogData?> = MutableStateFlow(null),
-    val alarmTimeClicked: () -> Unit = {},
-    val onAlarmTimeSelected: (LocalTime) -> Unit = {},
-    val dismissAlarmTimeDialog: () -> Unit = {},
 )

@@ -38,6 +38,7 @@ fun <T> RadioDialog(
     dismissButtonText: String = stringResource(android.R.string.cancel),
     shape: Shape = MaterialTheme.shapes.medium,
     backgroundColor: Color = MaterialTheme.colors.surface,
+    textButtonColor: Color = MaterialTheme.colors.primary,
     properties: DialogProperties = DialogProperties()
 ) {
     Dialog(
@@ -78,7 +79,7 @@ fun <T> RadioDialog(
                                 onDismissButtonClicked()
                             }
                         ) {
-                            Text(dismissButtonText.uppercase(Locale.getDefault()))
+                            Text(dismissButtonText.uppercase(Locale.getDefault()), color = textButtonColor)
                         }
                     }
                     if (onConfirmButtonClicked != null) {
@@ -87,7 +88,7 @@ fun <T> RadioDialog(
                                 onConfirmButtonClicked()
                             }
                         ) {
-                            Text(confirmButtonText.uppercase(Locale.getDefault()))
+                            Text(confirmButtonText.uppercase(Locale.getDefault()), color = textButtonColor)
                         }
                     }
                 }
@@ -125,11 +126,32 @@ private fun <T> RadioDialogItems(radioDialogDataItems: RadioDialogDataItems<T>, 
     }
 }
 
-data class RadioDialogData<T>(
-    override val visible: Boolean = false,
+@Composable
+fun <T> RadioDialog(
+    dialogUiState: RadioDialogUiState<T>
+){
+    RadioDialog(
+        items = dialogUiState.items,
+        onItemSelected = { dialogUiState.onConfirm(it) },
+        title = dialogUiState.title,
+        onConfirmButtonClicked = null,
+        onDismissRequest = { dialogUiState.onDismissRequest() },
+        onDismissButtonClicked = if (dialogUiState.onDismiss != null ) { { dialogUiState.onDismiss.invoke() } } else null,
+        confirmButtonText = dialogUiState.confirmButtonText ?: stringResource(android.R.string.ok),
+        dismissButtonText = dialogUiState.dismissButtonText ?: stringResource(android.R.string.cancel),
+    )
+}
+
+data class RadioDialogUiState<T>(
+    val items: RadioDialogDataItems<T>?,
     val title: String? = null,
-    val items: RadioDialogDataItems<T>? = null,
-) : DialogData
+    val confirmButtonText: String? = null,
+    val dismissButtonText: String? = null,
+    override val visible: Boolean = true,
+    override val onConfirm: (T) -> Unit = {},
+    override val onDismiss: (() -> Unit)? = null,
+    override val onDismissRequest: () -> Unit = {},
+) : DialogUiState<T>
 
 data class RadioDialogDataItems<T>(val items: List<RadioDialogDataItem<T>>, val selectedItem: T)
 
