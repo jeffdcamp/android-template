@@ -128,11 +128,32 @@ private fun <T> RadioDialogItems(radioDialogDataItems: RadioDialogDataItems<T>, 
     }
 }
 
-data class RadioDialogData<T>(
-    override val visible: Boolean = false,
+@Composable
+fun <T> RadioDialog(
+    dialogUiState: RadioDialogUiState<T>
+){
+    RadioDialog(
+        items = dialogUiState.items,
+        onItemSelected = { dialogUiState.onConfirm(it) },
+        title = dialogUiState.title,
+        onConfirmButtonClicked = null,
+        onDismissRequest = { dialogUiState.onDismissRequest() },
+        onDismissButtonClicked = if (dialogUiState.onDismiss != null ) { { dialogUiState.onDismiss.invoke() } } else null,
+        confirmButtonText = dialogUiState.confirmButtonText ?: stringResource(android.R.string.ok),
+        dismissButtonText = dialogUiState.dismissButtonText ?: stringResource(android.R.string.cancel),
+    )
+}
+
+data class RadioDialogUiState<T>(
+    val items: RadioDialogDataItems<T>?,
     val title: String? = null,
-    val items: RadioDialogDataItems<T>? = null,
-) : DialogData
+    val confirmButtonText: String? = null,
+    val dismissButtonText: String? = null,
+    override val visible: Boolean = true,
+    override val onConfirm: (T) -> Unit = {},
+    override val onDismiss: (() -> Unit)? = null,
+    override val onDismissRequest: () -> Unit = {},
+) : DialogUiState<T>
 
 data class RadioDialogDataItems<T>(val items: List<RadioDialogDataItem<T>>, val selectedItem: T)
 
@@ -142,7 +163,7 @@ data class RadioDialogDataItem<T>(val item: T, val text: String)
 @Preview(group = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
 @Preview(group = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
 @Composable
-private fun TestRadioDialog() {
+private fun PreviewRadioDialog() {
     val radioItems: RadioDialogDataItems<String> = RadioDialogDataItems(
         listOf(
             RadioDialogDataItem("id1", "A"),

@@ -59,16 +59,36 @@ fun MessageDialog(
     )
 }
 
-data class MessageDialogData(
-    override val visible: Boolean = false,
+@Composable
+fun MessageDialog(
+    dialogUiState: MessageDialogUiState
+){
+    MessageDialog(
+        onDismissRequest = { dialogUiState.onDismissRequest() },
+        title = dialogUiState.title,
+        text = dialogUiState.text,
+        confirmButtonText = dialogUiState.confirmButtonText ?: stringResource(android.R.string.ok),
+        onConfirmButtonClicked = { dialogUiState.onConfirm(Unit) },
+        dismissButtonText = dialogUiState.dismissButtonText ?: stringResource(android.R.string.cancel),
+        onDismissButtonClicked = if (dialogUiState.onDismiss != null) { { dialogUiState.onDismiss.invoke() } } else null
+    )
+}
+
+data class MessageDialogUiState(
     val title: String? = null,
-    val text: String? = null
-) : DialogData
+    val text: String? = null,
+    val confirmButtonText: String? = null,
+    val dismissButtonText: String? = null,
+    override val visible: Boolean = true,
+    override val onConfirm: (Unit) -> Unit = {},
+    override val onDismiss: (() -> Unit)? = null,
+    override val onDismissRequest: () -> Unit = {},
+) : DialogUiState<Unit>
 
 @Preview(group = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
 @Preview(group = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
 @Composable
-private fun TestMessageDialog() {
+private fun PreviewMessageDialog() {
     AppTheme {
         MessageDialog(
             title = "Title",

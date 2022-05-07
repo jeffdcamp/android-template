@@ -24,7 +24,23 @@ fun MaterialDatePickerDialog(
     datePickerDialog.show()
 }
 
-data class DateDialogData(
-    override val visible: Boolean = false,
+@Composable
+fun MaterialDatePickerDialog(
+    dialogUiState: DateDialogUiState
+){
+    dialogUiState.localDate?.let { date ->
+        MaterialDatePickerDialog(
+            date = date,
+            onDismiss = { dialogUiState.onDismiss() },
+            onDateSelected = { dialogUiState.onConfirm(it) }
+        )
+    }
+}
+
+data class DateDialogUiState(
     val localDate: LocalDate? = null,
-) : DialogData
+    override val visible: Boolean = true,
+    override val onConfirm: (LocalDate) -> Unit = {},
+    override val onDismiss: () -> Unit = {},
+    override val onDismissRequest: () -> Unit = {},
+) : DialogUiState<LocalDate>

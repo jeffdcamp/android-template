@@ -24,10 +24,7 @@ import org.jdc.template.ui.DateUiUtil
 import org.jdc.template.ui.compose.DayNightTextField
 import org.jdc.template.ui.compose.appbar.AppBarMenu
 import org.jdc.template.ui.compose.appbar.AppBarMenuItem
-import org.jdc.template.ui.compose.dialog.HandleDialog
-import org.jdc.template.ui.compose.dialog.MaterialDatePickerDialog
-import org.jdc.template.ui.compose.dialog.MaterialTimePickerDialog
-import org.jdc.template.ui.compose.dialog.MessageDialog
+import org.jdc.template.ui.compose.dialog.HandleDialogUiState
 import org.jdc.template.ui.navigation.HandleNavigation
 import org.jdc.template.ux.MainAppScaffoldWithNavBar
 import java.time.LocalDate
@@ -52,26 +49,7 @@ fun IndividualEditScreen(
         IndividualEditFields(viewModel.uiState)
     }
 
-    HandleDialog(uiState.messageDialogDataFlow) { dialogData ->
-        MessageDialog(
-            title = dialogData.title,
-            text = dialogData.text,
-            onDismissRequest = { uiState.hideMessageDialog() },
-            onConfirmButtonClicked = { uiState.hideMessageDialog() }
-        )
-    }
-
-    HandleDialog(uiState.birthDateDialogData) { dialogData ->
-        dialogData.localDate?.let { date ->
-            MaterialDatePickerDialog(date, { uiState.dismissBirthDateDialog() }) { uiState.onBirthDateSelected(it) }
-        }
-    }
-
-    HandleDialog(uiState.alarmTimeDialogData) { dialogData ->
-        dialogData.localTime?.let { time ->
-            MaterialTimePickerDialog(time, { uiState.dismissAlarmTimeDialog() }) { uiState.onAlarmTimeSelected(it) }
-        }
-    }
+    HandleDialogUiState(uiState.dialogUiStateFlow)
 
     HandleNavigation(viewModel, navController)
 }

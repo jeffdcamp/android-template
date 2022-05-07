@@ -143,6 +143,46 @@ fun InputDialog(
     }
 }
 
+@Composable
+fun InputDialog(
+    dialogUiState: InputDialogUiState
+){
+    InputDialog(
+        onDismissRequest = { dialogUiState.onDismissRequest() },
+        title = dialogUiState.title,
+        textFieldLabel = dialogUiState.textFieldLabel,
+        initialTextFieldText = dialogUiState.initialTextFieldText,
+        confirmButtonText = dialogUiState.confirmButtonText ?: stringResource(android.R.string.ok),
+        onConfirmButtonClicked = { dialogUiState.onConfirm(it) },
+        dismissButtonText = dialogUiState.dismissButtonText ?: stringResource(android.R.string.cancel),
+        onDismissButtonClicked = { dialogUiState.onDismiss() },
+        keyboardOptions = dialogUiState.keyboardOptions ?: KeyboardOptions.Default,
+        singleLine = dialogUiState.singleLine,
+        minLength = dialogUiState.minLength,
+        maxLength = dialogUiState.maxLength,
+        properties = DialogProperties(),
+        shape = DialogDefaults.DefaultCorner,
+        backgroundColor = MaterialTheme.colorScheme.surface,
+        textButtonColor = MaterialTheme.colorScheme.primary, // This is specifically for handling theming in this app. May not want in Commons.
+    )
+}
+
+data class InputDialogUiState(
+    val title: String? = null,
+    val textFieldLabel: String? = null,
+    val initialTextFieldText: String? = null,
+    val confirmButtonText: String? = null,
+    val dismissButtonText: String? = null,
+    val keyboardOptions: KeyboardOptions? = null,
+    val singleLine: Boolean = true,
+    val minLength: Int = -1,
+    val maxLength: Int = -1,
+    override val visible: Boolean = true,
+    override val onConfirm: (String) -> Unit = {},
+    override val onDismiss: () -> Unit = {},
+    override val onDismissRequest: () -> Unit = {},
+) : DialogUiState<String>
+
 @Suppress("LongMethod")
 @Composable
 fun TwoInputDialog(
@@ -293,23 +333,56 @@ fun TwoInputDialog(
     }
 }
 
-data class InputDialogData(
-    override val visible: Boolean = false,
-    val title: String? = null,
-    val initialTextFieldText: String? = null
-): DialogData
+@Composable
+fun TwoInputDialog(
+    dialogUiState: TwoInputDialogUiState
+){
+    TwoInputDialog(
+        onDismissRequest = { dialogUiState.onDismissRequest() },
+        title = dialogUiState.title,
+        textFieldLabelFirst = dialogUiState.textFieldLabelFirst,
+        initialTextFieldTextFirst = dialogUiState.initialTextFieldTextFirst,
+        textFieldLabelSecond = dialogUiState.textFieldLabelSecond,
+        initialTextFieldTextSecond = dialogUiState.initialTextFieldTextSecond,
+        confirmButtonText = dialogUiState.confirmButtonText ?: stringResource(android.R.string.ok),
+        onConfirmButtonClicked = { dialogUiState.onConfirm(it) },
+        dismissButtonText = dialogUiState.dismissButtonText ?: stringResource(android.R.string.cancel),
+        onDismissButtonClicked = { dialogUiState.onDismiss() },
+        keyboardOptions = dialogUiState.keyboardOptions ?: KeyboardOptions.Default,
+        singleLine = dialogUiState.singleLine,
+        minLengthFirst = dialogUiState.minLengthSecond,
+        maxLengthFirst = dialogUiState.maxLengthSecond,
+        properties = DialogProperties(),
+        shape = DialogDefaults.DefaultCorner,
+        backgroundColor = MaterialTheme.colorScheme.surface,
+        textButtonColor = MaterialTheme.colorScheme.primary, // This is specifically for handling theming in this app. May not want in Commons.
+    )
+}
 
-data class TwoInputDialogData(
-    override val visible: Boolean = false,
+data class TwoInputDialogUiState(
     val title: String? = null,
+    val textFieldLabelFirst: String? = null,
     val initialTextFieldTextFirst: String? = null,
-    val initialTextFieldTextSecond: String? = null
-): DialogData
+    val textFieldLabelSecond: String? = null,
+    val initialTextFieldTextSecond: String? = null,
+    val confirmButtonText: String? = null,
+    val dismissButtonText: String? = null,
+    val keyboardOptions: KeyboardOptions? = null,
+    val singleLine: Boolean = true,
+    val minLengthFirst: Int = -1,
+    val maxLengthFirst: Int = -1,
+    val minLengthSecond: Int = -1,
+    val maxLengthSecond: Int = -1,
+    override val visible: Boolean = true,
+    override val onConfirm: (Pair<String, String>) -> Unit = {},
+    override val onDismiss: () -> Unit = {},
+    override val onDismissRequest: () -> Unit = {},
+) : DialogUiState<Pair<String, String>>
 
 @Preview(group = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
 @Preview(group = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
 @Composable
-private fun TestInputDialog() {
+private fun PreviewInputDialog() {
     AppTheme {
         InputDialog(
             title = "Title",
@@ -325,7 +398,7 @@ private fun TestInputDialog() {
 @Preview(group = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
 @Preview(group = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
 @Composable
-private fun TestTwoInputDialog() {
+private fun PreviewTwoInputDialog() {
     AppTheme {
         TwoInputDialog(
             title = "Title",
