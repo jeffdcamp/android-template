@@ -39,7 +39,6 @@ fun MaterialDatePickerDialog(
 
 data class DateDialogUiState(
     val localDate: LocalDate? = null,
-    override val visible: Boolean = true,
     override val onConfirm: (LocalDate) -> Unit = {},
     override val onDismiss: () -> Unit = {},
     override val onDismissRequest: () -> Unit = {},

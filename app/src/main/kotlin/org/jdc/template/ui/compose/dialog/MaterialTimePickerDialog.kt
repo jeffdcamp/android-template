@@ -39,7 +39,6 @@ fun MaterialTimePickerDialog(
 
 data class TimeDialogUiState(
     val localTime: LocalTime? = null,
-    override val visible: Boolean = true,
     override val onConfirm: (LocalTime) -> Unit = {},
     override val onDismiss: () -> Unit = {},
     override val onDismissRequest: () -> Unit = {},

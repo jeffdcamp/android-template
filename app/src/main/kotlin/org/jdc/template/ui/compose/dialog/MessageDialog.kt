@@ -79,7 +79,6 @@ data class MessageDialogUiState(
     val text: String? = null,
     val confirmButtonText: String? = null,
     val dismissButtonText: String? = null,
-    override val visible: Boolean = true,
     override val onConfirm: (Unit) -> Unit = {},
     override val onDismiss: (() -> Unit)? = null,
     override val onDismissRequest: () -> Unit = {},

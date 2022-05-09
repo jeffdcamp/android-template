@@ -147,7 +147,6 @@ data class RadioDialogUiState<T>(
     val title: String? = null,
     val confirmButtonText: String? = null,
     val dismissButtonText: String? = null,
-    override val visible: Boolean = true,
     override val onConfirm: (T) -> Unit = {},
     override val onDismiss: (() -> Unit)? = null,
     override val onDismissRequest: () -> Unit = {},
