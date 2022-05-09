@@ -127,7 +127,6 @@ class IndividualEditViewModel
 
     private fun showBirthDate() {
         dialogUiStateFlow.value = DateDialogUiState(
-            visible = true,
             localDate = birthDateFlow.value ?: LocalDate.now(),
             onConfirm = {
                 birthDateFlow.value = it
@@ -140,7 +139,6 @@ class IndividualEditViewModel
 
     private fun showAlarmTime() {
         dialogUiStateFlow.value = TimeDialogUiState(
-            visible = true,
             localTime = alarmTimeFlow.value ?: LocalTime.now(),
             onConfirm = {
                 alarmTimeFlow.value = it

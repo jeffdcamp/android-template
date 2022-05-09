@@ -8,18 +8,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 interface DialogUiState<T> {
-    val visible: Boolean
     val onConfirm: ((T) -> Unit)?
     val onDismiss: (() -> Unit)?
     val onDismissRequest: (() -> Unit)?
 }
-
-class DismissedDialogUiState(
-    override val visible: Boolean = false,
-    override val onConfirm: ((Unit) -> Unit)? = null,
-    override val onDismiss: (() -> Unit)? = null,
-    override val onDismissRequest: (() -> Unit)? = null
-) : DialogUiState<Unit>
 
 @Composable
 fun <T : DialogUiState<*>> HandleDialogUiState(
@@ -29,9 +21,7 @@ fun <T : DialogUiState<*>> HandleDialogUiState(
     val dialogUiState by dialogUiStateFlow.collectAsState()
 
     dialogUiState?.let {
-        if (it.visible) {
-            dialog(it)
-        }
+        dialog(it)
     }
 }
 
@@ -82,5 +72,5 @@ fun ViewModel.showMessageDialog(
 fun ViewModel.dismissDialog(
     dialogUiStateFlow: MutableStateFlow<DialogUiState<*>?>
 ) {
-    dialogUiStateFlow.value = DismissedDialogUiState()
+    dialogUiStateFlow.value = null
 }
