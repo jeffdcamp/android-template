@@ -14,6 +14,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Slider
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -191,7 +192,7 @@ object Setting {
                         .padding(start = 8.dp, end = 16.dp, top = 8.dp)
                 )
                 Row {
-                    androidx.compose.material3.Slider(
+                    Slider(
                         value = sliderPosition,
                         onValueChange = { newValue -> sliderPosition = newValue.round(1) },
                         valueRange = range,
