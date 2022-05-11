@@ -1,7 +1,8 @@
 @file:Suppress("MatchingDeclarationName")
 package org.jdc.template.ux.individualedit
 
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -11,8 +12,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -25,6 +30,7 @@ import org.jdc.template.ui.compose.DayNightTextField
 import org.jdc.template.ui.compose.appbar.AppBarMenu
 import org.jdc.template.ui.compose.appbar.AppBarMenuItem
 import org.jdc.template.ui.compose.dialog.HandleDialogUiState
+import org.jdc.template.ui.compose.util.formKeyEventHandler
 import org.jdc.template.ui.navigation.HandleNavigation
 import org.jdc.template.ux.MainAppScaffoldWithNavBar
 import java.time.LocalDate
@@ -58,6 +64,8 @@ fun IndividualEditScreen(
 fun IndividualEditFields(
     uiState: IndividualEditUiState
 ) {
+    val (firstNameFocus) = remember { FocusRequester.createRefs() }
+
     Column(Modifier.verticalScroll(rememberScrollState())) {
         IndividualEditField(stringResource(R.string.first_name), uiState.firstNameFlow, "firstNameEditTextTag", uiState.firstNameOnChange)
         IndividualEditField(stringResource(R.string.last_name), uiState.lastNameFlow, "lastNameEditTextTag", uiState.lastNameOnChange)
@@ -72,12 +80,15 @@ fun IndividualEditFields(
 @Composable
 private fun IndividualEditField(label: String, textFlow: StateFlow<String>, testTag: String, onChange: (String) -> Unit) {
     val text by textFlow.collectAsState()
+    val focusManager = LocalFocusManager.current
 
     DayNightTextField(
         value = text,
         onValueChange = { onChange(it) },
         label = { Text(label) },
+        singleLine = true,
         modifier = Modifier
+            .onPreviewKeyEvent { formKeyEventHandler(it, focusManager) }
             .fillMaxWidth()
             .padding(start = 16.dp, end = 16.dp, top = 16.dp)
             .testTag(testTag)
@@ -100,18 +111,22 @@ private fun TimeClickableEditField(label: String, localTimeFlow: StateFlow<Local
 
 @Composable
 private fun IndividualClickableEditField(label: String, text: String, onClick: () -> Unit) {
+    val source = remember { MutableInteractionSource() }
+    val focusManager = LocalFocusManager.current
+
     DayNightTextField(
         value = text,
         onValueChange = { },
-        enabled = false,
+        readOnly = true,
         label = { Text(label) },
+        interactionSource = source,
         modifier = Modifier
+            .onPreviewKeyEvent { formKeyEventHandler(it, focusManager) }
             .fillMaxWidth()
             .padding(start = 16.dp, end = 16.dp, top = 16.dp)
-            .clickable(
-                onClick = {
-                    onClick()
-                }
-            )
     )
+
+    if ( source.collectIsPressedAsState().value) {
+        onClick()
+    }
 }
