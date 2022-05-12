@@ -1,6 +1,5 @@
 package org.jdc.template.ui.compose.setting
 
-import android.content.res.Configuration
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,8 +12,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ListItem
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Slider
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,10 +24,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import org.jdc.template.ui.compose.PreviewAll
 import org.jdc.template.ui.theme.AppTheme
 import kotlin.math.roundToInt
 
@@ -219,8 +218,7 @@ private fun Float.round(decimalPlaces: Int): Float {
     return (multiplier * this).roundToInt().toFloat() / multiplier
 }
 
-@Preview(group = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
-@Preview(group = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
+@PreviewAll
 @Composable
 private fun SettingsPreview() {
     val currentThemeTitleFlow = MutableStateFlow("Light Theme")
@@ -229,7 +227,7 @@ private fun SettingsPreview() {
     val playbackSpeedFlow = MutableStateFlow(1.0f)
 
     AppTheme {
-        Scaffold {
+        Surface {
             val scrollState = rememberScrollState()
 
             Column(
