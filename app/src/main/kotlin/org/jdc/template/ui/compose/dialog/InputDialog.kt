@@ -36,6 +36,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import kotlinx.coroutines.delay
 import org.jdc.template.ui.compose.DayNightTextField
+import org.jdc.template.ui.compose.PreviewDefault
 import org.jdc.template.ui.theme.AppTheme
 
 @Composable
@@ -377,8 +378,7 @@ data class TwoInputDialogUiState(
     override val onDismissRequest: () -> Unit = {},
 ) : DialogUiState<Pair<String, String>>
 
-@Preview(group = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
-@Preview(group = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
+@PreviewDefault
 @Composable
 private fun PreviewInputDialog() {
     AppTheme {
@@ -393,8 +393,7 @@ private fun PreviewInputDialog() {
     }
 }
 
-@Preview(group = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
-@Preview(group = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
+@PreviewDefault
 @Composable
 private fun PreviewTwoInputDialog() {
     AppTheme {

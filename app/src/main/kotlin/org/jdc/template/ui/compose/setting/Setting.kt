@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import org.jdc.template.ui.compose.PreviewAll
+import org.jdc.template.ui.compose.PreviewDefault
 import org.jdc.template.ui.theme.AppTheme
 import kotlin.math.roundToInt
 
@@ -218,7 +219,7 @@ private fun Float.round(decimalPlaces: Int): Float {
     return (multiplier * this).roundToInt().toFloat() / multiplier
 }
 
-@PreviewAll
+@PreviewDefault
 @Composable
 private fun SettingsPreview() {
     val currentThemeTitleFlow = MutableStateFlow("Light Theme")
