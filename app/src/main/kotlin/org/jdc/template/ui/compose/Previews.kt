@@ -4,6 +4,9 @@ import android.content.res.Configuration
 import androidx.compose.ui.tooling.preview.Preview
 
 @PreviewLightDarkDevices
+annotation class PreviewDefault
+
+@PreviewLightDarkDevices
 @PreviewMultiSizeDevices
 annotation class PreviewAll
 
