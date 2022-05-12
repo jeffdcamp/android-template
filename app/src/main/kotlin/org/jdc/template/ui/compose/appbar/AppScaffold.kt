@@ -1,6 +1,5 @@
 package org.jdc.template.ui.compose.appbar
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -20,6 +19,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import org.jdc.template.R
+import org.jdc.template.ui.compose.PreviewDefault
 import org.jdc.template.ui.compose.appnavbar.AppBottomNavigationItem
 import org.jdc.template.ui.compose.appnavbar.AppNavigationDrawerItem
 import org.jdc.template.ui.compose.appnavbar.AppNavigationDrawerLabel
@@ -164,8 +164,7 @@ private fun AppScaffoldContentWrapper(
     }
 }
 
-@Preview(group = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
-@Preview(group = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
+@PreviewDefault
 @Composable
 private fun AboutScaffoldPreview() {
     AppTheme {

@@ -1,6 +1,5 @@
 package org.jdc.template.ui.compose.appbar
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.Icon
@@ -19,8 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import org.jdc.template.R
+import org.jdc.template.ui.compose.PreviewDefault
 import org.jdc.template.ui.theme.AppTheme
 
 @Composable
@@ -88,8 +87,7 @@ internal fun AppTopAppBar(
     )
 }
 
-@Preview(group = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
-@Preview(group = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
+@PreviewDefault
 @Composable
 private fun AboutTopAppBarPreview() {
     AppTheme {
