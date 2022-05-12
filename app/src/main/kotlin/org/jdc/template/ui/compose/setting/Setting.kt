@@ -1,6 +1,5 @@
 package org.jdc.template.ui.compose.setting
 
-import android.content.res.Configuration
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,10 +26,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import org.jdc.template.ui.compose.PreviewAll
 import org.jdc.template.ui.theme.AppTheme
 import kotlin.math.roundToInt
 
@@ -228,8 +227,7 @@ private fun Float.round(decimalPlaces: Int): Float {
     return (multiplier * this).roundToInt().toFloat() / multiplier
 }
 
-@Preview(group = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
-@Preview(group = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
+@PreviewAll
 @Composable
 private fun SettingsPreview() {
     val currentThemeTitleFlow = MutableStateFlow("Light Theme")
