@@ -23,7 +23,6 @@ import androidx.navigation.NavController
 import org.jdc.template.R
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.ui.DateUiUtil
-import org.jdc.template.ui.compose.PreviewAll
 import org.jdc.template.ui.compose.PreviewDefault
 import org.jdc.template.ui.compose.appbar.AppBarMenu
 import org.jdc.template.ui.compose.appbar.AppBarMenuItem
