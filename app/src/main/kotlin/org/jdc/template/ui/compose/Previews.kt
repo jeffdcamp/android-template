@@ -19,7 +19,3 @@ annotation class PreviewLightDarkDevices
 @Preview(group = "Tablet", device = "spec:shape=Normal,width=1280,height=800,unit=dp,dpi=480", name = "Tablet Landscape", showBackground = true)
 @Preview(group = "Tablet", device = "spec:shape=Normal,width=800,height=1280,unit=dp,dpi=480", name = "Tablet Portrait", showBackground = true)
 annotation class PreviewMultiSizeDevices
-
-
-
-

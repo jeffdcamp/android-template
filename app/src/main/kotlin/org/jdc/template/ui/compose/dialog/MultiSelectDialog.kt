@@ -11,11 +11,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.selectable
-import androidx.compose.material3.Checkbox
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
+import androidx.compose.material.Checkbox
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.toMutableStateList
@@ -42,8 +42,8 @@ fun <T> MultiSelectDialog(
     onDismissButtonClicked: (() -> Unit)? = null,
     confirmButtonText: String = stringResource(android.R.string.ok),
     dismissButtonText: String = stringResource(android.R.string.cancel),
-    shape: Shape = DialogDefaults.DefaultCorner,
-    backgroundColor: Color = MaterialTheme.colorScheme.surface,
+    shape: Shape = MaterialTheme.shapes.medium,
+    backgroundColor: Color = MaterialTheme.colors.surface,
     properties: DialogProperties = DialogProperties()
 ) {
     val savedSelectedItems = remember { selectedItems.toMutableStateList() }
@@ -56,14 +56,13 @@ fun <T> MultiSelectDialog(
             shape = shape,
             color = backgroundColor,
         ) {
-            Column(
-                modifier = Modifier.padding(DialogDefaults.DialogPadding)
-            ) {
+            Column {
                 // Title
                 if (title != null) {
                     Text(
                         text = title,
-                        style = MaterialTheme.typography.headlineSmall
+                        style = MaterialTheme.typography.h6,
+                        modifier = Modifier.padding(top = 16.dp, start = 16.dp)
                     )
                 }
 
@@ -71,7 +70,7 @@ fun <T> MultiSelectDialog(
                 val height = LocalConfiguration.current.screenHeightDp * .50 // don't take the full screen
                 LazyColumn(
                     modifier = Modifier
-                        .padding(top = 16.dp)
+                        .padding(16.dp)
                         .heightIn(0.dp, height.dp)
                 ) {
                     items(allItems) {
@@ -137,7 +136,7 @@ private fun <T> MultiSelectDialogItem(
     ) {
         Text(
             text = multiSelectDataItem.text,
-            style = MaterialTheme.typography.bodyMedium.merge(),
+            style = MaterialTheme.typography.body1.merge(),
             modifier = Modifier.padding(start = 16.dp)
         )
         Checkbox(
