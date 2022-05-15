@@ -6,7 +6,7 @@ coroutines = "1.6.1"
 accompanist = "0.24.1-alpha"
 androidxhilt = "1.0.0"
 androidxlifecycle = "2.5.0-rc01"
-coil = "1.4.0"
+coil = "2.0.0"
 compose = "1.2.0-beta01"
 dagger = "2.42"
 dbtools = "7.0.1"
@@ -135,7 +135,7 @@ kotlin-coroutines-playServices = { module = "org.jetbrains.kotlinx:kotlinx-corou
 kotlin-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 kotlin-extensions = { module = "org.jetbrains.kotlin:kotlin-android-extensions", version.ref = "kotlin" }
 kotlin-gradlePluginClasspath = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
-kotlin-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.3.2" }
+kotlin-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.3.3" }
 
 leakCanary = { module = "com.squareup.leakcanary:leakcanary-android", version = "2.9.1" }
 
