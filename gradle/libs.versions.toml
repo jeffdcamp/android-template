@@ -3,7 +3,7 @@ agp = "7.2.0"
 kotlin = "1.6.21"
 coroutines = "1.6.1"
 
-accompanist = "0.24.1-alpha"
+accompanist = "0.24.8-beta"
 androidxhilt = "1.0.0"
 androidxlifecycle = "2.5.0-rc01"
 coil = "2.0.0"
@@ -107,7 +107,7 @@ google-material = { module = "com.google.android.material:material", version = "
 google-servicesgradlePluginClasspath = { module = "com.google.gms:google-services", version = "4.3.10" } # NOTE 4.3.9 is NOT compatible with firebase-bom 28.3.1
 
 # Firebase - https://firebase.google.com/support/release-notes/android
-google-firebase-bom = { module = "com.google.firebase:firebase-bom", version = "30.0.0" }
+google-firebase-bom = { module = "com.google.firebase:firebase-bom", version = "30.0.1" }
 google-firebase-appDistGradlePluginClasspath = { module = "com.google.firebase:firebase-appdistribution-gradle", version = "3.0.1" }
 google-firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx" }
 google-firebase-config = { module = "com.google.firebase:firebase-config-ktx" }
@@ -148,7 +148,7 @@ mockK = { module = "io.mockk:mockk", version = "1.12.4" }
 
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 
-ruler-gradlePluginClasspath = { module = "com.spotify.ruler:ruler-gradle-plugin", version = "1.2.0" }
+ruler-gradlePluginClasspath = { module = "com.spotify.ruler:ruler-gradle-plugin", version = "1.2.1" }
 
 timber = { module = "com.jakewharton.timber:timber", version = "5.0.1" }
 
