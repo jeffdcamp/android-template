@@ -228,9 +228,10 @@ dependencies {
     implementation(libs.timber)
 
     // Inject
-    kapt(libs.google.hilt.compiler)
-    kapt(libs.androidx.hilt.compiler)
     implementation(libs.google.hilt.library)
+    kapt(libs.google.hilt.compiler)
+
+    kapt(libs.androidx.hilt.compiler)
     implementation(libs.androidx.hilt.work)
 
     // Android Architecture Components
