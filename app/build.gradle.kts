@@ -280,6 +280,7 @@ dependencies {
     testImplementation(libs.kotlin.coroutines.test)
     testImplementation(libs.okhttp.mockwebserver)
     testImplementation(libs.xerial.sqlite)
+    testImplementation(libs.dbtools.roomJdbc)
     testImplementation(libs.dbtools.roomJdbcTest)
 
     // use regular dagger for unit tests
