@@ -3,16 +3,16 @@ agp = "7.2.0"
 kotlin = "1.6.21"
 coroutines = "1.6.1"
 
-accompanist = "0.24.1-alpha"
+accompanist = "0.24.9-beta"
 androidxhilt = "1.0.0"
 androidxlifecycle = "2.5.0-rc01"
-coil = "2.0.0"
-compose = "1.2.0-beta01"
+coil = "2.1.0"
+compose = "1.2.0-beta02"
 dagger = "2.42"
-dbtools = "7.0.1"
+dbtools = "7.1.0"
 hilt = "2.42"
 ktlint = "0.40.0"
-material3 = "1.0.0-alpha11"
+material3 = "1.0.0-alpha12"
 navigation = "2.5.0-rc01"
 paging = "3.0.0-beta02"
 retrofit = "2.9.0"
@@ -68,7 +68,7 @@ androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "room" }
 
-androidx-splashscreen = { module = "androidx.core:core-splashscreen", version = "1.0.0-beta02" }
+androidx-splashscreen = { module = "androidx.core:core-splashscreen", version = "1.0.0-rc01" }
 
 androidx-window = { module = "androidx.window:window", version = "1.0.0" }
 
@@ -95,6 +95,7 @@ dbtools-licenseManager-gradlePluginClasspath = { module = "org.dbtools:license-m
 
 dbtools-room = { module = "org.dbtools:dbtools-room", version.ref = "dbtools" }
 dbtools-roomSqlite = { module = "org.dbtools:dbtools-room-sqliteorg", version.ref = "dbtools" }
+dbtools-roomJdbc = { module = "org.dbtools:dbtools-room-jdbc", version.ref = "dbtools" }
 dbtools-roomJdbcTest = { module = "org.dbtools:dbtools-room-jdbc-test", version.ref = "dbtools" }
 
 #dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version = "1.4.30" }
@@ -107,7 +108,7 @@ google-material = { module = "com.google.android.material:material", version = "
 google-servicesgradlePluginClasspath = { module = "com.google.gms:google-services", version = "4.3.10" } # NOTE 4.3.9 is NOT compatible with firebase-bom 28.3.1
 
 # Firebase - https://firebase.google.com/support/release-notes/android
-google-firebase-bom = { module = "com.google.firebase:firebase-bom", version = "30.0.0" }
+google-firebase-bom = { module = "com.google.firebase:firebase-bom", version = "30.0.2" }
 google-firebase-appDistGradlePluginClasspath = { module = "com.google.firebase:firebase-appdistribution-gradle", version = "3.0.1" }
 google-firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx" }
 google-firebase-config = { module = "com.google.firebase:firebase-config-ktx" }
@@ -148,7 +149,7 @@ mockK = { module = "io.mockk:mockk", version = "1.12.4" }
 
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 
-ruler-gradlePluginClasspath = { module = "com.spotify.ruler:ruler-gradle-plugin", version = "1.2.0" }
+ruler-gradlePluginClasspath = { module = "com.spotify.ruler:ruler-gradle-plugin", version = "1.2.1" }
 
 timber = { module = "com.jakewharton.timber:timber", version = "5.0.1" }
 
