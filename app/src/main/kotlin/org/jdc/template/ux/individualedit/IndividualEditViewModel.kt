@@ -10,11 +10,11 @@ import kotlinx.coroutines.launch
 import org.jdc.template.R
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.repository.IndividualRepository
+import org.jdc.template.ui.compose.TextFieldData
 import org.jdc.template.ui.compose.dialog.DateDialogUiState
 import org.jdc.template.ui.compose.dialog.DialogUiState
 import org.jdc.template.ui.compose.dialog.TimeDialogUiState
 import org.jdc.template.ui.compose.dialog.dismissDialog
-import org.jdc.template.ui.compose.dialog.showMessageDialog
 import org.jdc.template.ui.navigation.ViewModelNav
 import org.jdc.template.ui.navigation.ViewModelNavImpl
 import org.jdc.template.util.delegates.savedState
@@ -33,10 +33,10 @@ class IndividualEditViewModel
     private var individual = Individual()
 
     // hold state for Compose views
-    private val firstNameFlow = MutableStateFlow("")
-    private val lastNameFlow = MutableStateFlow("")
-    private val phoneNumberFlow = MutableStateFlow("")
-    private val emailFlow = MutableStateFlow("")
+    private val firstNameFlow = MutableStateFlow(TextFieldData(""))
+    private val lastNameFlow = MutableStateFlow(TextFieldData(""))
+    private val phoneNumberFlow = MutableStateFlow(TextFieldData(""))
+    private val emailFlow = MutableStateFlow(TextFieldData(""))
     private val birthDateFlow = MutableStateFlow<LocalDate?>(null)
     private val alarmTimeFlow = MutableStateFlow<LocalTime?>(null)
 
@@ -47,13 +47,13 @@ class IndividualEditViewModel
         dialogUiStateFlow = dialogUiStateFlow,
 
         firstNameFlow = firstNameFlow,
-        firstNameOnChange = { firstNameFlow.value = it },
+        firstNameOnChange = { firstNameFlow.value = TextFieldData(it) },
         lastNameFlow = lastNameFlow,
-        lastNameOnChange = { lastNameFlow.value = it },
+        lastNameOnChange = { lastNameFlow.value = TextFieldData(it) },
         phoneFlow = phoneNumberFlow,
-        phoneOnChange = { phoneNumberFlow.value = it },
+        phoneOnChange = { phoneNumberFlow.value = TextFieldData(it) },
         emailFlow = emailFlow,
-        emailOnChange = { emailFlow.value = it },
+        emailOnChange = { emailFlow.value = TextFieldData(it) },
 
         birthDateFlow = birthDateFlow,
         birthDateClicked = { showBirthDate() },
@@ -84,10 +84,10 @@ class IndividualEditViewModel
     private fun setIndividual(individual: Individual) {
         this@IndividualEditViewModel.individual = individual
 
-        firstNameFlow.value = individual.firstName ?: ""
-        lastNameFlow.value = individual.lastName ?: ""
-        phoneNumberFlow.value = individual.phone ?: ""
-        emailFlow.value = individual.email ?: ""
+        firstNameFlow.value = TextFieldData(individual.firstName ?: "")
+        lastNameFlow.value = TextFieldData(individual.lastName ?: "")
+        phoneNumberFlow.value = TextFieldData(individual.phone ?: "")
+        emailFlow.value = TextFieldData(individual.email ?: "")
         birthDateFlow.value = individual.birthDate
         alarmTimeFlow.value = individual.alarmTime
     }
@@ -97,10 +97,10 @@ class IndividualEditViewModel
             return@launch
         }
 
-        individual.firstName = valueOrNull(firstNameFlow.value)
-        individual.lastName = valueOrNull(lastNameFlow.value)
-        individual.phone = valueOrNull(phoneNumberFlow.value)
-        individual.email = valueOrNull(emailFlow.value)
+        individual.firstName = valueOrNull(firstNameFlow.value.text)
+        individual.lastName = valueOrNull(lastNameFlow.value.text)
+        individual.phone = valueOrNull(phoneNumberFlow.value.text)
+        individual.email = valueOrNull(emailFlow.value.text)
         individual.birthDate = birthDateFlow.value
         individual.alarmTime = alarmTimeFlow.value
 
@@ -116,9 +116,8 @@ class IndividualEditViewModel
     }
 
     private fun validate(): Boolean {
-        if (firstNameFlow.value.isBlank()) {
-            val text = application.getString(R.string.x_required, application.getString(R.string.first_name))
-            showMessageDialog(dialogUiStateFlow, title = application.getString(R.string.error), text = text)
+        if (firstNameFlow.value.text.isBlank()) {
+            firstNameFlow.value = firstNameFlow.value.copy(isError = true, errorHelperText = application.getString(R.string.required))
             return false
         }
 
