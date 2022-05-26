@@ -44,7 +44,7 @@ fun IndividualEditScreen(
     val uiState = viewModel.uiState
 
     val appBarMenuItems = listOf(
-        AppBarMenuItem.Text(stringResource(R.string.save)) { uiState.saveIndividual() }
+        AppBarMenuItem.Text(R.string.save) { uiState.saveIndividual() }
     )
 
     MainAppScaffoldWithNavBar(
