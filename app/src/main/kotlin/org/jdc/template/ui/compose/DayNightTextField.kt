@@ -2,10 +2,14 @@ package org.jdc.template.ui.compose
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
@@ -15,9 +19,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun DayNightTextField(
@@ -32,6 +38,8 @@ fun DayNightTextField(
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
     isError: Boolean = false,
+    errorHelperText: String? = null,
+    helperText: String? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions(),
@@ -61,6 +69,8 @@ fun DayNightTextField(
         leadingIcon = leadingIcon,
         trailingIcon = trailingIcon,
         isError = isError,
+        errorHelperText = errorHelperText,
+        helperText = helperText,
         visualTransformation = visualTransformation,
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
@@ -83,6 +93,8 @@ fun DayNightTextField(
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
     isError: Boolean = false,
+    errorHelperText: String? = null,
+    helperText: String? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions(),
@@ -91,47 +103,60 @@ fun DayNightTextField(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     colors: TextFieldColors = if (isSystemInDarkTheme()) TextFieldDefaults.textFieldColors() else TextFieldDefaults.outlinedTextFieldColors()
 ) {
-    if (isSystemInDarkTheme()) {
-        TextField(
-            value = value,
-            onValueChange = { onValueChange(it) },
-            modifier = modifier,
-            enabled = enabled,
-            readOnly = readOnly,
-            textStyle = textStyle,
-            label = label,
-            placeholder = placeholder,
-            leadingIcon = leadingIcon,
-            trailingIcon = trailingIcon,
-            isError = isError,
-            singleLine = singleLine,
-            visualTransformation = visualTransformation,
-            keyboardOptions = keyboardOptions,
-            keyboardActions = keyboardActions,
-            maxLines = maxLines,
-            interactionSource = interactionSource,
-            colors = colors
-        )
-    } else {
-        OutlinedTextField(
-            value = value,
-            onValueChange = { onValueChange(it) },
-            modifier = modifier,
-            enabled = enabled,
-            readOnly = readOnly,
-            textStyle = textStyle,
-            label = label,
-            placeholder = placeholder,
-            leadingIcon = leadingIcon,
-            trailingIcon = trailingIcon,
-            isError = isError,
-            singleLine = singleLine,
-            visualTransformation = visualTransformation,
-            keyboardOptions = keyboardOptions,
-            keyboardActions = keyboardActions,
-            maxLines = maxLines,
-            interactionSource = interactionSource,
-            colors = colors
-        )
+    Column {
+        if (isSystemInDarkTheme()) {
+            TextField(
+                value = value,
+                onValueChange = { onValueChange(it) },
+                modifier = modifier,
+                enabled = enabled,
+                readOnly = readOnly,
+                textStyle = textStyle,
+                label = label,
+                placeholder = placeholder,
+                leadingIcon = leadingIcon,
+                trailingIcon = trailingIcon,
+                isError = isError,
+                singleLine = singleLine,
+                visualTransformation = visualTransformation,
+                keyboardOptions = keyboardOptions,
+                keyboardActions = keyboardActions,
+                maxLines = maxLines,
+                interactionSource = interactionSource,
+                colors = colors
+            )
+        } else {
+            OutlinedTextField(
+                value = value,
+                onValueChange = { onValueChange(it) },
+                modifier = modifier,
+                enabled = enabled,
+                readOnly = readOnly,
+                textStyle = textStyle,
+                label = label,
+                placeholder = placeholder,
+                leadingIcon = leadingIcon,
+                trailingIcon = trailingIcon,
+                isError = isError,
+                singleLine = singleLine,
+                visualTransformation = visualTransformation,
+                keyboardOptions = keyboardOptions,
+                keyboardActions = keyboardActions,
+                maxLines = maxLines,
+                interactionSource = interactionSource,
+                colors = colors
+            )
+        }
+
+        // adding a "" could be used to reserve space in a dialog
+        if (helperText != null || (isError && errorHelperText != null)) {
+            Text(
+                text = (if (isError) errorHelperText else helperText) ?: "",
+                modifier = Modifier
+                    .padding(horizontal = 16.dp),
+                color = if (isError) MaterialTheme.colorScheme.error else Color.Unspecified,
+                style = MaterialTheme.typography.bodySmall,
+            )
+        }
     }
 }

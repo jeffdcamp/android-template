@@ -14,20 +14,20 @@ class IndividualEditScreenTest {
 
     @Test
     fun testFields() {
-        val firstNameFlow = MutableStateFlow("Jeff")
-        val lastNameFlow = MutableStateFlow("Campbell")
-        val phoneNumberFlow = MutableStateFlow("801-555-0000")
-        val emailFlow = MutableStateFlow("")
+        val firstNameFlow = MutableStateFlow(TextFieldValue("Jeff"))
+        val lastNameFlow = MutableStateFlow(TextFieldValue("Campbell"))
+        val phoneNumberFlow = MutableStateFlow(TextFieldValue("801-555-0000"))
+        val emailFlow = MutableStateFlow(TextFieldValue(""))
 
         val individualEditUiState = IndividualEditUiState(
             firstNameFlow = firstNameFlow,
-            firstNameOnChange = { firstNameFlow.value = it },
+            firstNameOnChange = { firstNameFlow.value = TextFieldValue(it) },
             lastNameFlow = lastNameFlow,
-            lastNameOnChange = { lastNameFlow.value = it },
+            lastNameOnChange = { lastNameFlow.value = TextFieldValue(it) },
             phoneFlow = phoneNumberFlow,
-            phoneOnChange = { phoneNumberFlow.value = it },
+            phoneOnChange = { phoneNumberFlow.value = TextFieldValue(it) },
             emailFlow = emailFlow,
-            emailOnChange = { emailFlow.value = it }
+            emailOnChange = { emailFlow.value = TextFieldValue(it) }
         )
 
         composeTestRule.setContent {

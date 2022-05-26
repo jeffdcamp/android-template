@@ -2,6 +2,7 @@ package org.jdc.template.ux.individualedit
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import org.jdc.template.ui.compose.TextFieldData
 import org.jdc.template.ui.compose.dialog.DialogUiState
 import java.time.LocalDate
 import java.time.LocalTime
@@ -11,13 +12,13 @@ class IndividualEditUiState(
     val dialogUiStateFlow: StateFlow<DialogUiState<*>?> = MutableStateFlow(null),
 
     // Data
-    val firstNameFlow: StateFlow<String> = MutableStateFlow(""),
+    val firstNameFlow: StateFlow<TextFieldData> = MutableStateFlow(TextFieldData("")),
     val firstNameOnChange: (String) -> Unit = {},
-    val lastNameFlow: StateFlow<String> = MutableStateFlow(""),
+    val lastNameFlow: StateFlow<TextFieldData> = MutableStateFlow(TextFieldData("")),
     val lastNameOnChange: (String) -> Unit = {},
-    val phoneFlow: StateFlow<String> = MutableStateFlow(""),
+    val phoneFlow: StateFlow<TextFieldData> = MutableStateFlow(TextFieldData("")),
     val phoneOnChange: (String) -> Unit = {},
-    val emailFlow: StateFlow<String> = MutableStateFlow(""),
+    val emailFlow: StateFlow<TextFieldData> = MutableStateFlow(TextFieldData("")),
     val emailOnChange: (String) -> Unit = {},
 
     val birthDateFlow: StateFlow<LocalDate?> = MutableStateFlow(null),

@@ -18,7 +18,7 @@ class DirectoryViewModel
     individualRepository: IndividualRepository
 ) : ViewModel(), ViewModelNav by ViewModelNavImpl() {
 
-    val uiState = DirectoryUiState(
+    val uiState: DirectoryUiState = DirectoryUiState(
         directoryListFlow = individualRepository.getDirectoryListFlow().stateInDefault(viewModelScope, emptyList()),
 
         onNewClicked = { navigate(IndividualEditRoute.createRoute()) },

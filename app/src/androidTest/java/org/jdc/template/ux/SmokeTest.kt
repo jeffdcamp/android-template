@@ -43,9 +43,7 @@ class SmokeTest {
         composeTestRule.onNodeWithText(stringResource(R.string.save)).performClick()
 
         // Verify error message
-        composeTestRule.onNodeWithText("Error").assertIsDisplayed()
-        composeTestRule.onNodeWithText(stringResource(R.string.x_required, stringResource(R.string.first_name))).assertIsDisplayed()
-        composeTestRule.onNodeWithText(stringResource(android.R.string.ok)).performClick()
+        composeTestRule.onNodeWithText(stringResource(R.string.required)).assertIsDisplayed()
 
         // Add the missing field
         composeTestRule.onNodeWithTag("firstNameEditTextTag").performTextReplacement("Bob")
