@@ -38,10 +38,10 @@ fun DirectoryScreen(
 
     val appBarMenuItems = listOf(
         // icons
-        AppBarMenuItem.Icon(Icons.Default.Search, stringResource(R.string.search)) {},
+        AppBarMenuItem.Icon(Icons.Default.Search, R.string.search) {},
 
         // overflow
-        AppBarMenuItem.OverflowMenuItem(stringResource(R.string.settings)) { uiState.onSettingsClicked() }
+        AppBarMenuItem.OverflowMenuItem(R.string.settings) { uiState.onSettingsClicked() }
     )
 
     MainAppScaffoldWithNavBar(

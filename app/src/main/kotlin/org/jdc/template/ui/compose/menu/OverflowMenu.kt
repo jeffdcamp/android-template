@@ -1,5 +1,6 @@
 package org.jdc.template.ui.compose.menu
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
@@ -56,6 +57,7 @@ fun OverflowMenu(
             val textWithoutIconPadding = if (menuItemsWithIconCount > 0) (36.dp) else 0.dp // 36.dp == 24.dp (icon size) + 12.dp (gap)
 
             menuItems.forEach { menuItem ->
+                val menuText = menuItem.text ?: stringResource(menuItem.textId ?: error("Text and TextId are null"))
                 DropdownMenuItem(
                     onClick = {
                         menuItem.action()
@@ -66,15 +68,18 @@ fun OverflowMenu(
                     if (menuItem.icon != null) {
                         Icon(
                             imageVector = menuItem.icon,
-                            contentDescription = menuItem.text,
+                            contentDescription = menuText,
                             modifier = Modifier.padding(end = 12.dp)
                         )
                         Text(
-                            text = menuItem.text,
+                            text = menuText,
                             modifier = Modifier.align(Alignment.CenterVertically)
                         )
                     } else {
-                        Text(text = menuItem.text, modifier = Modifier.padding(start = textWithoutIconPadding))
+                        Text(
+                                text = menuText,
+                                modifier = Modifier.padding(start = textWithoutIconPadding)
+                            )
                     }
                 }
             }
@@ -82,4 +87,12 @@ fun OverflowMenu(
     }
 }
 
-class OverflowMenuItem(val text: String, val icon: ImageVector? = null, val action: () -> Unit)
+class OverflowMenuItem private constructor(
+    val text: String?,
+    @StringRes val textId: Int?,
+    val icon: ImageVector?,
+    val action: () -> Unit
+) {
+    constructor(text: String, icon: ImageVector? = null, action: () -> Unit) : this(text, null, icon, action)
+    constructor(@StringRes textId: Int, icon: ImageVector? = null, action: () -> Unit) : this(null, textId, icon, action)
+}

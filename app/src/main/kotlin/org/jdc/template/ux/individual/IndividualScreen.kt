@@ -38,8 +38,8 @@ fun IndividualScreen(
     val uiState = viewModel.uiState
 
     val appBarMenuItems = listOf(
-        AppBarMenuItem.Icon(Icons.Default.Edit, stringResource(R.string.edit)) { uiState.onEdit() },
-        AppBarMenuItem.Icon(Icons.Default.Delete, stringResource(R.string.delete)) { uiState.onDelete() }
+        AppBarMenuItem.Icon(Icons.Default.Edit, R.string.edit) { uiState.onEdit() },
+        AppBarMenuItem.Icon(Icons.Default.Delete, R.string.delete) { uiState.onDelete() }
     )
 
     MainAppScaffoldWithNavBar(
