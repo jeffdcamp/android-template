@@ -1,7 +1,7 @@
 [versions]
-agp = "7.2.0"
+agp = "7.2.1"
 kotlin = "1.6.21"
-coroutines = "1.6.1"
+coroutines = "1.6.2"
 
 accompanist = "0.24.9-beta"
 androidxhilt = "1.0.0"
@@ -108,13 +108,13 @@ google-material = { module = "com.google.android.material:material", version = "
 google-servicesgradlePluginClasspath = { module = "com.google.gms:google-services", version = "4.3.10" } # NOTE 4.3.9 is NOT compatible with firebase-bom 28.3.1
 
 # Firebase - https://firebase.google.com/support/release-notes/android
-google-firebase-bom = { module = "com.google.firebase:firebase-bom", version = "30.0.2" }
-google-firebase-appDistGradlePluginClasspath = { module = "com.google.firebase:firebase-appdistribution-gradle", version = "3.0.1" }
+google-firebase-bom = { module = "com.google.firebase:firebase-bom", version = "30.1.0" }
+google-firebase-appDistGradlePluginClasspath = { module = "com.google.firebase:firebase-appdistribution-gradle", version = "3.0.2" }
 google-firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx" }
 google-firebase-config = { module = "com.google.firebase:firebase-config-ktx" }
 google-firebase-core = { module = "com.google.firebase:firebase-core" }
 google-firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics-ktx" }
-google-firebase-crashlyticsGradlePluginClasspath = { module = "com.google.firebase:firebase-crashlytics-gradle", version = "2.8.1" }
+google-firebase-crashlyticsGradlePluginClasspath = { module = "com.google.firebase:firebase-crashlytics-gradle", version = "2.9.0" }
 google-firebase-perf = { module = "com.google.firebase:firebase-perf" }
 google-firebase-perfGradlePluginClasspath = { module = "com.google.firebase:perf-plugin", version = "1.3.4" }
 
