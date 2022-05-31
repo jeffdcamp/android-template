@@ -5,12 +5,12 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.Icon
-import androidx.compose.material.LocalContentColor
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import org.jdc.template.ui.theme.AppTheme
 
 @Composable
 fun <T : Enum<T>> RowScope.AppBottomNavigationItem(
@@ -32,7 +32,7 @@ fun <T : Enum<T>> RowScope.AppBottomNavigationItem(
         },
         selected = selectedBarItem == navBarItem,
         selectedContentColor = selectedColor,
-        unselectedContentColor = LocalContentColor.current.copy(alpha = ContentAlpha.medium),
+        unselectedContentColor = AppTheme.colors.onSurface.copy(alpha = ContentAlpha.medium),
         onClick = {
             onNavItemClicked(navBarItem)
         }
