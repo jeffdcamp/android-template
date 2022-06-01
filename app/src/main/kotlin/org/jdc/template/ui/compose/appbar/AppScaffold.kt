@@ -1,6 +1,5 @@
 package org.jdc.template.ui.compose.appbar
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -14,9 +13,9 @@ import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.PermanentNavigationDrawer
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,8 +37,7 @@ fun AppScaffold(
     navigationIconVisible: Boolean = true,
     navigationIcon: ImageVector = Icons.Filled.ArrowBack,
     onNavigationClick: (() -> Unit)? = null,
-    appBarTextColor: Color? = null,
-    appBarBackgroundColor: Color? = null,
+    appBarColors: TopAppBarColors? = null,
     autoSizeTitle: Boolean = false,
     hideNavigation: Boolean = false,
     actions: @Composable (RowScope.() -> Unit)? = null,
@@ -50,8 +48,7 @@ fun AppScaffold(
         AppTopAppBar(
             title = title,
             subtitle = subtitle,
-            appBarTextColor = appBarTextColor,
-            appBarBackgroundColor = appBarBackgroundColor,
+            colors = appBarColors,
             autoSizeTitle = autoSizeTitle,
             navigationIconVisible = navigationIconVisible,
             navigationIcon = navigationIcon,

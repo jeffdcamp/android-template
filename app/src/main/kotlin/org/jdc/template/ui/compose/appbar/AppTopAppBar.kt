@@ -8,9 +8,10 @@ import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.SmallTopAppBar
+import androidx.compose.material3.TopAppBarColors
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import org.jdc.template.R
@@ -24,8 +25,7 @@ internal fun AppTopAppBar(
     navigationIconVisible: Boolean = true,
     navigationIcon: ImageVector = Icons.Filled.ArrowBack,
     onNavigationClick: (() -> Unit)? = null,
-    appBarTextColor: Color? = null,
-    appBarBackgroundColor: Color? = null,
+    colors: TopAppBarColors? = null,
     autoSizeTitle: Boolean = false,
     actions: @Composable (RowScope.() -> Unit)? = null,
 ) {
@@ -34,14 +34,13 @@ internal fun AppTopAppBar(
             AppBarTitle(
                 title = title,
                 subtitle = subtitle,
-                color = appBarTextColor ?: Color.Unspecified,
                 autoSizeTitle = autoSizeTitle
             )
         },
         navigationIconVisible = navigationIconVisible,
         navigationIcon = navigationIcon,
         onNavigationClick = onNavigationClick,
-        appBarBackgroundColor = appBarBackgroundColor,
+        colors = colors,
         actions = actions
     )
 }
@@ -53,7 +52,7 @@ internal fun AppTopAppBar(
     navigationIcon: ImageVector = Icons.Filled.ArrowBack,
     navigationIconContentDescription: String = stringResource(id = R.string.back),
     onNavigationClick: (() -> Unit)? = null,
-    appBarBackgroundColor: Color? = null,
+    colors: TopAppBarColors? = null,
     actions: @Composable (RowScope.() -> Unit)? = null,
 ) {
     SmallTopAppBar(
@@ -74,7 +73,8 @@ internal fun AppTopAppBar(
             if (actions != null) {
                 actions()
             }
-        }
+        },
+        colors = colors ?: TopAppBarDefaults.smallTopAppBarColors()
     )
 }
 

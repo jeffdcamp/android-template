@@ -10,11 +10,11 @@ import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.PermanentNavigationDrawer
+import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -40,8 +40,7 @@ internal fun MainAppScaffoldWithNavBar(
     navigationIconVisible: Boolean = true,
     navigationIcon: ImageVector = Icons.Filled.ArrowBack,
     onNavigationClick: (() -> Unit)? = null,
-    appBarTextColor: Color? = null,
-    appBarBackgroundColor: Color? = null,
+    appBarColors: TopAppBarColors? = null,
     autoSizeTitle: Boolean = false,
     hideNavigation: Boolean = false,
     actions: @Composable (RowScope.() -> Unit)? = null,
@@ -81,8 +80,7 @@ internal fun MainAppScaffoldWithNavBar(
         navigationIconVisible = navigationIconVisible,
         navigationIcon = navigationIcon,
         onNavigationClick = onNavigationClick,
-        appBarTextColor = appBarTextColor,
-        appBarBackgroundColor = appBarBackgroundColor,
+        appBarColors = appBarColors,
         autoSizeTitle = autoSizeTitle,
         hideNavigation = hideNavigation,
         actions = actions,
