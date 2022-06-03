@@ -57,10 +57,60 @@ fun AppScaffold(
         )
     }
 
+    ScaffoldAndNavigation(
+        topAppBar = appTopAppBar,
+        modifier = modifier,
+        hideNavigation = hideNavigation,
+        navBarData = navBarData,
+        content = content
+    )
+}
+
+@Composable
+fun AppScaffold(
+    title: @Composable () -> Unit,
+    modifier: Modifier = Modifier,
+    navigationIconVisible: Boolean = true,
+    navigationIcon: ImageVector = Icons.Filled.ArrowBack,
+    onNavigationClick: (() -> Unit)? = null,
+    appBarColors: TopAppBarColors? = null,
+    hideNavigation: Boolean = false,
+    actions: @Composable (RowScope.() -> Unit)? = null,
+    navBarData: AppNavBarData? = null,
+    content: @Composable (PaddingValues) -> Unit,
+) {
+    val appTopAppBar: @Composable (() -> Unit) = {
+        AppTopAppBar(
+            title = title,
+            colors = appBarColors,
+            navigationIconVisible = navigationIconVisible,
+            navigationIcon = navigationIcon,
+            onNavigationClick = { onNavigationClick?.invoke() },
+            actions = actions,
+        )
+    }
+
+    ScaffoldAndNavigation(
+        topAppBar = appTopAppBar,
+        modifier = modifier,
+        hideNavigation = hideNavigation,
+        navBarData = navBarData,
+        content = content
+    )
+}
+
+@Composable
+private fun ScaffoldAndNavigation(
+    topAppBar: @Composable (() -> Unit),
+    modifier: Modifier = Modifier,
+    hideNavigation: Boolean = false,
+    navBarData: AppNavBarData? = null,
+    content: @Composable (PaddingValues) -> Unit,
+) {
     when {
         hideNavigation -> {
             Scaffold(
-                topBar = appTopAppBar,
+                topBar = topAppBar,
                 modifier = modifier
             ) { innerPadding ->
                 AppScaffoldContentWrapper(innerPadding, content = content)
@@ -70,7 +120,7 @@ fun AppScaffold(
             // NavDrawer
             navBarData.navDrawer()?.invoke {
                 Scaffold(
-                    topBar = appTopAppBar,
+                    topBar = topAppBar,
                     bottomBar = navBarData.bottomBar(),
                     modifier = modifier
                 ) { innerPadding ->
@@ -81,56 +131,12 @@ fun AppScaffold(
         else -> {
             // NavBar / NavRail
             Scaffold(
-                topBar = appTopAppBar,
+                topBar = topAppBar,
                 bottomBar = navBarData?.bottomBar() ?: {},
                 modifier = modifier
             ) { innerPadding ->
                 AppScaffoldContentWrapper(innerPadding, navBarData, content)
             }
-        }
-    }
-}
-
-@Composable
-fun AppScaffold(
-    title: @Composable () -> Unit,
-    modifier: Modifier = Modifier,
-    navigationIconVisible: Boolean = true,
-    navigationIcon: ImageVector = Icons.Filled.ArrowBack,
-    onNavigationClick: (() -> Unit)? = null,
-    actions: @Composable (RowScope.() -> Unit)? = null,
-    navBarData: AppNavBarData? = null,
-    content: @Composable (PaddingValues) -> Unit,
-) {
-    val appTopAppBar: @Composable (() -> Unit) = {
-        AppTopAppBar(
-            title = title,
-            navigationIconVisible = navigationIconVisible,
-            navigationIcon = navigationIcon,
-            onNavigationClick = { onNavigationClick?.invoke() },
-            actions = actions,
-        )
-    }
-
-    if (navBarData?.appNavBarType == AppNavBarType.NAV_DRAWER) {
-        // NavDrawer
-        navBarData.navDrawer()?.invoke {
-            Scaffold(
-                topBar = appTopAppBar,
-                bottomBar = navBarData.bottomBar(),
-                modifier = modifier
-            ) { innerPadding ->
-                AppScaffoldContentWrapper(innerPadding, navBarData, content)
-            }
-        }
-    } else {
-        // NavBar / NavRail
-        Scaffold(
-            topBar = appTopAppBar,
-            bottomBar = navBarData?.bottomBar() ?: {},
-            modifier = modifier
-        ) { innerPadding ->
-            AppScaffoldContentWrapper(innerPadding, navBarData, content)
         }
     }
 }
