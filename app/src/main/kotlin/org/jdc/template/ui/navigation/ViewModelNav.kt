@@ -26,7 +26,7 @@ interface ViewModelNav {
     fun navigate(routes: List<String>)
     fun navigate(route: String, navOptions: NavOptions)
     fun navigate(route: String, optionsBuilder: NavOptionsBuilder.() -> Unit)
-    fun navigate(intent: Intent, options: Bundle? = null)
+    fun navigate(intent: Intent, options: Bundle? = null, popBackStack: Boolean = false)
     fun popBackStack(popToRoute: String? = null, inclusive: Boolean = false)
     fun navigate(viewModelNavigator: ViewModelNavigator)
     fun resetNavigate(viewModelNavigator: ViewModelNavigator)
@@ -52,8 +52,8 @@ class ViewModelNavImpl : ViewModelNav {
         _navigatorFlow.compareAndSet(null, ViewModelNavigator.NavigateWithOptions(route, navOptions(optionsBuilder)))
     }
 
-    override fun navigate(intent: Intent, options: Bundle?) {
-        _navigatorFlow.compareAndSet(null, ViewModelNavigator.NavigateIntent(intent, options))
+    override fun navigate(intent: Intent, options: Bundle?, popBackStack: Boolean) {
+        _navigatorFlow.compareAndSet(null, if (popBackStack) ViewModelNavigator.PopAndNavigateIntent(intent, options) else ViewModelNavigator.NavigateIntent(intent, options))
     }
 
     override fun popBackStack(popToRoute: String?, inclusive: Boolean) {
@@ -117,6 +117,15 @@ sealed class ViewModelNavigator {
             val stackPopped = navController.popBackStack()
             navController.navigate(route)
 
+            viewModelNav.resetNavigate(this)
+            return stackPopped
+        }
+    }
+
+    class PopAndNavigateIntent(val intent: Intent, val options: Bundle? = null) : ViewModelNavigator() {
+        override fun navigate(context: Context, navController: NavController, viewModelNav: ViewModelNav): Boolean {
+            val stackPopped = navController.popBackStack()
+            context.startActivity(intent, options)
             viewModelNav.resetNavigate(this)
             return stackPopped
         }
