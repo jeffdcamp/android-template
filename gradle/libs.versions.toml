@@ -31,7 +31,7 @@ accompanist-flowlayout = { module = "com.google.accompanist:accompanist-flowlayo
 accompanist-insets = { module = "com.google.accompanist:accompanist-insets", version.ref = "accompanist" }
 
 android-gradlePluginClasspath = { module = "com.android.tools.build:gradle", version.ref = "agp" }
-android-desugar = { module = "com.android.tools:desugar_jdk_libs", version = "1.1.5" }
+android-desugar = { module = "com.android.tools:desugar_jdk_libs", version = "1.1.6" }
 
 androidx-activity = { module = "androidx.activity:activity-ktx", version = "1.4.0" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version = "1.4.0" }
@@ -105,10 +105,10 @@ google-crashlytics = { module = "com.google.firebase:firebase-crashlytics-ktx", 
 google-crashlyticsGradle = { module = "com.google.firebase:firebase-crashlytics-gradle", version = "2.5.1" }
 
 google-material = { module = "com.google.android.material:material", version = "1.5.0" } # https://github.com/material-components/material-components-android/releases
-google-servicesgradlePluginClasspath = { module = "com.google.gms:google-services", version = "4.3.10" } # NOTE 4.3.9 is NOT compatible with firebase-bom 28.3.1
+google-servicesgradlePluginClasspath = { module = "com.google.gms:google-services", version = "4.3.12" }
 
 # Firebase - https://firebase.google.com/support/release-notes/android
-google-firebase-bom = { module = "com.google.firebase:firebase-bom", version = "30.1.0" }
+google-firebase-bom = { module = "com.google.firebase:firebase-bom", version = "30.2.0" }
 google-firebase-appDistGradlePluginClasspath = { module = "com.google.firebase:firebase-appdistribution-gradle", version = "3.0.2" }
 google-firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx" }
 google-firebase-config = { module = "com.google.firebase:firebase-config-ktx" }
