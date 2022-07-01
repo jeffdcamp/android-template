@@ -39,22 +39,27 @@ fun AppScaffold(
     onNavigationClick: (() -> Unit)? = null,
     appBarColors: TopAppBarColors? = null,
     autoSizeTitle: Boolean = false,
+    hideTopAppBar: Boolean = false,
     hideNavigation: Boolean = false,
     actions: @Composable (RowScope.() -> Unit)? = null,
     navBarData: AppNavBarData? = null,
     content: @Composable (PaddingValues) -> Unit,
 ) {
-    val appTopAppBar: @Composable (() -> Unit) = {
-        AppTopAppBar(
-            title = title,
-            subtitle = subtitle,
-            colors = appBarColors,
-            autoSizeTitle = autoSizeTitle,
-            navigationIconVisible = navigationIconVisible,
-            navigationIcon = navigationIcon,
-            onNavigationClick = { onNavigationClick?.invoke() },
-            actions = actions,
-        )
+    val appTopAppBar: @Composable (() -> Unit) = if (!hideTopAppBar) {
+        {
+            AppTopAppBar(
+                title = title,
+                subtitle = subtitle,
+                colors = appBarColors,
+                autoSizeTitle = autoSizeTitle,
+                navigationIconVisible = navigationIconVisible,
+                navigationIcon = navigationIcon,
+                onNavigationClick = { onNavigationClick?.invoke() },
+                actions = actions,
+            )
+        }
+    } else {
+        {}
     }
 
     ScaffoldAndNavigation(
@@ -74,20 +79,25 @@ fun AppScaffold(
     navigationIcon: ImageVector = Icons.Filled.ArrowBack,
     onNavigationClick: (() -> Unit)? = null,
     appBarColors: TopAppBarColors? = null,
+    hideTopAppBar: Boolean = false,
     hideNavigation: Boolean = false,
     actions: @Composable (RowScope.() -> Unit)? = null,
     navBarData: AppNavBarData? = null,
     content: @Composable (PaddingValues) -> Unit,
 ) {
-    val appTopAppBar: @Composable (() -> Unit) = {
-        AppTopAppBar(
-            title = title,
-            colors = appBarColors,
-            navigationIconVisible = navigationIconVisible,
-            navigationIcon = navigationIcon,
-            onNavigationClick = { onNavigationClick?.invoke() },
-            actions = actions,
-        )
+    val appTopAppBar: @Composable (() -> Unit) = if (!hideTopAppBar) {
+        {
+            AppTopAppBar(
+                title = title,
+                colors = appBarColors,
+                navigationIconVisible = navigationIconVisible,
+                navigationIcon = navigationIcon,
+                onNavigationClick = { onNavigationClick?.invoke() },
+                actions = actions,
+            )
+        }
+    } else {
+        {}
     }
 
     ScaffoldAndNavigation(
