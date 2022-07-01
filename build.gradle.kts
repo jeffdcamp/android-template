@@ -52,12 +52,12 @@ allprojects {
         addAll(listOf("core-splashscreen"))
 
         // Compose Core (1.1.0+ to support ksp)
-        addAll(listOf("compiler", "ui", "ui-tooling", "ui-util", "activity-ktx", "material"))
+//        addAll(listOf("compiler", "ui", "ui-tooling", "ui-util", "activity-ktx", "material"))
 
         // Compose Extras
-        addAll(listOf("navigation-compose", "constraintlayout-compose", "activity-compose", "paging-compose", "activity-ktx"))
+//        addAll(listOf("navigation-compose", "constraintlayout-compose", "activity-compose", "paging-compose", "activity-ktx"))
         // Compose Test
-        addAll(listOf("ui-test-junit4", "ui-test-manifest"))
+//        addAll(listOf("ui-test-junit4", "ui-test-manifest"))
     }
 
     tasks.named<DependencyUpdatesTask>("dependencyUpdates") {

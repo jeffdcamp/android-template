@@ -66,7 +66,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.get()
+        kotlinCompilerExtensionVersion = "1.2.0"
     }
 
     lint {
@@ -200,7 +200,7 @@ dependencies {
     // Compose
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.tooling)
-    implementation(libs.compose.material.material)
+    implementation(libs.compose.material)
     implementation(libs.compose.material3.windowsize)
     implementation(libs.google.material)
 //    implementation(libs.compose.material.iconsext)
