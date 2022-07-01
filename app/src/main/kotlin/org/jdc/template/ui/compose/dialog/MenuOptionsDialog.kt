@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ListItem
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -54,7 +54,7 @@ fun MenuOptionsDialog(
                 // Options
                 options.forEach { menuOptionsDialogItem: MenuOptionsDialogItem ->
                     ListItem(
-                        text = { Text(menuOptionsDialogItem.text) },
+                        headlineText = { Text(menuOptionsDialogItem.text) },
                         modifier = Modifier
                             .clickable { menuOptionsDialogItem.onClick() }
                     )

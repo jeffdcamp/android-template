@@ -4,13 +4,15 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.ListItem
+import androidx.compose.material.icons.Icons
+import androidx.compose.material3.Icon
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Surface
@@ -27,8 +29,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import org.jdc.template.ui.compose.PreviewAll
 import org.jdc.template.ui.compose.PreviewDefault
+import org.jdc.template.ui.compose.icons.google.outlined.People
 import org.jdc.template.ui.theme.AppTheme
 import kotlin.math.roundToInt
 
@@ -37,7 +39,7 @@ object Setting {
     fun Header(text: String) {
         Text(
             text,
-            modifier = Modifier.padding(start = 72.dp, top = 16.dp, bottom = 4.dp), // start is the icon (blank) with padding (16 + 40) + setting text padding (16)
+            modifier = Modifier.padding(start = 16.dp, top = 16.dp, bottom = 4.dp), // start is the icon (blank) with padding (16 + 40) + setting text padding (16)
             style = MaterialTheme.typography.titleSmall,
             color = MaterialTheme.colorScheme.secondary
         )
@@ -54,16 +56,16 @@ object Setting {
     ) {
         ListItem(
             modifier = modifier,
-            icon = { icon?.invoke() },
-            text = {
+            leadingContent = icon,
+            headlineText = {
                 Text(text)
             },
-            secondaryText = if (secondaryText != null) {
+            supportingText = if (secondaryText != null) {
                 { Text(secondaryText) }
             } else {
                 null
             },
-            trailing = {
+            trailingContent = {
                 Switch(
                     checked = checked,
                     onCheckedChange = onClickBody
@@ -85,16 +87,16 @@ object Setting {
 
         ListItem(
             modifier = modifier,
-            icon = { icon?.invoke() },
-            text = {
+            leadingContent = icon,
+            headlineText = {
                 Text(text)
             },
-            secondaryText = if (secondaryText != null) {
+            supportingText = if (secondaryText != null) {
                 { Text(secondaryText) }
             } else {
                 null
             },
-            trailing = {
+            trailingContent = {
                 Switch(
                     checked = currentValueChecked,
                     onCheckedChange = onClickBody
@@ -113,11 +115,11 @@ object Setting {
         ListItem(
             modifier = Modifier
                 .clickable { onClickBody?.invoke() },
-            icon = { icon?.invoke() },
-            text = {
+            leadingContent = icon,
+            headlineText = {
                 Text(text)
             },
-            secondaryText = if (secondaryText != null) {
+            supportingText = if (secondaryText != null) {
                 { Text(secondaryText) }
             } else {
                 null
@@ -141,6 +143,7 @@ object Setting {
             onClickBody = onClickBody
         )
     }
+
     @Composable
     fun Slider(
         text: String,
@@ -159,7 +162,7 @@ object Setting {
                 Box(
                     Modifier
                         .sizeIn(
-                            minWidth = 64.dp,
+                            minWidth = 56.dp,
                             minHeight = 64.dp
                         )
                         .padding(
@@ -170,16 +173,7 @@ object Setting {
                     contentAlignment = Alignment.TopStart
                 ) { icon() }
             } else {
-                Box(
-                    Modifier
-                        .width(64.dp)
-                        .height(64.dp)
-                        .padding(
-                            start = 16.dp,
-                            top = 16.dp,
-                            bottom = 16.dp
-                        ),
-                )
+                Spacer(modifier = Modifier.width(16.dp))
             }
 
             Column(
@@ -189,7 +183,7 @@ object Setting {
                 Text(
                     text = text,
                     Modifier
-                        .padding(start = 8.dp, end = 16.dp, top = 8.dp)
+                        .padding(end = 16.dp, top = 8.dp)
                 )
                 Row {
                     Slider(
@@ -226,6 +220,7 @@ private fun SettingsPreview() {
     val sortByLastNameFlow = MutableStateFlow(true)
     val currentLastInstalledVersionCodeFlow = MutableStateFlow("1234")
     val playbackSpeedFlow = MutableStateFlow(1.0f)
+    val testIcon: @Composable () -> Unit = { Icon(Icons.Outlined.People, null) }
 
     AppTheme {
         Surface {
