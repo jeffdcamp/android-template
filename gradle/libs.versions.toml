@@ -1,7 +1,7 @@
 [versions]
 agp = "7.2.1"
 kotlin = "1.7.0"
-coroutines = "1.6.3"
+coroutines = "1.6.4"
 
 accompanist = "0.24.8-beta"
 androidxhilt = "1.0.0"
@@ -24,7 +24,7 @@ work = "2.7.1"
 
 [plugins]
 ksp = { id = "com.google.devtools.ksp", version = "1.7.0-1.0.6" }
-detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.20.0" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.21.0" }
 playPublisher = { id = "com.github.triplet.play", version = "3.7.0" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
@@ -109,7 +109,7 @@ google-material = { module = "com.google.android.material:material", version = "
 google-servicesgradlePluginClasspath = { module = "com.google.gms:google-services", version = "4.3.13" }
 
 # Firebase - https://firebase.google.com/support/release-notes/android
-google-firebase-bom = { module = "com.google.firebase:firebase-bom", version = "30.2.0" }
+google-firebase-bom = { module = "com.google.firebase:firebase-bom", version = "30.3.0" }
 google-firebase-appDistGradlePluginClasspath = { module = "com.google.firebase:firebase-appdistribution-gradle", version = "3.0.2" }
 google-firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx" }
 google-firebase-config = { module = "com.google.firebase:firebase-config-ktx" }
