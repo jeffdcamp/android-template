@@ -12,7 +12,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.runtime.structuralEqualityPolicy
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalConfiguration
 
 @Suppress("LongParameterList")
 class AppColors(
@@ -180,11 +179,6 @@ object AppTheme {
 //        @ReadOnlyComposable
 //        get() = MaterialTheme.shapes
 
-    // Dimensions
-    val isTablet: Boolean
-        @Composable get() {
-            return LocalConfiguration.current.smallestScreenWidthDp >= 600
-        }
 
     // other customizations
 //    val switchColors: SwitchColors
