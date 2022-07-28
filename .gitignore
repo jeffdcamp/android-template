@@ -31,3 +31,6 @@ bin/
 gen/
 gen-external-apklibs/
 /commit-changelog.txt
+
+#java
+*.hprof
