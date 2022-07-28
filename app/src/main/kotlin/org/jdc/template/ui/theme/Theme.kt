@@ -42,6 +42,8 @@ class AppColors(
     errorContainer: Color,
     onErrorContainer: Color,
     outline: Color,
+    outlineVariant: Color,
+    scrim: Color,
 ) {
     var primary by mutableStateOf(primary, structuralEqualityPolicy())
         internal set
@@ -97,6 +99,10 @@ class AppColors(
         internal set
     var outline by mutableStateOf(outline, structuralEqualityPolicy())
         internal set
+    var outlineVariant by mutableStateOf(outlineVariant, structuralEqualityPolicy())
+        internal set
+    var scrim by mutableStateOf(scrim, structuralEqualityPolicy())
+        internal set
 
     fun toMaterialColors(): ColorScheme {
         return ColorScheme(
@@ -126,7 +132,9 @@ class AppColors(
             onError = onError,
             errorContainer = errorContainer,
             onErrorContainer = onErrorContainer,
-            outline = outline
+            outline = outline,
+            outlineVariant = outlineVariant,
+            scrim = scrim
         )
     }
 
@@ -158,6 +166,8 @@ class AppColors(
         errorContainer = colors.errorContainer
         onErrorContainer = colors.onErrorContainer
         outline = colors.outline
+        outlineVariant = colors.outlineVariant
+        scrim = colors.scrim
     }
 }
 
@@ -236,7 +246,9 @@ fun lightColors(): AppColors {
         onError = AppPalette.md_theme_light_onError,
         errorContainer = AppPalette.md_theme_light_errorContainer,
         onErrorContainer = AppPalette.md_theme_light_onErrorContainer,
-        outline = AppPalette.md_theme_light_outline
+        outline = AppPalette.md_theme_light_outline,
+        outlineVariant = AppPalette.md_theme_light_outlineVariant,
+        scrim = AppPalette.md_theme_light_scrim,
     )
 }
 
@@ -268,6 +280,8 @@ fun darkColors(): AppColors {
         onError = AppPalette.md_theme_dark_onError,
         errorContainer = AppPalette.md_theme_dark_errorContainer,
         onErrorContainer = AppPalette.md_theme_dark_onErrorContainer,
-        outline = AppPalette.md_theme_dark_outline
+        outline = AppPalette.md_theme_dark_outline,
+        outlineVariant = AppPalette.md_theme_dark_outlineVariant,
+        scrim = AppPalette.md_theme_dark_scrim,
     )
 }

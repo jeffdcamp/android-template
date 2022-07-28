@@ -67,7 +67,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.2.0"
+        kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get().toString()
     }
 
     lint {
@@ -207,8 +207,6 @@ dependencies {
 
     // UI
     implementation(libs.androidx.window)
-//    implementation(libs.coil)
-//    implementation(libs.coil.compose)
 
     // Play Service
     implementation(libs.google.play.core)
@@ -240,6 +238,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.savedstate)
 
     // Navigation
+    implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.hilt.navigation.compose)
 
     // WorkManager

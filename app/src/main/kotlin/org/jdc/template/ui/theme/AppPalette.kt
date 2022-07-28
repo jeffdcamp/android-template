@@ -26,10 +26,12 @@ object AppPalette {
     val md_theme_light_surfaceVariant = Color(0xFFE7E0EC)
     val md_theme_light_onSurfaceVariant = Color(0xFF49454F)
     val md_theme_light_outline = Color(0xFF79747E)
+    val md_theme_light_outlineVariant = Color(0xFF79747E)
     val md_theme_light_inverseOnSurface = Color(0xFFeff1f1)
     val md_theme_light_inverseSurface = Color(0xFF2d3132)
     val md_theme_light_inversePrimary = Color(0xFFffb3aa)
     val md_theme_light_shadow = Color(0xFF000000)
+    val md_theme_light_scrim = Color(0xFF000000)
 
     val md_theme_dark_primary = Color(0xFFffb3aa)
     val md_theme_dark_onPrimary = Color(0xFF680006)
@@ -54,12 +56,12 @@ object AppPalette {
     val md_theme_dark_surfaceVariant = Color(0xFF49454F)
     val md_theme_dark_onSurfaceVariant = Color(0xFFCAC4D0)
     val md_theme_dark_outline = Color(0xFF938F99)
+    val md_theme_dark_outlineVariant = Color(0xFF938F99)
     val md_theme_dark_inverseOnSurface = Color(0xFF191c1d)
     val md_theme_dark_inverseSurface = Color(0xFFe0e3e3)
     val md_theme_dark_inversePrimary = Color(0xFFba1a20)
     val md_theme_dark_shadow = Color(0xFF000000)
-
-
+    val md_theme_dark_scrim = Color(0xFF000000)
 
     val seed = Color(0xFF6750A4)
     val error = Color(0xFFB3261E)

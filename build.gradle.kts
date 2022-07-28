@@ -51,13 +51,9 @@ allprojects {
     val ignoreArtifacts = buildList {
         addAll(listOf("core-splashscreen"))
 
-        // Compose Core (1.1.0+ to support ksp)
-//        addAll(listOf("compiler", "ui", "ui-tooling", "ui-util", "activity-ktx", "material"))
-
-        // Compose Extras
-//        addAll(listOf("navigation-compose", "constraintlayout-compose", "activity-compose", "paging-compose", "activity-ktx"))
-        // Compose Test
-//        addAll(listOf("ui-test-junit4", "ui-test-manifest"))
+        // Compose
+        addAll(listOf("material3"))
+        addAll(listOf("window")) // material3 uses latest 1.1.0-alpha
     }
 
     tasks.named<DependencyUpdatesTask>("dependencyUpdates") {
