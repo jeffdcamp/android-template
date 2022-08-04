@@ -17,7 +17,6 @@ import org.jdc.template.model.db.main.MainDatabase
 import org.jdc.template.model.db.main.MainDatabaseWrapper
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.util.log.JavaTree
-import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import timber.log.Timber

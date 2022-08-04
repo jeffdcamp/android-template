@@ -1,18 +1,15 @@
 package org.jdc.template.analytics
 
+import android.app.Activity
+import android.content.Intent
+
 interface Analytics {
-
-    /**
-     * @param eventId Name of event (Built in Firebase FirebaseAnalytics.Event.*)
-     * @param parameterMap Attributes/Parameters for event.  Optional. (Built in keys Firebase FirebaseAnalytics.Param.*)
-     */
-    fun logEvent(eventId: String, parameterMap: Map<String, String>? = null) {}
-
-    /**
-     * @param screenTitle Name of Screen
-     * @param parameterMap Attributes/Parameters for screen event.  Optional. (Built in keys Firebase FirebaseAnalytics.Param.*)
-     */
-    fun logScreen(screenTitle: String, parameterMap: Map<String, String>? = null) {}
+    fun upload()
+    fun setDimensions(dimensions: List<String>)
+    fun logEvent(eventId: String, attributes: Map<String, String> = emptyMap(), scope: AppAnalytics.ScopeLevel = AppAnalytics.ScopeLevel.DEV)
+    fun logScreen(screen: String)
+    fun enableInAppNotifications(allow: Boolean)
+    fun onNewIntent(activity: Activity, intent: Intent)
 
     companion object {
         // Events
