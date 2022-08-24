@@ -14,6 +14,7 @@ buildscript {
         classpath(libs.google.hilt.gradlePluginClasspath)
         classpath(libs.google.firebase.crashlyticsGradlePluginClasspath)
         // classpath(libs.google.firebase.perfGradlePluginClasspath)
+        classpath(libs.playPublisherGradlePluginClasspath) // place BEFORE app distribution (if app distribution is used)
         classpath(libs.google.firebase.appDistGradlePluginClasspath)
         classpath(libs.google.servicesgradlePluginClasspath)
         classpath(libs.gradleVersions.gradlePluginClasspath)
@@ -22,22 +23,8 @@ buildscript {
     }
 }
 
-plugins {
-    // Work-around to fix conflict with "Firebase AppDistribution" and "Triple-T" (both depend on different 'com.google.http-client')
-    // - Be sure to match this version to Triple-T version "android-publisher" in https://github.com/Triple-T/gradle-play-publisher/blob/master/settings.gradle.kts
-    // - Tiple-T issue https://github.com/Triple-T/gradle-play-publisher/issues/901
-    id("com.github.triplet.play") version "3.7.0" apply false
-}
-
 @OptIn(ExperimentalStdlibApi::class) // to use buildList (remove with Kotlin 1.5?)
 allprojects {
-    repositories {
-        mavenLocal()
-        google()
-        mavenCentral()
-//        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
-    }
-
     // Gradle Dependency Reports
     // ./gradlew -q app:dependencies --configuration debugCompileClasspath > deps.txt
     // ./gradlew app:dependencies --scan.

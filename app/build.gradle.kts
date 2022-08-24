@@ -13,7 +13,7 @@ plugins {
     id("com.spotify.ruler")
     alias(libs.plugins.ksp)
     alias(libs.plugins.detekt)
-    id("com.github.triplet.play")
+    id("com.github.triplet.play") // alias(libs.plugins.playPublisher) (3.7.0 still conflicts with appdistribution https://github.com/Triple-T/gradle-play-publisher/issues/901)
     alias(libs.plugins.kotlin.serialization)
 }
 
