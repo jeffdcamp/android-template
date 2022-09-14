@@ -3,10 +3,12 @@ package org.jdc.template.ui.compose.appbar
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.material.icons.Icons
@@ -64,6 +66,7 @@ fun AppBarIcon(menuItem: AppBarMenuItem.Icon) {
 fun AppBarText(text: String, action: () -> Unit) {
     TextButton(
         onClick = action,
+        colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colors.onPrimary)
     ) {
         Text(text)
     }
