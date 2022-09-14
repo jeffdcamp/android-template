@@ -67,7 +67,7 @@ fun MessageDialog(
         title = dialogUiState.title,
         text = dialogUiState.text,
         confirmButtonText = dialogUiState.confirmButtonText ?: stringResource(android.R.string.ok),
-        onConfirmButtonClicked = { dialogUiState.onConfirm(Unit) },
+        onConfirmButtonClicked = if (dialogUiState.onConfirm != null) { { dialogUiState.onConfirm.invoke(Unit) } } else null,
         dismissButtonText = dialogUiState.dismissButtonText ?: stringResource(android.R.string.cancel),
         onDismissButtonClicked = if (dialogUiState.onDismiss != null) { { dialogUiState.onDismiss.invoke() } } else null
     )
@@ -78,7 +78,7 @@ data class MessageDialogUiState(
     val text: String? = null,
     val confirmButtonText: String? = null,
     val dismissButtonText: String? = null,
-    override val onConfirm: (Unit) -> Unit = {},
+    override val onConfirm: ((Unit) -> Unit)? = {},
     override val onDismiss: (() -> Unit)? = null,
     override val onDismissRequest: () -> Unit = {},
 ) : DialogUiState<Unit>

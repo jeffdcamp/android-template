@@ -45,17 +45,22 @@ fun ViewModel.showMessageDialog(
     text: String? = null,
     confirmButtonText: String? = null,
     dismissButtonText: String? = null,
-    onConfirm: () -> Unit = {},
-    onDismiss: (() -> Unit)? = null
+    onConfirm: (() -> Unit)? = {},
+    onDismiss: (() -> Unit)? = null,
+    onDismissRequest: (() -> Unit)? = { dismissDialog(dialogUiStateFlow) }
 ) {
     dialogUiStateFlow.value = MessageDialogUiState(
         title = title,
         text = text,
         confirmButtonText = confirmButtonText,
         dismissButtonText = dismissButtonText,
-        onConfirm = {
-            onConfirm()
-            dismissDialog(dialogUiStateFlow)
+        onConfirm = if (onConfirm != null) {
+            {
+                onConfirm()
+                dismissDialog(dialogUiStateFlow)
+            }
+        } else {
+            null
         },
         onDismiss = if (onDismiss != null) {
             {
@@ -66,7 +71,7 @@ fun ViewModel.showMessageDialog(
             null
         },
         onDismissRequest = {
-            dismissDialog(dialogUiStateFlow)
+            onDismissRequest?.invoke()
         }
     )
 }
