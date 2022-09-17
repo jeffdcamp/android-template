@@ -11,6 +11,7 @@ import org.jdc.template.R
 import org.jdc.template.analytics.Analytics
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.ui.compose.dialog.DialogUiState
+import org.jdc.template.ui.compose.dialog.dismissDialog
 import org.jdc.template.ui.compose.dialog.showMessageDialog
 import org.jdc.template.ui.navigation.ViewModelNav
 import org.jdc.template.ui.navigation.ViewModelNavImpl
@@ -46,8 +47,7 @@ class IndividualViewModel
     }
 
     private fun onDeleteClicked() {
-        showMessageDialog(dialogUiStateFlow, text = application.getString(R.string.delete_individual_confirm), onConfirm = null, onDismiss = null, onDismissRequest = null)
-//        showMessageDialog(dialogUiStateFlow, text = application.getString(R.string.delete_individual_confirm), onConfirm = { deleteIndividual() }, onDismiss = { dismissDialog(dialogUiStateFlow) })
+        showMessageDialog(dialogUiStateFlow, text = application.getString(R.string.delete_individual_confirm), onConfirm = { deleteIndividual() }, onDismiss = { dismissDialog(dialogUiStateFlow) })
     }
 
     private fun deleteIndividual() = viewModelScope.launch {
