@@ -254,7 +254,6 @@ dependencies {
 
     // Custom SQLite database
     // (for use of SqliteOrgSQLiteOpenHelperFactory)
-    // implementation(libs.dbtools.room)
     //implementation(libs.dbtools.roomSqlite)
 
     // Network

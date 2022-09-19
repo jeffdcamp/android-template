@@ -25,7 +25,7 @@ import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
-class AboutViewModel
+class  AboutViewModel
 @Inject constructor(
     private val application: Application,
     private val individualRepository: IndividualRepository,
