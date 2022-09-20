@@ -1,6 +1,7 @@
 package org.jdc.template.ux.settings
 
 import android.app.Application
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -48,7 +49,7 @@ class SettingsViewModel
 
         dialogUiStateFlow.value = RadioDialogUiState(
             items = RadioDialogDataItems(radioItems, currentTheme),
-            title = application.getText(R.string.theme).toString(),
+            title = { stringResource(R.string.theme) },
             onConfirm = { theme ->
                 settingsRepository.setThemeAsync(theme)
                 dismissDialog(dialogUiStateFlow)
@@ -61,8 +62,8 @@ class SettingsViewModel
     private fun onLastInstalledVersionCodeClicked() = viewModelScope.launch {
         val currentValue = settingsRepository.getLastInstalledVersionCode()
         dialogUiStateFlow.value = InputDialogUiState(
-            title = "Version Code",
-            initialTextFieldText = currentValue.toString(),
+            title = { "Version Code" },
+            initialTextFieldText = { currentValue.toString() },
             onConfirm = { setLastInstalledVersionCode(it) },
             onDismiss = { dismissDialog(dialogUiStateFlow) },
             onDismissRequest = { dismissDialog(dialogUiStateFlow) }

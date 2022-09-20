@@ -1,6 +1,6 @@
 package org.jdc.template.ux.individual
 
-import android.app.Application
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,7 +23,6 @@ import javax.inject.Inject
 @HiltViewModel
 class IndividualViewModel
 @Inject constructor(
-    private val application: Application,
     private val analytics: Analytics,
     private val individualRepository: IndividualRepository,
     savedStateHandle: SavedStateHandle
@@ -47,7 +46,7 @@ class IndividualViewModel
     }
 
     private fun onDeleteClicked() {
-        showMessageDialog(dialogUiStateFlow, text = application.getString(R.string.delete_individual_confirm), onConfirm = { deleteIndividual() }, onDismiss = { dismissDialog(dialogUiStateFlow) })
+        showMessageDialog(dialogUiStateFlow, text = { stringResource(R.string.delete_individual_confirm) }, onConfirm = { deleteIndividual() }, onDismiss = { dismissDialog(dialogUiStateFlow) })
     }
 
     private fun deleteIndividual() = viewModelScope.launch {

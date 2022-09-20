@@ -1,6 +1,5 @@
 package org.jdc.template.ui.compose.dialog
 
-import android.content.res.Configuration
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -15,15 +14,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import org.jdc.template.ui.compose.PreviewDefault
+import org.jdc.template.ui.theme.AppTheme
 
 @Composable
 fun MenuOptionsDialog(
-    onDismissRequest: (() -> Unit) = {},
-    title: String? = null,
+    onDismissRequest: (() -> Unit),
+    title: @Composable () -> String? = { null },
     options: List<MenuOptionsDialogItem>,
     properties: DialogProperties = DialogProperties(),
     shape: Shape = DialogDefaults.DefaultCorner,
@@ -41,9 +41,10 @@ fun MenuOptionsDialog(
         ) {
             Column {
                 // Title
-                if (title != null) {
+                val titleString = title()
+                if (titleString != null) {
                     Text(
-                        text = title,
+                        text = titleString,
                         style = MaterialTheme.typography.headlineSmall,
                         modifier = Modifier.padding(top = 16.dp, start = 16.dp)
                     )
@@ -54,7 +55,7 @@ fun MenuOptionsDialog(
                 // Options
                 options.forEach { menuOptionsDialogItem: MenuOptionsDialogItem ->
                     ListItem(
-                        headlineText = { Text(menuOptionsDialogItem.text) },
+                        headlineText = { Text(menuOptionsDialogItem.text()) },
                         modifier = Modifier
                             .clickable { menuOptionsDialogItem.onClick() }
                     )
@@ -64,37 +65,39 @@ fun MenuOptionsDialog(
     }
 }
 
-data class MenuOptionsDialogItem(val text: String, val onClick: () -> Unit)
+data class MenuOptionsDialogItem(val text: @Composable () -> String, val onClick: () -> Unit)
 
 @Composable
 fun MenuOptionsDialog(
     dialogUiState: MenuOptionsDialogUiState
-){
+) {
     MenuOptionsDialog(
+        onDismissRequest = dialogUiState.onDismissRequest,
         title = dialogUiState.title,
-        options = dialogUiState.options,
-        onDismissRequest = dialogUiState.onDismissRequest
+        options = dialogUiState.options
     )
 }
 
 data class MenuOptionsDialogUiState(
-    val title: String? = null,
+    val title: @Composable () -> String? = { null },
     val options: List<MenuOptionsDialogItem>,
     override val onConfirm: ((String) -> Unit)? = null, // not used in OptionsDialog
     override val onDismiss: (() -> Unit)? = null,  // not used in OptionsDialog
     override val onDismissRequest: () -> Unit = {}
 ) : DialogUiState<String>
 
-@Preview(group = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
-@Preview(group = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
+@PreviewDefault
 @Composable
 fun PreviewMenuOptionsDialog() {
-    MenuOptionsDialog(
-        title = "Options",
-        options = listOf(
-            MenuOptionsDialogItem("Option 1") {},
-            MenuOptionsDialogItem("Option 2") {},
-            MenuOptionsDialogItem("Option 3") {},
+    AppTheme {
+        MenuOptionsDialog(
+            onDismissRequest = {},
+            title = { "Options" },
+            options = listOf(
+                MenuOptionsDialogItem({ "Option 1" }) {},
+                MenuOptionsDialogItem({ "Option 2" }) {},
+                MenuOptionsDialogItem({ "Option 3" }) {},
+            )
         )
-    )
+    }
 }
