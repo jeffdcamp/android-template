@@ -45,7 +45,7 @@ class SettingsViewModel
     private fun onThemeSettingClicked() = viewModelScope.launch {
         val currentTheme = settingsRepository.themeFlow.first()
 
-        val radioItems = DisplayThemeType.values().map { RadioDialogDataItem(it, it.getString(application)) }
+        val radioItems = DisplayThemeType.values().map { RadioDialogDataItem(it) { it.getString(application) } }
 
         dialogUiStateFlow.value = RadioDialogUiState(
             items = RadioDialogDataItems(radioItems, currentTheme),

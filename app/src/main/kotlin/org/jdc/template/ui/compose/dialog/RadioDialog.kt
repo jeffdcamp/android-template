@@ -122,7 +122,7 @@ private fun <T> RadioDialogItems(radioDialogDataItems: RadioDialogDataItems<T>, 
                     onClick = null // null recommended for accessibility with screen readers
                 )
                 Text(
-                    text = radioDialogDataItem.text,
+                    text = radioDialogDataItem.text(),
                     style = MaterialTheme.typography.bodyMedium.merge(),
                     modifier = Modifier.padding(start = 16.dp)
                 )
@@ -159,7 +159,7 @@ data class RadioDialogUiState<T>(
 
 data class RadioDialogDataItems<T>(val items: List<RadioDialogDataItem<T>>, val selectedItem: T)
 
-data class RadioDialogDataItem<T>(val item: T, val text: String)
+data class RadioDialogDataItem<T>(val item: T, val text: @Composable () -> String)
 
 @Preview(group = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
 @Preview(group = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
@@ -167,9 +167,9 @@ data class RadioDialogDataItem<T>(val item: T, val text: String)
 private fun TestRadioDialog() {
     val radioItems: RadioDialogDataItems<String> = RadioDialogDataItems(
         listOf(
-            RadioDialogDataItem("id1", "A"),
-            RadioDialogDataItem("id2", "B"),
-            RadioDialogDataItem("id3", "C"),
+            RadioDialogDataItem("id1") { "A" },
+            RadioDialogDataItem("id2") { "B" },
+            RadioDialogDataItem("id3") { "C" },
         ),
         "id2"
     )
