@@ -1,6 +1,5 @@
 package org.jdc.template.ui.compose.dialog
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,10 +21,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import org.jdc.template.ui.compose.PreviewDefault
 import org.jdc.template.ui.theme.AppTheme
 
 @Composable
@@ -33,11 +32,11 @@ fun <T> RadioDialog(
     items: RadioDialogDataItems<T>?,
     onItemSelected: (T) -> Unit,
     onDismissRequest: (() -> Unit),
-    title: @Composable () -> String? = { null },
+    title: String? = null,
     onConfirmButtonClicked: (() -> Unit)? = null,
     onDismissButtonClicked: (() -> Unit)? = null,
-    confirmButtonText: @Composable () -> String? = { stringResource(android.R.string.ok) },
-    dismissButtonText: @Composable () -> String? = { stringResource(android.R.string.cancel) },
+    confirmButtonText: String? = stringResource(android.R.string.ok),
+    dismissButtonText: String? = stringResource(android.R.string.cancel),
     shape: Shape = DialogDefaults.DefaultCorner,
     backgroundColor: Color = MaterialTheme.colorScheme.surface,
     properties: DialogProperties = DialogProperties()
@@ -54,10 +53,9 @@ fun <T> RadioDialog(
                 modifier = Modifier.padding(DialogDefaults.DialogPadding)
             ) {
                 // Title
-                val titleString = title()
-                if (titleString != null) {
+                if (title != null) {
                     Text(
-                        text = titleString,
+                        text = title,
                         style = MaterialTheme.typography.headlineSmall
                     )
                 }
@@ -76,24 +74,22 @@ fun <T> RadioDialog(
                         .fillMaxWidth()
                         .padding(top = 24.dp)
                 ) {
-                    val dismissButtonTextString = dismissButtonText()
-                    if (onDismissButtonClicked != null && dismissButtonTextString != null) {
+                    if (onDismissButtonClicked != null && dismissButtonText != null) {
                         TextButton(
                             onClick = {
                                 onDismissButtonClicked()
                             }
                         ) {
-                            Text(dismissButtonTextString)
+                            Text(dismissButtonText)
                         }
                     }
-                    val confirmButtonTextString = confirmButtonText()
-                    if (onConfirmButtonClicked != null && confirmButtonTextString != null) {
+                    if (onConfirmButtonClicked != null && confirmButtonText != null) {
                         TextButton(
                             onClick = {
                                 onConfirmButtonClicked()
                             }
                         ) {
-                            Text(confirmButtonTextString)
+                            Text(confirmButtonText)
                         }
                     }
                 }
@@ -138,12 +134,12 @@ fun <T> RadioDialog(
     RadioDialog(
         items = dialogUiState.items,
         onItemSelected = dialogUiState.onConfirm,
-        title = dialogUiState.title,
+        title = dialogUiState.title(),
         onConfirmButtonClicked = null,
         onDismissRequest = dialogUiState.onDismissRequest,
         onDismissButtonClicked = dialogUiState.onDismiss,
-        confirmButtonText = dialogUiState.confirmButtonText,
-        dismissButtonText = dialogUiState.dismissButtonText,
+        confirmButtonText = dialogUiState.confirmButtonText(),
+        dismissButtonText = dialogUiState.dismissButtonText(),
     )
 }
 
@@ -161,8 +157,7 @@ data class RadioDialogDataItems<T>(val items: List<RadioDialogDataItem<T>>, val 
 
 data class RadioDialogDataItem<T>(val item: T, val text: @Composable () -> String)
 
-@Preview(group = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
-@Preview(group = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
+@PreviewDefault
 @Composable
 private fun TestRadioDialog() {
     val radioItems: RadioDialogDataItems<String> = RadioDialogDataItems(
@@ -177,7 +172,7 @@ private fun TestRadioDialog() {
     AppTheme {
         RadioDialog(
             onDismissRequest = {},
-            title = { "Title" },
+            title = "Title",
             items = radioItems,
             onItemSelected = { },
             onDismissButtonClicked = { }

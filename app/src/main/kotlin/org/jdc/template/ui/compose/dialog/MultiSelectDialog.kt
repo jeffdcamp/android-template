@@ -36,10 +36,10 @@ import org.jdc.template.ui.theme.AppTheme
 fun <T> MultiSelectDialog(
     allItems: List<MultiSelectDataItem<T>>,
     selectedItems: List<T>,
-    title: @Composable () -> String? = { null },
-    confirmButtonText: @Composable () -> String? = { stringResource(android.R.string.ok) },
+    title: String? = null,
+    confirmButtonText: String? = stringResource(android.R.string.ok),
     onConfirmButtonClicked: ((List<T>) -> Unit)? = null,
-    dismissButtonText: @Composable () -> String? = { stringResource(android.R.string.cancel) },
+    dismissButtonText: String? = stringResource(android.R.string.cancel),
     onDismissButtonClicked: (() -> Unit)? = null,
     onDismissRequest: (() -> Unit) = {},
     shape: Shape = DialogDefaults.DefaultCorner,
@@ -60,10 +60,9 @@ fun <T> MultiSelectDialog(
                 modifier = Modifier.padding(DialogDefaults.DialogPadding)
             ) {
                 // Title
-                val titleText = title()
-                if (titleText != null) {
+                if (title != null) {
                     Text(
-                        text = titleText,
+                        text = title,
                         style = MaterialTheme.typography.headlineSmall
                     )
                 }
@@ -95,24 +94,22 @@ fun <T> MultiSelectDialog(
                         .fillMaxWidth()
                         .padding(top = 24.dp)
                 ) {
-                    val dismissButtonTextString = dismissButtonText()
-                    if (onDismissButtonClicked != null && dismissButtonTextString != null) {
+                    if (onDismissButtonClicked != null && dismissButtonText != null) {
                         TextButton(
                             onClick = {
                                 onDismissButtonClicked()
                             }
                         ) {
-                            Text(dismissButtonTextString)
+                            Text(dismissButtonText)
                         }
                     }
-                    val confirmButtonTextString = confirmButtonText()
-                    if (onConfirmButtonClicked != null && confirmButtonTextString != null) {
+                    if (onConfirmButtonClicked != null && confirmButtonText != null) {
                         TextButton(
                             onClick = {
                                 onConfirmButtonClicked(savedSelectedItems)
                             }
                         ) {
-                            Text(confirmButtonTextString)
+                            Text(confirmButtonText)
                         }
                     }
                 }
@@ -158,14 +155,14 @@ fun <T> MultiSelectDialog(
     MultiSelectDialog(
         allItems = dialogUiState.allItems,
         selectedItems = dialogUiState.selectedItems,
-        title = dialogUiState.title,
+        title = dialogUiState.title(),
         onConfirmButtonClicked = { dialogUiState.onConfirm?.invoke(it) },
         onDismissRequest = { dialogUiState.onDismissRequest() },
         onDismissButtonClicked = if (dialogUiState.onDismiss != null) {
             { dialogUiState.onDismiss.invoke() }
         } else null,
-        confirmButtonText = dialogUiState.confirmButtonText,
-        dismissButtonText = dialogUiState.dismissButtonText,
+        confirmButtonText = dialogUiState.confirmButtonText(),
+        dismissButtonText = dialogUiState.dismissButtonText(),
     )
 }
 
@@ -195,7 +192,7 @@ private fun PreviewMultiSelectDialog() {
 
     AppTheme {
         MultiSelectDialog(
-            title = { "Title" },
+            title = "Title",
             allItems = items,
             selectedItems = selectedItems,
             onConfirmButtonClicked = { },

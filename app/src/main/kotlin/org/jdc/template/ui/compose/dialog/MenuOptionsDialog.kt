@@ -23,7 +23,7 @@ import org.jdc.template.ui.theme.AppTheme
 @Composable
 fun MenuOptionsDialog(
     onDismissRequest: (() -> Unit),
-    title: @Composable () -> String? = { null },
+    title: String? = null,
     options: List<MenuOptionsDialogItem>,
     properties: DialogProperties = DialogProperties(),
     shape: Shape = DialogDefaults.DefaultCorner,
@@ -41,10 +41,9 @@ fun MenuOptionsDialog(
         ) {
             Column {
                 // Title
-                val titleString = title()
-                if (titleString != null) {
+                if (title != null) {
                     Text(
-                        text = titleString,
+                        text = title,
                         style = MaterialTheme.typography.headlineSmall,
                         modifier = Modifier.padding(top = 16.dp, start = 16.dp)
                     )
@@ -73,7 +72,7 @@ fun MenuOptionsDialog(
 ) {
     MenuOptionsDialog(
         onDismissRequest = dialogUiState.onDismissRequest,
-        title = dialogUiState.title,
+        title = dialogUiState.title(),
         options = dialogUiState.options
     )
 }
@@ -92,7 +91,7 @@ fun PreviewMenuOptionsDialog() {
     AppTheme {
         MenuOptionsDialog(
             onDismissRequest = {},
-            title = { "Options" },
+            title = "Options",
             options = listOf(
                 MenuOptionsDialogItem({ "Option 1" }) {},
                 MenuOptionsDialogItem({ "Option 2" }) {},

@@ -40,12 +40,12 @@ import org.jdc.template.ui.theme.AppTheme
 @Composable
 fun InputDialog(
     onDismissRequest: (() -> Unit),
-    title: @Composable () -> String? = { null },
-    textFieldLabel: @Composable () -> String? = { null },
-    initialTextFieldText: @Composable () -> String? = { null },
-    confirmButtonText: @Composable () -> String? = { stringResource(android.R.string.ok) },
+    title: String? = null,
+    textFieldLabel: String? = null,
+    initialTextFieldText: String? = null,
+    confirmButtonText: String? = stringResource(android.R.string.ok),
     onConfirmButtonClicked: ((String) -> Unit)? = null,
-    dismissButtonText: @Composable () -> String? = { stringResource(android.R.string.cancel) },
+    dismissButtonText: String? = stringResource(android.R.string.cancel),
     onDismissButtonClicked: (() -> Unit)? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     singleLine: Boolean = true,
@@ -56,8 +56,7 @@ fun InputDialog(
     backgroundColor: Color = MaterialTheme.colorScheme.surface,
     textButtonColor: Color = MaterialTheme.colorScheme.primary, // This is specifically for handling theming in this app. May not want in Commons.
 ) {
-    val initialTextFieldTextString = initialTextFieldText()
-    var textFieldValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue(initialTextFieldTextString ?: "", TextRange(initialTextFieldTextString?.length ?: 0))) }
+    var textFieldValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue(initialTextFieldText ?: "", TextRange(initialTextFieldText?.length ?: 0))) }
 
     val focusRequester = remember { FocusRequester() }
 
@@ -73,10 +72,9 @@ fun InputDialog(
                 modifier = Modifier.padding(DialogDefaults.DialogPadding)
             ) {
                 // Title
-                val titleString = title()
-                if (titleString != null) {
+                if (title != null) {
                     Text(
-                        text = titleString,
+                        text = title,
                         style = MaterialTheme.typography.headlineSmall
                     )
                 }
@@ -84,7 +82,6 @@ fun InputDialog(
                 val keyboardController = LocalSoftwareKeyboardController.current
 
                 // Text Field
-                val textFieldLabelString = textFieldLabel()
                 DayNightTextField(
                     value = textFieldValue,
                     onValueChange = { newTextFieldValue ->
@@ -96,8 +93,8 @@ fun InputDialog(
 
                         textFieldValue = newTextFieldValue.copy(newText)
                     },
-                    label = if (textFieldLabelString != null) {
-                        { Text(textFieldLabelString) }
+                    label = if (textFieldLabel != null) {
+                        { Text(textFieldLabel) }
                     } else null,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -120,25 +117,23 @@ fun InputDialog(
                         .fillMaxWidth()
                         .padding(top = 24.dp)
                 ) {
-                    val dismissButtonTextString = dismissButtonText()
-                    if (onDismissButtonClicked != null && dismissButtonTextString != null) {
+                    if (onDismissButtonClicked != null && dismissButtonText != null) {
                         TextButton(
                             onClick = {
                                 onDismissButtonClicked()
                             }
                         ) {
-                            Text(dismissButtonTextString, color = textButtonColor)
+                            Text(dismissButtonText, color = textButtonColor)
                         }
                     }
-                    val confirmButtonTextString = confirmButtonText()
-                    if (onConfirmButtonClicked != null && confirmButtonTextString != null) {
+                    if (onConfirmButtonClicked != null && confirmButtonText != null) {
                         TextButton(
                             enabled = minLength == -1 || textFieldValue.text.length >= minLength,
                             onClick = {
                                 onConfirmButtonClicked(textFieldValue.text)
                             }
                         ) {
-                            Text(confirmButtonTextString, color = textButtonColor)
+                            Text(confirmButtonText, color = textButtonColor)
                         }
                     }
                 }
@@ -153,12 +148,12 @@ fun InputDialog(
 ) {
     InputDialog(
         onDismissRequest = dialogUiState.onDismissRequest,
-        title = dialogUiState.title,
-        textFieldLabel = dialogUiState.textFieldLabel,
-        initialTextFieldText = dialogUiState.initialTextFieldText,
-        confirmButtonText = dialogUiState.confirmButtonText,
+        title = dialogUiState.title(),
+        textFieldLabel = dialogUiState.textFieldLabel(),
+        initialTextFieldText = dialogUiState.initialTextFieldText(),
+        confirmButtonText = dialogUiState.confirmButtonText(),
         onConfirmButtonClicked = dialogUiState.onConfirm,
-        dismissButtonText = dialogUiState.dismissButtonText,
+        dismissButtonText = dialogUiState.dismissButtonText(),
         onDismissButtonClicked = dialogUiState.onDismiss,
         keyboardOptions = dialogUiState.keyboardOptions ?: KeyboardOptions.Default,
         singleLine = dialogUiState.singleLine,
@@ -190,14 +185,14 @@ data class InputDialogUiState(
 @Composable
 fun TwoInputDialog(
     onDismissRequest: (() -> Unit) = {},
-    title: @Composable () -> String? = { null },
-    textFieldLabelFirst: @Composable () -> String? = { null },
-    initialTextFieldTextFirst: @Composable () -> String? = { null },
-    textFieldLabelSecond: @Composable () -> String? = { null },
-    initialTextFieldTextSecond: @Composable () -> String? = { null },
-    confirmButtonText: @Composable () -> String? = { stringResource(android.R.string.ok) },
+    title: String? = null,
+    textFieldLabelFirst: String? = null,
+    initialTextFieldTextFirst: String? = null,
+    textFieldLabelSecond: String? = null,
+    initialTextFieldTextSecond: String? = null,
+    confirmButtonText: String? = stringResource(android.R.string.ok),
     onConfirmButtonClicked: ((Pair<String, String>) -> Unit)? = null,
-    dismissButtonText: @Composable () -> String? = { stringResource(android.R.string.cancel) },
+    dismissButtonText: String? = stringResource(android.R.string.cancel),
     onDismissButtonClicked: (() -> Unit)? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     singleLine: Boolean = true,
@@ -210,13 +205,11 @@ fun TwoInputDialog(
     backgroundColor: Color = MaterialTheme.colorScheme.surface,
     textButtonColor: Color = MaterialTheme.colorScheme.primary, // This is specifically for handling theming in this app. May not want in Commons.
 ) {
-    val initialTextFieldTextFirstString = initialTextFieldTextFirst()
     var textFieldValueFirst by rememberSaveable(stateSaver = TextFieldValue.Saver) {
-        mutableStateOf(TextFieldValue(initialTextFieldTextFirstString ?: "", TextRange(initialTextFieldTextFirstString?.length ?: 0)))
+        mutableStateOf(TextFieldValue(initialTextFieldTextFirst ?: "", TextRange(initialTextFieldTextFirst?.length ?: 0)))
     }
-    val initialTextFieldTextSecondString = initialTextFieldTextSecond()
     var textFieldValueSecond by rememberSaveable(stateSaver = TextFieldValue.Saver) {
-        mutableStateOf(TextFieldValue(initialTextFieldTextSecondString ?: "", TextRange(initialTextFieldTextSecondString?.length ?: 0)))
+        mutableStateOf(TextFieldValue(initialTextFieldTextSecond ?: "", TextRange(initialTextFieldTextSecond?.length ?: 0)))
     }
 
     val (item1, item2) = remember { FocusRequester.createRefs() }
@@ -233,10 +226,9 @@ fun TwoInputDialog(
                 modifier = Modifier.padding(DialogDefaults.DialogPadding)
             ) {
                 // Title
-                val titleString = title()
-                if (titleString != null) {
+                if (title != null) {
                     Text(
-                        text = titleString,
+                        text = title,
                         style = MaterialTheme.typography.headlineSmall,
                     )
                 }
@@ -244,7 +236,6 @@ fun TwoInputDialog(
                 val keyboardController = LocalSoftwareKeyboardController.current
 
                 // First Text Field
-                val textFieldLabelFirstString = textFieldLabelFirst()
                 DayNightTextField(
                     value = textFieldValueFirst,
                     onValueChange = { newTextFieldValue ->
@@ -256,8 +247,8 @@ fun TwoInputDialog(
 
                         textFieldValueFirst = newTextFieldValue.copy(newText)
                     },
-                    label = if (textFieldLabelFirstString != null) {
-                        { Text(textFieldLabelFirstString) }
+                    label = if (textFieldLabelFirst != null) {
+                        { Text(textFieldLabelFirst) }
                     } else null,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -274,7 +265,6 @@ fun TwoInputDialog(
                 )
 
                 // Second Text Field
-                val textFieldLabelSecondString = textFieldLabelSecond()
                 DayNightTextField(
                     value = textFieldValueSecond,
                     onValueChange = { newTextFieldValue ->
@@ -286,8 +276,8 @@ fun TwoInputDialog(
 
                         textFieldValueSecond = newTextFieldValue.copy(newText)
                     },
-                    label = if (textFieldLabelSecondString != null) {
-                        { Text(textFieldLabelSecondString) }
+                    label = if (textFieldLabelSecond != null) {
+                        { Text(textFieldLabelSecond) }
                     } else null,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -316,25 +306,23 @@ fun TwoInputDialog(
                         .fillMaxWidth()
                         .padding(top = 24.dp)
                 ) {
-                    val dismissButtonTextString = dismissButtonText()
-                    if (onDismissButtonClicked != null && dismissButtonTextString != null) {
+                    if (onDismissButtonClicked != null && dismissButtonText != null) {
                         TextButton(
                             onClick = {
                                 onDismissButtonClicked()
                             }
                         ) {
-                            Text(dismissButtonTextString, color = textButtonColor)
+                            Text(dismissButtonText, color = textButtonColor)
                         }
                     }
-                    val confirmButtonTextString = confirmButtonText()
-                    if (onConfirmButtonClicked != null && confirmButtonTextString != null) {
+                    if (onConfirmButtonClicked != null && confirmButtonText != null) {
                         TextButton(
                             enabled = (minLengthFirst == -1 || textFieldValueFirst.text.length >= minLengthFirst) && (minLengthSecond == -1 || textFieldValueSecond.text.length >= minLengthSecond),
                             onClick = {
                                 onConfirmButtonClicked(Pair(textFieldValueFirst.text, textFieldValueSecond.text))
                             }
                         ) {
-                            Text(confirmButtonTextString, color = textButtonColor)
+                            Text(confirmButtonText, color = textButtonColor)
                         }
                     }
                 }
@@ -349,14 +337,14 @@ fun TwoInputDialog(
 ) {
     TwoInputDialog(
         onDismissRequest = { dialogUiState.onDismissRequest() },
-        title = dialogUiState.title,
-        textFieldLabelFirst = dialogUiState.textFieldLabelFirst,
-        initialTextFieldTextFirst = dialogUiState.initialTextFieldTextFirst,
-        textFieldLabelSecond = dialogUiState.textFieldLabelSecond,
-        initialTextFieldTextSecond = dialogUiState.initialTextFieldTextSecond,
-        confirmButtonText = dialogUiState.confirmButtonText,
+        title = dialogUiState.title(),
+        textFieldLabelFirst = dialogUiState.textFieldLabelFirst(),
+        initialTextFieldTextFirst = dialogUiState.initialTextFieldTextFirst(),
+        textFieldLabelSecond = dialogUiState.textFieldLabelSecond(),
+        initialTextFieldTextSecond = dialogUiState.initialTextFieldTextSecond(),
+        confirmButtonText = dialogUiState.confirmButtonText(),
         onConfirmButtonClicked = { dialogUiState.onConfirm(it) },
-        dismissButtonText = dialogUiState.dismissButtonText,
+        dismissButtonText = dialogUiState.dismissButtonText(),
         onDismissButtonClicked = { dialogUiState.onDismiss() },
         keyboardOptions = dialogUiState.keyboardOptions ?: KeyboardOptions.Default,
         singleLine = dialogUiState.singleLine,
@@ -394,8 +382,8 @@ private fun PreviewInputDialog() {
     AppTheme {
         InputDialog(
             onDismissRequest = {},
-            title = { "Title" },
-            initialTextFieldText = { "Default Value" },
+            title = "Title",
+            initialTextFieldText = "Default Value",
             onConfirmButtonClicked = { },
             onDismissButtonClicked = { },
             minLength = 1,
@@ -410,9 +398,9 @@ private fun PreviewTwoInputDialog() {
     AppTheme {
         TwoInputDialog(
             onDismissRequest = {},
-            title = { "Title" },
-            initialTextFieldTextFirst = { "First" },
-            initialTextFieldTextSecond = { "Second" },
+            title = "Title",
+            initialTextFieldTextFirst = "First",
+            initialTextFieldTextSecond = "Second",
             onConfirmButtonClicked = { },
             onDismissButtonClicked = { }
         )

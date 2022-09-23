@@ -8,54 +8,51 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import org.jdc.template.ui.theme.AppTheme
 
 @Composable
 fun MessageDialog(
     onDismissRequest: () -> Unit,
-    title: @Composable () -> String? = { null },
-    text: @Composable () -> String? = { null },
-    confirmButtonText: @Composable () -> String? = { stringResource(android.R.string.ok) },
+    title: String? = null,
+    text: String? = null,
+    confirmButtonText: String? = stringResource(android.R.string.ok),
     onConfirmButtonClicked: (() -> Unit)? = null,
-    dismissButtonText: @Composable () -> String? = { stringResource(android.R.string.cancel) },
+    dismissButtonText: String? = stringResource(android.R.string.cancel),
     onDismissButtonClicked: (() -> Unit)? = null
 ) {
-    val titleString = title()
-    val textString = text()
-    require(titleString != null || textString != null) { "Title or Text is required (if visible)" }
+    require(title != null || text != null) { "Title or Text is required (if visible)" }
 
     AlertDialog(
         onDismissRequest = { onDismissRequest() },
-        title = if (titleString != null) {
-            { Text(titleString, style = MaterialTheme.typography.headlineSmall) }
+        title = if (title != null) {
+            { Text(title, style = MaterialTheme.typography.headlineSmall) }
         } else {
             null
         },
-        text = if (textString != null) {
-            { Text(textString, style = MaterialTheme.typography.bodyMedium) }
+        text = if (text != null) {
+            { Text(text, style = MaterialTheme.typography.bodyMedium) }
         } else {
             null
         },
         confirmButton = {
-            val confirmButtonTextString = confirmButtonText()
-            if (onConfirmButtonClicked != null && confirmButtonTextString != null) {
+            if (onConfirmButtonClicked != null && confirmButtonText != null) {
                 TextButton(
                     onClick = {
                         onConfirmButtonClicked()
                     }
                 ) {
-                    Text(confirmButtonTextString)
+                    Text(confirmButtonText)
                 }
             }
         },
         dismissButton = {
-            val dismissButtonTextString = dismissButtonText()
-            if (onDismissButtonClicked != null && dismissButtonTextString != null) {
+            if (onDismissButtonClicked != null && dismissButtonText != null) {
                 TextButton(
                     onClick = {
                         onDismissButtonClicked()
                     }
                 ) {
-                    Text(dismissButtonTextString)
+                    Text(dismissButtonText)
                 }
             }
         }
@@ -68,11 +65,11 @@ fun MessageDialog(
 ) {
     MessageDialog(
         onDismissRequest = dialogUiState.onDismissRequest,
-        title = dialogUiState.title,
-        text = dialogUiState.text,
-        confirmButtonText = dialogUiState.confirmButtonText,
+        title = dialogUiState.title(),
+        text = dialogUiState.text(),
+        confirmButtonText = dialogUiState.confirmButtonText(),
         onConfirmButtonClicked = if (dialogUiState.onConfirm != null) { { dialogUiState.onConfirm.invoke(Unit) } } else null,
-        dismissButtonText = dialogUiState.dismissButtonText,
+        dismissButtonText = dialogUiState.dismissButtonText(),
         onDismissButtonClicked = dialogUiState.onDismiss,
     )
 }
@@ -91,10 +88,10 @@ data class MessageDialogUiState(
 @Preview(group = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
 @Composable
 private fun PreviewMessageDialog() {
-    MaterialTheme {
+    AppTheme {
         MessageDialog(
-            title = { "Title" },
-            text = { "This is the content that goes in the text" },
+            title = "Title",
+            text = "This is the content that goes in the text",
             onDismissRequest = { },
             onConfirmButtonClicked = { },
             onDismissButtonClicked = { }
