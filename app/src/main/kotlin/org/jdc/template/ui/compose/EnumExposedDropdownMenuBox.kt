@@ -38,6 +38,9 @@ fun <T: Enum<T>> EnumExposedDropdownMenuBox(
             label = if (label != null) { { Text(text = label) } } else null,
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
             modifier = Modifier
+                // As of Material3 1.0.0-beta03; The `menuAnchor` modifier must be passed to the text field for correctness.
+                // (https://android-review.googlesource.com/c/platform/frameworks/support/+/2200861)
+                .menuAnchor()
                 .fillMaxWidth()
         )
         ExposedDropdownMenu(
@@ -50,7 +53,8 @@ fun <T: Enum<T>> EnumExposedDropdownMenuBox(
                     onClick = {
                         onOptionSelected(option)
                         expanded = false
-                    }
+                    },
+                    contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
                 )
             }
         }
