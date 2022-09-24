@@ -36,9 +36,9 @@ class IndividualViewModel
 
         individualFlow = individualRepository.getIndividualFlow(individualId).stateInDefault(viewModelScope, null),
 
-        onEdit = ::editIndividual,
-        onDelete = ::onDeleteClicked,
-        deleteIndividual = ::deleteIndividual,
+        onEdit = { editIndividual() },
+        onDelete = { onDeleteClicked() },
+        deleteIndividual = { deleteIndividual() },
     )
 
     init {

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -22,16 +23,21 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import org.jdc.template.R
+import org.jdc.template.model.db.main.type.IndividualType
 import org.jdc.template.ui.DateUiUtil
 import org.jdc.template.ui.compose.DayNightTextField
+import org.jdc.template.ui.compose.EnumExposedDropdownMenuBox
+import org.jdc.template.ui.compose.PreviewDefault
 import org.jdc.template.ui.compose.TextFieldData
 import org.jdc.template.ui.compose.appbar.AppBarMenu
 import org.jdc.template.ui.compose.appbar.AppBarMenuItem
 import org.jdc.template.ui.compose.dialog.HandleDialogUiState
 import org.jdc.template.ui.compose.util.formKeyEventHandler
 import org.jdc.template.ui.navigation.HandleNavigation
+import org.jdc.template.ui.theme.AppTheme
 import org.jdc.template.ux.MainAppScaffoldWithNavBar
 import java.time.LocalDate
 import java.time.LocalTime
@@ -69,6 +75,8 @@ fun IndividualEditFields(
             .verticalScroll(rememberScrollState())
             .padding(start = 16.dp, end = 16.dp, top = 16.dp)
     ) {
+        val focusManager = LocalFocusManager.current
+
         IndividualEditField(stringResource(R.string.first_name), uiState.firstNameFlow, "firstNameEditTextTag", uiState.firstNameOnChange)
         IndividualEditField(stringResource(R.string.last_name), uiState.lastNameFlow, "lastNameEditTextTag", uiState.lastNameOnChange)
         IndividualEditField(stringResource(R.string.phone), uiState.phoneFlow, "phoneEditTextTag", uiState.phoneOnChange)
@@ -76,6 +84,19 @@ fun IndividualEditFields(
 
         DateClickableEditField(stringResource(R.string.birth_date), uiState.birthDateFlow, uiState.birthDateClicked)
         TimeClickableEditField(stringResource(R.string.alarm_time), uiState.alarmTimeFlow, uiState.alarmTimeClicked)
+
+        EnumExposedDropdownMenuBox(
+            label = stringResource(R.string.individual_type),
+            options = IndividualType.values().asList(),
+            selectedOptionFlow = uiState.individualTypeFlow,
+            onOptionSelected = { uiState.individualTypeChange(it) },
+            optionToText = { stringResource(it.textResId) },
+            modifier = Modifier
+                .onPreviewKeyEvent { formKeyEventHandler(it, focusManager) }
+                .fillMaxWidth()
+                .padding(top = 16.dp)
+                .testTag("individualTypeTextTag")
+        )
     }
 }
 
@@ -133,5 +154,19 @@ private fun IndividualClickableEditField(label: String, text: String, onClick: (
 
     if ( source.collectIsPressedAsState().value) {
         onClick()
+    }
+}
+
+@PreviewDefault
+@Composable
+fun PreviewIndividualEdit() {
+    val uiState = IndividualEditUiState(
+        firstNameFlow = MutableStateFlow(TextFieldData("Jeff"))
+    )
+
+    AppTheme {
+        Surface {
+            IndividualEditFields(uiState)
+        }
     }
 }

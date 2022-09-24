@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import org.jdc.template.R
 import org.jdc.template.model.db.main.individual.Individual
+import org.jdc.template.model.db.main.type.IndividualType
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.ui.compose.TextFieldData
 import org.jdc.template.ui.compose.dialog.DateDialogUiState
@@ -39,6 +40,7 @@ class IndividualEditViewModel
     private val emailFlow = MutableStateFlow(TextFieldData(""))
     private val birthDateFlow = MutableStateFlow<LocalDate?>(null)
     private val alarmTimeFlow = MutableStateFlow<LocalTime?>(null)
+    private val individualTypeFlow = MutableStateFlow(IndividualType.UNKNOWN)
 
     // Dialogs
     private val dialogUiStateFlow = MutableStateFlow<DialogUiState<*>?>(null)
@@ -59,11 +61,14 @@ class IndividualEditViewModel
         birthDateClicked = { showBirthDate() },
 
         alarmTimeFlow = alarmTimeFlow,
-        alarmTimeClicked = ::showAlarmTime,
+        alarmTimeClicked = { showAlarmTime() },
 
-        // Events
-        saveIndividual = ::saveIndividual,
+        individualTypeFlow = individualTypeFlow,
+        individualTypeChange = { individualTypeFlow.value = it },
     )
+
+    // Events
+    { saveIndividual() }
 
     init {
         individualId?.let { id ->
@@ -90,6 +95,7 @@ class IndividualEditViewModel
         emailFlow.value = TextFieldData(individual.email ?: "")
         birthDateFlow.value = individual.birthDate
         alarmTimeFlow.value = individual.alarmTime
+        individualTypeFlow.value = individual.individualType
     }
 
     private fun saveIndividual() = viewModelScope.launch {
@@ -103,6 +109,7 @@ class IndividualEditViewModel
         individual.email = valueOrNull(emailFlow.value.text)
         individual.birthDate = birthDateFlow.value
         individual.alarmTime = alarmTimeFlow.value
+        individual.individualType = individualTypeFlow.value
 
         individualRepository.saveIndividual(individual)
 

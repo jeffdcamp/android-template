@@ -46,4 +46,9 @@
     <string name="alarm_time">Alarm Time</string>
 
     <string name="notification_channel_general">General Notifications</string>
+    <string name="individual_type">Individual Type</string>
+    <string name="head">Head</string>
+    <string name="spouse">Spouse</string>
+    <string name="child">Child</string>
+    <string name="unkown">Unknown</string>
 </resources>

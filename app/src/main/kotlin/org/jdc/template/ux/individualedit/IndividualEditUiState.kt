@@ -2,6 +2,7 @@ package org.jdc.template.ux.individualedit
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import org.jdc.template.model.db.main.type.IndividualType
 import org.jdc.template.ui.compose.TextFieldData
 import org.jdc.template.ui.compose.dialog.DialogUiState
 import java.time.LocalDate
@@ -26,6 +27,9 @@ class IndividualEditUiState(
 
     val alarmTimeFlow: StateFlow<LocalTime?> = MutableStateFlow(null),
     val alarmTimeClicked: () -> Unit = {},
+
+    val individualTypeFlow: StateFlow<IndividualType> = MutableStateFlow(IndividualType.UNKNOWN),
+    val individualTypeChange: (IndividualType) -> Unit = {},
 
     // Events
     val saveIndividual: () -> Unit = {},
