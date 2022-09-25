@@ -139,7 +139,7 @@ okhttp = { module = "com.squareup.okhttp3:okhttp" }
 okhttp-loggingInterceptor = { module = "com.squareup.okhttp3:logging-interceptor" }
 okhttp-mockwebserver = { module = "com.squareup.okhttp3:mockwebserver" }
 
-mockK = { module = "io.mockk:mockk-common", version.ref = "mockK" }
+mockK = { module = "io.mockk:mockk", version.ref = "mockK" }
 
 playPublisherGradlePluginClasspath = { module = "com.github.triplet.gradle:play-publisher", version.ref = "playPublisher" }
 
