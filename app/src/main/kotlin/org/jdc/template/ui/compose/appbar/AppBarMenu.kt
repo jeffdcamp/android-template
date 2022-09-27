@@ -1,6 +1,5 @@
 package org.jdc.template.ui.compose.appbar
 
-import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
@@ -56,7 +55,7 @@ fun AppBarIcon(menuItem: AppBarMenuItem.Icon) {
     IconButton(onClick = { menuItem.action() }) {
         Icon(
             imageVector = menuItem.imageVector,
-            contentDescription = menuItem.text ?: stringResource(menuItem.textId ?: error("Text and TextId are null"))
+            contentDescription = menuItem.text()
         )
     }
 }
@@ -72,7 +71,7 @@ fun AppBarText(text: String, action: () -> Unit) {
 
 @Composable
 fun AppBarText(menuItem: AppBarMenuItem.Text) {
-    AppBarText(text = menuItem.text ?: stringResource(menuItem.textId ?: error("Text and TextId are null")), action = menuItem.action)
+    AppBarText(text = menuItem.text(), action = menuItem.action)
 }
 
 @Composable
@@ -101,7 +100,7 @@ fun AppBarOverflowMenu(menuItems: List<AppBarMenuItem.OverflowMenuItem>) {
         val textWithoutIconPadding = if (menuItemsWithIconCount > 0) (36.dp) else 0.dp // 36.dp == 24.dp (icon size) + 12.dp (gap)
 
         menuItems.forEach { menuItem ->
-            val menuText = menuItem.text ?: stringResource(menuItem.textId ?: error("Text and TextId are null"))
+            val menuText = menuItem.text()
             DropdownMenuItem(
                 onClick = {
                     menuItem.action()
@@ -134,32 +133,11 @@ fun AppBarOverflowMenu(menuItems: List<AppBarMenuItem.OverflowMenuItem>) {
 }
 
 sealed interface AppBarMenuItem {
-    class Icon private constructor(
-        val imageVector: ImageVector,
-        val text: String?,
-        @StringRes val textId: Int?,
+    class Icon(val imageVector: ImageVector, val text: @Composable () -> String, val action: () -> Unit) : AppBarMenuItem
+    class Text(val text: @Composable () -> String, val action: () -> Unit) : AppBarMenuItem
+    class OverflowMenuItem(
+        val text: @Composable () -> String,
+        val icon: ImageVector? = null,
         val action: () -> Unit
-    ) : AppBarMenuItem {
-        constructor(imageVector: ImageVector, text: String, action: () -> Unit) : this(imageVector, text, null, action)
-        constructor(imageVector: ImageVector, @StringRes textId: Int, action: () -> Unit) : this(imageVector, null, textId, action)
-    }
-
-    class Text private constructor(
-        val text: String?,
-        @StringRes val textId: Int?,
-        val action: () -> Unit
-    ) : AppBarMenuItem {
-        constructor(text: String, action: () -> Unit) : this(text, null, action)
-        constructor(@StringRes textId: Int, action: () -> Unit) : this(null, textId, action)
-    }
-
-    class OverflowMenuItem private constructor(
-        val text: String?,
-        @StringRes val textId: Int?,
-        val icon: ImageVector?,
-        val action: () -> Unit
-    ) : AppBarMenuItem {
-        constructor(text: String, icon: ImageVector? = null, action: () -> Unit) : this(text, null, icon, action)
-        constructor(@StringRes textId: Int, icon: ImageVector? = null, action: () -> Unit) : this(null, textId, icon, action)
-    }
+    ) : AppBarMenuItem
 }
