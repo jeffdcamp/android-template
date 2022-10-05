@@ -35,6 +35,7 @@ abstract class BaseFirebaseRemoteConfig(@XmlRes remoteConfigDefaults: Int) {
 
     fun getFetchTimeoutInSeconds(): Long = DEFAULT_TIMEOUT_FETCH_SECONDS_LONG
 
+    @Suppress("ForbiddenVoid") // forced by Java class
     fun fetch(now: Boolean = false): Task<Void> {
         Timber.d("RemoteConfig: fetch  now=$now")
 
@@ -96,7 +97,7 @@ abstract class BaseFirebaseRemoteConfig(@XmlRes remoteConfigDefaults: Int) {
                 Firebase.remoteConfig.activate()
                 return true
             }
-        } catch (e: TimeoutException) {
+        } catch (_: TimeoutException) {
             Timber.w("fetchAndActivateNow timeout occurred")
         } catch (expected: Exception) {
             Timber.e(expected, "Failed to FetchAndActivate")

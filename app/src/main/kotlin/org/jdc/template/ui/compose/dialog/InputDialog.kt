@@ -56,7 +56,7 @@ fun InputDialog(
     backgroundColor: Color = MaterialTheme.colorScheme.surface,
     textButtonColor: Color = MaterialTheme.colorScheme.primary, // This is specifically for handling theming in this app. May not want in Commons.
 ) {
-    var textFieldValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue(initialTextFieldText ?: "", TextRange(initialTextFieldText?.length ?: 0))) }
+    var textFieldValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue(initialTextFieldText.orEmpty(), TextRange(initialTextFieldText?.length ?: 0))) }
 
     val focusRequester = remember { FocusRequester() }
 
@@ -206,10 +206,10 @@ fun TwoInputDialog(
     textButtonColor: Color = MaterialTheme.colorScheme.primary, // This is specifically for handling theming in this app. May not want in Commons.
 ) {
     var textFieldValueFirst by rememberSaveable(stateSaver = TextFieldValue.Saver) {
-        mutableStateOf(TextFieldValue(initialTextFieldTextFirst ?: "", TextRange(initialTextFieldTextFirst?.length ?: 0)))
+        mutableStateOf(TextFieldValue(initialTextFieldTextFirst.orEmpty(), TextRange(initialTextFieldTextFirst?.length ?: 0)))
     }
     var textFieldValueSecond by rememberSaveable(stateSaver = TextFieldValue.Saver) {
-        mutableStateOf(TextFieldValue(initialTextFieldTextSecond ?: "", TextRange(initialTextFieldTextSecond?.length ?: 0)))
+        mutableStateOf(TextFieldValue(initialTextFieldTextSecond.orEmpty(), TextRange(initialTextFieldTextSecond?.length ?: 0)))
     }
 
     val (item1, item2) = remember { FocusRequester.createRefs() }

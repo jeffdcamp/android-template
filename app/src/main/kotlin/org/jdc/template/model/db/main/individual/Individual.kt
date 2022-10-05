@@ -23,5 +23,5 @@ data class Individual(
     var email: String? = null,
     var available: Boolean = false
 ) {
-    fun getFullName(): String = "${firstName ?: ""} ${lastName ?: ""}"
+    fun getFullName(): String = "${firstName.orEmpty()} ${lastName.orEmpty()}"
 }

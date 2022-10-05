@@ -29,21 +29,19 @@ abstract class NavComposeRoute {
      * Used when creating navigation graph
      */
     fun addNavigationRoute(navGraphBuilder: NavGraphBuilder, content: @Composable (NavBackStackEntry) -> Unit) {
-        navGraphBuilder.apply {
-            // default composable
-            composable(
-                route = routeDefinition,
-                arguments = getArguments(),
-                deepLinks = getDeepLinks(),
-                content = content
-            )
-        }
+        navGraphBuilder.composable(
+            route = routeDefinition,
+            arguments = getArguments(),
+            deepLinks = getDeepLinks(),
+            content = content
+        )
     }
 }
 
 /**
  * Simple Route that requires no arguments
  */
+@Suppress("UnnecessaryAbstractClass") // this is an edge case... allow
 abstract class SimpleNavComposeRoute(override val routeDefinition: String) : NavComposeRoute() {
     /**
      * Route used when navigating

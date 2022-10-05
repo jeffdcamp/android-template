@@ -20,7 +20,7 @@ androidxWork = "2.7.1"
 
 coil = "2.1.0"
 desugarJdkLibs = "1.2.2"
-detekt = "1.21.0"
+detekt = "1.22.0-RC1"
 dbtools = "7.1.0"
 
 firebaseBom = "30.5.0"

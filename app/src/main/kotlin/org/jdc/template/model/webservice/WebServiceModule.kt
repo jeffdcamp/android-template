@@ -62,6 +62,7 @@ class WebServiceModule {
         clientBuilder.addInterceptor(HttpLoggingInterceptor().apply { level = serviceLogLevel })
     }
 
+    @Suppress("UnusedPrivateMember") // kept here as a reference
     private fun setupBasicAuth(clientBuilder: OkHttpClient.Builder, username: String, password: String) {
         try {
             clientBuilder.addInterceptor { chain ->

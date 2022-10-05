@@ -151,7 +151,7 @@ fun DayNightTextField(
         // adding a "" could be used to reserve space in a dialog
         if (helperText != null || (isError && errorHelperText != null)) {
             Text(
-                text = (if (isError) errorHelperText else helperText) ?: "",
+                text = (if (isError) errorHelperText else helperText).orEmpty(),
                 modifier = Modifier
                     .padding(horizontal = 16.dp),
                 color = if (isError) MaterialTheme.colorScheme.error else Color.Unspecified,

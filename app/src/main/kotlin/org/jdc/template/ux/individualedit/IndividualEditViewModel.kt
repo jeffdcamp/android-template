@@ -89,10 +89,10 @@ class IndividualEditViewModel
     private fun setIndividual(individual: Individual) {
         this@IndividualEditViewModel.individual = individual
 
-        firstNameFlow.value = TextFieldData(individual.firstName ?: "")
-        lastNameFlow.value = TextFieldData(individual.lastName ?: "")
-        phoneNumberFlow.value = TextFieldData(individual.phone ?: "")
-        emailFlow.value = TextFieldData(individual.email ?: "")
+        firstNameFlow.value = TextFieldData(individual.firstName.orEmpty())
+        lastNameFlow.value = TextFieldData(individual.lastName.orEmpty())
+        phoneNumberFlow.value = TextFieldData(individual.phone.orEmpty())
+        emailFlow.value = TextFieldData(individual.email.orEmpty())
         birthDateFlow.value = individual.birthDate
         alarmTimeFlow.value = individual.alarmTime
         individualTypeFlow.value = individual.individualType

@@ -11,7 +11,7 @@ data class DirectoryItem(
     val firstName: String,
     val lastName: String?
 ) {
-    fun getFullName() = "$firstName ${lastName ?: ""}"
+    fun getFullName() = "$firstName ${lastName.orEmpty()}"
 
     companion object {
         const val VIEW_NAME = "DirectoryItem"

@@ -81,7 +81,7 @@ pipeline {
                 }
                 stage("Detekt") {
                     steps {
-                        sh './gradlew downloadDetektConfig detekt'
+                        sh './gradlew downloadDetektConfig detektAlpha'
                     }
                     post {
                         always {
@@ -139,7 +139,7 @@ pipeline {
                 }
                 stage("Detekt") {
                     steps {
-                        sh './gradlew downloadDetektConfig detekt'
+                        sh './gradlew downloadDetektConfig detektAlpha'
                     }
                     post {
                         always {
@@ -212,7 +212,7 @@ pipeline {
                 }
                 stage("Detekt") {
                     steps {
-                        sh './gradlew detekt'
+                        sh './gradlew detektBeta'
                     }
                     post {
                         always {
@@ -291,7 +291,7 @@ pipeline {
                 }
                 stage("Detekt") {
                     steps {
-                        sh './gradlew downloadDetektConfig detekt'
+                        sh './gradlew downloadDetektConfig detektRelease'
                     }
                     post {
                         always {

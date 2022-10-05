@@ -58,7 +58,7 @@ jobs:
       run: ./gradlew lintAlpha
 
     - name: Detekt
-      run: ./gradlew downloadDetektConfig detekt
+      run: ./gradlew downloadDetektConfig detektAlpha
 
     - name: Upload build reports
       if: always()

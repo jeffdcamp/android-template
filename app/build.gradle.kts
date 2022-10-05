@@ -67,7 +67,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get().toString()
+        kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
     }
 
     lint {
@@ -316,7 +316,7 @@ ruler {
 tasks.register<de.undercouch.gradle.tasks.download.Download>("downloadDetektConfig") {
     download {
         onlyIf { !file("$projectDir/build/config/detektConfig.yml").exists() }
-        src("https://raw.githubusercontent.com/ICSEng/AndroidPublic/main/detekt/detektConfig-20220420.yml")
+        src("https://raw.githubusercontent.com/ICSEng/AndroidPublic/main/detekt/detektConfig-20221001.yml")
         dest("$projectDir/build/config/detektConfig.yml")
     }
 }
@@ -329,6 +329,7 @@ tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
 }
 
 // ./gradlew detekt
+// ./gradlew detektDebug (support type checking)
 detekt {
     allRules = true // fail build on any finding
     buildUponDefaultConfig = true // preconfigure defaults
@@ -337,6 +338,9 @@ detekt {
 }
 
 tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
+    // ignore ImageVector files
+    exclude("**/ui/compose/icons/**")
+
     reports {
         html.required.set(true) // observe findings in your browser with structure and code snippets
         xml.required.set(true) // checkstyle like format mainly for integrations like Jenkins

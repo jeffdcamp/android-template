@@ -53,7 +53,7 @@ jobs:
       run: ./gradlew lintAlpha
 
     - name: Detekt
-      run: ./gradlew detekt
+      run: ./gradlew detektAlpha
 
     - name: App Distribution
       run: ./gradlew appDistributionUploadAlpha

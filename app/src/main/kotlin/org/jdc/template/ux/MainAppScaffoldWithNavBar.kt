@@ -129,7 +129,8 @@ private fun AppNavigationDrawer(
             AppNavigationDrawerLabel(stringResource(R.string.app_name))
             AppNavigationDrawerItem(NavBarItem.PEOPLE, Icons.Outlined.People, selectedItem, R.string.people) { onNavItemClicked(it) }
             AppNavigationDrawerItem(NavBarItem.ABOUT, Icons.Outlined.Info, selectedItem, R.string.about) { onNavItemClicked(it) }
-        }
+        },
+        modifier = modifier
     ) {
         appScaffoldContent()
     }
