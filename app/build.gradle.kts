@@ -9,7 +9,7 @@ plugins {
     id("com.google.firebase.crashlytics")
     id("com.google.firebase.appdistribution")
     id("org.dbtools.license-manager")
-    id("de.undercouch.download")
+    id("de.undercouch.download") version "5.2.1"
     id("com.spotify.ruler")
     alias(libs.plugins.ksp)
     alias(libs.plugins.detekt)

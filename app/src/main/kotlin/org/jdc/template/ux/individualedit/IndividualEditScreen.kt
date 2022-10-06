@@ -31,6 +31,7 @@ import org.jdc.template.ui.DateUiUtil
 import org.jdc.template.ui.compose.DayNightTextField
 import org.jdc.template.ui.compose.EnumExposedDropdownMenuBox
 import org.jdc.template.ui.compose.PreviewDefault
+import org.jdc.template.ui.compose.SupportingText
 import org.jdc.template.ui.compose.TextFieldData
 import org.jdc.template.ui.compose.appbar.AppBarMenu
 import org.jdc.template.ui.compose.appbar.AppBarMenuItem
@@ -111,8 +112,7 @@ private fun IndividualEditField(label: String, textFlow: StateFlow<TextFieldData
         label = { Text(label) },
         singleLine = true,
         isError = textFieldValue.isError,
-        errorHelperText = textFieldValue.errorHelperText,
-        helperText = textFieldValue.helperText,
+        supportingText = { SupportingText(textFieldValue.isError, textFieldValue.helperText, textFieldValue.errorHelperText) },
         modifier = Modifier
             .onPreviewKeyEvent { formKeyEventHandler(it, focusManager) }
             .fillMaxWidth()
