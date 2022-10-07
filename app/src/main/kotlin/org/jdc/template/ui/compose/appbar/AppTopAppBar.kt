@@ -7,7 +7,7 @@ import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.SmallTopAppBar
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -55,7 +55,7 @@ internal fun AppTopAppBar(
     colors: TopAppBarColors? = null,
     actions: @Composable (RowScope.() -> Unit)? = null,
 ) {
-    SmallTopAppBar(
+    TopAppBar(
         title = title,
         navigationIcon = if (!navigationIconVisible) {{}} else {
             {
