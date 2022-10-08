@@ -20,7 +20,7 @@ object ListNavType {
         }
 
         override fun get(bundle: Bundle, key: String): List<String>? {
-            return bundle[key] as List<String>?
+            return bundle.getStringArrayList(key)
         }
 
         override fun put(bundle: Bundle, key: String, value: List<String>?) {

@@ -58,7 +58,7 @@ jobs:
       run: ./gradlew lintBeta
 
     - name: Detekt
-      run: ./gradlew downloadDetektConfig detektBeta
+      run: ./gradlew detekt detektBeta
 
     - name: App Distribution
       run: ./gradlew appDistributionUploadBeta

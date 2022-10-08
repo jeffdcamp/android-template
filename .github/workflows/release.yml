@@ -58,7 +58,7 @@ jobs:
       run: ./gradlew lintRelease
 
     - name: Detekt
-      run: ./gradlew downloadDetektConfig detektRelease
+      run: ./gradlew detekt detektRelease
 
     - name: App Distribution
       run: ./gradlew appDistributionUploadRelease
