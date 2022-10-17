@@ -2,7 +2,9 @@ package org.jdc.template.ui.navigation
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.os.Parcelable
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -176,7 +178,7 @@ class DefaultNavBarConfig<T : Enum<T>>(
 }
 
 private fun routeHasArgs(route: String): Boolean {
-    return (route.contains('/') || route.contains('?'))
+    return route.contains('/') || route.contains('?')
 }
 
 /**
@@ -197,7 +199,7 @@ private fun NavController.popBackStackRouteWithArgs(route: String): Boolean {
     while (iterator.hasNext()) {
         val entry = iterator.next()
         popCount++
-        val intent = entry.arguments?.get("android-support-nav:controller:deepLinkIntent") as Intent?
+        val intent = entry.arguments?.parcelable<Intent>(NavController.KEY_DEEP_LINK_INTENT)
         if (intent?.data?.toString() == "android-app://androidx.navigation/$route") {
             found = true
             break
@@ -226,4 +228,9 @@ fun <T : Enum<T>> HandleNavBarNavigation(
     LaunchedEffect(navigator) {
         navigator?.navigate(context, navController, viewModelNavBar)
     }
+}
+
+private inline fun <reified T : Parcelable> Bundle.parcelable(key: String): T? = when {
+    Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> getParcelable(key, T::class.java)
+    else -> @Suppress("DEPRECATION") getParcelable(key) as? T
 }

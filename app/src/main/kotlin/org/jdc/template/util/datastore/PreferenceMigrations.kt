@@ -79,7 +79,7 @@ class PreferenceMigrations(
     }
 
     override suspend fun migrate(currentData: Preferences): Preferences {
-        val fromVersion = (currentData[PREFERENCES_VERSION_KEY] ?: 0)
+        val fromVersion = currentData[PREFERENCES_VERSION_KEY] ?: 0
         val migrationsToRun = findMigrationPath(fromVersion, version)
 
         var data = currentData

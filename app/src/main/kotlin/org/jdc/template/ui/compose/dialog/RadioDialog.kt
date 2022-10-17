@@ -107,14 +107,14 @@ private fun <T> RadioDialogItems(radioDialogDataItems: RadioDialogDataItems<T>, 
                     .fillMaxWidth()
                     .height(45.dp)
                     .selectable(
-                        selected = (radioDialogDataItem.item == radioDialogDataItems.selectedItem),
+                        selected = radioDialogDataItem.item == radioDialogDataItems.selectedItem,
                         onClick = { onItemSelected(radioDialogDataItem.item) },
                         role = Role.RadioButton
                     ),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 RadioButton(
-                    selected = (radioDialogDataItem.item == radioDialogDataItems.selectedItem),
+                    selected = radioDialogDataItem.item == radioDialogDataItems.selectedItem,
                     onClick = null // null recommended for accessibility with screen readers
                 )
                 Text(

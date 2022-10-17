@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 import java.util.Date
 
 plugins {
@@ -9,7 +11,7 @@ plugins {
     id("com.google.firebase.crashlytics")
     id("com.google.firebase.appdistribution")
     id("org.dbtools.license-manager")
-    id("de.undercouch.download") version "5.2.1"
+    id("de.undercouch.download") version "5.3.0"
     id("com.spotify.ruler")
     alias(libs.plugins.ksp)
     alias(libs.plugins.detekt)
@@ -56,6 +58,8 @@ android {
             "-Xopt-in=androidx.compose.material.ExperimentalMaterialApi",
             "-Xopt-in=androidx.compose.ui.ExperimentalComposeUiApi",
             "-Xopt-in=kotlin.experimental.ExperimentalTypeInference",
+            "-Xopt-in=kotlinx.serialization.ExperimentalSerializationApi",
+            "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
 
             // use the following to ignore enforcement version of Kotlin with Compose
             //"-P", "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
@@ -214,7 +218,6 @@ dependencies {
 
     // Firebase
     implementation(platform(libs.google.firebase.bom))
-    implementation(libs.google.firebase.core)
     //implementation(libs.google.firebase.perf)
     implementation(libs.google.firebase.config)
     implementation(libs.google.firebase.crashlytics)

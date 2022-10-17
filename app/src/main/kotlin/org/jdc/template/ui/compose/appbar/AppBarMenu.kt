@@ -97,7 +97,7 @@ fun AppBarOverflowMenu(menuItems: List<AppBarMenuItem.OverflowMenuItem>) {
 
         // determine if there are any icons in the list... if so, make sure text without icons are all indented
         val menuItemsWithIconCount = menuItems.count { it.icon != null }
-        val textWithoutIconPadding = if (menuItemsWithIconCount > 0) (36.dp) else 0.dp // 36.dp == 24.dp (icon size) + 12.dp (gap)
+        val textWithoutIconPadding = if (menuItemsWithIconCount > 0) 36.dp else 0.dp // 36.dp == 24.dp (icon size) + 12.dp (gap)
 
         menuItems.forEach { menuItem ->
             val menuText = menuItem.text()

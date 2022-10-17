@@ -163,15 +163,15 @@ private fun AppScaffoldContentWrapper(
     Box(modifier = Modifier.padding(innerPadding)) {
         when (navBarData?.appNavBarType) {
             AppNavBarType.NAV_RAIL -> {
-                // Content with NavigationRail
-                Row {
-                    navBarData.navRail()?.invoke()
-                    content(innerPadding)
-                }
+            // Content with NavigationRail
+            Row {
+                navBarData.navRail()?.invoke()
+                content(innerPadding)
+            }
             }
             else -> {
-                // Content
-                content(innerPadding)
+            // Content
+            content(innerPadding)
             }
         }
     }
