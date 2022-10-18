@@ -239,7 +239,7 @@ fun lightColors(): AppColors {
         onSurface = AppPalette.md_theme_light_onSurface,
         surfaceVariant = AppPalette.md_theme_light_surfaceVariant,
         onSurfaceVariant = AppPalette.md_theme_light_onSurfaceVariant,
-        surfaceTint = AppPalette.md_theme_light_surfaceVariant, // todo fix when surfaceTint is generated in m3 color
+        surfaceTint = AppPalette.md_theme_light_surfaceTint,
         inverseSurface = AppPalette.md_theme_light_inverseSurface,
         inverseOnSurface = AppPalette.md_theme_light_inverseOnSurface,
         error = AppPalette.md_theme_light_error,
@@ -273,7 +273,7 @@ fun darkColors(): AppColors {
         onSurface = AppPalette.md_theme_dark_onSurface,
         surfaceVariant = AppPalette.md_theme_dark_surfaceVariant,
         onSurfaceVariant = AppPalette.md_theme_dark_onSurfaceVariant,
-        surfaceTint = AppPalette.md_theme_dark_surfaceVariant, // todo fix when surfaceTint is generated in m3 color
+        surfaceTint = AppPalette.md_theme_dark_surfaceTint,
         inverseSurface = AppPalette.md_theme_dark_inverseSurface,
         inverseOnSurface = AppPalette.md_theme_dark_inverseOnSurface,
         error = AppPalette.md_theme_dark_error,
