@@ -6,9 +6,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationRail
+import androidx.compose.material3.PermanentDrawerSheet
 import androidx.compose.material3.PermanentNavigationDrawer
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -27,7 +27,6 @@ import org.jdc.template.ui.compose.appnavbar.AppBottomNavigationItem
 import org.jdc.template.ui.compose.appnavbar.AppNavigationDrawerItem
 import org.jdc.template.ui.compose.appnavbar.AppNavigationDrawerLabel
 import org.jdc.template.ui.compose.appnavbar.AppNavigationRailItem
-import org.jdc.template.ui.compose.icons.google.outlined.People
 import org.jdc.template.ui.compose.util.rememberWindowSize
 import org.jdc.template.util.ext.requireActivity
 import org.jdc.template.ux.main.MainViewModel
@@ -108,8 +107,9 @@ private fun AppNavigationBar(
 ) {
     Column(modifier = modifier) {
         NavigationBar {
-            AppBottomNavigationItem(NavBarItem.PEOPLE, Icons.Outlined.People, selectedItem, R.string.people) { onNavItemClicked(it) }
-            AppBottomNavigationItem(NavBarItem.ABOUT, Icons.Outlined.Info, selectedItem, R.string.about) { onNavItemClicked(it) }
+            NavBarItem.values().forEach { item ->
+                AppBottomNavigationItem(item, item.imageVector, selectedItem, item.textResId) { onNavItemClicked(it) }
+            }
         }
     }
 }
@@ -122,8 +122,9 @@ private fun AppNavigationRail(
 ) {
     Row(modifier = modifier) {
         NavigationRail {
-            AppNavigationRailItem(NavBarItem.PEOPLE, Icons.Outlined.People, selectedItem, R.string.people) { onNavItemClicked(it) }
-            AppNavigationRailItem(NavBarItem.ABOUT, Icons.Outlined.Info, selectedItem, R.string.about) { onNavItemClicked(it) }
+            NavBarItem.values().forEach { item ->
+                AppNavigationRailItem(item, item.imageVector, selectedItem, item.textResId) { onNavItemClicked(it) }
+            }
         }
     }
 }
@@ -137,9 +138,13 @@ private fun AppNavigationDrawer(
 ) {
     PermanentNavigationDrawer(
         drawerContent = {
-            AppNavigationDrawerLabel(stringResource(R.string.app_name))
-            AppNavigationDrawerItem(NavBarItem.PEOPLE, Icons.Outlined.People, selectedItem, R.string.people) { onNavItemClicked(it) }
-            AppNavigationDrawerItem(NavBarItem.ABOUT, Icons.Outlined.Info, selectedItem, R.string.about) { onNavItemClicked(it) }
+            PermanentDrawerSheet {
+                AppNavigationDrawerLabel(stringResource(R.string.app_name))
+
+                NavBarItem.values().forEach { item ->
+                    AppNavigationDrawerItem(item, item.imageVector, selectedItem, item.textResId) { onNavItemClicked(it) }
+                }
+            }
         },
         modifier = modifier
     ) {
