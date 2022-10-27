@@ -269,7 +269,7 @@ dependencies {
     debugImplementation(libs.leakCanary)
 
     // Test (Integration)
-    androidTestImplementation("androidx.test:core:1.5.0-beta01") // work around for supporting tests on Android 33 devices (https://issuetracker.google.com/issues/240993946) till ui-test-junit4 updates its dependencies
+    androidTestImplementation("androidx.test:core:1.5.0-rc01") // work around for supporting tests on Android 33 devices (https://issuetracker.google.com/issues/240993946) till ui-test-junit4 updates its dependencies
     androidTestImplementation(libs.compose.ui.test.junit4)
     debugImplementation(libs.compose.ui.test.manifest)
 
