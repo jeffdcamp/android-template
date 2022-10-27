@@ -39,14 +39,14 @@ class  AboutViewModel
 
     val uiState: AboutUiState = AboutUiState(
         resetServiceEnabledFlow = resetServiceEnabledFlow,
-        testQueryWebServiceCall = {},
-        testFullUrlQueryWebServiceCall = {},
-        testSaveQueryWebServiceCall = {},
-        workManagerSimpleTest = {},
-        workManagerSyncTest = {},
-        testTableChange = {},
+        testQueryWebServiceCall = { testQueryWebServiceCall() },
+        testFullUrlQueryWebServiceCall = { testFullUrlQueryWebServiceCall() },
+        testSaveQueryWebServiceCall = { testSaveQueryWebServiceCall() },
+        workManagerSimpleTest = { workManagerSimpleTest() },
+        workManagerSyncTest = { workManagerSyncTest() },
+        testTableChange = { testTableChange() },
         licensesClicked = { navigate(AcknowledgmentsRoute.createRoute()) },
-        createSampleData = ::createSampleData,
+        createSampleData = { createSampleData() },
     )
 
 

@@ -45,7 +45,7 @@ sqliteJdbc = "3.39.3.0"
 timber = "5.0.1"
 truth = "1.1.3"
 versionsGradlePlugin = "0.43.0"
-workManagerTools = "2.0.0"
+workManagerTools = "3.0.0-beta01"
 
 [plugins]
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
