@@ -22,7 +22,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import org.jdc.template.R
 import org.jdc.template.ui.compose.appbar.AppNavBarData
 import org.jdc.template.ui.compose.appbar.AppNavBarType
-import org.jdc.template.ui.compose.appbar.AppScaffold
+import org.jdc.template.ui.compose.appbar.AppScaffoldAndNavigation
+import org.jdc.template.ui.compose.appbar.AppTopAppBar
 import org.jdc.template.ui.compose.appnavbar.AppBottomNavigationItem
 import org.jdc.template.ui.compose.appnavbar.AppNavigationDrawerItem
 import org.jdc.template.ui.compose.appnavbar.AppNavigationDrawerLabel
@@ -51,6 +52,23 @@ internal fun MainAppScaffoldWithNavBar(
     val viewModel: MainViewModel = hiltViewModel(activity)
     val selectedBarItem by viewModel.selectedNavBarFlow.collectAsState()
 
+    // TopAppBar
+    val topAppBar: @Composable (() -> Unit) = {
+        // Use AppTopAppBar or your own AppBar (such as TopAppBar, CenterAlignedTopAppBar) here
+        AppTopAppBar(
+            title = title,
+            subtitle = subtitle,
+            onNavigationClick = onNavigationClick,
+            actions = {
+                // Wrapping content so that the action icons have the same color as the navigation icon and title.
+                if (actions != null) {
+                    actions()
+                }
+            },
+        )
+    }
+
+    // Navigation (support Bottom / Rail / Drawer)
     val navBarData = AppNavBarData(
         appNavBarType = AppNavBarType.byWindowSize(windowSize),
         navBar = {
@@ -74,16 +92,10 @@ internal fun MainAppScaffoldWithNavBar(
         }
     )
 
-    AppScaffold(
-        title = title,
-        subtitle = subtitle,
-        navigationIconVisible = navigationIconVisible,
-        navigationIcon = navigationIcon,
-        onNavigationClick = onNavigationClick,
-        appBarColors = appBarColors,
-        autoSizeTitle = autoSizeTitle,
+    // Scaffold
+    AppScaffoldAndNavigation(
+        topAppBar = topAppBar,
         hideNavigation = hideNavigation,
-        actions = actions,
         navBarData = navBarData,
         content = content
     )
