@@ -23,8 +23,8 @@ desugarJdkLibs = "1.2.2"
 detekt = "1.22.0-RC1"
 dbtools = "8.0.0-beta01"
 
-firebaseBom = "31.0.1"
-firebaseAppDistGradlePlugin = "3.0.3"
+firebaseBom = "31.0.2"
+firebaseAppDistGradlePlugin = "3.1.0"
 firebaseCrashlyticsGradlePlugin = "2.9.2"
 firebasePerfGradlePlugin = "1.3.4"
 
