@@ -127,13 +127,14 @@ fun InputDialog(
                         }
                     }
                     if (onConfirmButtonClicked != null && confirmButtonText != null) {
+                        val isEnabled = minLength == -1 || textFieldValue.text.length >= minLength
                         TextButton(
-                            enabled = minLength == -1 || textFieldValue.text.length >= minLength,
+                            enabled = isEnabled,
                             onClick = {
                                 onConfirmButtonClicked(textFieldValue.text)
                             }
                         ) {
-                            Text(confirmButtonText, color = textButtonColor)
+                            Text(confirmButtonText, color = if (isEnabled) textButtonColor else textButtonColor.copy(alpha = 0.38f))
                         }
                     }
                 }
@@ -316,13 +317,14 @@ fun TwoInputDialog(
                         }
                     }
                     if (onConfirmButtonClicked != null && confirmButtonText != null) {
+                        val isEnabled = (minLengthFirst == -1 || textFieldValueFirst.text.length >= minLengthFirst) && (minLengthSecond == -1 || textFieldValueSecond.text.length >= minLengthSecond)
                         TextButton(
-                            enabled = (minLengthFirst == -1 || textFieldValueFirst.text.length >= minLengthFirst) && (minLengthSecond == -1 || textFieldValueSecond.text.length >= minLengthSecond),
+                            enabled = isEnabled,
                             onClick = {
                                 onConfirmButtonClicked(Pair(textFieldValueFirst.text, textFieldValueSecond.text))
                             }
                         ) {
-                            Text(confirmButtonText, color = textButtonColor)
+                            Text(confirmButtonText, color = if (isEnabled) textButtonColor else textButtonColor.copy(alpha = 0.38f))
                         }
                     }
                 }
