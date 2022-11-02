@@ -66,7 +66,8 @@ class SettingsViewModel
             initialTextFieldText = { currentValue.toString() },
             onConfirm = { setLastInstalledVersionCode(it) },
             onDismiss = { dismissDialog(dialogUiStateFlow) },
-            onDismissRequest = { dismissDialog(dialogUiStateFlow) }
+            onDismissRequest = { dismissDialog(dialogUiStateFlow) },
+            minLength = 1
         )
     }
 

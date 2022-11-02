@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.FabPosition
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.PermanentDrawerSheet
@@ -41,6 +42,8 @@ internal fun MainAppScaffoldWithNavBar(
     onNavigationClick: (() -> Unit)? = null,
     hideNavigation: Boolean = false,
     actions: @Composable (RowScope.() -> Unit)? = null,
+    floatingActionButton: @Composable () -> Unit = {},
+    floatingActionButtonPosition: FabPosition = FabPosition.End,
     content: @Composable (PaddingValues) -> Unit,
 ) {
     val activity = LocalContext.current.requireActivity()
@@ -95,6 +98,8 @@ internal fun MainAppScaffoldWithNavBar(
         topAppBar = topAppBar,
         hideNavigation = hideNavigation,
         navBarData = navBarData,
+        floatingActionButton = floatingActionButton,
+        floatingActionButtonPosition = floatingActionButtonPosition,
         content = content
     )
 }

@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.FabPosition
 import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -23,6 +24,8 @@ fun AppScaffold(
     hideNavigation: Boolean = false,
     actions: @Composable (RowScope.() -> Unit)? = null,
     navBarData: AppNavBarData? = null,
+    floatingActionButton: @Composable () -> Unit = {},
+    floatingActionButtonPosition: FabPosition = FabPosition.End,
     content: @Composable (PaddingValues) -> Unit,
 ) {
     val appTopAppBar: @Composable (() -> Unit) = if (!hideTopAppBar) {
@@ -47,6 +50,8 @@ fun AppScaffold(
         modifier = modifier,
         hideNavigation = hideNavigation,
         navBarData = navBarData,
+        floatingActionButton = floatingActionButton,
+        floatingActionButtonPosition = floatingActionButtonPosition,
         content = content
     )
 }
@@ -63,6 +68,8 @@ fun AppScaffold(
     hideNavigation: Boolean = false,
     actions: @Composable (RowScope.() -> Unit)? = null,
     navBarData: AppNavBarData? = null,
+    floatingActionButton: @Composable () -> Unit = {},
+    floatingActionButtonPosition: FabPosition = FabPosition.End,
     content: @Composable (PaddingValues) -> Unit,
 ) {
     val appTopAppBar: @Composable (() -> Unit) = if (!hideTopAppBar) {
@@ -85,6 +92,8 @@ fun AppScaffold(
         modifier = modifier,
         hideNavigation = hideNavigation,
         navBarData = navBarData,
+        floatingActionButton = floatingActionButton,
+        floatingActionButtonPosition = floatingActionButtonPosition,
         content = content
     )
 }
