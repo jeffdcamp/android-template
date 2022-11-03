@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
@@ -24,6 +25,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -52,7 +54,8 @@ object Setting {
         onClickBody: ((Boolean) -> Unit)? = null
     ) {
         ListItem(
-            modifier = modifier,
+            modifier = modifier
+                .toggleable(checked, onValueChange = { onClickBody?.invoke(it) }, role = Role.Switch),
             leadingContent = icon,
             headlineText = {
                 Text(text)
@@ -83,7 +86,8 @@ object Setting {
         val currentValueChecked by currentCheckedValueFlow.collectAsState()
 
         ListItem(
-            modifier = modifier,
+            modifier = modifier
+                .toggleable(currentValueChecked, onValueChange = { onClickBody?.invoke(it) }, role = Role.Switch),
             leadingContent = icon,
             headlineText = {
                 Text(text)
