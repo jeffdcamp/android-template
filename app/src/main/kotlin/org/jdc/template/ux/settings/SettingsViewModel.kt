@@ -13,6 +13,7 @@ import org.jdc.template.R
 import org.jdc.template.model.data.DisplayThemeType
 import org.jdc.template.model.repository.SettingsRepository
 import org.jdc.template.ui.compose.dialog.DialogUiState
+import org.jdc.template.ui.compose.dialog.DropDownMenuDialogUiState
 import org.jdc.template.ui.compose.dialog.InputDialogUiState
 import org.jdc.template.ui.compose.dialog.RadioDialogDataItem
 import org.jdc.template.ui.compose.dialog.RadioDialogDataItems
@@ -34,12 +35,14 @@ class SettingsViewModel
         dialogUiStateFlow = dialogUiStateFlow,
         currentThemeTitleFlow = settingsRepository.themeFlow.map { theme -> theme.getString(application) }.stateInDefault(viewModelScope, null),
         currentLastInstalledVersionCodeFlow = settingsRepository.lastInstalledVersionCodeFlow.map { versionCode -> versionCode.toString() }.stateInDefault(viewModelScope, null),
+        rangeFlow = settingsRepository.rangeFlow.map { it.toString() }.stateInDefault(viewModelScope, null),
         sortByLastNameFlow = settingsRepository.directorySortByLastNameFlow.stateInDefault(viewModelScope, false),
 
-        onThemeSettingClicked = ::onThemeSettingClicked,
+        onThemeSettingClicked = { onThemeSettingClicked() },
 
-        onLastInstalledVersionCodeClicked = ::onLastInstalledVersionCodeClicked,
-        setSortByLastName = ::setSortByLastName
+        onLastInstalledVersionCodeClicked = { onLastInstalledVersionCodeClicked() },
+        onRangeClicked = { onRangeClicked() },
+        setSortByLastName = { setSortByLastName(it) }
     )
 
     private fun onThemeSettingClicked() = viewModelScope.launch {
@@ -71,9 +74,28 @@ class SettingsViewModel
         )
     }
 
+    private fun onRangeClicked() = viewModelScope.launch {
+        val currentValue = settingsRepository.getRange()
+        dialogUiStateFlow.value = DropDownMenuDialogUiState(
+            title = { "Range" },
+            options = SettingsRepository.RANGE_OPTIONS.map { it.toString() },
+            initialSelectedOption = currentValue.toString(),
+            onConfirm = { setRange(it) },
+            onDismiss = { dismissDialog(dialogUiStateFlow) },
+            onDismissRequest = { dismissDialog(dialogUiStateFlow) },
+        )
+    }
+
     private fun setLastInstalledVersionCode(value: String) {
         value.toIntOrNull()?.let {
             settingsRepository.setLastInstalledVersionCodeAsync(it)
+        }
+        dismissDialog(dialogUiStateFlow)
+    }
+
+    private fun setRange(value: String) {
+        value.toIntOrNull()?.let {
+            settingsRepository.setRangeAsync(it)
         }
         dismissDialog(dialogUiStateFlow)
     }

@@ -10,11 +10,13 @@ data class SettingsUiState(
     // Data
     val currentThemeTitleFlow: StateFlow<String?> = MutableStateFlow(null),
     val currentLastInstalledVersionCodeFlow: StateFlow<String?> = MutableStateFlow(null),
+    val rangeFlow: StateFlow<String?> = MutableStateFlow(null),
     val sortByLastNameFlow: StateFlow<Boolean> = MutableStateFlow(false),
 
     // Events
     val onThemeSettingClicked: () -> Unit = {},
     val onLastInstalledVersionCodeClicked: () -> Unit = {},
+    val onRangeClicked: () -> Unit = {},
     val dismissSetLastInstalledVersionCodeDialog: () -> Unit = {},
     val setSortByLastName: (checked: Boolean) -> Unit = {},
 )

@@ -48,6 +48,7 @@ class DevicePreferenceDataSource
 
     val themePref: DatastorePrefItem<DisplayThemeType> = DatastorePrefItem.createEnum(application.dataStore, Keys.THEME) { enumValueOfOrDefault(it, PrefsDefaults.SYSTEM_THEME_TYPE) }
     val lastInstalledVersionCodePref: DatastorePrefItem<Int> = DatastorePrefItem.create(application.dataStore, Keys.LAST_INSTALLED_VERSION_CODE, 0)
+    val rangePref: DatastorePrefItem<Int> = DatastorePrefItem.create(application.dataStore, Keys.RANGE, 1)
     val workSchedulerVersionPref: DatastorePrefItem<Int> = DatastorePrefItem.create(application.dataStore, Keys.WORK_SCHEDULER_VERSION, 0)
     val developerModePref: DatastorePrefItem<Boolean> = DatastorePrefItem.create(application.dataStore, Keys.DEV_MODE, false)
     val appInstanceIdPref: DatastorePrefItem<String> = DatastorePrefItem.create(application.dataStore, Keys.APP_INSTANCE_ID, UUID.randomUUID().toString())
@@ -77,6 +78,7 @@ class DevicePreferenceDataSource
     object Keys {
         val THEME = stringPreferencesKey("theme")
         val LAST_INSTALLED_VERSION_CODE = intPreferencesKey("lastInstalledVersionCode")
+        val RANGE = intPreferencesKey("range")
         val WORK_SCHEDULER_VERSION = intPreferencesKey("workSchedulerVersion")
         val DEV_MODE = booleanPreferencesKey("devMode")
         val APP_INSTANCE_ID = stringPreferencesKey("appInstanceId")

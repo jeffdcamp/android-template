@@ -41,6 +41,7 @@ fun SettingsScreen(
                 navController?.navigate(WorkManagerStatusRoute.createRoute())
             }
             Setting.Clickable(text = "Last Installed Version Code", uiState.currentLastInstalledVersionCodeFlow) { uiState.onLastInstalledVersionCodeClicked() }
+            Setting.Clickable(text = "Range", uiState.rangeFlow) { uiState.onRangeClicked() }
         }
 
         HandleDialogUiState(uiState.dialogUiStateFlow)

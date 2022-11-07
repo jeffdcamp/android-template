@@ -32,6 +32,14 @@ class SettingsRepository
     suspend fun getLastInstalledVersionCode(): Int = devicePreferenceDataSource.lastInstalledVersionCodePref.flow.first()
     fun setLastInstalledVersionCodeAsync(version: Int) = ProcessScope.launch { devicePreferenceDataSource.lastInstalledVersionCodePref.setValue(version) }
 
+    val rangeFlow: Flow<Int> get()  = devicePreferenceDataSource.rangePref.flow
+    suspend fun getRange(): Int = devicePreferenceDataSource.rangePref.flow.first()
+    fun setRangeAsync(range: Int) = ProcessScope.launch { devicePreferenceDataSource.rangePref.setValue(range) }
+
     suspend fun getWorkSchedulerVersion(): Int = devicePreferenceDataSource.workSchedulerVersionPref.flow.first()
     fun setWorkSchedulerVersionAsync(version: Int) = ProcessScope.launch { devicePreferenceDataSource.workSchedulerVersionPref.setValue(version) }
+
+    companion object {
+        val RANGE_OPTIONS = listOf(1, 2, 3)
+    }
 }
