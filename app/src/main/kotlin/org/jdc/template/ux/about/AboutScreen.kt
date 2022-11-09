@@ -59,9 +59,10 @@ private fun AboutScreenContent(
 
         Divider(Modifier.padding(top = 16.dp, bottom = 16.dp))
         RestServicesStatus(uiState)
-        TestButton("CREATE DATABASE") { uiState.createSampleData() }
-        TestButton("TEST REST CALL") { uiState.testQueryWebServiceCall() }
-        TestButton("TEST TABLE CHANGES") { uiState.testTableChange() }
+        TestButton("M3 Samples") { uiState.m3SamplesClicked() }
+        TestButton("Create Database") { uiState.createSampleData() }
+        TestButton("Test Rest Call") { uiState.testQueryWebServiceCall() }
+//        TestButton("Test Table Changes") { uiState.testTableChange() }
         TestButton("TEST SIMPLE WORKMANAGER") { uiState.workManagerSimpleTest() }
         TestButton("TEST SYNC WORKMANAGER") { uiState.workManagerSyncTest() }
     }

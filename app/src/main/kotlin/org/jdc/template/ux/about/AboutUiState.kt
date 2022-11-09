@@ -16,4 +16,5 @@ data class AboutUiState(
     val testTableChange: () -> Unit = {},
     val licensesClicked: () -> Unit = {},
     val createSampleData: () -> Unit = {},
+    val m3SamplesClicked: () -> Unit = {},
 )

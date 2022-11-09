@@ -17,6 +17,7 @@ import org.jdc.template.model.webservice.colors.dto.ColorsDto
 import org.jdc.template.ui.navigation.ViewModelNav
 import org.jdc.template.ui.navigation.ViewModelNavImpl
 import org.jdc.template.util.ext.saveBodyToFile
+import org.jdc.template.ux.about.samples.ComponentsRoute
 import org.jdc.template.ux.acknowledgement.AcknowledgmentsRoute
 import org.jdc.template.work.WorkScheduler
 import retrofit2.Response
@@ -47,9 +48,8 @@ class  AboutViewModel
         testTableChange = { testTableChange() },
         licensesClicked = { navigate(AcknowledgmentsRoute.createRoute()) },
         createSampleData = { createSampleData() },
+        m3SamplesClicked = { m3SamplesClicked() }
     )
-
-
 
     /**
      * Simple web service call
@@ -180,5 +180,9 @@ class  AboutViewModel
 
     private fun createSampleData() = viewModelScope.launch {
         createIndividualTestDataUseCase()
+    }
+
+    private fun m3SamplesClicked() {
+        navigate(ComponentsRoute.createRoute())
     }
 }
