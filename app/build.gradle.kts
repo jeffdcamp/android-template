@@ -269,7 +269,7 @@ dependencies {
     debugImplementation(libs.leakCanary)
 
     // Test (Integration)
-    androidTestImplementation("androidx.test:core:1.5.0-rc01") // work around for supporting tests on Android 33 devices (https://issuetracker.google.com/issues/240993946) till ui-test-junit4 updates its dependencies
+    androidTestImplementation("androidx.test:core:1.5.0") // work around for supporting tests on Android 33 devices (https://issuetracker.google.com/issues/240993946) till ui-test-junit4 updates its dependencies
     androidTestImplementation(libs.compose.ui.test.junit4)
     debugImplementation(libs.compose.ui.test.manifest)
 
@@ -344,6 +344,9 @@ detekt {
 tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
     // ignore ImageVector files
     exclude("**/ui/compose/icons/**")
+
+    // ignore Sample files from Google M3 Component Samples
+    exclude("**/about/samples/**")
 
     reports {
         html.required.set(true) // observe findings in your browser with structure and code snippets
