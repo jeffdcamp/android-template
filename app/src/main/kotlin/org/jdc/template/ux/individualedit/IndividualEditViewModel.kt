@@ -48,6 +48,7 @@ class IndividualEditViewModel
     val uiState: IndividualEditUiState = IndividualEditUiState(
         dialogUiStateFlow = dialogUiStateFlow,
 
+        // Data
         firstNameFlow = firstNameFlow,
         firstNameOnChange = { firstNameFlow.value = TextFieldData(it) },
         lastNameFlow = lastNameFlow,
@@ -65,10 +66,10 @@ class IndividualEditViewModel
 
         individualTypeFlow = individualTypeFlow,
         individualTypeChange = { individualTypeFlow.value = it },
-    )
 
-    // Events
-    { saveIndividual() }
+        // Events
+        saveIndividual = { saveIndividual() }
+    )
 
     init {
         individualId?.let { id ->
