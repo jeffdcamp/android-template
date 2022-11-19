@@ -24,6 +24,7 @@ import org.jdc.template.ui.compose.appbar.AppNavBarData
 import org.jdc.template.ui.compose.appbar.AppNavBarType
 import org.jdc.template.ui.compose.appbar.AppScaffoldAndNavigation
 import org.jdc.template.ui.compose.appbar.AppTopAppBar
+import org.jdc.template.ui.compose.appbar.HandleColorForSystemBars
 import org.jdc.template.ui.compose.appnavbar.AppBottomNavigationItem
 import org.jdc.template.ui.compose.appnavbar.AppNavigationDrawerItem
 import org.jdc.template.ui.compose.appnavbar.AppNavigationDrawerLabel
@@ -102,6 +103,8 @@ internal fun MainAppScaffoldWithNavBar(
         floatingActionButtonPosition = floatingActionButtonPosition,
         content = content
     )
+
+    HandleColorForSystemBars(!hideNavigation)
 }
 
 @Composable

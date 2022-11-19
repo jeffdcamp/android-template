@@ -58,6 +58,7 @@ fun IndividualEditScreen(
         title = stringResource(R.string.edit_individual),
         actions = { AppBarMenu(appBarMenuItems) },
         onNavigationClick = { navController.popBackStack() },
+        hideNavigation = true
     ) {
         IndividualEditFields(viewModel.uiState)
     }

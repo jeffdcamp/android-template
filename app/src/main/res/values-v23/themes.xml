@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="AppTheme" parent="android:Theme.Material.Light.NoActionBar">
-        <!-- The color above the App (where the clock and battery icons are) -->
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="android:statusBarColor">@color/material_white</item>
-    </style>
-</resources>
