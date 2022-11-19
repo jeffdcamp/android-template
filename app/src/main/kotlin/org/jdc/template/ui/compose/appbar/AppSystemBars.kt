@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 
 /**
- * Handle the colors of the OS statusbar and navbar (form M3, Light/Dark themes, Dynamic themes)
+ * Handle the colors of the OS system bars (statusbar and navbar) (for M3, Light/Dark themes, Dynamic themes)
  */
 @Composable
 fun HandleColorForSystemBars(bottomNavBarVisible: Boolean) {
