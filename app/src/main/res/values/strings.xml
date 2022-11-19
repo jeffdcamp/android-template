@@ -22,6 +22,7 @@
     <string name="system_default">System Default</string>
     <string name="light">Light</string>
     <string name="dark">Dark</string>
+    <string name="dynamic_theme">Dynamic Theme</string>
     <string name="theme">Theme</string>
     <string name="search_hint">Search Individuals</string>
     <string name="licenses">Licenses</string>

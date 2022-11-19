@@ -1,6 +1,7 @@
 package org.jdc.template.ux.settings
 
 import android.app.Application
+import android.os.Build
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -36,19 +37,26 @@ class SettingsViewModel
         currentThemeTitleFlow = settingsRepository.themeFlow.map { theme -> theme.getString(application) }.stateInDefault(viewModelScope, null),
         currentLastInstalledVersionCodeFlow = settingsRepository.lastInstalledVersionCodeFlow.map { versionCode -> versionCode.toString() }.stateInDefault(viewModelScope, null),
         rangeFlow = settingsRepository.rangeFlow.map { it.toString() }.stateInDefault(viewModelScope, null),
+        dynamicThemeFlow = settingsRepository.dynamicThemeFlow.stateInDefault(viewModelScope, false),
         sortByLastNameFlow = settingsRepository.directorySortByLastNameFlow.stateInDefault(viewModelScope, false),
 
         onThemeSettingClicked = { onThemeSettingClicked() },
 
         onLastInstalledVersionCodeClicked = { onLastInstalledVersionCodeClicked() },
         onRangeClicked = { onRangeClicked() },
+        setDynamicTheme = { checked -> settingsRepository.setDynamicThemeAsync(checked) },
         setSortByLastName = { setSortByLastName(it) }
     )
 
     private fun onThemeSettingClicked() = viewModelScope.launch {
         val currentTheme = settingsRepository.themeFlow.first()
 
-        val radioItems = DisplayThemeType.values().map { RadioDialogDataItem(it) { it.getString(application) } }
+        val supportedThemeTypes = if (Build.VERSION.SDK_INT > 28) {
+            DisplayThemeType.values().toList()
+        } else {
+            listOf(DisplayThemeType.LIGHT, DisplayThemeType.DARK)
+        }
+        val radioItems = supportedThemeTypes.map { RadioDialogDataItem(it) { it.getString(application) } }
 
         dialogUiStateFlow.value = RadioDialogUiState(
             items = RadioDialogDataItems(radioItems, currentTheme),

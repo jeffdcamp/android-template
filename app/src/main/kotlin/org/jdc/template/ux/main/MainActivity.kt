@@ -24,16 +24,21 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             val uiState = viewModel.uiState
-            val theme by uiState.themeFlow.collectAsState()
+            val theme by uiState.selectedAppThemeFlow.collectAsState()
 
-            val darkTheme = when(theme) {
+            val darkTheme = when(theme?.displayThemeType) {
                 DisplayThemeType.SYSTEM_DEFAULT -> isSystemInDarkTheme()
                 DisplayThemeType.LIGHT -> false
                 DisplayThemeType.DARK -> true
                 null -> isSystemInDarkTheme()
             }
 
-            AppTheme(darkTheme) {
+            val dynamicTheme = when(theme?.dynamicTheme) {
+                true -> true
+                else -> false
+            }
+
+            AppTheme(darkTheme, dynamicTheme) {
                 MainScreen()
             }
         }

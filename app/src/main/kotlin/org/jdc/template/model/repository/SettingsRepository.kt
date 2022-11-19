@@ -19,6 +19,9 @@ class SettingsRepository
     val themeFlow: Flow<DisplayThemeType> get() = devicePreferenceDataSource.themePref.flow
     fun setThemeAsync(theme: DisplayThemeType) = ProcessScope.launch { devicePreferenceDataSource.themePref.setValue(theme) }
 
+    val dynamicThemeFlow: Flow<Boolean> get() = devicePreferenceDataSource.dynamicThemePref.flow
+    fun setDynamicThemeAsync(enabled: Boolean) = ProcessScope.launch { devicePreferenceDataSource.dynamicThemePref.setValue(enabled) }
+
     val directorySortByLastNameFlow: Flow<Boolean> get() = userPreferenceDataSource.directorySortByLastNamePref.flow
     fun setSortByLastNameAsync(sortAscending: Boolean) = ProcessScope.launch { userPreferenceDataSource.directorySortByLastNamePref.setValue(sortAscending) }
 

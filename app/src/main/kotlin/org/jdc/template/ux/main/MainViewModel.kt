@@ -4,7 +4,9 @@ import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.combine
 import org.jdc.template.domain.individual.CreateIndividualTestDataUseCase
+import org.jdc.template.model.data.DisplayThemeType
 import org.jdc.template.model.repository.SettingsRepository
 import org.jdc.template.ui.navigation.DefaultNavBarConfig
 import org.jdc.template.ui.navigation.ViewModelNavBar
@@ -19,7 +21,11 @@ class MainViewModel
     private val createIndividualTestDataUseCase: CreateIndividualTestDataUseCase
 ) : ViewModel(), ViewModelNavBar<NavBarItem> by ViewModelNavBarImpl(NavBarItem.PEOPLE, DefaultNavBarConfig(NavBarItem.getNavBarItemRouteMap())) {
     val uiState = MainUiState(
-        themeFlow = settingsRepository.themeFlow.stateInDefault(viewModelScope, null)
+        selectedAppThemeFlow = combine(
+            settingsRepository.themeFlow.stateInDefault(viewModelScope, null),
+            settingsRepository.dynamicThemeFlow.stateInDefault(viewModelScope, null)) { displayThemeType, dynamicTheme ->
+            SelectedAppTheme(displayThemeType ?: DisplayThemeType.SYSTEM_DEFAULT, dynamicTheme ?: false)
+        }.stateInDefault(viewModelScope, null)
     )
 
     @VisibleForTesting
@@ -27,3 +33,5 @@ class MainViewModel
         createIndividualTestDataUseCase()
     }
 }
+
+data class SelectedAppTheme(val displayThemeType: DisplayThemeType, val dynamicTheme: Boolean)

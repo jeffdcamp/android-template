@@ -1,8 +1,11 @@
 package org.jdc.template.ui.theme
 
+import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.dynamicDarkColorScheme
+import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
@@ -12,6 +15,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.runtime.structuralEqualityPolicy
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 
 @Suppress("LongParameterList")
 class AppColors(
@@ -201,9 +205,13 @@ object AppTheme {
 @Composable
 fun AppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
+    dynamicTheme: Boolean = false,
     content: @Composable () -> Unit,
 ) {
-    val colors = if (darkTheme) darkColors() else lightColors()
+    val colors: AppColors = when {
+        dynamicTheme && Build.VERSION.SDK_INT >= 31 -> if (darkTheme) dynamicDarkColorScheme(LocalContext.current).toAppColors() else dynamicLightColorScheme(LocalContext.current).toAppColors()
+        else -> if (darkTheme) darkColors() else lightColors()
+    }
 
     val colorPalette = remember { colors }
     colorPalette.updateColorsFrom(colors)
@@ -283,5 +291,39 @@ fun darkColors(): AppColors {
         outline = AppPalette.md_theme_dark_outline,
         outlineVariant = AppPalette.md_theme_dark_outlineVariant,
         scrim = AppPalette.md_theme_dark_scrim,
+    )
+}
+
+private fun ColorScheme.toAppColors(): AppColors {
+    return AppColors(
+        primary = this.primary,
+        onPrimary = this.onPrimary,
+        primaryContainer = this.primaryContainer,
+        onPrimaryContainer = this.onPrimaryContainer,
+        inversePrimary = this.inversePrimary,
+        secondary = this.secondary,
+        onSecondary = this.onSecondary,
+        secondaryContainer = this.secondaryContainer,
+        onSecondaryContainer = this.onSecondaryContainer,
+        tertiary = this.tertiary,
+        onTertiary = this.onTertiary,
+        tertiaryContainer = this.tertiaryContainer,
+        onTertiaryContainer = this.onTertiaryContainer,
+        background = this.background,
+        onBackground = this.onBackground,
+        surface = this.surface,
+        onSurface = this.onSurface,
+        surfaceVariant = this.surfaceVariant,
+        onSurfaceVariant = this.onSurfaceVariant,
+        surfaceTint = this.surfaceTint,
+        inverseSurface = this.inverseSurface,
+        inverseOnSurface = this.inverseOnSurface,
+        error = this.error,
+        onError = this.onError,
+        errorContainer = this.errorContainer,
+        onErrorContainer = this.onErrorContainer,
+        outline = this.outline,
+        outlineVariant = this.outlineVariant,
+        scrim = this.scrim,
     )
 }
