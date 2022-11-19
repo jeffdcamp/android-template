@@ -65,7 +65,7 @@ private fun AcknowledgementWebview(uiState: AcknowledgementUiState) {
 }
 
 private fun getWebviewClient(): WebViewClient {
-    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+    return if (Build.VERSION.SDK_INT >= 24) {
         NewAcknowledgmentsWebViewClient()
     } else {
         AcknowledgmentsWebViewClient()

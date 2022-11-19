@@ -18,7 +18,7 @@ enum class NotificationChannels constructor(
 
     companion object {
         fun registerAllChannels(context: Context) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (Build.VERSION.SDK_INT >= 26) {
                 val notificationManager = context.getSystemService<NotificationManager>()
 
                 values().forEach {
