@@ -60,7 +60,7 @@ object Setting {
             headlineText = {
                 Text(text)
             },
-            supportingText = if (secondaryText != null) {
+            supportingText = if (!secondaryText.isNullOrBlank()) {
                 { Text(secondaryText) }
             } else {
                 null
@@ -92,7 +92,7 @@ object Setting {
             headlineText = {
                 Text(text)
             },
-            supportingText = if (secondaryText != null) {
+            supportingText = if (!secondaryText.isNullOrBlank()) {
                 { Text(secondaryText) }
             } else {
                 null
@@ -120,7 +120,7 @@ object Setting {
             headlineText = {
                 Text(text)
             },
-            supportingText = if (secondaryText != null) {
+            supportingText = if (!secondaryText.isNullOrBlank()) {
                 { Text(secondaryText) }
             } else {
                 null
