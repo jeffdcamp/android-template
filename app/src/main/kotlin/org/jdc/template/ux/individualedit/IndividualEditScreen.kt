@@ -153,7 +153,7 @@ private fun IndividualClickableEditField(label: String, text: String, onClick: (
             .padding(top = 16.dp)
     )
 
-    if ( source.collectIsPressedAsState().value) {
+    if (source.collectIsPressedAsState().value) {
         onClick()
     }
 }
