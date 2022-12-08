@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.FabPosition
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.PermanentDrawerSheet
@@ -101,6 +102,7 @@ internal fun MainAppScaffoldWithNavBar(
         navBarData = navBarData,
         floatingActionButton = floatingActionButton,
         floatingActionButtonPosition = floatingActionButtonPosition,
+        containerColor = MaterialTheme.colorScheme.surface,
         content = content
     )
 
