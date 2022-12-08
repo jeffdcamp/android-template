@@ -6,8 +6,7 @@ object AppInfo {
     // Manifest version information
     object Version {
         const val APP_NAME = "android-template"
-        const val MIN = 1006
-        val CODE = VersionCode.readVersionCode(APP_NAME, MIN)
+        val CODE = 1006
         val NAME = "1.0.0 ($CODE.${System.getenv("BUILD_NUMBER")})"
     }
 

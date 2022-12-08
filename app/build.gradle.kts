@@ -130,9 +130,9 @@ android {
     // read the "androidTemplateServiceCredentialsFile" from Gradle properties
     val androidTemplateServiceCredentialsFile: String? by project
 
-    val serviceCredentialsFileFromEnv = "app-distribution.json" // matches filename in Gradle Actions yml
+    val buildServiceCredentialsFile = "app-distribution.json" // matches filename in Github Actions yml
     val serviceCredentialsFileFromGradle = androidTemplateServiceCredentialsFile
-    val firebaseServiceCredentialsFile: String? = if (File(serviceCredentialsFileFromEnv).exists()) serviceCredentialsFileFromEnv else serviceCredentialsFileFromGradle
+    val firebaseServiceCredentialsFile: String? = if (File(buildServiceCredentialsFile).exists()) buildServiceCredentialsFile else serviceCredentialsFileFromGradle
     val firebaseGroups = "mobile-dev-team, mobile-qa-team"
     val firebaseReleaseNotesFile = "commit-changelog.txt"
 
@@ -296,12 +296,6 @@ dependencies {
 // create JUnit reports
 tasks.withType<Test> {
     useJUnitPlatform()
-}
-
-tasks.register("incrementVersionCode") {
-    doLast {
-        VersionCode.incrementVersionCode(AppInfo.Version.APP_NAME, AppInfo.Version.MIN)
-    }
 }
 
 // ===== Ruler =====
