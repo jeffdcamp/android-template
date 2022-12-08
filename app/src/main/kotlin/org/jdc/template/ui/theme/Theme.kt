@@ -210,7 +210,7 @@ fun AppTheme(
 ) {
     val colors: AppColors = when {
         dynamicTheme && Build.VERSION.SDK_INT >= 31 -> if (darkTheme) dynamicDarkColorScheme(LocalContext.current).toAppColors() else dynamicLightColorScheme(LocalContext.current).toAppColors()
-        else -> if (darkTheme) darkColors() else lightColors()
+        else -> if (darkTheme) AppPalette.darkColors() else AppPalette.lightColors()
     }
 
     val colorPalette = remember { colors }
@@ -224,74 +224,6 @@ fun AppTheme(
             content = content,
         )
     }
-}
-
-fun lightColors(): AppColors {
-    return AppColors(
-        primary = AppPalette.md_theme_light_primary,
-        onPrimary = AppPalette.md_theme_light_onPrimary,
-        primaryContainer = AppPalette.md_theme_light_primaryContainer,
-        onPrimaryContainer = AppPalette.md_theme_light_onPrimaryContainer,
-        inversePrimary = AppPalette.md_theme_light_inversePrimary,
-        secondary = AppPalette.md_theme_light_secondary,
-        onSecondary = AppPalette.md_theme_light_onSecondary,
-        secondaryContainer = AppPalette.md_theme_light_secondaryContainer,
-        onSecondaryContainer = AppPalette.md_theme_light_onSecondaryContainer,
-        tertiary = AppPalette.md_theme_light_tertiary,
-        onTertiary = AppPalette.md_theme_light_onTertiary,
-        tertiaryContainer = AppPalette.md_theme_light_tertiaryContainer,
-        onTertiaryContainer = AppPalette.md_theme_light_onTertiaryContainer,
-        background = AppPalette.md_theme_light_background,
-        onBackground = AppPalette.md_theme_light_onBackground,
-        surface = AppPalette.md_theme_light_surface,
-        onSurface = AppPalette.md_theme_light_onSurface,
-        surfaceVariant = AppPalette.md_theme_light_surfaceVariant,
-        onSurfaceVariant = AppPalette.md_theme_light_onSurfaceVariant,
-        surfaceTint = AppPalette.md_theme_light_surfaceTint,
-        inverseSurface = AppPalette.md_theme_light_inverseSurface,
-        inverseOnSurface = AppPalette.md_theme_light_inverseOnSurface,
-        error = AppPalette.md_theme_light_error,
-        onError = AppPalette.md_theme_light_onError,
-        errorContainer = AppPalette.md_theme_light_errorContainer,
-        onErrorContainer = AppPalette.md_theme_light_onErrorContainer,
-        outline = AppPalette.md_theme_light_outline,
-        outlineVariant = AppPalette.md_theme_light_outlineVariant,
-        scrim = AppPalette.md_theme_light_scrim,
-    )
-}
-
-fun darkColors(): AppColors {
-    return AppColors(
-        primary = AppPalette.md_theme_dark_primary,
-        onPrimary = AppPalette.md_theme_dark_onPrimary,
-        primaryContainer = AppPalette.md_theme_dark_primaryContainer,
-        onPrimaryContainer = AppPalette.md_theme_dark_onPrimaryContainer,
-        inversePrimary = AppPalette.md_theme_dark_inversePrimary,
-        secondary = AppPalette.md_theme_dark_secondary,
-        onSecondary = AppPalette.md_theme_dark_onSecondary,
-        secondaryContainer = AppPalette.md_theme_dark_secondaryContainer,
-        onSecondaryContainer = AppPalette.md_theme_dark_onSecondaryContainer,
-        tertiary = AppPalette.md_theme_dark_tertiary,
-        onTertiary = AppPalette.md_theme_dark_onTertiary,
-        tertiaryContainer = AppPalette.md_theme_dark_tertiaryContainer,
-        onTertiaryContainer = AppPalette.md_theme_dark_onTertiaryContainer,
-        background = AppPalette.md_theme_dark_background,
-        onBackground = AppPalette.md_theme_dark_onBackground,
-        surface = AppPalette.md_theme_dark_surface,
-        onSurface = AppPalette.md_theme_dark_onSurface,
-        surfaceVariant = AppPalette.md_theme_dark_surfaceVariant,
-        onSurfaceVariant = AppPalette.md_theme_dark_onSurfaceVariant,
-        surfaceTint = AppPalette.md_theme_dark_surfaceTint,
-        inverseSurface = AppPalette.md_theme_dark_inverseSurface,
-        inverseOnSurface = AppPalette.md_theme_dark_inverseOnSurface,
-        error = AppPalette.md_theme_dark_error,
-        onError = AppPalette.md_theme_dark_onError,
-        errorContainer = AppPalette.md_theme_dark_errorContainer,
-        onErrorContainer = AppPalette.md_theme_dark_onErrorContainer,
-        outline = AppPalette.md_theme_dark_outline,
-        outlineVariant = AppPalette.md_theme_dark_outlineVariant,
-        scrim = AppPalette.md_theme_dark_scrim,
-    )
 }
 
 private fun ColorScheme.toAppColors(): AppColors {
