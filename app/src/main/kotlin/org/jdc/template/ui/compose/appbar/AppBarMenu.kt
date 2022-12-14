@@ -104,7 +104,7 @@ fun AppBarTextButton(text: String, colors: ButtonColors? = null, action: () -> U
 
 @Composable
 fun AppBarTextButton(menuItem: AppBarMenuItem.TextButton) {
-    AppBarTextButton(text = menuItem.text(), action = menuItem.action)
+    AppBarTextButton(text = menuItem.text(), colors = menuItem.colors, action = menuItem.action)
 }
 
 @Composable
@@ -167,7 +167,13 @@ fun AppBarOverflowMenu(menuItems: List<AppBarMenuItem.OverflowMenuItem>) {
 
 sealed interface AppBarMenuItem {
     class Icon(val imageVector: ImageVector, val text: @Composable () -> String, val action: () -> Unit) : AppBarMenuItem
+    /**
+     * If setting colors, consider using ButtonDefaults.textButtonColors(contentColor = LocalContentColor.current)
+     */
     class Text(val text: @Composable () -> String, val colors: ButtonColors? = null, val action: () -> Unit) : AppBarMenuItem
+    /**
+     * If setting colors, consider using ButtonDefaults.buttonColors(contentColor = LocalContentColor.current)
+     */
     class TextButton(val text: @Composable () -> String, val colors: ButtonColors? = null, val action: () -> Unit) : AppBarMenuItem
     class OverflowMenuItem(
         val text: @Composable () -> String,

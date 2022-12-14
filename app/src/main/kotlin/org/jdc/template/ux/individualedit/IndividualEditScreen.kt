@@ -53,9 +53,7 @@ fun IndividualEditScreen(
     val uiState = viewModel.uiState
 
     val appBarMenuItems = listOf(
-        AppBarMenuItem.TextButton({ stringResource(R.string.save) }) { uiState.saveIndividual() },
         AppBarMenuItem.Text({ stringResource(R.string.save) }) { uiState.saveIndividual() },
-        AppBarMenuItem.Text({ stringResource(R.string.save) }, colors = ButtonDefaults.textButtonColors(contentColor = LocalContentColor.current)) { uiState.saveIndividual() },
     )
 
     MainAppScaffoldWithNavBar(
