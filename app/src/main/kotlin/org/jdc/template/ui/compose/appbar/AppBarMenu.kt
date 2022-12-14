@@ -1,10 +1,16 @@
 package org.jdc.template.ui.compose.appbar
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
@@ -32,6 +38,7 @@ fun AppBarMenu(menuItems: List<AppBarMenuItem>) {
         when(it) {
             is AppBarMenuItem.Icon -> AppBarIcon(it)
             is AppBarMenuItem.Text -> AppBarText(it)
+            is AppBarMenuItem.TextButton -> AppBarTextButton(it)
             else -> error("Unexpected item (filter failed)")
         }
     }
@@ -61,9 +68,10 @@ fun AppBarIcon(menuItem: AppBarMenuItem.Icon) {
 }
 
 @Composable
-fun AppBarText(text: String, action: () -> Unit) {
+fun AppBarText(text: String, colors: ButtonColors? = null, action: () -> Unit) {
     TextButton(
         onClick = action,
+        colors = colors ?: ButtonDefaults.textButtonColors()
     ) {
         Text(text)
     }
@@ -71,7 +79,32 @@ fun AppBarText(text: String, action: () -> Unit) {
 
 @Composable
 fun AppBarText(menuItem: AppBarMenuItem.Text) {
-    AppBarText(text = menuItem.text(), action = menuItem.action)
+    AppBarText(text = menuItem.text(), colors = menuItem.colors, action = menuItem.action)
+}
+
+@Composable
+fun AppBarTextButton(text: String, colors: ButtonColors? = null, action: () -> Unit) {
+    Row {
+        Button(
+            onClick = action,
+            colors = colors ?: ButtonDefaults.buttonColors(),
+            contentPadding = PaddingValues(
+                start = 12.dp,
+                top = 8.dp,
+                end = 12.dp,
+                bottom = 8.dp
+            )
+        ) {
+            Text(text)
+        }
+
+        Spacer(modifier = Modifier.width(4.dp))
+    }
+}
+
+@Composable
+fun AppBarTextButton(menuItem: AppBarMenuItem.TextButton) {
+    AppBarTextButton(text = menuItem.text(), action = menuItem.action)
 }
 
 @Composable
@@ -134,7 +167,8 @@ fun AppBarOverflowMenu(menuItems: List<AppBarMenuItem.OverflowMenuItem>) {
 
 sealed interface AppBarMenuItem {
     class Icon(val imageVector: ImageVector, val text: @Composable () -> String, val action: () -> Unit) : AppBarMenuItem
-    class Text(val text: @Composable () -> String, val action: () -> Unit) : AppBarMenuItem
+    class Text(val text: @Composable () -> String, val colors: ButtonColors? = null, val action: () -> Unit) : AppBarMenuItem
+    class TextButton(val text: @Composable () -> String, val colors: ButtonColors? = null, val action: () -> Unit) : AppBarMenuItem
     class OverflowMenuItem(
         val text: @Composable () -> String,
         val icon: ImageVector? = null,
