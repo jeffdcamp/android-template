@@ -1,21 +1,16 @@
 @file:Suppress("MatchingDeclarationName")
 package org.jdc.template.ux.individualedit
 
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.platform.LocalContext
@@ -30,6 +25,7 @@ import kotlinx.coroutines.flow.StateFlow
 import org.jdc.template.R
 import org.jdc.template.model.db.main.type.IndividualType
 import org.jdc.template.ui.DateUiUtil
+import org.jdc.template.ui.compose.ClickableTextField
 import org.jdc.template.ui.compose.DayNightTextField
 import org.jdc.template.ui.compose.EnumExposedDropdownMenuBox
 import org.jdc.template.ui.compose.PreviewDefault
@@ -81,13 +77,13 @@ fun IndividualEditFields(
     ) {
         val focusManager = LocalFocusManager.current
 
-        IndividualEditField(stringResource(R.string.first_name), uiState.firstNameFlow, "firstNameEditTextTag", uiState.firstNameOnChange)
-        IndividualEditField(stringResource(R.string.last_name), uiState.lastNameFlow, "lastNameEditTextTag", uiState.lastNameOnChange)
-        IndividualEditField(stringResource(R.string.phone), uiState.phoneFlow, "phoneEditTextTag", uiState.phoneOnChange)
-        IndividualEditField(stringResource(R.string.email), uiState.emailFlow, "emailEditTextTag", uiState.emailOnChange)
+        IndividualTextField(stringResource(R.string.first_name), uiState.firstNameFlow, "firstNameEditTextTag", uiState.firstNameOnChange)
+        IndividualTextField(stringResource(R.string.last_name), uiState.lastNameFlow, "lastNameEditTextTag", uiState.lastNameOnChange)
+        IndividualTextField(stringResource(R.string.phone), uiState.phoneFlow, "phoneEditTextTag", uiState.phoneOnChange)
+        IndividualTextField(stringResource(R.string.email), uiState.emailFlow, "emailEditTextTag", uiState.emailOnChange)
 
-        DateClickableEditField(stringResource(R.string.birth_date), uiState.birthDateFlow, uiState.birthDateClicked)
-        TimeClickableEditField(stringResource(R.string.alarm_time), uiState.alarmTimeFlow, uiState.alarmTimeClicked)
+        DateClickableTextField(stringResource(R.string.birth_date), uiState.birthDateFlow, uiState.birthDateClicked)
+        TimeClickableTextField(stringResource(R.string.alarm_time), uiState.alarmTimeFlow, uiState.alarmTimeClicked)
 
         EnumExposedDropdownMenuBox(
             label = stringResource(R.string.individual_type),
@@ -105,7 +101,7 @@ fun IndividualEditFields(
 }
 
 @Composable
-private fun IndividualEditField(label: String, textFlow: StateFlow<TextFieldData>, testTag: String, onChange: (String) -> Unit) {
+private fun IndividualTextField(label: String, textFlow: StateFlow<TextFieldData>, testTag: String, onChange: (String) -> Unit) {
     val textFieldValue by textFlow.collectAsState()
     val focusManager = LocalFocusManager.current
 
@@ -125,39 +121,17 @@ private fun IndividualEditField(label: String, textFlow: StateFlow<TextFieldData
 }
 
 @Composable
-private fun DateClickableEditField(label: String, localDateFlow: StateFlow<LocalDate?>, onClick: () -> Unit) {
+private fun DateClickableTextField(label: String, localDateFlow: StateFlow<LocalDate?>, onClick: () -> Unit) {
     val date by localDateFlow.collectAsState()
     val text = DateUiUtil.getLocalDateText(LocalContext.current, date)
-    IndividualClickableEditField(label, text, onClick)
+    ClickableTextField(label, text, onClick)
 }
 
 @Composable
-private fun TimeClickableEditField(label: String, localTimeFlow: StateFlow<LocalTime?>, onClick: () -> Unit) {
+private fun TimeClickableTextField(label: String, localTimeFlow: StateFlow<LocalTime?>, onClick: () -> Unit) {
     val time by localTimeFlow.collectAsState()
     val text = DateUiUtil.getLocalTimeText(LocalContext.current, time)
-    IndividualClickableEditField(label, text, onClick)
-}
-
-@Composable
-private fun IndividualClickableEditField(label: String, text: String, onClick: () -> Unit) {
-    val source = remember { MutableInteractionSource() }
-    val focusManager = LocalFocusManager.current
-
-    DayNightTextField(
-        value = text,
-        onValueChange = { },
-        readOnly = true,
-        label = { Text(label) },
-        interactionSource = source,
-        modifier = Modifier
-            .onPreviewKeyEvent { formKeyEventHandler(it, focusManager) }
-            .fillMaxWidth()
-            .padding(top = 16.dp)
-    )
-
-    if (source.collectIsPressedAsState().value) {
-        onClick()
-    }
+    ClickableTextField(label, text, onClick)
 }
 
 @PreviewDefault
