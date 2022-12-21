@@ -76,6 +76,7 @@ dependencyAnalysis {
             }
             onUnusedDependencies {
                 exclude(
+                    depGroupAndName(libs.xerial.sqlite), // loaded in tests via JDBC reflection
                     depGroupAndName(libs.leakCanary),
                     "androidx.test:core" // work around for supporting tests on Android 33 devices (https://issuetracker.google.com/issues/240993946) till ui-test-junit4 updates its dependencies (fixed with ui-test:1.4.0-alpha03+)
                 )
