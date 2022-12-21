@@ -60,6 +60,7 @@ private fun AboutScreenContent(
         Divider(Modifier.padding(top = 16.dp, bottom = 16.dp))
         RestServicesStatus(uiState)
         TestButton("M3 Samples") { uiState.m3SamplesClicked() }
+        TestButton("M3 Typography") { uiState.m3TypographyClicked() }
         TestButton("Create Database") { uiState.createSampleData() }
         TestButton("Test Rest Call") { uiState.testQueryWebServiceCall() }
 //        TestButton("Test Table Changes") { uiState.testTableChange() }

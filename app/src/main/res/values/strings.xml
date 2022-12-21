@@ -33,6 +33,7 @@
     <string name="people">People</string>
     <string name="hide_password">Hide Password</string>
     <string name="show_password">Show Password</string>
+    <string name="typography">Typography</string>
 
     <!-- Individual -->
     <string name="delete_individual_confirm">Are you sure you want to delete this individual?</string>
