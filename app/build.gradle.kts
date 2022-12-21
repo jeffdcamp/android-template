@@ -204,17 +204,14 @@ dependencies {
 
     // Compose
     implementation(libs.compose.ui)
-    implementation(libs.compose.ui.tooling)
+    debugImplementation(libs.compose.ui.tooling.preview)
+//    debugImplementation(libs.compose.ui.tooling)
     implementation(libs.compose.material3)
     implementation(libs.compose.material3.windowsize)
 //    implementation(libs.compose.material.iconsext)
 
-    // UI
-    implementation(libs.androidx.window)
-
     // Play Service
     implementation(libs.google.play.core)
-    implementation(libs.kotlin.coroutines.playServices)
 
     // Firebase
     implementation(platform(libs.google.firebase.bom))
@@ -269,7 +266,7 @@ dependencies {
     debugImplementation(libs.leakCanary)
 
     // Test (Integration)
-    androidTestImplementation("androidx.test:core:1.5.0") // work around for supporting tests on Android 33 devices (https://issuetracker.google.com/issues/240993946) till ui-test-junit4 updates its dependencies
+    androidTestImplementation("androidx.test:core:1.5.0") // work around for supporting tests on Android 33 devices (https://issuetracker.google.com/issues/240993946) till ui-test-junit4 updates its dependencies (fixed with ui-test:1.4.0-alpha03+)
     androidTestImplementation(libs.compose.ui.test.junit4)
     debugImplementation(libs.compose.ui.test.manifest)
 
@@ -281,9 +278,7 @@ dependencies {
     testImplementation(libs.truth)
     testImplementation(libs.kotlin.coroutines.test)
     testImplementation(libs.okhttp.mockwebserver)
-    testImplementation(libs.xerial.sqlite)
     testImplementation(libs.dbtools.roomJdbc)
-    testImplementation(libs.dbtools.roomJdbcTest)
 
     // use regular dagger for unit tests
     // (2020-06-11: "Currently, Hilt only supports Android instrumentation and Robolectric tests. Hilt cannot be used in vanilla JVM tests,
@@ -349,7 +344,7 @@ tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
     }
 }
 
-// TripleT / Google Play Publisher
+// ===== TripleT / Google Play Publisher =====
 play {
     // try to get the credentials from gradle properties (ex: Jenkins) OR try to pull from env.ANDROID_PUBLISHER_CREDENTIALS (Gradle Actions)
     val myServiceAccountCreds: String? by project
@@ -361,6 +356,7 @@ play {
     defaultToAppBundles.set(true)
 }
 
+// ===== License Manager =====
 // ./gradlew createLicenseReports
 // ./gradlew --stacktrace -i createLicenseReports
 licenseManager {

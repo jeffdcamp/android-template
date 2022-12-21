@@ -23,6 +23,10 @@ buildscript {
     }
 }
 
+plugins {
+    id("com.autonomousapps.dependency-analysis") version "1.17.0"
+}
+
 @OptIn(ExperimentalStdlibApi::class) // to use buildList (remove with Kotlin 1.5?)
 allprojects {
     // Gradle Dependency Reports
@@ -59,6 +63,38 @@ allprojects {
             }
         }
     }
+}
+
+// ===== Dependency Analysis =====
+// ./gradlew projectHealth
+dependencyAnalysis {
+    issues {
+        all {
+            onAny {
+                ignoreKtx(true)
+                severity("fail")
+            }
+            onUnusedDependencies {
+                exclude(
+                    depGroupAndName(libs.leakCanary),
+                    "androidx.test:core" // work around for supporting tests on Android 33 devices (https://issuetracker.google.com/issues/240993946) till ui-test-junit4 updates its dependencies (fixed with ui-test:1.4.0-alpha03+)
+                )
+            }
+            onUsedTransitiveDependencies { severity("ignore") }
+            onIncorrectConfiguration { severity("ignore") }
+            onCompileOnly { severity("ignore") }
+            onRuntimeOnly { severity("ignore") }
+            onUnusedAnnotationProcessors {
+                exclude(
+                    depGroupAndName(libs.google.hilt.compiler)
+                )
+            }
+        }
+    }
+}
+
+fun depGroupAndName(dependency: Provider<MinimalExternalModuleDependency>): String {
+    return dependency.get().let { "${it.group}:${it.name}" }
 }
 
 tasks.register("clean", Delete::class) {

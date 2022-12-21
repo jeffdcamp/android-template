@@ -90,7 +90,7 @@ compose-material3 = { module = "androidx.compose.material3:material3", version.r
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "androidxComposeUi" }
 compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "androidxComposeUi" }
 compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "androidxComposeUi" }
-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "androidxComposeUi" } # Tooling support (Previews, etc.)
+compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "androidxComposeUi" } # Tooling support (Previews, etc.)
 compose-material3-windowsize = { module = "androidx.compose.material3:material3-window-size-class", version.ref = "androidxComposeMaterial3" }
 
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "hilt" }
