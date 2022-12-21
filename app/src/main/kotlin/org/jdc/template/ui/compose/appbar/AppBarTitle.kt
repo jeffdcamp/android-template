@@ -18,13 +18,13 @@ fun AppBarTitle(
         if (!autoSizeTitle) {
             Text(
                 text = title,
-                style = MaterialTheme.typography.headlineSmall,
+                style = MaterialTheme.typography.titleLarge,
                 maxLines = 1
             )
         } else {
             AutoSizeText(
                 text = title,
-                style = MaterialTheme.typography.headlineSmall,
+                style = MaterialTheme.typography.titleLarge,
                 maxLines = 1
             )
         }
