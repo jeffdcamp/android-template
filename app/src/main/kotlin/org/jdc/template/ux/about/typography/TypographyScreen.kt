@@ -3,6 +3,8 @@ package org.jdc.template.ux.about.typography
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,7 +33,7 @@ fun TypographyScreen(
 
 @Composable
 fun TypographyContent() {
-    Column {
+    Column(Modifier.verticalScroll(rememberScrollState())) {
         TypographyText(styleName = "displayLarge", style = MaterialTheme.typography.displayLarge)
         TypographyText(styleName = "displayMedium", style = MaterialTheme.typography.displayMedium)
         TypographyText(styleName = "displaySmall", style = MaterialTheme.typography.displaySmall)
