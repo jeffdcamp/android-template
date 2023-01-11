@@ -7,13 +7,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.key.onPreviewKeyEvent
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
@@ -21,25 +17,22 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import org.jdc.template.R
 import org.jdc.template.model.db.main.type.IndividualType
-import org.jdc.template.ui.DateUiUtil
-import org.jdc.template.ui.compose.ClickableTextField
-import org.jdc.template.ui.compose.DayNightTextField
-import org.jdc.template.ui.compose.EnumExposedDropdownMenuBox
 import org.jdc.template.ui.compose.PreviewDefault
-import org.jdc.template.ui.compose.SupportingText
-import org.jdc.template.ui.compose.TextFieldData
 import org.jdc.template.ui.compose.appbar.AppBarMenu
 import org.jdc.template.ui.compose.appbar.AppBarMenuItem
 import org.jdc.template.ui.compose.dialog.HandleDialogUiState
+import org.jdc.template.ui.compose.form.DateClickableTextField
+import org.jdc.template.ui.compose.form.EnumExposedDropdownMenuBox
+import org.jdc.template.ui.compose.form.SwitchField
+import org.jdc.template.ui.compose.form.TextFieldData
+import org.jdc.template.ui.compose.form.TextFieldDataTextField
+import org.jdc.template.ui.compose.form.TimeClickableTextField
 import org.jdc.template.ui.compose.util.formKeyEventHandler
 import org.jdc.template.ui.navigation.HandleNavigation
 import org.jdc.template.ui.theme.AppTheme
 import org.jdc.template.ux.MainAppScaffoldWithNavBar
-import java.time.LocalDate
-import java.time.LocalTime
 
 @Composable
 fun IndividualEditScreen(
@@ -77,13 +70,17 @@ fun IndividualEditFields(
     ) {
         val focusManager = LocalFocusManager.current
 
-        IndividualTextField(stringResource(R.string.first_name), uiState.firstNameFlow, "firstNameEditTextTag", uiState.firstNameOnChange)
-        IndividualTextField(stringResource(R.string.last_name), uiState.lastNameFlow, "lastNameEditTextTag", uiState.lastNameOnChange)
-        IndividualTextField(stringResource(R.string.phone), uiState.phoneFlow, "phoneEditTextTag", uiState.phoneOnChange)
-        IndividualTextField(stringResource(R.string.email), uiState.emailFlow, "emailEditTextTag", uiState.emailOnChange)
+        val fieldModifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 4.dp)
 
-        DateClickableTextField(stringResource(R.string.birth_date), uiState.birthDateFlow, uiState.birthDateClicked)
-        TimeClickableTextField(stringResource(R.string.alarm_time), uiState.alarmTimeFlow, uiState.alarmTimeClicked)
+        TextFieldDataTextField(stringResource(R.string.first_name), uiState.firstNameFlow, "firstNameEditTextTag", uiState.firstNameOnChange, fieldModifier)
+        TextFieldDataTextField(stringResource(R.string.last_name), uiState.lastNameFlow, "lastNameEditTextTag", uiState.lastNameOnChange, fieldModifier)
+        TextFieldDataTextField(stringResource(R.string.phone), uiState.phoneFlow, "phoneEditTextTag", uiState.phoneOnChange, fieldModifier)
+        TextFieldDataTextField(stringResource(R.string.email), uiState.emailFlow, "emailEditTextTag", uiState.emailOnChange, fieldModifier)
+
+        DateClickableTextField(stringResource(R.string.birth_date), uiState.birthDateFlow, uiState.birthDateClicked, fieldModifier)
+        TimeClickableTextField(stringResource(R.string.alarm_time), uiState.alarmTimeFlow, uiState.alarmTimeClicked, fieldModifier)
 
         EnumExposedDropdownMenuBox(
             label = stringResource(R.string.individual_type),
@@ -91,47 +88,13 @@ fun IndividualEditFields(
             selectedOptionFlow = uiState.individualTypeFlow,
             onOptionSelected = { uiState.individualTypeChange(it) },
             optionToText = { stringResource(it.textResId) },
-            modifier = Modifier
+            modifier = fieldModifier
                 .onPreviewKeyEvent { formKeyEventHandler(it, focusManager) }
-                .fillMaxWidth()
-                .padding(top = 16.dp)
                 .testTag("individualTypeTextTag")
         )
+
+        SwitchField(stringResource(R.string.available), uiState.availableFlow, uiState.availableOnChange, fieldModifier)
     }
-}
-
-@Composable
-private fun IndividualTextField(label: String, textFlow: StateFlow<TextFieldData>, testTag: String, onChange: (String) -> Unit) {
-    val textFieldValue by textFlow.collectAsState()
-    val focusManager = LocalFocusManager.current
-
-    DayNightTextField(
-        value = textFieldValue.text,
-        onValueChange = { onChange(it) },
-        label = { Text(label) },
-        singleLine = true,
-        isError = textFieldValue.isError,
-        supportingText = { SupportingText(textFieldValue.isError, textFieldValue.helperText, textFieldValue.errorHelperText) },
-        modifier = Modifier
-            .onPreviewKeyEvent { formKeyEventHandler(it, focusManager) }
-            .fillMaxWidth()
-            .padding(top = 16.dp)
-            .testTag(testTag)
-    )
-}
-
-@Composable
-private fun DateClickableTextField(label: String, localDateFlow: StateFlow<LocalDate?>, onClick: () -> Unit) {
-    val date by localDateFlow.collectAsState()
-    val text = DateUiUtil.getLocalDateText(LocalContext.current, date)
-    ClickableTextField(label, text, onClick)
-}
-
-@Composable
-private fun TimeClickableTextField(label: String, localTimeFlow: StateFlow<LocalTime?>, onClick: () -> Unit) {
-    val time by localTimeFlow.collectAsState()
-    val text = DateUiUtil.getLocalTimeText(LocalContext.current, time)
-    ClickableTextField(label, text, onClick)
 }
 
 @PreviewDefault

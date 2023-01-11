@@ -1,6 +1,5 @@
-package org.jdc.template.ui.compose
+package org.jdc.template.ui.compose.form
 
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
@@ -13,6 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import kotlinx.coroutines.flow.StateFlow
+import org.jdc.template.ui.compose.DayNightTextField
 
 @Composable
 fun <T: Enum<T>> EnumExposedDropdownMenuBox(
@@ -29,7 +29,6 @@ fun <T: Enum<T>> EnumExposedDropdownMenuBox(
     ExposedDropdownMenuBox(
         expanded = expanded,
         onExpandedChange = { expanded = !expanded },
-        modifier = modifier
     ) {
         DayNightTextField(
             readOnly = true,
@@ -37,11 +36,10 @@ fun <T: Enum<T>> EnumExposedDropdownMenuBox(
             onValueChange = {},
             label = if (label != null) { { Text(text = label) } } else null,
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-            modifier = Modifier
+            modifier = modifier
                 // As of Material3 1.0.0-beta03; The `menuAnchor` modifier must be passed to the text field for correctness.
                 // (https://android-review.googlesource.com/c/platform/frameworks/support/+/2200861)
                 .menuAnchor()
-                .fillMaxWidth()
         )
         ExposedDropdownMenu(
             expanded = expanded,

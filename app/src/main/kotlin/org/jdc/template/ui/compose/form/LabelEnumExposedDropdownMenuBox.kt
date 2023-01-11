@@ -1,4 +1,4 @@
-package org.jdc.template.ui.compose
+package org.jdc.template.ui.compose.form
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row

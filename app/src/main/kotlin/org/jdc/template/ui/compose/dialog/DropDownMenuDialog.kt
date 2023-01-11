@@ -86,6 +86,7 @@ fun DropDownMenuDialog(
                 ) {
                     val labelText = label()
                     DayNightTextField(
+                        singleLine = true,
                         readOnly = true,
                         value = selectedOptionTextFieldValue,
                         onValueChange = { },

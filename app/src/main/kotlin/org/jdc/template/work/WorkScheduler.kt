@@ -77,15 +77,11 @@ class WorkScheduler
     }
 
     fun scheduleRemoteConfigUpdate() {
-        val workRequest = createStandardPeriodicWorkRequest<RemoteConfigSyncWorker>(5, TimeUnit.DAYS)
+        val workRequest = createNetworkPeriodicWorkRequest<RemoteConfigSyncWorker>(5, TimeUnit.DAYS)
         workManager.enqueueUniquePeriodicWork(RemoteConfigSyncWorker.UNIQUE_PERIODIC_WORK_NAME, ExistingPeriodicWorkPolicy.KEEP, workRequest)
     }
 
-    /**
-     * Create a standard PERIODIC request that...
-     * - Requires a Network Connection
-     */
-    private inline fun <reified T : CoroutineWorker> createStandardPeriodicWorkRequest(
+    private inline fun <reified T : CoroutineWorker> createNetworkPeriodicWorkRequest(
         repeatInterval: Long,
         timeUnit: TimeUnit,
         inputDataBuilder: Data.Builder = Data.Builder(),
@@ -93,10 +89,6 @@ class WorkScheduler
     ): PeriodicWorkRequest {
         val workerConstraintsBuilder = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
-
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            workerConstraintsBuilder.setRequiresDeviceIdle(true)
-//        }
 
         val workerConstraints = workerConstraintsBuilder.build()
 

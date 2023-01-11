@@ -53,9 +53,6 @@ class  AboutViewModel
         m3TypographyClicked = { navigate(TypographyRoute.createRoute()) }
     )
 
-    /**
-     * Simple web service call
-     */
     private fun testQueryWebServiceCall() = viewModelScope.launch {
         if (!remoteConfig.isColorServiceEnabled()) {
             Timber.e("Color Service is NOT enabled... skipping")
@@ -71,9 +68,6 @@ class  AboutViewModel
         }
     }
 
-    /**
-     * Simple web service call using the full url (instead of just an endpoint)
-     */
     private fun testFullUrlQueryWebServiceCall() = viewModelScope.launch {
         val response = colorService.colorsByFullUrl(ColorService.FULL_URL)
 
@@ -84,9 +78,6 @@ class  AboutViewModel
         }
     }
 
-    /**
-     * Web service call that saves response to file, then processes the file (best for large JSON payloads)
-     */
     private fun testSaveQueryWebServiceCall() = viewModelScope.launch {
         val response = colorService.colorsToFile()
 
@@ -125,9 +116,6 @@ class  AboutViewModel
         }
     }
 
-    /**
-     * Sample for creating a scheduled simple worker
-     */
     private fun workManagerSimpleTest() = viewModelScope.launch {
         workScheduler.scheduleSimpleWork("test1")
         workScheduler.scheduleSimpleWork("test2")
@@ -137,9 +125,6 @@ class  AboutViewModel
         workScheduler.scheduleSimpleWork("test3")
     }
 
-    /**
-     * Sample for creating a scheduled sync worker
-     */
     private fun workManagerSyncTest() = viewModelScope.launch {
         workScheduler.scheduleSync()
         workScheduler.scheduleSync(true)
@@ -149,10 +134,7 @@ class  AboutViewModel
         workScheduler.scheduleSync()
     }
 
-    /**
-     * Table change listener tests
-     */
-    fun testTableChange() = viewModelScope.launch {
+    private fun testTableChange() = viewModelScope.launch {
         // Sample tests
         if (individualRepository.getIndividualCount() == 0) {
             Timber.e("No data.. cannot perform test")

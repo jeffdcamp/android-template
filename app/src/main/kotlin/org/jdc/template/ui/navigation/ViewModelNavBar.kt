@@ -181,7 +181,7 @@ private fun routeHasArgs(route: String): Boolean {
     return route.contains('/') || route.contains('?')
 }
 
-/**
+/*
  * Alternative popBackStack that works with arguments (popBackStack() does not support routes with args)
  * https://stackoverflow.com/questions/71948142/jetpack-compose-how-to-do-popbackstack-with-arguments
  * "Note that this does not support the inclusive and saveState options (due to the current navigation API limitation),

@@ -11,11 +11,11 @@ import org.jdc.template.R
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.db.main.type.IndividualType
 import org.jdc.template.model.repository.IndividualRepository
-import org.jdc.template.ui.compose.TextFieldData
 import org.jdc.template.ui.compose.dialog.DateDialogUiState
 import org.jdc.template.ui.compose.dialog.DialogUiState
 import org.jdc.template.ui.compose.dialog.TimeDialogUiState
 import org.jdc.template.ui.compose.dialog.dismissDialog
+import org.jdc.template.ui.compose.form.TextFieldData
 import org.jdc.template.ui.navigation.ViewModelNav
 import org.jdc.template.ui.navigation.ViewModelNavImpl
 import org.jdc.template.util.delegates.savedState
@@ -30,7 +30,7 @@ class IndividualEditViewModel
     private val individualRepository: IndividualRepository,
     savedStateHandle: SavedStateHandle
 ) : ViewModel(), ViewModelNav by ViewModelNavImpl() {
-    private val individualId: String? by savedState(savedStateHandle, null)
+    private val individualId: String? by savedState(savedStateHandle, key = IndividualEditRoute.Arg.INDIVIDUAL_ID)
     private var individual = Individual()
 
     // hold state for Compose views
@@ -41,6 +41,7 @@ class IndividualEditViewModel
     private val birthDateFlow = MutableStateFlow<LocalDate?>(null)
     private val alarmTimeFlow = MutableStateFlow<LocalTime?>(null)
     private val individualTypeFlow = MutableStateFlow(IndividualType.UNKNOWN)
+    private val availableFlow = MutableStateFlow(false)
 
     // Dialogs
     private val dialogUiStateFlow = MutableStateFlow<DialogUiState<*>?>(null)
@@ -66,6 +67,9 @@ class IndividualEditViewModel
 
         individualTypeFlow = individualTypeFlow,
         individualTypeChange = { individualTypeFlow.value = it },
+
+        availableFlow = availableFlow,
+        availableOnChange = { availableFlow.value = it },
 
         // Events
         saveIndividual = { saveIndividual() }
@@ -97,6 +101,7 @@ class IndividualEditViewModel
         birthDateFlow.value = individual.birthDate
         alarmTimeFlow.value = individual.alarmTime
         individualTypeFlow.value = individual.individualType
+        availableFlow.value = individual.available
     }
 
     private fun saveIndividual() = viewModelScope.launch {
@@ -111,6 +116,7 @@ class IndividualEditViewModel
         individual.birthDate = birthDateFlow.value
         individual.alarmTime = alarmTimeFlow.value
         individual.individualType = individualTypeFlow.value
+        individual.available = availableFlow.value
 
         individualRepository.saveIndividual(individual)
 

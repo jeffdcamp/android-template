@@ -53,4 +53,5 @@
     <string name="spouse">Spouse</string>
     <string name="child">Child</string>
     <string name="unkown">Unknown</string>
+    <string name="available">Available</string>
 </resources>

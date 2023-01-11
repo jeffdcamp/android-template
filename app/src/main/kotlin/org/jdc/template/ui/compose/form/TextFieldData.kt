@@ -1,4 +1,4 @@
-package org.jdc.template.ui.compose
+package org.jdc.template.ui.compose.form
 
 data class TextFieldData(
     val text: String,
