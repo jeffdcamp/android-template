@@ -41,6 +41,14 @@ class IndividualRepository
         individualDao().insert(individual)
     }
 
+    suspend fun saveIndividuals(individualList: List<Individual>) {
+        mainDatabase().withTransaction {
+            individualList.forEach { individual ->
+                individualDao().insert(individual)
+            }
+        }
+    }
+
     private suspend fun saveHousehold(household: Household) {
         householdDao().insert(household)
     }

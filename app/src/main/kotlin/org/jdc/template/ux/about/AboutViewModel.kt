@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import org.jdc.template.domain.individual.CreateIndividualLargeTestDataUseCase
 import org.jdc.template.domain.individual.CreateIndividualTestDataUseCase
 import org.jdc.template.model.config.RemoteConfig
 import org.jdc.template.model.repository.IndividualRepository
@@ -34,7 +35,8 @@ class  AboutViewModel
     private val colorService: ColorService,
     private val workScheduler: WorkScheduler,
     private val remoteConfig: RemoteConfig,
-    private val createIndividualTestDataUseCase: CreateIndividualTestDataUseCase
+    private val createIndividualTestDataUseCase: CreateIndividualTestDataUseCase,
+    private val createIndividualLargeTestDataUseCase: CreateIndividualLargeTestDataUseCase
 ) : ViewModel(), ViewModelNav by ViewModelNavImpl() {
 
     private val resetServiceEnabledFlow: StateFlow<Boolean> = MutableStateFlow(remoteConfig.isColorServiceEnabled()).asStateFlow()
@@ -49,6 +51,7 @@ class  AboutViewModel
         testTableChange = { testTableChange() },
         licensesClicked = { navigate(AcknowledgmentsRoute.createRoute()) },
         createSampleData = { createSampleData() },
+        createLargeSampleData = { createLargeSampleData() },
         m3SamplesClicked = { navigate(ComponentsRoute.createRoute()) },
         m3TypographyClicked = { navigate(TypographyRoute.createRoute()) }
     )
@@ -164,5 +167,9 @@ class  AboutViewModel
 
     private fun createSampleData() = viewModelScope.launch {
         createIndividualTestDataUseCase()
+    }
+
+    private fun createLargeSampleData() = viewModelScope.launch {
+        createIndividualLargeTestDataUseCase()
     }
 }

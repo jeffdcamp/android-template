@@ -62,6 +62,7 @@ private fun AboutScreenContent(
         TestButton("M3 Samples") { uiState.m3SamplesClicked() }
         TestButton("M3 Typography") { uiState.m3TypographyClicked() }
         TestButton("Create Database") { uiState.createSampleData() }
+        TestButton("Create Large Database") { uiState.createLargeSampleData() }
         TestButton("Test Rest Call") { uiState.testQueryWebServiceCall() }
 //        TestButton("Test Table Changes") { uiState.testTableChange() }
         TestButton("TEST SIMPLE WORKMANAGER") { uiState.workManagerSimpleTest() }
