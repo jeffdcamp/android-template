@@ -86,8 +86,9 @@ class SettingsViewModel
         val currentValue = settingsRepository.getRange()
         dialogUiStateFlow.value = DropDownMenuDialogUiState(
             title = { "Range" },
-            options = SettingsRepository.RANGE_OPTIONS.map { it.toString() },
-            initialSelectedOption = currentValue.toString(),
+            options = SettingsRepository.RANGE_OPTIONS.map { it },
+            optionToText = { it.toString() },
+            initialSelectedOption = currentValue,
             onConfirm = { setRange(it) },
             onDismiss = { dismissDialog(dialogUiStateFlow) },
             onDismissRequest = { dismissDialog(dialogUiStateFlow) },
@@ -101,10 +102,8 @@ class SettingsViewModel
         dismissDialog(dialogUiStateFlow)
     }
 
-    private fun setRange(value: String) {
-        value.toIntOrNull()?.let {
-            settingsRepository.setRangeAsync(it)
-        }
+    private fun setRange(value: Int) {
+        settingsRepository.setRangeAsync(value)
         dismissDialog(dialogUiStateFlow)
     }
 
