@@ -8,6 +8,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.WindowCompat
 import dagger.hilt.android.AndroidEntryPoint
 import org.jdc.template.model.data.DisplayThemeType
 import org.jdc.template.ui.theme.AppTheme
@@ -19,6 +20,9 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Turn off the decor fitting system windows, which allows us to handle insets, including IME animations (OS statusbar and nav bar colors is handled by app)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
 
         installSplashScreen()
 

@@ -12,11 +12,13 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.PermanentDrawerSheet
 import androidx.compose.material3.PermanentNavigationDrawer
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -25,7 +27,6 @@ import org.jdc.template.ui.compose.appbar.AppNavBarData
 import org.jdc.template.ui.compose.appbar.AppNavBarType
 import org.jdc.template.ui.compose.appbar.AppScaffoldAndNavigation
 import org.jdc.template.ui.compose.appbar.AppTopAppBar
-import org.jdc.template.ui.compose.appbar.HandleColorForSystemBars
 import org.jdc.template.ui.compose.appnavbar.AppBottomNavigationItem
 import org.jdc.template.ui.compose.appnavbar.AppNavigationDrawerItem
 import org.jdc.template.ui.compose.appnavbar.AppNavigationDrawerLabel
@@ -38,6 +39,7 @@ import org.jdc.template.ux.main.NavBarItem
 @Composable
 internal fun MainAppScaffoldWithNavBar(
     title: String,
+    modifier: Modifier = Modifier,
     subtitle: String? = null,
     navigationIconVisible: Boolean = true,
     navigationIcon: ImageVector = Icons.Filled.ArrowBack,
@@ -52,6 +54,7 @@ internal fun MainAppScaffoldWithNavBar(
     val windowSize = activity.rememberWindowSize()
     val viewModel: MainViewModel = hiltViewModel(activity)
     val selectedBarItem by viewModel.selectedNavBarFlow.collectAsState()
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
     // TopAppBar
     val topAppBar: @Composable (() -> Unit) = {
@@ -62,6 +65,7 @@ internal fun MainAppScaffoldWithNavBar(
             navigationIconVisible = navigationIconVisible,
             navigationIcon = navigationIcon,
             onNavigationClick = onNavigationClick,
+            scrollBehavior = scrollBehavior,
             actions = {
                 // Wrapping content so that the action icons have the same color as the navigation icon and title.
                 if (actions != null) {
@@ -98,6 +102,7 @@ internal fun MainAppScaffoldWithNavBar(
     // Scaffold
     AppScaffoldAndNavigation(
         topAppBar = topAppBar,
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         hideNavigation = hideNavigation,
         navBarData = navBarData,
         floatingActionButton = floatingActionButton,
@@ -105,8 +110,6 @@ internal fun MainAppScaffoldWithNavBar(
         containerColor = MaterialTheme.colorScheme.surface,
         content = content
     )
-
-    HandleColorForSystemBars(!hideNavigation)
 }
 
 @Composable

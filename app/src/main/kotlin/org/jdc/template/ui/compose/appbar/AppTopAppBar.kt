@@ -10,6 +10,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -26,6 +27,7 @@ internal fun AppTopAppBar(
     navigationIcon: ImageVector = Icons.Filled.ArrowBack,
     onNavigationClick: (() -> Unit)? = null,
     colors: TopAppBarColors? = null,
+    scrollBehavior: TopAppBarScrollBehavior? = null,
     autoSizeTitle: Boolean = false,
     actions: @Composable (RowScope.() -> Unit)? = null,
 ) {
@@ -41,6 +43,7 @@ internal fun AppTopAppBar(
         navigationIcon = navigationIcon,
         onNavigationClick = onNavigationClick,
         colors = colors,
+        scrollBehavior = scrollBehavior,
         actions = actions
     )
 }
@@ -53,6 +56,7 @@ internal fun AppTopAppBar(
     navigationIconContentDescription: String = stringResource(id = R.string.back),
     onNavigationClick: (() -> Unit)? = null,
     colors: TopAppBarColors? = null,
+    scrollBehavior: TopAppBarScrollBehavior? = null,
     actions: @Composable (RowScope.() -> Unit)? = null,
 ) {
     TopAppBar(
@@ -74,7 +78,8 @@ internal fun AppTopAppBar(
                 actions()
             }
         },
-        colors = colors ?: TopAppBarDefaults.smallTopAppBarColors()
+        colors = colors ?: TopAppBarDefaults.smallTopAppBarColors(),
+        scrollBehavior = scrollBehavior
     )
 }
 
