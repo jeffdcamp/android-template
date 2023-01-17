@@ -24,7 +24,7 @@ import org.jdc.template.ui.compose.appbar.AppBarMenu
 import org.jdc.template.ui.compose.appbar.AppBarMenuItem
 import org.jdc.template.ui.compose.dialog.HandleDialogUiState
 import org.jdc.template.ui.compose.form.DateClickableTextField
-import org.jdc.template.ui.compose.form.EnumExposedDropdownMenuBox
+import org.jdc.template.ui.compose.form.DropdownMenuBoxField
 import org.jdc.template.ui.compose.form.SwitchField
 import org.jdc.template.ui.compose.form.TextFieldData
 import org.jdc.template.ui.compose.form.TextFieldDataTextField
@@ -82,7 +82,7 @@ fun IndividualEditFields(
         DateClickableTextField(stringResource(R.string.birth_date), uiState.birthDateFlow, uiState.birthDateClicked, fieldModifier)
         TimeClickableTextField(stringResource(R.string.alarm_time), uiState.alarmTimeFlow, uiState.alarmTimeClicked, fieldModifier)
 
-        EnumExposedDropdownMenuBox(
+        DropdownMenuBoxField(
             label = stringResource(R.string.individual_type),
             options = IndividualType.values().asList(),
             selectedOptionFlow = uiState.individualTypeFlow,

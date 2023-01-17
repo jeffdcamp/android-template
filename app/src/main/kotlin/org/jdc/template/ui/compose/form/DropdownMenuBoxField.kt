@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.StateFlow
 import org.jdc.template.ui.compose.DayNightTextField
 
 @Composable
-fun <T: Enum<T>> EnumExposedDropdownMenuBox(
+fun <T> DropdownMenuBoxField(
     options: List<T>,
     selectedOptionFlow: StateFlow<T>,
     onOptionSelected: (T) -> Unit,
