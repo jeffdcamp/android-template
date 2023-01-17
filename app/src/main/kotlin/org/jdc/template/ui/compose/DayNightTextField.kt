@@ -6,6 +6,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldColors
@@ -18,8 +19,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
+import org.jdc.template.ui.theme.AppTheme
 
 @Composable
 fun DayNightTextField(
@@ -156,5 +159,21 @@ fun SupportingText(
 ) {
     if (helperText != null || (isError && errorHelperText != null)) {
         Text(text = (if (isError) errorHelperText else helperText).orEmpty())
+    }
+}
+
+@PreviewDefault
+@Composable
+private fun Preview() {
+    AppTheme {
+        Surface {
+            DayNightTextField(
+                value = "",
+                onValueChange = {  },
+                label = { Text(text = "Password") },
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                keyboardActions = KeyboardActions(onDone = {  }),
+            )
+        }
     }
 }

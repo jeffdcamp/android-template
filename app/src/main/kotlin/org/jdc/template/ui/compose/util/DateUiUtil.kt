@@ -1,4 +1,4 @@
-package org.jdc.template.ui
+package org.jdc.template.ui.compose.util
 
 import android.content.Context
 import android.text.format.DateUtils

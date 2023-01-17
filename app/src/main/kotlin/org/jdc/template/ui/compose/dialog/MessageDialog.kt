@@ -13,46 +13,50 @@ import org.jdc.template.ui.theme.AppTheme
 @Composable
 fun MessageDialog(
     onDismissRequest: () -> Unit,
-    title: String? = null,
-    text: String? = null,
-    confirmButtonText: String? = stringResource(android.R.string.ok),
+    title: @Composable () -> String? = { null },
+    text: @Composable () -> String? = { null },
+    confirmButtonText: @Composable () -> String? = { stringResource(android.R.string.ok) },
     onConfirmButtonClicked: (() -> Unit)? = null,
-    dismissButtonText: String? = stringResource(android.R.string.cancel),
+    dismissButtonText: @Composable () -> String? = { stringResource(android.R.string.cancel) },
     onDismissButtonClicked: (() -> Unit)? = null
 ) {
-    require(title != null || text != null) { "Title or Text is required (if visible)" }
+    val titleString = title()
+    val textString = text()
+    require(titleString != null || textString != null) { "Title or Text is required (if visible)" }
 
     AlertDialog(
         onDismissRequest = { onDismissRequest() },
-        title = if (title != null) {
-            { Text(title, style = MaterialTheme.typography.headlineSmall) }
+        title = if (titleString != null) {
+            { Text(titleString, style = MaterialTheme.typography.headlineSmall) }
         } else {
             null
         },
-        text = if (text != null) {
-            { Text(text, style = MaterialTheme.typography.bodyMedium) }
+        text = if (textString != null) {
+            { Text(textString, style = MaterialTheme.typography.bodyMedium) }
         } else {
             null
         },
         confirmButton = {
-            if (onConfirmButtonClicked != null && confirmButtonText != null) {
+            val confirmButtonTextString = confirmButtonText()
+            if (onConfirmButtonClicked != null && confirmButtonTextString != null) {
                 TextButton(
                     onClick = {
                         onConfirmButtonClicked()
                     }
                 ) {
-                    Text(confirmButtonText)
+                    Text(confirmButtonTextString)
                 }
             }
         },
         dismissButton = {
-            if (onDismissButtonClicked != null && dismissButtonText != null) {
+            val dismissButtonTextString = dismissButtonText()
+            if (onDismissButtonClicked != null && dismissButtonTextString != null) {
                 TextButton(
                     onClick = {
                         onDismissButtonClicked()
                     }
                 ) {
-                    Text(dismissButtonText)
+                    Text(dismissButtonTextString)
                 }
             }
         }
@@ -65,11 +69,11 @@ fun MessageDialog(
 ) {
     MessageDialog(
         onDismissRequest = dialogUiState.onDismissRequest,
-        title = dialogUiState.title(),
-        text = dialogUiState.text(),
-        confirmButtonText = dialogUiState.confirmButtonText(),
+        title = dialogUiState.title,
+        text = dialogUiState.text,
+        confirmButtonText = dialogUiState.confirmButtonText,
         onConfirmButtonClicked = if (dialogUiState.onConfirm != null) { { dialogUiState.onConfirm.invoke(Unit) } } else null,
-        dismissButtonText = dialogUiState.dismissButtonText(),
+        dismissButtonText = dialogUiState.dismissButtonText,
         onDismissButtonClicked = dialogUiState.onDismiss,
     )
 }
@@ -90,8 +94,8 @@ data class MessageDialogUiState(
 private fun PreviewMessageDialog() {
     AppTheme {
         MessageDialog(
-            title = "Title",
-            text = "This is the content that goes in the text",
+            title = { "Title" },
+            text = { "This is the content that goes in the text" },
             onDismissRequest = { },
             onConfirmButtonClicked = { },
             onDismissButtonClicked = { }

@@ -6,7 +6,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import kotlinx.coroutines.flow.StateFlow
-import org.jdc.template.ui.DateUiUtil
+import org.jdc.template.ui.compose.util.DateUiUtil
 import java.time.LocalDate
 
 @Composable
