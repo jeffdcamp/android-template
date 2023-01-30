@@ -7,10 +7,11 @@ import org.jdc.template.ui.navigation.NavComposeRoute
 import org.jdc.template.ui.navigation.RouteUtil
 
 object IndividualEditRoute : NavComposeRoute() {
-    override val routeDefinition: String = "individualEdit?${RouteUtil.defineOptionalArgs(Arg.INDIVIDUAL_ID)}"
+    private const val ROUTE_BASE = "individualEdit"
+    override val routeDefinition: String = "$ROUTE_BASE?${RouteUtil.defineOptionalArgs(Arg.INDIVIDUAL_ID)}"
 
     fun createRoute(individualId: String? = null): String {
-        return "individualEdit?${RouteUtil.optionalArgs(mapOf(Arg.INDIVIDUAL_ID to individualId))}"
+        return "$ROUTE_BASE?${RouteUtil.optionalArgs(mapOf(Arg.INDIVIDUAL_ID to individualId))}"
     }
 
     override fun getArguments(): List<NamedNavArgument> {

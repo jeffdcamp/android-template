@@ -25,10 +25,11 @@ import org.jdc.template.ux.MainAppScaffoldWithNavBar
 import javax.inject.Inject
 
 object ComponentDetailsRoute : NavComposeRoute() {
-    override val routeDefinition: String = "componentDetails/${RouteUtil.defineArg(Arg.COMPONENT_NAME)}"
+    private const val ROUTE_BASE = "componentDetails"
+    override val routeDefinition: String = "$ROUTE_BASE/${RouteUtil.defineArg(Arg.COMPONENT_NAME)}"
 
     fun createRoute(componentName: String): String {
-        return "componentDetails/$componentName"
+        return "$ROUTE_BASE/$componentName"
     }
 
     override fun getArguments(): List<NamedNavArgument> {
