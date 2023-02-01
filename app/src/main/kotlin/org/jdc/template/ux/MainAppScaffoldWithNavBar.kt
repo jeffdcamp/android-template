@@ -26,7 +26,6 @@ import org.jdc.template.R
 import org.jdc.template.ui.compose.appbar.AppNavBarData
 import org.jdc.template.ui.compose.appbar.AppNavBarType
 import org.jdc.template.ui.compose.appbar.AppScaffoldAndNavigation
-import org.jdc.template.ui.compose.appbar.AppTopAppBar
 import org.jdc.template.ui.compose.appnavbar.AppBottomNavigationItem
 import org.jdc.template.ui.compose.appnavbar.AppNavigationDrawerItem
 import org.jdc.template.ui.compose.appnavbar.AppNavigationDrawerLabel
@@ -121,7 +120,7 @@ private fun AppNavigationBar(
     Column(modifier = modifier) {
         NavigationBar {
             NavBarItem.values().forEach { item ->
-                AppBottomNavigationItem(item, item.imageVector, selectedItem, item.textResId) { onNavItemClicked(it) }
+                AppBottomNavigationItem(item, item.unselectedImageVector, item.selectedImageVector, selectedItem, item.textResId) { onNavItemClicked(it) }
             }
         }
     }
@@ -136,7 +135,7 @@ private fun AppNavigationRail(
     Row(modifier = modifier) {
         NavigationRail {
             NavBarItem.values().forEach { item ->
-                AppNavigationRailItem(item, item.imageVector, selectedItem, item.textResId) { onNavItemClicked(it) }
+                AppNavigationRailItem(item, item.unselectedImageVector, item.selectedImageVector, selectedItem, item.textResId) { onNavItemClicked(it) }
             }
         }
     }
@@ -155,7 +154,7 @@ private fun AppNavigationDrawer(
                 AppNavigationDrawerLabel(stringResource(R.string.app_name))
 
                 NavBarItem.values().forEach { item ->
-                    AppNavigationDrawerItem(item, item.imageVector, selectedItem, item.textResId) { onNavItemClicked(it) }
+                    AppNavigationDrawerItem(item, item.unselectedImageVector, item.selectedImageVector, selectedItem, item.textResId) { onNavItemClicked(it) }
                 }
             }
         },

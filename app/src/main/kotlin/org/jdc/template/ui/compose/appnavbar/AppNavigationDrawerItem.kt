@@ -14,21 +14,24 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun <T : Enum<T>> AppNavigationDrawerItem(
     navBarItem: T,
-    imageVector: ImageVector,
+    unselectedImageVector: ImageVector,
+    selectedImageVector: ImageVector,
     selectedBarItem: T?,
     @StringRes textResId: Int? = null,
     text: String? = null,
     onNavItemClicked: (T) -> Unit
 ) {
+    val selected = selectedBarItem == navBarItem
+
     NavigationDrawerItem(
-        icon = { Icon(imageVector, contentDescription = null) },
+        icon = { if (selected) Icon(selectedImageVector, contentDescription = null) else Icon(unselectedImageVector, contentDescription = null) },
         label = {
             when {
                 text != null -> Text(text, maxLines = 1)
                 textResId != null -> Text(stringResource(textResId), maxLines = 1)
             }
         },
-        selected = selectedBarItem == navBarItem,
+        selected = selected,
         onClick = {
             onNavItemClicked(navBarItem)
         },
