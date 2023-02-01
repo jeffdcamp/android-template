@@ -7,11 +7,15 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.FabPosition
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.PermanentDrawerSheet
 import androidx.compose.material3.PermanentNavigationDrawer
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -39,7 +43,6 @@ import org.jdc.template.ux.main.NavBarItem
 internal fun MainAppScaffoldWithNavBar(
     title: String,
     modifier: Modifier = Modifier,
-    subtitle: String? = null,
     navigationIconVisible: Boolean = true,
     navigationIcon: ImageVector = Icons.Filled.ArrowBack,
     onNavigationClick: (() -> Unit)? = null,
@@ -57,20 +60,27 @@ internal fun MainAppScaffoldWithNavBar(
 
     // TopAppBar
     val topAppBar: @Composable (() -> Unit) = {
-        // Use AppTopAppBar or your own AppBar (such as TopAppBar, CenterAlignedTopAppBar) here
-        AppTopAppBar(
-            title = title,
-            subtitle = subtitle,
-            navigationIconVisible = navigationIconVisible,
-            navigationIcon = navigationIcon,
-            onNavigationClick = onNavigationClick,
-            scrollBehavior = scrollBehavior,
+        TopAppBar(
+            title = { Text(title) },
+            navigationIcon = if (!navigationIconVisible) {
+                {}
+            } else {
+                {
+                    IconButton(onClick = { onNavigationClick?.invoke() }) {
+                        Icon(
+                            imageVector = navigationIcon,
+                            contentDescription = stringResource(id = R.string.back),
+                            modifier = Modifier
+                        )
+                    }
+                }
+            },
             actions = {
-                // Wrapping content so that the action icons have the same color as the navigation icon and title.
                 if (actions != null) {
                     actions()
                 }
             },
+            scrollBehavior = scrollBehavior
         )
     }
 
