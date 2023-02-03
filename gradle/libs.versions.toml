@@ -1,5 +1,5 @@
 [versions]
-agp = "7.4.0"
+agp = "7.4.1"
 kotlin = "1.8.0"
 kotlinxCoroutines = "1.6.4"
 kotlinxSerialization = "1.4.1"
@@ -19,7 +19,7 @@ androidxWindow = "1.1.0-alpha04"
 androidxWork = "2.8.0-rc01"
 
 coil = "2.1.0"
-desugarJdkLibs = "2.0.0"
+desugarJdkLibs = "2.0.2"
 detekt = "1.22.0"
 dbtools = "8.0.0"
 
@@ -38,13 +38,13 @@ leakCanary = "2.10"
 licenseManagerGradlePlugin = "1.1.0"
 mockK = "1.13.4"
 okhttp = "4.10.0"
-playPublisher = "3.7.0"
+playPublisher = "3.8.1"
 retrofit = "2.9.0"
 ruler = "1.4.0"
-sqliteJdbc = "3.40.0.0"
+sqliteJdbc = "3.40.1.0"
 timber = "5.0.1"
 truth = "1.1.3"
-versionsGradlePlugin = "0.44.0"
+versionsGradlePlugin = "0.45.0"
 workManagerTools = "3.0.0-rc01"
 
 [plugins]
