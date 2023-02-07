@@ -137,7 +137,7 @@ android {
     val firebaseReleaseNotesFile = "commit-changelog.txt"
 
     buildTypes {
-        debug {
+        val debug by getting {
             versionNameSuffix = " DEV"
             applicationIdSuffix = ".dev"
             buildConfigField("long", "BUILD_TIME", "0l") // to improve build times, do allow change on every build
@@ -145,31 +145,7 @@ android {
             // Enable signing to test Firebase
             // signingConfig = signingConfigs.getByName("upload")
         }
-        create("alpha") {
-            versionNameSuffix = " ALPHA"
-            applicationIdSuffix = ".alpha"
-            buildConfigField("long", "BUILD_TIME", "${Date().time}l")
-            // isDebuggable = true
-            signingConfig = signingConfigs.getByName("upload")
-
-            firebaseAppDistribution {
-                serviceCredentialsFile = firebaseServiceCredentialsFile
-                groups = firebaseGroups
-                releaseNotesFile = firebaseReleaseNotesFile
-            }
-        }
-        create("beta") {
-            versionNameSuffix = " BETA"
-            buildConfigField("long", "BUILD_TIME", "${Date().time}l")
-            signingConfig = signingConfigs.getByName("upload")
-
-            firebaseAppDistribution {
-                serviceCredentialsFile = firebaseServiceCredentialsFile
-                groups = firebaseGroups
-                releaseNotesFile = firebaseReleaseNotesFile
-            }
-        }
-        release {
+        val release by getting {
             versionNameSuffix = ""
             buildConfigField("long", "BUILD_TIME", "${Date().time}l")
             signingConfig = signingConfigs.getByName("upload")
@@ -179,6 +155,16 @@ android {
                 groups = firebaseGroups
                 releaseNotesFile = firebaseReleaseNotesFile
             }
+        }
+        val alpha by creating {
+            initWith(release)
+            versionNameSuffix = " ALPHA"
+            applicationIdSuffix = ".alpha"
+        }
+
+        val beta by creating {
+            initWith(release)
+            versionNameSuffix = " BETA"
         }
     }
 
