@@ -99,7 +99,7 @@ fun IndividualEditFields(
 
 @PreviewDefault
 @Composable
-fun PreviewIndividualEdit() {
+private fun PreviewIndividualEdit() {
     val uiState = IndividualEditUiState(
         firstNameFlow = MutableStateFlow(TextFieldData("Jeff"))
     )
