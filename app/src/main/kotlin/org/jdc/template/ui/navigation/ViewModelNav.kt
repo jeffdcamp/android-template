@@ -27,8 +27,8 @@ interface ViewModelNav {
     fun navigate(route: String, navOptions: NavOptions)
     fun navigate(route: String, optionsBuilder: NavOptionsBuilder.() -> Unit)
     fun navigate(intent: Intent, options: Bundle? = null, popBackStack: Boolean = false)
-    fun popBackStack(popToRoute: String? = null, inclusive: Boolean = false)
-    fun popBackStackWithResult(popToRoute: String?, inclusive: Boolean, resultValues: List<PopResultKeyValue>)
+    fun popBackStack(popToRouteDefinition: String? = null, inclusive: Boolean = false)
+    fun popBackStackWithResult(popToRouteDefinition: String? = null, inclusive: Boolean = false, resultValues: List<PopResultKeyValue>)
     fun navigate(viewModelNavigator: ViewModelNavigator)
     fun resetNavigate(viewModelNavigator: ViewModelNavigator)
 }
@@ -57,12 +57,12 @@ class ViewModelNavImpl : ViewModelNav {
         _navigatorFlow.compareAndSet(null, if (popBackStack) ViewModelNavigator.PopAndNavigateIntent(intent, options) else ViewModelNavigator.NavigateIntent(intent, options))
     }
 
-    override fun popBackStack(popToRoute: String?, inclusive: Boolean) {
-        _navigatorFlow.compareAndSet(null, ViewModelNavigator.Pop(popToRoute, inclusive))
+    override fun popBackStack(popToRouteDefinition: String?, inclusive: Boolean) {
+        _navigatorFlow.compareAndSet(null, ViewModelNavigator.Pop(popToRouteDefinition, inclusive))
     }
 
-    override fun popBackStackWithResult(popToRoute: String?, inclusive: Boolean, resultValues: List<PopResultKeyValue>) {
-        _navigatorFlow.compareAndSet(null, ViewModelNavigator.PopWithResult(popToRoute, inclusive, resultValues))
+    override fun popBackStackWithResult(popToRouteDefinition: String?, inclusive: Boolean, resultValues: List<PopResultKeyValue>) {
+        _navigatorFlow.compareAndSet(null, ViewModelNavigator.PopWithResult(popToRouteDefinition, inclusive, resultValues))
     }
 
     override fun navigate(viewModelNavigator: ViewModelNavigator) {
@@ -136,12 +136,12 @@ sealed class ViewModelNavigator {
         }
     }
 
-    class Pop(private val popToRoute: String?, private val inclusive: Boolean = false) : ViewModelNavigator() {
+    class Pop(private val popToRouteDefinition: String? = null, private val inclusive: Boolean = false) : ViewModelNavigator() {
         override fun navigate(context: Context, navController: NavController, viewModelNav: ViewModelNav): Boolean {
-            val stackPopped = if (popToRoute == null) {
+            val stackPopped = if (popToRouteDefinition == null) {
                 navController.popBackStack()
             } else {
-                navController.popBackStack(popToRoute, inclusive = inclusive)
+                navController.popBackStack(popToRouteDefinition, inclusive = inclusive)
             }
 
             viewModelNav.resetNavigate(this)
@@ -149,13 +149,18 @@ sealed class ViewModelNavigator {
         }
     }
 
-    class PopWithResult(private val popToRoute: String?, private val inclusive: Boolean = false, private val resultValues: List<PopResultKeyValue>) : ViewModelNavigator() {
+    class PopWithResult(private val popToRouteDefinition: String? = null, private val inclusive: Boolean = false, private val resultValues: List<PopResultKeyValue>) : ViewModelNavigator() {
         override fun navigate(context: Context, navController: NavController, viewModelNav: ViewModelNav): Boolean {
-            resultValues.forEach { navController.previousBackStackEntry?.savedStateHandle?.set(it.key, it.value) }
-            val stackPopped = if (popToRoute == null) {
+            val destinationNavBackStackEntry = if (popToRouteDefinition != null) {
+                navController.getBackStackEntry(popToRouteDefinition)
+            } else {
+                navController.previousBackStackEntry
+            }
+            resultValues.forEach { destinationNavBackStackEntry?.savedStateHandle?.set(it.key, it.value) }
+            val stackPopped = if (popToRouteDefinition == null) {
                 navController.popBackStack()
             } else {
-                navController.popBackStack(popToRoute, inclusive = inclusive)
+                navController.popBackStack(popToRouteDefinition, inclusive = inclusive)
             }
 
             viewModelNav.resetNavigate(this)
