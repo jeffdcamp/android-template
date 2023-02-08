@@ -5,13 +5,16 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.style.TextOverflow
 import org.jdc.template.ui.compose.AutoSizeText
 
 @Composable
 fun AppBarTitle(
     title: String,
     subtitle: String? = null,
-    autoSizeTitle: Boolean = false
+    autoSizeTitle: Boolean = false,
+    titleOverflow: TextOverflow = TextOverflow.Clip,
+    subitleOverflow: TextOverflow = TextOverflow.Clip
 ) {
     Column(verticalArrangement = Arrangement.Center) {
         // title
@@ -19,13 +22,15 @@ fun AppBarTitle(
             Text(
                 text = title,
                 style = MaterialTheme.typography.titleLarge,
-                maxLines = 1
+                maxLines = 1,
+                overflow = titleOverflow
             )
         } else {
             AutoSizeText(
                 text = title,
                 style = MaterialTheme.typography.titleLarge,
-                maxLines = 1
+                maxLines = 1,
+                // overflow = TextOverflow.Clip  // NOTE: AutoSizeText can ONLY use TextOverflow.Clip
             )
         }
 
@@ -34,7 +39,8 @@ fun AppBarTitle(
             Text(
                 text = subtitle,
                 style = MaterialTheme.typography.bodySmall,
-                maxLines = 1
+                maxLines = 1,
+                overflow = subitleOverflow
             )
         }
     }
