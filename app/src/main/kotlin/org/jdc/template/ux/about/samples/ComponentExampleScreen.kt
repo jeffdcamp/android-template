@@ -20,7 +20,6 @@ import org.jdc.template.ui.navigation.NavComposeRoute
 import org.jdc.template.ui.navigation.RouteUtil
 import org.jdc.template.ui.navigation.ViewModelNav
 import org.jdc.template.ui.navigation.ViewModelNavImpl
-import org.jdc.template.util.delegates.requireSavedState
 import org.jdc.template.ux.MainAppScaffoldWithNavBar
 import javax.inject.Inject
 
@@ -54,8 +53,8 @@ class ComponentExampleViewModel
 @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel(), ViewModelNav by ViewModelNavImpl() {
-    val componentName: String by requireSavedState(savedStateHandle, ComponentExampleRoute.Arg.COMPONENT_NAME)
-    val exampleName: String by requireSavedState(savedStateHandle, ComponentExampleRoute.Arg.EXAMPLE_NAME)
+    val componentName: String = requireNotNull(savedStateHandle[ComponentExampleRoute.Arg.COMPONENT_NAME])
+    val exampleName: String = requireNotNull(savedStateHandle[ComponentExampleRoute.Arg.EXAMPLE_NAME])
 }
 
 @Composable

@@ -18,7 +18,6 @@ import org.jdc.template.ui.compose.dialog.dismissDialog
 import org.jdc.template.ui.compose.form.TextFieldData
 import org.jdc.template.ui.navigation.ViewModelNav
 import org.jdc.template.ui.navigation.ViewModelNavImpl
-import org.jdc.template.util.delegates.savedState
 import java.time.LocalDate
 import java.time.LocalTime
 import javax.inject.Inject
@@ -30,7 +29,7 @@ class IndividualEditViewModel
     private val individualRepository: IndividualRepository,
     savedStateHandle: SavedStateHandle
 ) : ViewModel(), ViewModelNav by ViewModelNavImpl() {
-    private val individualId: String? by savedState(savedStateHandle, key = IndividualEditRoute.Arg.INDIVIDUAL_ID)
+    private val individualId: String? = savedStateHandle[IndividualEditRoute.Arg.INDIVIDUAL_ID]
     private var individual = Individual()
 
     // hold state for Compose views
@@ -92,6 +91,7 @@ class IndividualEditViewModel
     }
 
     private fun setIndividual(individual: Individual) {
+
         this@IndividualEditViewModel.individual = individual
 
         firstNameFlow.value = TextFieldData(individual.firstName.orEmpty())

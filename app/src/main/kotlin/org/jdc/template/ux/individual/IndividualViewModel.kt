@@ -15,7 +15,6 @@ import org.jdc.template.ui.compose.dialog.dismissDialog
 import org.jdc.template.ui.compose.dialog.showMessageDialog
 import org.jdc.template.ui.navigation.ViewModelNav
 import org.jdc.template.ui.navigation.ViewModelNavImpl
-import org.jdc.template.util.delegates.requireSavedState
 import org.jdc.template.util.ext.stateInDefault
 import org.jdc.template.ux.individualedit.IndividualEditRoute
 import javax.inject.Inject
@@ -27,7 +26,7 @@ class IndividualViewModel
     private val individualRepository: IndividualRepository,
     savedStateHandle: SavedStateHandle
 ) : ViewModel(), ViewModelNav by ViewModelNavImpl() {
-    private val individualId: String by requireSavedState(savedStateHandle, IndividualRoute.Arg.INDIVIDUAL_ID)
+    private val individualId: String = requireNotNull(savedStateHandle[IndividualRoute.Arg.INDIVIDUAL_ID])
 
     private val dialogUiStateFlow = MutableStateFlow<DialogUiState<*>?>(null)
 
