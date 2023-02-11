@@ -8,6 +8,7 @@ import android.os.Build
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import timber.log.Timber
 
 /**
  * Handle the colors of the OS system bars (statusbar and navbar) (for M3, Light/Dark themes, Dynamic themes)
@@ -19,7 +20,7 @@ import androidx.core.view.WindowCompat
 @Composable
 fun HandleSystemBarColors(darkTheme: Boolean) {
     val view = LocalView.current
-    val activity = view.context.requireActivity()
+    val activity = view.context.getActivity() ?: return
 
     if (Build.VERSION.SDK_INT < 23) {
         activity.window.statusBarColor = Color.BLACK
@@ -37,8 +38,11 @@ fun HandleSystemBarColors(darkTheme: Boolean) {
     }
 }
 
-private fun Context.requireActivity(): Activity = when (this) {
+private fun Context.getActivity(): Activity? = when (this) {
     is Activity -> this
-    is ContextWrapper -> baseContext.requireActivity()
-    else -> error("No Activity Found")
+    is ContextWrapper -> baseContext.getActivity()
+    else -> {
+        Timber.e("No Activity Found")
+        null
+    }
 }
