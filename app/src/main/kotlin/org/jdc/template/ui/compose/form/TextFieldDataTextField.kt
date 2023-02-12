@@ -10,11 +10,16 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import kotlinx.coroutines.flow.StateFlow
 import org.jdc.template.ui.compose.DayNightTextField
-import org.jdc.template.ui.compose.SupportingText
 import org.jdc.template.ui.compose.util.formKeyEventHandler
 
 @Composable
-fun TextFieldDataTextField(label: String, textFlow: StateFlow<TextFieldData>, testTag: String, onChange: (String) -> Unit, modifier: Modifier = Modifier) {
+fun TextFieldDataTextField(
+    label: String,
+    textFlow: StateFlow<TextFieldData>,
+    testTag: String,
+    onChange: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
     val textFieldValue by textFlow.collectAsState()
     val focusManager = LocalFocusManager.current
 
@@ -24,7 +29,7 @@ fun TextFieldDataTextField(label: String, textFlow: StateFlow<TextFieldData>, te
         label = { Text(label) },
         singleLine = true,
         isError = textFieldValue.isError,
-        supportingText = { SupportingText(textFieldValue.isError, textFieldValue.helperText, textFieldValue.errorHelperText) },
+        supportingText = textFieldValue.supportingText?.let{ { Text(it) } },
         modifier = modifier
             .onPreviewKeyEvent { formKeyEventHandler(it, focusManager) }
             .testTag(testTag)

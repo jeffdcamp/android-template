@@ -12,7 +12,14 @@ import org.jdc.template.ui.compose.DayNightTextField
 import org.jdc.template.ui.compose.util.formKeyEventHandler
 
 @Composable
-fun ClickableTextField(label: String, text: String, onClick: () -> Unit, modifier: Modifier = Modifier) {
+fun ClickableTextField(
+    label: String,
+    text: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    supportingText: String? = null,
+    isError: Boolean = false
+) {
     val source = remember { MutableInteractionSource() }
     val focusManager = LocalFocusManager.current
 
@@ -22,6 +29,8 @@ fun ClickableTextField(label: String, text: String, onClick: () -> Unit, modifie
         readOnly = true,
         label = { Text(label) },
         interactionSource = source,
+        supportingText = supportingText?.let{ { Text(it) } },
+        isError = isError,
         modifier = modifier
             .onPreviewKeyEvent { formKeyEventHandler(it, focusManager, onEnter = onClick) }
     )
