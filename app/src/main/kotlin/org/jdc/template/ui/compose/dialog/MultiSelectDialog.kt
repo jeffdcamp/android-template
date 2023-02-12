@@ -42,7 +42,6 @@ fun <T> MultiSelectDialog(
     dismissButtonText: @Composable () -> String? = { stringResource(android.R.string.cancel) },
     onDismissButtonClicked: (() -> Unit)? = null,
     onDismissRequest: (() -> Unit) = {},
-    shape: Shape = DialogDefaults.DefaultCorner,
     backgroundColor: Color = MaterialTheme.colorScheme.surface,
     properties: DialogProperties = DialogProperties()
 ) {
@@ -53,7 +52,7 @@ fun <T> MultiSelectDialog(
         properties = properties,
     ) {
         Surface(
-            shape = shape,
+            shape = MaterialTheme.shapes.extraLarge,
             color = backgroundColor,
         ) {
             Column(

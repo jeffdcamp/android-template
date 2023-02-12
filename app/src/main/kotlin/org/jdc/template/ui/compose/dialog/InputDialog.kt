@@ -23,7 +23,6 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextRange
@@ -52,7 +51,6 @@ fun InputDialog(
     minLength: Int = -1,
     maxLength: Int = -1,
     properties: DialogProperties = DialogProperties(),
-    shape: Shape = DialogDefaults.DefaultCorner,
     backgroundColor: Color = MaterialTheme.colorScheme.surface,
     textButtonColor: Color = MaterialTheme.colorScheme.primary, // This is specifically for handling theming in this app. May not want in Commons.
 ) {
@@ -65,7 +63,7 @@ fun InputDialog(
         properties = properties,
     ) {
         Surface(
-            shape = shape,
+            shape = MaterialTheme.shapes.extraLarge,
             color = backgroundColor
         ) {
             Column(
@@ -161,7 +159,6 @@ fun InputDialog(
         minLength = dialogUiState.minLength,
         maxLength = dialogUiState.maxLength,
         properties = DialogProperties(),
-        shape = DialogDefaults.DefaultCorner,
         backgroundColor = MaterialTheme.colorScheme.surface,
         textButtonColor = MaterialTheme.colorScheme.primary, // This is specifically for handling theming in this app. May not want in Commons.
     )
@@ -202,7 +199,6 @@ fun TwoInputDialog(
     minLengthSecond: Int = -1,
     maxLengthSecond: Int = -1,
     properties: DialogProperties = DialogProperties(),
-    shape: Shape = DialogDefaults.DefaultCorner,
     backgroundColor: Color = MaterialTheme.colorScheme.surface,
     textButtonColor: Color = MaterialTheme.colorScheme.primary, // This is specifically for handling theming in this app. May not want in Commons.
 ) {
@@ -220,7 +216,7 @@ fun TwoInputDialog(
         properties = properties,
     ) {
         Surface(
-            shape = shape,
+            shape = MaterialTheme.shapes.extraLarge,
             color = backgroundColor
         ) {
             Column(
@@ -353,7 +349,6 @@ fun TwoInputDialog(
         minLengthFirst = dialogUiState.minLengthSecond,
         maxLengthFirst = dialogUiState.maxLengthSecond,
         properties = DialogProperties(),
-        shape = DialogDefaults.DefaultCorner,
         backgroundColor = MaterialTheme.colorScheme.surface,
         textButtonColor = MaterialTheme.colorScheme.primary, // This is specifically for handling theming in this app. May not want in Commons.
     )

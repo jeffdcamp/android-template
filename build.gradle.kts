@@ -43,7 +43,7 @@ allprojects {
         addAll(listOf("core-splashscreen"))
 
         // Compose
-//        addAll(listOf("material3"))
+        addAll(listOf("material3", "ui", "ui-tooling-preview", "ui-test-junit4", "ui-test-manifest", "material3-window-size-class", "compiler"))
         addAll(listOf("window")) // material3 uses latest 1.1.0-alpha
     }
 

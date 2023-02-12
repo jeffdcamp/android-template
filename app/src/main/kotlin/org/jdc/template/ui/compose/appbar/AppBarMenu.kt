@@ -15,6 +15,7 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.PlainTooltipBox
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -59,11 +60,15 @@ fun AppBarIcon(imageVector: ImageVector, contentDescription: String, action: () 
 
 @Composable
 fun AppBarIcon(menuItem: AppBarMenuItem.Icon) {
-    IconButton(onClick = { menuItem.action() }) {
-        Icon(
-            imageVector = menuItem.imageVector,
-            contentDescription = menuItem.text()
-        )
+    PlainTooltipBox(
+        tooltip = { Text(menuItem.text()) }
+    ) {
+        IconButton(onClick = { menuItem.action() }) {
+            Icon(
+                imageVector = menuItem.imageVector,
+                contentDescription = menuItem.text()
+            )
+        }
     }
 }
 

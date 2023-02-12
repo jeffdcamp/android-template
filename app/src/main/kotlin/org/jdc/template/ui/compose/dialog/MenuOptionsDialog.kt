@@ -13,7 +13,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
@@ -26,7 +25,6 @@ fun MenuOptionsDialog(
     title: String? = null,
     options: List<MenuOptionsDialogItem>,
     properties: DialogProperties = DialogProperties(),
-    shape: Shape = DialogDefaults.DefaultCorner,
     backgroundColor: Color = MaterialTheme.colorScheme.surface,
 ) {
     Dialog(
@@ -34,7 +32,7 @@ fun MenuOptionsDialog(
         properties = properties,
     ) {
         Surface(
-            shape = shape,
+            shape = MaterialTheme.shapes.extraLarge,
             color = backgroundColor,
             modifier = Modifier
                 .fillMaxWidth()

@@ -11,9 +11,9 @@ import org.jdc.template.R
 import org.jdc.template.model.db.main.individual.Individual
 import org.jdc.template.model.db.main.type.IndividualType
 import org.jdc.template.model.repository.IndividualRepository
-import org.jdc.template.ui.compose.dialog.DateDialogUiState
+import org.jdc.template.ui.compose.dialog.DatePickerDialogUiState
 import org.jdc.template.ui.compose.dialog.DialogUiState
-import org.jdc.template.ui.compose.dialog.TimeDialogUiState
+import org.jdc.template.ui.compose.dialog.TimePickerDialogUiState
 import org.jdc.template.ui.compose.dialog.dismissDialog
 import org.jdc.template.ui.compose.form.TextFieldData
 import org.jdc.template.ui.navigation.ViewModelNav
@@ -131,7 +131,7 @@ class IndividualEditViewModel
 
     private fun validate(): Boolean {
         if (firstNameFlow.value.text.isBlank()) {
-            firstNameFlow.value = firstNameFlow.value.copy(isError = true, errorHelperText = application.getString(R.string.required))
+            firstNameFlow.value = firstNameFlow.value.copy(isError = true, supportingText = application.getString(R.string.required))
             return false
         }
 
@@ -139,8 +139,8 @@ class IndividualEditViewModel
     }
 
     private fun showBirthDate() {
-        dialogUiStateFlow.value = DateDialogUiState(
-            localDate = birthDateFlow.value ?: LocalDate.now(),
+        dialogUiStateFlow.value = DatePickerDialogUiState(
+            localDate = birthDateFlow.value,
             onConfirm = {
                 birthDateFlow.value = it
                 dismissDialog(dialogUiStateFlow)
@@ -151,7 +151,7 @@ class IndividualEditViewModel
     }
 
     private fun showAlarmTime() {
-        dialogUiStateFlow.value = TimeDialogUiState(
+        dialogUiStateFlow.value = TimePickerDialogUiState(
             localTime = alarmTimeFlow.value ?: LocalTime.now(),
             onConfirm = {
                 alarmTimeFlow.value = it

@@ -19,7 +19,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -40,7 +39,6 @@ fun <T> DropDownMenuDialog(
     dismissButtonText: String = stringResource(android.R.string.cancel),
     onDismissButtonClicked: (() -> Unit)? = null,
     properties: DialogProperties = DialogProperties(),
-    shape: Shape = DialogDefaults.DefaultCorner,
     backgroundColor: Color = MaterialTheme.colorScheme.surface,
 ) {
     var expanded by remember { mutableStateOf(false) }
@@ -51,7 +49,7 @@ fun <T> DropDownMenuDialog(
         properties = properties,
     ) {
         Surface(
-            shape = shape,
+            shape = MaterialTheme.shapes.extraLarge,
             color = backgroundColor
         ) {
             Column(

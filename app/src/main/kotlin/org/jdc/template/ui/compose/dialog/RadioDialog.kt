@@ -18,7 +18,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
@@ -37,7 +36,6 @@ fun <T> RadioDialog(
     onDismissButtonClicked: (() -> Unit)? = null,
     confirmButtonText: String? = stringResource(android.R.string.ok),
     dismissButtonText: String? = stringResource(android.R.string.cancel),
-    shape: Shape = DialogDefaults.DefaultCorner,
     backgroundColor: Color = MaterialTheme.colorScheme.surface,
     properties: DialogProperties = DialogProperties()
 ) {
@@ -46,7 +44,7 @@ fun <T> RadioDialog(
         properties = properties,
     ) {
         Surface(
-            shape = shape,
+            shape = MaterialTheme.shapes.extraLarge,
             color = backgroundColor
         ) {
             Column(
