@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
@@ -21,7 +22,6 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
@@ -31,12 +31,12 @@ import org.jdc.template.R
 
 @Composable
 fun AppBarMenu(menuItems: List<AppBarMenuItem>) {
-    val itemsOnBar = menuItems.filter { it !is AppBarMenuItem.OverflowMenuItem }
-    val overflowMenuItems = menuItems.filterIsInstance<AppBarMenuItem.OverflowMenuItem>()
+    val itemsOnBar = menuItems.filter { !it.isOverFlowItem() }
+    val overflowMenuItems = menuItems.filter { it.isOverFlowItem() }
 
     // show items on bar first (in the order received)
     itemsOnBar.forEach {
-        when(it) {
+        when (it) {
             is AppBarMenuItem.Icon -> AppBarIcon(it)
             is AppBarMenuItem.Text -> AppBarText(it)
             is AppBarMenuItem.TextButton -> AppBarTextButton(it)
@@ -113,7 +113,7 @@ fun AppBarTextButton(menuItem: AppBarMenuItem.TextButton) {
 }
 
 @Composable
-fun AppBarOverflowMenu(menuItems: List<AppBarMenuItem.OverflowMenuItem>) {
+fun AppBarOverflowMenu(menuItems: List<AppBarMenuItem>) {
     if (menuItems.isEmpty()) {
         return
     }
@@ -134,38 +134,38 @@ fun AppBarOverflowMenu(menuItems: List<AppBarMenuItem.OverflowMenuItem>) {
         onDismissRequest = { expanded.value = false }) {
 
         // determine if there are any icons in the list... if so, make sure text without icons are all indented
-        val menuItemsWithIconCount = menuItems.count { it.icon != null }
+        val menuItemsWithIconCount = menuItems.count { it.hasIcon() }
         val textWithoutIconPadding = if (menuItemsWithIconCount > 0) 36.dp else 0.dp // 36.dp == 24.dp (icon size) + 12.dp (gap)
-
         menuItems.forEach { menuItem ->
-            val menuText = menuItem.text()
-            DropdownMenuItem(
-                onClick = {
-                    menuItem.action()
-                    expanded.value = false
-                },
-                text = {
-                    if (menuItem.icon != null) {
-                        Row {
-                            Icon(
-                                imageVector = menuItem.icon,
-                                contentDescription = menuText,
-                                modifier = Modifier.padding(end = 12.dp)
-                            )
-                            Text(
-                                text = menuText,
-                                modifier = Modifier.align(Alignment.CenterVertically)
-                            )
-                        }
-                    } else {
-                        Text(
-                            text = menuText,
-                            modifier = Modifier.padding(start = textWithoutIconPadding)
-                        )
-                    }
-                },
-                modifier = Modifier.defaultMinSize(minWidth = 175.dp)
-            )
+            when (menuItem) {
+                is AppBarMenuItem.OverflowMenuItem -> {
+                    val menuText = menuItem.text()
+                    DropdownMenuItem(
+                        onClick = {
+                            menuItem.action()
+                            expanded.value = false
+                        },
+                        text = {
+                            if (menuItem.hasIcon()) {
+                                Text(text = menuText)
+                            } else {
+                                Text(text = menuText, modifier = Modifier.padding(start = textWithoutIconPadding))
+                            }
+                        },
+                        leadingIcon = if (menuItem.icon != null) {
+                            {
+                                Icon(menuItem.icon, contentDescription = null)
+                            }
+                        } else null,
+                        modifier = Modifier.defaultMinSize(minWidth = 175.dp)
+                    )
+
+                }
+                is AppBarMenuItem.OverflowDivider -> {
+                    Divider()
+                }
+                else -> error("Unsupported OverflowMenu [$menuItem]")
+            }
         }
     }
 }
@@ -185,4 +185,8 @@ sealed interface AppBarMenuItem {
         val icon: ImageVector? = null,
         val action: () -> Unit
     ) : AppBarMenuItem
+    object OverflowDivider : AppBarMenuItem
+
+    fun isOverFlowItem(): Boolean = this is OverflowMenuItem || this is OverflowDivider
+    fun hasIcon(): Boolean = this is OverflowMenuItem && this.icon != null
 }
