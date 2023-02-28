@@ -1,19 +1,16 @@
 package org.jdc.template.ui.compose.appbar
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.PlainTooltipBox
@@ -28,6 +25,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import org.jdc.template.R
+import org.jdc.template.ui.compose.menu.OverflowMenuItem
+import org.jdc.template.ui.compose.menu.OverflowMenuItemsContent
 
 @Composable
 fun AppBarMenu(menuItems: List<AppBarMenuItem>) {
@@ -133,60 +132,54 @@ fun AppBarOverflowMenu(menuItems: List<AppBarMenuItem>) {
         offset = DpOffset((-40).dp, (-40).dp),
         onDismissRequest = { expanded.value = false }) {
 
-        // determine if there are any icons in the list... if so, make sure text without icons are all indented
-        val menuItemsWithIconCount = menuItems.count { it.hasIcon() }
-        val textWithoutIconPadding = if (menuItemsWithIconCount > 0) 36.dp else 0.dp // 36.dp == 24.dp (icon size) + 12.dp (gap)
-        menuItems.forEach { menuItem ->
-            when (menuItem) {
-                is AppBarMenuItem.OverflowMenuItem -> {
-                    val menuText = menuItem.text()
-                    DropdownMenuItem(
-                        onClick = {
-                            menuItem.action()
-                            expanded.value = false
-                        },
-                        text = {
-                            if (menuItem.hasIcon()) {
-                                Text(text = menuText)
-                            } else {
-                                Text(text = menuText, modifier = Modifier.padding(start = textWithoutIconPadding))
-                            }
-                        },
-                        leadingIcon = if (menuItem.icon != null) {
-                            {
-                                Icon(menuItem.icon, contentDescription = null)
-                            }
-                        } else null,
-                        modifier = Modifier.defaultMinSize(minWidth = 175.dp)
-                    )
-
+        // Convert AppBarMenuItem to OverflowMenuItem
+        val overflowMenuItems: List<OverflowMenuItem> = menuItems
+            .filter { it.isOverFlowItem() }
+            .map {
+                when (it) {
+                    is OverflowMenuItem.MenuItem -> it
+                    is OverflowMenuItem.Divider -> it
+                    else -> error("Unsupported OverflowMenuItem type")
                 }
-                is AppBarMenuItem.OverflowDivider -> {
-                    Divider()
-                }
-                else -> error("Unsupported OverflowMenu [$menuItem]")
             }
-        }
+
+        OverflowMenuItemsContent(overflowMenuItems, expanded)
     }
 }
 
 sealed interface AppBarMenuItem {
-    class Icon(val imageVector: ImageVector, val text: @Composable () -> String, val action: () -> Unit) : AppBarMenuItem
+    class Icon(val imageVector: ImageVector, val text: @Composable () -> String, val action: () -> Unit) : AppBarMenuItem{
+        constructor(imageVector: ImageVector, @StringRes textId: Int, action: () -> Unit) : this(imageVector = imageVector, text = { stringResource(textId) }, action = action)
+    }
+
     /**
      * If setting colors, consider using ButtonDefaults.textButtonColors(contentColor = LocalContentColor.current)
      */
-    class Text(val text: @Composable () -> String, val colors: ButtonColors? = null, val action: () -> Unit) : AppBarMenuItem
+    class Text(val text: @Composable () -> String, val colors: ButtonColors? = null, val action: () -> Unit) : AppBarMenuItem {
+        constructor(@StringRes textId: Int, colors: ButtonColors? = null, action: () -> Unit) : this(text = { stringResource(textId) }, colors = colors, action = action)
+    }
     /**
      * If setting colors, consider using ButtonDefaults.buttonColors(contentColor = LocalContentColor.current)
      */
-    class TextButton(val text: @Composable () -> String, val colors: ButtonColors? = null, val action: () -> Unit) : AppBarMenuItem
+    class TextButton(val text: @Composable () -> String, val colors: ButtonColors? = null, val action: () -> Unit) : AppBarMenuItem {
+        constructor(@StringRes textId: Int, colors: ButtonColors? = null, action: () -> Unit) : this(text = { stringResource(textId) }, colors = colors, action = action)
+    }
+
     class OverflowMenuItem(
-        val text: @Composable () -> String,
-        val icon: ImageVector? = null,
-        val action: () -> Unit
-    ) : AppBarMenuItem
-    object OverflowDivider : AppBarMenuItem
+        override val text: @Composable () -> String,
+        override val leadingIcon: ImageVector? = null,
+        override val trailingIcon: ImageVector? = null,
+        override val action: () -> Unit
+    ) : AppBarMenuItem, org.jdc.template.ui.compose.menu.OverflowMenuItem.MenuItem(text, leadingIcon, trailingIcon, action) {
+        constructor(@StringRes textId: Int, leadingIcon: ImageVector? = null, trailingIcon: ImageVector? = null, action: () -> Unit) : this(
+            text = { stringResource(textId) },
+            leadingIcon = leadingIcon,
+            trailingIcon = trailingIcon,
+            action = action
+        )
+    }
+
+    object OverflowDivider : AppBarMenuItem, org.jdc.template.ui.compose.menu.OverflowMenuItem.Divider()
 
     fun isOverFlowItem(): Boolean = this is OverflowMenuItem || this is OverflowDivider
-    fun hasIcon(): Boolean = this is OverflowMenuItem && this.icon != null
 }

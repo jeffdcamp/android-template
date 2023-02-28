@@ -30,7 +30,7 @@ fun AboutScreen(
     val uiState = viewModel.uiState
 
     val appBarMenuItems = listOf(
-        AppBarMenuItem.OverflowMenuItem({ stringResource(R.string.acknowledgments) }) { uiState.licensesClicked() }
+        AppBarMenuItem.OverflowMenuItem(R.string.acknowledgments) { uiState.licensesClicked() }
     )
 
     MainAppScaffoldWithNavBar(

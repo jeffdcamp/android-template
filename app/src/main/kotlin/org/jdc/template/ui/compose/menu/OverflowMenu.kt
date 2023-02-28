@@ -2,20 +2,20 @@ package org.jdc.template.ui.compose.menu
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
@@ -26,6 +26,7 @@ import org.jdc.template.R
 fun OverflowMenu(
     menuItems: List<OverflowMenuItem>,
     modifier: Modifier = Modifier,
+    iconImageVector: ImageVector = Icons.Default.MoreVert,
     showIcon: Boolean = true
 ) {
     if (menuItems.isEmpty()) {
@@ -44,7 +45,7 @@ fun OverflowMenu(
                 modifier = modifier
             ) {
                 Icon(
-                    imageVector = Icons.Default.MoreVert,
+                    imageVector = iconImageVector,
                     contentDescription = stringResource(R.string.more_options)
                 )
             }
@@ -53,50 +54,72 @@ fun OverflowMenu(
             expanded = expanded.value,
             onDismissRequest = { expanded.value = false }) {
 
-            // determine if there are any icons in the list... if so, make sure text without icons are all indented
-            val menuItemsWithIconCount = menuItems.count { it.icon != null }
-            val textWithoutIconPadding = if (menuItemsWithIconCount > 0) 36.dp else 0.dp // 36.dp == 24.dp (icon size) + 12.dp (gap)
+            OverflowMenuItemsContent(menuItems, expanded)
+        }
+    }
+}
 
-            menuItems.forEach { menuItem ->
-                val menuText = menuItem.text ?: stringResource(menuItem.textId ?: error("Text and TextId are null"))
+@Composable
+fun OverflowMenuItemsContent(menuItems: List<OverflowMenuItem>, expanded: MutableState<Boolean>) {
+    // determine if there are any icons in the list
+    val menuItemsWithLeadingIconCount = menuItems.count { it is OverflowMenuItem.MenuItem && it.hasLeadingIcon() }
+    val menuItemsWithTrailingIconCount = menuItems.count { it is OverflowMenuItem.MenuItem && it.hasTrailingIcon() }
+
+    menuItems.forEach { menuItem ->
+        // if there are icons in the list, make sure text without icons are all indented properly
+        // 36.dp == 24.dp (icon size) + 12.dp (gap)
+        val startPadding = if (menuItemsWithLeadingIconCount > 0 && menuItem is OverflowMenuItem.MenuItem && !menuItem.hasLeadingIcon()) (36.dp) else 0.dp
+        val endPadding = if (menuItemsWithTrailingIconCount > 0 && menuItem is OverflowMenuItem.MenuItem && !menuItem.hasTrailingIcon()) (36.dp) else 0.dp
+
+        when (menuItem) {
+            is OverflowMenuItem.MenuItem -> {
+                val menuText = menuItem.text()
                 DropdownMenuItem(
                     onClick = {
                         menuItem.action()
                         expanded.value = false
                     },
                     text = {
-                        if (menuItem.icon != null) {
-                            Row {
-                                Icon(
-                                    imageVector = menuItem.icon,
-                                    contentDescription = menuText,
-                                    modifier = Modifier.padding(end = 12.dp)
-                                )
-                                Text(
-                                    text = menuText,
-                                    modifier = Modifier.align(Alignment.CenterVertically)
-                                )
-                            }
-                        } else {
-                            Text(
-                                text = menuText,
-                                modifier = Modifier.padding(start = textWithoutIconPadding)
-                            )
-                        }
+                        Text(text = menuText, modifier = Modifier.padding(start = startPadding, end = endPadding))
                     },
+                    leadingIcon = if (menuItem.leadingIcon != null) {
+                        {
+                            menuItem.leadingIcon?.let { Icon(it, contentDescription = null) }
+                        }
+                    } else null,
+                    trailingIcon = if (menuItem.trailingIcon != null) {
+                        {
+                            menuItem.trailingIcon?.let { Icon(it, contentDescription = null) }
+                        }
+                    } else null,
                     modifier = Modifier.defaultMinSize(minWidth = 175.dp)
                 )
+
+            }
+            is OverflowMenuItem.Divider -> {
+                Divider()
             }
         }
     }
 }
 
-data class OverflowMenuItem private constructor(
-    val text: String?,
-    @StringRes val textId: Int?,
-    val icon: ImageVector?,
-    val action: () -> Unit
-) {
-    constructor(text: String, icon: ImageVector? = null, action: () -> Unit) : this(text, null, icon, action)
-    constructor(@StringRes textId: Int, icon: ImageVector? = null, action: () -> Unit) : this(null, textId, icon, action)
+sealed interface OverflowMenuItem {
+    open class MenuItem(
+        open val text: @Composable () -> String,
+        open val leadingIcon: ImageVector? = null,
+        open val trailingIcon: ImageVector? = null,
+        open val action: () -> Unit
+    ) : OverflowMenuItem {
+        constructor(@StringRes textId: Int, leadingIcon: ImageVector? = null, trailingIcon: ImageVector? = null, action: () -> Unit) : this(
+            text = { stringResource(textId) },
+            leadingIcon = leadingIcon,
+            trailingIcon = trailingIcon,
+            action = action
+        )
+
+        fun hasLeadingIcon(): Boolean = this.leadingIcon != null
+        fun hasTrailingIcon(): Boolean = this.trailingIcon != null
+    }
+
+    open class Divider : OverflowMenuItem
 }
