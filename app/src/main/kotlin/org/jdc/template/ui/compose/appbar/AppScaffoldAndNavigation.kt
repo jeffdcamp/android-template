@@ -20,6 +20,7 @@ fun AppScaffoldAndNavigation(
     floatingActionButton: @Composable () -> Unit = {},
     floatingActionButtonPosition: FabPosition = FabPosition.End,
     containerColor: Color = MaterialTheme.colorScheme.background,
+    snackbarHost: @Composable () -> Unit = {},
     content: @Composable (PaddingValues) -> Unit,
 ) {
     when {
@@ -29,6 +30,7 @@ fun AppScaffoldAndNavigation(
                 floatingActionButton = floatingActionButton,
                 floatingActionButtonPosition = floatingActionButtonPosition,
                 containerColor = containerColor,
+                snackbarHost = snackbarHost,
                 modifier = modifier
             ) { innerPadding ->
                 AppScaffoldContentWrapper(innerPadding, content = content)
@@ -43,6 +45,7 @@ fun AppScaffoldAndNavigation(
                     floatingActionButton = floatingActionButton,
                     floatingActionButtonPosition = floatingActionButtonPosition,
                     containerColor = containerColor,
+                    snackbarHost = snackbarHost,
                     modifier = modifier
                 ) { innerPadding ->
                     AppScaffoldContentWrapper(innerPadding, navBarData, content)
@@ -57,6 +60,7 @@ fun AppScaffoldAndNavigation(
                 floatingActionButton = floatingActionButton,
                 floatingActionButtonPosition = floatingActionButtonPosition,
                 containerColor = containerColor,
+                snackbarHost = snackbarHost,
                 modifier = modifier
             ) { innerPadding ->
                 AppScaffoldContentWrapper(innerPadding, navBarData, content)
