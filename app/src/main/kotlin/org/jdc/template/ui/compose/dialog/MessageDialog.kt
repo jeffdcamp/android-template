@@ -15,6 +15,7 @@ fun MessageDialog(
     onDismissRequest: () -> Unit,
     title: @Composable () -> String? = { null },
     text: @Composable () -> String? = { null },
+    icon: @Composable (() -> Unit)? = null,
     confirmButtonText: @Composable () -> String? = { stringResource(android.R.string.ok) },
     onConfirmButtonClicked: (() -> Unit)? = null,
     dismissButtonText: @Composable () -> String? = { stringResource(android.R.string.cancel) },
@@ -36,6 +37,7 @@ fun MessageDialog(
         } else {
             null
         },
+        icon = icon,
         confirmButton = {
             val confirmButtonTextString = confirmButtonText()
             if (onConfirmButtonClicked != null && confirmButtonTextString != null) {
@@ -71,6 +73,7 @@ fun MessageDialog(
         onDismissRequest = dialogUiState.onDismissRequest,
         title = dialogUiState.title,
         text = dialogUiState.text,
+        icon = dialogUiState.icon,
         confirmButtonText = dialogUiState.confirmButtonText,
         onConfirmButtonClicked = if (dialogUiState.onConfirm != null) { { dialogUiState.onConfirm.invoke(Unit) } } else null,
         dismissButtonText = dialogUiState.dismissButtonText,
@@ -81,6 +84,7 @@ fun MessageDialog(
 data class MessageDialogUiState(
     val title: @Composable () -> String? = { null },
     val text: @Composable () -> String? = { null },
+    val icon: @Composable (() -> Unit)? = null,
     val confirmButtonText: @Composable () -> String? = { stringResource(android.R.string.ok) },
     val dismissButtonText: @Composable () -> String? = { stringResource(android.R.string.cancel) },
     override val onConfirm: ((Unit) -> Unit)? = {},
