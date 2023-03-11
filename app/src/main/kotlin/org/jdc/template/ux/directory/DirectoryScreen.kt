@@ -69,7 +69,7 @@ private fun DirectoryContent(
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
         items(directoryList) { individual ->
             ListItem(
-                headlineText = { Text(individual.getFullName()) },
+                headlineContent = { Text(individual.getFullName()) },
                 Modifier
                     .clickable { uiState.onIndividualClicked(individual.individualId) },
             )

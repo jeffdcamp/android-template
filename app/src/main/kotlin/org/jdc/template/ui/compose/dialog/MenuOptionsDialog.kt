@@ -52,7 +52,7 @@ fun MenuOptionsDialog(
                 // Options
                 options.forEach { menuOptionsDialogItem: MenuOptionsDialogItem ->
                     ListItem(
-                        headlineText = { Text(menuOptionsDialogItem.text()) },
+                        headlineContent = { Text(menuOptionsDialogItem.text()) },
                         modifier = Modifier
                             .clickable { menuOptionsDialogItem.onClick() }
                     )

@@ -67,7 +67,7 @@ fun ComponentDetailsScreen(
         LazyColumn(modifier = Modifier.fillMaxWidth()) {
             items(component.examples) { example ->
                 ListItem(
-                    headlineText = { Text(example.name) },
+                    headlineContent = { Text(example.name) },
                     modifier = Modifier.clickable {
                         navController.navigate(ComponentExampleRoute.createRoute(componentName, example.name))
                     },

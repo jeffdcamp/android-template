@@ -57,10 +57,10 @@ object Setting {
             modifier = modifier
                 .toggleable(checked, onValueChange = { onClickBody?.invoke(it) }, role = Role.Switch),
             leadingContent = icon,
-            headlineText = {
+            headlineContent = {
                 Text(text)
             },
-            supportingText = if (!secondaryText.isNullOrBlank()) {
+            supportingContent = if (!secondaryText.isNullOrBlank()) {
                 { Text(secondaryText) }
             } else {
                 null
@@ -89,10 +89,10 @@ object Setting {
             modifier = modifier
                 .toggleable(currentValueChecked, onValueChange = { onClickBody?.invoke(it) }, role = Role.Switch),
             leadingContent = icon,
-            headlineText = {
+            headlineContent = {
                 Text(text)
             },
-            supportingText = if (!secondaryText.isNullOrBlank()) {
+            supportingContent = if (!secondaryText.isNullOrBlank()) {
                 { Text(secondaryText) }
             } else {
                 null
@@ -117,10 +117,10 @@ object Setting {
             modifier = Modifier
                 .clickable { onClickBody?.invoke() },
             leadingContent = icon,
-            headlineText = {
+            headlineContent = {
                 Text(text)
             },
-            supportingText = if (!secondaryText.isNullOrBlank()) {
+            supportingContent = if (!secondaryText.isNullOrBlank()) {
                 { Text(secondaryText) }
             } else {
                 null
