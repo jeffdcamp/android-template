@@ -13,6 +13,7 @@ plugins {
     id("org.dbtools.license-manager")
     id("de.undercouch.download") version "5.3.1"
     id("com.spotify.ruler")
+    id("org.gradle.jacoco")
     alias(libs.plugins.ksp)
     alias(libs.plugins.detekt)
     id("com.github.triplet.play") // alias(libs.plugins.playPublisher) (3.7.0 still conflicts with appdistribution https://github.com/Triple-T/gradle-play-publisher/issues/901)
@@ -278,6 +279,45 @@ dependencies {
 // create JUnit reports
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+// ./gradlew jacocoTestDebugUnitTestReport
+jacoco {
+    toolVersion = libs.versions.jacoco.get().toString()
+}
+
+val jacocoTestReport = tasks.create("jacocoTestReport")
+
+androidComponents.onVariants { variant ->
+    val testTaskName = "test${variant.name.capitalize()}UnitTest"
+    val reportTask = tasks.register("jacoco${testTaskName.capitalize()}Report", JacocoReport::class) {
+        dependsOn(testTaskName)
+
+        reports {
+            xml.required.set(true)
+            html.required.set(true)
+        }
+
+        classDirectories.setFrom(
+            fileTree("$buildDir/tmp/kotlin-classes/${variant.name}") {
+                exclude(
+                    listOf(
+                        // Android
+                        "**/R.class",
+                        "**/R\$*.class",
+                        "**/BuildConfig.*",
+                        "**/Manifest*.*",
+                        // App Specific
+                    )
+                )
+            }
+        )
+
+        sourceDirectories.setFrom(files("$projectDir/src/main/java", "$projectDir/src/main/kotlin"))
+        executionData.setFrom(file("$buildDir/jacoco/$testTaskName.exec"))
+    }
+
+    jacocoTestReport.dependsOn(reportTask)
 }
 
 // ===== Ruler =====
