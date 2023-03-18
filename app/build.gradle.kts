@@ -151,6 +151,14 @@ android {
             buildConfigField("long", "BUILD_TIME", "${Date().time}l")
             signingConfig = signingConfigs.getByName("upload")
 
+            // R8
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+
             firebaseAppDistribution {
                 serviceCredentialsFile = firebaseServiceCredentialsFile
                 groups = firebaseGroups

@@ -21,7 +21,7 @@ androidxWork = "2.8.0"
 coil = "2.2.2"
 desugarJdkLibs = "2.0.2"
 detekt = "1.22.0"
-dbtools = "8.0.0"
+dbtools = "8.1.0"
 
 firebaseBom = "31.2.3"
 firebaseAppDistGradlePlugin = "4.0.0"
