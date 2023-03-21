@@ -139,8 +139,11 @@ class IndividualEditViewModel
     }
 
     private fun showBirthDate() {
+        val todayMs = System.currentTimeMillis()
+
         dialogUiStateFlow.value = DatePickerDialogUiState(
             localDate = birthDateFlow.value,
+            dateValidator = { ms -> ms < todayMs },
             onConfirm = {
                 birthDateFlow.value = it
                 dismissDialog(dialogUiStateFlow)
