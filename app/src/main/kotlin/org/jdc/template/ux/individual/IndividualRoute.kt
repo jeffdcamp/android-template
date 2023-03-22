@@ -8,7 +8,7 @@ import org.jdc.template.ui.navigation.RouteUtil
 
 object IndividualRoute : NavComposeRoute() {
     private const val ROUTE_BASE = "individual"
-    override val routeDefinition: String = "$ROUTE_BASE/${RouteUtil.defineArg(Arg.INDIVIDUAL_ID)}" // individual/individualId={individualId}
+    override val routeDefinition: String = "$ROUTE_BASE/${RouteUtil.defineArg(Arg.INDIVIDUAL_ID)}" // individual/{individualId}
 
     fun createRoute(individualId: String): String {
         return "$ROUTE_BASE/$individualId" // individual/123456
