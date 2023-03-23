@@ -1,5 +1,7 @@
 package org.jdc.template.ui.compose.dialog
 
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDefaults
 import androidx.compose.material3.DatePickerDialog
@@ -7,7 +9,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
@@ -48,7 +52,12 @@ fun DatePickerDialog(
             title = if (dialogUiState.title != null) {
                 dialogUiState.title
             } else {
-                { DatePickerDefaults.DatePickerTitle(datePickerState) }
+                {
+                    DatePickerDefaults.DatePickerTitle(
+                        datePickerState,
+                        modifier = Modifier.padding(PaddingValues(start = 24.dp, end = 12.dp, top = 16.dp)) // DatePickerTitlePadding
+                    )
+                }
             },
             state = datePickerState,
             dateValidator = dialogUiState.dateValidator

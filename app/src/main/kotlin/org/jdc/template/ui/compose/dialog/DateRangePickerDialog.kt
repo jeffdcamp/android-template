@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DatePickerFormatter
 import androidx.compose.material3.DateRangePicker
@@ -76,7 +77,7 @@ fun DateRangePickerDialog(
                         Spacer(modifier = Modifier.height(16.dp))
                         DateRangePickerDefaults.DateRangePickerTitle(
                             state = dateRangePickerState,
-                            contentPadding = PaddingValues(start = 0.dp),
+                            modifier = Modifier.padding(PaddingValues(start = 16.dp))
                         )
                     }
                 }
@@ -85,7 +86,7 @@ fun DateRangePickerDialog(
                 DateRangePickerDefaults.DateRangePickerHeadline(
                     dateRangePickerState,
                     dateFormatter,
-                    contentPadding = PaddingValues(start = 0.dp)
+                    modifier = Modifier.padding(PaddingValues(start = 16.dp))
                 )
             },
             state = dateRangePickerState,
