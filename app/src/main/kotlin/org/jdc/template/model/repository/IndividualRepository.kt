@@ -18,9 +18,9 @@ class IndividualRepository
 ) {
     private fun mainDatabase() = mainDatabaseWrapper.getDatabase()
 
-    private fun individualDao() = mainDatabase().individualDao
-    private fun householdDao() = mainDatabase().householdDao
-    private fun directoryItemDao() = mainDatabase().directoryItemDao
+    private fun individualDao() = mainDatabase().individualDao()
+    private fun householdDao() = mainDatabase().householdDao()
+    private fun directoryItemDao() = mainDatabase().directoryItemDao()
 
     fun getDirectoryListFlow(): Flow<List<DirectoryItem>> = settingsRepository.directorySortByLastNameFlow.flatMapLatest { byLastName ->
         when {
