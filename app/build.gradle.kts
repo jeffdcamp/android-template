@@ -38,6 +38,7 @@ android {
         ksp {
             arg("room.schemaLocation", "$projectDir/schema")
             arg("room.incremental", "true")
+//            arg("room.generateKotlin", "true") // generate kotlin code (requires Room 2.6.x)
 //            arg("room.useNullAwareTypeAnalysis", "false") // optional param to turn OFF TypeConverter analyzer (introduced in Room 2.4.0-beta02)
         }
 
