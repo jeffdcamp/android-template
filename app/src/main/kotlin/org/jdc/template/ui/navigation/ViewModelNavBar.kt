@@ -2,9 +2,7 @@ package org.jdc.template.ui.navigation
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.os.Parcelable
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -95,11 +93,7 @@ sealed class ViewModelNavBarNavigator {
         override fun <T : Enum<T>> navigate(context: Context, navController: NavController, viewModelNav: ViewModelNavBar<T>): Boolean {
             if (reselected) {
                 // clear back stack
-                val popped = navController.popBackStack(route, inclusive = false)
-                if (!popped && routeHasArgs(route)) {
-                    // try again if route contains args (navController.popBackStack(...) does not support routes with args)
-                    navController.popBackStackRouteWithArgs(route)
-                }
+                navController.popBackStack(route, inclusive = false)
             }
 
             navController.navigate(route) {
@@ -177,45 +171,6 @@ class DefaultNavBarConfig<T : Enum<T>>(
     override fun getRouteByNavItem(navBarItem: T): String? = navBarItemRouteMap[navBarItem]
 }
 
-private fun routeHasArgs(route: String): Boolean {
-    return route.contains('/') || route.contains('?')
-}
-
-/*
- * Alternative popBackStack that works with arguments (popBackStack() does not support routes with args)
- * https://stackoverflow.com/questions/71948142/jetpack-compose-how-to-do-popbackstack-with-arguments
- * "Note that this does not support the inclusive and saveState options (due to the current navigation API limitation),
- * so you can't restoreState when you return to the current destination." (this should not be an issue for the use-case of removing the full backstack
- * for a navigation item)
- */
-private fun NavController.popBackStackRouteWithArgs(route: String): Boolean {
-    if (backQueue.isEmpty()) {
-        return false
-    }
-
-    var found = false
-    var popCount = 0
-    val iterator = backQueue.reversed().iterator()
-    while (iterator.hasNext()) {
-        val entry = iterator.next()
-        popCount++
-        val intent = entry.arguments?.parcelable<Intent>(NavController.KEY_DEEP_LINK_INTENT)
-        if (intent?.data?.toString() == "android-app://androidx.navigation/$route") {
-            found = true
-            break
-        }
-    }
-
-    if (found) {
-        navigate(route) {
-            while (popCount-- > 0) {
-                popBackStack()
-            }
-        }
-    }
-    return found
-}
-
 @Composable
 fun <T : Enum<T>> HandleNavBarNavigation(
     viewModelNavBar: ViewModelNavBar<T>,
@@ -228,9 +183,4 @@ fun <T : Enum<T>> HandleNavBarNavigation(
     LaunchedEffect(navigator) {
         navigator?.navigate(context, navController, viewModelNavBar)
     }
-}
-
-private inline fun <reified T : Parcelable> Bundle.parcelable(key: String): T? = when {
-    Build.VERSION.SDK_INT >= 33 -> getParcelable(key, T::class.java)
-    else -> @Suppress("DEPRECATION") getParcelable(key) as? T
 }
