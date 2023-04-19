@@ -21,6 +21,8 @@ plugins {
 }
 
 android {
+    namespace = "org.jdc.template"
+
     compileSdk = AppInfo.AndroidSdk.COMPILE
 
     defaultConfig {
@@ -47,12 +49,13 @@ android {
     }
 
     compileOptions {
-        // Flag to enable support for the new language APIs
+        sourceCompatibility = org.gradle.api.JavaVersion.VERSION_17
+        targetCompatibility = org.gradle.api.JavaVersion.VERSION_17
         isCoreLibraryDesugaringEnabled = true
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
         freeCompilerArgs += listOf(
             "-Xopt-in=kotlin.RequiresOptIn",
             "-Xopt-in=androidx.compose.material3.ExperimentalMaterial3Api",
@@ -69,6 +72,7 @@ android {
     }
 
     buildFeatures {
+        buildConfig = true
         compose = true
     }
 
@@ -153,12 +157,12 @@ android {
             signingConfig = signingConfigs.getByName("upload")
 
             // R8
-            isMinifyEnabled = true
-            isShrinkResources = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+//            isMinifyEnabled = true
+//            isShrinkResources = true
+//            proguardFiles(
+//                getDefaultProguardFile("proguard-android-optimize.txt"),
+//                "proguard-rules.pro"
+//            )
 
             firebaseAppDistribution {
                 serviceCredentialsFile = firebaseServiceCredentialsFile
@@ -353,7 +357,7 @@ tasks.register<de.undercouch.gradle.tasks.download.Download>("downloadDetektConf
 // make sure when running detekt, the config file is downloaded
 tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
     // Target version of the generated JVM bytecode. It is used for type resolution.
-    this.jvmTarget = "1.8"
+    this.jvmTarget = "17"
     dependsOn("downloadDetektConfig")
 }
 
