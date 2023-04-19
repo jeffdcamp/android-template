@@ -67,14 +67,14 @@ fun DatePickerDialog(
 
 /**
  * DatePickerDialogUiState
- * @param title title on top of the dialog
- * @param localDate initial selected date
- * @param dateValidator a lambda that takes a date timestamp and return true if the date is a valid one for selection. Invalid dates will appear disabled in the UI.
- * @param onConfirm confirm button press with the selected LocalDate
- * @param onDismiss dismiss button press
- * @param onDismissRequest outside the dialog press
- * @param confirmButtonText text for confirm button. default to "OK"
- * @param dismissButtonText text for dismiss button. default to "Cancel"
+ * @property title title on top of the dialog
+ * @property localDate initial selected date
+ * @property dateValidator a lambda that takes a date timestamp and return true if the date is a valid one for selection. Invalid dates will appear disabled in the UI.
+ * @property onConfirm confirm button press with the selected LocalDate
+ * @property onDismiss dismiss button press
+ * @property onDismissRequest outside the dialog press
+ * @property confirmButtonText text for confirm button. default to "OK"
+ * @property dismissButtonText text for dismiss button. default to "Cancel"
  */
 data class DatePickerDialogUiState(
     val title: (@Composable () -> Unit)? = null,

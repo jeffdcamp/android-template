@@ -99,17 +99,17 @@ fun DateRangePickerDialog(
 
 /**
  * DatePickerDialogUiState
- * @param title the title to be displayed in the date range picker
- * @param startLocalDate selected start date in range
- * @param endLocalDate selected end date in range
- * @param dateValidator a lambda that takes a date timestamp and return true if the date is a valid one for selection. Invalid dates will appear disabled in the UI.
- * @param showModeToggle show UI to switch between calendar view or text field view
- * @param initialDisplayMode initial range display mode
- * @param onConfirm confirm button press with the selected DateRange
- * @param onDismiss dismiss button press
- * @param onDismissRequest outside the dialog press
- * @param confirmButtonText text for confirm button. default to "OK"
- * @param dismissButtonText text for dismiss button. default to "Cancel"
+ * @property title the title to be displayed in the date range picker
+ * @property startLocalDate selected start date in range
+ * @property endLocalDate selected end date in range
+ * @property dateValidator a lambda that takes a date timestamp and return true if the date is a valid one for selection. Invalid dates will appear disabled in the UI.
+ * @property showModeToggle show UI to switch between calendar view or text field view
+ * @property initialDisplayMode initial range display mode
+ * @property onConfirm confirm button press with the selected DateRange
+ * @property onDismiss dismiss button press
+ * @property onDismissRequest outside the dialog press
+ * @property confirmButtonText text for confirm button. default to "OK"
+ * @property dismissButtonText text for dismiss button. default to "Cancel"
  */
 data class DateRangePickerDialogUiState(
     val title: (@Composable () -> Unit)? = null,

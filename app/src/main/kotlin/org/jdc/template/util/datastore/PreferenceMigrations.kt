@@ -42,9 +42,9 @@ val PREFERENCES_VERSION_KEY: Preferences.Key<Int> get() = intPreferencesKey("pre
  *     )
  * )
  *
- * @param version Target version (version MUST be greater than 0)
+ * @property version Target version (version MUST be greater than 0)
  * @param migrations Migrations to run
- * @param destructiveFallback Clear all preference data if there is no matching migrations
+ * @property destructiveFallback Clear all preference data if there is no matching migrations
  */
 class PreferenceMigrations(
     private val version: Int,
