@@ -2,7 +2,7 @@ package org.jdc.template.ux.individualedit
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import org.jdc.template.model.db.main.type.IndividualType
+import org.jdc.template.model.domain.type.IndividualType
 import org.jdc.template.ui.compose.dialog.DialogUiState
 import org.jdc.template.ui.compose.form.TextFieldData
 import java.time.LocalDate

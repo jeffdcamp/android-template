@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import org.jdc.template.domain.individual.CreateIndividualLargeTestDataUseCase
 import org.jdc.template.domain.individual.CreateIndividualTestDataUseCase
 import org.jdc.template.model.config.RemoteConfig
+import org.jdc.template.model.domain.inline.FirstName
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.model.webservice.colors.ColorService
 import org.jdc.template.model.webservice.colors.dto.ColorsDto
@@ -145,7 +146,7 @@ class  AboutViewModel
         }
 
         // Make some changes
-        val originalName: String?
+        val originalName: FirstName?
 
         val individualList = individualRepository.getAllIndividuals()
         if (individualList.isNotEmpty()) {
@@ -154,12 +155,10 @@ class  AboutViewModel
             Timber.i("ORIGINAL NAME = %s", originalName)
 
             // change name
-            individual.firstName = "Bobby"
-            individualRepository.saveIndividual(individual)
+            individualRepository.saveIndividual(individual.copy(firstName = FirstName("Bobby")))
 
             // restore name
-            individual.firstName = originalName
-            individualRepository.saveIndividual(individual)
+            individualRepository.saveIndividual(individual.copy(firstName = originalName))
         } else {
             Timber.e("Cannot find individual")
         }

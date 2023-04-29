@@ -10,7 +10,7 @@ import java.time.OffsetDateTime
 @Dao
 interface IndividualDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(individual: Individual): Long
+    suspend fun insert(individualEntity: IndividualEntity): Long
 
     @Query("DELETE FROM Individual")
     suspend fun deleteAll()
@@ -19,16 +19,16 @@ interface IndividualDao {
     suspend fun findCount(): Int
 
     @Query("SELECT * FROM Individual WHERE id = :id")
-    suspend fun findById(id: String): Individual?
+    suspend fun findById(id: String): IndividualEntity?
 
     @Query("SELECT * FROM Individual WHERE id = :id")
-    fun findByIdFlow(id: String): Flow<Individual>
+    fun findByIdFlow(id: String): Flow<IndividualEntity>
 
     @Query("SELECT * FROM Individual")
-    suspend fun findAll(): List<Individual>
+    suspend fun findAll(): List<IndividualEntity>
 
     @Query("SELECT * FROM Individual")
-    fun findAllFlow(): Flow<List<Individual>>
+    fun findAllFlow(): Flow<List<IndividualEntity>>
 
     @Query("DELETE FROM Individual WHERE id = :id")
     suspend fun deleteById(id: String)

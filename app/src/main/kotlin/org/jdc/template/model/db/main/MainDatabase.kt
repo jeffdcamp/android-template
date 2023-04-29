@@ -5,20 +5,20 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import org.dbtools.android.room.DatabaseViewQuery
 import org.jdc.template.model.db.converter.DateTimeTextConverter
-import org.jdc.template.model.db.main.directoryitem.DirectoryItem
 import org.jdc.template.model.db.main.directoryitem.DirectoryItemDao
-import org.jdc.template.model.db.main.household.Household
+import org.jdc.template.model.db.main.directoryitem.DirectoryItemEntityView
 import org.jdc.template.model.db.main.household.HouseholdDao
-import org.jdc.template.model.db.main.individual.Individual
+import org.jdc.template.model.db.main.household.HouseholdEntity
 import org.jdc.template.model.db.main.individual.IndividualDao
+import org.jdc.template.model.db.main.individual.IndividualEntity
 
 @Database(
     entities = [
-        Individual::class,
-        Household::class
+        IndividualEntity::class,
+        HouseholdEntity::class
     ],
     views = [
-        DirectoryItem::class
+        DirectoryItemEntityView::class
     ],
     version = 1
 )
@@ -32,7 +32,7 @@ abstract class MainDatabase : RoomDatabase() {
     companion object {
         const val DATABASE_NAME = "main.db"
         val DATABASE_VIEW_QUERIES = listOf(
-            DatabaseViewQuery(DirectoryItem.VIEW_NAME, DirectoryItem.VIEW_QUERY)
+            DatabaseViewQuery(DirectoryItemEntityView.VIEW_NAME, DirectoryItemEntityView.VIEW_QUERY)
         )
     }
 }

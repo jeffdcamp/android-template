@@ -2,7 +2,7 @@ package org.jdc.template.ux.individual
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import org.jdc.template.model.db.main.individual.Individual
+import org.jdc.template.model.domain.Individual
 import org.jdc.template.ui.compose.dialog.DialogUiState
 
 data class IndividualUiState(

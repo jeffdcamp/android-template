@@ -7,8 +7,8 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface DirectoryItemDao {
     @Query("SELECT id AS individualId, lastName, firstName FROM Individual ORDER BY firstName, lastName")
-    fun findAllDirectItemsByFirstNameFlow(): Flow<List<DirectoryItem>>
+    fun findAllDirectItemsByFirstNameFlow(): Flow<List<DirectoryItemEntityView>>
 
     @Query("SELECT id AS individualId, lastName, firstName FROM Individual ORDER BY lastName, firstName")
-    fun findAllDirectItemsByLastNameFlow(): Flow<List<DirectoryItem>>
+    fun findAllDirectItemsByLastNameFlow(): Flow<List<DirectoryItemEntityView>>
 }

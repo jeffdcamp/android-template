@@ -15,7 +15,8 @@ import org.jdc.template.inject.CommonTestModule
 import org.jdc.template.model.datastore.UserPreferenceDataSource
 import org.jdc.template.model.db.main.MainDatabase
 import org.jdc.template.model.db.main.MainDatabaseWrapper
-import org.jdc.template.model.db.main.individual.Individual
+import org.jdc.template.model.domain.Individual
+import org.jdc.template.model.domain.inline.FirstName
 import org.jdc.template.util.log.JavaTree
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -41,16 +42,16 @@ class IndividualRepositoryTest {
     @Test
     fun testIndividual() = runBlocking {
         // === CREATE / INSERT ===
-        val individual = Individual()
-        individual.firstName = "Jeff"
-        individual.alarmTime = LocalTime.now()
+        val individual = Individual(
+            firstName = FirstName("Jeff"),
+            alarmTime = LocalTime.now()
+        )
         individualRepository.saveIndividual(individual)
 
         assertThat(individualRepository.getIndividualCount()).isEqualTo(1)
 
         // === UPDATE ===
-        individual.firstName = "Jeffery"
-        individualRepository.saveIndividual(individual)
+        individualRepository.saveIndividual(individual.copy(firstName = FirstName("Jeffery")))
 
         val dbFirstName = individualRepository.getIndividualFirstName(individual.id)
         assertThat(dbFirstName).isEqualTo("Jeffery")

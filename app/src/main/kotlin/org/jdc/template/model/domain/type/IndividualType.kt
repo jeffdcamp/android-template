@@ -1,4 +1,4 @@
-package org.jdc.template.model.db.main.type
+package org.jdc.template.model.domain.type
 
 import androidx.annotation.StringRes
 import org.jdc.template.R

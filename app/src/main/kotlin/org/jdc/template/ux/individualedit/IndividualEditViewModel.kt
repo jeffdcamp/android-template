@@ -8,8 +8,13 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import org.jdc.template.R
-import org.jdc.template.model.db.main.individual.Individual
-import org.jdc.template.model.db.main.type.IndividualType
+import org.jdc.template.model.domain.Individual
+import org.jdc.template.model.domain.inline.Email
+import org.jdc.template.model.domain.inline.FirstName
+import org.jdc.template.model.domain.inline.IndividualId
+import org.jdc.template.model.domain.inline.LastName
+import org.jdc.template.model.domain.inline.Phone
+import org.jdc.template.model.domain.type.IndividualType
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.ui.compose.dialog.DatePickerDialogUiState
 import org.jdc.template.ui.compose.dialog.DialogUiState
@@ -18,6 +23,8 @@ import org.jdc.template.ui.compose.dialog.dismissDialog
 import org.jdc.template.ui.compose.form.TextFieldData
 import org.jdc.template.ui.navigation.ViewModelNav
 import org.jdc.template.ui.navigation.ViewModelNavImpl
+import org.jdc.template.util.ext.getValueClassString
+import org.jdc.template.ux.individual.IndividualRoute
 import java.time.LocalDate
 import java.time.LocalTime
 import javax.inject.Inject
@@ -29,7 +36,8 @@ class IndividualEditViewModel
     private val individualRepository: IndividualRepository,
     savedStateHandle: SavedStateHandle
 ) : ViewModel(), ViewModelNav by ViewModelNavImpl() {
-    private val individualId: String? = savedStateHandle[IndividualEditRoute.Arg.INDIVIDUAL_ID]
+    private val individualId = savedStateHandle.getValueClassString(IndividualRoute.Arg.INDIVIDUAL_ID) { IndividualId(it) }
+
     private var individual = Individual()
 
     // hold state for Compose views
@@ -84,20 +92,19 @@ class IndividualEditViewModel
         setIndividual(Individual())
     }
 
-    private fun loadIndividual(id: String) = viewModelScope.launch {
+    private fun loadIndividual(id: IndividualId) = viewModelScope.launch {
         individualRepository.getIndividual(id)?.let { loadedIndividual ->
             setIndividual(loadedIndividual)
         }
     }
 
     private fun setIndividual(individual: Individual) {
-
         this@IndividualEditViewModel.individual = individual
 
-        firstNameFlow.value = TextFieldData(individual.firstName.orEmpty())
-        lastNameFlow.value = TextFieldData(individual.lastName.orEmpty())
-        phoneNumberFlow.value = TextFieldData(individual.phone.orEmpty())
-        emailFlow.value = TextFieldData(individual.email.orEmpty())
+        firstNameFlow.value = TextFieldData(individual.firstName?.value.orEmpty())
+        lastNameFlow.value = TextFieldData(individual.lastName?.value.orEmpty())
+        phoneNumberFlow.value = TextFieldData(individual.phone?.value.orEmpty())
+        emailFlow.value = TextFieldData(individual.email?.value.orEmpty())
         birthDateFlow.value = individual.birthDate
         alarmTimeFlow.value = individual.alarmTime
         individualTypeFlow.value = individual.individualType
@@ -109,16 +116,16 @@ class IndividualEditViewModel
             return@launch
         }
 
-        individual.firstName = valueOrNull(firstNameFlow.value.text)
-        individual.lastName = valueOrNull(lastNameFlow.value.text)
-        individual.phone = valueOrNull(phoneNumberFlow.value.text)
-        individual.email = valueOrNull(emailFlow.value.text)
-        individual.birthDate = birthDateFlow.value
-        individual.alarmTime = alarmTimeFlow.value
-        individual.individualType = individualTypeFlow.value
-        individual.available = availableFlow.value
-
-        individualRepository.saveIndividual(individual)
+        individualRepository.saveIndividual(individual.copy(
+            firstName = valueOrNull(firstNameFlow.value.text)?.let { FirstName(it) },
+            lastName = valueOrNull(lastNameFlow.value.text)?.let { LastName(it) },
+            phone = valueOrNull(phoneNumberFlow.value.text)?.let { Phone(it) },
+            email = valueOrNull(emailFlow.value.text)?.let { Email(it) },
+            birthDate = birthDateFlow.value,
+            alarmTime = alarmTimeFlow.value,
+            individualType = individualTypeFlow.value,
+            available = availableFlow.value,
+        ))
 
         popBackStack()
     }

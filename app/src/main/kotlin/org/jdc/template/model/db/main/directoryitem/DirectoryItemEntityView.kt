@@ -3,10 +3,10 @@ package org.jdc.template.model.db.main.directoryitem
 import androidx.room.DatabaseView
 
 @DatabaseView(
-    viewName = DirectoryItem.VIEW_NAME,
-    value = DirectoryItem.VIEW_QUERY
+    viewName = DirectoryItemEntityView.VIEW_NAME,
+    value = DirectoryItemEntityView.VIEW_QUERY
 )
-data class DirectoryItem(
+data class DirectoryItemEntityView(
     val individualId: String,
     val firstName: String,
     val lastName: String?

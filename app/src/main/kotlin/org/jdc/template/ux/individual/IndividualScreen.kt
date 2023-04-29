@@ -19,7 +19,11 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import org.jdc.template.R
-import org.jdc.template.model.db.main.individual.Individual
+import org.jdc.template.model.domain.Individual
+import org.jdc.template.model.domain.inline.Email
+import org.jdc.template.model.domain.inline.FirstName
+import org.jdc.template.model.domain.inline.LastName
+import org.jdc.template.model.domain.inline.Phone
 import org.jdc.template.ui.compose.PreviewDefault
 import org.jdc.template.ui.compose.appbar.AppBarMenu
 import org.jdc.template.ui.compose.appbar.AppBarMenuItem
@@ -68,8 +72,8 @@ private fun IndividualSummary(individual: Individual) {
             .padding(start = 16.dp)
     ) {
         TextWithTitle(individual.getFullName(), textStyle = MaterialTheme.typography.headlineSmall)
-        TextWithTitle(individual.phone, stringResource(R.string.phone))
-        TextWithTitle(individual.email, stringResource(R.string.email))
+        TextWithTitle(individual.phone?.value, stringResource(R.string.phone))
+        TextWithTitle(individual.email?.value, stringResource(R.string.email))
         TextWithTitle(DateUiUtil.getLocalDateText(LocalContext.current, individual.birthDate), stringResource(R.string.birth_date))
         TextWithTitle(DateUiUtil.getLocalTimeText(LocalContext.current, individual.alarmTime), stringResource(R.string.alarm_time))
     }
@@ -82,10 +86,10 @@ fun PreviewIndividual() {
         Surface {
             IndividualSummary(
                 individual = Individual(
-                    firstName = "Jeff",
-                    lastName = "Campbell",
-                    phone = "801-555-0001",
-                    email = "bob@bob.com",
+                    firstName = FirstName("Jeff"),
+                    lastName = LastName("Campbell"),
+                    phone = Phone("801-555-0001"),
+                    email = Email("bob@bob.com"),
 //        birthDate = LocalDate.MIN,
 //        alarmTime = LocalTime.MIN
                 )
