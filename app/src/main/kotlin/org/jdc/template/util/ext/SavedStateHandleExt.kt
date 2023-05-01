@@ -11,6 +11,7 @@ fun SavedStateHandle.requireBoolean(key: String): Boolean = requireNotNull(get<B
 fun SavedStateHandle.requireInt(key: String): Int = requireNotNull(get<Int>(key)) { createSaveStateErrorMessage(key) }
 fun SavedStateHandle.requireLong(key: String): Long = requireNotNull(get<Long>(key)) { createSaveStateErrorMessage(key) }
 fun SavedStateHandle.requireString(key: String): String = requireNotNull(get<String>(key)) { createSaveStateErrorMessage(key) }
+fun <T> SavedStateHandle.require(key: String): T = requireNotNull(get<T>(key)) { createSaveStateErrorMessage(key) }
 
 inline fun <T> SavedStateHandle.getValueClassBoolean(key: String, mapToValueClass: (Int) -> T?): T? = getValueClass<Int, T>(key, mapToValueClass)
 inline fun <T> SavedStateHandle.requireValueClassBoolean(key: String, mapToValueClass: (Int) -> T?): T = requireValueClass<Int, T>(key, mapToValueClass)
