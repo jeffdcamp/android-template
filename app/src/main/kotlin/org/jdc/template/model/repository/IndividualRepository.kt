@@ -2,6 +2,7 @@ package org.jdc.template.model.repository
 
 import androidx.room.withTransaction
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import org.jdc.template.model.db.main.MainDatabaseWrapper
@@ -43,7 +44,7 @@ class IndividualRepository
         settingsRepository.setSortByLastNameAsync(byLastName)
     }
     suspend fun getIndividual(individualId: IndividualId): Individual? = individualDao().findById(individualId.value)?.toIndividual()
-    fun getIndividualFlow(individualId: IndividualId): Flow<Individual> = individualDao().findByIdFlow(individualId.value).map { it.toIndividual() }
+    fun getIndividualFlow(individualId: IndividualId): Flow<Individual> = individualDao().findByIdFlow(individualId.value).filterNotNull().map { it.toIndividual() }
     suspend fun getAllIndividuals(): List<Individual> = individualDao().findAll().map { it.toIndividual() }
     suspend fun getIndividualCount(): Int = individualDao().findCount()
     suspend fun getIndividualFirstName(individualId: IndividualId): String? = individualDao().findFirstName(individualId.value)
