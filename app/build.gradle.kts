@@ -44,7 +44,7 @@ android {
 //            arg("room.useNullAwareTypeAnalysis", "false") // optional param to turn OFF TypeConverter analyzer (introduced in Room 2.4.0-beta02)
         }
 
-        // Espresso
+        // Integration tests
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -266,7 +266,6 @@ dependencies {
     debugImplementation(libs.leakCanary)
 
     // Test (Integration)
-    androidTestImplementation("androidx.test:core:1.5.0") // work around for supporting tests on Android 33 devices (https://issuetracker.google.com/issues/240993946) till ui-test-junit4 updates its dependencies (fixed with ui-test:1.4.0-alpha03+)
     androidTestImplementation(libs.compose.ui.test.junit4)
     debugImplementation(libs.compose.ui.test.manifest)
 
@@ -366,7 +365,7 @@ tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
 detekt {
     allRules = true // fail build on any finding
     buildUponDefaultConfig = true // preconfigure defaults
-    config = files("$projectDir/build/config/detektConfig.yml") // point to your custom config defining rules to run, overwriting default behavior
+    config.setFrom(files("$projectDir/build/config/detektConfig.yml")) // point to your custom config defining rules to run, overwriting default behavior
 //    baseline = file("$projectDir/config/baseline.xml") // a way of suppressing issues before introducing detekt
 }
 
