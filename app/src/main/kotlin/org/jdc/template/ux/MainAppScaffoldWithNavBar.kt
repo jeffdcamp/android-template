@@ -18,7 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -55,7 +55,7 @@ internal fun MainAppScaffoldWithNavBar(
     val activity = LocalContext.current.requireActivity()
     val windowSize = activity.rememberWindowSize()
     val viewModel: MainViewModel = hiltViewModel(activity)
-    val selectedBarItem by viewModel.selectedNavBarFlow.collectAsState()
+    val selectedBarItem by viewModel.selectedNavBarFlow.collectAsStateWithLifecycle()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
     // TopAppBar

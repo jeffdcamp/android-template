@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             val uiState = viewModel.uiState
-            val theme by uiState.selectedAppThemeFlow.collectAsState()
+            val theme by uiState.selectedAppThemeFlow.collectAsStateWithLifecycle()
 
             val darkTheme = when(theme?.displayThemeType) {
                 DisplayThemeType.SYSTEM_DEFAULT -> isSystemInDarkTheme()

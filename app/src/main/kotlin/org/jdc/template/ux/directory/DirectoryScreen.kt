@@ -12,11 +12,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import org.jdc.template.R
 import org.jdc.template.ui.compose.appbar.AppBarMenu
@@ -64,7 +64,7 @@ fun DirectoryScreen(
 private fun DirectoryContent(
     uiState: DirectoryUiState
 ) {
-    val directoryList by uiState.directoryListFlow.collectAsState()
+    val directoryList by uiState.directoryListFlow.collectAsStateWithLifecycle()
 
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
         items(directoryList) { individual ->

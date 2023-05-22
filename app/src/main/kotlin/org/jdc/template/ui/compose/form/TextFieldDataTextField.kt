@@ -2,7 +2,7 @@ package org.jdc.template.ui.compose.form
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.key.onPreviewKeyEvent
@@ -20,7 +20,7 @@ fun TextFieldDataTextField(
     onChange: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val textFieldValue by textFlow.collectAsState()
+    val textFieldValue by textFlow.collectAsStateWithLifecycle()
     val focusManager = LocalFocusManager.current
 
     DayNightTextField(

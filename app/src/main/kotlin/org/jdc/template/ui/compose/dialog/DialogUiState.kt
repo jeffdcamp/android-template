@@ -1,7 +1,7 @@
 package org.jdc.template.ui.compose.dialog
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
@@ -19,7 +19,7 @@ fun <T : DialogUiState<*>> HandleDialogUiState(
     dialogUiStateFlow: StateFlow<T?>,
     dialog: @Composable (T) -> Unit = { dialogUiState -> LibraryDialogs(dialogUiState) }
 ) {
-    val dialogUiState by dialogUiStateFlow.collectAsState()
+    val dialogUiState by dialogUiStateFlow.collectAsStateWithLifecycle()
 
     dialogUiState?.let {
         dialog(it)

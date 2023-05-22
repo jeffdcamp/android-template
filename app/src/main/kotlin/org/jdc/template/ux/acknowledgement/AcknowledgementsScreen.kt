@@ -10,13 +10,13 @@ import android.webkit.WebViewClient
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import org.jdc.template.R
 import org.jdc.template.ui.navigation.HandleNavigation
@@ -41,7 +41,7 @@ fun AcknowledgementScreen(
 
 @Composable
 private fun AcknowledgementWebview(uiState: AcknowledgementUiState) {
-    val acknowledgementHtml by uiState.acknowledgementHtmlFlow.collectAsState()
+    val acknowledgementHtml by uiState.acknowledgementHtmlFlow.collectAsStateWithLifecycle()
     val acknowledgementWebViewClient = remember { getWebviewClient() }
 
     AndroidView(

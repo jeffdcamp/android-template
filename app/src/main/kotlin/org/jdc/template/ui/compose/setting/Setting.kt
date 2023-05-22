@@ -18,7 +18,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -83,7 +83,7 @@ object Setting {
         icon: @Composable (() -> Unit)? = null,
         onClickBody: ((Boolean) -> Unit)? = null
     ) {
-        val currentValueChecked by currentCheckedValueFlow.collectAsState()
+        val currentValueChecked by currentCheckedValueFlow.collectAsStateWithLifecycle()
 
         ListItem(
             modifier = modifier
@@ -135,7 +135,7 @@ object Setting {
         icon: @Composable (() -> Unit)? = null,
         onClickBody: (() -> Unit)? = null
     ) {
-        val currentValue by currentValueFlow.collectAsState()
+        val currentValue by currentValueFlow.collectAsStateWithLifecycle()
 
         Clickable(
             text = text,
@@ -154,7 +154,7 @@ object Setting {
         icon: @Composable (() -> Unit)? = null,
         onValueChangeFinished: ((Float) -> Unit),
     ) {
-        val value by valueFlow.collectAsState()
+        val value by valueFlow.collectAsStateWithLifecycle()
 
         var sliderPosition: Float by remember(value) { mutableStateOf(value) }
 

@@ -8,12 +8,12 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import org.jdc.template.BuildConfig
 import org.jdc.template.R
@@ -86,7 +86,7 @@ private fun ApplicationAboutTitle() {
 
 @Composable
 private fun RestServicesStatus(uiState: AboutUiState) {
-    val restServicesEnabled by uiState.resetServiceEnabledFlow.collectAsState()
+    val restServicesEnabled by uiState.resetServiceEnabledFlow.collectAsStateWithLifecycle()
     Text("Rest Services Enabled: $restServicesEnabled")
 }
 
