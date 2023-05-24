@@ -12,10 +12,11 @@ import androidx.work.PeriodicWorkRequest
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.jdc.template.BuildConfig
+import org.jdc.template.inject.ApplicationScope
 import org.jdc.template.model.repository.SettingsRepository
-import org.jdc.template.util.coroutine.ProcessScope
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -25,11 +26,12 @@ import javax.inject.Singleton
 class WorkScheduler
 @Inject constructor(
     @ApplicationContext context: Context,
-    private val settingsRepository: SettingsRepository
+    private val settingsRepository: SettingsRepository,
+    @ApplicationScope private val appScope: CoroutineScope
 ) {
     private val workManager: WorkManager = WorkManager.getInstance(context)
 
-    fun startPeriodicWorkSchedules() = ProcessScope.launch {
+    fun startPeriodicWorkSchedules() = appScope.launch {
         // cancel all work if the version changed
         if (settingsRepository.getWorkSchedulerVersion() != WORK_SCHEDULER_VERSION) {
             workManager.cancelAllWork()

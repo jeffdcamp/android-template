@@ -1,7 +1,8 @@
 package org.jdc.template.domain.individual
 
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
+import org.jdc.template.inject.DefaultDispatcher
 import org.jdc.template.model.domain.Household
 import org.jdc.template.model.domain.Individual
 import org.jdc.template.model.domain.inline.FirstName
@@ -15,9 +16,10 @@ import javax.inject.Inject
 
 class CreateIndividualTestDataUseCase
 @Inject constructor(
-    private val individualRepository: IndividualRepository
+    private val individualRepository: IndividualRepository,
+    @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher
 ) {
-    suspend operator fun invoke() = withContext(Dispatchers.Default) {
+    suspend operator fun invoke() = withContext(defaultDispatcher) {
         // clear any existing items
         individualRepository.deleteAllIndividuals()
 
