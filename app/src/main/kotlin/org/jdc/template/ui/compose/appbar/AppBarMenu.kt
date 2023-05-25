@@ -49,11 +49,18 @@ fun AppBarMenu(menuItems: List<AppBarMenuItem>) {
 
 @Composable
 fun AppBarIcon(imageVector: ImageVector, contentDescription: String, action: () -> Unit) {
-    IconButton(onClick = action) {
-        Icon(
-            imageVector = imageVector,
-            contentDescription = contentDescription,
-        )
+    PlainTooltipBox(
+        tooltip = { Text(contentDescription) }
+    ) {
+        IconButton(
+            onClick = action,
+            modifier = Modifier.tooltipAnchor()
+        ) {
+            Icon(
+                imageVector = imageVector,
+                contentDescription = contentDescription,
+            )
+        }
     }
 }
 
@@ -62,7 +69,10 @@ fun AppBarIcon(menuItem: AppBarMenuItem.Icon) {
     PlainTooltipBox(
         tooltip = { Text(menuItem.text()) }
     ) {
-        IconButton(onClick = { menuItem.action() }) {
+        IconButton(
+            onClick = { menuItem.action() },
+            modifier = Modifier.tooltipAnchor()
+        ) {
             Icon(
                 imageVector = menuItem.imageVector,
                 contentDescription = menuItem.text()
