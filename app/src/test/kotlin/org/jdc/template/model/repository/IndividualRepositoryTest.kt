@@ -12,6 +12,7 @@ import kotlinx.coroutines.runBlocking
 import org.dbtools.android.room.jdbc.JdbcSQLiteOpenHelperFactory
 import org.jdc.template.TestFilesystem
 import org.jdc.template.inject.CommonTestModule
+import org.jdc.template.inject.CoroutinesModule
 import org.jdc.template.model.datastore.UserPreferenceDataSource
 import org.jdc.template.model.db.main.MainDatabase
 import org.jdc.template.model.db.main.MainDatabaseWrapper
@@ -79,7 +80,7 @@ class IndividualRepositoryTestModule {
 }
 
 @Singleton
-@Component(modules = [CommonTestModule::class, IndividualRepositoryTestModule::class])
+@Component(modules = [CommonTestModule::class, IndividualRepositoryTestModule::class, CoroutinesModule::class])
 interface IndividualRepositoryTestComponent {
     fun inject(test: IndividualRepositoryTest)
 }
