@@ -403,5 +403,5 @@ licenseManager {
     variantName = "release"
     outputDirs = listOf("./src/main/assets", "./build/licenses")
     excludeGroups = listOf("org.dbtools")
-    invalidLicenses = listOf("GPL","Commercial","CPAL","EPL","MPL","RPL","SPL","WTFPL")
+    invalidLicenses = listOf("GPL","GNU","NonCommercial","NoDerivatives","ShareAlike","CPAL","EPL","MPL","RPL","SPL","WTFPL","Beerware","IPA","JSON")
 }
