@@ -46,7 +46,7 @@ allprojects {
 
         // Compose
 //        addAll(listOf("material3", "ui", "ui-tooling-preview", "ui-test-junit4", "ui-test-manifest", "material3-window-size-class", "compiler"))
-        addAll(listOf("window")) // material3 uses latest 1.1.0-alpha
+//        addAll(listOf("window")) // material3 uses latest 1.1.0-alpha
     }
 
     tasks.named<DependencyUpdatesTask>("dependencyUpdates") {
