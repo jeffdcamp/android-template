@@ -403,5 +403,6 @@ licenseManager {
     variantName = "release"
     outputDirs = listOf("./src/main/assets", "./build/licenses")
     excludeGroups = listOf("org.dbtools")
-    invalidLicenses = listOf("GPL","GNU","NonCommercial","NoDerivatives","ShareAlike","CPAL","EPL","MPL","RPL","SPL","WTFPL","Beerware","IPA","JSON")
+//    invalidLicenses = listOf("GPL","GNU","NonCommercial","NoDerivatives","ShareAlike","CPAL","EPL","MPL","RPL","SPL","WTFPL","Beerware","IPA","JSON")
+    invalidLicensesUrl = "https://raw.githubusercontent.com/ICSEng/AndroidPublic/main/license/invalid-licenses.json"
 }
