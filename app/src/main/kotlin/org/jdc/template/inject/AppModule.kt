@@ -7,6 +7,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
+import okio.FileSystem
 import org.jdc.template.analytics.Analytics
 import org.jdc.template.analytics.DefaultAnalytics
 import javax.inject.Singleton
@@ -30,5 +31,11 @@ class AppModule {
     @Singleton
     fun provideAnalytics(@ApplicationContext context: Context): Analytics {
         return DefaultAnalytics(context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideFilesystem(): FileSystem {
+        return FileSystem.SYSTEM
     }
 }

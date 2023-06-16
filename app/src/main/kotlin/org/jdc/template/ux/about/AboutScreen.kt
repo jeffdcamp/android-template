@@ -64,7 +64,7 @@ private fun AboutScreenContent(
         TestButton("Create Database") { uiState.createSampleData() }
         TestButton("Create Large Database") { uiState.createLargeSampleData() }
         TestButton("Test Rest Call") { uiState.testQueryWebServiceCall() }
-//        TestButton("Test Table Changes") { uiState.testTableChange() }
+        TestButton("Test Rest Call2") { uiState.testSaveQueryWebServiceCall() }
         TestButton("TEST SIMPLE WORKMANAGER") { uiState.workManagerSimpleTest() }
         TestButton("TEST SYNC WORKMANAGER") { uiState.workManagerSyncTest() }
     }

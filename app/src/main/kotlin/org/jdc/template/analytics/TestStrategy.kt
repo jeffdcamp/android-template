@@ -4,8 +4,9 @@ import android.util.Log
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
+import okio.FileSystem
+import okio.Path
 import timber.log.Timber
-import java.io.File
 
 class TestStrategy(
     private val tag: String = "Test",
@@ -21,7 +22,8 @@ class TestStrategy(
     var errorScopeLevel = AppAnalytics.DEFAULT_ERROR_SCOPE_LEVEL
 
     // NOTE:  Setting this value will cause a write to json file on EVERY event (only use for debugging/QA)
-    var logToJsonFile: File? = null
+    val filesystem = FileSystem.SYSTEM
+    var logToJsonFile: Path? = null
 
     private val analyticsList = mutableListOf<Analytic>()
     private val json = Json {
@@ -93,9 +95,7 @@ class TestStrategy(
 
     private fun writeToJsonFile() {
         val logFile = logToJsonFile ?: return
-
-        // Timber.e("Writing to [${logFile.absolutePath}]")
-        logFile.writeText(json.encodeToString(ListSerializer(Analytic.serializer()), analyticsList))
+        filesystem.write(logFile) { writeUtf8(json.encodeToString(ListSerializer(Analytic.serializer()), analyticsList)) }
     }
 
     @Serializable

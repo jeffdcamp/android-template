@@ -1,5 +1,6 @@
 package org.jdc.template.ux.individual
 
+import android.os.Build
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState

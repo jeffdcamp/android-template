@@ -9,6 +9,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import okio.FileSystem
+import okio.Path.Companion.toOkioPath
 import org.jdc.template.domain.individual.CreateIndividualLargeTestDataUseCase
 import org.jdc.template.domain.individual.CreateIndividualTestDataUseCase
 import org.jdc.template.model.config.RemoteConfig
@@ -18,6 +20,7 @@ import org.jdc.template.model.webservice.colors.ColorService
 import org.jdc.template.model.webservice.colors.dto.ColorsDto
 import org.jdc.template.ui.navigation.ViewModelNav
 import org.jdc.template.ui.navigation.ViewModelNavImpl
+import org.jdc.template.util.ext.readText
 import org.jdc.template.util.ext.saveBodyToFile
 import org.jdc.template.ux.about.samples.ComponentsRoute
 import org.jdc.template.ux.about.typography.TypographyRoute
@@ -25,7 +28,6 @@ import org.jdc.template.ux.acknowledgement.AcknowledgmentsRoute
 import org.jdc.template.work.WorkScheduler
 import retrofit2.Response
 import timber.log.Timber
-import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -37,7 +39,8 @@ class  AboutViewModel
     private val workScheduler: WorkScheduler,
     private val remoteConfig: RemoteConfig,
     private val createIndividualTestDataUseCase: CreateIndividualTestDataUseCase,
-    private val createIndividualLargeTestDataUseCase: CreateIndividualLargeTestDataUseCase
+    private val createIndividualLargeTestDataUseCase: CreateIndividualLargeTestDataUseCase,
+    private val fileSystem: FileSystem
 ) : ViewModel(), ViewModelNav by ViewModelNavImpl() {
 
     private val resetServiceEnabledFlow: StateFlow<Boolean> = MutableStateFlow(remoteConfig.isColorServiceEnabled()).asStateFlow()
@@ -87,16 +90,17 @@ class  AboutViewModel
 
         if (response.isSuccessful) {
             // delete any existing file
-            val outputFile = File(application.externalCacheDir, "ws-out.json")
-            if (outputFile.exists()) {
-                outputFile.delete()
+            val externalCacheDir = application.externalCacheDir ?: return@launch
+            val outputFile = externalCacheDir.toOkioPath() / "ws-out.json"
+            if (fileSystem.exists(outputFile)) {
+                fileSystem.delete(outputFile)
             }
 
             // save the response body to file
-            response.saveBodyToFile(outputFile)
+            response.saveBodyToFile(fileSystem, outputFile)
 
             // show the output of the file
-            val fileContents = outputFile.readText()
+            val fileContents = fileSystem.readText(outputFile)
             Timber.i("Output file: [$fileContents]")
         } else {
             Timber.e("Search FAILED [${response.errorBody()}]")

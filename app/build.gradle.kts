@@ -223,6 +223,7 @@ dependencies {
     // Code
     implementation(libs.kotlin.serialization.json)
     implementation(libs.kotlin.coroutines.android)
+    implementation(libs.okio)
     implementation(libs.timber)
 
     // Inject
