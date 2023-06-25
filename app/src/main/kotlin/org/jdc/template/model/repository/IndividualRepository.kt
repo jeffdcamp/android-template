@@ -12,13 +12,8 @@ import org.jdc.template.model.db.main.individual.IndividualEntity
 import org.jdc.template.model.domain.Household
 import org.jdc.template.model.domain.Individual
 import org.jdc.template.model.domain.inline.CreatedTime
-import org.jdc.template.model.domain.inline.Email
-import org.jdc.template.model.domain.inline.FirstName
-import org.jdc.template.model.domain.inline.HouseholdId
 import org.jdc.template.model.domain.inline.IndividualId
 import org.jdc.template.model.domain.inline.LastModifiedTime
-import org.jdc.template.model.domain.inline.LastName
-import org.jdc.template.model.domain.inline.Phone
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -43,11 +38,11 @@ class IndividualRepository
     fun setDirectorySort(byLastName: Boolean) {
         settingsRepository.setSortByLastNameAsync(byLastName)
     }
-    suspend fun getIndividual(individualId: IndividualId): Individual? = individualDao().findById(individualId.value)?.toIndividual()
-    fun getIndividualFlow(individualId: IndividualId): Flow<Individual> = individualDao().findByIdFlow(individualId.value).filterNotNull().map { it.toIndividual() }
+    suspend fun getIndividual(individualId: IndividualId): Individual? = individualDao().findById(individualId)?.toIndividual()
+    fun getIndividualFlow(individualId: IndividualId): Flow<Individual?> = individualDao().findByIdFlow(individualId).filterNotNull().map { it.toIndividual() }
     suspend fun getAllIndividuals(): List<Individual> = individualDao().findAll().map { it.toIndividual() }
     suspend fun getIndividualCount(): Int = individualDao().findCount()
-    suspend fun getIndividualFirstName(individualId: IndividualId): String? = individualDao().findFirstName(individualId.value)
+    suspend fun getIndividualFirstName(individualId: IndividualId): String? = individualDao().findFirstName(individualId)
 
     suspend fun saveIndividual(individual: Individual) {
         individualDao().insert(individual.toEntity())
@@ -75,7 +70,7 @@ class IndividualRepository
         }
     }
 
-    suspend fun deleteIndividual(individualId: IndividualId) = individualDao().deleteById(individualId.value)
+    suspend fun deleteIndividual(individualId: IndividualId) = individualDao().deleteById(individualId)
 
     suspend fun deleteAllIndividuals() {
         mainDatabase().withTransaction {
@@ -87,8 +82,8 @@ class IndividualRepository
 
 fun Household.toEntity(): HouseholdEntity {
     return HouseholdEntity(
-        id = id.value,
-        name = name.value,
+        id = id,
+        name = name,
 
         created = lastModified.value,
         lastModified = lastModified.value,
@@ -97,8 +92,8 @@ fun Household.toEntity(): HouseholdEntity {
 
 fun HouseholdEntity.toHousehold(): Household {
     return Household(
-        id = HouseholdId(id),
-        name = LastName(name),
+        id = id,
+        name = name,
         created = CreatedTime(created),
         lastModified = LastModifiedTime(lastModified)
     )
@@ -106,15 +101,15 @@ fun HouseholdEntity.toHousehold(): Household {
 
 private fun Individual.toEntity(): IndividualEntity {
     return IndividualEntity(
-        id = id.value,
-        householdId = householdId?.value,
+        id = id,
+        householdId = householdId,
         individualType = individualType,
-        firstName = firstName?.value,
-        lastName = lastName?.value,
+        firstName = firstName,
+        lastName = lastName,
         birthDate = birthDate,
         alarmTime = alarmTime,
-        phone = phone?.value,
-        email = email?.value,
+        phone = phone,
+        email = email,
         available = available,
 
         created = lastModified.value,
@@ -124,15 +119,15 @@ private fun Individual.toEntity(): IndividualEntity {
 
 private fun IndividualEntity.toIndividual(): Individual {
     return Individual(
-        id = IndividualId(id),
-        householdId = householdId?.let { HouseholdId(it) },
+        id = id,
+        householdId = householdId,
         individualType = individualType,
-        firstName = firstName?.let { FirstName(it) },
-        lastName = lastName?.let { LastName(it) },
+        firstName = firstName,
+        lastName = lastName,
         birthDate = birthDate,
         alarmTime = alarmTime,
-        phone = phone?.let { Phone(it) },
-        email = email?.let { Email(it) },
+        phone = phone,
+        email = email,
         available = available,
         created = CreatedTime(created),
         lastModified = LastModifiedTime(lastModified)

@@ -118,6 +118,7 @@ class SmokeTest {
         composeTestRule.onNodeWithText(stringResource(android.R.string.ok)).performClick()
 
         // Validate delete (from DirectoryScreen)
+        composeTestRule.waitForIdle() // wait for render to complete
         composeTestRule.onNodeWithText("John Miller").assertDoesNotExist()
     }
 }
