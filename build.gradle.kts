@@ -42,7 +42,7 @@ allprojects {
     val excludeVersionContaining = listOf("alpha", "eap", "M1", "dev") // example: "alpha", "beta"
     // some artifacts may be OK to check for "alpha"... add these exceptions here
     val ignoreArtifacts = buildList {
-        addAll(listOf("core-splashscreen"))
+        addAll(listOf("room-compiler"))
 
         // Compose
 //        addAll(listOf("material3", "ui", "ui-tooling-preview", "ui-test-junit4", "ui-test-manifest", "material3-window-size-class", "compiler"))

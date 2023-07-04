@@ -1,6 +1,5 @@
 package org.jdc.template.ux.individual
 
-import android.os.Build
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -69,7 +68,8 @@ private fun IndividualContent(uiState: IndividualUiState) {
 @Composable
 private fun IndividualSummary(individual: Individual) {
     Column(
-        modifier = Modifier.verticalScroll(rememberScrollState())
+        modifier = Modifier
+            .verticalScroll(rememberScrollState())
             .padding(start = 16.dp)
     ) {
         TextWithTitle(individual.getFullName(), textStyle = MaterialTheme.typography.headlineSmall)

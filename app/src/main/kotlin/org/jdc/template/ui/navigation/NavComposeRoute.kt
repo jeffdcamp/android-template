@@ -2,6 +2,7 @@
 
 package org.jdc.template.ui.navigation
 
+import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.runtime.Composable
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
@@ -28,7 +29,7 @@ abstract class NavComposeRoute {
     /**
      * Used when creating navigation graph
      */
-    fun addNavigationRoute(navGraphBuilder: NavGraphBuilder, content: @Composable (NavBackStackEntry) -> Unit) {
+    fun addNavigationRoute(navGraphBuilder: NavGraphBuilder, content: @Composable AnimatedContentScope.(NavBackStackEntry) -> Unit) {
         navGraphBuilder.composable(
             route = routeDefinition,
             arguments = getArguments(),
