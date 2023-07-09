@@ -3,9 +3,7 @@ package org.jdc.template.util.ext
 import okio.FileSystem
 import okio.Path
 import okio.Path.Companion.toPath
-import okio.buffer
 import okio.openZip
-import okio.use
 
 /**
  * Unzip file from zip file and output to file Path
@@ -16,7 +14,7 @@ import okio.use
 fun FileSystem.unzipFile(sourceZipFile: Path, fileInZip: Path, outFile: Path) {
     require(exists(sourceZipFile)) { "sourceZipFile ($sourceZipFile) does not exist" }
     val zipFilesystem = openZip(sourceZipFile)
-    copyFile(zipFilesystem, fileInZip, this, outFile)
+    zipFilesystem.copyFileToFileSystem(fileInZip, this, outFile)
 }
 
 /**
@@ -44,15 +42,7 @@ fun FileSystem.unzip(sourceZipFile: Path, targetDir: Path, mustCreate: Boolean =
         if (zipFilesystem.isDirectory(path)) {
             createDirectories(targetDirFull / pathName)
         } else {
-            copyFile(zipFilesystem, path, this,targetDirFull / pathName)
-        }
-    }
-}
-
-private fun copyFile(sourceFileSystem: FileSystem, source: Path, targetFileSystem: FileSystem, target: Path) {
-    sourceFileSystem.source(source).use { bytesIn ->
-        targetFileSystem.sink(target).buffer().use { bytesOut ->
-            bytesOut.writeAll(bytesIn)
+            zipFilesystem.copyFileToFileSystem(path, this,targetDirFull / pathName)
         }
     }
 }

@@ -5,6 +5,7 @@ import okio.Path
 import okio.Source
 import okio.buffer
 import okio.source
+import okio.use
 import java.io.InputStream
 
 /**
@@ -47,5 +48,19 @@ fun FileSystem.copySourceToFile(source: Source, file: Path) {
 fun FileSystem.copyInputStreamToFile(inputStream: InputStream, file: Path) {
     inputStream.source().buffer().use { bufferedSource ->
         write(file) { writeAll(bufferedSource) }
+    }
+}
+
+/**
+ * Copy file from one FileSystem to other FileSystem
+ * @param source Path to file in source FileSystem
+ * @param targetFileSystem Target FileSystem
+ * @param target Path to file in target FileSystem
+ */
+fun FileSystem.copyFileToFileSystem(source: Path, targetFileSystem: FileSystem, target: Path) {
+    source(source).use { bytesIn ->
+        targetFileSystem.sink(target).buffer().use { bytesOut ->
+            bytesOut.writeAll(bytesIn)
+        }
     }
 }
