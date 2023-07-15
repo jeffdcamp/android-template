@@ -230,6 +230,7 @@ dependencies {
     implementation(libs.kotlin.serialization.json)
     implementation(libs.kotlin.coroutines.android)
     implementation(libs.okio)
+    implementation(libs.okio.assetfilesystem)
     implementation(libs.timber)
 
     // Inject
