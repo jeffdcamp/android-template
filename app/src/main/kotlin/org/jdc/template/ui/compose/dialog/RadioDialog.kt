@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.material3.AlertDialogDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Surface
@@ -20,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
@@ -37,7 +39,8 @@ fun <T> RadioDialog(
     confirmButtonText: String? = stringResource(android.R.string.ok),
     dismissButtonText: String? = stringResource(android.R.string.cancel),
     backgroundColor: Color = MaterialTheme.colorScheme.surface,
-    properties: DialogProperties = DialogProperties()
+    properties: DialogProperties = DialogProperties(),
+    tonalElevation: Dp = AlertDialogDefaults.TonalElevation,
 ) {
     Dialog(
         onDismissRequest = onDismissRequest,
@@ -45,7 +48,8 @@ fun <T> RadioDialog(
     ) {
         Surface(
             shape = MaterialTheme.shapes.extraLarge,
-            color = backgroundColor
+            color = backgroundColor,
+            tonalElevation = tonalElevation
         ) {
             Column(
                 modifier = Modifier.padding(DialogDefaults.DialogPadding)

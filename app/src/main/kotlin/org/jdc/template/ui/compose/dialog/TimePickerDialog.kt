@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.AlertDialogDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -16,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
@@ -34,6 +36,7 @@ fun TimePickerDialog(
     onDismissButtonClicked: (() -> Unit)? = null,
     properties: DialogProperties = DialogProperties(), //DialogProperties(usePlatformDefaultWidth = false),
     backgroundColor: Color = MaterialTheme.colorScheme.surface,
+    tonalElevation: Dp = AlertDialogDefaults.TonalElevation
 ) {
     val timePickerState = rememberTimePickerState(initialHour, initialMinute, is24Hour)
 
@@ -43,7 +46,8 @@ fun TimePickerDialog(
     ) {
         Surface(
             shape = MaterialTheme.shapes.extraLarge,
-            color = backgroundColor
+            color = backgroundColor,
+            tonalElevation = tonalElevation
         ) {
             Column(
                 modifier = Modifier.padding(DialogDefaults.DialogPadding),
@@ -91,7 +95,7 @@ fun TimePickerDialog(
 @Composable
 fun TimePickerDialog(
     dialogUiState: TimePickerDialogUiState
-){
+) {
     val initialTime: LocalTime? = dialogUiState.localTime
 
     TimePickerDialog(

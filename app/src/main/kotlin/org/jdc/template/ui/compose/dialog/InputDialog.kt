@@ -1,5 +1,6 @@
 package org.jdc.template.ui.compose.dialog
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -7,10 +8,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.AlertDialogDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -24,10 +27,12 @@ import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
@@ -40,6 +45,7 @@ import org.jdc.template.ui.theme.AppTheme
 fun InputDialog(
     onDismissRequest: (() -> Unit),
     title: String? = null,
+    supportingText: String? = null,
     textFieldLabel: String? = null,
     initialTextFieldText: String? = null,
     confirmButtonText: String? = stringResource(android.R.string.ok),
@@ -53,10 +59,17 @@ fun InputDialog(
     properties: DialogProperties = DialogProperties(),
     backgroundColor: Color = MaterialTheme.colorScheme.surface,
     textButtonColor: Color = MaterialTheme.colorScheme.primary, // This is specifically for handling theming in this app. May not want in Commons.
+    tonalElevation: Dp = AlertDialogDefaults.TonalElevation,
 ) {
     var textFieldValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue(initialTextFieldText.orEmpty(), TextRange(initialTextFieldText?.length ?: 0))) }
 
     val focusRequester = remember { FocusRequester() }
+
+    val textFieldColors = if (isSystemInDarkTheme()) {
+        TextFieldDefaults.colors()
+    } else {
+        TextFieldDefaults.colors(unfocusedContainerColor = MaterialTheme.colorScheme.surface, focusedContainerColor = MaterialTheme.colorScheme.surface)
+    }
 
     Dialog(
         onDismissRequest = onDismissRequest,
@@ -64,7 +77,8 @@ fun InputDialog(
     ) {
         Surface(
             shape = MaterialTheme.shapes.extraLarge,
-            color = backgroundColor
+            color = backgroundColor,
+            tonalElevation = tonalElevation,
         ) {
             Column(
                 modifier = Modifier.padding(DialogDefaults.DialogPadding)
@@ -74,6 +88,15 @@ fun InputDialog(
                     Text(
                         text = title,
                         style = MaterialTheme.typography.headlineSmall
+                    )
+                }
+
+                // Supporting Text
+                if (supportingText != null) {
+                    Text(
+                        text = supportingText,
+                        modifier = Modifier.padding(top = 16.dp),
+                        style = MaterialTheme.typography.bodyMedium
                     )
                 }
 
@@ -97,10 +120,12 @@ fun InputDialog(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 16.dp)
-                        .focusRequester(focusRequester),
+                        .focusRequester(focusRequester)
+                        .testTag("DialogInputField"),
                     singleLine = singleLine,
                     keyboardOptions = keyboardOptions.copy(imeAction = ImeAction.Done),
-                    keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() })
+                    keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
+                    colors = textFieldColors
                 )
 
                 LaunchedEffect(Unit) {
@@ -148,6 +173,7 @@ fun InputDialog(
     InputDialog(
         onDismissRequest = dialogUiState.onDismissRequest,
         title = dialogUiState.title(),
+        supportingText = dialogUiState.supportingText(),
         textFieldLabel = dialogUiState.textFieldLabel(),
         initialTextFieldText = dialogUiState.initialTextFieldText(),
         confirmButtonText = dialogUiState.confirmButtonText(),
@@ -166,6 +192,7 @@ fun InputDialog(
 
 data class InputDialogUiState(
     val title: @Composable () -> String? = { null },
+    val supportingText: @Composable () -> String? = { null },
     val textFieldLabel: @Composable () -> String? = { null },
     val initialTextFieldText: @Composable () -> String? = { null },
     val confirmButtonText: @Composable () -> String? = { stringResource(android.R.string.ok) },
@@ -201,6 +228,7 @@ fun TwoInputDialog(
     properties: DialogProperties = DialogProperties(),
     backgroundColor: Color = MaterialTheme.colorScheme.surface,
     textButtonColor: Color = MaterialTheme.colorScheme.primary, // This is specifically for handling theming in this app. May not want in Commons.
+    tonalElevation: Dp = AlertDialogDefaults.TonalElevation,
 ) {
     var textFieldValueFirst by rememberSaveable(stateSaver = TextFieldValue.Saver) {
         mutableStateOf(TextFieldValue(initialTextFieldTextFirst.orEmpty(), TextRange(initialTextFieldTextFirst?.length ?: 0)))
@@ -211,13 +239,20 @@ fun TwoInputDialog(
 
     val (item1, item2) = remember { FocusRequester.createRefs() }
 
+    val textFieldColors = if (isSystemInDarkTheme()) {
+        TextFieldDefaults.colors()
+    } else {
+        TextFieldDefaults.colors(unfocusedContainerColor = MaterialTheme.colorScheme.surface, focusedContainerColor = MaterialTheme.colorScheme.surface)
+    }
+
     Dialog(
         onDismissRequest = onDismissRequest,
         properties = properties,
     ) {
         Surface(
             shape = MaterialTheme.shapes.extraLarge,
-            color = backgroundColor
+            color = backgroundColor,
+            tonalElevation = tonalElevation
         ) {
             Column(
                 modifier = Modifier.padding(DialogDefaults.DialogPadding)
@@ -256,9 +291,10 @@ fun TwoInputDialog(
                             down = item2
                             previous = item2
                             up = item2
-                        },
+                        }.testTag("DialogInputField1"),
                     singleLine = singleLine,
                     keyboardOptions = keyboardOptions.copy(imeAction = ImeAction.Next),
+                    colors = textFieldColors
                 )
 
                 // Second Text Field
@@ -280,15 +316,16 @@ fun TwoInputDialog(
                         .fillMaxWidth()
                         .padding(top = 8.dp)
                         .focusRequester(item2)
-                        .focusProperties{
+                        .focusProperties {
                             next = item1
                             down = item1
                             previous = item1
                             up = item1
-                        },
+                        }.testTag("DialogInputField2"),
                     singleLine = singleLine,
                     keyboardOptions = keyboardOptions.copy(imeAction = ImeAction.Done),
-                    keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() })
+                    keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
+                    colors = textFieldColors
                 )
 
                 LaunchedEffect(Unit) {

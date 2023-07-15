@@ -1,10 +1,10 @@
 package org.jdc.template.ui.compose.dialog
 
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -36,6 +36,7 @@ fun LibraryDialogs(dialogUiState: DialogUiState<*>) {
         is MenuOptionsDialogUiState -> MenuOptionsDialog(dialogUiState)
         is MultiSelectDialogUiState<*> -> MultiSelectDialog(dialogUiState)
         is DropDownMenuDialogUiState -> DropDownMenuDialog(dialogUiState)
+        is ProgressIndicatorDialogUiState -> ProgressIndicatorDialog(dialogUiState)
         is DatePickerDialogUiState -> DatePickerDialog(dialogUiState)
         is DateRangePickerDialogUiState -> DateRangePickerDialog(dialogUiState)
         is TimePickerDialogUiState -> TimePickerDialog(dialogUiState)

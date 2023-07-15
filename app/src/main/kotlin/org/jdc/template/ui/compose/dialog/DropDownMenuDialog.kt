@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.AlertDialogDefaults
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
@@ -20,6 +21,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
@@ -40,6 +42,7 @@ fun <T> DropDownMenuDialog(
     onDismissButtonClicked: (() -> Unit)? = null,
     properties: DialogProperties = DialogProperties(),
     backgroundColor: Color = MaterialTheme.colorScheme.surface,
+    tonalElevation: Dp = AlertDialogDefaults.TonalElevation
 ) {
     var expanded by remember { mutableStateOf(false) }
     var selectedOptionTextFieldValue: T by remember { mutableStateOf(initialSelectedOption) }
@@ -50,7 +53,8 @@ fun <T> DropDownMenuDialog(
     ) {
         Surface(
             shape = MaterialTheme.shapes.extraLarge,
-            color = backgroundColor
+            color = backgroundColor,
+            tonalElevation = tonalElevation
         ) {
             Column(
                 modifier = Modifier.padding(DialogDefaults.DialogPadding)
