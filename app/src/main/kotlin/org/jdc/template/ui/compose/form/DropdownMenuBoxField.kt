@@ -24,6 +24,26 @@ fun <T> DropdownMenuBoxField(
     label: String? = null
 ) {
     val selectedOption by selectedOptionFlow.collectAsStateWithLifecycle()
+
+    DropdownMenuBoxField(
+        options = options,
+        selectedOption = selectedOption,
+        onOptionSelected = onOptionSelected,
+        optionToText = optionToText,
+        modifier = modifier,
+        label = label
+    )
+}
+
+@Composable
+fun <T> DropdownMenuBoxField(
+    options: List<T>,
+    selectedOption: T,
+    onOptionSelected: (T) -> Unit,
+    optionToText: @Composable (T) -> String,
+    modifier: Modifier = Modifier,
+    label: String? = null
+) {
     var expanded by remember { mutableStateOf(false) }
 
     ExposedDropdownMenuBox(
