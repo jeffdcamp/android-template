@@ -22,6 +22,10 @@ annotation class DefaultDispatcher
 
 @Retention(AnnotationRetention.RUNTIME)
 @Qualifier
+annotation class MainDispatcher
+
+@Retention(AnnotationRetention.RUNTIME)
+@Qualifier
 annotation class ApplicationScope
 
 /**
@@ -31,8 +35,9 @@ annotation class ApplicationScope
  * @HiltViewModel
  * class  MyViewModel
  * @Inject constructor(
- *     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
- *     @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
+ *     @IoDispatcher private val ioDispatcher: CoroutineDispatcher, (Disk/Network tasks)
+ *     @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher, (CPU/Processing tasks)
+ *     @MainDispatcher private val mainDispatcher: CoroutineDispatcher,
  *     @ApplicationScope private val appScope: CoroutineScope,
  * ) : ViewModel() {
  *
@@ -49,6 +54,10 @@ object CoroutinesModule {
     @Provides
     @DefaultDispatcher
     fun providesDefaultDispatcher(): CoroutineDispatcher = Dispatchers.Default
+
+    @Provides
+    @MainDispatcher
+    fun providesMainDispatcher(): CoroutineDispatcher = Dispatchers.Main
 
     @Provides
     @Singleton
