@@ -42,7 +42,6 @@ android {
             arg("room.schemaLocation", "$projectDir/schema")
             arg("room.incremental", "true")
             arg("room.generateKotlin", "true") // generate kotlin code (requires Room 2.6.x)
-//            arg("room.useNullAwareTypeAnalysis", "false") // optional param to turn OFF TypeConverter analyzer (introduced in Room 2.4.0-beta02)
         }
 
         // for use with Room gradle plugin
@@ -357,7 +356,7 @@ ruler {
 tasks.register<de.undercouch.gradle.tasks.download.Download>("downloadDetektConfig") {
     download {
         onlyIf { !file("$projectDir/build/config/detektConfig.yml").exists() }
-        src("https://raw.githubusercontent.com/ICSEng/AndroidPublic/main/detekt/detektConfig-20230629.yml")
+        src("https://raw.githubusercontent.com/ICSEng/AndroidPublic/main/detekt/detektConfig-20230728.yml")
         dest("$projectDir/build/config/detektConfig.yml")
     }
 }
