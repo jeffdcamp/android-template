@@ -1,6 +1,7 @@
 package org.jdc.template.ux.individualedit
 
 import android.app.Application
+import androidx.compose.material3.SelectableDates
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -150,7 +151,11 @@ class IndividualEditViewModel
 
         dialogUiStateFlow.value = DatePickerDialogUiState(
             localDate = birthDateFlow.value,
-            dateValidator = { ms -> ms < todayMs },
+            selectableDates = object : SelectableDates {
+                override fun isSelectableDate(utcTimeMillis: Long): Boolean {
+                    return utcTimeMillis < todayMs
+                }
+            },
             onConfirm = {
                 birthDateFlow.value = it
                 dismissDialog(dialogUiStateFlow)

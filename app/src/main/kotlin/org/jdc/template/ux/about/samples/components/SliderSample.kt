@@ -144,37 +144,37 @@ fun SliderWithCustomThumbSample() {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Preview
-@Composable
-fun SliderWithCustomTrackAndThumb() {
-    var sliderPosition by remember { mutableStateOf(0f) }
-    val interactionSource = MutableInteractionSource()
-    val colors = SliderDefaults.colors(thumbColor = Color.Red, activeTrackColor = Color.Red)
-    Column {
-        Text(text = sliderPosition.toString())
-        Slider(
-            modifier = Modifier.semantics { contentDescription = "Localized Description" },
-            value = sliderPosition,
-            onValueChange = { sliderPosition = it },
-            valueRange = 0f..100f,
-            onValueChangeFinished = {
-                // launch some business logic update with the state you hold
-                // viewModel.updateSelectedSliderValue(sliderPosition)
-            },
-            interactionSource = interactionSource,
-            thumb = {
-                SliderDefaults.Thumb(
-                    interactionSource = interactionSource,
-                    colors = colors
-                )
-            },
-            track = { sliderPositions ->
-                SliderDefaults.Track(
-                    colors = colors,
-                    sliderPositions = sliderPositions
-                )
-            }
-        )
-    }
-}
+//@OptIn(ExperimentalMaterial3Api::class)
+//@Preview
+//@Composable
+//fun SliderWithCustomTrackAndThumb() {
+//    var sliderPosition by remember { mutableStateOf(0f) }
+//    val interactionSource = MutableInteractionSource()
+//    val colors = SliderDefaults.colors(thumbColor = Color.Red, activeTrackColor = Color.Red)
+//    Column {
+//        Text(text = sliderPosition.toString())
+//        Slider(
+//            modifier = Modifier.semantics { contentDescription = "Localized Description" },
+//            value = sliderPosition,
+//            onValueChange = { sliderPosition = it },
+//            valueRange = 0f..100f,
+//            onValueChangeFinished = {
+//                // launch some business logic update with the state you hold
+//                // viewModel.updateSelectedSliderValue(sliderPosition)
+//            },
+//            interactionSource = interactionSource,
+//            thumb = {
+//                SliderDefaults.Thumb(
+//                    interactionSource = interactionSource,
+//                    colors = colors
+//                )
+//            },
+//            track = { sliderPositions ->
+//                SliderDefaults.Track(
+//                    colors = colors,
+//                    sliderPositions = sliderPositions
+//                )
+//            }
+//        )
+//    }
+//}

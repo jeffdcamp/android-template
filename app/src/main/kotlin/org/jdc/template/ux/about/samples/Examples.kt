@@ -23,7 +23,107 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.jdc.template.ux.about.samples.components.*
+import org.jdc.template.ux.about.samples.components.AlertDialogSample
+import org.jdc.template.ux.about.samples.components.AlertDialogWithIconSample
+import org.jdc.template.ux.about.samples.components.AnimatedExtendedFloatingActionButtonSample
+import org.jdc.template.ux.about.samples.components.AssistChipSample
+import org.jdc.template.ux.about.samples.components.BottomAppBarWithFAB
+import org.jdc.template.ux.about.samples.components.ButtonSample
+import org.jdc.template.ux.about.samples.components.ButtonWithIconSample
+import org.jdc.template.ux.about.samples.components.CardSample
+import org.jdc.template.ux.about.samples.components.CheckboxSample
+import org.jdc.template.ux.about.samples.components.CheckboxWithTextSample
+import org.jdc.template.ux.about.samples.components.ChipGroupSingleLineSample
+import org.jdc.template.ux.about.samples.components.CircularProgressIndicatorSample
+import org.jdc.template.ux.about.samples.components.ClickableCardSample
+import org.jdc.template.ux.about.samples.components.ClickableElevatedCardSample
+import org.jdc.template.ux.about.samples.components.ClickableOutlinedCardSample
+import org.jdc.template.ux.about.samples.components.DismissibleNavigationDrawerSample
+import org.jdc.template.ux.about.samples.components.EditableExposedDropdownMenuSample
+import org.jdc.template.ux.about.samples.components.ElevatedAssistChipSample
+import org.jdc.template.ux.about.samples.components.ElevatedButtonSample
+import org.jdc.template.ux.about.samples.components.ElevatedCardSample
+import org.jdc.template.ux.about.samples.components.ElevatedFilterChipSample
+import org.jdc.template.ux.about.samples.components.ElevatedSuggestionChipSample
+import org.jdc.template.ux.about.samples.components.EnterAlwaysTopAppBar
+import org.jdc.template.ux.about.samples.components.ExitUntilCollapsedLargeTopAppBar
+import org.jdc.template.ux.about.samples.components.ExitUntilCollapsedMediumTopAppBar
+import org.jdc.template.ux.about.samples.components.ExposedDropdownMenuSample
+import org.jdc.template.ux.about.samples.components.ExtendedFloatingActionButtonSample
+import org.jdc.template.ux.about.samples.components.ExtendedFloatingActionButtonTextSample
+import org.jdc.template.ux.about.samples.components.FancyIndicatorContainerTabs
+import org.jdc.template.ux.about.samples.components.FancyIndicatorTabs
+import org.jdc.template.ux.about.samples.components.FancyTabs
+import org.jdc.template.ux.about.samples.components.FilledIconButtonSample
+import org.jdc.template.ux.about.samples.components.FilledIconToggleButtonSample
+import org.jdc.template.ux.about.samples.components.FilledTonalButtonSample
+import org.jdc.template.ux.about.samples.components.FilledTonalIconButtonSample
+import org.jdc.template.ux.about.samples.components.FilledTonalIconToggleButtonSample
+import org.jdc.template.ux.about.samples.components.FilterChipSample
+import org.jdc.template.ux.about.samples.components.FilterChipWithLeadingIconSample
+import org.jdc.template.ux.about.samples.components.FloatingActionButtonSample
+import org.jdc.template.ux.about.samples.components.IconButtonSample
+import org.jdc.template.ux.about.samples.components.IconTabs
+import org.jdc.template.ux.about.samples.components.IconToggleButtonSample
+import org.jdc.template.ux.about.samples.components.IndeterminateCircularProgressIndicatorSample
+import org.jdc.template.ux.about.samples.components.IndeterminateLinearProgressIndicatorSample
+import org.jdc.template.ux.about.samples.components.InputChipSample
+import org.jdc.template.ux.about.samples.components.InputChipWithAvatarSample
+import org.jdc.template.ux.about.samples.components.LargeFloatingActionButtonSample
+import org.jdc.template.ux.about.samples.components.LeadingIconTabs
+import org.jdc.template.ux.about.samples.components.LinearProgressIndicatorSample
+import org.jdc.template.ux.about.samples.components.MenuSample
+import org.jdc.template.ux.about.samples.components.ModalNavigationDrawerSample
+import org.jdc.template.ux.about.samples.components.NavigationBarItemWithBadge
+import org.jdc.template.ux.about.samples.components.NavigationBarSample
+import org.jdc.template.ux.about.samples.components.NavigationBarWithOnlySelectedLabelsSample
+import org.jdc.template.ux.about.samples.components.NavigationRailBottomAlignSample
+import org.jdc.template.ux.about.samples.components.NavigationRailSample
+import org.jdc.template.ux.about.samples.components.NavigationRailWithOnlySelectedLabelsSample
+import org.jdc.template.ux.about.samples.components.OneLineListItem
+import org.jdc.template.ux.about.samples.components.OutlinedButtonSample
+import org.jdc.template.ux.about.samples.components.OutlinedCardSample
+import org.jdc.template.ux.about.samples.components.OutlinedIconButtonSample
+import org.jdc.template.ux.about.samples.components.OutlinedIconToggleButtonSample
+import org.jdc.template.ux.about.samples.components.OutlinedTextFieldSample
+import org.jdc.template.ux.about.samples.components.PasswordTextField
+import org.jdc.template.ux.about.samples.components.PermanentNavigationDrawerSample
+import org.jdc.template.ux.about.samples.components.PinnedTopAppBar
+import org.jdc.template.ux.about.samples.components.RadioButtonSample
+import org.jdc.template.ux.about.samples.components.RadioGroupSample
+import org.jdc.template.ux.about.samples.components.RangeSliderSample
+import org.jdc.template.ux.about.samples.components.ScaffoldWithCoroutinesSnackbar
+import org.jdc.template.ux.about.samples.components.ScaffoldWithCustomSnackbar
+import org.jdc.template.ux.about.samples.components.ScaffoldWithIndefiniteSnackbar
+import org.jdc.template.ux.about.samples.components.ScaffoldWithSimpleSnackbar
+import org.jdc.template.ux.about.samples.components.ScrollingFancyIndicatorContainerTabs
+import org.jdc.template.ux.about.samples.components.ScrollingTextTabs
+import org.jdc.template.ux.about.samples.components.SimpleBottomAppBar
+import org.jdc.template.ux.about.samples.components.SimpleCenterAlignedTopAppBar
+import org.jdc.template.ux.about.samples.components.SimpleOutlinedTextFieldSample
+import org.jdc.template.ux.about.samples.components.SimpleTextFieldSample
+import org.jdc.template.ux.about.samples.components.SimpleTopAppBar
+import org.jdc.template.ux.about.samples.components.SliderSample
+import org.jdc.template.ux.about.samples.components.SliderWithCustomThumbSample
+import org.jdc.template.ux.about.samples.components.SmallFloatingActionButtonSample
+import org.jdc.template.ux.about.samples.components.StepRangeSliderSample
+import org.jdc.template.ux.about.samples.components.StepsSliderSample
+import org.jdc.template.ux.about.samples.components.SuggestionChipSample
+import org.jdc.template.ux.about.samples.components.SwitchSample
+import org.jdc.template.ux.about.samples.components.SwitchWithThumbIconSample
+import org.jdc.template.ux.about.samples.components.TextAndIconTabs
+import org.jdc.template.ux.about.samples.components.TextArea
+import org.jdc.template.ux.about.samples.components.TextButtonSample
+import org.jdc.template.ux.about.samples.components.TextFieldSample
+import org.jdc.template.ux.about.samples.components.TextFieldWithErrorState
+import org.jdc.template.ux.about.samples.components.TextFieldWithHideKeyboardOnImeAction
+import org.jdc.template.ux.about.samples.components.TextFieldWithIcons
+import org.jdc.template.ux.about.samples.components.TextFieldWithPlaceholder
+import org.jdc.template.ux.about.samples.components.TextFieldWithSupportingText
+import org.jdc.template.ux.about.samples.components.TextTabs
+import org.jdc.template.ux.about.samples.components.ThreeLineListItem
+import org.jdc.template.ux.about.samples.components.TriStateCheckboxSample
+import org.jdc.template.ux.about.samples.components.TwoLineListItem
 
 const val SampleSourceUrl = "https://cs.android.com/androidx/platform/frameworks/support/+/" +
         "androidx-main:compose/material3/" +
@@ -593,13 +693,13 @@ val SlidersExamples = listOf(
     ) {
         SliderWithCustomThumbSample()
     },
-    Example(
-        name = ::SliderWithCustomTrackAndThumb.name,
-        description = SlidersExampleDescription,
-        sourceUrl = SlidersExampleSourceUrl
-    ) {
-        SliderWithCustomTrackAndThumb()
-    }
+//    Example(
+//        name = ::SliderWithCustomTrackAndThumb.name,
+//        description = SlidersExampleDescription,
+//        sourceUrl = SlidersExampleSourceUrl
+//    ) {
+//        SliderWithCustomTrackAndThumb()
+//    }
 )
 
 private const val SnackbarsExampleDescription = "Snackbars examples"

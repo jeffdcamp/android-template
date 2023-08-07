@@ -6,11 +6,12 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.DatePickerDefaults
 import androidx.compose.material3.DatePickerDialog
-import androidx.compose.material3.DatePickerFormatter
 import androidx.compose.material3.DateRangePicker
 import androidx.compose.material3.DateRangePickerDefaults
 import androidx.compose.material3.DisplayMode
+import androidx.compose.material3.SelectableDates
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDateRangePickerState
@@ -33,7 +34,8 @@ fun DateRangePickerDialog(
     val dateRangePickerState = rememberDateRangePickerState(
         initialSelectedStartDateMillis = initialStartMs,
         initialSelectedEndDateMillis = initialEndMs,
-        initialDisplayMode = dialogUiState.initialDisplayMode
+        initialDisplayMode = dialogUiState.initialDisplayMode,
+        selectableDates = dialogUiState.selectableDates
     )
     val onDismissButtonClicked = dialogUiState.onDismiss
 
@@ -66,7 +68,7 @@ fun DateRangePickerDialog(
             }
         } else null
     ) {
-        val dateFormatter = remember { DatePickerFormatter() }
+        val dateFormatter = remember { DatePickerDefaults.dateFormatter() }
         DateRangePicker(
             dateFormatter = dateFormatter,
             title = if (dialogUiState.title != null) {
@@ -76,21 +78,22 @@ fun DateRangePickerDialog(
                     Column {
                         Spacer(modifier = Modifier.height(16.dp))
                         DateRangePickerDefaults.DateRangePickerTitle(
-                            state = dateRangePickerState,
-                            modifier = Modifier.padding(PaddingValues(start = 16.dp))
+                            displayMode = dateRangePickerState.displayMode,
+                            modifier = Modifier.padding(PaddingValues(start = 64.dp, end = 12.dp))
                         )
                     }
                 }
             },
             headline = {
                 DateRangePickerDefaults.DateRangePickerHeadline(
-                    dateRangePickerState,
+                    selectedStartDateMillis = dateRangePickerState.selectedStartDateMillis,
+                    selectedEndDateMillis = dateRangePickerState.selectedEndDateMillis,
+                    displayMode = dateRangePickerState.displayMode,
                     dateFormatter,
-                    modifier = Modifier.padding(PaddingValues(start = 16.dp))
+                    modifier = Modifier.padding(PaddingValues(start = 64.dp, end = 12.dp, bottom = 12.dp))
                 )
             },
             state = dateRangePickerState,
-            dateValidator = dialogUiState.dateValidator,
             showModeToggle = dialogUiState.showModeToggle,
             modifier = Modifier.heightIn(0.dp, 400.dp) // leave room for buttons
         )
@@ -102,7 +105,7 @@ fun DateRangePickerDialog(
  * @property title the title to be displayed in the date range picker
  * @property startLocalDate selected start date in range
  * @property endLocalDate selected end date in range
- * @property dateValidator a lambda that takes a date timestamp and return true if the date is a valid one for selection. Invalid dates will appear disabled in the UI.
+ * @property selectableDates a SelectableDates that is consulted to check if a date is allowed. In case a date is not allowed to be selected, it will appear disabled in the UI.
  * @property showModeToggle show UI to switch between calendar view or text field view
  * @property initialDisplayMode initial range display mode
  * @property onConfirm confirm button press with the selected DateRange
@@ -115,7 +118,7 @@ data class DateRangePickerDialogUiState(
     val title: (@Composable () -> Unit)? = null,
     val startLocalDate: LocalDate? = null,
     val endLocalDate: LocalDate? = null,
-    val dateValidator: (Long) -> Boolean = { true },
+    val selectableDates: SelectableDates = object : SelectableDates {},
     val showModeToggle: Boolean = true,
     val initialDisplayMode: DisplayMode = DisplayMode.Picker,
     override val onConfirm: (PickerDateRange?) -> Unit = {},

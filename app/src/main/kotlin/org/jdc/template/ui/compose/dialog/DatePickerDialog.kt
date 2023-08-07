@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDefaults
 import androidx.compose.material3.DatePickerDialog
+import androidx.compose.material3.SelectableDates
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
@@ -22,7 +23,7 @@ fun DatePickerDialog(
     dialogUiState: DatePickerDialogUiState
 ){
     val initialMs: Long? = dialogUiState.localDate?.atStartOfDay()?.atOffset(ZoneOffset.UTC)?.toInstant()?.toEpochMilli()
-    val datePickerState = rememberDatePickerState(initialMs)
+    val datePickerState = rememberDatePickerState(initialSelectedDateMillis = initialMs, selectableDates = dialogUiState.selectableDates)
     val onDismissButtonClicked = dialogUiState.onDismiss
 
     DatePickerDialog(
@@ -40,12 +41,12 @@ fun DatePickerDialog(
             }
         },
         dismissButton = if (onDismissButtonClicked != null) {{
-                TextButton(
-                    onClick = onDismissButtonClicked,
-                ) {
-                    Text(dialogUiState.dismissButtonText())
-                }
+            TextButton(
+                onClick = onDismissButtonClicked,
+            ) {
+                Text(dialogUiState.dismissButtonText())
             }
+        }
         } else null,
     ) {
         DatePicker(
@@ -54,13 +55,12 @@ fun DatePickerDialog(
             } else {
                 {
                     DatePickerDefaults.DatePickerTitle(
-                        datePickerState,
-                        modifier = Modifier.padding(PaddingValues(start = 24.dp, end = 12.dp, top = 16.dp)) // DatePickerTitlePadding
+                        displayMode = datePickerState.displayMode,
+                        modifier = Modifier.padding(PaddingValues(start = 24.dp, end = 12.dp, top = 16.dp))
                     )
                 }
             },
-            state = datePickerState,
-            dateValidator = dialogUiState.dateValidator
+            state = datePickerState
         )
     }
 }
@@ -69,7 +69,7 @@ fun DatePickerDialog(
  * DatePickerDialogUiState
  * @property title title on top of the dialog
  * @property localDate initial selected date
- * @property dateValidator a lambda that takes a date timestamp and return true if the date is a valid one for selection. Invalid dates will appear disabled in the UI.
+ * @property selectableDates a SelectableDates that is consulted to check if a date is allowed. In case a date is not allowed to be selected, it will appear disabled in the UI.
  * @property onConfirm confirm button press with the selected LocalDate
  * @property onDismiss dismiss button press
  * @property onDismissRequest outside the dialog press
@@ -79,7 +79,7 @@ fun DatePickerDialog(
 data class DatePickerDialogUiState(
     val title: (@Composable () -> Unit)? = null,
     val localDate: LocalDate? = null,
-    val dateValidator: (Long) -> Boolean = { true },
+    val selectableDates: SelectableDates = object : SelectableDates {},
     override val onConfirm: (LocalDate?) -> Unit = {},
     override val onDismiss: (() -> Unit)? = null,
     override val onDismissRequest: () -> Unit = {},

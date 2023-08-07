@@ -54,7 +54,7 @@ fun AppBarIcon(imageVector: ImageVector, contentDescription: String, action: () 
     ) {
         IconButton(
             onClick = action,
-            modifier = Modifier.tooltipAnchor()
+            modifier = Modifier.tooltipTrigger()
         ) {
             Icon(
                 imageVector = imageVector,
@@ -71,7 +71,7 @@ fun AppBarIcon(menuItem: AppBarMenuItem.Icon) {
     ) {
         IconButton(
             onClick = { menuItem.action() },
-            modifier = Modifier.tooltipAnchor()
+            modifier = Modifier.tooltipTrigger()
         ) {
             Icon(
                 imageVector = menuItem.imageVector,
