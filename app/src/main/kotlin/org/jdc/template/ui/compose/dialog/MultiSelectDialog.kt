@@ -186,7 +186,7 @@ data class MultiSelectDataItem<T>(val item: T, val text: @Composable () -> Strin
 
 @PreviewDefault
 @Composable
-private fun PreviewMultiSelectDialog() {
+private fun Preview() {
     val items = listOf(
         MultiSelectDataItem("id1") { "A" },
         MultiSelectDataItem("id2") { "B" },

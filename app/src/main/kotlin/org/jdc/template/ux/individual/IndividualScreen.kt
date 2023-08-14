@@ -82,7 +82,7 @@ private fun IndividualSummary(individual: Individual) {
 
 @PreviewDefault
 @Composable
-fun PreviewIndividual() {
+private fun Preview() {
     AppTheme {
         Surface {
             IndividualSummary(
@@ -90,9 +90,7 @@ fun PreviewIndividual() {
                     firstName = FirstName("Jeff"),
                     lastName = LastName("Campbell"),
                     phone = Phone("801-555-0001"),
-                    email = Email("bob@bob.com"),
-//        birthDate = LocalDate.MIN,
-//        alarmTime = LocalTime.MIN
+                    email = Email("bob@bob.com")
                 )
             )
         }

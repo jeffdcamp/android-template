@@ -216,7 +216,7 @@ private fun Float.round(decimalPlaces: Int): Float {
 
 @PreviewDefault
 @Composable
-private fun SettingsPreview() {
+private fun Preview() {
     val currentThemeTitleFlow = MutableStateFlow("Light Theme")
     val sortByLastNameFlow = MutableStateFlow(true)
     val currentLastInstalledVersionCodeFlow = MutableStateFlow("1234")

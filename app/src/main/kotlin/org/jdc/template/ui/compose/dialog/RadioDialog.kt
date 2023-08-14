@@ -161,7 +161,7 @@ data class RadioDialogDataItem<T>(val item: T, val text: @Composable () -> Strin
 
 @PreviewDefault
 @Composable
-private fun TestRadioDialog() {
+private fun Preview() {
     val radioItems: RadioDialogDataItems<String> = RadioDialogDataItems(
         listOf(
             RadioDialogDataItem("id1") { "A" },

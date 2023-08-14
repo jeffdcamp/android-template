@@ -89,7 +89,7 @@ data class MenuOptionsDialogUiState(
 
 @PreviewDefault
 @Composable
-fun PreviewMenuOptionsDialog() {
+private fun Preview() {
     AppTheme {
         MenuOptionsDialog(
             onDismissRequest = {},

@@ -110,7 +110,7 @@ data class ProgressIndicatorDialogUiState(
 
 @PreviewDefault
 @Composable
-private fun PreviewInputDialog() {
+private fun Preview() {
     MaterialTheme {
         ProgressIndicatorDialog(
             title = "Title",
