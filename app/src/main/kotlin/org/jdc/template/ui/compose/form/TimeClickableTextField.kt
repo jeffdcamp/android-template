@@ -15,3 +15,9 @@ fun TimeClickableTextField(label: String, localTimeFlow: StateFlow<LocalTime?>, 
     val text = DateUiUtil.getLocalTimeText(LocalContext.current, time)
     ClickableTextField(label, text, onClick, modifier)
 }
+
+@Composable
+fun TimeClickableTextField(label: String, localTime: LocalTime, onClick: () -> Unit, modifier: Modifier = Modifier) {
+    val text = DateUiUtil.getLocalTimeText(LocalContext.current, localTime)
+    ClickableTextField(label, text, onClick, modifier)
+}
