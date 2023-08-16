@@ -9,10 +9,8 @@ import org.jdc.template.LoggingUtil
 import org.jdc.template.inject.CommonTestModule
 import org.jdc.template.model.repository.IndividualRepositoryTestModule
 import org.jdc.template.model.webservice.colors.ColorService
-import org.jdc.template.util.log.JavaTree
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -27,8 +25,6 @@ class ColorServiceTest {
     @BeforeEach
     fun setup() {
         LoggingUtil.setupSingleLineLogging(true)
-
-        Timber.plant(JavaTree())
 
         val component = DaggerColorServiceTestComponent.builder().build()
         component.inject(this)

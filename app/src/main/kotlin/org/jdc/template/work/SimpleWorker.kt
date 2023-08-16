@@ -6,10 +6,10 @@ import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.Data
 import androidx.work.WorkerParameters
+import co.touchlab.kermit.Logger
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.delay
-import timber.log.Timber
 
 /**
  * Example simple worker... one that should execute every time it is called
@@ -29,7 +29,7 @@ class SimpleWorker
         try {
             delay(1000)
         } catch (e: InterruptedException) {
-            Timber.e("Sleep Failure")
+            Logger.e(e) { "Sleep Failure" }
         }
 
         // return result
@@ -37,7 +37,7 @@ class SimpleWorker
     }
 
     private fun logProgress(progress: String) {
-        Timber.e("*** SyncWorker[$progress] Thread:[${Thread.currentThread().name}]  Job:[${this.id}]")
+        Logger.e { "*** SyncWorker[$progress] Thread:[${Thread.currentThread().name}]  Job:[${this.id}]" }
     }
 
     companion object {

@@ -4,11 +4,11 @@ import android.content.Context
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import co.touchlab.kermit.Logger
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import org.jdc.template.model.config.BaseFirebaseRemoteConfig.Companion.DEFAULT_TIMEOUT_FETCH_SECONDS_LONG
 import org.jdc.template.model.config.RemoteConfig
-import timber.log.Timber
 
 @HiltWorker
 class RemoteConfigSyncWorker
@@ -19,7 +19,7 @@ class RemoteConfigSyncWorker
 ) : CoroutineWorker(appContext, workerParams) {
 
     override suspend fun doWork(): Result {
-        Timber.i("RemoteConfigSyncWorker: fetching and activating")
+        Logger.i { "RemoteConfigSyncWorker: fetching and activating" }
         remoteConfig.fetchAndActivateNow(DEFAULT_TIMEOUT_FETCH_SECONDS_LONG)
         return Result.success()
     }

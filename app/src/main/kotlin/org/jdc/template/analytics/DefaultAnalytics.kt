@@ -3,7 +3,7 @@ package org.jdc.template.analytics
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.util.Log
+import co.touchlab.kermit.Logger
 import com.google.firebase.analytics.FirebaseAnalytics
 import org.jdc.template.BuildConfig
 import java.time.LocalDateTime
@@ -35,7 +35,7 @@ class DefaultAnalytics(
 
         // Test Analytics in Logcat
         if (BuildConfig.DEBUG) {
-            val testStrategy = TestStrategy("^^^", Log.WARN)
+            val testStrategy = TestStrategy { Logger.w { "^^^ $it" } }
             AppAnalytics.register(testStrategy)
 
             // must be done AFTER register() (register() calls setLogLevel())

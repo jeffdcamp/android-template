@@ -3,6 +3,7 @@ package org.jdc.template.ux.about
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import co.touchlab.kermit.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,7 +28,6 @@ import org.jdc.template.ux.about.typography.TypographyRoute
 import org.jdc.template.ux.acknowledgement.AcknowledgmentsRoute
 import org.jdc.template.work.WorkScheduler
 import retrofit2.Response
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -62,7 +62,7 @@ class  AboutViewModel
 
     private fun testQueryWebServiceCall() = viewModelScope.launch {
         if (!remoteConfig.isColorServiceEnabled()) {
-            Timber.e("Color Service is NOT enabled... skipping")
+            Logger.e {"Color Service is NOT enabled... skipping" }
             return@launch
         }
 
@@ -71,7 +71,7 @@ class  AboutViewModel
         if (response.isSuccessful) {
             processWebServiceResponse(response)
         } else {
-            Timber.e("Failed to get colors from webservice [${response.errorBody()}]")
+            Logger.e { "Failed to get colors from webservice [${response.errorBody()}]" }
         }
     }
 
@@ -81,7 +81,7 @@ class  AboutViewModel
         if (response.isSuccessful) {
             processWebServiceResponse(response)
         } else {
-            Timber.e("Search FAILED [${response.errorBody()}]")
+            Logger.e { "Search FAILED [${response.errorBody()}]" }
         }
     }
 
@@ -101,26 +101,26 @@ class  AboutViewModel
 
             // show the output of the file
             val fileContents = fileSystem.readText(outputFile)
-            Timber.i("Output file: [$fileContents]")
+            Logger.i { "Output file: [$fileContents]" }
         } else {
-            Timber.e("Search FAILED [${response.errorBody()}]")
+            Logger.e { "Search FAILED [${response.errorBody()}]" }
         }
     }
 
     private fun processWebServiceResponse(response: Response<ColorsDto>) {
         if (response.isSuccessful) {
-            Timber.i("Search SUCCESS")
+            Logger.i { "Search SUCCESS" }
             response.body()?.let {
                 processSearchResponse(it)
             }
         } else {
-            Timber.e("Search FAILURE: code (%d)", response.code())
+            Logger.e { "Search FAILURE: code (${response.code()})" }
         }
     }
 
     private fun processSearchResponse(colorsDto: ColorsDto) {
         for (dtoResult in colorsDto.colors) {
-            Timber.i("Result: %s", dtoResult.colorName)
+            Logger.i { "Result: ${dtoResult.colorName}" }
         }
     }
 
@@ -145,7 +145,7 @@ class  AboutViewModel
     private fun testTableChange() = viewModelScope.launch {
         // Sample tests
         if (individualRepository.getIndividualCount() == 0) {
-            Timber.e("No data.. cannot perform test")
+            Logger.e { "No data.. cannot perform test" }
             return@launch
         }
 
@@ -156,7 +156,7 @@ class  AboutViewModel
         if (individualList.isNotEmpty()) {
             val individual = individualList[0]
             originalName = individual.firstName
-            Timber.i("ORIGINAL NAME = %s", originalName)
+            Logger.i { "ORIGINAL NAME = $originalName" }
 
             // change name
             individualRepository.saveIndividual(individual.copy(firstName = FirstName("Bobby")))
@@ -164,7 +164,7 @@ class  AboutViewModel
             // restore name
             individualRepository.saveIndividual(individual.copy(firstName = originalName))
         } else {
-            Timber.e("Cannot find individual")
+            Logger.e {"Cannot find individual" }
         }
     }
 

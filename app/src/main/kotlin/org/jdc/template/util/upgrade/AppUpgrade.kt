@@ -1,11 +1,11 @@
 package org.jdc.template.util.upgrade
 
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.runBlocking
 import org.jdc.template.BuildConfig
 import org.jdc.template.inject.IoDispatcher
 import org.jdc.template.model.repository.SettingsRepository
-import timber.log.Timber
 import javax.inject.Inject
 
 class AppUpgrade
@@ -16,10 +16,10 @@ class AppUpgrade
 
     fun upgradeApp() = runBlocking(ioDispatcher) {
         val lastInstalledVersionCode = settingsRepository.getLastInstalledVersionCode()
-        Timber.i("Checking for app upgrade from [%d]", lastInstalledVersionCode)
+        Logger.i { "Checking for app upgrade from [$lastInstalledVersionCode]" }
 
         if (lastInstalledVersionCode == 0) {
-            Timber.i("Skipping app upgrade on fresh install")
+            Logger.i { "Skipping app upgrade on fresh install" }
             settingsRepository.setLastInstalledVersionCodeAsync(BuildConfig.VERSION_CODE)
             return@runBlocking
         }

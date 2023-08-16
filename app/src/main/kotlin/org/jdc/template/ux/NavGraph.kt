@@ -8,7 +8,6 @@ import org.jdc.template.ui.navigation.NavUriLogger
 import org.jdc.template.ui.navigation.WorkManagerStatusRoute
 import org.jdc.template.ux.about.AboutRoute
 import org.jdc.template.ux.about.AboutScreen
-import org.jdc.template.ux.about.typography.TypographyScreen
 import org.jdc.template.ux.about.samples.ComponentDetailsRoute
 import org.jdc.template.ux.about.samples.ComponentDetailsScreen
 import org.jdc.template.ux.about.samples.ComponentExampleRoute
@@ -16,6 +15,7 @@ import org.jdc.template.ux.about.samples.ComponentExampleScreen
 import org.jdc.template.ux.about.samples.ComponentsRoute
 import org.jdc.template.ux.about.samples.ComponentsScreen
 import org.jdc.template.ux.about.typography.TypographyRoute
+import org.jdc.template.ux.about.typography.TypographyScreen
 import org.jdc.template.ux.acknowledgement.AcknowledgementScreen
 import org.jdc.template.ux.acknowledgement.AcknowledgmentsRoute
 import org.jdc.template.ux.directory.DirectoryRoute

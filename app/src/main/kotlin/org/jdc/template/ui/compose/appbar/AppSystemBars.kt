@@ -8,7 +8,7 @@ import android.os.Build
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
-import timber.log.Timber
+import co.touchlab.kermit.Logger
 
 /**
  * Handle the colors of the OS system bars (statusbar and navbar) (for M3, Light/Dark themes, Dynamic themes)
@@ -42,7 +42,7 @@ private fun Context.getActivity(): Activity? = when (this) {
     is Activity -> this
     is ContextWrapper -> baseContext.getActivity()
     else -> {
-        Timber.e("No Activity Found")
+        Logger.e { "No Activity Found" }
         null
     }
 }

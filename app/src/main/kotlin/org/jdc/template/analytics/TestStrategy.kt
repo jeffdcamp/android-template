@@ -1,16 +1,13 @@
 package org.jdc.template.analytics
 
-import android.util.Log
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
 import okio.FileSystem
 import okio.Path
-import timber.log.Timber
 
 class TestStrategy(
-    private val tag: String = "Test",
-    private val logPriority: Int = Log.DEBUG
+    private val logBlock: (message: String) -> Unit
 ) : AppAnalytics.Strategy {
 
 
@@ -81,7 +78,7 @@ class TestStrategy(
 
     private fun consoleLogMessage(level: AppAnalytics.LogLevel, message: String) {
         if (level.ordinal <= logLevel.ordinal) {
-            Timber.log(logPriority, "$tag: DEBUG: $message")
+            logBlock(message)
         }
     }
 

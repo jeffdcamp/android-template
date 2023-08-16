@@ -230,7 +230,6 @@ dependencies {
     implementation(libs.kotlin.coroutines.android)
     implementation(libs.okio)
     implementation(libs.okio.assetfilesystem)
-    implementation(libs.timber)
 
     // Inject
     implementation(libs.google.hilt.library)
@@ -269,6 +268,10 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.okhttp.loggingInterceptor)
     implementation(libs.retrofit)
+
+    // Logging
+    implementation(libs.kermit)
+    implementation(libs.kermit.crashlytics)
 
     // Dev
     debugImplementation(libs.leakCanary)

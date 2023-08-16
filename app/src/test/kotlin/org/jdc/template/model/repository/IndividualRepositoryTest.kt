@@ -18,10 +18,8 @@ import org.jdc.template.model.db.main.MainDatabase
 import org.jdc.template.model.db.main.MainDatabaseWrapper
 import org.jdc.template.model.domain.Individual
 import org.jdc.template.model.domain.inline.FirstName
-import org.jdc.template.util.log.JavaTree
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import timber.log.Timber
 import java.time.LocalTime
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -33,7 +31,6 @@ class IndividualRepositoryTest {
 
     @BeforeEach
     fun setUp() {
-        Timber.plant(JavaTree())
         TestFilesystem.deleteFilesystem()
 
         val component = DaggerIndividualRepositoryTestComponent.builder().individualRepositoryTestModule(IndividualRepositoryTestModule()).build()

@@ -5,11 +5,11 @@ import androidx.annotation.WorkerThread
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import co.touchlab.kermit.Logger
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.delay
 import org.jdc.template.model.repository.SettingsRepository
-import timber.log.Timber
 
 /**
  * Example data sync worker... one that should sync your changes when the user is finished changing/editing data
@@ -54,7 +54,7 @@ class SyncWorker
     }
 
     private fun logProgress(progress: String) {
-        Timber.e("*** SyncWorker[$progress] Thread:[${Thread.currentThread().name}]  Job:[${this.id}]")
+        Logger.e { "*** SyncWorker[$progress] Thread:[${Thread.currentThread().name}]  Job:[${this.id}]" }
     }
 
     companion object {

@@ -2,12 +2,12 @@ package org.jdc.template.model.datastore.migration
 
 import androidx.datastore.migrations.SharedPreferencesView
 import androidx.datastore.preferences.core.Preferences
+import co.touchlab.kermit.Logger
 import org.jdc.template.model.datastore.DevicePreferenceDataSource
-import timber.log.Timber
 
 object SharedPreferenceMigration {
     fun migrateSharedPreferences(sharedPrefs: SharedPreferencesView, currentData: Preferences): Preferences {
-        Timber.d("Migrating LEGACY shared preferences...")
+        Logger.d { "Migrating LEGACY shared preferences..." }
         val mutablePreferences = currentData.toMutablePreferences()
 
         sharedPrefs.getAll().forEach { (key, value) ->
@@ -27,7 +27,7 @@ object SharedPreferenceMigration {
             }
         }
 
-        Timber.d("Finished migrating LEGACY shared preferences.")
+        Logger.d { "Finished migrating LEGACY shared preferences." }
         return mutablePreferences.toPreferences()
     }
 }

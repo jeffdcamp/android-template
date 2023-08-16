@@ -11,6 +11,7 @@ import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import co.touchlab.kermit.Logger
 import org.jdc.template.model.data.DisplayThemeType
 import org.jdc.template.model.datastore.migration.DevicePreferenceMigration1To3
 import org.jdc.template.model.datastore.migration.DevicePreferenceMigration2
@@ -18,7 +19,6 @@ import org.jdc.template.model.datastore.migration.DevicePreferenceMigration3
 import org.jdc.template.model.datastore.migration.SharedPreferenceMigration
 import org.jdc.template.util.datastore.PreferenceMigrations
 import org.jdc.template.util.ext.enumValueOfOrDefault
-import timber.log.Timber
 import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -41,7 +41,7 @@ class DevicePreferenceDataSource
             )
         },
         corruptionHandler = ReplaceFileCorruptionHandler {
-            Timber.e(it, "DevicePreferenceDataSource Corrupted... recreating...")
+            Logger.e(it) { "DevicePreferenceDataSource Corrupted... recreating..." }
             emptyPreferences()
         },
     )

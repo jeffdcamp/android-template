@@ -8,7 +8,7 @@ import androidx.datastore.migrations.SharedPreferencesMigration
 import androidx.datastore.migrations.SharedPreferencesView
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.intPreferencesKey
-import timber.log.Timber
+import co.touchlab.kermit.Logger
 import java.util.TreeMap
 
 val PREFERENCES_VERSION_KEY: Preferences.Key<Int> get() = intPreferencesKey("preferenceVersion")
@@ -67,7 +67,7 @@ class PreferenceMigrations(
 
             val existing = targetMap[toVersion]
             if (existing != null) {
-                Timber.w("Overriding migration $existing with $migrations")
+                Logger.w { "Overriding migration $existing with $migrations" }
             }
 
             targetMap[toVersion] = it
@@ -84,7 +84,7 @@ class PreferenceMigrations(
 
         var data = currentData
         migrationsToRun.forEach { migration ->
-            Timber.d("Migrating DataStore Preferences from version [${migration.fromVersion}] to [${migration.toVersion}]")
+            Logger.d { "Migrating DataStore Preferences from version [${migration.fromVersion}] to [${migration.toVersion}]" }
             data = migration.migrate(data)
         }
 
@@ -92,12 +92,12 @@ class PreferenceMigrations(
 
         if (fromVersion != 0 && destructiveFallback && migrationsToRun.isEmpty()) {
             mutablePreferences.clear()
-            Timber.w("Destructive migration performed")
+            Logger.w { "Destructive migration performed" }
         }
 
         mutablePreferences[PREFERENCES_VERSION_KEY] = version
 
-        Timber.d("DataStore Preferences set to version: [$version]")
+        Logger.d { "DataStore Preferences set to version: [$version]" }
 
         return mutablePreferences.toPreferences()
     }

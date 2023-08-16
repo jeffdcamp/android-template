@@ -12,19 +12,19 @@ Sample Android app that utilizes common best practices
 * Kotlin Gradle support (build.gradle.kts)
 * Android Architecture Components
     * ViewModel
-    * Flow/LiveData
+    * Flow
     * Room
     * Navigation
     * WorkManager
     * Startup Initializer
 * Dagger dependency injection using Jetpack Hilt
-* Material styles and themes
+* Material3 styles and themes
 * Datastore
 * CoreLibraryDesugaring (support java.time)
 * Retrofit / Okhttp3
 * JUnit tests / mockk
-* Timber
 * Firebase Analytics
+* Kermit Logging
 * Gradle Play Publisher (Triple-T)
 * Detekt
 

@@ -9,7 +9,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStore
-import timber.log.Timber
+import co.touchlab.kermit.Logger
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -21,7 +21,7 @@ class UserPreferenceDataSource
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
         name = "user",
         corruptionHandler = ReplaceFileCorruptionHandler {
-            Timber.e(it, "UserPreferenceDataSource Corrupted... recreating...")
+            Logger.e(it) { "UserPreferenceDataSource Corrupted... recreating..." }
             emptyPreferences()
         }
     )
