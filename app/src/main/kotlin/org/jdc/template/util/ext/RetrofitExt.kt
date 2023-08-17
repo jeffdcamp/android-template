@@ -4,6 +4,7 @@ import co.touchlab.kermit.Logger
 import okhttp3.ResponseBody
 import okio.FileSystem
 import okio.Path
+import org.jdc.template.util.log.CrashLogException
 import retrofit2.Response
 import java.io.IOException
 
@@ -22,7 +23,7 @@ fun Response<ResponseBody>.saveBodyToFile(fileSystem: FileSystem, outputFile: Pa
         if (fileSystem.exists(outputFile)) {
             fileSystem.delete(outputFile)
             if (fileSystem.exists(outputFile)) {
-                Logger.e { "Failed to save stream to [${fileSystem.canonicalize(outputFile)}]... file already exists and cannot be deleted" }
+                Logger.e(CrashLogException()) { "Failed to save stream to [${fileSystem.canonicalize(outputFile)}]... file already exists and cannot be deleted" }
                 return false
             }
         }

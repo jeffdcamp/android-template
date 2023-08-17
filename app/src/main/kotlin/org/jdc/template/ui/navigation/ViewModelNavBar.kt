@@ -17,6 +17,7 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import org.jdc.template.util.log.CrashLogException
 
 /**
  * Used for MainScreen ViewModels that that have bottom NavigationBars or NavigationRails
@@ -81,7 +82,9 @@ class ViewModelNavBarImpl<T : Enum<T>>(
             navBarNavigation(navRoute, reselected)
             _selectedNavBarFlow.value = selectedItem
         } else {
-            Logger.e { "route not found for selectedItem [$selectedItem].  Make sure either the selectedItem is defined in the NavBarConfig OR the 'route' is supplied to this function" }
+            Logger.e(CrashLogException()) {
+                "route not found for selectedItem [$selectedItem].  Make sure either the selectedItem is defined in the NavBarConfig OR the 'route' is supplied to this function"
+            }
         }
     }
 }
