@@ -19,6 +19,7 @@ androidxStartup = "1.1.1"
 androidxWindow = "1.1.0"
 androidxWork = "2.8.1"
 
+assertk = "0.26.1"
 coil = "2.4.0"
 desugarJdkLibs = "2.0.3"
 detekt = "1.23.1"
@@ -46,7 +47,6 @@ playPublisher = "3.8.4"
 retrofit = "2.9.0"
 ruler = "1.4.0"
 sqliteJdbc = "3.42.0.0"
-truth = "1.1.5"
 versionsGradlePlugin = "0.47.0"
 workManagerTools = "3.0.0"
 
@@ -85,6 +85,8 @@ androidx-window = { module = "androidx.window:window", version.ref = "androidxWi
 
 androidx-work-runtime = { module = "androidx.work:work-runtime-ktx", version.ref = "androidxWork" }
 androidx-work-gcm = { module = "androidx.work:work-gcm", version.ref = "androidxWork" }
+
+assertk = { module = "com.willowtreeapps.assertk:assertk", version.ref = "assertk" }
 
 coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
@@ -155,8 +157,6 @@ playPublisherGradlePluginClasspath = { module = "com.github.triplet.gradle:play-
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 
 ruler-gradlePluginClasspath = { module = "com.spotify.ruler:ruler-gradle-plugin", version.ref = "ruler" }
-
-truth = { module = "com.google.truth:truth", version.ref = "truth" }
 
 gradleVersions-gradlePluginClasspath = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "versionsGradlePlugin" }
 

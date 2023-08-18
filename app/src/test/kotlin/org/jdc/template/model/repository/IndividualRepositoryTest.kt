@@ -2,7 +2,8 @@ package org.jdc.template.model.repository
 
 import android.app.Application
 import androidx.room.Room
-import com.google.common.truth.Truth.assertThat
+import assertk.assertThat
+import assertk.assertions.isEqualTo
 import dagger.Component
 import dagger.Module
 import dagger.Provides

@@ -1,6 +1,10 @@
 package org.jdc.template.datasource.webservice.colors
 
-import com.google.common.truth.Truth.assertThat
+import assertk.assertThat
+import assertk.assertions.isEqualTo
+import assertk.assertions.isFalse
+import assertk.assertions.isNotNull
+import assertk.assertions.isTrue
 import dagger.Component
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse
