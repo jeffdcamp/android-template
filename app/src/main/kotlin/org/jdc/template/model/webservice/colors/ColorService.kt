@@ -25,7 +25,7 @@ import io.ktor.client.plugins.resources.get as getResource
 class ColorService(
     engine: HttpClientEngine = OkHttp.create(),
     loggingSetup: Logging.Config.() -> Unit = { defaultSetup() },
-    contentNegotiationSetup: ContentNegotiation.Config.() -> Unit = { defaultSetup(allowPlainTextJson = true) },
+    contentNegotiationSetup: ContentNegotiation.Config.() -> Unit = { defaultSetup(allowAnyContentType = true) },
 ) {
     private val httpClient: HttpClient = HttpClient(engine) {
         install(Logging) {

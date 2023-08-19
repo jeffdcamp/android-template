@@ -21,20 +21,21 @@ object KtorClientDefaults {
     }
 
     fun ContentNegotiation.Config.defaultSetup(
-        allowPlainTextJson: Boolean = false,
+        allowAnyContentType: Boolean = false,
         jsonPrettyPrint: Boolean = false
     ) {
         val jsonDefinition = Json {
             prettyPrint = jsonPrettyPrint
             isLenient = true
             coerceInputValues = true // incorrect JSON values to the default
+            ignoreUnknownKeys = true
         }
 
         json(jsonDefinition)
 
         // work-around for github that does NOT return Content-Type: application/json (github returns  Content-Type: text/plain; charset=utf-8)
-        if (allowPlainTextJson) {
-            register(ContentType.Text.Plain, KotlinxSerializationConverter(jsonDefinition))
+        if (allowAnyContentType) {
+            register(ContentType.Any, KotlinxSerializationConverter(jsonDefinition))
         }
     }
 }
