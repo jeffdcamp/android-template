@@ -21,7 +21,8 @@ Sample Android app that utilizes common best practices
 * Material3 styles and themes
 * Datastore
 * CoreLibraryDesugaring (support java.time)
-* Retrofit / Okhttp3
+* Okhttp3
+* Ktor Client
 * JUnit tests / mockk
 * Firebase Analytics
 * Kermit Logging

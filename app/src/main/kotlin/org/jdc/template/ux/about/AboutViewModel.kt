@@ -21,13 +21,12 @@ import org.jdc.template.model.webservice.colors.ColorService
 import org.jdc.template.model.webservice.colors.dto.ColorsDto
 import org.jdc.template.ui.navigation.ViewModelNav
 import org.jdc.template.ui.navigation.ViewModelNavImpl
+import org.jdc.template.util.ext.ApiResponse
 import org.jdc.template.util.ext.readText
-import org.jdc.template.util.ext.saveBodyToFile
 import org.jdc.template.ux.about.samples.ComponentsRoute
 import org.jdc.template.ux.about.typography.TypographyRoute
 import org.jdc.template.ux.acknowledgement.AcknowledgmentsRoute
 import org.jdc.template.work.WorkScheduler
-import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
@@ -61,66 +60,38 @@ class  AboutViewModel
     )
 
     private fun testQueryWebServiceCall() = viewModelScope.launch {
+        Logger.i { "TypeSafe Call..." }
         if (!remoteConfig.isColorServiceEnabled()) {
             Logger.e {"Color Service is NOT enabled... skipping" }
             return@launch
         }
 
-        val response = colorService.colors()
-
-        if (response.isSuccessful) {
-            processWebServiceResponse(response)
-        } else {
-            Logger.e { "Failed to get colors from webservice [${response.errorBody()}]" }
-        }
+        val response = colorService.fetchColorsBySafeArgs()
+        processWebServiceResponse(response)
     }
 
     private fun testFullUrlQueryWebServiceCall() = viewModelScope.launch {
-        val response = colorService.colorsByFullUrl(ColorService.FULL_URL)
-
-        if (response.isSuccessful) {
-            processWebServiceResponse(response)
-        } else {
-            Logger.e { "Search FAILED [${response.errorBody()}]" }
-        }
+        Logger.i { "Full URL Call..." }
+        val response = colorService.fetchColorsByFullUrl()
+        processWebServiceResponse(response)
     }
 
     private fun testSaveQueryWebServiceCall() = viewModelScope.launch {
-        val response = colorService.colorsToFile()
+        val outputFile = application.filesDir.toOkioPath() / "colors.json"
+        colorService.fetchColorsToFile(fileSystem, outputFile)
 
-        if (response.isSuccessful) {
-            // delete any existing file
-            val externalCacheDir = application.externalCacheDir ?: return@launch
-            val outputFile = externalCacheDir.toOkioPath() / "ws-out.json"
-            if (fileSystem.exists(outputFile)) {
-                fileSystem.delete(outputFile)
-            }
-
-            // save the response body to file
-            response.saveBodyToFile(fileSystem, outputFile)
-
-            // show the output of the file
-            val fileContents = fileSystem.readText(outputFile)
-            Logger.i { "Output file: [$fileContents]" }
-        } else {
-            Logger.e { "Search FAILED [${response.errorBody()}]" }
-        }
+        Logger.i { "Downloaded file contents:\n ${fileSystem.readText(outputFile)}" }
     }
 
-    private fun processWebServiceResponse(response: Response<ColorsDto>) {
-        if (response.isSuccessful) {
-            Logger.i { "Search SUCCESS" }
-            response.body()?.let {
-                processSearchResponse(it)
+    private fun processWebServiceResponse(response: ApiResponse<ColorsDto>) {
+        when(response) {
+            is ApiResponse.Success -> {
+                val data: ColorsDto = response.value
+                data.colors.forEach {
+                    Logger.i { "Result: ${it.colorName}" }
+                }
             }
-        } else {
-            Logger.e { "Search FAILURE: code (${response.code()})" }
-        }
-    }
-
-    private fun processSearchResponse(colorsDto: ColorsDto) {
-        for (dtoResult in colorsDto.colors) {
-            Logger.i { "Result: ${dtoResult.colorName}" }
+            is ApiResponse.Error -> Logger.e { "Web Service FAILURE" }
         }
     }
 

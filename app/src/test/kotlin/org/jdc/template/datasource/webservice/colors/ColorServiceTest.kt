@@ -2,48 +2,32 @@ package org.jdc.template.datasource.webservice.colors
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import assertk.assertions.isFalse
-import assertk.assertions.isNotNull
-import assertk.assertions.isTrue
-import dagger.Component
+import io.ktor.client.engine.mock.MockEngine
+import io.ktor.client.engine.mock.respond
+import io.ktor.http.HttpHeaders
+import io.ktor.http.HttpStatusCode
+import io.ktor.http.headersOf
+import io.ktor.utils.io.ByteReadChannel
 import kotlinx.coroutines.runBlocking
-import okhttp3.mockwebserver.MockResponse
-import okhttp3.mockwebserver.MockWebServer
-import org.jdc.template.LoggingUtil
-import org.jdc.template.inject.CommonTestModule
-import org.jdc.template.model.repository.IndividualRepositoryTestModule
 import org.jdc.template.model.webservice.colors.ColorService
-import org.junit.jupiter.api.BeforeEach
+import org.jdc.template.util.ext.ApiResponse
 import org.junit.jupiter.api.Test
-import javax.inject.Inject
-import javax.inject.Singleton
 
 class ColorServiceTest {
-
-    @Inject
-    lateinit var colorService: ColorService
-
-    @Inject
-    lateinit var mockWebServer: MockWebServer
-
-    @BeforeEach
-    fun setup() {
-        LoggingUtil.setupSingleLineLogging(true)
-
-        val component = DaggerColorServiceTestComponent.builder().build()
-        component.inject(this)
-    }
-
     @Test
     fun getColors() = runBlocking {
-        mockWebServer.enqueue(MockResponse().setResponseCode(200).setBody(COLORS_RESPONSE))
+        val mockEngine = MockEngine { request ->
+            respond(
+                content = ByteReadChannel(COLORS_RESPONSE),
+                status = HttpStatusCode.OK,
+                headers = headersOf(HttpHeaders.ContentType, "application/json")
+            )
+        }
+        val colorService = ColorService(mockEngine)
+        val response = colorService.fetchColorsBySafeArgs()
+        check(response is ApiResponse.Success)
 
-        val response = colorService.colors()
-        assertThat(response.isSuccessful).isTrue()
-
-        val colors = response.body()
-        checkNotNull(colors)
-        assertThat(colors).isNotNull()
+        val colors = response.value
         assertThat(colors.colors.size).isEqualTo(1)
 
         val color = colors.colors.first()
@@ -53,10 +37,15 @@ class ColorServiceTest {
 
     @Test
     fun failedNetwork() = runBlocking {
-        mockWebServer.enqueue(MockResponse().setResponseCode(500).setBody("""{"error": "Oh No!" }"""))
-        val response = colorService.colors()
-
-        assertThat(response.isSuccessful).isFalse()
+        val mockEngine = MockEngine { request ->
+            respond(
+                content = ByteReadChannel("""{"error": "Oh No!" }"""),
+                status = HttpStatusCode.InternalServerError,
+            )
+        }
+        val colorService = ColorService(mockEngine)
+        val response = colorService.fetchColorsBySafeArgs()
+        check(response is ApiResponse.Error)
     }
 
     companion object {
@@ -71,10 +60,4 @@ class ColorServiceTest {
             }
         """
     }
-}
-
-@Singleton
-@Component(modules = [CommonTestModule::class, IndividualRepositoryTestModule::class])
-interface ColorServiceTestComponent {
-    fun inject(test: ColorServiceTest)
 }

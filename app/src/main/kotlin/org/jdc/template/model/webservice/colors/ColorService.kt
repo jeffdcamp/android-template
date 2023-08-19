@@ -1,27 +1,72 @@
 package org.jdc.template.model.webservice.colors
 
-import okhttp3.ResponseBody
+import co.touchlab.kermit.Logger
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.engine.HttpClientEngine
+import io.ktor.client.engine.okhttp.OkHttp
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.defaultRequest
+import io.ktor.client.plugins.logging.Logging
+import io.ktor.client.plugins.resources.Resources
+import io.ktor.client.plugins.resources.prepareGet
+import io.ktor.client.request.get
+import io.ktor.http.isSuccess
+import io.ktor.resources.Resource
+import okio.FileSystem
+import okio.Path
+import org.jdc.template.model.webservice.KtorClientDefaults.defaultSetup
 import org.jdc.template.model.webservice.colors.dto.ColorsDto
-import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Streaming
-import retrofit2.http.Url
+import org.jdc.template.util.ext.ApiResponse
+import org.jdc.template.util.ext.executeSafely
+import org.jdc.template.util.ext.saveBodyToFile
+import io.ktor.client.plugins.resources.get as getResource
 
-interface ColorService {
+class ColorService(
+    engine: HttpClientEngine = OkHttp.create(),
+    loggingSetup: Logging.Config.() -> Unit = { defaultSetup() },
+    contentNegotiationSetup: ContentNegotiation.Config.() -> Unit = { defaultSetup(allowPlainTextJson = true) },
+) {
+    private val httpClient: HttpClient = HttpClient(engine) {
+        install(Logging) {
+            loggingSetup()
+        }
+        install(Resources)
+        install(ContentNegotiation) {
+            contentNegotiationSetup()
+        }
 
-    @GET("/jeffdcamp/android-template/33017aa38f59b3ff728a26c1ee350e58c8bb9647/src/test/json/rest-test.json")
-    suspend fun colors(): Response<ColorsDto>
-
-    @GET
-    suspend fun colorsByFullUrl(@Url url: String): Response<ColorsDto>
-
-    @Streaming
-    @GET("/jeffdcamp/android-template/33017aa38f59b3ff728a26c1ee350e58c8bb9647/src/test/json/rest-test.json")
-    suspend fun colorsToFile(): Response<ResponseBody>
-
-    companion object {
-        const val BASE_URL = "https://raw.githubusercontent.com"
-        private const val SUB_URL = "/jeffdcamp/android-template/33017aa38f59b3ff728a26c1ee350e58c8bb9647/src/test/json/rest-test.json"
-        const val FULL_URL = BASE_URL + SUB_URL
+        defaultRequest {
+            url("https://raw.githubusercontent.com/jeffdcamp/android-template/33017aa38f59b3ff728a26c1ee350e58c8bb9647/src/test/")
+        }
     }
+
+    suspend fun fetchColorsBySafeArgs(): ApiResponse<ColorsDto> {
+        return httpClient.executeSafely({ getResource(ColorsResource.All()) }) { it.body() }
+    }
+
+    suspend fun fetchColorsToFile(filesystem: FileSystem, file: Path): Boolean {
+        return httpClient.prepareGet(ColorsResource.All()).execute { httpResponse ->
+            if (httpResponse.status.isSuccess() && httpResponse.saveBodyToFile(filesystem, file)) {
+                true
+            } else {
+                Logger.e { "Failed to save colors json (${httpResponse.status}" }
+                false
+            }
+        }
+    }
+
+    suspend fun fetchColorsByFullUrl(): ApiResponse<ColorsDto> {
+        return httpClient.executeSafely(
+            { get("https://raw.githubusercontent.com/jeffdcamp/android-template/33017aa38f59b3ff728a26c1ee350e58c8bb9647/src/test/json/rest-test.json") }
+        ) {
+            it.body()
+        }
+    }
+}
+
+@Resource("json")
+private object ColorsResource {
+    @Resource("rest-test.json")
+    class All(val parent: ColorsResource = ColorsResource)
 }

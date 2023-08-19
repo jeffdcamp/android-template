@@ -5,16 +5,11 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.serialization.json.Json
 import okhttp3.Credentials
-import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.jdc.template.BuildConfig
 import org.jdc.template.model.webservice.colors.ColorService
-import org.jdc.template.util.json.asConverterFactory
-import retrofit2.Retrofit
-import retrofit2.create
 import java.io.UnsupportedEncodingException
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
@@ -77,14 +72,8 @@ class WebServiceModule {
 
     @Provides
     @Singleton
-    fun getColorService(@Named(STANDARD_CLIENT) client: OkHttpClient, json: Json): ColorService {
-        val retrofit = Retrofit.Builder()
-            .baseUrl(ColorService.BASE_URL)
-            .client(client)
-            .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
-            .build()
-
-        return retrofit.create()
+    fun getColorService(): ColorService {
+        return ColorService()
     }
 
     companion object {

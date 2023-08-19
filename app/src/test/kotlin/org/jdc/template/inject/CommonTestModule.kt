@@ -7,13 +7,9 @@ import dagger.hilt.migration.DisableInstallInCheck
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.serialization.json.Json
-import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
-import okhttp3.mockwebserver.MockWebServer
 import org.jdc.template.TestFilesystem
 import org.jdc.template.model.webservice.colors.ColorService
-import org.jdc.template.util.json.asConverterFactory
-import retrofit2.Retrofit
 import java.io.File
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
@@ -63,17 +59,7 @@ class CommonTestModule {
 
     @Provides
     @Singleton
-    fun provideColorService(mockWebServer: MockWebServer, json: Json): ColorService {
-        val retrofit = Retrofit.Builder()
-            .baseUrl(mockWebServer.url(""))
-            .client(provideOkHttp())
-            .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
-            .build()
-
-        return retrofit.create(ColorService::class.java)
+    fun getColorService(): ColorService {
+        return ColorService()
     }
-
-    @Provides
-    @Singleton
-    fun provideMockWebServer() = MockWebServer()
 }

@@ -264,10 +264,18 @@ dependencies {
     //implementation(libs.dbtools.roomSqlite)
 
     // Network
+    implementation(libs.ktor.client.core)
+//    implementation(libs.ktor.client.cio)
+    implementation(libs.ktor.client.okhttp)
+    implementation(libs.ktor.client.logging)
+    implementation(libs.ktor.client.serialization)
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.client.resources)
+
+    // Network
     implementation(platform(libs.okhttp.bom))
     implementation(libs.okhttp)
     implementation(libs.okhttp.loggingInterceptor)
-    implementation(libs.retrofit)
 
     // Logging
     implementation(libs.kermit)
@@ -285,11 +293,12 @@ dependencies {
     testImplementation(libs.junit.jupiter)
     testRuntimeOnly(libs.junit.engine)
     testImplementation(libs.mockK)
+    testImplementation(libs.ktor.client.mock)
     testImplementation(libs.assertk)
     testImplementation(libs.kotlin.coroutines.test)
-    testImplementation(libs.okhttp.mockwebserver)
     testImplementation(libs.dbtools.roomJdbc)
     testImplementation(libs.xerial.sqlite)
+
 
     // use regular dagger for unit tests
     // (2020-06-11: "Currently, Hilt only supports Android instrumentation and Robolectric tests. Hilt cannot be used in vanilla JVM tests,
