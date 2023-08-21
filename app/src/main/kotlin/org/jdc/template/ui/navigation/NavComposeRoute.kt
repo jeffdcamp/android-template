@@ -3,6 +3,9 @@
 package org.jdc.template.ui.navigation
 
 import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.runtime.Composable
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
@@ -27,13 +30,31 @@ abstract class NavComposeRoute {
     open fun getDeepLinks(): List<NavDeepLink> = emptyList()
 
     /**
-     * Used when creating navigation graph
+     * Add the [Composable] to the [NavGraphBuilder]
+     *
+     * @param navGraphBuilder navGraphBuilder that the new NavComposeRoute will be added to
+     * @param enterTransition callback to determine the destination's enter transition
+     * @param exitTransition callback to determine the destination's exit transition
+     * @param popEnterTransition callback to determine the destination's popEnter transition
+     * @param popExitTransition callback to determine the destination's popExit transition
+     * @param content composable for the destination
      */
-    fun addNavigationRoute(navGraphBuilder: NavGraphBuilder, content: @Composable AnimatedContentScope.(NavBackStackEntry) -> Unit) {
+    fun addNavigationRoute(
+        navGraphBuilder: NavGraphBuilder,
+        enterTransition: (@JvmSuppressWildcards AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?)? = null,
+        exitTransition: (@JvmSuppressWildcards AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?)? = null,
+        popEnterTransition: (@JvmSuppressWildcards AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?)? = enterTransition,
+        popExitTransition: (@JvmSuppressWildcards AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?)? = exitTransition,
+        content: @Composable AnimatedContentScope.(NavBackStackEntry) -> Unit,
+    ) {
         navGraphBuilder.composable(
             route = routeDefinition,
             arguments = getArguments(),
             deepLinks = getDeepLinks(),
+            enterTransition = enterTransition,
+            exitTransition = exitTransition,
+            popEnterTransition = popEnterTransition,
+            popExitTransition = popExitTransition,
             content = content
         )
     }
