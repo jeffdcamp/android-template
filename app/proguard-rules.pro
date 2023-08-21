@@ -14,4 +14,10 @@
 -dontwarn org.conscrypt.**
 -dontwarn org.bouncycastle.**
 -dontwarn org.openjsse.**
-##---------------End: proguard configuration for OkHttp  ----------#
+##---------------End: proguard configuration for OkHttp  ----------
+
+##---------------Begin: proguard configuration for Ktor Client  ----------
+# Issue Tracker (Initial issue/Work-around): https://youtrack.jetbrains.com/issue/KTOR-5528
+# Issue Tracker (Fix): https://youtrack.jetbrains.com/issue/KTOR-3484
+-dontwarn org.slf4j.impl.StaticLoggerBinder
+##---------------End: proguard configuration for Ktor Client  ----------
