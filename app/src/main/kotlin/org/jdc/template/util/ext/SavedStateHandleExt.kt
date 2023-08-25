@@ -7,7 +7,17 @@ import java.net.URLDecoder
 @VisibleForTesting
 fun createSaveStateErrorMessage(key: String) = "Missing SavedState value for Key: $key"
 
-fun <T> SavedStateHandle.require(key: String): T = requireNotNull(get<T>(key)) { createSaveStateErrorMessage(key) }
+fun SavedStateHandle.requireString(key: String): String = requireNotNull(get<String>(key)) { createSaveStateErrorMessage(key) }
+fun SavedStateHandle.requireInt(key: String): Int = requireNotNull(get<Int>(key)) { createSaveStateErrorMessage(key) }
+fun SavedStateHandle.requireLong(key: String): Long = requireNotNull(get<Long>(key)) { createSaveStateErrorMessage(key) }
+fun SavedStateHandle.requireFloat(key: String): Float = requireNotNull(get<Float>(key)) { createSaveStateErrorMessage(key) }
+fun SavedStateHandle.requireBoolean(key: String): Boolean = requireNotNull(get<Boolean>(key)) { createSaveStateErrorMessage(key) }
+
+fun SavedStateHandle.getString(key: String): String? = get<String>(key)
+fun SavedStateHandle.getInt(key: String): Int? = get<Int>(key)
+fun SavedStateHandle.getLong(key: String): Long? = get<Long>(key)
+fun SavedStateHandle.getFloat(key: String): Float? = get<Float>(key)
+fun SavedStateHandle.getBoolean(key: String): Boolean? = get<Boolean>(key)
 
 inline fun <KEY, T> SavedStateHandle.getValueClass(key: String, mapToValueClass: (KEY) -> T?): T? = get<KEY>(key)?.let { mapToValueClass(it) }
 inline fun <KEY, T> SavedStateHandle.requireValueClass(key: String, mapToValueClass: (KEY) -> T?): T = requireNotNull(getValueClass(key, mapToValueClass)) { createSaveStateErrorMessage(key) }
