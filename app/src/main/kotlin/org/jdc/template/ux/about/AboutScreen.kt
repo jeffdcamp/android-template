@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -57,9 +57,8 @@ private fun AboutScreenContent(
     ) {
         ApplicationAboutTitle()
 
-        Divider(Modifier.padding(top = 16.dp, bottom = 16.dp))
+        HorizontalDivider(Modifier.padding(top = 16.dp, bottom = 16.dp))
         RestServicesStatus(uiState)
-        TestButton("M3 Samples") { uiState.m3SamplesClicked() }
         TestButton("M3 Typography") { uiState.m3TypographyClicked() }
         TestButton("Create Database") { uiState.createSampleData() }
         TestButton("Create Large Database") { uiState.createLargeSampleData() }

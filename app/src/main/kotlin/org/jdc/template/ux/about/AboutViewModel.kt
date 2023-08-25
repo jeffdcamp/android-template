@@ -23,7 +23,6 @@ import org.jdc.template.ui.navigation.ViewModelNav
 import org.jdc.template.ui.navigation.ViewModelNavImpl
 import org.jdc.template.util.ext.ApiResponse
 import org.jdc.template.util.ext.readText
-import org.jdc.template.ux.about.samples.ComponentsRoute
 import org.jdc.template.ux.about.typography.TypographyRoute
 import org.jdc.template.ux.acknowledgement.AcknowledgmentsRoute
 import org.jdc.template.work.WorkScheduler
@@ -55,7 +54,6 @@ class  AboutViewModel
         licensesClicked = { navigate(AcknowledgmentsRoute.createRoute()) },
         createSampleData = { createSampleData() },
         createLargeSampleData = { createLargeSampleData() },
-        m3SamplesClicked = { navigate(ComponentsRoute.createRoute()) },
         m3TypographyClicked = { navigate(TypographyRoute.createRoute()) }
     )
 
