@@ -3,10 +3,12 @@ package org.jdc.template.ui.compose.appbar
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.ScaffoldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,6 +23,7 @@ fun AppScaffoldAndNavigation(
     floatingActionButtonPosition: FabPosition = FabPosition.End,
     containerColor: Color = MaterialTheme.colorScheme.background,
     snackbarHost: @Composable () -> Unit = {},
+    contentWindowInsets: WindowInsets = ScaffoldDefaults.contentWindowInsets,
     content: @Composable (PaddingValues) -> Unit,
 ) {
     when {
@@ -31,6 +34,7 @@ fun AppScaffoldAndNavigation(
                 floatingActionButtonPosition = floatingActionButtonPosition,
                 containerColor = containerColor,
                 snackbarHost = snackbarHost,
+                contentWindowInsets = contentWindowInsets,
                 modifier = modifier
             ) { innerPadding ->
                 AppScaffoldContentWrapper(innerPadding, content = content)
@@ -46,6 +50,7 @@ fun AppScaffoldAndNavigation(
                     floatingActionButtonPosition = floatingActionButtonPosition,
                     containerColor = containerColor,
                     snackbarHost = snackbarHost,
+                    contentWindowInsets = contentWindowInsets,
                     modifier = modifier
                 ) { innerPadding ->
                     AppScaffoldContentWrapper(innerPadding, navBarData, content)
@@ -61,6 +66,7 @@ fun AppScaffoldAndNavigation(
                 floatingActionButtonPosition = floatingActionButtonPosition,
                 containerColor = containerColor,
                 snackbarHost = snackbarHost,
+                contentWindowInsets = contentWindowInsets,
                 modifier = modifier
             ) { innerPadding ->
                 AppScaffoldContentWrapper(innerPadding, navBarData, content)
