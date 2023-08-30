@@ -12,7 +12,7 @@ plugins {
     id("com.google.firebase.crashlytics")
     id("com.google.firebase.appdistribution")
     id("org.dbtools.license-manager")
-    id("de.undercouch.download") version "5.4.0"
+    id("de.undercouch.download") version "5.5.0"
     id("com.spotify.ruler")
     id("org.gradle.jacoco")
     alias(libs.plugins.ksp)
