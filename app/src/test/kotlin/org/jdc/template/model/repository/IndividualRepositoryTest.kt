@@ -9,7 +9,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.migration.DisableInstallInCheck
 import io.mockk.mockk
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import org.dbtools.android.room.jdbc.JdbcSQLiteOpenHelperFactory
 import org.jdc.template.TestFilesystem
 import org.jdc.template.inject.CommonTestModule
@@ -39,7 +39,7 @@ class IndividualRepositoryTest {
     }
 
     @Test
-    fun testIndividual() = runBlocking {
+    fun testIndividual() = runTest {
         // === CREATE / INSERT ===
         val individual = Individual(
             firstName = FirstName("Jeff"),

@@ -8,14 +8,14 @@ import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.headersOf
 import io.ktor.utils.io.ByteReadChannel
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import org.jdc.template.model.webservice.colors.ColorService
 import org.jdc.template.util.ext.ApiResponse
 import org.junit.jupiter.api.Test
 
 class ColorServiceTest {
     @Test
-    fun getColors() = runBlocking {
+    fun getColors() = runTest {
         val mockEngine = MockEngine { request ->
             respond(
                 content = ByteReadChannel(COLORS_RESPONSE),
@@ -36,7 +36,7 @@ class ColorServiceTest {
     }
 
     @Test
-    fun failedNetwork() = runBlocking {
+    fun failedNetwork() = runTest {
         val mockEngine = MockEngine { request ->
             respond(
                 content = ByteReadChannel("""{"error": "Oh No!" }"""),
