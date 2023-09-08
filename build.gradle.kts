@@ -26,6 +26,7 @@ buildscript {
 }
 
 plugins {
+    alias(libs.plugins.ksp) // workaround for https://github.com/google/dagger/issues/3965
     id("com.autonomousapps.dependency-analysis") version "1.21.0"
 }
 

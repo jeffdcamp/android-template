@@ -33,7 +33,7 @@ firebasePerfGradlePlugin = "1.4.2"
 googlePlayCore = "1.8.1"
 googleServicesGradlePlugin = "4.3.15"
 
-hilt = "2.46.1"
+hilt = "2.48"
 jacoco = "0.8.8"
 junit = "5.10.0"
 kermit = "2.0.0-RC5"
