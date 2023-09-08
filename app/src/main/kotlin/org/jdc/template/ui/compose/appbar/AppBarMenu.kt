@@ -13,9 +13,12 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.PlainTooltipBox
+import androidx.compose.material3.PlainTooltip
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TooltipBox
+import androidx.compose.material3.TooltipDefaults
+import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -48,34 +51,27 @@ fun AppBarMenu(menuItems: List<AppBarMenuItem>) {
 }
 
 @Composable
+fun AppBarIcon(menuItem: AppBarMenuItem.Icon) {
+    AppBarIcon(menuItem.imageVector, menuItem.text(), menuItem.action)
+}
+
+@Composable
 fun AppBarIcon(imageVector: ImageVector, contentDescription: String, action: () -> Unit) {
-    PlainTooltipBox(
-        tooltip = { Text(contentDescription) }
+    TooltipBox(
+        positionProvider = TooltipDefaults.rememberPlainTooltipPositionProvider(),
+        tooltip = {
+            PlainTooltip {
+                Text(contentDescription)
+            }
+        },
+        state = rememberTooltipState()
     ) {
         IconButton(
             onClick = action,
-            modifier = Modifier.tooltipTrigger()
         ) {
             Icon(
                 imageVector = imageVector,
                 contentDescription = contentDescription,
-            )
-        }
-    }
-}
-
-@Composable
-fun AppBarIcon(menuItem: AppBarMenuItem.Icon) {
-    PlainTooltipBox(
-        tooltip = { Text(menuItem.text()) }
-    ) {
-        IconButton(
-            onClick = { menuItem.action() },
-            modifier = Modifier.tooltipTrigger()
-        ) {
-            Icon(
-                imageVector = menuItem.imageVector,
-                contentDescription = menuItem.text()
             )
         }
     }
@@ -158,7 +154,7 @@ fun AppBarOverflowMenu(menuItems: List<AppBarMenuItem>) {
 }
 
 sealed interface AppBarMenuItem {
-    class Icon(val imageVector: ImageVector, val text: @Composable () -> String, val action: () -> Unit) : AppBarMenuItem{
+    class Icon(val imageVector: ImageVector, val text: @Composable () -> String, val action: () -> Unit) : AppBarMenuItem {
         constructor(imageVector: ImageVector, @StringRes textId: Int, action: () -> Unit) : this(imageVector = imageVector, text = { stringResource(textId) }, action = action)
     }
 
@@ -179,7 +175,7 @@ sealed interface AppBarMenuItem {
         override val text: @Composable () -> String,
         override val leadingIcon: ImageVector? = null,
         override val trailingIcon: ImageVector? = null,
-        override val action: () -> Unit
+        override val action: () -> Unit,
     ) : AppBarMenuItem, org.jdc.template.ui.compose.menu.OverflowMenuItem.MenuItem(text, leadingIcon, trailingIcon, action) {
         constructor(@StringRes textId: Int, leadingIcon: ImageVector? = null, trailingIcon: ImageVector? = null, action: () -> Unit) : this(
             text = { stringResource(textId) },
