@@ -9,9 +9,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.ripple.rememberRipple
-import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -102,7 +102,7 @@ fun OverflowMenuItemsContent(menuItems: List<OverflowMenuItem>, expanded: Mutabl
 
             }
             is OverflowMenuItem.Divider -> {
-                Divider()
+                HorizontalDivider()
             }
         }
     }
