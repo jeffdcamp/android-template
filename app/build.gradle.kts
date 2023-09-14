@@ -393,9 +393,6 @@ tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
     // ignore ImageVector files
     exclude("**/ui/compose/icons/**")
 
-    // ignore Sample files from Google M3 Component Samples
-    exclude("**/about/samples/**")
-
     reports {
         html.required.set(true) // observe findings in your browser with structure and code snippets
         xml.required.set(true) // checkstyle like format mainly for integrations like Jenkins

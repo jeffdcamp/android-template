@@ -19,7 +19,7 @@ androidxStartup = "1.1.1"
 androidxWindow = "1.1.0"
 androidxWork = "2.9.0-beta01"
 
-assertk = "0.26.1"
+assertk = "0.27.0"
 coil = "2.4.0"
 desugarJdkLibs = "2.0.3"
 detekt = "1.23.1"
