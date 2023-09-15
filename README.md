@@ -20,7 +20,7 @@ Sample Android app that utilizes common best practices
 * Dagger dependency injection using Jetpack Hilt
 * Material3 styles and themes
 * Datastore
-* CoreLibraryDesugaring (support java.time)
+* kotlinx-datetime
 * Okhttp3
 * Ktor Client
 * JUnit tests / mockk

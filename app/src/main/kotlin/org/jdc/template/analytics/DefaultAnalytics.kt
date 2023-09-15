@@ -5,9 +5,10 @@ import android.content.Context
 import android.content.Intent
 import co.touchlab.kermit.Logger
 import com.google.firebase.analytics.FirebaseAnalytics
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
 import org.jdc.template.BuildConfig
-import java.time.LocalDateTime
-import java.util.concurrent.atomic.AtomicBoolean
+import kotlin.time.Duration.Companion.hours
 
 /**
  * DebugView for Firebase Analytics (https://firebase.google.com/docs/analytics/debugview)
@@ -19,8 +20,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 class DefaultAnalytics(
     context: Context,
 ) : Analytics {
-    private val dimensionsInitialized = AtomicBoolean(false)
-    private var lastDimensionUpdate = LocalDateTime.MIN
+    private var lastDimensionUpdate: Instant? = null
     private var firebaseAnalytics: FirebaseAnalytics? = null
 
     init {
@@ -66,9 +66,11 @@ class DefaultAnalytics(
     }
 
     private fun updateDimensions() {
-        if (dimensionsInitialized.compareAndSet(false, true) || LocalDateTime.now().isAfter(lastDimensionUpdate.plusHours(1))) {
-            lastDimensionUpdate = LocalDateTime.now()
+        val now = Clock.System.now()
 
+        val lastUpdate = lastDimensionUpdate
+        if (lastUpdate == null || now > lastUpdate.plus(1.hours)) {
+            lastDimensionUpdate = now
             updateFirebaseUserProperties()
         }
     }

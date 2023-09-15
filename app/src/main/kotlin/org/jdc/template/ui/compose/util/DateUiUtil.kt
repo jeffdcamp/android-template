@@ -2,9 +2,14 @@ package org.jdc.template.ui.compose.util
 
 import android.content.Context
 import android.text.format.DateUtils
-import java.time.LocalDate
-import java.time.LocalTime
-import java.time.OffsetDateTime
+import kotlinx.datetime.Clock
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.LocalTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.atStartOfDayIn
+import kotlinx.datetime.toInstant
+import kotlinx.datetime.toLocalDateTime
 
 object DateUiUtil {
     fun getLocalDateText(
@@ -14,7 +19,9 @@ object DateUiUtil {
     ): String {
         localDate ?: return ""
 
-        val millis = OffsetDateTime.now().with(localDate).toInstant().toEpochMilli()
+        localDate.atStartOfDayIn(TimeZone.currentSystemDefault())
+
+        val millis = localDate.atStartOfDayIn(TimeZone.currentSystemDefault()).toEpochMilliseconds()
         return DateUtils.formatDateTime(context, millis, dateUtilsFlags)
     }
 
@@ -24,8 +31,7 @@ object DateUiUtil {
         dateUtilsFlags: Int = DateUtils.FORMAT_SHOW_TIME
     ): String {
         localTime ?: return ""
-
-        val millis = OffsetDateTime.now().with(localTime).toInstant().toEpochMilli()
+        val millis = LocalDateTime(Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date, localTime).toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()
         return DateUtils.formatDateTime(context, millis, dateUtilsFlags)
     }
 }

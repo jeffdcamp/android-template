@@ -13,16 +13,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import java.time.Instant
-import java.time.LocalDate
-import java.time.ZoneId
-import java.time.ZoneOffset
+import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.atStartOfDayIn
+import kotlinx.datetime.toLocalDateTime
 
 @Composable
 fun DatePickerDialog(
     dialogUiState: DatePickerDialogUiState
 ){
-    val initialMs: Long? = dialogUiState.localDate?.atStartOfDay()?.atOffset(ZoneOffset.UTC)?.toInstant()?.toEpochMilli()
+    val initialMs: Long? = dialogUiState.localDate?.atStartOfDayIn(TimeZone.UTC)?.toEpochMilliseconds()
     val datePickerState = rememberDatePickerState(initialSelectedDateMillis = initialMs, selectableDates = dialogUiState.selectableDates)
     val onDismissButtonClicked = dialogUiState.onDismiss
 
@@ -33,7 +34,7 @@ fun DatePickerDialog(
                 onClick = {
                     val ms = datePickerState.selectedDateMillis
                     if (ms != null) {
-                        dialogUiState.onConfirm(Instant.ofEpochMilli(ms).atZone(ZoneId.of("UTC")).toLocalDate())
+                        dialogUiState.onConfirm(Instant.fromEpochMilliseconds(ms).toLocalDateTime(TimeZone.UTC).date)
                     }
                 },
             ) {

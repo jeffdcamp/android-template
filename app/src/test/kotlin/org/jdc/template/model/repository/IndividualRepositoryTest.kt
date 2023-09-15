@@ -10,6 +10,7 @@ import dagger.Provides
 import dagger.hilt.migration.DisableInstallInCheck
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
+import kotlinx.datetime.LocalTime
 import org.dbtools.android.room.jdbc.JdbcSQLiteOpenHelperFactory
 import org.jdc.template.TestFilesystem
 import org.jdc.template.inject.CommonTestModule
@@ -21,7 +22,6 @@ import org.jdc.template.model.domain.Individual
 import org.jdc.template.model.domain.inline.FirstName
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import java.time.LocalTime
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -43,7 +43,7 @@ class IndividualRepositoryTest {
         // === CREATE / INSERT ===
         val individual = Individual(
             firstName = FirstName("Jeff"),
-            alarmTime = LocalTime.now()
+            alarmTime = LocalTime(10, 30)
         )
         individualRepository.saveIndividual(individual)
 

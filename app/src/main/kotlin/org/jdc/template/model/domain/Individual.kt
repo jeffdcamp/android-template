@@ -1,5 +1,8 @@
 package org.jdc.template.model.domain
 
+import kotlinx.datetime.Clock
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalTime
 import org.jdc.template.model.domain.inline.CreatedTime
 import org.jdc.template.model.domain.inline.Email
 import org.jdc.template.model.domain.inline.FirstName
@@ -9,9 +12,6 @@ import org.jdc.template.model.domain.inline.LastModifiedTime
 import org.jdc.template.model.domain.inline.LastName
 import org.jdc.template.model.domain.inline.Phone
 import org.jdc.template.model.domain.type.IndividualType
-import java.time.LocalDate
-import java.time.LocalTime
-import java.time.OffsetDateTime
 import java.util.UUID
 
 data class Individual(
@@ -27,8 +27,8 @@ data class Individual(
     val email: Email? = null,
     val available: Boolean = false,
 
-    val created: CreatedTime = CreatedTime(OffsetDateTime.now()),
-    val lastModified: LastModifiedTime = LastModifiedTime(OffsetDateTime.now())
+    val created: CreatedTime = CreatedTime(Clock.System.now()),
+    val lastModified: LastModifiedTime = LastModifiedTime(Clock.System.now())
 ) {
     fun getFullName(): String = "${firstName?.value.orEmpty()} ${lastName?.value.orEmpty()}"
 }

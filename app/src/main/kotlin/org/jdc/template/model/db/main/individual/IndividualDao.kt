@@ -5,8 +5,8 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
+import kotlinx.datetime.Instant
 import org.jdc.template.model.domain.inline.IndividualId
-import java.time.OffsetDateTime
 
 @Dao
 interface IndividualDao {
@@ -35,7 +35,7 @@ interface IndividualDao {
     suspend fun deleteById(id: IndividualId)
 
     @Query("SELECT lastModified FROM Individual WHERE id = :id")
-    suspend fun findLastModified(id: IndividualId): OffsetDateTime?
+    suspend fun findLastModified(id: IndividualId): Instant?
 
     @Query("SELECT firstName FROM Individual WHERE id = :id")
     suspend fun findFirstName(id: IndividualId): String?

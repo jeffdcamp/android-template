@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import java.time.LocalTime
+import kotlinx.datetime.LocalTime
 
 @Composable
 fun TimePickerDialog(
@@ -80,7 +80,7 @@ fun TimePickerDialog(
                     if (onConfirmButtonClicked != null) {
                         TextButton(
                             onClick = {
-                                onConfirmButtonClicked(LocalTime.of(timePickerState.hour, timePickerState.minute))
+                                onConfirmButtonClicked(LocalTime(timePickerState.hour, timePickerState.minute))
                             },
                         ) {
                             Text(confirmButtonText)

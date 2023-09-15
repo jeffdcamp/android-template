@@ -1,6 +1,6 @@
 package org.jdc.template.model.domain.inline
 
-import java.time.OffsetDateTime
+import kotlinx.datetime.Instant
 
 @JvmInline
 value class IndividualId(val value: String)
@@ -21,7 +21,7 @@ value class Phone(val value: String)
 value class Email(val value: String)
 
 @JvmInline
-value class CreatedTime(val value: OffsetDateTime)
+value class CreatedTime(val value: Instant)
 
 @JvmInline
-value class LastModifiedTime(val value: OffsetDateTime)
+value class LastModifiedTime(val value: Instant)

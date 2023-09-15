@@ -8,6 +8,11 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.datetime.Clock
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import org.jdc.template.R
 import org.jdc.template.model.domain.Individual
 import org.jdc.template.model.domain.inline.Email
@@ -26,8 +31,6 @@ import org.jdc.template.ui.navigation.ViewModelNav
 import org.jdc.template.ui.navigation.ViewModelNavImpl
 import org.jdc.template.util.ext.getValueClass
 import org.jdc.template.ux.individual.IndividualRoute
-import java.time.LocalDate
-import java.time.LocalTime
 import javax.inject.Inject
 
 @HiltViewModel
@@ -167,7 +170,7 @@ class IndividualEditViewModel
 
     private fun showAlarmTime() {
         dialogUiStateFlow.value = TimePickerDialogUiState(
-            localTime = alarmTimeFlow.value ?: LocalTime.now(),
+            localTime = alarmTimeFlow.value ?: Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).time,
             onConfirm = {
                 alarmTimeFlow.value = it
                 dismissDialog(dialogUiStateFlow)

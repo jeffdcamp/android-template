@@ -20,17 +20,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import java.time.Instant
-import java.time.LocalDate
-import java.time.ZoneId
-import java.time.ZoneOffset
+import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.atStartOfDayIn
+import kotlinx.datetime.toLocalDateTime
 
 @Composable
 fun DateRangePickerDialog(
     dialogUiState: DateRangePickerDialogUiState
 ){
-    val initialStartMs: Long? = dialogUiState.startLocalDate?.atStartOfDay()?.atOffset(ZoneOffset.UTC)?.toInstant()?.toEpochMilli()
-    val initialEndMs: Long? = dialogUiState.endLocalDate?.atStartOfDay()?.atOffset(ZoneOffset.UTC)?.toInstant()?.toEpochMilli()
+    val initialStartMs: Long? = dialogUiState.startLocalDate?.atStartOfDayIn(TimeZone.UTC)?.toEpochMilliseconds()
+    val initialEndMs: Long? = dialogUiState.endLocalDate?.atStartOfDayIn(TimeZone.UTC)?.toEpochMilliseconds()
     val dateRangePickerState = rememberDateRangePickerState(
         initialSelectedStartDateMillis = initialStartMs,
         initialSelectedEndDateMillis = initialEndMs,
@@ -48,8 +49,8 @@ fun DateRangePickerDialog(
                     val endMs = dateRangePickerState.selectedEndDateMillis
                     if (startMs != null && endMs != null) {
                         val dateRange = PickerDateRange(
-                            startDate = Instant.ofEpochMilli(startMs).atZone(ZoneId.of("UTC")).toLocalDate(),
-                            endDate = Instant.ofEpochMilli(endMs).atZone(ZoneId.of("UTC")).toLocalDate()
+                            startDate = Instant.fromEpochMilliseconds(startMs).toLocalDateTime(TimeZone.UTC).date,
+                            endDate = Instant.fromEpochMilliseconds(endMs).toLocalDateTime(TimeZone.UTC).date
                         )
 
                         dialogUiState.onConfirm(dateRange)

@@ -4,6 +4,7 @@ agp = "8.1.1"
 kotlin = "1.9.10"
 kotlinxCoroutines = "1.7.3"
 kotlinxSerialization = "1.6.0"
+kotlinxDateTime = "0.4.1"
 
 androidxComposeCompiler = "1.5.3"
 androidxComposeMaterial = "1.5.1"
@@ -137,6 +138,7 @@ kermit-crashlytics = { module = "co.touchlab:kermit-crashlytics", version.ref = 
 kotlin-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
 kotlin-coroutines-playServices = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinxCoroutines" }
 kotlin-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
+kotlin-time = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDateTime" }
 kotlin-gradlePluginClasspath = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 

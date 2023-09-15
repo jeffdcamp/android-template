@@ -2,6 +2,9 @@ package org.jdc.template.model.db.main.individual
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalTime
 import org.jdc.template.model.domain.inline.Email
 import org.jdc.template.model.domain.inline.FirstName
 import org.jdc.template.model.domain.inline.HouseholdId
@@ -9,9 +12,6 @@ import org.jdc.template.model.domain.inline.IndividualId
 import org.jdc.template.model.domain.inline.LastName
 import org.jdc.template.model.domain.inline.Phone
 import org.jdc.template.model.domain.type.IndividualType
-import java.time.LocalDate
-import java.time.LocalTime
-import java.time.OffsetDateTime
 
 @Entity("Individual")
 data class IndividualEntity(
@@ -27,6 +27,6 @@ data class IndividualEntity(
     val email: Email?,
     val available: Boolean,
 
-    val created: OffsetDateTime,
-    val lastModified: OffsetDateTime
+    val created: Instant,
+    val lastModified: Instant
 )
