@@ -29,8 +29,7 @@ import org.jdc.template.ui.compose.dialog.dismissDialog
 import org.jdc.template.ui.compose.form.TextFieldData
 import org.jdc.template.ui.navigation.ViewModelNav
 import org.jdc.template.ui.navigation.ViewModelNavImpl
-import org.jdc.template.util.ext.getValueClass
-import org.jdc.template.ux.individual.IndividualRoute
+import org.jdc.template.util.ext.requireIndividualId
 import javax.inject.Inject
 
 @HiltViewModel
@@ -40,7 +39,7 @@ class IndividualEditViewModel
     private val individualRepository: IndividualRepository,
     savedStateHandle: SavedStateHandle
 ) : ViewModel(), ViewModelNav by ViewModelNavImpl() {
-    private val individualId = savedStateHandle.getValueClass<String, IndividualId>(IndividualRoute.Arg.INDIVIDUAL_ID) { IndividualId(it) }
+    private val individualId = savedStateHandle.requireIndividualId(IndividualEditRoute.Arg.INDIVIDUAL_ID)
 
     private var individual = Individual()
 

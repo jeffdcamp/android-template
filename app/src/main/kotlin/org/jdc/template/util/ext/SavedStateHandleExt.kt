@@ -2,6 +2,7 @@ package org.jdc.template.util.ext
 
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.SavedStateHandle
+import org.jdc.template.model.domain.inline.IndividualId
 import java.net.URLDecoder
 
 @VisibleForTesting
@@ -24,3 +25,7 @@ inline fun <KEY, T> SavedStateHandle.requireValueClass(key: String, mapToValueCl
 
 fun SavedStateHandle.getDecodedString(key: String): String? = get<String>(key)?.let { URLDecoder.decode(it, "utf-8") }
 fun SavedStateHandle.requireDecodedString(key: String): String = URLDecoder.decode(requireNotNull(get<String>(key)) { createSaveStateErrorMessage(key) }, "utf-8")
+
+// custom extension for this app
+fun SavedStateHandle.getIndividualId(key: String): IndividualId? = getValueClass<String, IndividualId>(key) { IndividualId(it) }
+fun SavedStateHandle.requireIndividualId(key: String): IndividualId = requireValueClass<String, IndividualId>(key) { IndividualId(it) }

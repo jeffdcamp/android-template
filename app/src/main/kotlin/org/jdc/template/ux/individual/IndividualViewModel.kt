@@ -9,14 +9,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import org.jdc.template.R
 import org.jdc.template.analytics.Analytics
-import org.jdc.template.model.domain.inline.IndividualId
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.ui.compose.dialog.DialogUiState
 import org.jdc.template.ui.compose.dialog.dismissDialog
 import org.jdc.template.ui.compose.dialog.showMessageDialog
 import org.jdc.template.ui.navigation.ViewModelNav
 import org.jdc.template.ui.navigation.ViewModelNavImpl
-import org.jdc.template.util.ext.requireValueClass
+import org.jdc.template.util.ext.requireIndividualId
 import org.jdc.template.util.ext.stateInDefault
 import org.jdc.template.ux.individualedit.IndividualEditRoute
 import javax.inject.Inject
@@ -28,8 +27,7 @@ class IndividualViewModel
     private val individualRepository: IndividualRepository,
     savedStateHandle: SavedStateHandle
 ) : ViewModel(), ViewModelNav by ViewModelNavImpl() {
-
-    private val individualId: IndividualId = savedStateHandle.requireValueClass<String, IndividualId>(IndividualRoute.Arg.INDIVIDUAL_ID) { IndividualId(it) }
+    private val individualId = savedStateHandle.requireIndividualId(IndividualRoute.Arg.INDIVIDUAL_ID)
 
     private val dialogUiStateFlow = MutableStateFlow<DialogUiState<*>?>(null)
 
