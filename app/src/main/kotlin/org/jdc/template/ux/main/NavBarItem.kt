@@ -3,10 +3,10 @@ package org.jdc.template.ux.main
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.People
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.ui.graphics.vector.ImageVector
 import org.jdc.template.R
-import org.jdc.template.ui.compose.icons.google.filled.People
 import org.jdc.template.ui.compose.icons.google.outlined.People
 import org.jdc.template.ux.about.AboutRoute
 import org.jdc.template.ux.directory.DirectoryRoute

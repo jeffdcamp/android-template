@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -44,7 +44,7 @@ internal fun MainAppScaffoldWithNavBar(
     title: String,
     modifier: Modifier = Modifier,
     navigationIconVisible: Boolean = true,
-    navigationIcon: ImageVector = Icons.Filled.ArrowBack,
+    navigationIcon: ImageVector = Icons.AutoMirrored.Filled.ArrowBack,
     onNavigationClick: (() -> Unit)? = null,
     hideNavigation: Boolean = false,
     actions: @Composable (RowScope.() -> Unit)? = null,

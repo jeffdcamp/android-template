@@ -213,7 +213,7 @@ dependencies {
 //    debugImplementation(libs.compose.ui.tooling)
     implementation(libs.compose.material3)
     implementation(libs.compose.material3.windowsize)
-//    implementation(libs.compose.material.iconsext)
+    implementation(libs.compose.material.iconsext)
 
     // Play Service
     implementation(libs.google.play.core)
