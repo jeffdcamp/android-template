@@ -21,11 +21,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import org.jdc.template.ui.compose.PreviewDefault
+import org.jdc.template.ui.theme.AppTheme
 
 @Composable
 fun ProgressIndicatorDialog(
     onDismissRequest: () -> Unit = {},
     title: String? = null,
+    supportingText: String? = null,
     dismissButtonText: String? = stringResource(android.R.string.cancel),
     onDismissButtonClicked: (() -> Unit)? = null,
     shape: Shape = MaterialTheme.shapes.medium,
@@ -39,7 +41,7 @@ fun ProgressIndicatorDialog(
         onDismissRequest = onDismissRequest,
         properties = properties,
 
-    ) {
+        ) {
         Surface(
             shape = shape,
             color = backgroundColor,
@@ -52,6 +54,15 @@ fun ProgressIndicatorDialog(
                         text = title,
                         style = MaterialTheme.typography.headlineSmall,
                         modifier = Modifier.padding(start = 16.dp, top = 16.dp, end = 16.dp)
+                    )
+                }
+
+                // Supporting Text
+                if (supportingText != null) {
+                    Text(
+                        text = supportingText,
+                        modifier = Modifier.padding(start = 16.dp, top = 16.dp),
+                        style = MaterialTheme.typography.bodyMedium
                     )
                 }
 
@@ -92,6 +103,7 @@ fun ProgressIndicatorDialog(
 ) {
     ProgressIndicatorDialog(
         title = uiState.title?.invoke(),
+        supportingText = uiState.supportingText?.invoke(),
         dismissButtonText = uiState.dismissButtonText(),
         onDismissRequest = uiState.onDismissRequest,
         onDismissButtonClicked = uiState.onDismiss
@@ -100,6 +112,7 @@ fun ProgressIndicatorDialog(
 
 data class ProgressIndicatorDialogUiState(
     val title: @Composable (() -> String)? = null,
+    val supportingText: @Composable (() -> String)? = null,
     val dismissButtonText: @Composable () -> String? = { stringResource(id = android.R.string.cancel) },
     override val onDismiss: (() -> Unit)? = {},
     override val onDismissRequest: () -> Unit = {}
@@ -111,9 +124,10 @@ data class ProgressIndicatorDialogUiState(
 @PreviewDefault
 @Composable
 private fun Preview() {
-    MaterialTheme {
+    AppTheme {
         ProgressIndicatorDialog(
             title = "Title",
+            supportingText = "Here is some supporting text",
             onDismissButtonClicked = { }
         )
     }

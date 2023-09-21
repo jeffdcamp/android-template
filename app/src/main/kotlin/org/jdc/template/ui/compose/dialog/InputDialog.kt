@@ -172,8 +172,8 @@ fun InputDialog(
 ) {
     InputDialog(
         onDismissRequest = dialogUiState.onDismissRequest,
-        title = dialogUiState.title(),
-        supportingText = dialogUiState.supportingText(),
+        title = dialogUiState.title?.invoke(),
+        supportingText = dialogUiState.supportingText?.invoke(),
         textFieldLabel = dialogUiState.textFieldLabel(),
         initialTextFieldText = dialogUiState.initialTextFieldText(),
         confirmButtonText = dialogUiState.confirmButtonText(),
@@ -191,8 +191,8 @@ fun InputDialog(
 }
 
 data class InputDialogUiState(
-    val title: @Composable () -> String? = { null },
-    val supportingText: @Composable () -> String? = { null },
+    val title: @Composable (() -> String)? = null,
+    val supportingText: @Composable (() -> String)? = null,
     val textFieldLabel: @Composable () -> String? = { null },
     val initialTextFieldText: @Composable () -> String? = { null },
     val confirmButtonText: @Composable () -> String? = { stringResource(android.R.string.ok) },
@@ -211,6 +211,7 @@ data class InputDialogUiState(
 fun TwoInputDialog(
     onDismissRequest: (() -> Unit) = {},
     title: String? = null,
+    supportingText: String? = null,
     textFieldLabelFirst: String? = null,
     initialTextFieldTextFirst: String? = null,
     textFieldLabelSecond: String? = null,
@@ -262,6 +263,15 @@ fun TwoInputDialog(
                     Text(
                         text = title,
                         style = MaterialTheme.typography.headlineSmall,
+                    )
+                }
+
+                // Supporting Text
+                if (supportingText != null) {
+                    Text(
+                        text = supportingText,
+                        modifier = Modifier.padding(top = 16.dp),
+                        style = MaterialTheme.typography.bodyMedium
                     )
                 }
 
@@ -372,7 +382,8 @@ fun TwoInputDialog(
 ) {
     TwoInputDialog(
         onDismissRequest = { dialogUiState.onDismissRequest() },
-        title = dialogUiState.title(),
+        title = dialogUiState.title?.invoke(),
+        supportingText = dialogUiState.supportingText?.invoke(),
         textFieldLabelFirst = dialogUiState.textFieldLabelFirst(),
         initialTextFieldTextFirst = dialogUiState.initialTextFieldTextFirst(),
         textFieldLabelSecond = dialogUiState.textFieldLabelSecond(),
@@ -392,7 +403,8 @@ fun TwoInputDialog(
 }
 
 data class TwoInputDialogUiState(
-    val title: @Composable () -> String? = { null },
+    val title: @Composable (() -> String)? = null,
+    val supportingText: @Composable (() -> String)? = null,
     val textFieldLabelFirst: @Composable () -> String? = { null },
     val initialTextFieldTextFirst: @Composable () -> String? = { null },
     val textFieldLabelSecond: @Composable () -> String? = { null },
@@ -417,6 +429,7 @@ private fun PreviewInputDialog() {
         InputDialog(
             onDismissRequest = {},
             title = "Title",
+            supportingText = "Here is some supporting text",
             initialTextFieldText = "Default Value",
             onConfirmButtonClicked = { },
             onDismissButtonClicked = { },
@@ -433,6 +446,7 @@ private fun PreviewTwoInputDialog() {
         TwoInputDialog(
             onDismissRequest = {},
             title = "Title",
+            supportingText = "Here is some supporting text",
             initialTextFieldTextFirst = "First",
             initialTextFieldTextSecond = "Second",
             onConfirmButtonClicked = { },

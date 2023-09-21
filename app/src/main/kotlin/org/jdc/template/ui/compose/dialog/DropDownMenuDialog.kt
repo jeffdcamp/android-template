@@ -26,12 +26,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import org.jdc.template.ui.compose.DayNightTextField
+import org.jdc.template.ui.compose.PreviewDefault
+import org.jdc.template.ui.theme.AppTheme
 
 @Composable
 fun <T> DropDownMenuDialog(
     onDismissRequest: (() -> Unit) = {},
-    title: @Composable () -> String? = { null },
-    text: @Composable () -> String? = { null },
+    title: String? = null,
+    supportingText: String? = null,
     initialSelectedOption: T,
     options: List<T>,
     optionToText: @Composable (T) -> String,
@@ -60,18 +62,16 @@ fun <T> DropDownMenuDialog(
                 modifier = Modifier.padding(DialogDefaults.DialogPadding)
             ) {
                 // Title
-                val titleText = title()
-                if (titleText != null) {
+                if (title != null) {
                     Text(
-                        text = titleText,
+                        text = title,
                         style = MaterialTheme.typography.headlineSmall
                     )
                 }
 
-                val textText = text()
-                if (textText != null) {
+                if (supportingText != null) {
                     Text(
-                        text = textText,
+                        text = supportingText,
                         style = MaterialTheme.typography.bodyMedium
                     )
                 }
@@ -155,8 +155,8 @@ fun <T> DropDownMenuDialog(
     dialogUiState: DropDownMenuDialogUiState<T>
 ){
     DropDownMenuDialog(
-        title = dialogUiState.title,
-        text = dialogUiState.text,
+        title = dialogUiState.title?.invoke(),
+        supportingText = dialogUiState.supportingText?.invoke(),
         initialSelectedOption = dialogUiState.initialSelectedOption,
         options = dialogUiState.options,
         optionToText = dialogUiState.optionToText,
@@ -166,8 +166,8 @@ fun <T> DropDownMenuDialog(
 }
 
 data class DropDownMenuDialogUiState<T>(
-    val title: @Composable () -> String? = { null },
-    val text: @Composable () -> String? = { null },
+    val title: @Composable (() -> String)? = null,
+    val supportingText: @Composable (() -> String)? = null,
     val initialSelectedOption: T,
     val options: List<T>,
     val optionToText: @Composable (T) -> String,
@@ -175,3 +175,20 @@ data class DropDownMenuDialogUiState<T>(
     override val onDismiss: () -> Unit = {},
     override val onDismissRequest: () -> Unit = {}
 ) : DialogUiState<T>
+
+@PreviewDefault
+@Composable
+private fun Preview() {
+    AppTheme {
+        DropDownMenuDialog(
+            onDismissRequest = {},
+            title = "Title",
+            supportingText = "Here is some supporting text",
+            initialSelectedOption = "Initial",
+            optionToText = { "" },
+            options = listOf("A", "B", "C"),
+            onConfirmButtonClicked = { },
+            onDismissButtonClicked = { }
+        )
+    }
+}

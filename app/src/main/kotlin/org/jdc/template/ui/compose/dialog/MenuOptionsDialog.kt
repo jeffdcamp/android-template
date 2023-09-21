@@ -25,6 +25,7 @@ import org.jdc.template.ui.theme.AppTheme
 fun MenuOptionsDialog(
     onDismissRequest: (() -> Unit),
     title: String? = null,
+    supportingText: String? = null,
     options: List<MenuOptionsDialogItem>,
     properties: DialogProperties = DialogProperties(),
     backgroundColor: Color = MaterialTheme.colorScheme.surface,
@@ -53,6 +54,15 @@ fun MenuOptionsDialog(
                     Spacer(modifier = Modifier.height(8.dp))
                 }
 
+                // Supporting Text
+                if (supportingText != null) {
+                    Text(
+                        text = supportingText,
+                        modifier = Modifier.padding(start = 16.dp, top = 16.dp),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+
                 // Options
                 options.forEach { menuOptionsDialogItem: MenuOptionsDialogItem ->
                     ListItem(
@@ -74,13 +84,15 @@ fun MenuOptionsDialog(
 ) {
     MenuOptionsDialog(
         onDismissRequest = dialogUiState.onDismissRequest,
-        title = dialogUiState.title(),
+        title = dialogUiState.title?.invoke(),
+        supportingText = dialogUiState.supportingText?.invoke(),
         options = dialogUiState.options
     )
 }
 
 data class MenuOptionsDialogUiState(
-    val title: @Composable () -> String? = { null },
+    val title: @Composable (() -> String)? = null,
+    val supportingText: @Composable (() -> String)? = null,
     val options: List<MenuOptionsDialogItem>,
     override val onConfirm: ((String) -> Unit)? = null, // not used in OptionsDialog
     override val onDismiss: (() -> Unit)? = null,  // not used in OptionsDialog
@@ -94,6 +106,7 @@ private fun Preview() {
         MenuOptionsDialog(
             onDismissRequest = {},
             title = "Options",
+            supportingText = "Here is some supporting text",
             options = listOf(
                 MenuOptionsDialogItem({ "Option 1" }) {},
                 MenuOptionsDialogItem({ "Option 2" }) {},

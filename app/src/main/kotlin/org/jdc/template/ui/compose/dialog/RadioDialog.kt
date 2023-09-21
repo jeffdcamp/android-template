@@ -34,6 +34,7 @@ fun <T> RadioDialog(
     onItemSelected: (T) -> Unit,
     onDismissRequest: (() -> Unit),
     title: String? = null,
+    supportingText: String? = null,
     onConfirmButtonClicked: (() -> Unit)? = null,
     onDismissButtonClicked: (() -> Unit)? = null,
     confirmButtonText: String? = stringResource(android.R.string.ok),
@@ -59,6 +60,15 @@ fun <T> RadioDialog(
                     Text(
                         text = title,
                         style = MaterialTheme.typography.headlineSmall
+                    )
+                }
+
+                // Supporting Text
+                if (supportingText != null) {
+                    Text(
+                        text = supportingText,
+                        modifier = Modifier.padding(top = 16.dp),
+                        style = MaterialTheme.typography.bodyMedium
                     )
                 }
 
@@ -136,7 +146,8 @@ fun <T> RadioDialog(
     RadioDialog(
         items = dialogUiState.items,
         onItemSelected = dialogUiState.onConfirm,
-        title = dialogUiState.title(),
+        title = dialogUiState.title?.invoke(),
+        supportingText = dialogUiState.supportingText?.invoke(),
         onConfirmButtonClicked = null,
         onDismissRequest = dialogUiState.onDismissRequest,
         onDismissButtonClicked = dialogUiState.onDismiss,
@@ -147,7 +158,8 @@ fun <T> RadioDialog(
 
 data class RadioDialogUiState<T>(
     val items: RadioDialogDataItems<T>?,
-    val title: @Composable () -> String? = { null },
+    val title: @Composable (() -> String)? = null,
+    val supportingText: @Composable (() -> String)? = null,
     val confirmButtonText: @Composable () -> String? = { stringResource(android.R.string.ok) },
     val dismissButtonText: @Composable () -> String? = { stringResource(android.R.string.cancel) },
     override val onConfirm: (T) -> Unit = {},
@@ -175,6 +187,7 @@ private fun Preview() {
         RadioDialog(
             onDismissRequest = {},
             title = "Title",
+            supportingText = "Here is some supporting text",
             items = radioItems,
             onItemSelected = { },
             onDismissButtonClicked = { }

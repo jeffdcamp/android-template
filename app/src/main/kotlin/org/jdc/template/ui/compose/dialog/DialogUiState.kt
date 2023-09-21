@@ -45,8 +45,8 @@ fun LibraryDialogs(dialogUiState: DialogUiState<*>) {
 
 fun ViewModel.showMessageDialog(
     dialogUiStateFlow: MutableStateFlow<DialogUiState<*>?>,
-    title: @Composable () -> String? = { null },
-    text: @Composable () -> String? = { null },
+    title: @Composable (() -> String)? = null,
+    text: @Composable (() -> String)? = null,
     confirmButtonText: @Composable () -> String? = { stringResource(android.R.string.ok) },
     dismissButtonText: @Composable () -> String? = { stringResource(android.R.string.cancel) },
     onConfirm: (() -> Unit)? = {},

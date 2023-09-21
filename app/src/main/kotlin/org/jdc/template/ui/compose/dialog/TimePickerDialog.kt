@@ -25,7 +25,7 @@ import kotlinx.datetime.LocalTime
 
 @Composable
 fun TimePickerDialog(
-    title: (@Composable () -> Unit)? = null,
+    title: String? = null,
     onDismissRequest: (() -> Unit) = {},
     initialHour: Int = 0,
     initialMinute: Int = 0,
@@ -54,7 +54,12 @@ fun TimePickerDialog(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 // Title
-                title?.invoke()
+                if (title != null) {
+                    Text(
+                        text = title,
+                        style = MaterialTheme.typography.headlineSmall
+                    )
+                }
 
                 // Time
                 TimePicker(
@@ -99,7 +104,7 @@ fun TimePickerDialog(
     val initialTime: LocalTime? = dialogUiState.localTime
 
     TimePickerDialog(
-        title = dialogUiState.title,
+        title = dialogUiState.title?.invoke(),
         initialHour = initialTime?.hour ?: 0,
         initialMinute = initialTime?.minute ?: 0,
         is24Hour = dialogUiState.is24Hour,
@@ -114,7 +119,7 @@ fun TimePickerDialog(
 }
 
 data class TimePickerDialogUiState(
-    val title: (@Composable () -> Unit)? = null,
+    val title: @Composable (() -> String)? = null,
     val localTime: LocalTime? = null,
     val is24Hour: Boolean = false,
     override val onConfirm: (LocalTime?) -> Unit = {},
