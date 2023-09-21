@@ -43,7 +43,7 @@ fun SettingsScreen(
             // not translated because this should not be visible for release builds
             Setting.Header("Developer Options")
             Setting.Clickable(text = "Work Manager Status", secondaryText = "Show status of all background workers") {
-                navController?.navigate(WorkManagerStatusRoute.createRoute())
+                navController?.navigate(WorkManagerStatusRoute.createRoute().value)
             }
             Setting.Clickable(text = "Last Installed Version Code", uiState.currentLastInstalledVersionCodeFlow) { uiState.onLastInstalledVersionCodeClicked() }
             Setting.Clickable(text = "Range", uiState.rangeFlow) { uiState.onRangeClicked() }

@@ -1,11 +1,9 @@
 package org.jdc.template.ui.navigation
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
@@ -20,156 +18,60 @@ import kotlinx.coroutines.flow.asStateFlow
  * Used for typical ViewModels that have navigation
  */
 interface ViewModelNav {
-    val navigatorFlow: StateFlow<ViewModelNavigator?>
+    val navigationActionFlow: StateFlow<NavigationAction?>
 
-    fun navigate(route: String, popBackStack: Boolean = false)
-    fun navigate(routes: List<String>)
-    fun navigate(route: String, navOptions: NavOptions)
-    fun navigate(route: String, optionsBuilder: NavOptionsBuilder.() -> Unit)
+    fun navigate(route: NavRoute, popBackStack: Boolean = false)
+    fun navigate(routes: List<NavRoute>)
+    fun navigate(route: NavRoute, navOptions: NavOptions)
+    fun navigate(route: NavRoute, optionsBuilder: NavOptionsBuilder.() -> Unit)
     fun navigate(intent: Intent, options: Bundle? = null, popBackStack: Boolean = false)
-    fun popBackStack(popToRouteDefinition: String? = null, inclusive: Boolean = false)
-    fun popBackStackWithResult(popToRouteDefinition: String? = null, inclusive: Boolean = false, resultValues: List<PopResultKeyValue>)
-    fun navigate(viewModelNavigator: ViewModelNavigator)
-    fun resetNavigate(viewModelNavigator: ViewModelNavigator)
+    fun popBackStack(popToRouteDefinition: NavRouteDefinition? = null, inclusive: Boolean = false)
+    fun popBackStackWithResult(resultValues: List<PopResultKeyValue>, popToRouteDefinition: NavRouteDefinition? = null, inclusive: Boolean = false)
+
+    fun navigate(navigationAction: NavigationAction)
+    fun resetNavigate(navigationAction: NavigationAction)
 }
 
 class ViewModelNavImpl : ViewModelNav {
-    private val _navigatorFlow = MutableStateFlow<ViewModelNavigator?>(null)
-    override val navigatorFlow: StateFlow<ViewModelNavigator?> = _navigatorFlow.asStateFlow()
+    private val _navigatorFlow = MutableStateFlow<NavigationAction?>(null)
+    override val navigationActionFlow: StateFlow<NavigationAction?> = _navigatorFlow.asStateFlow()
 
-    override fun navigate(route: String, popBackStack: Boolean) {
-        _navigatorFlow.compareAndSet(null, if (popBackStack) ViewModelNavigator.PopAndNavigate(route) else ViewModelNavigator.Navigate(route))
+    override fun navigate(route: NavRoute, popBackStack: Boolean) {
+        _navigatorFlow.compareAndSet(null, if (popBackStack) NavigationAction.PopAndNavigate(route) else NavigationAction.Navigate(route))
     }
 
-    override fun navigate(routes: List<String>) {
-        _navigatorFlow.compareAndSet(null, ViewModelNavigator.NavigateMultiple(routes))
+    override fun navigate(routes: List<NavRoute>) {
+        _navigatorFlow.compareAndSet(null, NavigationAction.NavigateMultiple(routes))
     }
 
-    override fun navigate(route: String, navOptions: NavOptions) {
-        _navigatorFlow.compareAndSet(null, ViewModelNavigator.NavigateWithOptions(route, navOptions))
+    override fun navigate(route: NavRoute, navOptions: NavOptions) {
+        _navigatorFlow.compareAndSet(null, NavigationAction.NavigateWithOptions(route, navOptions))
     }
 
-    override fun navigate(route: String, optionsBuilder: NavOptionsBuilder.() -> Unit) {
-        _navigatorFlow.compareAndSet(null, ViewModelNavigator.NavigateWithOptions(route, navOptions(optionsBuilder)))
+    override fun navigate(route: NavRoute, optionsBuilder: NavOptionsBuilder.() -> Unit) {
+        _navigatorFlow.compareAndSet(null, NavigationAction.NavigateWithOptions(route, navOptions(optionsBuilder)))
     }
 
     override fun navigate(intent: Intent, options: Bundle?, popBackStack: Boolean) {
-        _navigatorFlow.compareAndSet(null, if (popBackStack) ViewModelNavigator.PopAndNavigateIntent(intent, options) else ViewModelNavigator.NavigateIntent(intent, options))
+        _navigatorFlow.compareAndSet(null, if (popBackStack) NavigationAction.PopAndNavigateIntent(intent, options) else NavigationAction.NavigateIntent(intent, options))
     }
 
-    override fun popBackStack(popToRouteDefinition: String?, inclusive: Boolean) {
-        _navigatorFlow.compareAndSet(null, ViewModelNavigator.Pop(popToRouteDefinition, inclusive))
+    override fun popBackStack(popToRouteDefinition: NavRouteDefinition?, inclusive: Boolean) {
+        _navigatorFlow.compareAndSet(null, NavigationAction.Pop(popToRouteDefinition, inclusive))
     }
 
-    override fun popBackStackWithResult(popToRouteDefinition: String?, inclusive: Boolean, resultValues: List<PopResultKeyValue>) {
-        _navigatorFlow.compareAndSet(null, ViewModelNavigator.PopWithResult(popToRouteDefinition, inclusive, resultValues))
+    override fun popBackStackWithResult(resultValues: List<PopResultKeyValue>, popToRouteDefinition: NavRouteDefinition?, inclusive: Boolean) {
+        _navigatorFlow.compareAndSet(null, NavigationAction.PopWithResult(resultValues, popToRouteDefinition, inclusive))
     }
 
-    override fun navigate(viewModelNavigator: ViewModelNavigator) {
-        _navigatorFlow.compareAndSet(null, viewModelNavigator)
+    override fun navigate(navigationAction: NavigationAction) {
+        _navigatorFlow.compareAndSet(null, navigationAction)
     }
 
-    override fun resetNavigate(viewModelNavigator: ViewModelNavigator) {
-        _navigatorFlow.compareAndSet(viewModelNavigator, null)
-    }
-}
-
-sealed class ViewModelNavigator {
-    /**
-     * @return true if navController.popBackStack() called AND was successful
-     */
-    abstract fun navigate(context: Context, navController: NavController, viewModelNav: ViewModelNav): Boolean
-
-    class Navigate(private val route: String) : ViewModelNavigator() {
-        override fun navigate(context: Context, navController: NavController, viewModelNav: ViewModelNav): Boolean {
-            navController.navigate(route)
-
-            viewModelNav.resetNavigate(this)
-            return false
-        }
-    }
-
-    class NavigateMultiple(private val routes: List<String>) : ViewModelNavigator() {
-        override fun navigate(context: Context, navController: NavController, viewModelNav: ViewModelNav): Boolean {
-            routes.forEach { route ->
-                navController.navigate(route)
-            }
-
-            viewModelNav.resetNavigate(this)
-            return false
-        }
-    }
-
-    class NavigateWithOptions(private val route: String, private val navOptions: NavOptions) : ViewModelNavigator() {
-        override fun navigate(context: Context, navController: NavController, viewModelNav: ViewModelNav): Boolean {
-            navController.navigate(route, navOptions)
-
-            viewModelNav.resetNavigate(this)
-            return false
-        }
-    }
-
-    class NavigateIntent(val intent: Intent, val options: Bundle? = null) : ViewModelNavigator() {
-        override fun navigate(context: Context, navController: NavController, viewModelNav: ViewModelNav): Boolean {
-            context.startActivity(intent, options)
-            viewModelNav.resetNavigate(this)
-            return false
-        }
-    }
-
-    class PopAndNavigate(private val route: String) : ViewModelNavigator() {
-        override fun navigate(context: Context, navController: NavController, viewModelNav: ViewModelNav): Boolean {
-            val stackPopped = navController.popBackStack()
-            navController.navigate(route)
-
-            viewModelNav.resetNavigate(this)
-            return stackPopped
-        }
-    }
-
-    class PopAndNavigateIntent(val intent: Intent, val options: Bundle? = null) : ViewModelNavigator() {
-        override fun navigate(context: Context, navController: NavController, viewModelNav: ViewModelNav): Boolean {
-            val stackPopped = navController.popBackStack()
-            context.startActivity(intent, options)
-            viewModelNav.resetNavigate(this)
-            return stackPopped
-        }
-    }
-
-    class Pop(private val popToRouteDefinition: String? = null, private val inclusive: Boolean = false) : ViewModelNavigator() {
-        override fun navigate(context: Context, navController: NavController, viewModelNav: ViewModelNav): Boolean {
-            val stackPopped = if (popToRouteDefinition == null) {
-                navController.popBackStack()
-            } else {
-                navController.popBackStack(popToRouteDefinition, inclusive = inclusive)
-            }
-
-            viewModelNav.resetNavigate(this)
-            return stackPopped
-        }
-    }
-
-    class PopWithResult(private val popToRouteDefinition: String? = null, private val inclusive: Boolean = false, private val resultValues: List<PopResultKeyValue>) : ViewModelNavigator() {
-        override fun navigate(context: Context, navController: NavController, viewModelNav: ViewModelNav): Boolean {
-            val destinationNavBackStackEntry = if (popToRouteDefinition != null) {
-                navController.getBackStackEntry(popToRouteDefinition)
-            } else {
-                navController.previousBackStackEntry
-            }
-            resultValues.forEach { destinationNavBackStackEntry?.savedStateHandle?.set(it.key, it.value) }
-            val stackPopped = if (popToRouteDefinition == null) {
-                navController.popBackStack()
-            } else {
-                navController.popBackStack(popToRouteDefinition, inclusive = inclusive)
-            }
-
-            viewModelNav.resetNavigate(this)
-            return stackPopped
-        }
+    override fun resetNavigate(navigationAction: NavigationAction) {
+        _navigatorFlow.compareAndSet(navigationAction, null)
     }
 }
-
-data class PopResultKeyValue(val key: String, val value: Any)
 
 @Composable
 fun HandleNavigation(
@@ -177,10 +79,11 @@ fun HandleNavigation(
     navController: NavController?
 ) {
     navController ?: return
-    val navigator by viewModelNav.navigatorFlow.collectAsStateWithLifecycle()
+    val navigationActionState = viewModelNav.navigationActionFlow.collectAsStateWithLifecycle()
+    val navigationAction = navigationActionState.value
 
     val context = LocalContext.current
-    LaunchedEffect(navigator) {
-        navigator?.navigate(context, navController, viewModelNav)
+    LaunchedEffect(navigationAction) {
+        navigationAction?.navigate(context, navController, viewModelNav::resetNavigate)
     }
 }

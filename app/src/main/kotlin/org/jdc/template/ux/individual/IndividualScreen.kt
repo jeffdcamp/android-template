@@ -7,6 +7,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.Edit
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -39,6 +40,10 @@ fun IndividualScreen(
     navController: NavController,
     viewModel: IndividualViewModel = hiltViewModel()
 ) {
+    Button(onClick = { /*TODO*/ }) {
+        
+    }
+    
     val uiState = viewModel.uiState
 
     val appBarMenuItems = listOf(

@@ -30,7 +30,7 @@ fun NavGraph(
 
     NavHost(
         navController = navController,
-        startDestination = DirectoryRoute.routeDefinition
+        startDestination = DirectoryRoute.routeDefinition.value
     ) {
         DirectoryRoute.addNavigationRoute(this) { DirectoryScreen(navController) }
         IndividualRoute.addNavigationRoute(this) { IndividualScreen(navController) }
