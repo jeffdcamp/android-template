@@ -7,7 +7,6 @@ import androidx.work.WorkerParameters
 import co.touchlab.kermit.Logger
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import org.jdc.template.model.config.BaseFirebaseRemoteConfig.Companion.DEFAULT_TIMEOUT_FETCH_SECONDS_LONG
 import org.jdc.template.model.config.RemoteConfig
 
 @HiltWorker
@@ -20,7 +19,7 @@ class RemoteConfigSyncWorker
 
     override suspend fun doWork(): Result {
         Logger.i { "RemoteConfigSyncWorker: fetching and activating" }
-        remoteConfig.fetchAndActivateNow(DEFAULT_TIMEOUT_FETCH_SECONDS_LONG)
+        remoteConfig.fetchAndActivateNow()
         return Result.success()
     }
 

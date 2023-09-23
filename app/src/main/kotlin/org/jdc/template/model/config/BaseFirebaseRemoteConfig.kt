@@ -14,43 +14,48 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.datetime.Instant
 import kotlin.time.Duration.Companion.hours
 
-@Suppress("UnnecessaryAbstractClass")
-abstract class BaseFirebaseRemoteConfig(@XmlRes remoteConfigDefaults: Int) {
+abstract class BaseFirebaseRemoteConfig {
+    private val firebaseRemoteConfig: FirebaseRemoteConfig by lazy {
+        val instance = Firebase.remoteConfig
 
-    init {
         // config
         val firebaseSettings = FirebaseRemoteConfigSettings.Builder()
             .setMinimumFetchIntervalInSeconds(getMinimumFetchIntervalInSeconds()) // default is 12 hours... for testing/debug set to 0L
             .setFetchTimeoutInSeconds(getFetchTimeoutInSeconds())
             .build()
 
-        Firebase.remoteConfig.setConfigSettingsAsync(firebaseSettings)
+        instance.setConfigSettingsAsync(firebaseSettings)
 
         // set defaults
-        Firebase.remoteConfig.setDefaultsAsync(remoteConfigDefaults)
+        instance.setDefaultsAsync(getDefaults())
+
+        return@lazy instance
     }
+
+    @XmlRes
+    abstract fun getDefaults(): Int
 
     fun getMinimumFetchIntervalInSeconds(): Long = 12.hours.inWholeSeconds
 
     fun getFetchTimeoutInSeconds(): Long = DEFAULT_TIMEOUT_FETCH_SECONDS_LONG
 
-    @Suppress("ForbiddenVoid") // forced by Java class
+    @Suppress("ForbiddenVoid") // Coming from SDK
     fun fetch(now: Boolean = false): Task<Void> {
         Logger.d { "RemoteConfig: fetch  now=$now" }
 
         return if (now) {
             // Starts fetching configs, adhering to the specified (0L) minimum fetch interval (fetch NOW)
             // LIMIT: 5 calls per hour
-            Firebase.remoteConfig.fetch(0L)
+            firebaseRemoteConfig.fetch(0L)
         } else {
             // Starts fetching configs, adhering to the default minimum fetch interval.
-            Firebase.remoteConfig.fetch()
+            firebaseRemoteConfig.fetch()
         }
     }
 
     fun activate(): Task<Boolean> {
         Logger.d { "RemoteConfig: activate" }
-        return Firebase.remoteConfig.activate()
+        return firebaseRemoteConfig.activate()
     }
 
     fun fetchAndActivateAsync(now: Boolean = false, onFailureBlock: () -> Unit = {}, onSuccessBlock: () -> Unit = {}) {
@@ -58,16 +63,16 @@ abstract class BaseFirebaseRemoteConfig(@XmlRes remoteConfigDefaults: Int) {
 
         val fetchTask = if (now) {
             // Starts fetching configs, adhering to the specified (0L) minimum fetch interval (fetch NOW)
-            Firebase.remoteConfig.fetch(0L)
+            firebaseRemoteConfig.fetch(0L)
         } else {
             // Starts fetching configs, adhering to the default minimum fetch interval.
-            Firebase.remoteConfig.fetch()
+            firebaseRemoteConfig.fetch()
         }
 
         fetchTask.addOnCompleteListener { task ->
             when {
                 task.isSuccessful -> {
-                    Firebase.remoteConfig.activate()
+                    firebaseRemoteConfig.activate()
                     onSuccessBlock()
                 }
                 else -> {
@@ -80,20 +85,19 @@ abstract class BaseFirebaseRemoteConfig(@XmlRes remoteConfigDefaults: Int) {
 
     /**
      * Fetch and Activate synchronously.... if there is a timeout issue, then don't error
-     * @param timeoutSeconds How long the fetch should be allowed to take before timeout will occur
      * @return true if the fetch was successful and we could apply the changes; false if there was an error fetching and activating
      */
-    suspend fun fetchAndActivateNow(timeoutSeconds: Long = DEFAULT_TIMEOUT_FETCH_SECONDS_SHORT): Boolean {
+    suspend fun fetchAndActivateNow(): Boolean {
         Logger.d { "RemoteConfig: fetchAndActivateNow" }
 
         // Starts fetching configs, adhering to the specified (0L) minimum fetch interval (fetch NOW)
-        val fetchTask = Firebase.remoteConfig.fetch(0L)
+        val fetchTask = firebaseRemoteConfig.fetch(0L)
 
         // Await fetch, then activate right away if fetch was successful
         try {
             fetchTask.await()
             if (fetchTask.isSuccessful) {
-                Firebase.remoteConfig.activate()
+                firebaseRemoteConfig.activate()
                 return true
             }
         } catch (expected: Exception) {
@@ -104,15 +108,14 @@ abstract class BaseFirebaseRemoteConfig(@XmlRes remoteConfigDefaults: Int) {
     }
 
     fun getStatusDetails(): String {
-        val info = Firebase.remoteConfig.info
+        val info = firebaseRemoteConfig.info
         return "Last Fetch Status: [${getLastFetchStatus()}]  " +
                 "Fetch: [${Instant.fromEpochMilliseconds(info.fetchTimeMillis)}]  " +
-                "Min Fetch Interval: [${info.configSettings.minimumFetchIntervalInSeconds}s] " +
                 "Fetch Timeout: [${info.configSettings.fetchTimeoutInSeconds}s]"
     }
 
     fun getLastFetchStatus(): String {
-        return when (Firebase.remoteConfig.info.lastFetchStatus) {
+        return when (firebaseRemoteConfig.info.lastFetchStatus) {
             FirebaseRemoteConfig.LAST_FETCH_STATUS_SUCCESS -> "Success"
             FirebaseRemoteConfig.LAST_FETCH_STATUS_FAILURE -> "Failure"
             FirebaseRemoteConfig.LAST_FETCH_STATUS_NO_FETCH_YET -> "No Fetch Yet"
@@ -121,10 +124,10 @@ abstract class BaseFirebaseRemoteConfig(@XmlRes remoteConfigDefaults: Int) {
         }
     }
 
-    protected fun getLong(key: String) = Firebase.remoteConfig[key].asLong()
-    protected fun getBoolean(key: String) = Firebase.remoteConfig[key].asBoolean()
-    protected fun getString(key: String) = Firebase.remoteConfig[key].asString()
-    protected fun getDouble(key: String) = Firebase.remoteConfig[key].asDouble()
+    protected fun getLong(key: String) = firebaseRemoteConfig[key].asLong()
+    protected fun getBoolean(key: String) = firebaseRemoteConfig[key].asBoolean()
+    protected fun getString(key: String) = firebaseRemoteConfig[key].asString()
+    protected fun getDouble(key: String) = firebaseRemoteConfig[key].asDouble()
 
     companion object {
         const val DEFAULT_TIMEOUT_FETCH_SECONDS_SHORT: Long = 10
