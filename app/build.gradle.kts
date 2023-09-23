@@ -6,7 +6,6 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("kapt")
-//    id("androidx.room") version "2.6.0-alpha02"
     id("dagger.hilt.android.plugin")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
@@ -41,7 +40,7 @@ android {
         ksp {
             arg("room.schemaLocation", "$projectDir/schema")
             arg("room.incremental", "true")
-            arg("room.generateKotlin", "true") // generate kotlin code (requires Room 2.6.x)
+            arg("room.generateKotlin", "true")
         }
 
         // for use with Room gradle plugin
@@ -228,7 +227,7 @@ dependencies {
     // Code
     implementation(libs.kotlin.serialization.json)
     implementation(libs.kotlin.coroutines.android)
-    implementation(libs.kotlin.time)
+    implementation(libs.kotlin.datetime)
     implementation(libs.okio)
     implementation(libs.okio.assetfilesystem)
 
