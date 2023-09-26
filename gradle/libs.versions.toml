@@ -32,7 +32,7 @@ firebaseCrashlyticsGradlePlugin = "2.9.9"
 firebasePerfGradlePlugin = "1.4.2"
 
 googlePlayCore = "1.8.1"
-googleServicesGradlePlugin = "4.4.0"
+googleServicesGradlePlugin = "4.3.15" # 4.4.0 is not compatable with Firebase AppDistribution 4.0.0 (https://github.com/firebase/firebase-android-sdk/issues/5349)
 
 hilt = "2.48"
 jacoco = "0.8.8"
