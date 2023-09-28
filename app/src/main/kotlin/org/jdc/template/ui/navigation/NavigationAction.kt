@@ -31,7 +31,7 @@ sealed interface NavigationActionFull : NavigationAction {
 
 
 sealed interface NavigationAction {
-    class Navigate(private val route: NavRoute) : NavigationActionRoute {
+    data class Navigate(private val route: NavRoute) : NavigationActionRoute {
         override fun navigate(navController: NavController, resetNavigate: (NavigationAction) -> Unit): Boolean {
             navController.navigate(route.value)
 
@@ -40,7 +40,7 @@ sealed interface NavigationAction {
         }
     }
 
-    class NavigateMultiple(private val routes: List<NavRoute>) : NavigationActionRoute {
+    data class NavigateMultiple(val routes: List<NavRoute>) : NavigationActionRoute {
         override fun navigate(navController: NavController, resetNavigate: (NavigationAction) -> Unit): Boolean {
             routes.forEach { route ->
                 navController.navigate(route.value)
@@ -51,7 +51,7 @@ sealed interface NavigationAction {
         }
     }
 
-    class NavigateWithOptions(private val route: NavRoute, private val navOptions: NavOptions) : NavigationActionRoute {
+    data class NavigateWithOptions(val route: NavRoute, val navOptions: NavOptions) : NavigationActionRoute {
         override fun navigate(navController: NavController, resetNavigate: (NavigationAction) -> Unit): Boolean {
             navController.navigate(route.value, navOptions)
 
@@ -60,7 +60,7 @@ sealed interface NavigationAction {
         }
     }
 
-    class NavigateIntent(private val intent: Intent, private val options: Bundle? = null) : NavigationActionIntent {
+    data class NavigateIntent(private val intent: Intent, private val options: Bundle? = null) : NavigationActionIntent {
         override fun navigate(context: Context, resetNavigate: (NavigationAction) -> Unit): Boolean {
             context.startActivity(intent, options)
             resetNavigate(this)
@@ -68,7 +68,7 @@ sealed interface NavigationAction {
         }
     }
 
-    class PopAndNavigate(private val route: NavRoute) : NavigationActionRoute {
+    data class PopAndNavigate(private val route: NavRoute) : NavigationActionRoute {
         override fun navigate(navController: NavController, resetNavigate: (NavigationAction) -> Unit): Boolean {
             val stackPopped = navController.popBackStack()
             navController.navigate(route.value)
@@ -78,7 +78,7 @@ sealed interface NavigationAction {
         }
     }
 
-    class PopAndNavigateIntent(private val intent: Intent, private val options: Bundle? = null) : NavigationActionFull {
+    data class PopAndNavigateIntent(private val intent: Intent, private val options: Bundle? = null) : NavigationActionFull {
         override fun navigate(context: Context, navController: NavController, resetNavigate: (NavigationAction) -> Unit): Boolean {
             val stackPopped = navController.popBackStack()
             context.startActivity(intent, options)
@@ -87,7 +87,7 @@ sealed interface NavigationAction {
         }
     }
 
-    class Pop(private val popToRouteDefinition: NavRouteDefinition? = null, private val inclusive: Boolean = false) : NavigationActionRoute {
+    data class Pop(private val popToRouteDefinition: NavRouteDefinition? = null, private val inclusive: Boolean = false) : NavigationActionRoute {
         override fun navigate(navController: NavController, resetNavigate: (NavigationAction) -> Unit): Boolean {
             val stackPopped = if (popToRouteDefinition == null) {
                 navController.popBackStack()
@@ -100,7 +100,7 @@ sealed interface NavigationAction {
         }
     }
 
-    class PopWithResult(
+    data class PopWithResult(
         private val resultValues: List<PopResultKeyValue>,
         private val popToRouteDefinition: NavRouteDefinition? = null,
         private val inclusive: Boolean = false,
