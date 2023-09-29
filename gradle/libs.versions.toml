@@ -48,6 +48,7 @@ okio = "3.5.0"
 playPublisher = "3.8.4"
 ruler = "1.4.0"
 sqliteJdbc = "3.43.0.0"
+turbine = "1.0.0"
 versionsGradlePlugin = "0.48.0"
 workManagerTools = "3.0.0"
 
@@ -164,6 +165,8 @@ mockK = { module = "io.mockk:mockk", version.ref = "mockK" }
 playPublisherGradlePluginClasspath = { module = "com.github.triplet.gradle:play-publisher", version.ref = "playPublisher" }
 
 ruler-gradlePluginClasspath = { module = "com.spotify.ruler:ruler-gradle-plugin", version.ref = "ruler" }
+
+turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 
 gradleVersions-gradlePluginClasspath = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "versionsGradlePlugin" }
 

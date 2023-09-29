@@ -1,13 +1,14 @@
 package org.jdc.template.model.db.main.directoryitem
 
 import androidx.room.DatabaseView
+import org.jdc.template.model.domain.inline.IndividualId
 
 @DatabaseView(
     viewName = DirectoryItemEntityView.VIEW_NAME,
     value = DirectoryItemEntityView.VIEW_QUERY
 )
 data class DirectoryItemEntityView(
-    val individualId: String,
+    val individualId: IndividualId,
     val firstName: String,
     val lastName: String?
 ) {

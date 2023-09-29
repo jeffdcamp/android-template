@@ -297,6 +297,7 @@ dependencies {
     testImplementation(libs.assertk)
     testImplementation(libs.kotlin.coroutines.test)
     testImplementation(libs.dbtools.roomJdbc)
+    testImplementation(libs.turbine)
     testImplementation(libs.xerial.sqlite)
 
 
