@@ -80,6 +80,10 @@ android {
         compose = true
     }
 
+    androidResources {
+        generateLocaleConfig = true
+    }
+
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
     }
