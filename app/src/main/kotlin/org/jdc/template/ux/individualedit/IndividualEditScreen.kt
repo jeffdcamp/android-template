@@ -26,9 +26,8 @@ import org.jdc.template.ui.compose.appbar.AppBarMenuItem
 import org.jdc.template.ui.compose.dialog.HandleDialogUiState
 import org.jdc.template.ui.compose.form.DateClickableTextField
 import org.jdc.template.ui.compose.form.DropdownMenuBoxField
+import org.jdc.template.ui.compose.form.FlowTextField
 import org.jdc.template.ui.compose.form.SwitchField
-import org.jdc.template.ui.compose.form.TextFieldData
-import org.jdc.template.ui.compose.form.TextFieldDataTextField
 import org.jdc.template.ui.compose.form.TimeClickableTextField
 import org.jdc.template.ui.compose.util.formKeyEventHandler
 import org.jdc.template.ui.navigation.HandleNavigation
@@ -76,34 +75,53 @@ fun IndividualEditFields(
             .fillMaxWidth()
             .padding(bottom = 4.dp)
 
-        TextFieldDataTextField(stringResource(R.string.first_name), uiState.firstNameFlow, "firstNameEditTextTag", uiState.firstNameOnChange, fieldModifier)
-        TextFieldDataTextField(stringResource(R.string.last_name), uiState.lastNameFlow, "lastNameEditTextTag", uiState.lastNameOnChange, fieldModifier)
-        TextFieldDataTextField(stringResource(R.string.phone), uiState.phoneFlow, "phoneEditTextTag", uiState.phoneOnChange, fieldModifier)
-        TextFieldDataTextField(stringResource(R.string.email), uiState.emailFlow, "emailEditTextTag", uiState.emailOnChange, fieldModifier)
+        FlowTextField(stringResource(R.string.first_name), uiState.firstNameFlow, uiState.firstNameOnChange, fieldModifier.testTag(IndividualEditScreenFields.FIRST_NAME.name),
+            uiState.firstNameErrorFlow)
+        FlowTextField(stringResource(R.string.last_name), uiState.lastNameFlow, uiState.lastNameOnChange, fieldModifier.testTag(IndividualEditScreenFields.LAST_NAME.name))
+        FlowTextField(stringResource(R.string.phone), uiState.phoneFlow, uiState.phoneOnChange, fieldModifier.testTag(IndividualEditScreenFields.PHONE.name))
+        FlowTextField(stringResource(R.string.email), uiState.emailFlow, uiState.emailOnChange, fieldModifier.testTag(IndividualEditScreenFields.EMAIL.name), uiState.emailErrorFlow)
 
-        DateClickableTextField(stringResource(R.string.birth_date), uiState.birthDateFlow, uiState.birthDateClicked, fieldModifier)
-        TimeClickableTextField(stringResource(R.string.alarm_time), uiState.alarmTimeFlow, uiState.alarmTimeClicked, fieldModifier)
+        DateClickableTextField(
+            stringResource(R.string.birth_date),
+            uiState.birthDateFlow,
+            uiState.birthDateClicked,
+            fieldModifier.testTag(IndividualEditScreenFields.BIRTH_DATE.name),
+            uiState.birthDateErrorFlow
+        )
+        TimeClickableTextField(stringResource(R.string.alarm_time), uiState.alarmTimeFlow, uiState.alarmTimeClicked, fieldModifier.testTag(IndividualEditScreenFields.ALARM_TIME.name))
 
         DropdownMenuBoxField(
             label = stringResource(R.string.individual_type),
-            options = IndividualType.values().asList(),
+            options = IndividualType.entries,
             selectedOptionFlow = uiState.individualTypeFlow,
             onOptionSelected = { uiState.individualTypeChange(it) },
             optionToText = { stringResource(it.textResId) },
+            errorTextFlow = uiState.individualTypeErrorFlow,
             modifier = fieldModifier
                 .onPreviewKeyEvent { formKeyEventHandler(it, focusManager) }
-                .testTag("individualTypeTextTag")
+                .testTag(IndividualEditScreenFields.TYPE.name)
         )
 
-        SwitchField(stringResource(R.string.available), uiState.availableFlow, uiState.availableOnChange, fieldModifier)
+        SwitchField(stringResource(R.string.available), uiState.availableFlow, uiState.availableOnChange, fieldModifier.testTag(IndividualEditScreenFields.AVAILABLE.name))
     }
+}
+
+enum class IndividualEditScreenFields {
+    FIRST_NAME,
+    LAST_NAME,
+    PHONE,
+    EMAIL,
+    BIRTH_DATE,
+    ALARM_TIME,
+    TYPE,
+    AVAILABLE
 }
 
 @PreviewDefault
 @Composable
 private fun Preview() {
     val uiState = IndividualEditUiState(
-        firstNameFlow = MutableStateFlow(TextFieldData("Jeff"))
+        firstNameFlow = MutableStateFlow("Jeff")
     )
 
     AppTheme {

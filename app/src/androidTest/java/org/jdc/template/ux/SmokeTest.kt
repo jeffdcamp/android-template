@@ -10,6 +10,7 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextReplacement
 import kotlinx.coroutines.runBlocking
 import org.jdc.template.R
+import org.jdc.template.ux.individualedit.IndividualEditScreenFields
 import org.jdc.template.ux.main.MainActivity
 import org.jdc.template.ux.main.MainViewModel
 import org.junit.Rule
@@ -35,9 +36,9 @@ class SmokeTest {
         composeTestRule.onNodeWithContentDescription(stringResource(R.string.add)).performClick()
 
         // From Individual Edit, add the user data (except first name...)
-        composeTestRule.onNodeWithTag("lastNameEditTextTag").performTextReplacement("Anderson")
-        composeTestRule.onNodeWithTag("emailEditTextTag").performTextReplacement("bob@bob.com")
-        composeTestRule.onNodeWithTag("phoneEditTextTag").performTextReplacement("555-111-2222")
+        composeTestRule.onNodeWithTag(IndividualEditScreenFields.LAST_NAME.name).performTextReplacement("Anderson")
+        composeTestRule.onNodeWithTag(IndividualEditScreenFields.EMAIL.name).performTextReplacement("bob@bob.com")
+        composeTestRule.onNodeWithTag(IndividualEditScreenFields.PHONE.name).performTextReplacement("555-111-2222")
 
         // Save edit (with missing first name)
         composeTestRule.onNodeWithText(stringResource(R.string.save)).performClick()
@@ -46,7 +47,7 @@ class SmokeTest {
         composeTestRule.onNodeWithText(stringResource(R.string.required)).assertIsDisplayed()
 
         // Add the missing field
-        composeTestRule.onNodeWithTag("firstNameEditTextTag").performTextReplacement("Bob")
+        composeTestRule.onNodeWithTag(IndividualEditScreenFields.FIRST_NAME.name).performTextReplacement("Bob")
 
         // Save edit (with everything )
         composeTestRule.onNodeWithText(stringResource(R.string.save)).performClick()
@@ -84,7 +85,7 @@ class SmokeTest {
         composeTestRule.onNodeWithContentDescription(stringResource(R.string.edit)).performClick()
 
         // Change name
-        composeTestRule.onNodeWithTag("firstNameEditTextTag").performTextReplacement("Jeff1")
+        composeTestRule.onNodeWithTag(IndividualEditScreenFields.FIRST_NAME.name).performTextReplacement("Jeff1")
 
         // Save edit
         composeTestRule.onNodeWithText(stringResource(R.string.save)).performClick()

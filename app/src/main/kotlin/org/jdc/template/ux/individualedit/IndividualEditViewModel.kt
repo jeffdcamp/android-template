@@ -26,7 +26,6 @@ import org.jdc.template.ui.compose.dialog.DatePickerDialogUiState
 import org.jdc.template.ui.compose.dialog.DialogUiState
 import org.jdc.template.ui.compose.dialog.TimePickerDialogUiState
 import org.jdc.template.ui.compose.dialog.dismissDialog
-import org.jdc.template.ui.compose.form.TextFieldData
 import org.jdc.template.ui.navigation.ViewModelNav
 import org.jdc.template.ui.navigation.ViewModelNavImpl
 import org.jdc.template.util.ext.getIndividualId
@@ -44,13 +43,17 @@ class IndividualEditViewModel
     private var individual = Individual()
 
     // hold state for Compose views
-    private val firstNameFlow = MutableStateFlow(TextFieldData(""))
-    private val lastNameFlow = MutableStateFlow(TextFieldData(""))
-    private val phoneNumberFlow = MutableStateFlow(TextFieldData(""))
-    private val emailFlow = MutableStateFlow(TextFieldData(""))
+    private val firstNameFlow = MutableStateFlow("")
+    private val firstNameErrorFlow = MutableStateFlow<String?>(null)
+    private val lastNameFlow = MutableStateFlow("")
+    private val phoneNumberFlow = MutableStateFlow("")
+    private val emailFlow = MutableStateFlow("")
+    private val emailErrorFlow = MutableStateFlow<String?>(null)
     private val birthDateFlow = MutableStateFlow<LocalDate?>(null)
+    private val birthDateErrorFlow = MutableStateFlow<String?>(null)
     private val alarmTimeFlow = MutableStateFlow<LocalTime?>(null)
     private val individualTypeFlow = MutableStateFlow(IndividualType.UNKNOWN)
+    private val individualTypeErrorFlow = MutableStateFlow<String?>(null)
     private val availableFlow = MutableStateFlow(false)
 
     // Dialogs
@@ -61,22 +64,26 @@ class IndividualEditViewModel
 
         // Data
         firstNameFlow = firstNameFlow,
-        firstNameOnChange = { firstNameFlow.value = TextFieldData(it) },
+        firstNameErrorFlow = firstNameErrorFlow,
+        firstNameOnChange = { firstNameFlow.value = it; firstNameErrorFlow.value = null },
         lastNameFlow = lastNameFlow,
-        lastNameOnChange = { lastNameFlow.value = TextFieldData(it) },
+        lastNameOnChange = { lastNameFlow.value = it },
         phoneFlow = phoneNumberFlow,
-        phoneOnChange = { phoneNumberFlow.value = TextFieldData(it) },
+        phoneOnChange = { phoneNumberFlow.value = it },
         emailFlow = emailFlow,
-        emailOnChange = { emailFlow.value = TextFieldData(it) },
+        emailErrorFlow = emailErrorFlow,
+        emailOnChange = { emailFlow.value = it; emailErrorFlow.value = null },
 
         birthDateFlow = birthDateFlow,
-        birthDateClicked = { showBirthDate() },
+        birthDateErrorFlow = birthDateErrorFlow,
+        birthDateClicked = { showBirthDate(); birthDateErrorFlow.value = null },
 
         alarmTimeFlow = alarmTimeFlow,
         alarmTimeClicked = { showAlarmTime() },
 
         individualTypeFlow = individualTypeFlow,
-        individualTypeChange = { individualTypeFlow.value = it },
+        individualTypeErrorFlow = individualTypeErrorFlow,
+        individualTypeChange = { individualTypeFlow.value = it; individualTypeErrorFlow.value = null },
 
         availableFlow = availableFlow,
         availableOnChange = { availableFlow.value = it },
@@ -104,10 +111,10 @@ class IndividualEditViewModel
     private fun setIndividual(individual: Individual) {
         this@IndividualEditViewModel.individual = individual
 
-        firstNameFlow.value = TextFieldData(individual.firstName?.value.orEmpty())
-        lastNameFlow.value = TextFieldData(individual.lastName?.value.orEmpty())
-        phoneNumberFlow.value = TextFieldData(individual.phone?.value.orEmpty())
-        emailFlow.value = TextFieldData(individual.email?.value.orEmpty())
+        firstNameFlow.value = individual.firstName?.value.orEmpty()
+        lastNameFlow.value = individual.lastName?.value.orEmpty()
+        phoneNumberFlow.value = individual.phone?.value.orEmpty()
+        emailFlow.value = individual.email?.value.orEmpty()
         birthDateFlow.value = individual.birthDate
         alarmTimeFlow.value = individual.alarmTime
         individualTypeFlow.value = individual.individualType
@@ -115,15 +122,15 @@ class IndividualEditViewModel
     }
 
     private fun saveIndividual() = viewModelScope.launch {
-        if (!validate()) {
+        if (!validateAllFields()) {
             return@launch
         }
 
         individualRepository.saveIndividual(individual.copy(
-            firstName = valueOrNull(firstNameFlow.value.text)?.let { FirstName(it) },
-            lastName = valueOrNull(lastNameFlow.value.text)?.let { LastName(it) },
-            phone = valueOrNull(phoneNumberFlow.value.text)?.let { Phone(it) },
-            email = valueOrNull(emailFlow.value.text)?.let { Email(it) },
+            firstName = valueOrNull(firstNameFlow.value)?.let { FirstName(it) },
+            lastName = valueOrNull(lastNameFlow.value)?.let { LastName(it) },
+            phone = valueOrNull(phoneNumberFlow.value)?.let { Phone(it) },
+            email = valueOrNull(emailFlow.value)?.let { Email(it) },
             birthDate = birthDateFlow.value,
             alarmTime = alarmTimeFlow.value,
             individualType = individualTypeFlow.value,
@@ -139,13 +146,38 @@ class IndividualEditViewModel
         }
     }
 
-    private fun validate(): Boolean {
-        if (firstNameFlow.value.text.isBlank()) {
-            firstNameFlow.value = firstNameFlow.value.copy(isError = true, supportingText = application.getString(R.string.required))
+    private fun resetErrors() {
+        firstNameErrorFlow.value = null
+        emailErrorFlow.value = null
+        individualTypeErrorFlow.value = null
+    }
+
+    private fun validateAllFields(): Boolean {
+        resetErrors()
+        var allFieldsValid = true
+
+        if (firstNameFlow.value.isBlank()) {
+            firstNameErrorFlow.value = application.getString(R.string.required)
+            allFieldsValid = false
+        }
+
+        if (emailFlow.value.isNotBlank() && !android.util.Patterns.EMAIL_ADDRESS.matcher(emailFlow.value).matches()) {
+            emailErrorFlow.value = application.getString(R.string.invalid_email)
+            allFieldsValid = false
+        }
+
+        val birthDate = birthDateFlow.value
+        if (birthDate != null && birthDate >= Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date) {
+            birthDateErrorFlow.value = application.getString(R.string.invalid_birth_date)
             return false
         }
 
-        return true
+        if (individualTypeFlow.value == IndividualType.CHILD && lastNameFlow.value.isEmpty()) {
+            individualTypeErrorFlow.value = application.getString(R.string.individual_type_requires_last_name)
+            return false
+        }
+
+        return allFieldsValid
     }
 
     private fun showBirthDate() {

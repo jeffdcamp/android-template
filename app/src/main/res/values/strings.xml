@@ -34,6 +34,8 @@
     <string name="hide_password">Hide Password</string>
     <string name="show_password">Show Password</string>
     <string name="typography">Typography</string>
+    <string name="invalid_email">Invalid email address</string>
+    <string name="invalid_birth_date">Birth date must be before today</string>
 
     <!-- Individual -->
     <string name="delete_individual_confirm">Are you sure you want to delete this individual?</string>
@@ -54,4 +56,5 @@
     <string name="child">Child</string>
     <string name="unkown">Unknown</string>
     <string name="available">Available</string>
+    <string name="individual_type_requires_last_name">Children must supply a last name</string>
 </resources>

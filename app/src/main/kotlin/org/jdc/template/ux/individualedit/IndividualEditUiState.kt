@@ -6,29 +6,32 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
 import org.jdc.template.model.domain.type.IndividualType
 import org.jdc.template.ui.compose.dialog.DialogUiState
-import org.jdc.template.ui.compose.form.TextFieldData
 
 @Suppress("LongParameterList")
 class IndividualEditUiState(
     val dialogUiStateFlow: StateFlow<DialogUiState<*>?> = MutableStateFlow(null),
 
     // Data
-    val firstNameFlow: StateFlow<TextFieldData> = MutableStateFlow(TextFieldData("")),
+    val firstNameFlow: StateFlow<String> = MutableStateFlow(""),
+    val firstNameErrorFlow: StateFlow<String?> = MutableStateFlow(null),
     val firstNameOnChange: (String) -> Unit = {},
-    val lastNameFlow: StateFlow<TextFieldData> = MutableStateFlow(TextFieldData("")),
+    val lastNameFlow: StateFlow<String> = MutableStateFlow(""),
     val lastNameOnChange: (String) -> Unit = {},
-    val phoneFlow: StateFlow<TextFieldData> = MutableStateFlow(TextFieldData("")),
+    val phoneFlow: StateFlow<String> = MutableStateFlow(""),
     val phoneOnChange: (String) -> Unit = {},
-    val emailFlow: StateFlow<TextFieldData> = MutableStateFlow(TextFieldData("")),
+    val emailFlow: StateFlow<String> = MutableStateFlow(""),
+    val emailErrorFlow: StateFlow<String?> = MutableStateFlow(null),
     val emailOnChange: (String) -> Unit = {},
 
     val birthDateFlow: StateFlow<LocalDate?> = MutableStateFlow(null),
+    val birthDateErrorFlow: StateFlow<String?> = MutableStateFlow(null),
     val birthDateClicked: () -> Unit = {},
 
     val alarmTimeFlow: StateFlow<LocalTime?> = MutableStateFlow(null),
     val alarmTimeClicked: () -> Unit = {},
 
     val individualTypeFlow: StateFlow<IndividualType> = MutableStateFlow(IndividualType.UNKNOWN),
+    val individualTypeErrorFlow: StateFlow<String?> = MutableStateFlow(null),
     val individualTypeChange: (IndividualType) -> Unit = {},
 
     val availableFlow: StateFlow<Boolean> = MutableStateFlow(false),

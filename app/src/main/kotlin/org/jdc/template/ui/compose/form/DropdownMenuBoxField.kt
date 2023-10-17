@@ -11,6 +11,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import org.jdc.template.ui.compose.DayNightTextField
 
@@ -21,9 +22,18 @@ fun <T> DropdownMenuBoxField(
     onOptionSelected: (T) -> Unit,
     optionToText: @Composable (T) -> String,
     modifier: Modifier = Modifier,
-    label: String? = null
+    label: String? = null,
+    supportingText: String? = null,
+    errorTextFlow: StateFlow<String?> = MutableStateFlow(null),
 ) {
     val selectedOption by selectedOptionFlow.collectAsStateWithLifecycle()
+    val errorText by errorTextFlow.collectAsStateWithLifecycle()
+
+    val supportText = when {
+        !errorText.isNullOrBlank() -> errorText
+        !supportingText.isNullOrBlank() -> supportingText
+        else -> null
+    }
 
     DropdownMenuBoxField(
         options = options,
@@ -31,7 +41,9 @@ fun <T> DropdownMenuBoxField(
         onOptionSelected = onOptionSelected,
         optionToText = optionToText,
         modifier = modifier,
-        label = label
+        label = label,
+        supportingText = supportText,
+        isError = !errorText.isNullOrBlank()
     )
 }
 
@@ -42,7 +54,9 @@ fun <T> DropdownMenuBoxField(
     onOptionSelected: (T) -> Unit,
     optionToText: @Composable (T) -> String,
     modifier: Modifier = Modifier,
-    label: String? = null
+    label: String? = null,
+    supportingText: String? = null,
+    isError: Boolean = false
 ) {
     var expanded by remember { mutableStateOf(false) }
 
@@ -56,6 +70,8 @@ fun <T> DropdownMenuBoxField(
             onValueChange = {},
             label = if (label != null) { { Text(text = label) } } else null,
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+            supportingText = supportingText?.let{ { Text(it) } },
+            isError = isError,
             modifier = modifier
                 // As of Material3 1.0.0-beta03; The `menuAnchor` modifier must be passed to the text field for correctness.
                 // (https://android-review.googlesource.com/c/platform/frameworks/support/+/2200861)
