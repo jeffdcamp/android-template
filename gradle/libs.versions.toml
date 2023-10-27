@@ -26,13 +26,13 @@ desugarJdkLibs = "2.0.3"
 detekt = "1.23.1"
 dbtools = "8.2.0"
 
-firebaseBom = "32.3.1"
-firebaseAppDistGradlePlugin = "4.0.0"
+firebaseBom = "32.4.1"
+firebaseAppDistGradlePlugin = "4.0.1"
 firebaseCrashlyticsGradlePlugin = "2.9.9"
 firebasePerfGradlePlugin = "1.4.2"
 
 googlePlayCore = "1.8.1"
-googleServicesGradlePlugin = "4.3.15" # 4.4.0 is not compatable with Firebase AppDistribution 4.0.0 (https://github.com/firebase/firebase-android-sdk/issues/5349)
+googleServicesGradlePlugin = "4.4.0"
 
 hilt = "2.48.1"
 jacoco = "0.8.8"
