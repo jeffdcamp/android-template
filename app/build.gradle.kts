@@ -348,7 +348,10 @@ androidComponents.onVariants { variant ->
                         "**/R\$*.class",
                         "**/BuildConfig.*",
                         "**/Manifest*.*",
+                        "**/*_Impl*.*",
                         // App Specific
+                        "org/jdc/template/ui/*",
+                        "org/jdc/template/ux/*",
                     )
                 )
             }
