@@ -1,20 +1,16 @@
-package org.jdc.template.ux.directory
+package org.jdc.template.domain.directory
 
 import app.cash.turbine.turbineScope
 import assertk.assertThat
 import assertk.assertions.isEmpty
 import assertk.assertions.isEqualTo
-import io.mockk.coEvery
-import io.mockk.mockk
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
-import org.jdc.template.model.db.main.directoryitem.DirectoryItemEntityView
+import org.jdc.template.domain.mockIndividualRepository
 import org.jdc.template.model.domain.inline.IndividualId
-import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.ui.navigation.NavigationAction
 import org.jdc.template.ux.individual.IndividualRoute
 import org.jdc.template.ux.individualedit.IndividualEditRoute
@@ -71,18 +67,5 @@ class DirectoryUseCaseTest {
 
             stateScope.cancel()
         }
-    }
-
-    private fun mockIndividualRepository(): IndividualRepository {
-        val mockIndividualRepository = mockk<IndividualRepository>()
-
-        val directoryItems = listOf(
-            DirectoryItemEntityView(IndividualId("1"), "Jeff", "Campbell"),
-            DirectoryItemEntityView(IndividualId("2"), "Mark", "Brown")
-        )
-
-        coEvery { mockIndividualRepository.getDirectoryListFlow() } returns flowOf(directoryItems)
-
-        return mockIndividualRepository
     }
 }

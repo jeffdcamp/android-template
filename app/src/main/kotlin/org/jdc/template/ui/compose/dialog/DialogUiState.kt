@@ -3,7 +3,6 @@ package org.jdc.template.ui.compose.dialog
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -43,7 +42,7 @@ fun LibraryDialogs(dialogUiState: DialogUiState<*>) {
     }
 }
 
-fun ViewModel.showMessageDialog(
+fun showMessageDialog(
     dialogUiStateFlow: MutableStateFlow<DialogUiState<*>?>,
     title: @Composable (() -> String)? = null,
     text: @Composable (() -> String)? = null,
@@ -80,7 +79,7 @@ fun ViewModel.showMessageDialog(
     )
 }
 
-fun ViewModel.dismissDialog(
+fun dismissDialog(
     dialogUiStateFlow: MutableStateFlow<DialogUiState<*>?>
 ) {
     dialogUiStateFlow.value = null
