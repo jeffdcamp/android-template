@@ -13,12 +13,14 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -31,8 +33,10 @@ fun OverflowMenu(
     menuItems: List<OverflowMenuItem>,
     modifier: Modifier = Modifier,
     iconImageVector: ImageVector = Icons.Default.MoreVert,
+    iconTintColor: Color = LocalContentColor.current,
     showIcon: Boolean = true,
-    touchRadius: Dp = Dp.Unspecified
+    touchRadius: Dp = 20.dp, // 20.dp is the same size as a default IconButton touch area
+    contentDescription: String? = stringResource(R.string.more_options)
 ) {
     if (menuItems.isEmpty()) {
         return
@@ -45,14 +49,15 @@ fun OverflowMenu(
         if (showIcon) {
             Icon(
                 imageVector = iconImageVector,
-                contentDescription = stringResource(R.string.more_options),
+                contentDescription = contentDescription,
                 modifier = modifier
                     .clickable(
                         interactionSource = remember { MutableInteractionSource() },
                         indication = rememberRipple(bounded = false, radius = touchRadius),
                         role = Role.Button,
                         onClick = { expanded.value = true }
-                    )
+                    ),
+                tint = iconTintColor
             )
         }
         DropdownMenu(
