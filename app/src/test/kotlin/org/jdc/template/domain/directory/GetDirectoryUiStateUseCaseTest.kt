@@ -17,11 +17,11 @@ import org.jdc.template.ux.individualedit.IndividualEditRoute
 import org.jdc.template.ux.settings.SettingsRoute
 import org.junit.jupiter.api.Test
 
-class DirectoryUseCaseTest {
+class GetDirectoryUiStateUseCaseTest {
     @Test
     fun testNavigation() = runTest {
         turbineScope {
-            val useCase = DirectoryUseCase(mockIndividualRepository())
+            val useCase = GetDirectoryUiStateUseCase(mockIndividualRepository())
             val stateScope = CoroutineScope(Job())
             val lastNavigationActionFlow = MutableStateFlow<NavigationAction?>(null)
             val navigationActionTurbine = lastNavigationActionFlow.testIn(stateScope)
@@ -48,7 +48,7 @@ class DirectoryUseCaseTest {
     @Test
     fun testDirectoryList() = runTest {
         turbineScope {
-            val useCase = DirectoryUseCase(mockIndividualRepository())
+            val useCase = GetDirectoryUiStateUseCase(mockIndividualRepository())
             val stateScope = CoroutineScope(Job())
 
             val uiState = useCase(

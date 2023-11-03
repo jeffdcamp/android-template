@@ -17,7 +17,7 @@ import org.jdc.template.ux.individual.IndividualUiState
 import org.jdc.template.ux.individualedit.IndividualEditRoute
 import javax.inject.Inject
 
-class IndividualUseCase
+class GetIndividualUiStateUseCase
 @Inject constructor(
     private val individualRepository: IndividualRepository,
     private val analytics: Analytics,

@@ -17,11 +17,11 @@ import org.jdc.template.ui.navigation.NavigationAction
 import org.jdc.template.ux.individualedit.IndividualEditRoute
 import org.junit.jupiter.api.Test
 
-class IndividualUseCaseTest {
+class GetIndividualUiStateUseCaseTest {
     @Test
     fun testNavigation() = runTest {
         turbineScope {
-            val useCase = IndividualUseCase(mockIndividualRepository(), mockk(relaxed = true))
+            val useCase = GetIndividualUiStateUseCase(mockIndividualRepository(), mockk(relaxed = true))
             val stateScope = CoroutineScope(Job())
             val lastNavigationActionFlow = MutableStateFlow<NavigationAction?>(null)
             val navigationActionTurbine = lastNavigationActionFlow.testIn(stateScope)
@@ -58,7 +58,7 @@ class IndividualUseCaseTest {
     fun testDelete() = runTest {
         turbineScope {
             val individualRepository = mockIndividualRepository()
-            val useCase = IndividualUseCase(individualRepository, mockk(relaxed = true))
+            val useCase = GetIndividualUiStateUseCase(individualRepository, mockk(relaxed = true))
             val stateScope = CoroutineScope(Job())
             val lastNavigationActionFlow = MutableStateFlow<NavigationAction?>(null)
             val navigationActionTurbine = lastNavigationActionFlow.testIn(stateScope)

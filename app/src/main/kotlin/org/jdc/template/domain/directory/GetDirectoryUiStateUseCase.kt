@@ -10,7 +10,7 @@ import org.jdc.template.ux.individualedit.IndividualEditRoute
 import org.jdc.template.ux.settings.SettingsRoute
 import javax.inject.Inject
 
-class DirectoryUseCase
+class GetDirectoryUiStateUseCase
 @Inject constructor(
     private val individualRepository: IndividualRepository,
 ) {
