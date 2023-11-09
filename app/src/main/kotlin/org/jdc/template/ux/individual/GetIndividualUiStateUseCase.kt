@@ -1,4 +1,4 @@
-package org.jdc.template.domain.individual
+package org.jdc.template.ux.individual
 
 import androidx.compose.ui.res.stringResource
 import kotlinx.coroutines.CoroutineScope
@@ -13,7 +13,6 @@ import org.jdc.template.ui.compose.dialog.dismissDialog
 import org.jdc.template.ui.compose.dialog.showMessageDialog
 import org.jdc.template.ui.navigation.NavigationAction
 import org.jdc.template.util.ext.stateInDefault
-import org.jdc.template.ux.individual.IndividualUiState
 import org.jdc.template.ux.individualedit.IndividualEditRoute
 import javax.inject.Inject
 

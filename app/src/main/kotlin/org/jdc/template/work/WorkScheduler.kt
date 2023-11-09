@@ -15,12 +15,14 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.jdc.template.BuildConfig
+import org.jdc.template.SuppressCoverage
 import org.jdc.template.inject.ApplicationScope
 import org.jdc.template.model.repository.SettingsRepository
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
 
+@SuppressCoverage
 @Suppress("MemberVisibilityCanBePrivate")
 @Singleton
 class WorkScheduler

@@ -3,7 +3,6 @@ package org.jdc.template.ux.individualedit
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -67,7 +66,7 @@ fun IndividualEditFields(
         Modifier
             .verticalScroll(rememberScrollState())
             .padding(start = 16.dp, end = 16.dp, top = 16.dp)
-            .imePadding()
+//            .imePadding()
     ) {
         val focusManager = LocalFocusManager.current
 

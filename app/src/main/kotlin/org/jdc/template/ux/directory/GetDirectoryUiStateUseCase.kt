@@ -1,10 +1,9 @@
-package org.jdc.template.domain.directory
+package org.jdc.template.ux.directory
 
 import kotlinx.coroutines.CoroutineScope
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.ui.navigation.NavigationAction
 import org.jdc.template.util.ext.stateInDefault
-import org.jdc.template.ux.directory.DirectoryUiState
 import org.jdc.template.ux.individual.IndividualRoute
 import org.jdc.template.ux.individualedit.IndividualEditRoute
 import org.jdc.template.ux.settings.SettingsRoute

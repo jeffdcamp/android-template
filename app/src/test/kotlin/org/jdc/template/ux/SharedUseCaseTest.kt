@@ -1,4 +1,4 @@
-package org.jdc.template.domain
+package org.jdc.template.ux
 
 import io.mockk.coEvery
 import io.mockk.mockk

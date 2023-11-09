@@ -25,6 +25,7 @@ fun formKeyEventHandler(
         return false
     }
 
+    @Suppress("OptionalWhenBraces") // does not read well here when removed
     return when {
         keyEvent.key == Key.Tab -> {
             focusManager.moveFocus(FocusDirection.Next)
@@ -50,8 +51,6 @@ fun formKeyEventHandler(
                 false
             }
         }
-        else -> {
-            false
-        }
+        else -> false
     }
 }

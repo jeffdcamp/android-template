@@ -26,6 +26,7 @@ fun AppScaffoldAndNavigation(
     contentWindowInsets: WindowInsets = ScaffoldDefaults.contentWindowInsets,
     content: @Composable (PaddingValues) -> Unit,
 ) {
+    @Suppress("OptionalWhenBraces") // does not read well here when removed
     when {
         hideNavigation -> {
             Scaffold(

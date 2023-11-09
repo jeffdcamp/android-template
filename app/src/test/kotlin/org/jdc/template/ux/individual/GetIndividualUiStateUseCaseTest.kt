@@ -1,4 +1,4 @@
-package org.jdc.template.domain.individual
+package org.jdc.template.ux.individual
 
 import app.cash.turbine.turbineScope
 import assertk.assertThat
@@ -10,8 +10,8 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.runTest
-import org.jdc.template.domain.TestIndividuals
-import org.jdc.template.domain.mockIndividualRepository
+import org.jdc.template.ux.TestIndividuals
+import org.jdc.template.ux.mockIndividualRepository
 import org.jdc.template.ui.compose.dialog.MessageDialogUiState
 import org.jdc.template.ui.navigation.NavigationAction
 import org.jdc.template.ux.individualedit.IndividualEditRoute

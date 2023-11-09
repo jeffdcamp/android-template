@@ -23,7 +23,7 @@ Sample Android app that utilizes common best practices
 * kotlinx-datetime
 * Okhttp3
 * Ktor Client
-* JUnit tests / mockk
+* JUnit tests / Mockk / Kover
 * Firebase Analytics
 * Kermit Logging
 * Gradle Play Publisher (Triple-T)

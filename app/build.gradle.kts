@@ -12,6 +12,7 @@ plugins {
     id("com.google.firebase.appdistribution")
     id("org.dbtools.license-manager")
     id("de.undercouch.download") version "5.5.0"
+    id("org.jetbrains.kotlinx.kover") version "0.7.4"
     id("com.spotify.ruler")
     id("org.gradle.jacoco")
     alias(libs.plugins.ksp)
@@ -339,21 +340,42 @@ androidComponents.onVariants { variant ->
             html.required.set(true)
         }
 
+        val exclusions = listOf(
+            // Android
+//            "**/R.class",
+//            "**/R\$*.class",
+//            "**/BuildConfig.*",
+//            "**/Manifest*.*",
+//            "**/*_Impl*.*",
+            // App Specific
+            "org/jdc/template/ui",
+//            "org/jdc/template/ux",
+        )
+        val appUxPath = "org/jdc/template/ux"
+        val uxIncludes = listOf(
+//            "UiState",
+            "Route",
+            "UseCase",
+        )
+
         classDirectories.setFrom(
             fileTree("$buildDir/tmp/kotlin-classes/${variant.name}") {
-                exclude(
-                    listOf(
-                        // Android
-                        "**/R.class",
-                        "**/R\$*.class",
-                        "**/BuildConfig.*",
-                        "**/Manifest*.*",
-                        "**/*_Impl*.*",
-                        // App Specific
-                        "org/jdc/template/ui/*",
-                        "org/jdc/template/ux/*",
-                    )
-                )
+                exclude { file ->
+                    if (exclusions.any { file.path.contains(it.toRegex()) }) {
+                        println("all file excluded: ${file.name}")
+                        true
+                    } else if (file.path.contains(appUxPath) && !file.isDirectory) {
+                        return@exclude if (uxIncludes.any { file.name.contains(it) }) {
+                            println("ux file included: ${file.name}")
+                            false
+                        } else {
+                            println("ux file excluded: ${file.name}")
+                            true
+                        }
+                    } else {
+                        false
+                    }
+                }
             }
         )
 
@@ -362,6 +384,51 @@ androidComponents.onVariants { variant ->
     }
 
     jacocoTestReport.dependsOn(reportTask)
+}
+
+// ===== Kover (JUnit Coverage Reports) =====
+// ./gradlew koverHtmlReportDebug
+// ./gradlew koverXmlReportDebug
+koverReport {
+    filters {
+        excludes {
+            packages(
+                "*hilt_aggregated_deps*",
+                "*codegen*",
+
+                // App Specific
+                "org.jdc.template.ui",
+            )
+
+            classes(
+                "*Fragment",
+                "*Fragment\$*",
+                "*Activity",
+                "*Activity\$*",
+                "*.databinding.*",
+                "*.BuildConfig",
+                "*Factory",
+                "*_HiltModules*",
+                "*_Impl*",
+                "*ComposableSingletons*",
+                "*Hilt*",
+                "*Initializer*",
+
+                // App Specific
+                "*MainAppScaffoldWithNavBarKt*"
+            )
+
+            annotatedBy(
+                "*Composable*",
+                "*HiltAndroidApp*",
+                "*HiltViewModel*",
+                "*HiltWorker*",
+                "*AndroidEntryPoint*",
+                "*Module*",
+                "*SuppressCoverage*",
+            )
+        }
+    }
 }
 
 // ===== Ruler =====
@@ -380,7 +447,7 @@ ruler {
 tasks.register<de.undercouch.gradle.tasks.download.Download>("downloadDetektConfig") {
     download {
         onlyIf { !file("$projectDir/build/config/detektConfig.yml").exists() }
-        src("https://raw.githubusercontent.com/ICSEng/AndroidPublic/main/detekt/detektConfig-20230728.yml")
+        src("https://raw.githubusercontent.com/ICSEng/AndroidPublic/main/detekt/detektConfig-20231101.yml")
         dest("$projectDir/build/config/detektConfig.yml")
     }
 }

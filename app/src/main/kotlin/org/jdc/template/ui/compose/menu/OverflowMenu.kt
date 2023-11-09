@@ -106,9 +106,7 @@ fun OverflowMenuItemsContent(menuItems: List<OverflowMenuItem>, expanded: Mutabl
                 )
 
             }
-            is OverflowMenuItem.Divider -> {
-                HorizontalDivider()
-            }
+            is OverflowMenuItem.Divider -> HorizontalDivider()
         }
     }
 }

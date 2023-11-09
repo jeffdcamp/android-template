@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.FabPosition
@@ -14,6 +16,7 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.PermanentDrawerSheet
 import androidx.compose.material3.PermanentNavigationDrawer
+import androidx.compose.material3.ScaffoldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -40,7 +43,7 @@ import org.jdc.template.ux.main.MainViewModel
 import org.jdc.template.ux.main.NavBarItem
 
 @Composable
-internal fun MainAppScaffoldWithNavBar(
+fun MainAppScaffoldWithNavBar(
     title: String,
     modifier: Modifier = Modifier,
     navigationIconVisible: Boolean = true,
@@ -50,6 +53,36 @@ internal fun MainAppScaffoldWithNavBar(
     actions: @Composable (RowScope.() -> Unit)? = null,
     floatingActionButton: @Composable () -> Unit = {},
     floatingActionButtonPosition: FabPosition = FabPosition.End,
+    contentWindowInsets: WindowInsets = ScaffoldDefaults.contentWindowInsets,
+    content: @Composable (PaddingValues) -> Unit,
+) {
+    MainAppScaffoldWithNavBar(
+        title = { Text(text = title) },
+        modifier = modifier,
+        navigationIconVisible = navigationIconVisible,
+        navigationIcon = navigationIcon,
+        onNavigationClick = onNavigationClick,
+        hideNavigation = hideNavigation,
+        actions = actions,
+        floatingActionButton = floatingActionButton,
+        floatingActionButtonPosition = floatingActionButtonPosition,
+        contentWindowInsets = contentWindowInsets,
+        content = content
+    )
+}
+
+@Composable
+fun MainAppScaffoldWithNavBar(
+    title: @Composable () -> Unit,
+    modifier: Modifier = Modifier,
+    navigationIconVisible: Boolean = true,
+    navigationIcon: ImageVector = Icons.AutoMirrored.Filled.ArrowBack,
+    onNavigationClick: (() -> Unit)? = null,
+    hideNavigation: Boolean = false,
+    actions: @Composable (RowScope.() -> Unit)? = null,
+    floatingActionButton: @Composable () -> Unit = {},
+    floatingActionButtonPosition: FabPosition = FabPosition.End,
+    contentWindowInsets: WindowInsets = ScaffoldDefaults.contentWindowInsets,
     content: @Composable (PaddingValues) -> Unit,
 ) {
     val activity = LocalContext.current.requireActivity()
@@ -61,7 +94,7 @@ internal fun MainAppScaffoldWithNavBar(
     // TopAppBar
     val topAppBar: @Composable (() -> Unit) = {
         TopAppBar(
-            title = { Text(title) },
+            title = title,
             navigationIcon = if (!navigationIconVisible) {
                 {}
             } else {
@@ -111,12 +144,13 @@ internal fun MainAppScaffoldWithNavBar(
     // Scaffold
     AppScaffoldAndNavigation(
         topAppBar = topAppBar,
-        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection).imePadding(),
         hideNavigation = hideNavigation,
         navBarData = navBarData,
         floatingActionButton = floatingActionButton,
         floatingActionButtonPosition = floatingActionButtonPosition,
         containerColor = MaterialTheme.colorScheme.surface,
+        contentWindowInsets = contentWindowInsets,
         content = content
     )
 }
@@ -129,7 +163,7 @@ private fun AppNavigationBar(
 ) {
     Column(modifier = modifier) {
         NavigationBar {
-            NavBarItem.values().forEach { item ->
+            NavBarItem.entries.forEach { item ->
                 AppBottomNavigationItem(item, item.unselectedImageVector, item.selectedImageVector, selectedItem, item.textResId) { onNavItemClicked(it) }
             }
         }
@@ -144,7 +178,7 @@ private fun AppNavigationRail(
 ) {
     Row(modifier = modifier) {
         NavigationRail {
-            NavBarItem.values().forEach { item ->
+            NavBarItem.entries.forEach { item ->
                 AppNavigationRailItem(item, item.unselectedImageVector, item.selectedImageVector, selectedItem, item.textResId) { onNavItemClicked(it) }
             }
         }
@@ -163,7 +197,7 @@ private fun AppNavigationDrawer(
             PermanentDrawerSheet {
                 AppNavigationDrawerLabel(stringResource(R.string.app_name))
 
-                NavBarItem.values().forEach { item ->
+                NavBarItem.entries.forEach { item ->
                     AppNavigationDrawerItem(item, item.unselectedImageVector, item.selectedImageVector, selectedItem, item.textResId) { onNavItemClicked(it) }
                 }
             }
