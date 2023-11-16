@@ -1,25 +1,23 @@
 package org.jdc.template.ux
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationRail
-import androidx.compose.material3.PermanentDrawerSheet
-import androidx.compose.material3.PermanentNavigationDrawer
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.ScaffoldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
+import androidx.compose.material3.adaptive.navigation.suite.ExperimentalMaterial3AdaptiveNavigationSuiteApi
+import androidx.compose.material3.adaptive.navigation.suite.NavigationSuiteScaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -30,14 +28,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.jdc.template.R
-import org.jdc.template.ui.compose.appbar.AppNavBarData
-import org.jdc.template.ui.compose.appbar.AppNavBarType
-import org.jdc.template.ui.compose.appbar.AppScaffoldAndNavigation
-import org.jdc.template.ui.compose.appnavbar.AppBottomNavigationItem
-import org.jdc.template.ui.compose.appnavbar.AppNavigationDrawerItem
-import org.jdc.template.ui.compose.appnavbar.AppNavigationDrawerLabel
-import org.jdc.template.ui.compose.appnavbar.AppNavigationRailItem
-import org.jdc.template.ui.compose.util.rememberWindowSize
 import org.jdc.template.util.ext.requireActivity
 import org.jdc.template.ux.main.MainViewModel
 import org.jdc.template.ux.main.NavBarItem
@@ -53,8 +43,8 @@ fun MainAppScaffoldWithNavBar(
     actions: @Composable (RowScope.() -> Unit)? = null,
     floatingActionButton: @Composable () -> Unit = {},
     floatingActionButtonPosition: FabPosition = FabPosition.End,
-    contentWindowInsets: WindowInsets = ScaffoldDefaults.contentWindowInsets,
-    content: @Composable (PaddingValues) -> Unit,
+    contentWindowInsets: WindowInsets = WindowInsets(0, 0, 0, 0), // required when using enableEdgeToEdge
+    content: @Composable () -> Unit,
 ) {
     MainAppScaffoldWithNavBar(
         title = { Text(text = title) },
@@ -71,6 +61,7 @@ fun MainAppScaffoldWithNavBar(
     )
 }
 
+@OptIn(ExperimentalMaterial3AdaptiveNavigationSuiteApi::class)
 @Composable
 fun MainAppScaffoldWithNavBar(
     title: @Composable () -> Unit,
@@ -83,10 +74,9 @@ fun MainAppScaffoldWithNavBar(
     floatingActionButton: @Composable () -> Unit = {},
     floatingActionButtonPosition: FabPosition = FabPosition.End,
     contentWindowInsets: WindowInsets = ScaffoldDefaults.contentWindowInsets,
-    content: @Composable (PaddingValues) -> Unit,
+    content: @Composable () -> Unit,
 ) {
     val activity = LocalContext.current.requireActivity()
-    val windowSize = activity.rememberWindowSize()
     val viewModel: MainViewModel = hiltViewModel(activity)
     val selectedBarItem by viewModel.selectedNavBarFlow.collectAsStateWithLifecycle()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
@@ -108,102 +98,79 @@ fun MainAppScaffoldWithNavBar(
                     }
                 }
             },
-            actions = {
-                if (actions != null) {
-                    actions()
-                }
-            },
+            actions = { actions?.invoke(this) },
             scrollBehavior = scrollBehavior
         )
     }
 
-    // Navigation (support Bottom / Rail / Drawer)
-    val navBarData = AppNavBarData(
-        appNavBarType = AppNavBarType.byWindowSize(windowSize),
-        navBar = {
-            AppNavigationBar(
-                selectedItem = selectedBarItem,
-                onNavItemClicked = { viewModel.onNavBarItemSelected(it) }
-            )
-        },
-        navRail = {
-            AppNavigationRail(
-                selectedItem = selectedBarItem,
-                onNavItemClicked = { viewModel.onNavBarItemSelected(it) }
-            )
-        },
-        navDrawer = { appScaffold ->
-            AppNavigationDrawer(
-                selectedItem = selectedBarItem,
-                onNavItemClicked = { viewModel.onNavBarItemSelected(it) },
-                appScaffoldContent = appScaffold
+    when {
+        hideNavigation -> {
+            AppScaffold(
+                topAppBar = topAppBar,
+                floatingActionButton = floatingActionButton,
+                floatingActionButtonPosition = floatingActionButtonPosition,
+                contentWindowInsets = contentWindowInsets,
+                modifier = modifier,
+                scrollBehavior = scrollBehavior,
+                content = content
             )
         }
-    )
 
-    // Scaffold
-    AppScaffoldAndNavigation(
-        topAppBar = topAppBar,
-        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection).imePadding(),
-        hideNavigation = hideNavigation,
-        navBarData = navBarData,
+        else -> {
+            NavigationSuiteScaffold(
+                navigationSuiteItems = {
+                    NavBarItem.entries.forEach { navBarItem ->
+                        val selected = selectedBarItem == navBarItem
+                        val imageVector = if (selected) navBarItem.selectedImageVector else navBarItem.unselectedImageVector
+
+                        item(
+                            selected = selected,
+                            icon = { Icon(imageVector = imageVector, contentDescription = null) },
+                            label = if (navBarItem.textResId != null) {
+                                { Text(stringResource(navBarItem.textResId), maxLines = 1) }
+                            } else {
+                                null
+                            },
+                            onClick = { viewModel.onNavBarItemSelected(navBarItem) }
+                        )
+                    }
+                },
+            ) {
+                AppScaffold(
+                    topAppBar = topAppBar,
+                    floatingActionButton = floatingActionButton,
+                    floatingActionButtonPosition = floatingActionButtonPosition,
+                    contentWindowInsets = contentWindowInsets,
+                    modifier = modifier,
+                    scrollBehavior = scrollBehavior,
+                    content = content
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun AppScaffold(
+    topAppBar: @Composable () -> Unit,
+    floatingActionButton: @Composable () -> Unit,
+    floatingActionButtonPosition: FabPosition,
+    contentWindowInsets: WindowInsets,
+    modifier: Modifier,
+    scrollBehavior: TopAppBarScrollBehavior,
+    content: @Composable () -> Unit,
+) {
+    Scaffold(
+        topBar = topAppBar,
         floatingActionButton = floatingActionButton,
         floatingActionButtonPosition = floatingActionButtonPosition,
-        containerColor = MaterialTheme.colorScheme.surface,
         contentWindowInsets = contentWindowInsets,
-        content = content
-    )
-}
-
-@Composable
-private fun AppNavigationBar(
-    selectedItem: NavBarItem?,
-    onNavItemClicked: (NavBarItem) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Column(modifier = modifier) {
-        NavigationBar {
-            NavBarItem.entries.forEach { item ->
-                AppBottomNavigationItem(item, item.unselectedImageVector, item.selectedImageVector, selectedItem, item.textResId) { onNavItemClicked(it) }
-            }
-        }
-    }
-}
-
-@Composable
-private fun AppNavigationRail(
-    selectedItem: NavBarItem?,
-    onNavItemClicked: (NavBarItem) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Row(modifier = modifier) {
-        NavigationRail {
-            NavBarItem.entries.forEach { item ->
-                AppNavigationRailItem(item, item.unselectedImageVector, item.selectedImageVector, selectedItem, item.textResId) { onNavItemClicked(it) }
-            }
-        }
-    }
-}
-
-@Composable
-private fun AppNavigationDrawer(
-    selectedItem: NavBarItem?,
-    onNavItemClicked: (NavBarItem) -> Unit,
-    appScaffoldContent: @Composable () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    PermanentNavigationDrawer(
-        drawerContent = {
-            PermanentDrawerSheet {
-                AppNavigationDrawerLabel(stringResource(R.string.app_name))
-
-                NavBarItem.entries.forEach { item ->
-                    AppNavigationDrawerItem(item, item.unselectedImageVector, item.selectedImageVector, selectedItem, item.textResId) { onNavItemClicked(it) }
-                }
-            }
-        },
         modifier = modifier
-    ) {
-        appScaffoldContent()
+            .nestedScroll(scrollBehavior.nestedScrollConnection)
+            .imePadding(),
+    ) { innerPadding ->
+        Box(modifier = Modifier.padding(innerPadding)) {
+            content()
+        }
     }
 }

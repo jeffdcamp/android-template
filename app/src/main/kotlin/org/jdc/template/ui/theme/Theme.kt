@@ -16,7 +16,6 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.runtime.structuralEqualityPolicy
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import org.jdc.template.ui.compose.appbar.HandleSystemBarColors
 
 @Suppress("LongParameterList")
 class AppColors(
@@ -209,8 +208,6 @@ fun AppTheme(
     dynamicTheme: Boolean = false,
     content: @Composable () -> Unit,
 ) {
-    HandleSystemBarColors(darkTheme)
-
     val colors: AppColors = when {
         dynamicTheme && Build.VERSION.SDK_INT >= 31 -> if (darkTheme) dynamicDarkColorScheme(LocalContext.current).toAppColors() else dynamicLightColorScheme(LocalContext.current).toAppColors()
         else -> if (darkTheme) AppPalette.darkColors() else AppPalette.lightColors()
