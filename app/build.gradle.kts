@@ -74,6 +74,8 @@ android {
             "-Xopt-in=kotlin.experimental.ExperimentalTypeInference",
             "-Xopt-in=kotlinx.serialization.ExperimentalSerializationApi",
             "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+            "-Xopt-in=androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi",
+            "-Xopt-in=androidx.compose.material3.adaptive.navigation.suite.ExperimentalMaterial3AdaptiveNavigationSuiteApi",
 
             // use the following to ignore enforcement version of Kotlin with Compose
             //"-P", "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
@@ -221,7 +223,8 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling.preview)
 //    debugImplementation(libs.compose.ui.tooling)
     implementation(libs.compose.material3)
-    implementation(libs.compose.material3.navigation.suite)
+    implementation(libs.compose.material3.adaptive)
+    implementation(libs.compose.material3.adaptive.navigation)
     implementation(libs.compose.material3.windowsize)
     implementation(libs.compose.material.iconsext)
 

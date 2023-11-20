@@ -15,15 +15,20 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
-import androidx.compose.material3.adaptive.navigation.suite.ExperimentalMaterial3AdaptiveNavigationSuiteApi
+import androidx.compose.material3.adaptive.collectWindowSizeAsState
 import androidx.compose.material3.adaptive.navigation.suite.NavigationSuiteScaffold
+import androidx.compose.material3.adaptive.navigation.suite.NavigationSuiteType
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.DpSize
+import androidx.compose.ui.unit.IntSize
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.jdc.template.R
@@ -60,7 +65,6 @@ fun MainAppScaffoldWithNavBar(
     )
 }
 
-@OptIn(ExperimentalMaterial3AdaptiveNavigationSuiteApi::class)
 @Composable
 fun MainAppScaffoldWithNavBar(
     title: @Composable () -> Unit,
@@ -79,6 +83,7 @@ fun MainAppScaffoldWithNavBar(
     val viewModel: MainViewModel = hiltViewModel(activity)
     val selectedBarItem by viewModel.selectedNavBarFlow.collectAsStateWithLifecycle()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+    val windowSize by collectWindowSizeAsState()
 
     // TopAppBar
     val topAppBar: @Composable (() -> Unit) = {
@@ -117,6 +122,7 @@ fun MainAppScaffoldWithNavBar(
 
         else -> {
             NavigationSuiteScaffold(
+                layoutType = getNavigationSuiteType(windowSize.toDpSize()),
                 navigationSuiteItems = {
                     NavBarItem.entries.forEach { navBarItem ->
                         val selected = selectedBarItem == navBarItem
@@ -172,4 +178,27 @@ private fun AppScaffold(
             content()
         }
     }
+}
+
+/**
+ * Per <a href="https://m3.material.io/components/navigation-drawer/guidelines">Material Design 3 guidelines</a>,
+ * the selection of the appropriate navigation component should be contingent on the available
+ * window size:
+ * - Bottom Bar for compact window sizes (below 600dp)
+ * - Navigation Rail for medium and expanded window sizes up to 1240dp (between 600dp and 1240dp)
+ * - Navigation Drawer to window size above 1240dp
+ */
+fun getNavigationSuiteType(windowSize: DpSize): NavigationSuiteType {
+    return if (windowSize.width > 1240.dp) {
+        NavigationSuiteType.NavigationDrawer
+    } else if (windowSize.width >= 600.dp) {
+        NavigationSuiteType.NavigationRail
+    } else {
+        NavigationSuiteType.NavigationBar
+    }
+}
+
+@Composable
+private fun IntSize.toDpSize(): DpSize = with(LocalDensity.current) {
+    DpSize(width.toDp(), height.toDp())
 }

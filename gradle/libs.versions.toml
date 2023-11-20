@@ -9,7 +9,7 @@ androidxActivity = "1.8.1"
 androidxComposeCompiler = "1.5.4"
 androidxComposeMaterial = "1.5.4"
 androidxComposeMaterial3 = "1.2.0-alpha11"
-androidxComposeMaterial3NavigationSuite = "1.0.0-alpha01"
+androidxComposeMaterial3Adaptive = "1.0.0-alpha01"
 androidxComposeUi = "1.6.0-beta01"
 androidxDataStore = "1.0.0"
 androidxHilt = "1.1.0"
@@ -98,7 +98,8 @@ coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 
 compose-material-iconsext = { module = "androidx.compose.material:material-icons-extended", version.ref = "androidxComposeMaterial" } # Material design icons (extended)
 compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "androidxComposeMaterial3" }
-compose-material3-navigation-suite = { module = "androidx.compose.material3:material3-adaptive-navigation-suite", version.ref = "androidxComposeMaterial3NavigationSuite" }
+compose-material3-adaptive = { group = "androidx.compose.material3", name = "material3-adaptive-android", version.ref = "androidxComposeMaterial3Adaptive" }
+compose-material3-adaptive-navigation = { module = "androidx.compose.material3:material3-adaptive-navigation-suite", version.ref = "androidxComposeMaterial3Adaptive" }
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "androidxComposeUi" }
 compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "androidxComposeUi" }
 compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "androidxComposeUi" }
