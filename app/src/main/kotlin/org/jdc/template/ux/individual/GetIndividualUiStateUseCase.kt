@@ -37,8 +37,8 @@ class GetIndividualUiStateUseCase
 
             individualFlow = individualRepository.getIndividualFlow(individualId).stateInDefault(coroutineScope, null),
 
-            onEdit = { editIndividual(individualId, navigate) },
-            onDelete = { onDeleteClicked(individualId, coroutineScope, navigate) },
+            onEditClick = { editIndividual(individualId, navigate) },
+            onDeleteClick = { onDeleteClicked(individualId, coroutineScope, navigate) },
             deleteIndividual = { deleteIndividual(individualId, coroutineScope, navigate) },
         )
     }
@@ -52,12 +52,10 @@ class GetIndividualUiStateUseCase
         )
     }
 
-    private fun deleteIndividual(individualId: IndividualId, coroutineScope: CoroutineScope, navigate: (NavigationAction) -> Unit) {
-        coroutineScope.launch {
-            analytics.logEvent(Analytics.EVENT_DELETE_INDIVIDUAL)
-            individualRepository.deleteIndividual(individualId)
-            navigate(NavigationAction.Pop())
-        }
+    private fun deleteIndividual(individualId: IndividualId, coroutineScope: CoroutineScope, navigate: (NavigationAction) -> Unit) = coroutineScope.launch {
+        analytics.logEvent(Analytics.EVENT_DELETE_INDIVIDUAL)
+        individualRepository.deleteIndividual(individualId)
+        navigate(NavigationAction.Pop())
     }
 
     private fun editIndividual(individualId: IndividualId, navigate: (NavigationAction) -> Unit) {

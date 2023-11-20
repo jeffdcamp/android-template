@@ -10,11 +10,11 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.runTest
-import org.jdc.template.ux.TestIndividuals
-import org.jdc.template.ux.mockIndividualRepository
 import org.jdc.template.ui.compose.dialog.MessageDialogUiState
 import org.jdc.template.ui.navigation.NavigationAction
+import org.jdc.template.ux.TestIndividuals
 import org.jdc.template.ux.individualedit.IndividualEditRoute
+import org.jdc.template.ux.mockIndividualRepository
 import org.junit.jupiter.api.Test
 
 class GetIndividualUiStateUseCaseTest {
@@ -37,10 +37,10 @@ class GetIndividualUiStateUseCaseTest {
             val dialogUiStateFlowTurbine = uiState.dialogUiStateFlow.testIn(stateScope)
             dialogUiStateFlowTurbine.awaitItem() // consume default value
 
-            uiState.onEdit()
+            uiState.onEditClick()
             assertThat(navigationActionTurbine.awaitItem()).isEqualTo(NavigationAction.Navigate(IndividualEditRoute.createRoute(selectedIndividualId)))
 
-            uiState.onDelete()
+            uiState.onDeleteClick()
             val deleteDialog = dialogUiStateFlowTurbine.awaitItem()
             if (deleteDialog is MessageDialogUiState) {
                 deleteDialog.onConfirm?.invoke(Unit)
@@ -74,7 +74,7 @@ class GetIndividualUiStateUseCaseTest {
             val dialogUiStateFlowTurbine = uiState.dialogUiStateFlow.testIn(stateScope)
             dialogUiStateFlowTurbine.awaitItem() // consume default value
 
-            uiState.onDelete()
+            uiState.onDeleteClick()
             val deleteDialog = dialogUiStateFlowTurbine.awaitItem()
             if (deleteDialog is MessageDialogUiState) {
                 // test cancel pressed (no delete)

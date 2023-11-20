@@ -12,7 +12,7 @@ data class IndividualUiState(
     val individualFlow: StateFlow<Individual?> = MutableStateFlow(null),
 
     // Events
-    val onEdit: () -> Unit = {},
-    val onDelete: () -> Unit = {},
+    val onEditClick: () -> Unit = {},
+    val onDeleteClick: () -> Unit = {},
     val deleteIndividual: () -> Unit = {},
 )

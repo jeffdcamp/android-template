@@ -38,5 +38,5 @@ class IndividualEditUiState(
     val availableOnChange: (Boolean) -> Unit = {},
 
     // Events
-    val saveIndividual: () -> Unit = {},
+    val onSaveIndividualClick: () -> Unit = {},
 )
