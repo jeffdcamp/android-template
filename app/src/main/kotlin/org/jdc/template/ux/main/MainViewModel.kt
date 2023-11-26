@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.combine
 import org.jdc.template.domain.individual.CreateIndividualTestDataUseCase
-import org.jdc.template.model.data.DisplayThemeType
+import org.jdc.template.model.domain.type.DisplayThemeType
 import org.jdc.template.model.repository.SettingsRepository
 import org.jdc.template.ui.navigation.DefaultNavBarConfig
 import org.jdc.template.ui.navigation.ViewModelNavBar

@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.jdc.template.R
-import org.jdc.template.model.data.DisplayThemeType
+import org.jdc.template.model.domain.type.DisplayThemeType
 import org.jdc.template.model.repository.SettingsRepository
 import org.jdc.template.ui.compose.dialog.DialogUiState
 import org.jdc.template.ui.compose.dialog.DropDownMenuDialogUiState

@@ -1,4 +1,4 @@
-package org.jdc.template.model.data
+package org.jdc.template.model.domain.type
 
 import android.content.Context
 import org.jdc.template.R

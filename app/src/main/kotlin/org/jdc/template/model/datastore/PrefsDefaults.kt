@@ -1,7 +1,7 @@
 package org.jdc.template.model.datastore
 
 import android.os.Build
-import org.jdc.template.model.data.DisplayThemeType
+import org.jdc.template.model.domain.type.DisplayThemeType
 
 object PrefsDefaults {
     val SYSTEM_THEME_TYPE = getSystemThemeTypeDefault()
