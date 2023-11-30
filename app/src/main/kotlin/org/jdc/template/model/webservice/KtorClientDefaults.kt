@@ -1,9 +1,9 @@
 package org.jdc.template.model.webservice
 
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiationConfig
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
-import io.ktor.client.plugins.logging.Logging
+import io.ktor.client.plugins.logging.LoggingConfig
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.serialization.kotlinx.KotlinxSerializationConverter
@@ -14,13 +14,13 @@ import kotlinx.serialization.json.Json
  * Project Specific Defaults (should not be in shared library)
  */
 object KtorClientDefaults {
-    fun Logging.Config.defaultSetup() {
+    fun LoggingConfig.defaultSetup() {
         logger = KermitKtorLogger
         level = LogLevel.INFO
         sanitizeHeader { header -> header == HttpHeaders.Authorization }
     }
 
-    fun ContentNegotiation.Config.defaultSetup(
+    fun ContentNegotiationConfig.defaultSetup(
         allowAnyContentType: Boolean = false,
         jsonPrettyPrint: Boolean = false
     ) {

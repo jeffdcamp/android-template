@@ -6,8 +6,10 @@ import io.ktor.client.call.body
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiationConfig
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.logging.Logging
+import io.ktor.client.plugins.logging.LoggingConfig
 import io.ktor.client.plugins.resources.Resources
 import io.ktor.client.plugins.resources.prepareGet
 import io.ktor.client.request.get
@@ -24,8 +26,8 @@ import io.ktor.client.plugins.resources.get as getResource
 
 class ColorService(
     engine: HttpClientEngine = OkHttp.create(),
-    loggingSetup: Logging.Config.() -> Unit = { defaultSetup() },
-    contentNegotiationSetup: ContentNegotiation.Config.() -> Unit = { defaultSetup(allowAnyContentType = true) },
+    loggingSetup: LoggingConfig.() -> Unit = { defaultSetup() },
+    contentNegotiationSetup: ContentNegotiationConfig.() -> Unit = { defaultSetup(allowAnyContentType = true) },
 ) {
     private val httpClient: HttpClient = HttpClient(engine) {
         install(Logging) {
