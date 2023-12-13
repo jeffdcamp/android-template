@@ -15,7 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
-import androidx.compose.material3.adaptive.collectWindowSizeAsState
+import androidx.compose.material3.adaptive.currentWindowSize
 import androidx.compose.material3.adaptive.navigation.suite.NavigationSuiteScaffold
 import androidx.compose.material3.adaptive.navigation.suite.NavigationSuiteType
 import androidx.compose.runtime.Composable
@@ -83,7 +83,7 @@ fun MainAppScaffoldWithNavBar(
     val viewModel: MainViewModel = hiltViewModel(activity)
     val selectedBarItem by viewModel.selectedNavBarFlow.collectAsStateWithLifecycle()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
-    val windowSize by collectWindowSizeAsState()
+    val windowSize = currentWindowSize()
 
     // TopAppBar
     val topAppBar: @Composable (() -> Unit) = {
