@@ -6,7 +6,7 @@ kotlinxSerialization = "1.6.2"
 kotlinxDateTime = "0.5.0"
 
 androidxActivity = "1.8.2"
-androidxComposeCompiler = "1.5.6"
+androidxComposeCompiler = "1.5.7"
 androidxComposeMaterial = "1.6.0-beta03"
 androidxComposeMaterial3 = "1.2.0-beta01"
 androidxComposeMaterial3Adaptive = "1.0.0-alpha03"
