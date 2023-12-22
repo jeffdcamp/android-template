@@ -19,10 +19,11 @@ import okio.FileSystem
 import okio.Path
 import okio.buffer
 
-suspend fun <T: Any> HttpClient.executeSafely(
+@Suppress("kotlin:S6312") // Sonar issue with Coroutine scope on function ext
+suspend fun <T> HttpClient.executeSafely(
     apiCall: suspend HttpClient.() -> HttpResponse,
-    onError: suspend (HttpResponse) -> Unit = { Logger.w { "Error executing service call: ${it.request.method.value} ${it.request.url} (${it.status})" } },
-    onException: suspend (IOException) -> Unit = { Logger.e(it) { "Exception executing service call" } },
+    mapError: suspend (HttpResponse) -> ApiResponse.Failure.Error = { ApiResponse.Failure.Error("Error executing service call: ${it.request.method.value} ${it.request.url} (${it.status})") },
+    mapException: suspend (IOException) -> ApiResponse.Failure.Exception = { ApiResponse.Failure.Exception(it) },
     mapSuccess: suspend (HttpResponse) -> T,
 ): ApiResponse<T> {
     return try {
@@ -30,18 +31,11 @@ suspend fun <T: Any> HttpClient.executeSafely(
         if (response.status.isSuccess()) {
             ApiResponse.Success(mapSuccess(response))
         } else {
-            onError(response)
-            ApiResponse.Error()
+            mapError(response)
         }
     } catch (e: IOException) {
-        onException(e)
-        ApiResponse.Error()
+        mapException(e)
     }
-}
-
-sealed interface ApiResponse<T> {
-    data class Success<T: Any>(val value: T) : ApiResponse<T>
-    class Error<T> : ApiResponse<T>
 }
 
 /**
@@ -51,6 +45,7 @@ sealed interface ApiResponse<T> {
  * @param outputFile target file.  If the file already exists, then remove the file
  * @return true if the file streamed successfully to file and the new file exists
  */
+@Suppress("kotlin:S6312")
 suspend fun HttpResponse.saveBodyToFile(fileSystem: FileSystem, outputFile: Path): Boolean {
     Logger.d { "Saving response [${call.request.url}] to file [$outputFile]..." }
     var success = false

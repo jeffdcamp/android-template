@@ -22,6 +22,9 @@ import org.jdc.template.model.webservice.colors.dto.ColorsDto
 import org.jdc.template.ui.navigation.ViewModelNav
 import org.jdc.template.ui.navigation.ViewModelNavImpl
 import org.jdc.template.util.ext.ApiResponse
+import org.jdc.template.util.ext.message
+import org.jdc.template.util.ext.onFailure
+import org.jdc.template.util.ext.onSuccess
 import org.jdc.template.util.ext.readText
 import org.jdc.template.ux.about.typography.TypographyRoute
 import org.jdc.template.ux.acknowledgement.AcknowledgmentsRoute
@@ -66,6 +69,10 @@ class  AboutViewModel
 
         val response = colorService.fetchColorsBySafeArgs()
         processWebServiceResponse(response)
+
+        Logger.i { "========================================================"}
+
+        processWebServiceResponse2(colorService.fetchColorsBySafeArgs())
     }
 
     private fun testFullUrlQueryWebServiceCall() = viewModelScope.launch {
@@ -82,14 +89,22 @@ class  AboutViewModel
     }
 
     private fun processWebServiceResponse(response: ApiResponse<ColorsDto>) {
-        when(response) {
-            is ApiResponse.Success -> {
-                val data: ColorsDto = response.value
-                data.colors.forEach {
-                    Logger.i { "Result: ${it.colorName}" }
-                }
+        response.onSuccess {
+            data.colors.forEach {
+                Logger.i { "Result: ${it.colorName}" }
             }
-            is ApiResponse.Error -> Logger.e { "Web Service FAILURE" }
+        }.onFailure {
+            Logger.e { "Web Service FAILURE ${message()}" }
+        }
+    }
+
+    private fun processWebServiceResponse2(response: ApiResponse<ColorsDto>) {
+        response.onSuccess {
+            data.colors.forEach {
+                Logger.i { "Result: ${it.colorName}" }
+            }
+        }.onFailure {
+            Logger.e { "Web Service FAILURE (message: [${message()}]" }
         }
     }
 
