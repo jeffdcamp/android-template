@@ -27,7 +27,7 @@ class ColorServiceTest {
         val response = colorService.fetchColorsBySafeArgs()
         check(response is ApiResponse.Success)
 
-        val colors = response.value
+        val colors = response.data
         assertThat(colors.colors.size).isEqualTo(1)
 
         val color = colors.colors.first()
@@ -45,7 +45,7 @@ class ColorServiceTest {
         }
         val colorService = ColorService(mockEngine)
         val response = colorService.fetchColorsBySafeArgs()
-        check(response is ApiResponse.Error)
+        check(response is ApiResponse.Failure)
     }
 
     companion object {
