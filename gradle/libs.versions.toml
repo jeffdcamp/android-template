@@ -121,9 +121,9 @@ google-servicesgradlePluginClasspath = { module = "com.google.gms:google-service
 # Firebase - https://firebase.google.com/support/release-notes/android
 google-firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 google-firebase-appDistGradlePluginClasspath = { module = "com.google.firebase:firebase-appdistribution-gradle", version.ref = "firebaseAppDistGradlePlugin" }
-google-firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx" }
-google-firebase-config = { module = "com.google.firebase:firebase-config-ktx" }
-google-firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics-ktx" }
+google-firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
+google-firebase-config = { module = "com.google.firebase:firebase-config" }
+google-firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
 google-firebase-crashlyticsGradlePluginClasspath = { module = "com.google.firebase:firebase-crashlytics-gradle", version.ref = "firebaseCrashlyticsGradlePlugin" }
 google-firebase-perf = { module = "com.google.firebase:firebase-perf" }
 google-firebase-perfGradlePluginClasspath = { module = "com.google.firebase:perf-plugin", version.ref = "firebasePerfGradlePlugin" }
