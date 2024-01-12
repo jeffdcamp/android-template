@@ -8,14 +8,6 @@
 
 #https://r8.googlesource.com/r8/+/refs/heads/master/compatibility-faq.md
 
-##---------------Begin: proguard configuration for OkHttp  ----------
-# PR on OKHttp: https://github.com/square/okhttp/commit/9da841c24c3b3dabc1d9230ab2f1e71105768771
--dontwarn okhttp3.internal.platform.**
--dontwarn org.conscrypt.**
--dontwarn org.bouncycastle.**
--dontwarn org.openjsse.**
-##---------------End: proguard configuration for OkHttp  ----------
-
 ##---------------Begin: proguard configuration for Ktor Client  ----------
 # Issue Tracker (Initial issue/Work-around): https://youtrack.jetbrains.com/issue/KTOR-5528
 # Issue Tracker (Fix): https://youtrack.jetbrains.com/issue/KTOR-3484
