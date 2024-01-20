@@ -1,4 +1,4 @@
-package org.jdc.template.util.upgrade
+package org.jdc.template.startup
 
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.CoroutineDispatcher
