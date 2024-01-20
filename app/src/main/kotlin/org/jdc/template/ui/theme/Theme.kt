@@ -180,7 +180,7 @@ private val LocalAppColors = staticCompositionLocalOf<AppColors> {
 }
 
 object AppTheme {
-    val colors: AppColors
+    val colorScheme: AppColors
         @Composable get() = LocalAppColors.current
 
 //    val typography: Typography
