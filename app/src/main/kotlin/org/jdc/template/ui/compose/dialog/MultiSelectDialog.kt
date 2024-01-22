@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import org.jdc.template.ui.compose.PreviewDefault
+import org.jdc.template.ui.theme.AppTheme
 
 @Composable
 fun <T> MultiSelectDialog(
@@ -205,14 +206,16 @@ private fun PreviewMultiSelectDialog() {
 
     val selectedItems = listOf("id2", "id3")
 
-    MaterialTheme {
-        MultiSelectDialog(
-            title = "Title",
-            supportingText = "Here is some supporting text",
-            allItems = items,
-            selectedItems = selectedItems,
-            onConfirmButtonClicked = { },
-            onDismissButtonClicked = { }
-        )
+    AppTheme {
+        Surface {
+            MultiSelectDialog(
+                title = "Title",
+                supportingText = "Here is some supporting text",
+                allItems = items,
+                selectedItems = selectedItems,
+                onConfirmButtonClicked = { },
+                onDismissButtonClicked = { }
+            )
+        }
     }
 }
