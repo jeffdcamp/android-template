@@ -36,7 +36,7 @@ fun OverflowMenu(
     iconTintColor: Color = LocalContentColor.current,
     showIcon: Boolean = true,
     touchRadius: Dp = 20.dp, // 20.dp is the same size as a default IconButton touch area
-    contentDescription: String? = stringResource(R.string.more_options)
+    contentDescription: String? = stringResource(R.string.more_options),
 ) {
     if (menuItems.isEmpty()) {
         return
@@ -76,10 +76,7 @@ fun OverflowMenuItemsContent(menuItems: List<OverflowMenuItem>, expanded: Mutabl
     val menuItemsWithTrailingIconCount = menuItems.count { it is OverflowMenuItem.MenuItem && it.hasTrailingIcon() }
 
     menuItems.forEach { menuItem ->
-        // if there are icons in the list, make sure text without icons are all indented properly
-        // 36.dp == 24.dp (icon size) + 12.dp (gap)
-        val startPadding = if (menuItemsWithLeadingIconCount > 0 && menuItem is OverflowMenuItem.MenuItem && !menuItem.hasLeadingIcon()) (36.dp) else 0.dp
-        val endPadding = if (menuItemsWithTrailingIconCount > 0 && menuItem is OverflowMenuItem.MenuItem && !menuItem.hasTrailingIcon()) (36.dp) else 0.dp
+        val endPadding = if (menuItemsWithTrailingIconCount > 0 && menuItem is OverflowMenuItem.MenuItem) (16.dp) else 0.dp
 
         when (menuItem) {
             is OverflowMenuItem.MenuItem -> {
@@ -90,23 +87,42 @@ fun OverflowMenuItemsContent(menuItems: List<OverflowMenuItem>, expanded: Mutabl
                         expanded.value = false
                     },
                     text = {
-                        Text(text = menuText, modifier = Modifier.padding(start = startPadding, end = endPadding))
+                        Text(text = menuText, modifier = Modifier.padding(end = endPadding))
                     },
-                    leadingIcon = if (menuItem.leadingIcon != null) {
-                        {
-                            menuItem.leadingIcon?.let { Icon(it, contentDescription = null) }
+                    leadingIcon = when {
+                        menuItem.leadingIcon != null -> {
+                            { menuItem.leadingIcon?.let { Icon(imageVector = it, contentDescription = null) } }
                         }
-                    } else null,
-                    trailingIcon = if (menuItem.trailingIcon != null) {
-                        {
-                            menuItem.trailingIcon?.let { Icon(it, contentDescription = null) }
+
+                        menuItemsWithLeadingIconCount > 0 -> {
+                            // Allocate the space for the leading icon so the text lines up if not all items have leading icons
+                            // This is an empty Composable
+                            { }
                         }
-                    } else null,
+
+                        else -> null
+                    },
+                    trailingIcon = when {
+                        menuItem.trailingIcon != null -> {
+                            { menuItem.trailingIcon?.let { Icon(imageVector = it, contentDescription = null) } }
+                        }
+
+                        menuItemsWithTrailingIconCount > 0 -> {
+                            // Allocate the space for the trailing icon so the text lines up if not all items have trailing icons
+                            // This is an empty Composable
+                            { }
+                        }
+
+                        else -> null
+                    },
                     modifier = Modifier.defaultMinSize(minWidth = 175.dp)
                 )
 
             }
-            is OverflowMenuItem.Divider -> HorizontalDivider()
+
+            is OverflowMenuItem.Divider -> {
+                HorizontalDivider()
+            }
         }
     }
 }
@@ -116,7 +132,7 @@ sealed interface OverflowMenuItem {
         open val text: @Composable () -> String,
         open val leadingIcon: ImageVector? = null,
         open val trailingIcon: ImageVector? = null,
-        open val action: () -> Unit
+        open val action: () -> Unit,
     ) : OverflowMenuItem {
         constructor(@StringRes textId: Int, leadingIcon: ImageVector? = null, trailingIcon: ImageVector? = null, action: () -> Unit) : this(
             text = { stringResource(textId) },
