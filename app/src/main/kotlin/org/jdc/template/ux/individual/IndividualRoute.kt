@@ -1,8 +1,10 @@
 package org.jdc.template.ux.individual
 
 import androidx.navigation.NamedNavArgument
+import androidx.navigation.NavDeepLink
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
+import androidx.navigation.navDeepLink
 import org.jdc.template.model.domain.inline.IndividualId
 import org.jdc.template.ui.navigation.NavComposeRoute
 import org.jdc.template.ui.navigation.NavRoute
@@ -24,6 +26,13 @@ object IndividualRoute : NavComposeRoute() {
             navArgument(Arg.INDIVIDUAL_ID) {
                 type = NavType.StringType
             }
+        )
+    }
+
+    // adb shell am start -W -a android.intent.action.VIEW -d "android-template://individual/xxxxxx"
+    override fun getDeepLinks(): List<NavDeepLink> {
+        return listOf(
+            navDeepLink { uriPattern = "android-template://${ROUTE_BASE}/{${Arg.INDIVIDUAL_ID}}" }
         )
     }
 
