@@ -52,7 +52,7 @@ playPublisher = "3.8.6"
 ruler = "1.4.0"
 sqliteJdbc = "3.45.0.0"
 turbine = "1.0.0"
-versionsGradlePlugin = "0.50.0"
+versionsGradlePlugin = "0.51.0"
 workManagerTools = "4.0.0"
 
 [plugins]
