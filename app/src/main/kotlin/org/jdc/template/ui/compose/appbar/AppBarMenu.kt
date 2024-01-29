@@ -42,6 +42,7 @@ fun AppBarMenu(menuItems: List<AppBarMenuItem>) {
             is AppBarMenuItem.Icon -> AppBarIcon(it)
             is AppBarMenuItem.Text -> AppBarText(it)
             is AppBarMenuItem.TextButton -> AppBarTextButton(it)
+            is AppBarMenuItem.Custom -> AppBarCustom(it)
             else -> error("Unexpected item (filter failed)")
         }
     }
@@ -118,6 +119,16 @@ fun AppBarTextButton(menuItem: AppBarMenuItem.TextButton) {
 }
 
 @Composable
+fun AppBarCustom(menuItem: AppBarMenuItem.Custom) {
+    AppBarCustom(menuItem.content)
+}
+
+@Composable
+fun AppBarCustom(content: @Composable () -> Unit) {
+    content()
+}
+
+@Composable
 fun AppBarOverflowMenu(menuItems: List<AppBarMenuItem>) {
     if (menuItems.isEmpty()) {
         return
@@ -164,12 +175,15 @@ sealed interface AppBarMenuItem {
     class Text(val text: @Composable () -> String, val colors: ButtonColors? = null, val action: () -> Unit) : AppBarMenuItem {
         constructor(@StringRes textId: Int, colors: ButtonColors? = null, action: () -> Unit) : this(text = { stringResource(textId) }, colors = colors, action = action)
     }
+
     /**
      * If setting colors, consider using ButtonDefaults.buttonColors(contentColor = LocalContentColor.current)
      */
     class TextButton(val text: @Composable () -> String, val colors: ButtonColors? = null, val action: () -> Unit) : AppBarMenuItem {
         constructor(@StringRes textId: Int, colors: ButtonColors? = null, action: () -> Unit) : this(text = { stringResource(textId) }, colors = colors, action = action)
     }
+
+    class Custom(val content: @Composable () -> Unit) : AppBarMenuItem
 
     class OverflowMenuItem(
         override val text: @Composable () -> String,
