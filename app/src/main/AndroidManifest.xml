@@ -32,7 +32,6 @@
             android:label="@string/app_launcher_name"
             android:exported="true"
             android:theme="@style/AppTheme.Splash"
-            android:windowSoftInputMode="adjustResize"
             >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
