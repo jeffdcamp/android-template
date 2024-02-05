@@ -1,9 +1,11 @@
 package org.jdc.template.ux
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -23,6 +25,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
@@ -32,6 +35,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.jdc.template.R
+import org.jdc.template.ui.compose.util.WindowSize
+import org.jdc.template.ui.compose.util.rememberWindowSize
 import org.jdc.template.util.ext.requireActivity
 import org.jdc.template.ux.main.MainViewModel
 import org.jdc.template.ux.main.NavBarItem
@@ -165,14 +170,26 @@ private fun AppScaffold(
     scrollBehavior: TopAppBarScrollBehavior,
     content: @Composable () -> Unit,
 ) {
+    val windowSize = LocalContext.current.requireActivity().rememberWindowSize()
+    val isLandscape = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
+
+    val appScaffoldModifier = if (isLandscape && windowSize == WindowSize.COMPACT) {
+        modifier
+            .nestedScroll(scrollBehavior.nestedScrollConnection)
+            .navigationBarsPadding() // prevent FAB and top app bar from being covered by OS nav bar in landscape
+            .imePadding()
+    } else {
+        modifier
+            .nestedScroll(scrollBehavior.nestedScrollConnection)
+            .imePadding()
+    }
+
     Scaffold(
         topBar = topAppBar,
         floatingActionButton = floatingActionButton,
         floatingActionButtonPosition = floatingActionButtonPosition,
         contentWindowInsets = contentWindowInsets,
-        modifier = modifier
-            .nestedScroll(scrollBehavior.nestedScrollConnection)
-            .imePadding(),
+        modifier = appScaffoldModifier,
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
             content()

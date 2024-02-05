@@ -66,7 +66,6 @@ fun IndividualEditFields(
         Modifier
             .verticalScroll(rememberScrollState())
             .padding(start = 16.dp, end = 16.dp, top = 16.dp)
-//            .imePadding()
     ) {
         val focusManager = LocalFocusManager.current
 
