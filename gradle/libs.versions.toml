@@ -6,16 +6,16 @@ kotlinxSerialization = "1.6.2"
 kotlinxDateTime = "0.5.0"
 
 androidxActivity = "1.8.2"
-androidxComposeCompiler = "1.5.8"
-androidxComposeMaterial = "1.6.0"
-androidxComposeMaterial3 = "1.2.0-rc01"
-androidxComposeMaterial3Adaptive = "1.0.0-alpha05"
-androidxComposeMaterial3AdaptiveNavigation = "1.0.0-alpha02"
-androidxComposeUi = "1.6.0"
+androidxComposeCompiler = "1.5.9"
+androidxComposeMaterial = "1.6.1"
+androidxComposeMaterial3 = "1.2.0"
+androidxComposeMaterial3Adaptive = "1.0.0-alpha06"
+androidxComposeMaterial3AdaptiveNavigation = "1.0.0-alpha03"
+androidxComposeUi = "1.6.1"
 androidxDataStore = "1.0.0"
 androidxHilt = "1.1.0"
 androidxLifecycle = "2.7.0"
-androidxNavigation = "2.7.6"
+androidxNavigation = "2.7.7"
 androidxRoom = "2.6.1"
 androidxSplashScreen = "1.0.1"
 androidxStartup = "1.1.1"
@@ -25,7 +25,6 @@ androidxWork = "2.9.0"
 assertk = "0.28.0"
 autonomousappsDependencyAnalysis = "1.29.0"
 coil = "2.5.0"
-desugarJdkLibs = "2.0.4"
 detekt = "1.23.5"
 dbtools = "8.3.0"
 
@@ -63,7 +62,6 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 
 [libraries]
 android-gradlePluginClasspath = { module = "com.android.tools.build:gradle", version.ref = "agp" }
-android-desugar = { module = "com.android.tools:desugar_jdk_libs_nio", version.ref = "desugarJdkLibs" }
 
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
 androidx-datastorePrefs = { module = "androidx.datastore:datastore-preferences", version.ref = "androidxDataStore" }
