@@ -117,6 +117,46 @@ fun OverflowMenuItemsContent(menuItems: List<OverflowMenuItem>, expanded: Mutabl
                     },
                     modifier = Modifier.defaultMinSize(minWidth = 175.dp)
                 )
+            }
+
+            is OverflowMenuItem.MenuItemCustom -> {
+                val menuText = menuItem.text()
+                DropdownMenuItem(
+                    onClick = {
+                        menuItem.action()
+                        expanded.value = false
+                    },
+                    text = {
+                        Text(text = menuText, modifier = Modifier.padding(end = endPadding))
+                    },
+                    leadingIcon = when {
+                        menuItem.leadingContent != null -> {
+                            { menuItem.leadingContent?.invoke() }
+                        }
+
+                        menuItemsWithLeadingIconCount > 0 -> {
+                            // Allocate the space for the leading icon so the text lines up if not all items have leading icons
+                            // This is an empty Composable
+                            { }
+                        }
+
+                        else -> null
+                    },
+                    trailingIcon = when {
+                        menuItem.trailingContent != null -> {
+                            { menuItem.trailingContent?.invoke() }
+                        }
+
+                        menuItemsWithTrailingIconCount > 0 -> {
+                            // Allocate the space for the trailing icon so the text lines up if not all items have trailing icons
+                            // This is an empty Composable
+                            { }
+                        }
+
+                        else -> null
+                    },
+                    modifier = Modifier.defaultMinSize(minWidth = 175.dp)
+                )
 
             }
 
@@ -143,6 +183,23 @@ sealed interface OverflowMenuItem {
 
         fun hasLeadingIcon(): Boolean = this.leadingIcon != null
         fun hasTrailingIcon(): Boolean = this.trailingIcon != null
+    }
+
+    open class MenuItemCustom(
+        open val text: @Composable () -> String,
+        open val leadingContent: (@Composable () -> String)? = null,
+        open val trailingContent: (@Composable () -> String)? = null,
+        open val action: () -> Unit,
+    ) : OverflowMenuItem {
+        constructor(@StringRes textId: Int, leadingContent: (@Composable () -> String)? = null, trailingContent: (@Composable () -> String)? = null, action: () -> Unit) : this(
+            text = { stringResource(textId) },
+            leadingContent = leadingContent,
+            trailingContent = trailingContent,
+            action = action
+        )
+
+        fun hasLeadingIcon(): Boolean = this.leadingContent != null
+        fun hasTrailingIcon(): Boolean = this.trailingContent != null
     }
 
     open class Divider : OverflowMenuItem

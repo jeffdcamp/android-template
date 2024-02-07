@@ -199,6 +199,20 @@ sealed interface AppBarMenuItem {
         )
     }
 
+    class OverflowMenuItemCustom(
+        override val text: @Composable () -> String,
+        override val leadingContent: (@Composable () -> String)? = null,
+        override val trailingContent: (@Composable () -> String)? = null,
+        override val action: () -> Unit
+    ) : AppBarMenuItem, org.jdc.template.ui.compose.menu.OverflowMenuItem.MenuItemCustom(text, leadingContent, trailingContent, action) {
+        constructor(@StringRes textId: Int, leadingContent: (@Composable () -> String)? = null, trailingContent: (@Composable () -> String)? = null, action: () -> Unit) : this(
+            text = { stringResource(textId) },
+            leadingContent = leadingContent,
+            trailingContent = trailingContent,
+            action = action
+        )
+    }
+
     object OverflowDivider : AppBarMenuItem, org.jdc.template.ui.compose.menu.OverflowMenuItem.Divider()
 
     fun isOverFlowItem(): Boolean = this is OverflowMenuItem || this is OverflowDivider
