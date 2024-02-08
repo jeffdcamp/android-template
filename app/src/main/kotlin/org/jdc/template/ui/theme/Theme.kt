@@ -37,7 +37,6 @@ class AppColors(
     surface: Color,
     onSurface: Color,
     surfaceVariant: Color,
-    surfaceTint: Color,
     onSurfaceVariant: Color,
     inverseSurface: Color,
     inverseOnSurface: Color,
@@ -48,6 +47,13 @@ class AppColors(
     outline: Color,
     outlineVariant: Color,
     scrim: Color,
+    surfaceDim: Color,
+    surfaceBright: Color,
+    surfaceContainerLowest: Color,
+    surfaceContainerLow: Color,
+    surfaceContainer: Color,
+    surfaceContainerHigh: Color,
+    surfaceContainerHighest: Color,
 ) {
     var primary by mutableStateOf(primary, structuralEqualityPolicy())
         internal set
@@ -87,8 +93,6 @@ class AppColors(
         internal set
     var onSurfaceVariant by mutableStateOf(onSurfaceVariant, structuralEqualityPolicy())
         internal set
-    var surfaceTint by mutableStateOf(surfaceTint, structuralEqualityPolicy())
-        internal set
     var inverseSurface by mutableStateOf(inverseSurface, structuralEqualityPolicy())
         internal set
     var inverseOnSurface by mutableStateOf(inverseOnSurface, structuralEqualityPolicy())
@@ -106,6 +110,20 @@ class AppColors(
     var outlineVariant by mutableStateOf(outlineVariant, structuralEqualityPolicy())
         internal set
     var scrim by mutableStateOf(scrim, structuralEqualityPolicy())
+        internal set
+    var surfaceDim by mutableStateOf(surfaceDim, structuralEqualityPolicy())
+        internal set
+    var surfaceBright by mutableStateOf(surfaceBright, structuralEqualityPolicy())
+        internal set
+    var surfaceContainerLowest by mutableStateOf(surfaceContainerLowest, structuralEqualityPolicy())
+        internal set
+    var surfaceContainerLow by mutableStateOf(surfaceContainerLow, structuralEqualityPolicy())
+        internal set
+    var surfaceContainer by mutableStateOf(surfaceContainer, structuralEqualityPolicy())
+        internal set
+    var surfaceContainerHigh by mutableStateOf(surfaceContainerHigh, structuralEqualityPolicy())
+        internal set
+    var surfaceContainerHighest by mutableStateOf(surfaceContainerHighest, structuralEqualityPolicy())
         internal set
 
     fun toMaterialColors(): ColorScheme {
@@ -129,7 +147,7 @@ class AppColors(
             onSurface = onSurface,
             surfaceVariant = surfaceVariant,
             onSurfaceVariant = onSurfaceVariant,
-            surfaceTint = surfaceTint,
+            surfaceTint = primary, // this is copied from lightColorScheme(...)
             inverseSurface = inverseSurface,
             inverseOnSurface = inverseOnSurface,
             error = error,
@@ -138,7 +156,14 @@ class AppColors(
             onErrorContainer = onErrorContainer,
             outline = outline,
             outlineVariant = outlineVariant,
-            scrim = scrim
+            scrim = scrim,
+            surfaceDim = surfaceDim,
+            surfaceBright = surfaceBright,
+            surfaceContainerLowest = surfaceContainerLowest,
+            surfaceContainerLow = surfaceContainerLow,
+            surfaceContainer = surfaceContainer,
+            surfaceContainerHigh = surfaceContainerHigh,
+            surfaceContainerHighest = surfaceContainerHighest,
         )
     }
 
@@ -162,7 +187,6 @@ class AppColors(
         onSurface = colors.onSurface
         surfaceVariant = colors.surfaceVariant
         onSurfaceVariant = colors.onSurfaceVariant
-        surfaceTint = colors.surfaceTint
         inverseSurface = colors.inverseSurface
         inverseOnSurface = colors.inverseOnSurface
         error = colors.error
@@ -172,6 +196,13 @@ class AppColors(
         outline = colors.outline
         outlineVariant = colors.outlineVariant
         scrim = colors.scrim
+        surfaceDim = colors.surfaceDim
+        surfaceBright = colors.surfaceBright
+        surfaceContainerLowest = colors.surfaceContainerLowest
+        surfaceContainerLow = colors.surfaceContainerLow
+        surfaceContainer = colors.surfaceContainer
+        surfaceContainerHigh = colors.surfaceContainerHigh
+        surfaceContainerHighest = colors.surfaceContainerHighest
     }
 }
 
@@ -247,7 +278,6 @@ private fun ColorScheme.toAppColors(): AppColors {
         onSurface = this.onSurface,
         surfaceVariant = this.surfaceVariant,
         onSurfaceVariant = this.onSurfaceVariant,
-        surfaceTint = this.surfaceTint,
         inverseSurface = this.inverseSurface,
         inverseOnSurface = this.inverseOnSurface,
         error = this.error,
@@ -257,5 +287,12 @@ private fun ColorScheme.toAppColors(): AppColors {
         outline = this.outline,
         outlineVariant = this.outlineVariant,
         scrim = this.scrim,
+        surfaceDim = this.surfaceDim,
+        surfaceBright = this.surfaceBright,
+        surfaceContainerLowest = this.surfaceContainerLowest,
+        surfaceContainerLow = this.surfaceContainerLow,
+        surfaceContainer = this.surfaceContainer,
+        surfaceContainerHigh = this.surfaceContainerHigh,
+        surfaceContainerHighest = this.surfaceContainerHighest,
     )
 }
