@@ -187,11 +187,11 @@ sealed interface OverflowMenuItem {
 
     open class MenuItemCustom(
         open val text: @Composable () -> String,
-        open val leadingContent: (@Composable () -> String)? = null,
-        open val trailingContent: (@Composable () -> String)? = null,
+        open val leadingContent: (@Composable () -> Unit)? = null,
+        open val trailingContent: (@Composable () -> Unit)? = null,
         open val action: () -> Unit,
     ) : OverflowMenuItem {
-        constructor(@StringRes textId: Int, leadingContent: (@Composable () -> String)? = null, trailingContent: (@Composable () -> String)? = null, action: () -> Unit) : this(
+        constructor(@StringRes textId: Int, leadingContent: (@Composable () -> Unit)? = null, trailingContent: (@Composable () -> Unit)? = null, action: () -> Unit) : this(
             text = { stringResource(textId) },
             leadingContent = leadingContent,
             trailingContent = trailingContent,

@@ -201,11 +201,11 @@ sealed interface AppBarMenuItem {
 
     class OverflowMenuItemCustom(
         override val text: @Composable () -> String,
-        override val leadingContent: (@Composable () -> String)? = null,
-        override val trailingContent: (@Composable () -> String)? = null,
+        override val leadingContent: (@Composable () -> Unit)? = null,
+        override val trailingContent: (@Composable () -> Unit)? = null,
         override val action: () -> Unit
     ) : AppBarMenuItem, org.jdc.template.ui.compose.menu.OverflowMenuItem.MenuItemCustom(text, leadingContent, trailingContent, action) {
-        constructor(@StringRes textId: Int, leadingContent: (@Composable () -> String)? = null, trailingContent: (@Composable () -> String)? = null, action: () -> Unit) : this(
+        constructor(@StringRes textId: Int, leadingContent: (@Composable () -> Unit)? = null, trailingContent: (@Composable () -> Unit)? = null, action: () -> Unit) : this(
             text = { stringResource(textId) },
             leadingContent = leadingContent,
             trailingContent = trailingContent,
