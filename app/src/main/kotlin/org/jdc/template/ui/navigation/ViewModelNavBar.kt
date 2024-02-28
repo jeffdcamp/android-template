@@ -147,7 +147,11 @@ sealed class ViewModelNavBarNavigator {
 
     class NavigateIntent(val intent: Intent, val options: Bundle? = null) : ViewModelNavBarNavigator() {
         override fun <T : Enum<T>> navigate(context: Context, navController: NavController, viewModelNav: ViewModelNavBar<T>): Boolean {
-            context.startActivity(intent, options)
+            try {
+                context.startActivity(intent, options)
+            } catch (ignore: Exception) {
+                Logger.e(ignore) { "Failed to startActivity for intent (${intent.data})" }
+            }
             viewModelNav.resetNavigate(this)
             return false
         }

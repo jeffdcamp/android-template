@@ -7,6 +7,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
+import co.touchlab.kermit.Logger
 
 sealed interface NavigationActionRoute : NavigationAction {
     /**
@@ -62,7 +63,11 @@ sealed interface NavigationAction {
 
     data class NavigateIntent(private val intent: Intent, private val options: Bundle? = null) : NavigationActionIntent {
         override fun navigate(context: Context, resetNavigate: (NavigationAction) -> Unit): Boolean {
-            context.startActivity(intent, options)
+            try {
+                context.startActivity(intent, options)
+            } catch (ignore: Exception) {
+                Logger.e(ignore) { "Failed to startActivity for intent (${intent.data})" }
+            }
             resetNavigate(this)
             return false
         }
@@ -81,7 +86,11 @@ sealed interface NavigationAction {
     data class PopAndNavigateIntent(private val intent: Intent, private val options: Bundle? = null) : NavigationActionFull {
         override fun navigate(context: Context, navController: NavController, resetNavigate: (NavigationAction) -> Unit): Boolean {
             val stackPopped = navController.popBackStack()
-            context.startActivity(intent, options)
+            try {
+                context.startActivity(intent, options)
+            } catch (ignore: Exception) {
+                Logger.e(ignore) { "Failed to startActivity for intent (${intent.data})" }
+            }
             resetNavigate(this)
             return stackPopped
         }
