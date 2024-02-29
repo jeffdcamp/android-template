@@ -11,8 +11,7 @@ import org.jdc.template.ui.navigation.NavRouteDefinition
 import org.jdc.template.ui.navigation.RouteUtil
 import org.jdc.template.ui.navigation.asNavRoute
 import org.jdc.template.ui.navigation.asNavRouteDefinition
-import org.jdc.template.util.ext.requireIndividualId
-import org.jdc.template.ux.individual.IndividualRoute
+import org.jdc.template.util.ext.getIndividualId
 
 object IndividualEditRoute : NavComposeRoute() {
     private const val ROUTE_BASE = "individualEdit"
@@ -37,9 +36,9 @@ object IndividualEditRoute : NavComposeRoute() {
     }
 }
 
-data class IndividualEditArgs(val individualId: IndividualId) {
+data class IndividualEditArgs(val individualId: IndividualId?) {
     constructor(savedStateHandle: SavedStateHandle) :
             this(
-                savedStateHandle.requireIndividualId(IndividualRoute.Arg.INDIVIDUAL_ID),
+                savedStateHandle.getIndividualId(IndividualEditRoute.Arg.INDIVIDUAL_ID),
             )
 }
