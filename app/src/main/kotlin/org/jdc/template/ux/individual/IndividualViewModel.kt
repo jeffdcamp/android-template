@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.jdc.template.ui.navigation.ViewModelNav
 import org.jdc.template.ui.navigation.ViewModelNavImpl
-import org.jdc.template.util.ext.requireIndividualId
 import javax.inject.Inject
 
 @HiltViewModel
@@ -15,7 +14,6 @@ class IndividualViewModel
     getIndividualUiStateUseCase: GetIndividualUiStateUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel(), ViewModelNav by ViewModelNavImpl() {
-    private val individualId = savedStateHandle.requireIndividualId(IndividualRoute.Arg.INDIVIDUAL_ID)
-
-    val uiState: IndividualUiState = getIndividualUiStateUseCase.invoke(individualId, viewModelScope) { navigate(it) }
+    private val args = IndividualArgs(savedStateHandle)
+    val uiState: IndividualUiState = getIndividualUiStateUseCase.invoke(args.individualId, viewModelScope) { navigate(it) }
 }

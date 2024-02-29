@@ -1,5 +1,6 @@
 package org.jdc.template.ux.individual
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavDeepLink
 import androidx.navigation.NavType
@@ -12,6 +13,7 @@ import org.jdc.template.ui.navigation.NavRouteDefinition
 import org.jdc.template.ui.navigation.RouteUtil
 import org.jdc.template.ui.navigation.asNavRoute
 import org.jdc.template.ui.navigation.asNavRouteDefinition
+import org.jdc.template.util.ext.requireIndividualId
 
 object IndividualRoute : NavComposeRoute() {
     private const val ROUTE_BASE = "individual"
@@ -39,4 +41,11 @@ object IndividualRoute : NavComposeRoute() {
     object Arg {
         const val INDIVIDUAL_ID = "individualId"
     }
+}
+
+data class IndividualArgs(val individualId: IndividualId) {
+    constructor(savedStateHandle: SavedStateHandle) :
+            this(
+                savedStateHandle.requireIndividualId(IndividualRoute.Arg.INDIVIDUAL_ID),
+            )
 }
