@@ -1,9 +1,9 @@
 [versions]
-agp = "8.3.0-rc02"
+agp = "8.3.0"
 kotlin = "1.9.22"
 kotlinxCoroutines = "1.8.0"
 kotlinxSerialization = "1.6.3"
-kotlinxDateTime = "0.5.0"
+kotlinxDateTime = "0.6.0-RC"
 
 androidxActivity = "1.8.2"
 androidxComposeCompiler = "1.5.10"

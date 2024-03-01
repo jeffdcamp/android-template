@@ -11,7 +11,7 @@ plugins {
     id("com.google.firebase.crashlytics")
     id("com.google.firebase.appdistribution")
     id("org.dbtools.license-manager")
-    id("de.undercouch.download") version "5.5.0"
+    id("de.undercouch.download") version "5.6.0"
     id("org.jetbrains.kotlinx.kover") version "0.7.6"
     id("com.spotify.ruler")
     id("org.gradle.jacoco")
