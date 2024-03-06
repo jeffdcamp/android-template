@@ -387,6 +387,7 @@ androidComponents.onVariants { variant ->
 // ===== Kover (JUnit Coverage Reports) =====
 // ./gradlew koverHtmlReportDebug
 // ./gradlew koverXmlReportDebug
+// ./gradlew koverVerifyDebug
 koverReport {
     filters {
         excludes {
@@ -425,6 +426,12 @@ koverReport {
                 "*Module*",
                 "*SuppressCoverage*",
             )
+        }
+    }
+
+    verify {
+        rule {
+            minBound(25) // minimum percent coverage without failing build (Line percent)
         }
     }
 }
