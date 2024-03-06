@@ -3,15 +3,15 @@ agp = "8.3.0"
 kotlin = "1.9.22"
 kotlinxCoroutines = "1.8.0"
 kotlinxSerialization = "1.6.3"
-kotlinxDateTime = "0.6.0-RC"
+kotlinxDateTime = "0.6.0-RC.2"
 
 androidxActivity = "1.8.2"
 androidxComposeCompiler = "1.5.10"
-androidxComposeMaterial = "1.6.2"
-androidxComposeMaterial3 = "1.2.0"
-androidxComposeMaterial3Adaptive = "1.0.0-alpha06"
-androidxComposeMaterial3AdaptiveNavigation = "1.0.0-alpha03"
-androidxComposeUi = "1.6.2"
+androidxComposeMaterial = "1.6.3"
+androidxComposeMaterial3 = "1.2.1"
+androidxComposeMaterial3Adaptive = "1.0.0-alpha08"
+androidxComposeMaterial3AdaptiveNavigation = "1.0.0-alpha05"
+androidxComposeUi = "1.6.3"
 androidxDataStore = "1.0.0"
 androidxHilt = "1.2.0"
 androidxLifecycle = "2.7.0"
@@ -51,7 +51,7 @@ okio = "3.8.0"
 playPublisher = "3.9.0"
 ruler = "1.4.0"
 sqliteJdbc = "3.45.1.0"
-turbine = "1.0.0"
+turbine = "1.1.0"
 versionsGradlePlugin = "0.51.0"
 workManagerTools = "4.0.0"
 
@@ -99,7 +99,7 @@ coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 
 compose-material-iconsext = { module = "androidx.compose.material:material-icons-extended", version.ref = "androidxComposeMaterial" } # Material design icons (extended)
 compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "androidxComposeMaterial3" }
-compose-material3-adaptive = { group = "androidx.compose.material3", name = "material3-adaptive-android", version.ref = "androidxComposeMaterial3Adaptive" }
+compose-material3-adaptive = { group = "androidx.compose.material3.adaptive", name = "adaptive", version.ref = "androidxComposeMaterial3Adaptive" }
 compose-material3-adaptive-navigation = { module = "androidx.compose.material3:material3-adaptive-navigation-suite", version.ref = "androidxComposeMaterial3AdaptiveNavigation" }
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "androidxComposeUi" }
 compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "androidxComposeUi" }
