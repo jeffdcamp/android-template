@@ -5,7 +5,6 @@ import java.util.Date
 plugins {
     id("com.android.application")
     kotlin("android")
-    kotlin("kapt")
     id("dagger.hilt.android.plugin")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
@@ -247,9 +246,9 @@ dependencies {
 
     // Inject
     implementation(libs.google.hilt.library)
-    kapt(libs.google.hilt.compiler)
+    ksp(libs.google.hilt.compiler)
 
-    kapt(libs.androidx.hilt.compiler)
+    ksp(libs.androidx.hilt.compiler)
     implementation(libs.androidx.hilt.work)
 
     // Android Architecture Components
@@ -313,12 +312,6 @@ dependencies {
     testImplementation(libs.dbtools.roomJdbc)
     testImplementation(libs.turbine)
     testImplementation(libs.xerial.sqlite)
-
-
-    // use regular dagger for unit tests
-    // (2020-06-11: "Currently, Hilt only supports Android instrumentation and Robolectric tests. Hilt cannot be used in vanilla JVM tests,
-    // but it does not prevent you from writing these tests as you would normally." (https://dagger.dev/hilt/testing)
-    kaptTest(libs.dagger.compiler)
 }
 
 // ===== TEST TASKS =====

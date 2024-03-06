@@ -107,8 +107,6 @@ compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", ve
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "androidxComposeUi" } # Tooling support (Previews, etc.)
 compose-material3-windowsize = { module = "androidx.compose.material3:material3-window-size-class", version.ref = "androidxComposeMaterial3" }
 
-dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "hilt" }
-
 dbtools-licenseManager-gradlePluginClasspath = { module = "org.dbtools:license-manager-gradle-plugin", version.ref = "licenseManagerGradlePlugin" }
 
 dbtools-room = { module = "org.dbtools:dbtools-room", version.ref = "dbtools" }
