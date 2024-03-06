@@ -4,11 +4,21 @@ import android.app.Application
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.migration.DisableInstallInCheck
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.okhttp.OkHttp
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.defaultRequest
+import io.ktor.client.plugins.logging.Logging
+import io.ktor.client.plugins.resources.Resources
+import io.ktor.client.request.header
+import io.ktor.http.HttpHeaders
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.serialization.json.Json
 import okhttp3.OkHttpClient
 import org.jdc.template.TestFilesystem
+import org.jdc.template.model.webservice.KtorClientDefaults.defaultSetup
+import org.jdc.template.model.webservice.ResponseTimePlugin
 import org.jdc.template.model.webservice.colors.ColorService
 import java.io.File
 import java.util.concurrent.TimeUnit
@@ -59,7 +69,32 @@ class CommonTestModule {
 
     @Provides
     @Singleton
-    fun getColorService(): ColorService {
-        return ColorService()
+    // TODO: 3/5/24 NAME
+    // Per base url
+    // Per Auth level
+    fun provideKtorHttpClient(): HttpClient {
+        return HttpClient(OkHttp.create()) {
+            install(Logging) {
+                defaultSetup()
+            }
+            install(ResponseTimePlugin)
+            install(Resources)
+            install(ContentNegotiation) {
+                defaultSetup(allowAnyContentType = true)
+            }
+
+            defaultRequest {
+                url("https://raw.githubusercontent.com/jeffdcamp/android-template/33017aa38f59b3ff728a26c1ee350e58c8bb9647/src/test/")
+                header(HttpHeaders.AcceptLanguage, "en-US")
+            }
+//            install(HttpCache) // Talk about cache
+        }
+        // TODO: 3/5/24 ADD AUTH
+    }
+
+    @Provides
+    @Singleton
+    fun getColorService(httpClient: HttpClient): ColorService {
+        return ColorService(httpClient)
     }
 }

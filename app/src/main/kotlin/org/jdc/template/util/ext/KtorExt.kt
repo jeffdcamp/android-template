@@ -5,8 +5,14 @@ package org.jdc.template.util.ext
 import co.touchlab.kermit.Logger
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
+import io.ktor.client.request.HttpRequestBuilder
+import io.ktor.client.request.header
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.request
+import io.ktor.http.HttpHeaders
+import io.ktor.http.HttpStatusCode
+import io.ktor.http.etag
+import io.ktor.http.ifNoneMatch
 import io.ktor.http.isSuccess
 import io.ktor.utils.io.ByteReadChannel
 import io.ktor.utils.io.ByteWriteChannel
@@ -20,21 +26,60 @@ import okio.Path
 import okio.buffer
 
 @Suppress("kotlin:S6312") // Sonar issue with Coroutine scope on function ext
-suspend fun <T> HttpClient.executeSafely(
+suspend fun <T, E> HttpClient.executeSafely(
     apiCall: suspend HttpClient.() -> HttpResponse,
-    mapError: suspend (HttpResponse) -> ApiResponse.Failure.Error = { ApiResponse.Failure.Error("Error executing service call: ${it.request.method.value} ${it.request.url} (${it.status})") },
-    mapException: suspend (IOException) -> ApiResponse.Failure.Exception = { ApiResponse.Failure.Exception(it) },
+    mapError: suspend (HttpResponse) -> ApiResponse.Failure.Error<E> = {
+        ApiResponse.Failure.Error(
+            null,
+            "Error executing service call: ${it.request.method.value} ${it.request.url} (${it.status})"
+        )
+    },
+    mapException: suspend (Throwable) -> ApiResponse.Failure.Exception = { ApiResponse.Failure.Exception(it) },
     mapSuccess: suspend (HttpResponse) -> T,
-): ApiResponse<T> {
+): ApiResponse<T, E> {
     return try {
         val response = apiCall()
         if (response.status.isSuccess()) {
-            ApiResponse.Success(mapSuccess(response))
+            @Suppress("UNCHECKED_CAST", "kotlin:S6531") // This is unnecessary, but the compiler doesn't know that.
+            ApiResponse.Success(mapSuccess(response)) as ApiResponse<T, E>
         } else {
-            mapError(response)
+            @Suppress("UNCHECKED_CAST") // This is unnecessary, but the compiler doesn't know that.
+            mapError(response) as ApiResponse<T, E>
         }
-    } catch (e: IOException) {
-        mapException(e)
+    } catch (e: Throwable) {
+        @Suppress("UNCHECKED_CAST") // This is unnecessary, but the compiler doesn't know that.
+        mapException(e) as ApiResponse<T, E>
+    }
+}
+
+@Suppress("kotlin:S6312") // Sonar issue with Coroutine scope on function ext
+suspend fun <T, E> HttpClient.executeSafelyCached(
+    apiCall: suspend HttpClient.() -> HttpResponse,
+    mapError: suspend (HttpResponse) -> CacheApiResponse.Failure.Error<E> = {
+        CacheApiResponse.Failure.Error(
+            null,
+            "Error executing service call: ${it.request.method.value} ${it.request.url} (${it.status})"
+        )
+    },
+    mapException: suspend (Throwable) -> ApiResponse.Failure.Exception = { ApiResponse.Failure.Exception(it) },
+    mapSuccess: suspend (HttpResponse) -> T,
+): CacheApiResponse<T, E> {
+    return try {
+        val response = apiCall()
+        if (response.status == HttpStatusCode.NotModified) {
+            @Suppress("UNCHECKED_CAST", "kotlin:S6531") // This is unnecessary, but the compiler doesn't know that.
+            CacheApiResponse.Success(null, response.etag(), response.headers[HttpHeaders.LastModified]) as CacheApiResponse<T, E>
+        }
+        if (response.status.isSuccess()) {
+            @Suppress("UNCHECKED_CAST", "kotlin:S6531") // This is unnecessary, but the compiler doesn't know that.
+            CacheApiResponse.Success(mapSuccess(response), response.etag(), response.headers[HttpHeaders.LastModified]) as CacheApiResponse<T, E>
+        } else {
+            @Suppress("UNCHECKED_CAST") // This is unnecessary, but the compiler doesn't know that.
+            mapError(response) as CacheApiResponse<T, E>
+        }
+    } catch (e: Throwable) {
+        @Suppress("UNCHECKED_CAST") // This is unnecessary, but the compiler doesn't know that.
+        mapException(e) as CacheApiResponse<T, E>
     }
 }
 
@@ -90,5 +135,14 @@ private suspend fun ByteWriteChannel.writeAll(source: BufferedSource) {
     while (source.read(buffer).also { bytesRead = it } != -1 && !channel.isClosedForWrite) {
         channel.writeFully(buffer, offset = 0, length = bytesRead)
         channel.flush()
+    }
+}
+
+fun HttpRequestBuilder.cacheHeaders(etag: String?, lastModified: String?) {
+    if (!etag.isNullOrBlank()) {
+        ifNoneMatch(etag)
+    }
+    if (!lastModified.isNullOrBlank()) {
+        header(HttpHeaders.IfModifiedSince, lastModified)
     }
 }
