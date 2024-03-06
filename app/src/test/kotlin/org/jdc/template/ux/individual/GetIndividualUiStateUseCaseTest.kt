@@ -50,6 +50,8 @@ class GetIndividualUiStateUseCaseTest {
 
             assertThat(navigationActionTurbine.awaitItem()).isEqualTo(NavigationAction.Pop())
 
+            navigationActionTurbine.cancelAndIgnoreRemainingEvents()
+            dialogUiStateFlowTurbine.cancelAndIgnoreRemainingEvents()
             stateScope.cancel()
         }
     }
@@ -88,6 +90,8 @@ class GetIndividualUiStateUseCaseTest {
                 error("Expected error Delete MessageDialogUiState")
             }
 
+            navigationActionTurbine.cancelAndIgnoreRemainingEvents()
+            dialogUiStateFlowTurbine.cancelAndIgnoreRemainingEvents()
             stateScope.cancel()
         }
     }
