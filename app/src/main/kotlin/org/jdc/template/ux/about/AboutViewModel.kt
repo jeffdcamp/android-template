@@ -23,6 +23,8 @@ import org.jdc.template.ui.navigation.ViewModelNav
 import org.jdc.template.ui.navigation.ViewModelNavImpl
 import org.jdc.template.util.ext.ApiResponse
 import org.jdc.template.util.ext.message
+import org.jdc.template.util.ext.onError
+import org.jdc.template.util.ext.onException
 import org.jdc.template.util.ext.onFailure
 import org.jdc.template.util.ext.onSuccess
 import org.jdc.template.util.ext.readText
@@ -32,7 +34,7 @@ import org.jdc.template.work.WorkScheduler
 import javax.inject.Inject
 
 @HiltViewModel
-class  AboutViewModel
+class AboutViewModel
 @Inject constructor(
     private val application: Application,
     private val individualRepository: IndividualRepository,
@@ -63,42 +65,46 @@ class  AboutViewModel
     private fun testQueryWebServiceCall() = viewModelScope.launch {
         Logger.i { "TypeSafe Call..." }
         if (!remoteConfig.isColorServiceEnabled()) {
-            Logger.e {"Color Service is NOT enabled... skipping" }
+            Logger.e { "Color Service is NOT enabled... skipping" }
             return@launch
         }
 
-        val response = colorService.fetchColorsBySafeArgs()
+        val response = colorService.getColorsBySafeArgs()
         processWebServiceResponse(response)
 
-        Logger.i { "========================================================"}
+        Logger.i { "========================================================" }
 
-        processWebServiceResponse2(colorService.fetchColorsBySafeArgs())
+        processWebServiceResponse2(colorService.getColorsBySafeArgs())
     }
 
     private fun testFullUrlQueryWebServiceCall() = viewModelScope.launch {
         Logger.i { "Full URL Call..." }
-        val response = colorService.fetchColorsByFullUrl()
+        val response = colorService.getColorsByFullUrl()
         processWebServiceResponse(response)
     }
 
     private fun testSaveQueryWebServiceCall() = viewModelScope.launch {
         val outputFile = application.filesDir.toOkioPath() / "colors.json"
-        colorService.fetchColorsToFile(fileSystem, outputFile)
+        colorService.getColorsToFile(fileSystem, outputFile)
 
         Logger.i { "Downloaded file contents:\n ${fileSystem.readText(outputFile)}" }
     }
 
-    private fun processWebServiceResponse(response: ApiResponse<ColorsDto>) {
+    private fun processWebServiceResponse(response: ApiResponse<ColorsDto, Unit>) {
         response.onSuccess {
             data.colors.forEach {
                 Logger.i { "Result: ${it.colorName}" }
             }
         }.onFailure {
             Logger.e { "Web Service FAILURE ${message()}" }
+        }.onError {
+
+        }.onException {
+
         }
     }
 
-    private fun processWebServiceResponse2(response: ApiResponse<ColorsDto>) {
+    private fun processWebServiceResponse2(response: ApiResponse<ColorsDto, Unit>) {
         response.onSuccess {
             data.colors.forEach {
                 Logger.i { "Result: ${it.colorName}" }
@@ -148,7 +154,7 @@ class  AboutViewModel
             // restore name
             individualRepository.saveIndividual(individual.copy(firstName = originalName))
         } else {
-            Logger.e {"Cannot find individual" }
+            Logger.e { "Cannot find individual" }
         }
     }
 

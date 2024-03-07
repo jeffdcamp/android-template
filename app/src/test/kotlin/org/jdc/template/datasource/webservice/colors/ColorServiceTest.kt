@@ -9,6 +9,7 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.http.headersOf
 import io.ktor.utils.io.ByteReadChannel
 import kotlinx.coroutines.test.runTest
+import org.jdc.template.datasource.webservice.TestHttpClientProvider
 import org.jdc.template.model.webservice.colors.ColorService
 import org.jdc.template.util.ext.ApiResponse
 import org.junit.jupiter.api.Test
@@ -23,8 +24,8 @@ class ColorServiceTest {
                 headers = headersOf(HttpHeaders.ContentType, "application/json")
             )
         }
-        val colorService = ColorService(mockEngine)
-        val response = colorService.fetchColorsBySafeArgs()
+        val colorService = ColorService(TestHttpClientProvider.getTestClient(mockEngine))
+        val response = colorService.getColorsBySafeArgs()
         check(response is ApiResponse.Success)
 
         val colors = response.data
@@ -43,8 +44,8 @@ class ColorServiceTest {
                 status = HttpStatusCode.InternalServerError,
             )
         }
-        val colorService = ColorService(mockEngine)
-        val response = colorService.fetchColorsBySafeArgs()
+        val colorService = ColorService(TestHttpClientProvider.getTestClient(mockEngine))
+        val response = colorService.getColorsBySafeArgs()
         check(response is ApiResponse.Failure)
     }
 
