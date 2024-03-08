@@ -1,6 +1,7 @@
 package org.jdc.template.ux.about
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
@@ -20,6 +21,7 @@ import org.jdc.template.R
 import org.jdc.template.ui.compose.appbar.AppBarMenu
 import org.jdc.template.ui.compose.appbar.AppBarMenuItem
 import org.jdc.template.ui.navigation.HandleNavigation
+import org.jdc.template.ui.theme.AppTheme
 import org.jdc.template.ux.MainAppScaffoldWithNavBar
 
 @Composable
@@ -87,7 +89,11 @@ private fun ApplicationAboutTitle() {
 @Composable
 private fun RestServicesStatus(uiState: AboutUiState) {
     val restServicesEnabled by uiState.resetServiceEnabledFlow.collectAsStateWithLifecycle()
-    Text("Rest Services Enabled: $restServicesEnabled")
+
+    Row {
+        Text("Rest Services Enabled: ")
+        Text(text = restServicesEnabled.toString(), color = AppTheme.extendedColors.customColorA.color)
+    }
 }
 
 @Composable
