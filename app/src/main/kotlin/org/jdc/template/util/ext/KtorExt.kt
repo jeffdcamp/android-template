@@ -46,9 +46,9 @@ suspend fun <T, E> HttpClient.executeSafely(
             @Suppress("UNCHECKED_CAST") // This is unnecessary, but the compiler doesn't know that.
             mapError(response) as ApiResponse<T, E>
         }
-    } catch (e: Throwable) {
+    } catch (expected: Throwable) {
         @Suppress("UNCHECKED_CAST") // This is unnecessary, but the compiler doesn't know that.
-        mapException(e) as ApiResponse<T, E>
+        mapException(expected) as ApiResponse<T, E>
     }
 }
 
@@ -77,9 +77,9 @@ suspend fun <T, E> HttpClient.executeSafelyCached(
             @Suppress("UNCHECKED_CAST") // This is unnecessary, but the compiler doesn't know that.
             mapError(response) as CacheApiResponse<T, E>
         }
-    } catch (e: Throwable) {
+    } catch (expected: Throwable) {
         @Suppress("UNCHECKED_CAST") // This is unnecessary, but the compiler doesn't know that.
-        mapException(e) as CacheApiResponse<T, E>
+        mapException(expected) as CacheApiResponse<T, E>
     }
 }
 

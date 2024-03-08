@@ -1,3 +1,5 @@
+@file:Suppress("UnusedPrivateProperty") // use when contrast themes are supported
+
 package org.jdc.template.ui.theme
 
 import android.os.Build
