@@ -23,28 +23,29 @@ androidxWindow = "1.2.0"
 androidxWork = "2.9.0"
 
 assertk = "0.28.0"
-autonomousappsDependencyAnalysis = "1.30.0"
 coil = "2.6.0"
+dependencyAnalysis = "1.30.0"
 desugarJdkLibs = "2.0.4"
 detekt = "1.23.5"
 dbtools = "8.3.0"
+downloadPlugin = "5.6.0"
 
-firebaseBom = "32.7.3"
-firebaseAppDistGradlePlugin = "4.2.0"
-firebaseCrashlyticsGradlePlugin = "2.9.9"
-firebasePerfGradlePlugin = "1.4.2"
+firebaseBom = "32.7.4"
+firebaseAppDistPlugin = "4.2.0"
+firebaseCrashlyticsPlugin = "2.9.9"
+firebasePerfPlugin = "1.4.2"
 
 googlePlayCore = "1.8.1"
-googleServicesGradlePlugin = "4.4.1"
+gmsPlugin = "4.4.1"
 
 hilt = "2.51"
-jacoco = "0.8.8"
 junit = "5.10.2"
 kermit = "2.0.3"
+kover = "0.7.6"
 ksp = "1.9.22-1.0.18"
 ktor = "3.0.0-beta-1"
 leakCanary = "2.13"
-licenseManagerGradlePlugin = "1.3.0"
+licenseManagerPlugin = "1.3.0"
 mockK = "1.13.10"
 okhttp = "4.12.0"
 okio = "3.8.0"
@@ -52,17 +53,29 @@ playPublisher = "3.9.0"
 ruler = "1.4.0"
 sqliteJdbc = "3.45.1.0"
 turbine = "1.1.0"
-versionsGradlePlugin = "0.51.0"
+versionsPlugin = "0.51.0"
 workManagerTools = "4.0.0"
 
 [plugins]
-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+android-application = { id = "com.android.application", version.ref = "agp" }
+dependencyAnalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyAnalysis" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
-#playPublisher = { id = "com.github.triplet.play", version.ref = "playPublisher" }
+download = { id = "de.undercouch.download", version.ref = "downloadPlugin" }
+firebase-appdistribution = { id = "com.google.firebase.appdistribution", version.ref = "firebaseAppDistPlugin" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsPlugin" }
+firebase-perf = { id = "com.google.firebase.firebase-perf", version.ref = "firebasePerfPlugin" }
+gms = { id = "com.google.gms.google-services", version.ref = "gmsPlugin" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+playPublisher = { id = "com.github.triplet.play", version.ref = "playPublisher" }
+room = { id = "androidx.room", version.ref = "androidxRoom" }
+versions = { id = "com.github.ben-manes.versions", version.ref = "versionsPlugin" }
 
 [libraries]
-android-gradlePluginClasspath = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 android-desugar = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugarJdkLibs" }
 
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
@@ -107,27 +120,20 @@ compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", ve
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "androidxComposeUi" } # Tooling support (Previews, etc.)
 compose-material3-windowsize = { module = "androidx.compose.material3:material3-window-size-class", version.ref = "androidxComposeMaterial3" }
 
-dbtools-licenseManager-gradlePluginClasspath = { module = "org.dbtools:license-manager-gradle-plugin", version.ref = "licenseManagerGradlePlugin" }
+dbtools-licenseManager-gradlePluginClasspath = { module = "org.dbtools:license-manager-gradle-plugin", version.ref = "licenseManagerPlugin" }
 
 dbtools-room = { module = "org.dbtools:dbtools-room", version.ref = "dbtools" }
 dbtools-roomSqlite = { module = "org.dbtools:dbtools-room-sqliteorg", version.ref = "dbtools" }
 dbtools-roomJdbc = { module = "org.dbtools:dbtools-room-jdbc", version.ref = "dbtools" }
 dbtools-roomJdbcTest = { module = "org.dbtools:dbtools-room-jdbc-test", version.ref = "dbtools" }
 
-google-servicesgradlePluginClasspath = { module = "com.google.gms:google-services", version.ref = "googleServicesGradlePlugin" }
-
 # Firebase - https://firebase.google.com/support/release-notes/android
 google-firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
-google-firebase-appDistGradlePluginClasspath = { module = "com.google.firebase:firebase-appdistribution-gradle", version.ref = "firebaseAppDistGradlePlugin" }
 google-firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 google-firebase-config = { module = "com.google.firebase:firebase-config" }
 google-firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
-google-firebase-crashlyticsGradlePluginClasspath = { module = "com.google.firebase:firebase-crashlytics-gradle", version.ref = "firebaseCrashlyticsGradlePlugin" }
-google-firebase-perf = { module = "com.google.firebase:firebase-perf" }
-google-firebase-perfGradlePluginClasspath = { module = "com.google.firebase:perf-plugin", version.ref = "firebasePerfGradlePlugin" }
 
 google-hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
-google-hilt-gradlePluginClasspath = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hilt" }
 google-hilt-library = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 google-hilt-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
 
@@ -166,13 +172,9 @@ okio-assetfilesystem = { module = "com.squareup.okio:okio-assetfilesystem", vers
 
 mockK = { module = "io.mockk:mockk", version.ref = "mockK" }
 
-playPublisherGradlePluginClasspath = { module = "com.github.triplet.gradle:play-publisher", version.ref = "playPublisher" }
-
 ruler-gradlePluginClasspath = { module = "com.spotify.ruler:ruler-gradle-plugin", version.ref = "ruler" }
 
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
-
-gradleVersions-gradlePluginClasspath = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "versionsGradlePlugin" }
 
 workmanagertools = { module = "org.dbtools:workmanager-tools", version.ref = "workManagerTools" }
 

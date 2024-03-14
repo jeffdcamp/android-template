@@ -3,21 +3,21 @@
 import java.util.Date
 
 plugins {
-    id("com.android.application")
-    kotlin("android")
-    id("dagger.hilt.android.plugin")
-    id("com.google.gms.google-services")
-    id("com.google.firebase.crashlytics")
-    id("com.google.firebase.appdistribution")
-    id("org.dbtools.license-manager")
-    id("de.undercouch.download") version "5.6.0"
-    id("org.jetbrains.kotlinx.kover") version "0.7.6"
-    id("com.spotify.ruler")
-    id("org.gradle.jacoco")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.gms)
+    alias(libs.plugins.firebase.crashlytics)
+    alias(libs.plugins.firebase.appdistribution)
+    alias(libs.plugins.download)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.kover)
+    alias(libs.plugins.room)
     alias(libs.plugins.ksp)
     alias(libs.plugins.detekt)
-    id("com.github.triplet.play") // alias(libs.plugins.playPublisher) (3.7.0 still conflicts with appdistribution https://github.com/Triple-T/gradle-play-publisher/issues/901)
+    alias(libs.plugins.playPublisher)
     alias(libs.plugins.kotlin.serialization)
+    id("org.dbtools.license-manager")
+    id("com.spotify.ruler")
 }
 
 android {
@@ -36,17 +36,16 @@ android {
         buildConfigField("String", "BUILD_NUMBER", "\"${System.getProperty("BUILD_NUMBER")}\"")
         buildConfigField("String", "USER_AGENT_APP_NAME", "\"AndroidTemplate\"")
 
-        // used by Room, to test migrations
+        room {
+            schemaDirectory("$projectDir/schema")
+        }
+
         ksp {
-            arg("room.schemaLocation", "$projectDir/schema")
+            // options that are not yet in the Room Gradle plugin
+            // https://developer.android.com/jetpack/androidx/releases/room#gradle-plugin
             arg("room.incremental", "true")
             arg("room.generateKotlin", "true")
         }
-
-        // for use with Room gradle plugin
-//        room {
-//
-//        }
 
         // Integration tests
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -319,69 +318,6 @@ dependencies {
 // create JUnit reports
 tasks.withType<Test> {
     useJUnitPlatform()
-}
-
-// ./gradlew jacocoTestDebugUnitTestReport
-jacoco {
-    toolVersion = libs.versions.jacoco.get().toString()
-}
-
-val jacocoTestReport = tasks.create("jacocoTestReport")
-
-androidComponents.onVariants { variant ->
-    val testTaskName = "test${variant.name.capitalize()}UnitTest"
-    val reportTask = tasks.register("jacoco${testTaskName.capitalize()}Report", JacocoReport::class) {
-        dependsOn(testTaskName)
-
-        reports {
-            xml.required.set(true)
-            html.required.set(true)
-        }
-
-        val exclusions = listOf(
-            // Android
-//            "**/R.class",
-//            "**/R\$*.class",
-//            "**/BuildConfig.*",
-//            "**/Manifest*.*",
-//            "**/*_Impl*.*",
-            // App Specific
-            "org/jdc/template/ui",
-//            "org/jdc/template/ux",
-        )
-        val appUxPath = "org/jdc/template/ux"
-        val uxIncludes = listOf(
-//            "UiState",
-            "Route",
-            "UseCase",
-        )
-
-        classDirectories.setFrom(
-            fileTree("$buildDir/tmp/kotlin-classes/${variant.name}") {
-                exclude { file ->
-                    if (exclusions.any { file.path.contains(it.toRegex()) }) {
-                        println("all file excluded: ${file.name}")
-                        true
-                    } else if (file.path.contains(appUxPath) && !file.isDirectory) {
-                        return@exclude if (uxIncludes.any { file.name.contains(it) }) {
-                            println("ux file included: ${file.name}")
-                            false
-                        } else {
-                            println("ux file excluded: ${file.name}")
-                            true
-                        }
-                    } else {
-                        false
-                    }
-                }
-            }
-        )
-
-        sourceDirectories.setFrom(files("$projectDir/src/main/java", "$projectDir/src/main/kotlin"))
-        executionData.setFrom(file("$buildDir/jacoco/$testTaskName.exec"))
-    }
-
-    jacocoTestReport.dependsOn(reportTask)
 }
 
 // ===== Kover (JUnit Coverage Reports) =====

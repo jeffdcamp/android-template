@@ -6,28 +6,28 @@ buildscript {
         google()
         mavenCentral()
         gradlePluginPortal()
-
 //        maven("https://oss.sonatype.org/content/repositories/snapshots")
     }
 
     dependencies {
-        classpath(libs.android.gradlePluginClasspath)
-        classpath(libs.kotlin.gradlePluginClasspath)
-        classpath(libs.google.hilt.gradlePluginClasspath)
-        classpath(libs.google.firebase.crashlyticsGradlePluginClasspath)
-        // classpath(libs.google.firebase.perfGradlePluginClasspath)
-        classpath(libs.playPublisherGradlePluginClasspath) // place BEFORE app distribution (if app distribution is used)
-        classpath(libs.google.firebase.appDistGradlePluginClasspath)
-        classpath(libs.google.servicesgradlePluginClasspath)
-        classpath(libs.gradleVersions.gradlePluginClasspath)
         classpath(libs.dbtools.licenseManager.gradlePluginClasspath)
         classpath(libs.ruler.gradlePluginClasspath)
     }
 }
 
 plugins {
-    alias(libs.plugins.ksp) // workaround for https://github.com/google/dagger/issues/3965
-    id("com.autonomousapps.dependency-analysis") version libs.versions.autonomousappsDependencyAnalysis
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.kotlin.jvm) apply false
+    alias(libs.plugins.kotlin.serialization) apply false
+    alias(libs.plugins.gms) apply false // must be defined BEFORE firebase
+    alias(libs.plugins.firebase.crashlytics) apply false
+    alias(libs.plugins.firebase.perf) apply false
+    alias(libs.plugins.room) apply false
+    alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.hilt) apply false
+    alias(libs.plugins.versions)
+    alias(libs.plugins.dependencyAnalysis)
 }
 
 @OptIn(ExperimentalStdlibApi::class) // to use buildList (remove with Kotlin 1.5?)
