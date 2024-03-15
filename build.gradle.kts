@@ -30,7 +30,6 @@ plugins {
     alias(libs.plugins.dependencyAnalysis)
 }
 
-@OptIn(ExperimentalStdlibApi::class) // to use buildList (remove with Kotlin 1.5?)
 allprojects {
     // Gradle Dependency Reports
     // ./gradlew -q app:dependencies --configuration debugCompileClasspath > deps.txt
