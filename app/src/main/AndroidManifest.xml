@@ -63,13 +63,6 @@
             android:exported="false"
             tools:node="merge"
             >
-            <!-- Disable default WorkManagerInitializer (Initialization is handled in custom WorkManagerInitializer to support Injection) -->
-            <meta-data
-                android:name="androidx.work.WorkManagerInitializer"
-                android:value="androidx.startup"
-                tools:node="remove"
-                />
-
             <meta-data
                 android:name="org.jdc.template.startup.NotificationInitializer"
                 android:value="androidx.startup"
@@ -84,10 +77,6 @@
                 />
             <meta-data
                 android:name="org.jdc.template.startup.RemoteConfigInitializer"
-                android:value="androidx.startup"
-                />
-            <meta-data
-                android:name="org.jdc.template.startup.WorkManagerInitializer"
                 android:value="androidx.startup"
                 />
         </provider>

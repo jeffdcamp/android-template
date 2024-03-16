@@ -31,6 +31,8 @@ class MainActivity : ComponentActivity() {
         // This also sets up the initial system bar style based on the platform theme
         enableEdgeToEdge()
 
+        viewModel.startup()
+
         setContent {
             val uiState = viewModel.uiState
             val theme by uiState.selectedAppThemeFlow.collectAsStateWithLifecycle()
