@@ -13,6 +13,3 @@
 # Issue Tracker (Fix): https://youtrack.jetbrains.com/issue/KTOR-3484
 -dontwarn org.slf4j.impl.StaticLoggerBinder
 ##---------------End: proguard configuration for Ktor Client  ----------
-
-# Firebase Performance Monitoring
--keep class com.google.firebase.perf.network.** { *; }

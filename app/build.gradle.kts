@@ -8,7 +8,7 @@ plugins {
     alias(libs.plugins.gms)
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.firebase.appdistribution)
-    alias(libs.plugins.firebase.perf)
+//    alias(libs.plugins.firebase.perf)
     alias(libs.plugins.download)
     alias(libs.plugins.hilt)
     alias(libs.plugins.kover)
