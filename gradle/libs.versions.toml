@@ -45,7 +45,7 @@ kover = "0.7.6"
 ksp = "1.9.22-1.0.18"
 ktor = "3.0.0-beta-1"
 leakCanary = "2.13"
-licenseManagerPlugin = "1.4.0"
+licenseManager = "1.4.0"
 mockK = "1.13.10"
 okhttp = "4.12.0"
 okio = "3.9.0"
@@ -71,7 +71,7 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-licenseManager = { id = "org.dbtools.license-manager", version.ref = "licenseManagerPlugin" }
+licenseManager = { id = "org.dbtools.license-manager", version.ref = "licenseManager" }
 playPublisher = { id = "com.github.triplet.play", version.ref = "playPublisher" }
 room = { id = "androidx.room", version.ref = "androidxRoom" }
 versions = { id = "com.github.ben-manes.versions", version.ref = "versionsPlugin" }
