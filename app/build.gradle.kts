@@ -17,7 +17,7 @@ plugins {
     alias(libs.plugins.detekt)
     alias(libs.plugins.playPublisher)
     alias(libs.plugins.kotlin.serialization)
-    id("org.dbtools.license-manager")
+    alias(libs.plugins.licenseManager)
     id("com.spotify.ruler")
 }
 

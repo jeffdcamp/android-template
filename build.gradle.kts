@@ -10,7 +10,6 @@ buildscript {
     }
 
     dependencies {
-        classpath(libs.dbtools.licenseManager.gradlePluginClasspath)
         classpath(libs.ruler.gradlePluginClasspath)
     }
 }
