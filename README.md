@@ -1,6 +1,8 @@
 Android Template
 =================
 
+[![Build](https://github.com/jeffdcamp/android-template/actions/workflows/alpha.yml/badge.svg)](https://github.com/jeffdcamp/android-template/actions)
+
 Sample Android app that utilizes common best practices
 
 **Features**
@@ -33,7 +35,7 @@ Sample Android app that utilizes common best practices
 License
 =======
 
-    Copyright 2012-2023 Jeff Campbell
+    Copyright 2012-2024 Jeff Campbell
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
