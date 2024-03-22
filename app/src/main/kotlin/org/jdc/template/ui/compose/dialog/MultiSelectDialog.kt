@@ -1,7 +1,6 @@
 package org.jdc.template.ui.compose.dialog
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,7 +19,6 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.toMutableStateList
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
@@ -138,7 +136,7 @@ private fun <T> MultiSelectDialogItem(
     selected: Boolean,
     onItemSelected: (T) -> Unit
 ) {
-    Box(
+    Row(
         Modifier
             .fillMaxWidth()
             .height(45.dp)
@@ -147,17 +145,16 @@ private fun <T> MultiSelectDialogItem(
                 onClick = { onItemSelected(multiSelectDataItem.item) },
                 role = Role.Checkbox
             ),
-        contentAlignment = Alignment.CenterStart
     ) {
-        Text(
-            text = multiSelectDataItem.text(),
-            style = MaterialTheme.typography.bodyMedium.merge(),
-            modifier = Modifier.padding(start = 16.dp)
-        )
         Checkbox(
             checked = selected,
             onCheckedChange = null, // null recommended for accessibility with screen readers
-            modifier = Modifier.align(Alignment.CenterEnd)
+        )
+        Text(
+            text = multiSelectDataItem.text(),
+            style = MaterialTheme.typography.bodyMedium.merge(),
+            maxLines = 3,
+            modifier = Modifier.padding(start = 16.dp)
         )
     }
 }
@@ -200,7 +197,7 @@ data class MultiSelectDataItem<T>(val item: T, val text: @Composable () -> Strin
 private fun PreviewMultiSelectDialog() {
     val items = listOf(
         MultiSelectDataItem("id1") { "A" },
-        MultiSelectDataItem("id2") { "B" },
+        MultiSelectDataItem("id2") { "Really really long text that will wrap to make sure alignment is OK" },
         MultiSelectDataItem("id3") { "C" },
     )
 
