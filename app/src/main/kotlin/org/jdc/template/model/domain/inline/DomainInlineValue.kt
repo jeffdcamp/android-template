@@ -7,8 +7,6 @@ value class IndividualId(val value: String) {
     init {
         require(value.isNotBlank()) { "IndividualId cannot have a empty value" }
     }
-
-    override fun toString(): String = value
 }
 
 @JvmInline
@@ -16,29 +14,19 @@ value class HouseholdId(val value: String) {
     init {
         require(value.isNotBlank()) { "HouseholdId cannot have a empty value" }
     }
-
-    override fun toString(): String = value
 }
 
 @JvmInline
-value class FirstName(val value: String) {
-    override fun toString(): String = value
-}
+value class FirstName(val value: String)
 
 @JvmInline
-value class LastName(val value: String) {
-    override fun toString(): String = value
-}
+value class LastName(val value: String)
 
 @JvmInline
-value class Phone(val value: String) {
-    override fun toString(): String = value
-}
+value class Phone(val value: String)
 
 @JvmInline
-value class Email(val value: String) {
-    override fun toString(): String = value
-}
+value class Email(val value: String)
 
 @JvmInline
 value class CreatedTime(val value: Instant)
