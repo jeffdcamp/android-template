@@ -18,7 +18,7 @@ import org.jdc.template.ui.compose.DayNightTextField
 @Composable
 fun <T> DropdownMenuBoxField(
     options: List<T>,
-    selectedOptionFlow: StateFlow<T>,
+    selectedOptionFlow: StateFlow<T?>,
     onOptionSelected: (T) -> Unit,
     optionToText: @Composable (T) -> String,
     modifier: Modifier = Modifier,
@@ -50,7 +50,7 @@ fun <T> DropdownMenuBoxField(
 @Composable
 fun <T> DropdownMenuBoxField(
     options: List<T>,
-    selectedOption: T,
+    selectedOption: T?,
     onOptionSelected: (T) -> Unit,
     optionToText: @Composable (T) -> String,
     modifier: Modifier = Modifier,
@@ -66,7 +66,7 @@ fun <T> DropdownMenuBoxField(
     ) {
         DayNightTextField(
             readOnly = true,
-            value = optionToText(selectedOption),
+            value = selectedOption?.let { optionToText(it) } ?: "",
             onValueChange = {},
             label = if (label != null) { { Text(text = label) } } else null,
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },

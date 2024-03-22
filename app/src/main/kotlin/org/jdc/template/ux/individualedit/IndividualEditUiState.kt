@@ -30,7 +30,7 @@ class IndividualEditUiState(
     val alarmTimeFlow: StateFlow<LocalTime?> = MutableStateFlow(null),
     val alarmTimeClicked: () -> Unit = {},
 
-    val individualTypeFlow: StateFlow<IndividualType> = MutableStateFlow(IndividualType.UNKNOWN),
+    val individualTypeFlow: StateFlow<IndividualType?> = MutableStateFlow(null),
     val individualTypeErrorFlow: StateFlow<String?> = MutableStateFlow(null),
     val individualTypeChange: (IndividualType) -> Unit = {},
 
