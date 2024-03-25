@@ -66,7 +66,7 @@ fun <T> DropdownMenuBoxField(
     ) {
         DayNightTextField(
             readOnly = true,
-            value = selectedOption?.let { optionToText(it) } ?: "",
+            value = selectedOption?.let { optionToText(it) }.orEmpty(),
             onValueChange = {},
             label = if (label != null) { { Text(text = label) } } else null,
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
