@@ -1,5 +1,3 @@
-import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
-
 buildscript {
     repositories {
         mavenLocal()
@@ -26,6 +24,8 @@ plugins {
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.hilt) apply false
     alias(libs.plugins.licenseManager) apply false
+    alias(libs.plugins.detekt) apply false
+    alias(libs.plugins.kover) apply false
     alias(libs.plugins.versions)
     alias(libs.plugins.dependencyAnalysis)
 }
@@ -38,7 +38,7 @@ allprojects {
     // Gradle Dependency Check
     // ./gradlew dependencyUpdates -Drevision=release
     // ./gradlew dependencyUpdates -Drevision=release --refresh-dependencies
-    apply(plugin = "com.github.ben-manes.versions")
+    apply(plugin = rootProject.libs.plugins.versions.get().pluginId)
     val excludeVersionContaining = listOf("alpha", "eap", "M1", "dev") // example: "alpha", "beta"
     // some artifacts may be OK to check for "alpha"... add these exceptions here
     val ignoreArtifacts = buildList {
@@ -49,7 +49,7 @@ allprojects {
 //        addAll(listOf("window")) // material3 uses latest 1.1.0-alpha
     }
 
-    tasks.named<DependencyUpdatesTask>("dependencyUpdates") {
+    tasks.named<com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask>("dependencyUpdates") {
         resolutionStrategy {
             componentSelection {
                 all {
