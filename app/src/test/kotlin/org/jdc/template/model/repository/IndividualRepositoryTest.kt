@@ -20,17 +20,17 @@ import org.jdc.template.model.db.main.MainDatabase
 import org.jdc.template.model.db.main.MainDatabaseWrapper
 import org.jdc.template.model.domain.Individual
 import org.jdc.template.model.domain.inline.FirstName
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.test.BeforeTest
+import kotlin.test.Test
 
 class IndividualRepositoryTest {
 
     @Inject
     lateinit var individualRepository: IndividualRepository
 
-    @BeforeEach
+    @BeforeTest
     fun setUp() {
         TestFilesystem.deleteFilesystem()
 

@@ -39,7 +39,6 @@ googlePlayCore = "1.8.1"
 gmsPlugin = "4.4.1"
 
 hilt = "2.51.1"
-junit = "5.10.2"
 kermit = "2.0.3"
 kover = "0.7.6"
 ksp = "1.9.23-1.0.19"
@@ -138,10 +137,6 @@ google-hilt-testing = { module = "com.google.dagger:hilt-android-testing", versi
 
 google-play-core = { module = "com.google.android.play:core-ktx", version.ref = "googlePlayCore" } # https://developer.android.com/reference/com/google/android/play/core/release-notes
 
-junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
-junit-jupiter = { module = "org.junit.jupiter:junit-jupiter" }
-junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine" }
-
 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 kermit-crashlytics = { module = "co.touchlab:kermit-crashlytics", version.ref = "kermit" }
 
@@ -159,6 +154,7 @@ ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "k
 ktor-client-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 ktor-client-resources = { module = "io.ktor:ktor-client-resources", version.ref = "ktor" }
 ktor-client-mock = { module = "io.ktor:ktor-client-mock", version.ref = "ktor" }
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 
 leakCanary = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakCanary" }
 

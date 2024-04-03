@@ -15,7 +15,7 @@ import org.jdc.template.ui.navigation.NavigationAction
 import org.jdc.template.ux.individual.IndividualRoute
 import org.jdc.template.ux.individualedit.IndividualEditRoute
 import org.jdc.template.ux.settings.SettingsRoute
-import org.junit.jupiter.api.Test
+import kotlin.test.Test
 
 class GetDirectoryUiStateUseCaseTest {
     @Test

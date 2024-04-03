@@ -302,9 +302,7 @@ dependencies {
     debugImplementation(libs.compose.ui.test.manifest)
 
     // Test (Unit)
-    testImplementation(platform(libs.junit.bom))
-    testImplementation(libs.junit.jupiter)
-    testRuntimeOnly(libs.junit.engine)
+    testImplementation(libs.kotlin.test)
     testImplementation(libs.mockK)
     testImplementation(libs.ktor.client.mock)
     testImplementation(libs.assertk)

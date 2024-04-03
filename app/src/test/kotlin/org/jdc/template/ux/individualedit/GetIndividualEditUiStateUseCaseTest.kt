@@ -13,7 +13,7 @@ import org.jdc.template.ui.navigation.NavigationAction
 import org.jdc.template.ux.TestIndividuals
 import org.jdc.template.ux.mockApplication
 import org.jdc.template.ux.mockIndividualRepository
-import org.junit.jupiter.api.Test
+import kotlin.test.Test
 
 class GetIndividualEditUiStateUseCaseTest {
     @Test

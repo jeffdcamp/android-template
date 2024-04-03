@@ -12,7 +12,7 @@ import kotlinx.coroutines.test.runTest
 import org.jdc.template.datasource.webservice.TestHttpClientProvider
 import org.jdc.template.model.webservice.colors.ColorService
 import org.jdc.template.util.ext.ApiResponse
-import org.junit.jupiter.api.Test
+import kotlin.test.Test
 
 class ColorServiceTest {
     @Test
