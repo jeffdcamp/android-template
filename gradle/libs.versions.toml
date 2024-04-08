@@ -24,7 +24,7 @@ androidxWork = "2.9.0"
 
 assertk = "0.28.0"
 coil = "2.6.0"
-dependencyAnalysis = "1.30.0"
+dependencyAnalysis = "1.31.0"
 desugarJdkLibs = "2.0.4"
 detekt = "1.23.6"
 dbtools = "8.3.0"
