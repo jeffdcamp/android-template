@@ -14,6 +14,7 @@ import org.jdc.template.ui.navigation.RouteUtil
 import org.jdc.template.ui.navigation.asNavRoute
 import org.jdc.template.ui.navigation.asNavRouteDefinition
 import org.jdc.template.util.ext.requireIndividualId
+import org.jdc.template.ux.NavIntentFilterPart
 
 object IndividualRoute : NavComposeRoute() {
     private const val ROUTE_BASE = "individual"
@@ -34,7 +35,8 @@ object IndividualRoute : NavComposeRoute() {
     // adb shell am start -W -a android.intent.action.VIEW -d "android-template://individual/xxxxxx"
     override fun getDeepLinks(): List<NavDeepLink> {
         return listOf(
-            navDeepLink { uriPattern = "android-template://${ROUTE_BASE}/{${Arg.INDIVIDUAL_ID}}" }
+            navDeepLink { uriPattern = "${NavIntentFilterPart.DEFAULT_APP_SCHEME}://$ROUTE_BASE/${RouteUtil.defineArg(Arg.INDIVIDUAL_ID)}" }, // android-template://individual/{individualId},
+            // navDeepLink { uriPattern = "${NavIntentFilterPart.DEFAULT_WEB_SCHEME_HOST}/$ROUTE_BASE/${RouteUtil.defineArg(Arg.INDIVIDUAL_ID)}" } // http://www.mysite.com/individual/{individualId}
         )
     }
 

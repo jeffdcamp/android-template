@@ -46,3 +46,13 @@ fun NavGraph(
         WorkManagerStatusRoute.addNavigationRoute(this) { WorkManagerStatusScreen { navController.popBackStack() } }
     }
 }
+
+/**
+ * Used for building Compose Navigation deeplinks.
+ *
+ * Provides common values to build navDeepLink uriPattern (used in AndroidManifest intent-filter)
+ */
+object NavIntentFilterPart {
+    const val DEFAULT_APP_SCHEME = "android-template"
+    const val DEFAULT_WEB_SCHEME_HOST = "http://www.mysite.com"
+}

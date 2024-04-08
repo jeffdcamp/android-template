@@ -26,7 +26,18 @@ abstract class NavComposeRoute {
      */
     // fun createRoute(): String = routeDefinition
 
+    /**
+     * List of arguments to associate with destination
+     *
+     * see: https://developer.android.com/develop/ui/compose/navigation#nav-with-args
+     */
     abstract fun getArguments(): List<NamedNavArgument>
+
+    /**
+     * List of deep links to associate with the destinations
+     *
+     * see: https://developer.android.com/develop/ui/compose/navigation#deeplinks
+     */
     open fun getDeepLinks(): List<NavDeepLink> = emptyList()
 
     /**
