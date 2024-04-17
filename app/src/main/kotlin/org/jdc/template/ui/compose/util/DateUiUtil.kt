@@ -12,6 +12,11 @@ import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 
 object DateUiUtil {
+    /**
+     * Android DateUtils does not support formatting a LocalDate (it needs epoch millis).
+     *
+     * This function takes a LocalDate and Clock.System.now(), combines them and then tells DateUtils to ONLY show the resulting date and year
+     */
     fun getLocalDateText(
         context: Context,
         localDate: LocalDate?,
@@ -25,6 +30,11 @@ object DateUiUtil {
         return DateUtils.formatDateTime(context, millis, dateUtilsFlags)
     }
 
+    /**
+     * Android DateUtils does not support formatting a LocalTime (it needs epoch millis).
+     *
+     * This function takes a LocalTime and Clock.System.now(), combines them and then tells DateUtils to ONLY show the resulting time
+     */
     fun getLocalTimeText(
         context: Context,
         localTime: LocalTime?,
