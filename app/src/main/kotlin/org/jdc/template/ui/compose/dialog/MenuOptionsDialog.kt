@@ -53,7 +53,7 @@ fun MenuOptionsDialog(
                     Text(
                         text = title,
                         style = MaterialTheme.typography.headlineSmall,
-                        modifier = Modifier.padding(top = 16.dp, start = 16.dp)
+                        modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp)
                     )
 
                     Spacer(modifier = Modifier.height(8.dp))
@@ -63,7 +63,7 @@ fun MenuOptionsDialog(
                 if (supportingText != null) {
                     Text(
                         text = supportingText,
-                        modifier = Modifier.padding(start = 16.dp, top = 16.dp),
+                        modifier = Modifier.padding(start = 16.dp, top = 16.dp, end = 16.dp),
                         style = MaterialTheme.typography.bodyMedium
                     )
                 }
@@ -76,6 +76,8 @@ fun MenuOptionsDialog(
                             .clickable { menuOptionsDialogItem.onClick() }
                     )
                 }
+
+                Spacer(modifier = Modifier.height(16.dp))
             }
         }
     }
@@ -110,8 +112,8 @@ private fun Preview() {
     AppTheme {
         MenuOptionsDialog(
             onDismissRequest = {},
-            title = "Options",
-            supportingText = "Here is some supporting text",
+            title = "This is some really long text that should wrap and make for a long read, but will test the spacing of text.",
+            supportingText = "This is some really long text that should wrap and make for a long read, but will test the spacing of text.",
             options = listOf(
                 MenuOptionsDialogItem({ "Option 1" }) {},
                 MenuOptionsDialogItem({ "Option 2" }) {},
