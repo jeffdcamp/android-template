@@ -29,9 +29,9 @@ detekt = "1.23.6"
 dbtools = "8.3.0"
 downloadPlugin = "5.6.0"
 
-firebaseBom = "32.8.1"
-firebaseAppDistPlugin = "4.2.0"
-firebaseCrashlyticsPlugin = "2.9.9"
+firebaseBom = "33.0.0"
+firebaseAppDistPlugin = "5.0.0"
+firebaseCrashlyticsPlugin = "2.9.9" # 3.0.0 has Circular dependency issues (https://github.com/firebase/firebase-android-sdk/issues/5925)
 firebasePerfPlugin = "1.4.2"
 
 googlePlayCore = "1.8.1"
@@ -144,7 +144,6 @@ kotlin-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines
 kotlin-coroutines-playServices = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinxCoroutines" }
 kotlin-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDateTime" }
-kotlin-gradlePluginClasspath = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
