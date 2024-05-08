@@ -15,5 +15,5 @@ class IndividualViewModel
     savedStateHandle: SavedStateHandle
 ) : ViewModel(), ViewModelNav by ViewModelNavImpl() {
     private val args = IndividualArgs(savedStateHandle)
-    val uiState: IndividualUiState = getIndividualUiStateUseCase.invoke(args.individualId, viewModelScope) { navigate(it) }
+    val uiState: IndividualUiState = getIndividualUiStateUseCase(args.individualId, viewModelScope) { navigate(it) }
 }
