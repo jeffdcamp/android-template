@@ -39,7 +39,7 @@ gmsPlugin = "4.4.1"
 
 hilt = "2.51.1"
 kermit = "2.0.3"
-kover = "0.7.6"
+kover = "0.8.0"
 ksp = "2.0.0-RC3-1.0.20"
 ktor = "3.0.0-beta-1"
 leakCanary = "2.14"

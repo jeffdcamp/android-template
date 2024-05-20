@@ -320,50 +320,52 @@ tasks.withType<Test> {
 // ./gradlew koverHtmlReportDebug
 // ./gradlew koverXmlReportDebug
 // ./gradlew koverVerifyDebug
-koverReport {
-    filters {
-        excludes {
-            packages(
-                "*hilt_aggregated_deps*",
-                "*codegen*",
+kover {
+    reports {
+        filters {
+            excludes {
+                packages(
+                    "*hilt_aggregated_deps*",
+                    "*codegen*",
 
-                // App Specific
-                "org.jdc.template.ui",
-            )
+                    // App Specific
+                    "org.jdc.template.ui",
+                )
 
-            classes(
-                "*Fragment",
-                "*Fragment\$*",
-                "*Activity",
-                "*Activity\$*",
-                "*.databinding.*",
-                "*.BuildConfig",
-                "*Factory",
-                "*_HiltModules*",
-                "*_Impl*",
-                "*ComposableSingletons*",
-                "*Hilt*",
-                "*Initializer*",
+                classes(
+                    "*Fragment",
+                    "*Fragment\$*",
+                    "*Activity",
+                    "*Activity\$*",
+                    "*.databinding.*",
+                    "*.BuildConfig",
+                    "*Factory",
+                    "*_HiltModules*",
+                    "*_Impl*",
+                    "*ComposableSingletons*",
+                    "*Hilt*",
+                    "*Initializer*",
 
-                // App Specific
-                "*MainAppScaffoldWithNavBarKt*"
-            )
+                    // App Specific
+                    "*MainAppScaffoldWithNavBarKt*"
+                )
 
-            annotatedBy(
-                "*Composable*",
-                "*HiltAndroidApp*",
-                "*HiltViewModel*",
-                "*HiltWorker*",
-                "*AndroidEntryPoint*",
-                "*Module*",
-                "*SuppressCoverage*",
-            )
+                annotatedBy(
+                    "*Composable*",
+                    "*HiltAndroidApp*",
+                    "*HiltViewModel*",
+                    "*HiltWorker*",
+                    "*AndroidEntryPoint*",
+                    "*Module*",
+                    "*SuppressCoverage*",
+                )
+            }
         }
-    }
 
-    verify {
-        rule {
-            minBound(25) // minimum percent coverage without failing build (Line percent)
+        verify {
+            rule {
+                minBound(25) // minimum percent coverage without failing build (Line percent)
+            }
         }
     }
 }
