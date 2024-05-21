@@ -251,7 +251,7 @@ dependencies {
     // Android Architecture Components
     implementation(libs.androidx.lifecycle.compose)
     implementation(libs.androidx.lifecycle.process)
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.lifecycle.viewmodel.savedstate)
 
     // Navigation
