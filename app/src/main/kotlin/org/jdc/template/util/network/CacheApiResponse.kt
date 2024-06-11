@@ -1,5 +1,6 @@
-package org.jdc.template.util.ext
+package org.jdc.template.util.network
 
+import io.ktor.http.HttpStatusCode
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
@@ -7,30 +8,18 @@ import kotlin.contracts.contract
 sealed interface CacheApiResponse<T, E> {
     data class Success<T>(val data: T?, val etag: String?, val lastModified: String?) : CacheApiResponse<T, Nothing>
     sealed interface Failure<E> : CacheApiResponse<Nothing, E> {
-        open class Error<E>(val payload: E?, val message: String? = payload?.toString()) : Failure<E> {
-            override fun equals(other: Any?): Boolean = other is Error<*> && payload == other.payload
+        sealed interface Error<E> : Failure<E> {
+            val message: String?
 
-            override fun hashCode(): Int {
-                var result = 17
-                result = 31 * result + payload.hashCode()
-                return result
-            }
-
-            override fun toString(): String = message.orEmpty()
+            data class Client<E>(val details: E?, override val message: String? = details?.toString()) : Error<E> // 4xx but not 401 or 480
+            data class Forbidden(override val message: String?) : Error<Nothing> // 401
+            data class NoToken(override val message: String?) : Error<Nothing> // 480
+            data class Server(override val message: String?) : Error<Nothing> // 5xx
+            data class Unknown(val status: HttpStatusCode, override val message: String?) : Error<Nothing> // Something else
         }
 
-        open class Exception(val throwable: Throwable) : Failure<Nothing> {
+        data class Exception(val throwable: Throwable) : Failure<Nothing> {
             val message: String? = throwable.message
-
-            override fun equals(other: Any?): Boolean = other is Exception && throwable == other.throwable
-
-            override fun hashCode(): Int {
-                var result = 17
-                result = 31 * result + throwable.hashCode()
-                return result
-            }
-
-            override fun toString(): String = message.orEmpty()
         }
     }
 }
@@ -40,7 +29,7 @@ sealed interface CacheApiResponse<T, E> {
  * returns null if it is [CacheApiResponse.Failure.Error] or [CacheApiResponse.Failure.Exception].
  * @return The encapsulated data or null.
  */
-fun <T> CacheApiResponse<T, *>.getOrNull(): T? {
+fun <T> CacheApiResponse<out T, *>.getOrNull(): T? {
     return when (this) {
         is CacheApiResponse.Success -> data
         is CacheApiResponse.Failure -> null
@@ -52,7 +41,7 @@ fun <T> CacheApiResponse<T, *>.getOrNull(): T? {
  * returns the [defaultValue] if it is [CacheApiResponse.Failure.Error] or [CacheApiResponse.Failure.Exception].
  * @return The encapsulated data or [defaultValue].
  */
-fun <T> CacheApiResponse<T, *>.getOrElse(defaultValue: T): T {
+fun <T> CacheApiResponse<out T, *>.getOrElse(defaultValue: T): T {
     return when (this) {
         is CacheApiResponse.Success -> data ?: defaultValue
         is CacheApiResponse.Failure -> defaultValue
@@ -65,7 +54,7 @@ fun <T> CacheApiResponse<T, *>.getOrElse(defaultValue: T): T {
  *
  * @return The encapsulated data or [defaultValue].
  */
-inline fun <T> CacheApiResponse<T, *>.getOrElse(defaultValue: () -> T): T {
+inline fun <T> CacheApiResponse<out T, *>.getOrElse(defaultValue: () -> T): T {
     return when (this) {
         is CacheApiResponse.Success -> data ?: defaultValue()
         is CacheApiResponse.Failure -> defaultValue()
@@ -81,7 +70,7 @@ inline fun <T> CacheApiResponse<T, *>.getOrElse(defaultValue: () -> T): T {
  *
  * @return The encapsulated data.
  */
-fun <T> CacheApiResponse<T, *>.getOrThrow(): T? {
+fun <T> CacheApiResponse<out T, *>.getOrThrow(): T? {
     when (this) {
         is CacheApiResponse.Success -> return data
         is CacheApiResponse.Failure.Error -> error(message())
@@ -131,9 +120,9 @@ inline val CacheApiResponse<*, *>.messageOrNull: String?
  */
 @Suppress("OutdatedDocumentation") // Detekt does not seem to work well with this function for documentation
 @OptIn(ExperimentalContracts::class)
-inline fun <T> CacheApiResponse<T, *>.onSuccess(
-    crossinline onResult: CacheApiResponse.Success<T>.() -> Unit,
-): CacheApiResponse<T, *> {
+inline fun <T> CacheApiResponse<out T, *>.onSuccess(
+    onResult: CacheApiResponse.Success<out T>.() -> Unit,
+): CacheApiResponse<out T, *> {
     contract { callsInPlace(onResult, InvocationKind.AT_MOST_ONCE) }
     if (this is CacheApiResponse.Success) {
         onResult(this)
@@ -149,9 +138,9 @@ inline fun <T> CacheApiResponse<T, *>.onSuccess(
  */
 @Suppress("OutdatedDocumentation") // Detekt does not seem to work well with this function for documentation
 @OptIn(ExperimentalContracts::class)
-inline fun <T> CacheApiResponse<T, *>.onFailure(
-    crossinline onResult: CacheApiResponse.Failure<*>.() -> Unit,
-): CacheApiResponse<T, *> {
+inline fun <T> CacheApiResponse<out T, *>.onFailure(
+    onResult: CacheApiResponse.Failure<*>.() -> Unit,
+): CacheApiResponse<out T, *> {
     contract { callsInPlace(onResult, InvocationKind.AT_MOST_ONCE) }
     if (this is CacheApiResponse.Failure) {
         onResult(this)
@@ -167,9 +156,9 @@ inline fun <T> CacheApiResponse<T, *>.onFailure(
  */
 @Suppress("OutdatedDocumentation") // Detekt does not seem to work well with this function for documentation
 @OptIn(ExperimentalContracts::class)
-inline fun <E> CacheApiResponse<*, E>.onError(
-    crossinline onResult: CacheApiResponse.Failure.Error<E>.() -> Unit,
-): CacheApiResponse<*, E> {
+inline fun <E> CacheApiResponse<*, out E>.onError(
+    onResult: CacheApiResponse.Failure.Error<out E>.() -> Unit,
+): CacheApiResponse<*, out E> {
     contract { callsInPlace(onResult, InvocationKind.AT_MOST_ONCE) }
     if (this is CacheApiResponse.Failure.Error) {
         onResult(this)
@@ -186,7 +175,7 @@ inline fun <E> CacheApiResponse<*, E>.onError(
 @Suppress("OutdatedDocumentation") // Detekt does not seem to work well with this function for documentation
 @OptIn(ExperimentalContracts::class)
 inline fun CacheApiResponse<*, *>.onException(
-    crossinline onResult: CacheApiResponse.Failure.Exception.() -> Unit,
+    onResult: CacheApiResponse.Failure.Exception.() -> Unit,
 ): CacheApiResponse<*, *> {
     contract { callsInPlace(onResult, InvocationKind.AT_MOST_ONCE) }
     if (this is CacheApiResponse.Failure.Exception) {
@@ -210,10 +199,10 @@ fun CacheApiResponse.Failure<*>.message(): String {
  * Returns an error message from the [CacheApiResponse.Failure.Error] that consists of the status and error response.
  * @return An error message from the [CacheApiResponse.Failure.Error].
  */
-fun CacheApiResponse.Failure.Error<*>.message(): String = toString()
+fun CacheApiResponse.Failure.Error<*>.message(): String = message ?: toString()
 
 /**
  * Returns an error message from the [CacheApiResponse.Failure.Exception] that consists of the localized message.
  * @return An error message from the [CacheApiResponse.Failure.Exception].
  */
-fun CacheApiResponse.Failure.Exception.message(): String = toString()
+fun CacheApiResponse.Failure.Exception.message(): String = message ?: toString()

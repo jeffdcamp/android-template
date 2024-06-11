@@ -16,12 +16,12 @@ import okio.Path
 import org.jdc.template.model.webservice.colors.dto.ColorDto
 import org.jdc.template.model.webservice.colors.dto.ColorsDto
 import org.jdc.template.model.webservice.colors.dto.ErrorDto
-import org.jdc.template.util.ext.ApiResponse
-import org.jdc.template.util.ext.CacheApiResponse
 import org.jdc.template.util.ext.cacheHeaders
 import org.jdc.template.util.ext.executeSafely
 import org.jdc.template.util.ext.executeSafelyCached
 import org.jdc.template.util.ext.saveBodyToFile
+import org.jdc.template.util.network.ApiResponse
+import org.jdc.template.util.network.CacheApiResponse
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -30,19 +30,19 @@ class ColorService
 @Inject constructor(
     private val httpClient: HttpClient
 ) {
-    suspend fun getColorsBySafeArgs(): ApiResponse<ColorsDto, Unit> {
+    suspend fun getColorsBySafeArgs(): ApiResponse<out ColorsDto, out Unit> {
         return httpClient.executeSafely({ get(ColorsResource.All()) }) { it.body() }
     }
 
     @Suppress("UNCHECKED_CAST")
-    suspend fun getColorsToFile(filesystem: FileSystem, file: Path): ApiResponse<Boolean, Boolean> {
+    suspend fun getColorsToFile(filesystem: FileSystem, file: Path): ApiResponse<out Boolean, out Boolean> {
         return try {
             httpClient.prepareGet(ColorsResource.All()).execute { httpResponse ->
                 if (httpResponse.status.isSuccess() && httpResponse.saveBodyToFile(filesystem, file)) {
-                    ApiResponse.Success(true) as ApiResponse<Boolean, Boolean> // This is unnecessary, but the compiler doesn't know that.
+                    ApiResponse.Success(true)
                 } else {
                     Logger.e { "Failed to save colors json (${httpResponse.status}" }
-                    ApiResponse.Failure.Error(false) as ApiResponse<Boolean, Boolean> // This is unnecessary, but the compiler doesn't know that.
+                    ApiResponse.Failure.Error.Unknown(httpResponse.status, "Failed to save colors json (${httpResponse.status}")
                 }
             }
         } catch (expected: Throwable) {
@@ -50,7 +50,7 @@ class ColorService
         }
     }
 
-    suspend fun getColorsByFullUrl(): ApiResponse<ColorsDto, Unit> {
+    suspend fun getColorsByFullUrl(): ApiResponse<out ColorsDto, out Unit> {
         return httpClient.executeSafely(
             { get("https://raw.githubusercontent.com/jeffdcamp/android-template/33017aa38f59b3ff728a26c1ee350e58c8bb9647/src/test/json/rest-test.json") }
         ) {
@@ -58,7 +58,7 @@ class ColorService
         }
     }
 
-    suspend fun postColors(colorsDto: ColorsDto): ApiResponse<Unit, ErrorDto> {
+    suspend fun postColors(colorsDto: ColorsDto): ApiResponse<out Unit, out ErrorDto> {
         return httpClient.executeSafely(
             {
                 post(ColorsResource.All()) {
@@ -66,44 +66,44 @@ class ColorService
                     contentType(ContentType.Application.Json)
                 }
             },
-            mapError = {
-                ApiResponse.Failure.Error(ErrorDto(it.status.value, it.status.description))
+            mapClientError = {
+                ApiResponse.Failure.Error.Client(ErrorDto(it.status.value, it.status.description))
             },
             mapSuccess = { }
         )
     }
 
-    suspend fun getSearch(query: String): ApiResponse<ColorDto, ErrorDto> {
+    suspend fun getSearch(query: String): ApiResponse<out Unit, out ErrorDto> {
         return httpClient.executeSafely(
             { get(ColorsResource.Search(query = query)) },
-            mapError = {
-                ApiResponse.Failure.Error(ErrorDto(it.status.value, it.status.description))
+            mapClientError = {
+                ApiResponse.Failure.Error.Client(ErrorDto(it.status.value, it.status.description))
             },
             mapSuccess = { it.body() }
         )
     }
 
-    suspend fun getColor(id: Long): ApiResponse<ColorDto, ErrorDto> {
+    suspend fun getColor(id: Long): ApiResponse<out Unit, out ErrorDto> {
         return httpClient.executeSafely(
             { get(ColorsResource.Color(id = id)) }, // json/{id}
-            mapError = {
-                ApiResponse.Failure.Error(ErrorDto(it.status.value, it.status.description))
+            mapClientError = {
+                ApiResponse.Failure.Error.Client(ErrorDto(it.status.value, it.status.description))
             },
             mapSuccess = { it.body() }
         )
     }
 
-    suspend fun getColorHsl(id: Long): ApiResponse<ColorDto, ErrorDto> {
+    suspend fun getColorHsl(id: Long): ApiResponse<out Unit, out ErrorDto> {
         return httpClient.executeSafely(
             { get(ColorsResource.Color(id = id, format = "hsl")) }, // json/{id}?format=hsl
-            mapError = {
-                ApiResponse.Failure.Error(ErrorDto(it.status.value, it.status.description))
+            mapClientError = {
+                ApiResponse.Failure.Error.Client(ErrorDto(it.status.value, it.status.description))
             },
             mapSuccess = { it.body() }
         )
     }
 
-    suspend fun getColors(etag: String?, lastModified: String? = null): CacheApiResponse<ColorDto, Unit> {
+    suspend fun getColors(etag: String?, lastModified: String? = null): CacheApiResponse<out ColorDto, out Unit> {
         return httpClient.executeSafelyCached(
             {
                 get(ColorsResource.All()) {

@@ -11,7 +11,7 @@ import io.ktor.utils.io.ByteReadChannel
 import kotlinx.coroutines.test.runTest
 import org.jdc.template.datasource.webservice.TestHttpClientProvider
 import org.jdc.template.model.webservice.colors.ColorService
-import org.jdc.template.util.ext.ApiResponse
+import org.jdc.template.util.network.ApiResponse
 import kotlin.test.Test
 
 class ColorServiceTest {

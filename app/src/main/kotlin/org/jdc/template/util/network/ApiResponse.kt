@@ -1,7 +1,8 @@
 @file:Suppress("unused")
 
-package org.jdc.template.util.ext
+package org.jdc.template.util.network
 
+import io.ktor.http.HttpStatusCode
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
@@ -9,30 +10,18 @@ import kotlin.contracts.contract
 sealed interface ApiResponse<T, E> {
     data class Success<T>(val data: T) : ApiResponse<T, Nothing>
     sealed interface Failure<E> : ApiResponse<Nothing, E> {
-        open class Error<E>(val payload: E?, val message: String? = payload?.toString()) : Failure<E> {
-            override fun equals(other: Any?): Boolean = other is Error<*> && payload == other.payload
+        sealed interface Error<E> : Failure<E> {
+            val message: String?
 
-            override fun hashCode(): Int {
-                var result = 17
-                result = 31 * result + payload.hashCode()
-                return result
-            }
-
-            override fun toString(): String = message.orEmpty()
+            data class Client<E>(val details: E?, override val message: String? = details?.toString()) : Error<E> // 4xx but not 401 or 480
+            data class Forbidden(override val message: String?) : Error<Nothing> // 401
+            data class NoToken(override val message: String?) : Error<Nothing> // 480
+            data class Server(override val message: String?) : Error<Nothing> // 5xx
+            data class Unknown(val status: HttpStatusCode, override val message: String? = status.toString()) : Error<Nothing> // Something else
         }
 
-        open class Exception(val throwable: Throwable) : Failure<Nothing> {
+        data class Exception(val throwable: Throwable) : Failure<Nothing> {
             val message: String? = throwable.message
-
-            override fun equals(other: Any?): Boolean = other is Exception && throwable == other.throwable
-
-            override fun hashCode(): Int {
-                var result = 17
-                result = 31 * result + throwable.hashCode()
-                return result
-            }
-
-            override fun toString(): String = message.orEmpty()
         }
     }
 }
@@ -42,7 +31,7 @@ sealed interface ApiResponse<T, E> {
  * returns null if it is [ApiResponse.Failure.Error] or [ApiResponse.Failure.Exception].
  * @return The encapsulated data or null.
  */
-fun <T> ApiResponse<T, *>.getOrNull(): T? {
+fun <T> ApiResponse<out T, *>.getOrNull(): T? {
     return when (this) {
         is ApiResponse.Success -> data
         is ApiResponse.Failure -> null
@@ -54,7 +43,7 @@ fun <T> ApiResponse<T, *>.getOrNull(): T? {
  * returns the [defaultValue] if it is [ApiResponse.Failure.Error] or [ApiResponse.Failure.Exception].
  * @return The encapsulated data or [defaultValue].
  */
-fun <T> ApiResponse<T, *>.getOrElse(defaultValue: T): T {
+fun <T> ApiResponse<out T, *>.getOrElse(defaultValue: T): T {
     return when (this) {
         is ApiResponse.Success -> data
         is ApiResponse.Failure -> defaultValue
@@ -67,7 +56,7 @@ fun <T> ApiResponse<T, *>.getOrElse(defaultValue: T): T {
  *
  * @return The encapsulated data or [defaultValue].
  */
-inline fun <T> ApiResponse<T, *>.getOrElse(defaultValue: () -> T): T {
+inline fun <T> ApiResponse<out T, *>.getOrElse(defaultValue: () -> T): T {
     return when (this) {
         is ApiResponse.Success -> data
         is ApiResponse.Failure -> defaultValue()
@@ -83,7 +72,7 @@ inline fun <T> ApiResponse<T, *>.getOrElse(defaultValue: () -> T): T {
  *
  * @return The encapsulated data.
  */
-fun <T> ApiResponse<T, *>.getOrThrow(): T {
+fun <T> ApiResponse<out T, *>.getOrThrow(): T {
     when (this) {
         is ApiResponse.Success -> return data
         is ApiResponse.Failure.Error -> error(message())
@@ -133,9 +122,9 @@ inline val ApiResponse<*, *>.messageOrNull: String?
  */
 @Suppress("OutdatedDocumentation") // Detekt does not seem to work well with this function for documentation
 @OptIn(ExperimentalContracts::class)
-inline fun <T> ApiResponse<T, *>.onSuccess(
-    crossinline onResult: ApiResponse.Success<T>.() -> Unit,
-): ApiResponse<T, *> {
+inline fun <T> ApiResponse<out T, *>.onSuccess(
+    onResult: ApiResponse.Success<out T>.() -> Unit,
+): ApiResponse<out T, *> {
     contract { callsInPlace(onResult, InvocationKind.AT_MOST_ONCE) }
     if (this is ApiResponse.Success) {
         onResult(this)
@@ -151,9 +140,9 @@ inline fun <T> ApiResponse<T, *>.onSuccess(
  */
 @Suppress("OutdatedDocumentation") // Detekt does not seem to work well with this function for documentation
 @OptIn(ExperimentalContracts::class)
-inline fun <T> ApiResponse<T, *>.onFailure(
-    crossinline onResult: ApiResponse.Failure<*>.() -> Unit,
-): ApiResponse<T, *> {
+inline fun <T> ApiResponse<out T, *>.onFailure(
+    onResult: ApiResponse.Failure<*>.() -> Unit,
+): ApiResponse<out T, *> {
     contract { callsInPlace(onResult, InvocationKind.AT_MOST_ONCE) }
     if (this is ApiResponse.Failure) {
         onResult(this)
@@ -169,9 +158,9 @@ inline fun <T> ApiResponse<T, *>.onFailure(
  */
 @Suppress("OutdatedDocumentation") // Detekt does not seem to work well with this function for documentation
 @OptIn(ExperimentalContracts::class)
-inline fun <E> ApiResponse<*, E>.onError(
-    crossinline onResult: ApiResponse.Failure.Error<E>.() -> Unit,
-): ApiResponse<*, E> {
+inline fun <E> ApiResponse<*, out E>.onError(
+    onResult: ApiResponse.Failure.Error<out E>.() -> Unit,
+): ApiResponse<*, out E> {
     contract { callsInPlace(onResult, InvocationKind.AT_MOST_ONCE) }
     if (this is ApiResponse.Failure.Error) {
         onResult(this)
@@ -188,7 +177,7 @@ inline fun <E> ApiResponse<*, E>.onError(
 @Suppress("OutdatedDocumentation") // Detekt does not seem to work well with this function for documentation
 @OptIn(ExperimentalContracts::class)
 inline fun ApiResponse<*, *>.onException(
-    crossinline onResult: ApiResponse.Failure.Exception.() -> Unit,
+    onResult: ApiResponse.Failure.Exception.() -> Unit,
 ): ApiResponse<*, *> {
     contract { callsInPlace(onResult, InvocationKind.AT_MOST_ONCE) }
     if (this is ApiResponse.Failure.Exception) {
@@ -212,10 +201,10 @@ fun ApiResponse.Failure<*>.message(): String {
  * Returns an error message from the [ApiResponse.Failure.Error] that consists of the status and error response.
  * @return An error message from the [ApiResponse.Failure.Error].
  */
-fun ApiResponse.Failure.Error<*>.message(): String = toString()
+fun ApiResponse.Failure.Error<*>.message(): String = message ?: toString()
 
 /**
  * Returns an error message from the [ApiResponse.Failure.Exception] that consists of the localized message.
  * @return An error message from the [ApiResponse.Failure.Exception].
  */
-fun ApiResponse.Failure.Exception.message(): String = toString()
+fun ApiResponse.Failure.Exception.message(): String = message ?: toString()

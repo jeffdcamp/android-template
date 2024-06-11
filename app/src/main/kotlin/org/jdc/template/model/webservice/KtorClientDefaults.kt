@@ -5,7 +5,6 @@ import io.ktor.client.plugins.DefaultRequest
 import io.ktor.client.plugins.api.createClientPlugin
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.LogLevel
-import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.request.header
 import io.ktor.client.statement.request
@@ -14,13 +13,14 @@ import io.ktor.http.HttpHeaders
 import io.ktor.serialization.kotlinx.KotlinxSerializationConverter
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
+import org.jdc.template.util.log.KtorKermitLogger
 
 /**
  * Project Specific Defaults (should not be in shared library)
  */
 object KtorClientDefaults {
     fun Logging.Config.defaultSetup() {
-        logger = KermitKtorLogger
+        logger = KtorKermitLogger
         level = LogLevel.INFO
         sanitizeHeader { header -> header == HttpHeaders.Authorization }
     }
@@ -42,12 +42,6 @@ object KtorClientDefaults {
         if (allowAnyContentType) {
             register(ContentType.Any, KotlinxSerializationConverter(jsonDefinition))
         }
-    }
-}
-
-private object KermitKtorLogger : Logger {
-    override fun log(message: String) {
-        co.touchlab.kermit.Logger.i { message }
     }
 }
 

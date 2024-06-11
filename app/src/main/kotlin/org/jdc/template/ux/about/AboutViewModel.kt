@@ -19,15 +19,15 @@ import org.jdc.template.model.domain.inline.FirstName
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.model.webservice.colors.ColorService
 import org.jdc.template.model.webservice.colors.dto.ColorsDto
-import org.jdc.template.ui.navigation.ViewModelNav
-import org.jdc.template.ui.navigation.ViewModelNavImpl
-import org.jdc.template.util.ext.ApiResponse
-import org.jdc.template.util.ext.message
-import org.jdc.template.util.ext.onError
-import org.jdc.template.util.ext.onException
-import org.jdc.template.util.ext.onFailure
-import org.jdc.template.util.ext.onSuccess
+import org.jdc.template.ui.navigation.ViewModelNavigation
+import org.jdc.template.ui.navigation.ViewModelNavigationImpl
 import org.jdc.template.util.ext.readText
+import org.jdc.template.util.network.ApiResponse
+import org.jdc.template.util.network.message
+import org.jdc.template.util.network.onError
+import org.jdc.template.util.network.onException
+import org.jdc.template.util.network.onFailure
+import org.jdc.template.util.network.onSuccess
 import org.jdc.template.ux.about.typography.TypographyRoute
 import org.jdc.template.ux.acknowledgement.AcknowledgmentsRoute
 import org.jdc.template.work.WorkScheduler
@@ -90,7 +90,7 @@ class AboutViewModel
         Logger.i { "Downloaded file contents:\n ${fileSystem.readText(outputFile)}" }
     }
 
-    private fun processWebServiceResponse(response: ApiResponse<ColorsDto, Unit>) {
+    private fun processWebServiceResponse(response: ApiResponse<out ColorsDto, out Unit>) {
         response.onSuccess {
             data.colors.forEach {
                 Logger.i { "Result: ${it.colorName}" }
@@ -104,7 +104,7 @@ class AboutViewModel
         }
     }
 
-    private fun processWebServiceResponse2(response: ApiResponse<ColorsDto, Unit>) {
+    private fun processWebServiceResponse2(response: ApiResponse<out ColorsDto, out Unit>) {
         response.onSuccess {
             data.colors.forEach {
                 Logger.i { "Result: ${it.colorName}" }
