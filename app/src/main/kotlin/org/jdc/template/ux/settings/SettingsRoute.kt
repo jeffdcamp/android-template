@@ -1,5 +1,7 @@
 package org.jdc.template.ux.settings
 
-import org.jdc.template.ui.navigation.SimpleNavComposeRoute
+import kotlinx.serialization.Serializable
+import org.jdc.template.ui.navigation.NavigationRoute
 
-object SettingsRoute : SimpleNavComposeRoute("settings")
+@Serializable
+object SettingsRoute: NavigationRoute

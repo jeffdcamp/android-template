@@ -44,7 +44,7 @@ class AboutViewModel
     private val createIndividualTestDataUseCase: CreateIndividualTestDataUseCase,
     private val createIndividualLargeTestDataUseCase: CreateIndividualLargeTestDataUseCase,
     private val fileSystem: FileSystem
-) : ViewModel(), ViewModelNav by ViewModelNavImpl() {
+) : ViewModel(), ViewModelNavigation by ViewModelNavigationImpl() {
 
     private val resetServiceEnabledFlow: StateFlow<Boolean> = MutableStateFlow(remoteConfig.isColorServiceEnabled()).asStateFlow()
 
@@ -56,10 +56,10 @@ class AboutViewModel
         workManagerSimpleTest = { workManagerSimpleTest() },
         workManagerSyncTest = { workManagerSyncTest() },
         testTableChange = { testTableChange() },
-        licensesClicked = { navigate(AcknowledgmentsRoute.createRoute()) },
+        licensesClicked = { navigate(AcknowledgmentsRoute) },
         createSampleData = { createSampleData() },
         createLargeSampleData = { createLargeSampleData() },
-        m3TypographyClicked = { navigate(TypographyRoute.createRoute()) }
+        m3TypographyClicked = { navigate(TypographyRoute) }
     )
 
     private fun testQueryWebServiceCall() = viewModelScope.launch {

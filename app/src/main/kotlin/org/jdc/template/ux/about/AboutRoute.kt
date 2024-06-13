@@ -1,5 +1,7 @@
 package org.jdc.template.ux.about
 
-import org.jdc.template.ui.navigation.SimpleNavComposeRoute
+import kotlinx.serialization.Serializable
+import org.jdc.template.ui.navigation.NavigationRoute
 
-object AboutRoute : SimpleNavComposeRoute("about")
+@Serializable
+object AboutRoute: NavigationRoute

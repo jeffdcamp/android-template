@@ -38,7 +38,7 @@ class GetIndividualUiStateUseCaseTest {
             dialogUiStateFlowTurbine.awaitItem() // consume default value
 
             uiState.onEditClick()
-            assertThat(navigationActionTurbine.awaitItem()).isEqualTo(NavigationAction.Navigate(IndividualEditRoute.createRoute(selectedIndividualId)))
+            assertThat(navigationActionTurbine.awaitItem()).isEqualTo(NavigationAction.Navigate(IndividualEditRoute(selectedIndividualId)))
 
             uiState.onDeleteClick()
             val deleteDialog = dialogUiStateFlowTurbine.awaitItem()

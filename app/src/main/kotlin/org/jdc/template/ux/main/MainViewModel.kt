@@ -10,9 +10,9 @@ import kotlinx.coroutines.launch
 import org.jdc.template.domain.individual.CreateIndividualTestDataUseCase
 import org.jdc.template.model.domain.type.DisplayThemeType
 import org.jdc.template.model.repository.SettingsRepository
-import org.jdc.template.ui.navigation.DefaultNavBarConfig
-import org.jdc.template.ui.navigation.ViewModelNavBar
-import org.jdc.template.ui.navigation.ViewModelNavBarImpl
+import org.jdc.template.ui.navigation.DefaultNavigationBarConfig
+import org.jdc.template.ui.navigation.ViewModelNavigationBar
+import org.jdc.template.ui.navigation.ViewModelNavigationBarImpl
 import org.jdc.template.util.ext.stateInDefault
 import org.jdc.template.work.WorkScheduler
 import javax.inject.Inject
@@ -23,7 +23,7 @@ class MainViewModel
     private val workScheduler: WorkScheduler,
     settingsRepository: SettingsRepository,
     private val createIndividualTestDataUseCase: CreateIndividualTestDataUseCase
-) : ViewModel(), ViewModelNavBar<NavBarItem> by ViewModelNavBarImpl(NavBarItem.PEOPLE, DefaultNavBarConfig(NavBarItem.getNavBarItemRouteMap())) {
+) : ViewModel(), ViewModelNavigationBar<NavBarItem> by ViewModelNavigationBarImpl(NavBarItem.PEOPLE, DefaultNavigationBarConfig(NavBarItem.getNavBarItemRouteMap())) {
     val uiState = MainUiState(
         selectedAppThemeFlow = combine(
             settingsRepository.themeFlow.stateInDefault(viewModelScope, null),

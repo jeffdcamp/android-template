@@ -60,6 +60,6 @@ class GetIndividualUiStateUseCase
 
     private fun editIndividual(individualId: IndividualId, navigate: (NavigationAction) -> Unit) {
         analytics.logEvent(Analytics.EVENT_EDIT_INDIVIDUAL)
-        navigate(NavigationAction.Navigate(IndividualEditRoute.createRoute(individualId)))
+        navigate(NavigationAction.Navigate(IndividualEditRoute(individualId)))
     }
 }

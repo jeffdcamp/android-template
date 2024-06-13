@@ -1,5 +1,7 @@
 package org.jdc.template.ux.acknowledgement
 
-import org.jdc.template.ui.navigation.SimpleNavComposeRoute
+import kotlinx.serialization.Serializable
+import org.jdc.template.ui.navigation.NavigationRoute
 
-object AcknowledgmentsRoute : SimpleNavComposeRoute("acknowledgments")
+@Serializable
+object AcknowledgmentsRoute: NavigationRoute

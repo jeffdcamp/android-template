@@ -1,44 +1,16 @@
 package org.jdc.template.ux.individualedit
 
-import androidx.lifecycle.SavedStateHandle
-import androidx.navigation.NamedNavArgument
-import androidx.navigation.NavType
-import androidx.navigation.navArgument
+import kotlinx.serialization.Serializable
 import org.jdc.template.model.domain.inline.IndividualId
-import org.jdc.template.ui.navigation.NavComposeRoute
-import org.jdc.template.ui.navigation.NavRoute
-import org.jdc.template.ui.navigation.NavRouteDefinition
-import org.jdc.template.ui.navigation.RouteUtil
-import org.jdc.template.ui.navigation.asNavRoute
-import org.jdc.template.ui.navigation.asNavRouteDefinition
-import org.jdc.template.util.ext.getIndividualId
+import org.jdc.template.ui.navigation.NavigationRoute
+import org.jdc.template.ui.navigation.NavTypeMaps
+import kotlin.reflect.typeOf
 
-object IndividualEditRoute : NavComposeRoute() {
-    private const val ROUTE_BASE = "individualEdit"
-    override val routeDefinition: NavRouteDefinition = "$ROUTE_BASE?${RouteUtil.defineOptionalArgs(Arg.INDIVIDUAL_ID)}".asNavRouteDefinition()
+@Serializable
+data class IndividualEditRoute(
+    val individualId: IndividualId? = null
+): NavigationRoute
 
-    fun createRoute(individualId: IndividualId? = null): NavRoute {
-        return "$ROUTE_BASE?${RouteUtil.optionalArgs(mapOf(Arg.INDIVIDUAL_ID to individualId?.value))}".asNavRoute()
-    }
-
-    override fun getArguments(): List<NamedNavArgument> {
-        return listOf(
-            navArgument(Arg.INDIVIDUAL_ID) {
-                type = NavType.StringType
-                nullable = true
-                defaultValue = null
-            }
-        )
-    }
-
-    object Arg {
-        const val INDIVIDUAL_ID = "individualId"
-    }
-}
-
-data class IndividualEditArgs(val individualId: IndividualId?) {
-    constructor(savedStateHandle: SavedStateHandle) :
-            this(
-                savedStateHandle.getIndividualId(IndividualEditRoute.Arg.INDIVIDUAL_ID),
-            )
-}
+fun IndividualEditRoute.Companion.typeMap() = mapOf(
+    typeOf<IndividualId?>() to NavTypeMaps.IndividualIdNullableNavType,
+)

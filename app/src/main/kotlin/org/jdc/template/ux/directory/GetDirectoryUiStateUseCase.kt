@@ -19,9 +19,9 @@ class GetDirectoryUiStateUseCase
     ): DirectoryUiState {
         return DirectoryUiState(
             directoryListFlow = individualRepository.getDirectoryListFlow().stateInDefault(coroutineScope, emptyList()),
-            onNewClicked = { navigate(NavigationAction.Navigate(IndividualEditRoute.createRoute())) },
-            onIndividualClicked = { individualId -> navigate(NavigationAction.Navigate(IndividualRoute.createRoute(individualId))) },
-            onSettingsClicked = { navigate(NavigationAction.Navigate(SettingsRoute.createRoute())) }
+            onNewClicked = { navigate(NavigationAction.Navigate(IndividualEditRoute())) },
+            onIndividualClicked = { individualId -> navigate(NavigationAction.Navigate(IndividualRoute(individualId))) },
+            onSettingsClicked = { navigate(NavigationAction.Navigate(SettingsRoute)) }
         )
     }
 }

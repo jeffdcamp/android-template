@@ -1,4 +1,6 @@
 package org.jdc.template.ui.navigation
 
-@Suppress("MatchingDeclarationName")
-object WorkManagerStatusRoute : SimpleNavComposeRoute("workManagerStatus")
+import kotlinx.serialization.Serializable
+
+@Serializable
+object WorkManagerStatusRoute: NavigationRoute
