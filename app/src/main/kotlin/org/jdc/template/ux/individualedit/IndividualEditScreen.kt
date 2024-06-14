@@ -47,7 +47,7 @@ fun IndividualEditScreen(
     MainAppScaffoldWithNavBar(
         title = stringResource(R.string.edit_individual),
         actions = { AppBarMenu(appBarMenuItems) },
-        onNavigationClick = { navController.popBackStack() },
+        onNavigationClick = { navController.navigateUp() },
         hideNavigation = true
     ) {
         IndividualEditFields(viewModel.uiState)

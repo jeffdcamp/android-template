@@ -25,7 +25,7 @@ fun TypographyScreen(
     MainAppScaffoldWithNavBar(
         title = stringResource(R.string.typography),
         navigationIconVisible = true,
-        onNavigationClick = { navController.popBackStack() }
+        onNavigationClick = { navController.navigateUp() }
     ) {
         TypographyContent()
     }

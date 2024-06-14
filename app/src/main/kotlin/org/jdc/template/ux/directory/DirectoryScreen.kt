@@ -43,7 +43,7 @@ fun DirectoryScreen(
         title = stringResource(R.string.directory),
         navigationIconVisible = false,
         actions = { AppBarMenu(appBarMenuItems) },
-        onNavigationClick = { navController.popBackStack() },
+        onNavigationClick = { navController.navigateUp() },
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { uiState.onNewClicked() },

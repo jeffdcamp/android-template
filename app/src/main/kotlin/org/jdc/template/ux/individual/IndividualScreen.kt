@@ -49,7 +49,7 @@ fun IndividualScreen(
     MainAppScaffoldWithNavBar(
         title = stringResource(R.string.individual),
         actions = { AppBarMenu(appBarMenuItems) },
-        onNavigationClick = { navController.popBackStack() },
+        onNavigationClick = { navController.navigateUp() },
     ) {
         IndividualContent(uiState)
     }
