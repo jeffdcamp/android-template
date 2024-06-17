@@ -34,3 +34,6 @@ gen-external-apklibs/
 
 #java
 *.hprof
+
+#kotlin
+.kotlin/
