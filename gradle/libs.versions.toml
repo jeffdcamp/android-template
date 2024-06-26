@@ -34,7 +34,6 @@ firebaseAppDistPlugin = "5.0.0"
 firebaseCrashlyticsPlugin = "3.0.1"
 firebasePerfPlugin = "1.4.2"
 
-googlePlayCore = "1.8.1"
 gmsPlugin = "4.4.2"
 
 hilt = "2.51.1"
@@ -47,7 +46,7 @@ licenseManager = "1.4.0"
 mockK = "1.13.11"
 okhttp = "4.12.0"
 okio = "3.9.0"
-playPublisher = "3.9.1"
+playPublisher = "3.10.0"
 ruler = "1.4.0"
 sqliteJdbc = "3.46.0.0"
 turbine = "1.1.0"
@@ -134,8 +133,6 @@ google-firebase-crashlytics = { module = "com.google.firebase:firebase-crashlyti
 google-hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
 google-hilt-library = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 google-hilt-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
-
-google-play-core = { module = "com.google.android.play:core-ktx", version.ref = "googlePlayCore" } # https://developer.android.com/reference/com/google/android/play/core/release-notes
 
 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 kermit-crashlytics = { module = "co.touchlab:kermit-crashlytics", version.ref = "kermit" }

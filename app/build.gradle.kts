@@ -224,9 +224,6 @@ dependencies {
     implementation(libs.compose.material3.windowsize)
     implementation(libs.compose.material.iconsext)
 
-    // Play Service
-    implementation(libs.google.play.core)
-
     // Firebase
     implementation(platform(libs.google.firebase.bom))
     //implementation(libs.google.firebase.perf)
