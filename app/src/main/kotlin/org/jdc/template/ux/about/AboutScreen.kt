@@ -39,7 +39,7 @@ fun AboutScreen(
         title = stringResource(R.string.about),
         navigationIconVisible = false,
         actions = { AppBarMenu(appBarMenuItems) },
-        onNavigationClick = { navController.navigateUp() }
+        onNavigationClick = { navController.popBackStack() }
     ) {
         AboutScreenContent(uiState)
     }

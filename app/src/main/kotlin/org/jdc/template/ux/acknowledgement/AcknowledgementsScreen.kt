@@ -31,7 +31,7 @@ fun AcknowledgementScreen(
 
     MainAppScaffoldWithNavBar(
         title = stringResource(R.string.acknowledgments),
-        onNavigationClick = { navController.navigateUp() }
+        onNavigationClick = { navController.popBackStack() }
     ) {
         AcknowledgementWebview(uiState)
     }

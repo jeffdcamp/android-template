@@ -31,6 +31,7 @@ import org.jdc.template.ui.compose.dialog.HandleDialogUiState
 import org.jdc.template.ui.compose.form.TextWithTitle
 import org.jdc.template.ui.compose.util.DateUiUtil
 import org.jdc.template.ui.navigation.HandleNavigation
+import org.jdc.template.ui.navigation.popBackStackOrFinishActivity
 import org.jdc.template.ui.theme.AppTheme
 import org.jdc.template.ux.MainAppScaffoldWithNavBar
 
@@ -39,6 +40,7 @@ fun IndividualScreen(
     navController: NavController,
     viewModel: IndividualViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
     val uiState = viewModel.uiState
 
     val appBarMenuItems = listOf(
@@ -49,7 +51,7 @@ fun IndividualScreen(
     MainAppScaffoldWithNavBar(
         title = stringResource(R.string.individual),
         actions = { AppBarMenu(appBarMenuItems) },
-        onNavigationClick = { navController.navigateUp() },
+        onNavigationClick = { navController.popBackStackOrFinishActivity(context) },
     ) {
         IndividualContent(uiState)
     }

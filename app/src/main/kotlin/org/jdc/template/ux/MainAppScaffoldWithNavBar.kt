@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.compose.dropUnlessResumed
 import org.jdc.template.R
 import org.jdc.template.ui.compose.util.WindowSize
 import org.jdc.template.ui.compose.util.rememberWindowSize
@@ -98,7 +99,7 @@ fun MainAppScaffoldWithNavBar(
                 {}
             } else {
                 {
-                    IconButton(onClick = { onNavigationClick?.invoke() }) {
+                    IconButton(onClick = dropUnlessResumed { onNavigationClick?.invoke() }) {
                         Icon(
                             imageVector = navigationIcon,
                             contentDescription = stringResource(id = R.string.back),
