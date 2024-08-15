@@ -53,6 +53,7 @@ class DevicePreferenceDataSource
     val workSchedulerVersionPref: DatastorePrefItem<Int> = DatastorePrefItem.create(application.dataStore, Keys.WORK_SCHEDULER_VERSION, 0)
     val developerModePref: DatastorePrefItem<Boolean> = DatastorePrefItem.create(application.dataStore, Keys.DEV_MODE, false)
     val appInstanceIdPref: DatastorePrefItem<String> = DatastorePrefItem.create(application.dataStore, Keys.APP_INSTANCE_ID, UUID.randomUUID().toString())
+    val colorsETagPref: DatastorePrefItem<String> = DatastorePrefItem.create(application.dataStore, Keys.COLORS_ETAG, "0")
 
     val appInfoPref: DatastorePrefItem<AppInfo> = DatastorePrefItem.createCustom(
         dataStore = application.dataStore,
@@ -84,6 +85,7 @@ class DevicePreferenceDataSource
         val WORK_SCHEDULER_VERSION = intPreferencesKey("workSchedulerVersion")
         val DEV_MODE = booleanPreferencesKey("devMode")
         val APP_INSTANCE_ID = stringPreferencesKey("appInstanceId")
+        val COLORS_ETAG = stringPreferencesKey("colorsETag")
     }
 }
 

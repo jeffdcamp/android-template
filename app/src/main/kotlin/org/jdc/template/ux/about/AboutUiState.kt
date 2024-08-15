@@ -10,6 +10,7 @@ data class AboutUiState(
     // Events
     val testQueryWebServiceCall: () -> Unit = {},
     val testFullUrlQueryWebServiceCall: () -> Unit = {},
+    val testCachedUrlQueryWebServiceCall: () -> Unit = {},
     val testSaveQueryWebServiceCall: () -> Unit = {},
     val workManagerSimpleTest: () -> Unit = {},
     val workManagerSyncTest: () -> Unit = {},

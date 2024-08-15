@@ -9,12 +9,14 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import okio.FileSystem
 import okio.Path.Companion.toOkioPath
 import org.jdc.template.domain.individual.CreateIndividualLargeTestDataUseCase
 import org.jdc.template.domain.individual.CreateIndividualTestDataUseCase
 import org.jdc.template.model.config.RemoteConfig
+import org.jdc.template.model.datastore.DevicePreferenceDataSource
 import org.jdc.template.model.domain.inline.FirstName
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.model.webservice.colors.ColorService
@@ -41,6 +43,7 @@ class AboutViewModel
     private val colorService: ColorService,
     private val workScheduler: WorkScheduler,
     private val remoteConfig: RemoteConfig,
+    private val devicePreferenceDataSource: DevicePreferenceDataSource,
     private val createIndividualTestDataUseCase: CreateIndividualTestDataUseCase,
     private val createIndividualLargeTestDataUseCase: CreateIndividualLargeTestDataUseCase,
     private val fileSystem: FileSystem
@@ -52,6 +55,7 @@ class AboutViewModel
         resetServiceEnabledFlow = resetServiceEnabledFlow,
         testQueryWebServiceCall = { testQueryWebServiceCall() },
         testFullUrlQueryWebServiceCall = { testFullUrlQueryWebServiceCall() },
+        testCachedUrlQueryWebServiceCall = { testCachedUrlQueryWebServiceCall() },
         testSaveQueryWebServiceCall = { testSaveQueryWebServiceCall() },
         workManagerSimpleTest = { workManagerSimpleTest() },
         workManagerSyncTest = { workManagerSyncTest() },
@@ -81,6 +85,24 @@ class AboutViewModel
         Logger.i { "Full URL Call..." }
         val response = colorService.getColorsByFullUrl()
         processWebServiceResponse(response)
+    }
+
+    private fun testCachedUrlQueryWebServiceCall() = viewModelScope.launch {
+        Logger.i { "Cached URL Call..." }
+
+        val etag = devicePreferenceDataSource.colorsETagPref.flow.firstOrNull()
+
+        colorService.getColorsCached(etag)
+            .onSuccess {
+                this.data?.colors?.forEach {
+                    Logger.i { "Result: ${it.colorName}" }
+                }
+
+                this.etag?.let { devicePreferenceDataSource.colorsETagPref.setValue(it) }
+            }
+            .onException {
+                Logger.e(this.throwable) { "Failed to fetch Colors" }
+            }
     }
 
     private fun testSaveQueryWebServiceCall() = viewModelScope.launch {

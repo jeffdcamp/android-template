@@ -13,7 +13,6 @@ import io.ktor.http.isSuccess
 import io.ktor.resources.Resource
 import okio.FileSystem
 import okio.Path
-import org.jdc.template.model.webservice.colors.dto.ColorDto
 import org.jdc.template.model.webservice.colors.dto.ColorsDto
 import org.jdc.template.model.webservice.colors.dto.ErrorDto
 import org.jdc.template.util.ext.cacheHeaders
@@ -103,7 +102,7 @@ class ColorService
         )
     }
 
-    suspend fun getColors(etag: String?, lastModified: String? = null): CacheApiResponse<out ColorDto, out Unit> {
+    suspend fun getColorsCached(etag: String?, lastModified: String? = null): CacheApiResponse<out ColorsDto, out Unit> {
         return httpClient.executeSafelyCached(
             {
                 get(ColorsResource.All()) {
