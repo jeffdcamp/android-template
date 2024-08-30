@@ -69,12 +69,11 @@ allprojects {
 }
 
 // ===== Dependency Analysis =====
-// ./gradlew projectHealth
+// ./gradlew app:projectHealth
 dependencyAnalysis {
     issues {
         all {
             onAny {
-                ignoreKtx(true)
                 severity("fail")
             }
             onUnusedDependencies {

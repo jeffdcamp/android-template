@@ -19,6 +19,7 @@ plugins {
     alias(libs.plugins.playPublisher)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.licenseManager)
+    alias(libs.plugins.dependencyAnalysis)
     id("com.spotify.ruler")
 }
 
@@ -217,7 +218,6 @@ dependencies {
     // Compose
     implementation(libs.compose.ui)
     debugImplementation(libs.compose.ui.tooling.preview)
-//    debugImplementation(libs.compose.ui.tooling)
     implementation(libs.compose.material3)
     implementation(libs.compose.material3.adaptive)
     implementation(libs.compose.material3.adaptive.navigation)
@@ -236,7 +236,6 @@ dependencies {
     implementation(libs.kotlin.coroutines.android)
     implementation(libs.kotlin.datetime)
     implementation(libs.okio)
-    implementation(libs.okio.assetfilesystem)
 
     // Inject
     implementation(libs.google.hilt.library)
@@ -272,17 +271,11 @@ dependencies {
 
     // Network
     implementation(libs.ktor.client.core)
-//    implementation(libs.ktor.client.cio)
     implementation(libs.ktor.client.okhttp)
     implementation(libs.ktor.client.logging)
     implementation(libs.ktor.client.serialization)
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.client.resources)
-
-    // Network
-    implementation(platform(libs.okhttp.bom))
-    implementation(libs.okhttp)
-    implementation(libs.okhttp.loggingInterceptor)
 
     // Logging
     implementation(libs.kermit)
