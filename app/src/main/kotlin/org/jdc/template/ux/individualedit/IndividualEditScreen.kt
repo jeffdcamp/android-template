@@ -50,7 +50,7 @@ fun IndividualEditScreen(
         onNavigationClick = { navController.popBackStack() },
         hideNavigation = true
     ) {
-        IndividualEditFields(viewModel.uiState)
+        IndividualEditContent(viewModel.uiState)
     }
 
     HandleDialogUiState(uiState.dialogUiStateFlow)
@@ -59,7 +59,7 @@ fun IndividualEditScreen(
 }
 
 @Composable
-fun IndividualEditFields(
+fun IndividualEditContent(
     uiState: IndividualEditUiState
 ) {
     Column(
@@ -124,7 +124,7 @@ private fun Preview() {
 
     AppTheme {
         Surface {
-            IndividualEditFields(uiState)
+            IndividualEditContent(uiState)
         }
     }
 }
