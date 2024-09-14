@@ -293,6 +293,7 @@ dependencies {
     testImplementation(libs.mockK)
     testImplementation(libs.ktor.client.mock)
     testImplementation(libs.assertk)
+    testImplementation(libs.konsist)
     testImplementation(libs.kotlin.coroutines.test)
     testImplementation(libs.dbtools.roomJdbc)
     testImplementation(libs.turbine)
