@@ -40,15 +40,15 @@ class SettingsViewModel
         dynamicThemeFlow = settingsRepository.dynamicThemeFlow.stateInDefault(viewModelScope, false),
         sortByLastNameFlow = settingsRepository.directorySortByLastNameFlow.stateInDefault(viewModelScope, false),
 
-        onThemeSettingClicked = { onThemeSettingClicked() },
+        onThemeSettingClick = { onThemeSettingClick() },
 
-        onLastInstalledVersionCodeClicked = { onLastInstalledVersionCodeClicked() },
-        onRangeClicked = { onRangeClicked() },
+        onLastInstalledVersionCodeClick = { onLastInstalledVersionCodeClick() },
+        onRangeClick = { onRangeClick() },
         setDynamicTheme = { checked -> settingsRepository.setDynamicThemeAsync(checked) },
         setSortByLastName = { setSortByLastName(it) }
     )
 
-    private fun onThemeSettingClicked() = viewModelScope.launch {
+    private fun onThemeSettingClick() = viewModelScope.launch {
         val currentTheme = settingsRepository.themeFlow.first()
 
         val supportedThemeTypes = if (Build.VERSION.SDK_INT > 28) {
@@ -70,7 +70,7 @@ class SettingsViewModel
         )
     }
 
-    private fun onLastInstalledVersionCodeClicked() = viewModelScope.launch {
+    private fun onLastInstalledVersionCodeClick() = viewModelScope.launch {
         val currentValue = settingsRepository.getLastInstalledVersionCode()
         dialogUiStateFlow.value = InputDialogUiState(
             title = { "Version Code" },
@@ -82,7 +82,7 @@ class SettingsViewModel
         )
     }
 
-    private fun onRangeClicked() = viewModelScope.launch {
+    private fun onRangeClick() = viewModelScope.launch {
         val currentValue = settingsRepository.getRange()
         dialogUiStateFlow.value = DropDownMenuDialogUiState(
             title = { "Range" },

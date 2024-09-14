@@ -31,9 +31,9 @@ fun TimePickerDialog(
     initialMinute: Int = 0,
     is24Hour: Boolean = false,
     confirmButtonText: String = stringResource(android.R.string.ok),
-    onConfirmButtonClicked: ((LocalTime) -> Unit)? = null,
+    onConfirmButtonClick: ((LocalTime) -> Unit)? = null,
     dismissButtonText: String = stringResource(android.R.string.cancel),
-    onDismissButtonClicked: (() -> Unit)? = null,
+    onDismissButtonClick: (() -> Unit)? = null,
     properties: DialogProperties = DialogProperties(), //DialogProperties(usePlatformDefaultWidth = false),
     backgroundColor: Color = MaterialTheme.colorScheme.surface,
     tonalElevation: Dp = AlertDialogDefaults.TonalElevation
@@ -73,19 +73,19 @@ fun TimePickerDialog(
                         .fillMaxWidth()
                         .padding(top = 24.dp)
                 ) {
-                    if (onDismissButtonClicked != null) {
+                    if (onDismissButtonClick != null) {
                         TextButton(
                             onClick = {
-                                onDismissButtonClicked()
+                                onDismissButtonClick()
                             },
                         ) {
                             Text(dismissButtonText)
                         }
                     }
-                    if (onConfirmButtonClicked != null) {
+                    if (onConfirmButtonClick != null) {
                         TextButton(
                             onClick = {
-                                onConfirmButtonClicked(LocalTime(timePickerState.hour, timePickerState.minute))
+                                onConfirmButtonClick(LocalTime(timePickerState.hour, timePickerState.minute))
                             },
                         ) {
                             Text(confirmButtonText)
@@ -108,10 +108,10 @@ fun TimePickerDialog(
         initialHour = initialTime?.hour ?: 0,
         initialMinute = initialTime?.minute ?: 0,
         is24Hour = dialogUiState.is24Hour,
-        onConfirmButtonClicked = { localTime ->
+        onConfirmButtonClick = { localTime ->
             dialogUiState.onConfirm(localTime)
         },
-        onDismissButtonClicked = dialogUiState.onDismissRequest,
+        onDismissButtonClick = dialogUiState.onDismissRequest,
         onDismissRequest = dialogUiState.onDismissRequest,
         confirmButtonText = dialogUiState.confirmButtonText(),
         dismissButtonText = dialogUiState.dismissButtonText(),

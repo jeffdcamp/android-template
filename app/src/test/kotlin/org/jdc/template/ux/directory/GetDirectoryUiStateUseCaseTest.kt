@@ -32,13 +32,13 @@ class GetDirectoryUiStateUseCaseTest {
                 navigate = { lastNavigationActionFlow.value = it }
             )
 
-            uiState.onNewClicked()
+            uiState.onNewClick()
             assertThat(navigationActionTurbine.awaitItem()).isEqualTo(NavigationAction.Navigate(IndividualEditRoute()))
 
-            uiState.onIndividualClicked(IndividualId("1"))
+            uiState.onIndividualClick(IndividualId("1"))
             assertThat(navigationActionTurbine.awaitItem()).isEqualTo(NavigationAction.Navigate(IndividualRoute(IndividualId("1"))))
 
-            uiState.onSettingsClicked()
+            uiState.onSettingsClick()
             assertThat(navigationActionTurbine.awaitItem()).isEqualTo(NavigationAction.Navigate(SettingsRoute))
 
             stateScope.cancel()

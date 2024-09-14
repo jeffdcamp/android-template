@@ -39,9 +39,9 @@ fun <T> DropDownMenuDialog(
     optionToText: @Composable (T) -> String,
     label: @Composable () -> String? = { null },
     confirmButtonText: String = stringResource(android.R.string.ok),
-    onConfirmButtonClicked: ((T) -> Unit)? = null,
+    onConfirmButtonClick: ((T) -> Unit)? = null,
     dismissButtonText: String = stringResource(android.R.string.cancel),
-    onDismissButtonClicked: (() -> Unit)? = null,
+    onDismissButtonClick: (() -> Unit)? = null,
     properties: DialogProperties = DialogProperties(),
     backgroundColor: Color = MaterialTheme.colorScheme.surface,
     tonalElevation: Dp = AlertDialogDefaults.TonalElevation
@@ -126,19 +126,19 @@ fun <T> DropDownMenuDialog(
                         .fillMaxWidth()
                         .padding(top = 24.dp)
                 ) {
-                    if (onDismissButtonClicked != null) {
+                    if (onDismissButtonClick != null) {
                         TextButton(
                             onClick = {
-                                onDismissButtonClicked()
+                                onDismissButtonClick()
                             },
                         ) {
                             Text(dismissButtonText)
                         }
                     }
-                    if (onConfirmButtonClicked != null) {
+                    if (onConfirmButtonClick != null) {
                         TextButton(
                             onClick = {
-                                onConfirmButtonClicked(selectedOptionTextFieldValue)
+                                onConfirmButtonClick(selectedOptionTextFieldValue)
                             },
                         ) {
                             Text(confirmButtonText)
@@ -160,8 +160,8 @@ fun <T> DropDownMenuDialog(
         initialSelectedOption = dialogUiState.initialSelectedOption,
         options = dialogUiState.options,
         optionToText = dialogUiState.optionToText,
-        onConfirmButtonClicked = { dialogUiState.onConfirm(it) },
-        onDismissButtonClicked = { dialogUiState.onDismissRequest() }
+        onConfirmButtonClick = { dialogUiState.onConfirm(it) },
+        onDismissButtonClick = { dialogUiState.onDismissRequest() }
     )
 }
 
@@ -187,8 +187,8 @@ private fun Preview() {
             initialSelectedOption = "Initial",
             optionToText = { "" },
             options = listOf("A", "B", "C"),
-            onConfirmButtonClicked = { },
-            onDismissButtonClicked = { }
+            onConfirmButtonClick = { },
+            onDismissButtonClick = { }
         )
     }
 }

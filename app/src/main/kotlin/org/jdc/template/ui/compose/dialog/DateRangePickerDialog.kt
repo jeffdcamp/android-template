@@ -38,7 +38,7 @@ fun DateRangePickerDialog(
         initialDisplayMode = dialogUiState.initialDisplayMode,
         selectableDates = dialogUiState.selectableDates
     )
-    val onDismissButtonClicked = dialogUiState.onDismiss
+    val onDismissButtonClick = dialogUiState.onDismiss
 
     DatePickerDialog(
         onDismissRequest = dialogUiState.onDismissRequest,
@@ -60,9 +60,9 @@ fun DateRangePickerDialog(
                 Text(dialogUiState.confirmButtonText())
             }
         },
-        dismissButton = if (onDismissButtonClicked != null) {{
+        dismissButton = if (onDismissButtonClick != null) {{
                 TextButton(
-                    onClick = onDismissButtonClicked,
+                    onClick = onDismissButtonClick,
                 ) {
                     Text(dialogUiState.dismissButtonText())
                 }

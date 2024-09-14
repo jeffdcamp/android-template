@@ -82,11 +82,11 @@ fun IndividualEditContent(
         DateClickableTextField(
             stringResource(R.string.birth_date),
             uiState.birthDateFlow,
-            uiState.birthDateClicked,
+            uiState.birthDateClick,
             fieldModifier.testTag(IndividualEditScreenFields.BIRTH_DATE.name),
             uiState.birthDateErrorFlow
         )
-        TimeClickableTextField(stringResource(R.string.alarm_time), uiState.alarmTimeFlow, uiState.alarmTimeClicked, fieldModifier.testTag(IndividualEditScreenFields.ALARM_TIME.name))
+        TimeClickableTextField(stringResource(R.string.alarm_time), uiState.alarmTimeFlow, uiState.alarmTimeClick, fieldModifier.testTag(IndividualEditScreenFields.ALARM_TIME.name))
 
         DropdownMenuBoxField(
             label = stringResource(R.string.individual_type),

@@ -38,9 +38,9 @@ fun <T> MultiSelectDialog(
     title: String? = null,
     supportingText: String? = null,
     confirmButtonText: @Composable () -> String? = { stringResource(android.R.string.ok) },
-    onConfirmButtonClicked: ((List<T>) -> Unit)? = null,
+    onConfirmButtonClick: ((List<T>) -> Unit)? = null,
     dismissButtonText: @Composable () -> String? = { stringResource(android.R.string.cancel) },
-    onDismissButtonClicked: (() -> Unit)? = null,
+    onDismissButtonClick: (() -> Unit)? = null,
     onDismissRequest: (() -> Unit) = {},
     backgroundColor: Color = MaterialTheme.colorScheme.surface,
     properties: DialogProperties = DialogProperties(),
@@ -105,20 +105,20 @@ fun <T> MultiSelectDialog(
                         .padding(top = 24.dp)
                 ) {
                     val dismissButtonTextString = dismissButtonText()
-                    if (onDismissButtonClicked != null && dismissButtonTextString != null) {
+                    if (onDismissButtonClick != null && dismissButtonTextString != null) {
                         TextButton(
                             onClick = {
-                                onDismissButtonClicked()
+                                onDismissButtonClick()
                             }
                         ) {
                             Text(dismissButtonTextString)
                         }
                     }
                     val confirmButtonTextString = confirmButtonText()
-                    if (onConfirmButtonClicked != null && confirmButtonTextString != null) {
+                    if (onConfirmButtonClick != null && confirmButtonTextString != null) {
                         TextButton(
                             onClick = {
-                                onConfirmButtonClicked(savedSelectedItems)
+                                onConfirmButtonClick(savedSelectedItems)
                             }
                         ) {
                             Text(confirmButtonTextString)
@@ -168,9 +168,9 @@ fun <T> MultiSelectDialog(
         selectedItems = dialogUiState.selectedItems,
         title = dialogUiState.title?.invoke(),
         supportingText = dialogUiState.supportingText?.invoke(),
-        onConfirmButtonClicked = { dialogUiState.onConfirm?.invoke(it) },
+        onConfirmButtonClick = { dialogUiState.onConfirm?.invoke(it) },
         onDismissRequest = { dialogUiState.onDismissRequest() },
-        onDismissButtonClicked = if (dialogUiState.onDismiss != null) {
+        onDismissButtonClick = if (dialogUiState.onDismiss != null) {
             { dialogUiState.onDismiss.invoke() }
         } else null,
         confirmButtonText = dialogUiState.confirmButtonText,
@@ -210,8 +210,8 @@ private fun PreviewMultiSelectDialog() {
                 supportingText = "Here is some supporting text",
                 allItems = items,
                 selectedItems = selectedItems,
-                onConfirmButtonClicked = { },
-                onDismissButtonClicked = { }
+                onConfirmButtonClick = { },
+                onDismissButtonClick = { }
             )
         }
     }

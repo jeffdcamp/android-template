@@ -20,9 +20,9 @@ fun MessageDialog(
     text: String? = null,
     icon: @Composable (() -> Unit)? = null,
     confirmButtonText: @Composable () -> String? = { stringResource(android.R.string.ok) },
-    onConfirmButtonClicked: (() -> Unit)? = null,
+    onConfirmButtonClick: (() -> Unit)? = null,
     dismissButtonText: @Composable () -> String? = { stringResource(android.R.string.cancel) },
-    onDismissButtonClicked: (() -> Unit)? = null,
+    onDismissButtonClick: (() -> Unit)? = null,
     tonalElevation: Dp = AlertDialogDefaults.TonalElevation
 ) {
     require(title != null || text != null) { "Title or Text is required (if visible)" }
@@ -42,10 +42,10 @@ fun MessageDialog(
         icon = icon,
         confirmButton = {
             val confirmButtonTextString = confirmButtonText()
-            if (onConfirmButtonClicked != null && confirmButtonTextString != null) {
+            if (onConfirmButtonClick != null && confirmButtonTextString != null) {
                 TextButton(
                     onClick = {
-                        onConfirmButtonClicked()
+                        onConfirmButtonClick()
                     }
                 ) {
                     Text(confirmButtonTextString)
@@ -54,10 +54,10 @@ fun MessageDialog(
         },
         dismissButton = {
             val dismissButtonTextString = dismissButtonText()
-            if (onDismissButtonClicked != null && dismissButtonTextString != null) {
+            if (onDismissButtonClick != null && dismissButtonTextString != null) {
                 TextButton(
                     onClick = {
-                        onDismissButtonClicked()
+                        onDismissButtonClick()
                     }
                 ) {
                     Text(dismissButtonTextString)
@@ -78,9 +78,9 @@ fun MessageDialog(
         text = dialogUiState.text?.invoke(),
         icon = dialogUiState.icon,
         confirmButtonText = dialogUiState.confirmButtonText,
-        onConfirmButtonClicked = if (dialogUiState.onConfirm != null) { { dialogUiState.onConfirm.invoke(Unit) } } else null,
+        onConfirmButtonClick = if (dialogUiState.onConfirm != null) { { dialogUiState.onConfirm.invoke(Unit) } } else null,
         dismissButtonText = dialogUiState.dismissButtonText,
-        onDismissButtonClicked = dialogUiState.onDismiss,
+        onDismissButtonClick = dialogUiState.onDismiss,
     )
 }
 
@@ -103,8 +103,8 @@ private fun PreviewMessageDialog() {
             title = "Title",
             text = "This is the content that goes in the text",
             onDismissRequest = { },
-            onConfirmButtonClicked = { },
-            onDismissButtonClicked = { }
+            onConfirmButtonClick = { },
+            onDismissButtonClick = { }
         )
     }
 }
@@ -118,8 +118,8 @@ private fun PreviewMessageDialogWithIcon() {
             text = "This is the content that goes in the text",
             icon = { Icon(imageVector = Icons.Default.CheckCircle, contentDescription = null) },
             onDismissRequest = { },
-            onConfirmButtonClicked = { },
-            onDismissButtonClicked = { }
+            onConfirmButtonClick = { },
+            onDismissButtonClick = { }
         )
     }
 }

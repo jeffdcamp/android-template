@@ -29,7 +29,7 @@ fun ProgressIndicatorDialog(
     title: String? = null,
     supportingText: String? = null,
     dismissButtonText: String? = stringResource(android.R.string.cancel),
-    onDismissButtonClicked: (() -> Unit)? = null,
+    onDismissButtonClick: (() -> Unit)? = null,
     shape: Shape = MaterialTheme.shapes.medium,
     properties: DialogProperties = DialogProperties(),
     progressIndicatorColor: Color = MaterialTheme.colorScheme.secondary,
@@ -82,10 +82,10 @@ fun ProgressIndicatorDialog(
                         .padding(all = 8.dp)
 
                 ) {
-                    if (onDismissButtonClicked != null && dismissButtonText != null) {
+                    if (onDismissButtonClick != null && dismissButtonText != null) {
                         TextButton(
                             onClick = {
-                                onDismissButtonClicked()
+                                onDismissButtonClick()
                             }
                         ) {
                             Text(dismissButtonText, color = textButtonColor)
@@ -106,7 +106,7 @@ fun ProgressIndicatorDialog(
         supportingText = uiState.supportingText?.invoke(),
         dismissButtonText = uiState.dismissButtonText(),
         onDismissRequest = uiState.onDismissRequest,
-        onDismissButtonClicked = uiState.onDismiss
+        onDismissButtonClick = uiState.onDismiss
     )
 }
 
@@ -128,7 +128,7 @@ private fun Preview() {
         ProgressIndicatorDialog(
             title = "Title",
             supportingText = "Here is some supporting text",
-            onDismissButtonClicked = { }
+            onDismissButtonClick = { }
         )
     }
 }

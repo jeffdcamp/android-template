@@ -37,8 +37,8 @@ fun <T> RadioDialog(
     onDismissRequest: (() -> Unit),
     title: String? = null,
     supportingText: String? = null,
-    onConfirmButtonClicked: (() -> Unit)? = null,
-    onDismissButtonClicked: (() -> Unit)? = null,
+    onConfirmButtonClick: (() -> Unit)? = null,
+    onDismissButtonClick: (() -> Unit)? = null,
     confirmButtonText: String? = stringResource(android.R.string.ok),
     dismissButtonText: String? = stringResource(android.R.string.cancel),
     backgroundColor: Color = MaterialTheme.colorScheme.surface,
@@ -88,19 +88,19 @@ fun <T> RadioDialog(
                         .fillMaxWidth()
                         .padding(top = 24.dp)
                 ) {
-                    if (onDismissButtonClicked != null && dismissButtonText != null) {
+                    if (onDismissButtonClick != null && dismissButtonText != null) {
                         TextButton(
                             onClick = {
-                                onDismissButtonClicked()
+                                onDismissButtonClick()
                             }
                         ) {
                             Text(dismissButtonText)
                         }
                     }
-                    if (onConfirmButtonClicked != null && confirmButtonText != null) {
+                    if (onConfirmButtonClick != null && confirmButtonText != null) {
                         TextButton(
                             onClick = {
-                                onConfirmButtonClicked()
+                                onConfirmButtonClick()
                             }
                         ) {
                             Text(confirmButtonText)
@@ -153,9 +153,9 @@ fun <T> RadioDialog(
         onItemSelected = dialogUiState.onConfirm,
         title = dialogUiState.title?.invoke(),
         supportingText = dialogUiState.supportingText?.invoke(),
-        onConfirmButtonClicked = null,
+        onConfirmButtonClick = null,
         onDismissRequest = dialogUiState.onDismissRequest,
-        onDismissButtonClicked = dialogUiState.onDismiss,
+        onDismissButtonClick = dialogUiState.onDismiss,
         confirmButtonText = dialogUiState.confirmButtonText(),
         dismissButtonText = dialogUiState.dismissButtonText(),
     )
@@ -195,7 +195,7 @@ private fun Preview() {
             supportingText = "Here is some supporting text",
             items = radioItems,
             onItemSelected = { },
-            onDismissButtonClicked = { }
+            onDismissButtonClick = { }
         )
     }
 }

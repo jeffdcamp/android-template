@@ -36,7 +36,7 @@ fun DirectoryScreen(
         AppBarMenuItem.Icon(Icons.Outlined.Search, R.string.search) {},
 
         // overflow
-        AppBarMenuItem.OverflowMenuItem(R.string.settings) { uiState.onSettingsClicked() }
+        AppBarMenuItem.OverflowMenuItem(R.string.settings) { uiState.onSettingsClick() }
     )
 
     MainAppScaffoldWithNavBar(
@@ -46,7 +46,7 @@ fun DirectoryScreen(
         onNavigationClick = { navController.popBackStack() },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { uiState.onNewClicked() },
+                onClick = { uiState.onNewClick() },
             ) {
                 Icon(Icons.Filled.Add, contentDescription = stringResource(R.string.add))
             }
@@ -71,7 +71,7 @@ private fun DirectoryContent(
             ListItem(
                 headlineContent = { Text(individual.getFullName()) },
                 Modifier
-                    .clickable { uiState.onIndividualClicked(individual.individualId) },
+                    .clickable { uiState.onIndividualClick(individual.individualId) },
             )
         }
     }

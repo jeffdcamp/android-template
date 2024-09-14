@@ -25,10 +25,10 @@ class IndividualEditUiState(
 
     val birthDateFlow: StateFlow<LocalDate?> = MutableStateFlow(null),
     val birthDateErrorFlow: StateFlow<String?> = MutableStateFlow(null),
-    val birthDateClicked: () -> Unit = {},
+    val birthDateClick: () -> Unit = {},
 
     val alarmTimeFlow: StateFlow<LocalTime?> = MutableStateFlow(null),
-    val alarmTimeClicked: () -> Unit = {},
+    val alarmTimeClick: () -> Unit = {},
 
     val individualTypeFlow: StateFlow<IndividualType?> = MutableStateFlow(null),
     val individualTypeErrorFlow: StateFlow<String?> = MutableStateFlow(null),

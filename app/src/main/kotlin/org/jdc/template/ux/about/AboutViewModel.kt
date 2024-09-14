@@ -60,10 +60,10 @@ class AboutViewModel
         workManagerSimpleTest = { workManagerSimpleTest() },
         workManagerSyncTest = { workManagerSyncTest() },
         testTableChange = { testTableChange() },
-        licensesClicked = { navigate(AcknowledgmentsRoute) },
+        licensesClick = { navigate(AcknowledgmentsRoute) },
         createSampleData = { createSampleData() },
         createLargeSampleData = { createLargeSampleData() },
-        m3TypographyClicked = { navigate(TypographyRoute) }
+        m3TypographyClick = { navigate(TypographyRoute) }
     )
 
     private fun testQueryWebServiceCall() = viewModelScope.launch {

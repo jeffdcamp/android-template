@@ -79,10 +79,10 @@ class GetIndividualEditUiStateUseCase
 
             birthDateFlow = birthDateFlow,
             birthDateErrorFlow = birthDateErrorFlow,
-            birthDateClicked = { showBirthDate(); birthDateErrorFlow.value = null },
+            birthDateClick = { showBirthDate(); birthDateErrorFlow.value = null },
 
             alarmTimeFlow = alarmTimeFlow,
-            alarmTimeClicked = { showAlarmTime() },
+            alarmTimeClick = { showAlarmTime() },
 
             individualTypeFlow = individualTypeFlow,
             individualTypeErrorFlow = individualTypeErrorFlow,

@@ -25,7 +25,7 @@ fun DatePickerDialog(
 ){
     val initialMs: Long? = dialogUiState.localDate?.atStartOfDayIn(TimeZone.UTC)?.toEpochMilliseconds()
     val datePickerState = rememberDatePickerState(initialSelectedDateMillis = initialMs, selectableDates = dialogUiState.selectableDates)
-    val onDismissButtonClicked = dialogUiState.onDismiss
+    val onDismissButtonClick = dialogUiState.onDismiss
 
     DatePickerDialog(
         onDismissRequest = dialogUiState.onDismissRequest,
@@ -41,9 +41,9 @@ fun DatePickerDialog(
                 Text(dialogUiState.confirmButtonText())
             }
         },
-        dismissButton = if (onDismissButtonClicked != null) {{
+        dismissButton = if (onDismissButtonClick != null) {{
             TextButton(
-                onClick = onDismissButtonClicked,
+                onClick = onDismissButtonClick,
             ) {
                 Text(dialogUiState.dismissButtonText())
             }

@@ -15,9 +15,9 @@ data class SettingsUiState(
     val sortByLastNameFlow: StateFlow<Boolean> = MutableStateFlow(false),
 
     // Events
-    val onThemeSettingClicked: () -> Unit = {},
-    val onLastInstalledVersionCodeClicked: () -> Unit = {},
-    val onRangeClicked: () -> Unit = {},
+    val onThemeSettingClick: () -> Unit = {},
+    val onLastInstalledVersionCodeClick: () -> Unit = {},
+    val onRangeClick: () -> Unit = {},
     val dismissSetLastInstalledVersionCodeDialog: () -> Unit = {},
     val setDynamicTheme: (checked: Boolean) -> Unit = {},
     val setSortByLastName: (checked: Boolean) -> Unit = {},

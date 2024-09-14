@@ -49,9 +49,9 @@ fun InputDialog(
     textFieldLabel: String? = null,
     initialTextFieldText: String? = null,
     confirmButtonText: String? = stringResource(android.R.string.ok),
-    onConfirmButtonClicked: ((String) -> Unit)? = null,
+    onConfirmButtonClick: ((String) -> Unit)? = null,
     dismissButtonText: String? = stringResource(android.R.string.cancel),
-    onDismissButtonClicked: (() -> Unit)? = null,
+    onDismissButtonClick: (() -> Unit)? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     singleLine: Boolean = true,
     minLength: Int = -1,
@@ -140,21 +140,21 @@ fun InputDialog(
                         .fillMaxWidth()
                         .padding(top = 24.dp)
                 ) {
-                    if (onDismissButtonClicked != null && dismissButtonText != null) {
+                    if (onDismissButtonClick != null && dismissButtonText != null) {
                         TextButton(
                             onClick = {
-                                onDismissButtonClicked()
+                                onDismissButtonClick()
                             }
                         ) {
                             Text(dismissButtonText, color = textButtonColor)
                         }
                     }
-                    if (onConfirmButtonClicked != null && confirmButtonText != null) {
+                    if (onConfirmButtonClick != null && confirmButtonText != null) {
                         val isEnabled = minLength == -1 || textFieldValue.text.length >= minLength
                         TextButton(
                             enabled = isEnabled,
                             onClick = {
-                                onConfirmButtonClicked(textFieldValue.text)
+                                onConfirmButtonClick(textFieldValue.text)
                             }
                         ) {
                             Text(confirmButtonText, color = if (isEnabled) textButtonColor else textButtonColor.copy(alpha = 0.38f))
@@ -177,9 +177,9 @@ fun InputDialog(
         textFieldLabel = dialogUiState.textFieldLabel(),
         initialTextFieldText = dialogUiState.initialTextFieldText(),
         confirmButtonText = dialogUiState.confirmButtonText(),
-        onConfirmButtonClicked = dialogUiState.onConfirm,
+        onConfirmButtonClick = dialogUiState.onConfirm,
         dismissButtonText = dialogUiState.dismissButtonText(),
-        onDismissButtonClicked = dialogUiState.onDismiss,
+        onDismissButtonClick = dialogUiState.onDismiss,
         keyboardOptions = dialogUiState.keyboardOptions ?: KeyboardOptions.Default,
         singleLine = dialogUiState.singleLine,
         minLength = dialogUiState.minLength,
@@ -217,9 +217,9 @@ fun TwoInputDialog(
     textFieldLabelSecond: String? = null,
     initialTextFieldTextSecond: String? = null,
     confirmButtonText: String? = stringResource(android.R.string.ok),
-    onConfirmButtonClicked: ((Pair<String, String>) -> Unit)? = null,
+    onConfirmButtonClick: ((Pair<String, String>) -> Unit)? = null,
     dismissButtonText: String? = stringResource(android.R.string.cancel),
-    onDismissButtonClicked: (() -> Unit)? = null,
+    onDismissButtonClick: (() -> Unit)? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     singleLine: Boolean = true,
     minLengthFirst: Int = -1,
@@ -350,21 +350,21 @@ fun TwoInputDialog(
                         .fillMaxWidth()
                         .padding(top = 24.dp)
                 ) {
-                    if (onDismissButtonClicked != null && dismissButtonText != null) {
+                    if (onDismissButtonClick != null && dismissButtonText != null) {
                         TextButton(
                             onClick = {
-                                onDismissButtonClicked()
+                                onDismissButtonClick()
                             }
                         ) {
                             Text(dismissButtonText, color = textButtonColor)
                         }
                     }
-                    if (onConfirmButtonClicked != null && confirmButtonText != null) {
+                    if (onConfirmButtonClick != null && confirmButtonText != null) {
                         val isEnabled = (minLengthFirst == -1 || textFieldValueFirst.text.length >= minLengthFirst) && (minLengthSecond == -1 || textFieldValueSecond.text.length >= minLengthSecond)
                         TextButton(
                             enabled = isEnabled,
                             onClick = {
-                                onConfirmButtonClicked(Pair(textFieldValueFirst.text, textFieldValueSecond.text))
+                                onConfirmButtonClick(Pair(textFieldValueFirst.text, textFieldValueSecond.text))
                             }
                         ) {
                             Text(confirmButtonText, color = if (isEnabled) textButtonColor else textButtonColor.copy(alpha = 0.38f))
@@ -389,9 +389,9 @@ fun TwoInputDialog(
         textFieldLabelSecond = dialogUiState.textFieldLabelSecond(),
         initialTextFieldTextSecond = dialogUiState.initialTextFieldTextSecond(),
         confirmButtonText = dialogUiState.confirmButtonText(),
-        onConfirmButtonClicked = { dialogUiState.onConfirm(it) },
+        onConfirmButtonClick = { dialogUiState.onConfirm(it) },
         dismissButtonText = dialogUiState.dismissButtonText(),
-        onDismissButtonClicked = { dialogUiState.onDismiss() },
+        onDismissButtonClick = { dialogUiState.onDismiss() },
         keyboardOptions = dialogUiState.keyboardOptions ?: KeyboardOptions.Default,
         singleLine = dialogUiState.singleLine,
         minLengthFirst = dialogUiState.minLengthSecond,
@@ -431,8 +431,8 @@ private fun PreviewInputDialog() {
             title = "Title",
             supportingText = "Here is some supporting text",
             initialTextFieldText = "Default Value",
-            onConfirmButtonClicked = { },
-            onDismissButtonClicked = { },
+            onConfirmButtonClick = { },
+            onDismissButtonClick = { },
             minLength = 1,
             maxLength = 20
         )
@@ -449,8 +449,8 @@ private fun PreviewTwoInputDialog() {
             supportingText = "Here is some supporting text",
             initialTextFieldTextFirst = "First",
             initialTextFieldTextSecond = "Second",
-            onConfirmButtonClicked = { },
-            onDismissButtonClicked = { }
+            onConfirmButtonClick = { },
+            onDismissButtonClick = { }
         )
     }
 }

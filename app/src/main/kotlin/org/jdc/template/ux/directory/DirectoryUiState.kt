@@ -10,7 +10,7 @@ data class DirectoryUiState(
     val directoryListFlow: StateFlow<List<DirectoryItemEntityView>> = MutableStateFlow(emptyList()),
 
     // Events
-    val onNewClicked: () -> Unit = {},
-    val onIndividualClicked: (individualId: IndividualId) -> Unit = {},
-    val onSettingsClicked: () -> Unit = {}
+    val onNewClick: () -> Unit = {},
+    val onIndividualClick: (individualId: IndividualId) -> Unit = {},
+    val onSettingsClick: () -> Unit = {}
 )

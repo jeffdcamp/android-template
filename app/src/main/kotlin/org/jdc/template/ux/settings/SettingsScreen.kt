@@ -33,7 +33,7 @@ fun SettingsScreen(
             Modifier.verticalScroll(scrollState)
         ) {
             Setting.Header(stringResource(R.string.display))
-            Setting.Clickable(stringResource(R.string.theme), uiState.currentThemeTitleFlow) { uiState.onThemeSettingClicked() }
+            Setting.Clickable(stringResource(R.string.theme), uiState.currentThemeTitleFlow) { uiState.onThemeSettingClick() }
             // Dynamic themes are only available on Android 13+
             if (Build.VERSION.SDK_INT >= 33) {
                 Setting.Switch(stringResource(R.string.dynamic_theme), uiState.dynamicThemeFlow) { uiState.setDynamicTheme(it) }
@@ -45,8 +45,8 @@ fun SettingsScreen(
             Setting.Clickable(text = "Work Manager Status", secondaryText = "Show status of all background workers") {
                 navController?.navigate(WorkManagerStatusRoute)
             }
-            Setting.Clickable(text = "Last Installed Version Code", uiState.currentLastInstalledVersionCodeFlow) { uiState.onLastInstalledVersionCodeClicked() }
-            Setting.Clickable(text = "Range", uiState.rangeFlow) { uiState.onRangeClicked() }
+            Setting.Clickable(text = "Last Installed Version Code", uiState.currentLastInstalledVersionCodeFlow) { uiState.onLastInstalledVersionCodeClick() }
+            Setting.Clickable(text = "Range", uiState.rangeFlow) { uiState.onRangeClick() }
         }
 
         HandleDialogUiState(uiState.dialogUiStateFlow)

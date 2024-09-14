@@ -38,12 +38,12 @@ class GetIndividualUiStateUseCase
             individualFlow = individualRepository.getIndividualFlow(individualId).stateInDefault(coroutineScope, null),
 
             onEditClick = { editIndividual(individualId, navigate) },
-            onDeleteClick = { onDeleteClicked(individualId, coroutineScope, navigate) },
+            onDeleteClick = { onDeleteClick(individualId, coroutineScope, navigate) },
             deleteIndividual = { deleteIndividual(individualId, coroutineScope, navigate) },
         )
     }
 
-    private fun onDeleteClicked(individualId: IndividualId, coroutineScope: CoroutineScope, navigate: (NavigationAction) -> Unit) {
+    private fun onDeleteClick(individualId: IndividualId, coroutineScope: CoroutineScope, navigate: (NavigationAction) -> Unit) {
         showMessageDialog(
             dialogUiStateFlow,
             text = { stringResource(R.string.delete_individual_confirm) },
