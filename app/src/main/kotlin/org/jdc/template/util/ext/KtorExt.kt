@@ -20,7 +20,9 @@ import io.ktor.utils.io.ByteReadChannel
 import io.ktor.utils.io.ByteWriteChannel
 import io.ktor.utils.io.core.isEmpty
 import io.ktor.utils.io.core.readBytes
-import io.ktor.utils.io.errors.IOException
+import io.ktor.utils.io.readRemaining
+import io.ktor.utils.io.writeFully
+import kotlinx.io.IOException
 import okio.BufferedSink
 import okio.BufferedSource
 import okio.FileSystem
@@ -141,7 +143,7 @@ private suspend fun ByteWriteChannel.writeAll(source: BufferedSource) {
     val buffer = ByteArray(OKIO_RECOMMENDED_BUFFER_SIZE)
 
     while (source.read(buffer).also { bytesRead = it } != -1 && !channel.isClosedForWrite) {
-        channel.writeFully(buffer, offset = 0, length = bytesRead)
+        channel.writeFully(buffer, startIndex = 0, endIndex = bytesRead)
         channel.flush()
     }
 }

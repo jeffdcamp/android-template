@@ -16,8 +16,8 @@ class RemoteConfigInitializer : Initializer<Unit> {
 
         val remoteConfig = injector.getRemoteConfig()
 
-        remoteConfig.fetch()
-        remoteConfig.activate()
+        remoteConfig.fetchAsync()
+        remoteConfig.activateAsync()
     }
 
     override fun dependencies(): List<Class<out Initializer<*>>> {
