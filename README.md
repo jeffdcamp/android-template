@@ -23,8 +23,7 @@ Sample Android app that utilizes common best practices
 * Material3 styles and themes
 * Datastore
 * kotlinx-datetime
-* Okhttp3
-* Ktor Client
+* Ktor Client with Okhttp3
 * JUnit tests / Mockk / Kover
 * Firebase Analytics
 * Kermit Logging
