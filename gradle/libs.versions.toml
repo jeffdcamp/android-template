@@ -1,5 +1,5 @@
 [versions]
-agp = "8.7.1"
+agp = "8.7.2"
 kotlin = "2.0.21"
 kotlinxCoroutines = "1.9.0"
 kotlinxSerialization = "1.7.3"
@@ -23,7 +23,7 @@ androidxWork = "2.10.0"
 
 assertk = "0.28.1"
 coil = "2.7.0"
-dependencyAnalysis = "2.3.0"
+dependencyAnalysis = "2.4.1"
 desugarJdkLibs = "2.1.2"
 detekt = "1.23.7"
 dbtools = "8.3.0"
