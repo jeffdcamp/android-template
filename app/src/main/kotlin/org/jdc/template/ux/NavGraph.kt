@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import org.jdc.template.BuildConfig
 import org.jdc.template.ui.navigation.NavUriLogger
 import org.jdc.template.ui.navigation.WorkManagerStatusRoute
 import org.jdc.template.ux.about.AboutRoute
@@ -30,7 +31,9 @@ fun NavGraph(
     navController: NavHostController,
 ) {
     // Debug navigation
-    navController.addOnDestinationChangedListener(NavUriLogger())
+    if (BuildConfig.DEBUG) {
+        navController.addOnDestinationChangedListener(NavUriLogger())
+    }
 
     NavHost(
         navController = navController,
