@@ -75,8 +75,7 @@ suspend fun <T, E> HttpClient.executeSafelyCached(
         val response = apiCall()
         if (response.status == HttpStatusCode.NotModified) {
             CacheApiResponse.Success(null, response.etag(), response.headers[HttpHeaders.LastModified])
-        }
-        if (response.status.isSuccess()) {
+        } else if (response.status.isSuccess()) {
             CacheApiResponse.Success(mapSuccess(response), response.etag(), response.headers[HttpHeaders.LastModified])
         } else {
             val message = "Error executing service call: ${response.request.method.value} ${response.request.url} (${response.status})"
