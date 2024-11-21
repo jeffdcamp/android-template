@@ -17,6 +17,7 @@ import io.ktor.http.headersOf
 import io.ktor.resources.Resource
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.Serializable
+import org.jdc.template.util.ext.cacheHeaders
 import org.jdc.template.util.ext.executeSafelyCached
 import org.junit.jupiter.api.Test
 
