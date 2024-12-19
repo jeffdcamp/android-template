@@ -19,4 +19,5 @@ data class AboutUiState(
     val createSampleData: () -> Unit = {},
     val createLargeSampleData: () -> Unit = {},
     val m3TypographyClick: () -> Unit = {},
+    val onChatClick: () -> Unit = {},
 )

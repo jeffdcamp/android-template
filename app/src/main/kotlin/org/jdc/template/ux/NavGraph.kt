@@ -13,6 +13,11 @@ import org.jdc.template.ux.about.typography.TypographyRoute
 import org.jdc.template.ux.about.typography.TypographyScreen
 import org.jdc.template.ux.acknowledgement.AcknowledgementScreen
 import org.jdc.template.ux.acknowledgement.AcknowledgmentsRoute
+import org.jdc.template.ux.chat.ChatRoute
+import org.jdc.template.ux.chat.ChatScreen
+import org.jdc.template.ux.chat.typeMap
+import org.jdc.template.ux.chats.ChatsRoute
+import org.jdc.template.ux.chats.ChatsScreen
 import org.jdc.template.ux.directory.DirectoryRoute
 import org.jdc.template.ux.directory.DirectoryScreen
 import org.jdc.template.ux.individual.IndividualRoute
@@ -42,6 +47,8 @@ fun NavGraph(
         composable<DirectoryRoute> { DirectoryScreen(navController) }
         composable<IndividualRoute>(IndividualRoute.typeMap(), IndividualRoute.deepLinks()) { IndividualScreen(navController) }
         composable<IndividualEditRoute>(IndividualEditRoute.typeMap()) { IndividualEditScreen(navController) }
+        composable<ChatsRoute> { ChatsScreen(navController) }
+        composable<ChatRoute>(ChatRoute.typeMap()) { ChatScreen(navController) }
         composable<SettingsRoute>(deepLinks = SettingsRoute.deeplinks()) { SettingsScreen(navController) }
         composable<AboutRoute> { AboutScreen(navController) }
         composable<TypographyRoute> { TypographyScreen(navController) }

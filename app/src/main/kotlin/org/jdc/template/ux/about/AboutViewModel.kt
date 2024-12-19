@@ -32,6 +32,7 @@ import org.jdc.template.util.network.onFailure
 import org.jdc.template.util.network.onSuccess
 import org.jdc.template.ux.about.typography.TypographyRoute
 import org.jdc.template.ux.acknowledgement.AcknowledgmentsRoute
+import org.jdc.template.ux.chats.ChatsRoute
 import org.jdc.template.work.WorkScheduler
 import javax.inject.Inject
 
@@ -63,7 +64,8 @@ class AboutViewModel
         licensesClick = { navigate(AcknowledgmentsRoute) },
         createSampleData = { createSampleData() },
         createLargeSampleData = { createLargeSampleData() },
-        m3TypographyClick = { navigate(TypographyRoute) }
+        m3TypographyClick = { navigate(TypographyRoute) },
+        onChatClick = { navigate(ChatsRoute) }
     )
 
     private fun testQueryWebServiceCall() = viewModelScope.launch {

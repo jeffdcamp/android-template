@@ -260,8 +260,9 @@ dependencies {
     implementation(libs.workmanagertools)
 
     // Database
-    implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.paging)
     ksp(libs.androidx.room.compiler)
     implementation(libs.dbtools.room)
 
@@ -276,6 +277,9 @@ dependencies {
     implementation(libs.ktor.client.serialization)
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.client.resources)
+
+    // Paging
+    implementation(libs.androidx.paging.compose)
 
     // Logging
     implementation(libs.kermit)

@@ -2,6 +2,7 @@ package org.jdc.template.ui.navigation
 
 import android.os.Bundle
 import androidx.navigation.NavType
+import org.jdc.template.model.domain.inline.ChatThreadId
 import org.jdc.template.model.domain.inline.IndividualId
 
 /**
@@ -35,5 +36,14 @@ object NavTypeMaps {
             if (value.isBlank()) return null
             return IndividualId(value)
         }
+    }
+
+    val ChatThreadIdNavType = object : NavType<ChatThreadId>(
+        isNullableAllowed = false
+    ) {
+        override fun put(bundle: Bundle, key: String, value: ChatThreadId) = bundle.putString(key, serializeAsValue(value))
+        override fun get(bundle: Bundle, key: String): ChatThreadId? = bundle.getString(key)?.let { parseValue(it) }
+        override fun serializeAsValue(value: ChatThreadId): String = value.value
+        override fun parseValue(value: String) = ChatThreadId(value)
     }
 }

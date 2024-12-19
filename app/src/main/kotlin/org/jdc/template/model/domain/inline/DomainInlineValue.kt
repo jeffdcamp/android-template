@@ -35,3 +35,14 @@ value class CreatedTime(val value: Instant)
 
 @JvmInline
 value class LastModifiedTime(val value: Instant)
+
+@JvmInline
+@Serializable
+value class ChatThreadId(val value: String)
+
+@JvmInline
+value class ChatMessageId(val value: String)
+
+@JvmInline
+value class ChatImageId(val value: String)
+

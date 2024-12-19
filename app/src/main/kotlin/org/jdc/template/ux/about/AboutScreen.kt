@@ -68,6 +68,7 @@ private fun AboutScreenContent(
         TestButton("Test Rest Call2") { uiState.testFullUrlQueryWebServiceCall() }
         TestButton("Test Rest Call3") { uiState.testSaveQueryWebServiceCall() }
         TestButton("Test Rest Cached Call") { uiState.testCachedUrlQueryWebServiceCall() }
+        TestButton("Chat Test") { uiState.onChatClick() }
         TestButton("TEST SIMPLE WORKMANAGER") { uiState.workManagerSimpleTest() }
         TestButton("TEST SYNC WORKMANAGER") { uiState.workManagerSyncTest() }
     }
