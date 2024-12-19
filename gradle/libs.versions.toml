@@ -38,6 +38,7 @@ gmsPlugin = "4.4.2"
 
 hilt = "2.52"
 kermit = "2.0.5"
+konsist = "0.17.3"
 kover = "0.8.3"
 ksp = "2.0.21-1.0.25"
 ktor = "3.0.1"
@@ -135,6 +136,8 @@ google-hilt-testing = { module = "com.google.dagger:hilt-android-testing", versi
 
 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 kermit-crashlytics = { module = "co.touchlab:kermit-crashlytics", version.ref = "kermit" }
+
+konsist = { module = "com.lemonappdev:konsist", version.ref = "konsist" }
 
 kotlin-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
 kotlin-coroutines-playServices = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinxCoroutines" }
