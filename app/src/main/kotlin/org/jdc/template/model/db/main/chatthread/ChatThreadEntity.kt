@@ -8,7 +8,7 @@ import org.jdc.template.model.domain.inline.ChatThreadId
 import org.jdc.template.model.domain.inline.IndividualId
 import java.util.UUID
 
-@Entity("ChatThread")
+@Entity(tableName = "ChatThread")
 data class ChatThreadEntity(
     @PrimaryKey
     val id: ChatThreadId = ChatThreadId(UUID.randomUUID().toString()),

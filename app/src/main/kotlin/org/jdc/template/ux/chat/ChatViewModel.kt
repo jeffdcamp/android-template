@@ -36,13 +36,12 @@ class ChatViewModel
 
     private val allMessagesPagingFlow = chatRepository.getPagingAllMessagesFlow(route.chatThreadId)
         .cachedIn(viewModelScope)
-        .stateInDefault(viewModelScope, PagingData.empty())
 
     val uiState: ChatUiState = ChatUiState(
         dialogUiStateFlow = dialogUiStateFlow,
         threadNameFlow = threadNameFlow.stateInDefault(viewModelScope, ""),
         fromPerspectiveUserId = fromPerspectiveUserIdFlow.stateInDefault(viewModelScope, route.individualId),
-        allMessagesPagingFlow = allMessagesPagingFlow,
+        allMessagesPagingFlow = allMessagesPagingFlow.stateInDefault(viewModelScope, PagingData.empty()),
         onSendClick = { onMessageSend(it) },
         onDeleteClick = { onDeleteMessage(it) },
     )

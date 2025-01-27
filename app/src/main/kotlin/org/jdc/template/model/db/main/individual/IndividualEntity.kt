@@ -13,7 +13,7 @@ import org.jdc.template.model.domain.inline.LastName
 import org.jdc.template.model.domain.inline.Phone
 import org.jdc.template.model.domain.type.IndividualType
 
-@Entity("Individual")
+@Entity(tableName = "Individual")
 data class IndividualEntity(
     @PrimaryKey
     val id: IndividualId,

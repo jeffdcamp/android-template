@@ -13,8 +13,8 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import okio.FileSystem
 import okio.Path.Companion.toOkioPath
-import org.jdc.template.domain.individual.CreateIndividualLargeTestDataUseCase
-import org.jdc.template.domain.individual.CreateIndividualTestDataUseCase
+import org.jdc.template.domain.individual.usecase.CreateIndividualLargeTestDataUseCase
+import org.jdc.template.domain.individual.usecase.CreateIndividualTestDataUseCase
 import org.jdc.template.model.config.RemoteConfig
 import org.jdc.template.model.datastore.DevicePreferenceDataSource
 import org.jdc.template.model.domain.inline.FirstName

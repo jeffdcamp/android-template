@@ -1,4 +1,4 @@
-package org.jdc.template.domain.individual
+package org.jdc.template.domain.individual.usecase
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
