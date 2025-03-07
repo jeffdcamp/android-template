@@ -43,7 +43,8 @@ fun DayNightTextField(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     singleLine: Boolean = false,
-    maxLines: Int = Int.MAX_VALUE,
+    maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
+    minLines: Int = 1,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     shape: Shape = if (isSystemInDarkTheme()) TextFieldDefaults.shape else OutlinedTextFieldDefaults.shape,
     colors: TextFieldColors = if (isSystemInDarkTheme()) TextFieldDefaults.colors() else OutlinedTextFieldDefaults.colors()
@@ -74,6 +75,7 @@ fun DayNightTextField(
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
         maxLines = maxLines,
+        minLines = minLines,
         interactionSource = interactionSource,
         shape = shape,
         colors = colors
@@ -98,7 +100,8 @@ fun DayNightTextField(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     singleLine: Boolean = false,
-    maxLines: Int = Int.MAX_VALUE,
+    maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
+    minLines: Int = 1,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     shape: Shape = if (isSystemInDarkTheme()) TextFieldDefaults.shape else OutlinedTextFieldDefaults.shape,
     colors: TextFieldColors = if (isSystemInDarkTheme()) TextFieldDefaults.colors() else OutlinedTextFieldDefaults.colors()
@@ -122,6 +125,7 @@ fun DayNightTextField(
             keyboardOptions = keyboardOptions,
             keyboardActions = keyboardActions,
             maxLines = maxLines,
+            minLines = minLines,
             interactionSource = interactionSource,
             shape = shape,
             colors = colors
@@ -145,6 +149,7 @@ fun DayNightTextField(
             keyboardOptions = keyboardOptions,
             keyboardActions = keyboardActions,
             maxLines = maxLines,
+            minLines = minLines,
             interactionSource = interactionSource,
             shape = shape,
             colors = colors
