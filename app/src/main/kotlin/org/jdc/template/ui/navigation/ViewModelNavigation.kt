@@ -24,8 +24,10 @@ interface ViewModelNavigation {
     fun navigate(routes: List<NavigationRoute>)
     fun navigate(route: NavigationRoute, navOptions: NavOptions)
     fun navigate(route: NavigationRoute, optionsBuilder: NavOptionsBuilder.() -> Unit)
+    fun navigateWithNavController(block: (NavController) -> Unit)
     fun popBackStack(route: NavigationRoute? = null, inclusive: Boolean = false)
     fun popBackStackWithResult(resultValues: List<PopResultKeyValue>, route: NavigationRoute? = null, inclusive: Boolean = false)
+    fun popWithNavController(block: (NavController) -> Boolean)
 
     fun navigate(intent: Intent, options: Bundle? = null, popBackStack: Boolean = false)
 
@@ -53,12 +55,20 @@ class ViewModelNavigationImpl : ViewModelNavigation {
         _navigatorFlow.compareAndSet(null, NavigationAction.NavigateWithOptions(route, navOptions(optionsBuilder)))
     }
 
+    override fun navigateWithNavController(block: (NavController) -> Unit) {
+        _navigatorFlow.compareAndSet(null, NavigationAction.NavigateWithNavController(block))
+    }
+
     override fun popBackStack(route: NavigationRoute?, inclusive: Boolean) {
         _navigatorFlow.compareAndSet(null, NavigationAction.Pop(route, inclusive))
     }
 
     override fun popBackStackWithResult(resultValues: List<PopResultKeyValue>, route: NavigationRoute?, inclusive: Boolean) {
         _navigatorFlow.compareAndSet(null, NavigationAction.PopWithResult(resultValues, route, inclusive))
+    }
+
+    override fun popWithNavController(block: (NavController) -> Boolean) {
+        _navigatorFlow.compareAndSet(null, NavigationAction.PopWithNavController(block))
     }
 
     override fun navigate(intent: Intent, options: Bundle?, popBackStack: Boolean) {
