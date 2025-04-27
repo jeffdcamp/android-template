@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.navigation.NavType
 import org.jdc.template.model.domain.inline.ChatThreadId
 import org.jdc.template.model.domain.inline.IndividualId
+import kotlin.reflect.KType
+import kotlin.reflect.typeOf
 
 /**
  * Mappings for type safe navigation
@@ -46,4 +48,10 @@ object NavTypeMaps {
         override fun serializeAsValue(value: ChatThreadId): String = value.value
         override fun parseValue(value: String) = ChatThreadId(value)
     }
+
+    val typeMap: Map<KType, NavType<out Any?>> = mapOf(
+        typeOf<IndividualId>() to IndividualIdNavType,
+        typeOf<IndividualId?>() to IndividualIdNullableNavType,
+        typeOf<ChatThreadId>() to ChatThreadIdNavType,
+    )
 }

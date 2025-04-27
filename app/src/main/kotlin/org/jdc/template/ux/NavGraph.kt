@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import org.jdc.template.BuildConfig
+import org.jdc.template.ui.navigation.NavTypeMaps
 import org.jdc.template.ui.navigation.NavUriLogger
 import org.jdc.template.ui.navigation.WorkManagerStatusRoute
 import org.jdc.template.ux.about.AboutRoute
@@ -15,7 +16,6 @@ import org.jdc.template.ux.acknowledgement.AcknowledgementScreen
 import org.jdc.template.ux.acknowledgement.AcknowledgmentsRoute
 import org.jdc.template.ux.chat.ChatRoute
 import org.jdc.template.ux.chat.ChatScreen
-import org.jdc.template.ux.chat.typeMap
 import org.jdc.template.ux.chats.ChatsRoute
 import org.jdc.template.ux.chats.ChatsScreen
 import org.jdc.template.ux.directory.DirectoryRoute
@@ -23,10 +23,8 @@ import org.jdc.template.ux.directory.DirectoryScreen
 import org.jdc.template.ux.individual.IndividualRoute
 import org.jdc.template.ux.individual.IndividualScreen
 import org.jdc.template.ux.individual.deepLinks
-import org.jdc.template.ux.individual.typeMap
 import org.jdc.template.ux.individualedit.IndividualEditRoute
 import org.jdc.template.ux.individualedit.IndividualEditScreen
-import org.jdc.template.ux.individualedit.typeMap
 import org.jdc.template.ux.settings.SettingsRoute
 import org.jdc.template.ux.settings.SettingsScreen
 import org.jdc.template.ux.settings.deeplinks
@@ -44,16 +42,16 @@ fun NavGraph(
         navController = navController,
         startDestination = DirectoryRoute
     ) {
-        composable<DirectoryRoute> { DirectoryScreen(navController) }
-        composable<IndividualRoute>(IndividualRoute.typeMap(), IndividualRoute.deepLinks()) { IndividualScreen(navController) }
-        composable<IndividualEditRoute>(IndividualEditRoute.typeMap()) { IndividualEditScreen(navController) }
-        composable<ChatsRoute> { ChatsScreen(navController) }
-        composable<ChatRoute>(ChatRoute.typeMap()) { ChatScreen(navController) }
-        composable<SettingsRoute>(deepLinks = SettingsRoute.deeplinks()) { SettingsScreen(navController) }
-        composable<AboutRoute> { AboutScreen(navController) }
-        composable<TypographyRoute> { TypographyScreen(navController) }
-        composable<AcknowledgmentsRoute> { AcknowledgementScreen(navController) }
-        composable<WorkManagerStatusRoute> { navController.popBackStack() }
+        composable<DirectoryRoute>(NavTypeMaps.typeMap) { DirectoryScreen(navController) }
+        composable<IndividualRoute>(NavTypeMaps.typeMap, IndividualRoute.deepLinks()) { IndividualScreen(navController) }
+        composable<IndividualEditRoute>(NavTypeMaps.typeMap) { IndividualEditScreen(navController) }
+        composable<ChatsRoute>(NavTypeMaps.typeMap) { ChatsScreen(navController) }
+        composable<ChatRoute>(NavTypeMaps.typeMap) { ChatScreen(navController) }
+        composable<SettingsRoute>(NavTypeMaps.typeMap, deepLinks = SettingsRoute.deeplinks()) { SettingsScreen(navController) }
+        composable<AboutRoute>(NavTypeMaps.typeMap) { AboutScreen(navController) }
+        composable<TypographyRoute>(NavTypeMaps.typeMap) { TypographyScreen(navController) }
+        composable<AcknowledgmentsRoute>(NavTypeMaps.typeMap) { AcknowledgementScreen(navController) }
+        composable<WorkManagerStatusRoute>(NavTypeMaps.typeMap) { navController.popBackStack() }
     }
 }
 
