@@ -39,17 +39,6 @@ android {
         buildConfigField("String", "BUILD_NUMBER", "\"${System.getProperty("BUILD_NUMBER")}\"")
         buildConfigField("String", "USER_AGENT_APP_NAME", "\"AndroidTemplate\"")
 
-        room {
-            schemaDirectory("$projectDir/schema")
-        }
-
-        ksp {
-            // options that are not yet in the Room Gradle plugin
-            // https://developer.android.com/jetpack/androidx/releases/room#gradle-plugin
-            arg("room.incremental", "true")
-            arg("room.generateKotlin", "true")
-        }
-
         // Integration tests
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -86,6 +75,17 @@ android {
     buildFeatures {
         buildConfig = true
         compose = true
+    }
+
+    room {
+        schemaDirectory("$projectDir/schema")
+    }
+
+    ksp {
+        // options that are not yet in the Room Gradle plugin
+        // https://developer.android.com/jetpack/androidx/releases/room#gradle-plugin
+        arg("room.incremental", "true")
+        arg("room.generateKotlin", "true")
     }
 
     androidResources {
@@ -176,6 +176,7 @@ android {
                 "proguard-rules.pro"
             )
 
+            //noinspection WrongGradleMethod
             firebaseAppDistribution {
                 serviceCredentialsFile = firebaseServiceCredentialsFile
                 groups = firebaseGroups
