@@ -8,7 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import org.jdc.template.domain.individual.usecase.CreateIndividualTestDataUseCase
-import org.jdc.template.model.domain.type.DisplayThemeType
+import org.jdc.template.shared.model.domain.type.DisplayThemeType
 import org.jdc.template.model.repository.SettingsRepository
 import org.jdc.template.ui.navigation.DefaultNavigationBarConfig
 import org.jdc.template.ui.navigation.ViewModelNavigationBar

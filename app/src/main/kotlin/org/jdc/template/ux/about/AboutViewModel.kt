@@ -17,10 +17,10 @@ import org.jdc.template.domain.individual.usecase.CreateIndividualLargeTestDataU
 import org.jdc.template.domain.individual.usecase.CreateIndividualTestDataUseCase
 import org.jdc.template.model.config.RemoteConfig
 import org.jdc.template.model.datastore.DevicePreferenceDataSource
-import org.jdc.template.model.domain.inline.FirstName
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.model.webservice.colors.ColorService
 import org.jdc.template.model.webservice.colors.dto.ColorsDto
+import org.jdc.template.shared.model.domain.inline.FirstName
 import org.jdc.template.ui.navigation.ViewModelNavigation
 import org.jdc.template.ui.navigation.ViewModelNavigationImpl
 import org.jdc.template.util.ext.readText

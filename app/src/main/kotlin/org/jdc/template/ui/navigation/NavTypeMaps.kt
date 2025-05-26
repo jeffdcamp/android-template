@@ -2,8 +2,8 @@ package org.jdc.template.ui.navigation
 
 import android.os.Bundle
 import androidx.navigation.NavType
-import org.jdc.template.model.domain.inline.ChatThreadId
-import org.jdc.template.model.domain.inline.IndividualId
+import org.jdc.template.shared.model.domain.inline.ChatThreadId
+import org.jdc.template.shared.model.domain.inline.IndividualId
 import kotlin.reflect.KType
 import kotlin.reflect.typeOf
 

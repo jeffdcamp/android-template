@@ -18,7 +18,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.jdc.template.R
-import org.jdc.template.model.domain.type.IndividualType
+import org.jdc.template.shared.model.domain.type.IndividualType
 import org.jdc.template.ui.compose.PreviewDefault
 import org.jdc.template.ui.compose.appbar.AppBarMenu
 import org.jdc.template.ui.compose.appbar.AppBarMenuItem
@@ -30,6 +30,7 @@ import org.jdc.template.ui.compose.form.SwitchField
 import org.jdc.template.ui.compose.form.TimeClickableTextField
 import org.jdc.template.ui.compose.util.formKeyEventHandler
 import org.jdc.template.ui.navigation.HandleNavigation
+import org.jdc.template.ui.strings.getStringResId
 import org.jdc.template.ui.theme.AppTheme
 import org.jdc.template.ux.MainAppScaffoldWithNavBar
 
@@ -93,7 +94,7 @@ fun IndividualEditContent(
             options = IndividualType.entries,
             selectedOptionFlow = uiState.individualTypeFlow,
             onOptionSelected = { uiState.individualTypeChange(it) },
-            optionToText = { stringResource(it.textResId) },
+            optionToText = { stringResource(it.getStringResId()) },
             errorTextFlow = uiState.individualTypeErrorFlow,
             modifier = fieldModifier
                 .onPreviewKeyEvent { formKeyEventHandler(it, focusManager) }

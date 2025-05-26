@@ -5,9 +5,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.jdc.template.inject.ApplicationScope
-import org.jdc.template.model.domain.type.DisplayThemeType
 import org.jdc.template.model.datastore.DevicePreferenceDataSource
 import org.jdc.template.model.datastore.UserPreferenceDataSource
+import org.jdc.template.shared.model.domain.type.DisplayThemeType
 import javax.inject.Inject
 import javax.inject.Singleton
 

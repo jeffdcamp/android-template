@@ -19,11 +19,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import org.jdc.template.R
-import org.jdc.template.model.domain.Individual
-import org.jdc.template.model.domain.inline.Email
-import org.jdc.template.model.domain.inline.FirstName
-import org.jdc.template.model.domain.inline.LastName
-import org.jdc.template.model.domain.inline.Phone
+import org.jdc.template.shared.model.domain.Individual
+import org.jdc.template.shared.model.domain.inline.Email
+import org.jdc.template.shared.model.domain.inline.FirstName
+import org.jdc.template.shared.model.domain.inline.LastName
+import org.jdc.template.shared.model.domain.inline.Phone
 import org.jdc.template.ui.compose.PreviewDefault
 import org.jdc.template.ui.compose.appbar.AppBarMenu
 import org.jdc.template.ui.compose.appbar.AppBarMenuItem

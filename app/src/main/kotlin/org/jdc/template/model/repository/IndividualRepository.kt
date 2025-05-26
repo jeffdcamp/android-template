@@ -5,29 +5,28 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
-import org.jdc.template.model.db.main.MainDatabaseWrapper
-import org.jdc.template.model.db.main.directoryitem.DirectoryItemEntityView
-import org.jdc.template.model.db.main.household.HouseholdEntity
-import org.jdc.template.model.db.main.individual.IndividualEntity
-import org.jdc.template.model.domain.Household
-import org.jdc.template.model.domain.Individual
-import org.jdc.template.model.domain.inline.CreatedTime
-import org.jdc.template.model.domain.inline.IndividualId
-import org.jdc.template.model.domain.inline.LastModifiedTime
+import org.jdc.template.shared.model.db.main.MainDatabase
+import org.jdc.template.shared.model.db.main.directoryitem.DirectoryItemEntityView
+import org.jdc.template.shared.model.db.main.household.HouseholdEntity
+import org.jdc.template.shared.model.db.main.individual.IndividualEntity
+import org.jdc.template.shared.model.domain.Household
+import org.jdc.template.shared.model.domain.Individual
+import org.jdc.template.shared.model.domain.inline.CreatedTime
+import org.jdc.template.shared.model.domain.inline.IndividualId
+import org.jdc.template.shared.model.domain.inline.LastModifiedTime
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class IndividualRepository
 @Inject constructor(
-    private val mainDatabaseWrapper: MainDatabaseWrapper,
+    private val mainDatabase: MainDatabase,
     private val settingsRepository: SettingsRepository
 ) {
-    private fun mainDatabase() = mainDatabaseWrapper.getDatabase()
 
-    private fun individualDao() = mainDatabase().individualDao()
-    private fun householdDao() = mainDatabase().householdDao()
-    private fun directoryItemDao() = mainDatabase().directoryItemDao()
+    private fun individualDao() = mainDatabase.individualDao()
+    private fun householdDao() = mainDatabase.householdDao()
+    private fun directoryItemDao() = mainDatabase.directoryItemDao()
 
     fun getDirectoryListFlow(): Flow<List<DirectoryItemEntityView>> = settingsRepository.directorySortByLastNameFlow.flatMapLatest { byLastName ->
         when {
@@ -49,7 +48,7 @@ class IndividualRepository
     }
 
     suspend fun saveIndividuals(individualList: List<Individual>) {
-        mainDatabase().withTransaction {
+        mainDatabase.withTransaction {
             individualList.forEach { individual ->
                 individualDao().insert(individual.toEntity())
             }
@@ -61,7 +60,7 @@ class IndividualRepository
     }
 
     suspend fun saveNewHousehold(household: Household, individuals: List<Individual>) {
-        mainDatabase().withTransaction {
+        mainDatabase.withTransaction {
             saveHousehold(household)
 
             individuals.forEach { individual ->
@@ -73,7 +72,7 @@ class IndividualRepository
     suspend fun deleteIndividual(individualId: IndividualId) = individualDao().deleteById(individualId)
 
     suspend fun deleteAllIndividuals() {
-        mainDatabase().withTransaction {
+        mainDatabase.withTransaction {
             individualDao().deleteAll()
             householdDao().deleteAll()
         }

@@ -23,9 +23,9 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
 import kotlinx.coroutines.flow.MutableStateFlow
-import org.jdc.template.model.domain.ChatMessage
-import org.jdc.template.model.domain.inline.ChatThreadId
-import org.jdc.template.model.domain.inline.IndividualId
+import org.jdc.template.shared.model.domain.ChatMessage
+import org.jdc.template.shared.model.domain.inline.ChatThreadId
+import org.jdc.template.shared.model.domain.inline.IndividualId
 import org.jdc.template.ui.compose.PreviewDefault
 import org.jdc.template.ui.compose.appbar.AppBarTitle
 import org.jdc.template.ui.compose.dialog.HandleDialogUiState

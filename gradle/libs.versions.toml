@@ -1,6 +1,6 @@
 [versions]
 agp = "8.10.0"
-kotlin = "2.1.20"
+kotlin = "2.1.21"
 kotlinxCoroutines = "1.10.2"
 kotlinxSerialization = "1.8.1"
 kotlinxDateTime = "0.6.2"
@@ -16,7 +16,7 @@ androidxHilt = "1.2.0"
 androidxLifecycle = "2.9.0"
 androidxNavigation = "2.9.0"
 androidxPagingCompose = "3.3.6"
-androidxRoom = "2.6.1"
+room = "2.7.1"
 androidxSplashScreen = "1.1.0-rc01"
 androidxStartup = "1.2.0"
 androidxWindow = "1.4.0"
@@ -27,7 +27,7 @@ coil = "2.7.0"
 dependencyAnalysis = "2.17.0"
 desugarJdkLibs = "2.1.5"
 detekt = "1.23.8"
-dbtools = "8.3.0"
+dbtools = "9.0.9"
 downloadPlugin = "5.6.0"
 
 firebaseBom = "33.14.0"
@@ -41,7 +41,7 @@ hilt = "2.56.2"
 kermit = "2.0.5"
 konsist = "0.17.3"
 kover = "0.9.1"
-ksp = "2.1.20-1.0.32"
+ksp = "2.1.21-2.0.1"
 ktor = "3.1.3"
 leakCanary = "2.14"
 licenseManager = "1.5.0"
@@ -49,7 +49,7 @@ mockK = "1.14.2"
 okio = "3.11.0"
 playPublisher = "3.12.1"
 ruler = "1.4.0"
-sqliteJdbc = "3.49.1.0"
+sqlite = "2.5.1"
 turbine = "1.2.0"
 versionsPlugin = "0.52.0"
 workManagerTools = "4.0.0"
@@ -72,8 +72,10 @@ kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 licenseManager = { id = "org.dbtools.license-manager", version.ref = "licenseManager" }
 playPublisher = { id = "com.github.triplet.play", version.ref = "playPublisher" }
-room = { id = "androidx.room", version.ref = "androidxRoom" }
+room = { id = "androidx.room", version.ref = "room" }
 versions = { id = "com.github.ben-manes.versions", version.ref = "versionsPlugin" }
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
 
 [libraries]
 android-desugar = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "desugarJdkLibs" }
@@ -94,15 +96,12 @@ androidx-lifecycle-viewmodel-savedstate = { group = "androidx.lifecycle", name =
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidxNavigation" }
 androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "androidxPagingCompose" }
 
-androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "androidxRoom" }
-androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "androidxRoom" }
-androidx-room-paging = { group = "androidx.room", name = "room-paging", version.ref = "androidxRoom" }
-androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "androidxRoom" }
-androidx-room-testing = { group = "androidx.room", name = "room-testing", version.ref = "androidxRoom" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+room-paging = { group = "androidx.room", name = "room-paging", version.ref = "room" }
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+room-testing = { group = "androidx.room", name = "room-testing", version.ref = "room" }
 
 androidx-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidxSplashScreen" }
-
-androidx-window = { group = "androidx.window", name = "window", version.ref = "androidxWindow" }
 
 androidx-work-runtime = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "androidxWork" }
 androidx-work-gcm = { group = "androidx.work", name = "work-gcm", version.ref = "androidxWork" }
@@ -165,8 +164,8 @@ mockK = { group = "io.mockk", name = "mockk", version.ref = "mockK" }
 
 ruler-gradlePluginClasspath = { group = "com.spotify.ruler", name = "ruler-gradle-plugin", version.ref = "ruler" }
 
+sqlite-bundled = { group = "androidx.sqlite", name = "sqlite-bundled", version.ref = "sqlite" }
+
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
 
 workmanagertools = { group = "org.dbtools", name = "workmanager-tools", version.ref = "workManagerTools" }
-
-xerial-sqlite = { group = "org.xerial", name = "sqlite-jdbc", version.ref = "sqliteJdbc" }

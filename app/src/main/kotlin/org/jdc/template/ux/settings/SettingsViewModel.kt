@@ -11,8 +11,8 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.jdc.template.R
-import org.jdc.template.model.domain.type.DisplayThemeType
 import org.jdc.template.model.repository.SettingsRepository
+import org.jdc.template.shared.model.domain.type.DisplayThemeType
 import org.jdc.template.ui.compose.dialog.DialogUiState
 import org.jdc.template.ui.compose.dialog.DropDownMenuDialogUiState
 import org.jdc.template.ui.compose.dialog.InputDialogUiState
@@ -20,6 +20,7 @@ import org.jdc.template.ui.compose.dialog.RadioDialogDataItem
 import org.jdc.template.ui.compose.dialog.RadioDialogDataItems
 import org.jdc.template.ui.compose.dialog.RadioDialogUiState
 import org.jdc.template.ui.compose.dialog.dismissDialog
+import org.jdc.template.ui.strings.toString
 import org.jdc.template.util.ext.stateInDefault
 import javax.inject.Inject
 
@@ -34,7 +35,7 @@ class SettingsViewModel
 
     val uiState = SettingsUiState(
         dialogUiStateFlow = dialogUiStateFlow,
-        currentThemeTitleFlow = settingsRepository.themeFlow.map { theme -> theme.getString(application) }.stateInDefault(viewModelScope, null),
+        currentThemeTitleFlow = settingsRepository.themeFlow.map { theme -> theme.toString(application) }.stateInDefault(viewModelScope, null),
         currentLastInstalledVersionCodeFlow = settingsRepository.lastInstalledVersionCodeFlow.map { versionCode -> versionCode.toString() }.stateInDefault(viewModelScope, null),
         rangeFlow = settingsRepository.rangeFlow.map { it.toString() }.stateInDefault(viewModelScope, null),
         dynamicThemeFlow = settingsRepository.dynamicThemeFlow.stateInDefault(viewModelScope, false),
@@ -52,11 +53,11 @@ class SettingsViewModel
         val currentTheme = settingsRepository.themeFlow.first()
 
         val supportedThemeTypes = if (Build.VERSION.SDK_INT > 28) {
-            DisplayThemeType.values().toList()
+            DisplayThemeType.entries
         } else {
             listOf(DisplayThemeType.LIGHT, DisplayThemeType.DARK)
         }
-        val radioItems = supportedThemeTypes.map { RadioDialogDataItem(it) { it.getString(application) } }
+        val radioItems = supportedThemeTypes.map { RadioDialogDataItem(it) { it.toString(application) } }
 
         dialogUiStateFlow.value = RadioDialogUiState(
             items = RadioDialogDataItems(radioItems, currentTheme),

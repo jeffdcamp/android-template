@@ -1,8 +1,8 @@
 package org.jdc.template.ux.chat
 
 import kotlinx.serialization.Serializable
-import org.jdc.template.model.domain.inline.ChatThreadId
-import org.jdc.template.model.domain.inline.IndividualId
+import org.jdc.template.shared.model.domain.inline.ChatThreadId
+import org.jdc.template.shared.model.domain.inline.IndividualId
 import org.jdc.template.ui.navigation.NavTypeMaps
 import org.jdc.template.ui.navigation.NavigationRoute
 import kotlin.reflect.typeOf

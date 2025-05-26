@@ -13,7 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dagger.hilt.android.AndroidEntryPoint
-import org.jdc.template.model.domain.type.DisplayThemeType
+import org.jdc.template.shared.model.domain.type.DisplayThemeType
 import org.jdc.template.ui.theme.AppTheme
 
 @AndroidEntryPoint

@@ -9,7 +9,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.runTest
-import org.jdc.template.model.domain.inline.IndividualId
+import org.jdc.template.shared.model.domain.inline.IndividualId
 import org.jdc.template.ui.navigation.NavigationAction
 import org.jdc.template.ux.individual.IndividualRoute
 import org.jdc.template.ux.individualedit.IndividualEditRoute

@@ -11,28 +11,27 @@ import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.launch
 import org.jdc.template.inject.ApplicationScope
 import org.jdc.template.inject.IoDispatcher
-import org.jdc.template.model.db.main.MainDatabaseWrapper
-import org.jdc.template.model.db.main.chatmessage.ChatMessageEntity
-import org.jdc.template.model.db.main.chatthread.ChatThreadEntity
-import org.jdc.template.model.domain.ChatMessage
-import org.jdc.template.model.domain.ChatThread
-import org.jdc.template.model.domain.ChatThreadListItem
-import org.jdc.template.model.domain.inline.ChatMessageId
-import org.jdc.template.model.domain.inline.ChatThreadId
-import org.jdc.template.model.domain.inline.IndividualId
+import org.jdc.template.shared.model.db.main.MainDatabase
+import org.jdc.template.shared.model.db.main.chatmessage.ChatMessageEntity
+import org.jdc.template.shared.model.db.main.chatthread.ChatThreadEntity
+import org.jdc.template.shared.model.domain.ChatMessage
+import org.jdc.template.shared.model.domain.ChatThread
+import org.jdc.template.shared.model.domain.ChatThreadListItem
+import org.jdc.template.shared.model.domain.inline.ChatMessageId
+import org.jdc.template.shared.model.domain.inline.ChatThreadId
+import org.jdc.template.shared.model.domain.inline.IndividualId
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class ChatRepository
 @Inject constructor(
-    private val mainDatabaseWrapper: MainDatabaseWrapper,
+    private val mainDatabase: MainDatabase,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     @ApplicationScope private val appScope: CoroutineScope,
 ) {
-    private fun mainDatabase() = mainDatabaseWrapper.getDatabase()
-    private fun chatThreadDao() = mainDatabase().chatThreadDao()
-    private fun chatMessageDao() = mainDatabase().chatMessageDao()
+    private fun chatThreadDao() = mainDatabase.chatThreadDao()
+    private fun chatMessageDao() = mainDatabase.chatMessageDao()
 
     fun getChatThreadListFlow(): Flow<List<ChatThreadListItem>> = chatThreadDao().findAllChatThreadListItemFlow()
 

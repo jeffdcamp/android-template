@@ -11,8 +11,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import org.jdc.template.R
-import org.jdc.template.model.domain.inline.ChatMessageId
-import org.jdc.template.model.domain.inline.IndividualId
+import org.jdc.template.shared.model.domain.inline.ChatMessageId
+import org.jdc.template.shared.model.domain.inline.IndividualId
 import org.jdc.template.model.repository.ChatRepository
 import org.jdc.template.ui.compose.dialog.DialogUiState
 import org.jdc.template.ui.compose.dialog.dismissDialog

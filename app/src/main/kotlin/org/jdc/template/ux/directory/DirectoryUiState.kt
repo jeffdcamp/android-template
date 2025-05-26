@@ -2,8 +2,8 @@ package org.jdc.template.ux.directory
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import org.jdc.template.model.db.main.directoryitem.DirectoryItemEntityView
-import org.jdc.template.model.domain.inline.IndividualId
+import org.jdc.template.shared.model.db.main.directoryitem.DirectoryItemEntityView
+import org.jdc.template.shared.model.domain.inline.IndividualId
 
 data class DirectoryUiState(
     // Data

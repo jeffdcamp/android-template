@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
-import org.jdc.template.model.domain.type.IndividualType
+import org.jdc.template.shared.model.domain.type.IndividualType
 import org.jdc.template.ui.compose.dialog.DialogUiState
 
 @Suppress("LongParameterList")

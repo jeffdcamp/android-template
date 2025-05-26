@@ -6,8 +6,8 @@ import co.touchlab.kermit.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import org.jdc.template.model.domain.ChatThread
-import org.jdc.template.model.domain.inline.ChatThreadId
+import org.jdc.template.shared.model.domain.ChatThread
+import org.jdc.template.shared.model.domain.inline.ChatThreadId
 import org.jdc.template.model.repository.ChatRepository
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.ui.compose.dialog.DialogUiState

@@ -5,12 +5,12 @@ import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.flow.flowOf
-import org.jdc.template.model.db.main.directoryitem.DirectoryItemEntityView
-import org.jdc.template.model.domain.Individual
-import org.jdc.template.model.domain.inline.FirstName
-import org.jdc.template.model.domain.inline.IndividualId
-import org.jdc.template.model.domain.inline.LastName
 import org.jdc.template.model.repository.IndividualRepository
+import org.jdc.template.shared.model.db.main.directoryitem.DirectoryItemEntityView
+import org.jdc.template.shared.model.domain.Individual
+import org.jdc.template.shared.model.domain.inline.FirstName
+import org.jdc.template.shared.model.domain.inline.IndividualId
+import org.jdc.template.shared.model.domain.inline.LastName
 
 fun mockApplication(): Application {
     val mockApplication = mockk<Application>()
@@ -31,15 +31,15 @@ fun mockIndividualRepository(): IndividualRepository {
     coEvery { mockIndividualRepository.getDirectoryListFlow() } returns flowOf(testIndividuals.directoryItems)
 
     coEvery { mockIndividualRepository.getIndividual(any<IndividualId>()) } coAnswers {
-        val individualId = IndividualId(firstArg<String>()) // mockk does not maintain inline/value class
+        val individualId = firstArg<IndividualId>()
         testIndividuals.individuals.firstOrNull { it.id == individualId }
     }
     coEvery { mockIndividualRepository.getIndividualFlow(any<IndividualId>()) } coAnswers {
-        val individualId = IndividualId(firstArg<String>()) // mockk does not maintain inline/value class
+        val individualId = firstArg<IndividualId>()
         flowOf(testIndividuals.individuals.firstOrNull { it.id == individualId })
     }
     coEvery { mockIndividualRepository.deleteIndividual(any<IndividualId>()) } coAnswers {
-        val individualId = IndividualId(firstArg<String>()) // mockk does not maintain inline/value class
+        val individualId = firstArg<IndividualId>()
         testIndividuals.individuals.removeAll { it.id == individualId }
     }
     coEvery { mockIndividualRepository.saveIndividual(any<Individual>()) } coAnswers {

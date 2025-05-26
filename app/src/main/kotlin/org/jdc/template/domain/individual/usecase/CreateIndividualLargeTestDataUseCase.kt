@@ -5,11 +5,11 @@ import kotlinx.coroutines.withContext
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
 import org.jdc.template.inject.DefaultDispatcher
-import org.jdc.template.model.domain.Individual
-import org.jdc.template.model.domain.inline.FirstName
-import org.jdc.template.model.domain.inline.LastName
-import org.jdc.template.model.domain.inline.Phone
-import org.jdc.template.model.domain.type.IndividualType
+import org.jdc.template.shared.model.domain.Individual
+import org.jdc.template.shared.model.domain.inline.FirstName
+import org.jdc.template.shared.model.domain.inline.LastName
+import org.jdc.template.shared.model.domain.inline.Phone
+import org.jdc.template.shared.model.domain.type.IndividualType
 import org.jdc.template.model.repository.IndividualRepository
 import javax.inject.Inject
 

@@ -13,7 +13,6 @@ plugins {
     alias(libs.plugins.download)
     alias(libs.plugins.hilt)
     alias(libs.plugins.kover)
-    alias(libs.plugins.room)
     alias(libs.plugins.ksp)
     alias(libs.plugins.detekt)
     alias(libs.plugins.playPublisher)
@@ -75,17 +74,6 @@ android {
     buildFeatures {
         buildConfig = true
         compose = true
-    }
-
-    room {
-        schemaDirectory("$projectDir/schema")
-    }
-
-    ksp {
-        // options that are not yet in the Room Gradle plugin
-        // https://developer.android.com/jetpack/androidx/releases/room#gradle-plugin
-        arg("room.incremental", "true")
-        arg("room.generateKotlin", "true")
     }
 
     androidResources {
@@ -209,6 +197,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":shared"))
+
     // Android
     coreLibraryDesugaring(libs.android.desugar)
     implementation(libs.androidx.activity.compose)
@@ -260,17 +250,6 @@ dependencies {
     implementation(libs.androidx.work.gcm)
     implementation(libs.workmanagertools)
 
-    // Database
-    implementation(libs.androidx.room.ktx)
-    implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.paging)
-    ksp(libs.androidx.room.compiler)
-    implementation(libs.dbtools.room)
-
-    // Custom SQLite database
-    // (for use of SqliteOrgSQLiteOpenHelperFactory)
-    //implementation(libs.dbtools.roomSqlite)
-
     // Network
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.okhttp)
@@ -300,9 +279,7 @@ dependencies {
     testImplementation(libs.assertk)
     testImplementation(libs.konsist)
     testImplementation(libs.kotlin.coroutines.test)
-    testImplementation(libs.dbtools.roomJdbc)
     testImplementation(libs.turbine)
-    testImplementation(libs.xerial.sqlite)
 }
 
 // ===== TEST TASKS =====
@@ -374,44 +351,6 @@ ruler {
     locale.set("en")
     screenDensity.set(375)
     sdkVersion.set(31)
-}
-
-// ===== Detekt =====
-
-// download detekt config file
-tasks.register<de.undercouch.gradle.tasks.download.Download>("downloadDetektConfig") {
-    download {
-        onlyIf { !file("$projectDir/build/config/detektConfig.yml").exists() }
-        src("https://raw.githubusercontent.com/ICSEng/AndroidPublic/main/detekt/detektConfig-20231101.yml")
-        dest("$projectDir/build/config/detektConfig.yml")
-    }
-}
-
-// make sure when running detekt, the config file is downloaded
-tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
-    // Target version of the generated JVM bytecode. It is used for type resolution.
-    this.jvmTarget = "17"
-    dependsOn("downloadDetektConfig")
-}
-
-// ./gradlew detekt
-// ./gradlew detektDebug (support type checking)
-detekt {
-    allRules = true // fail build on any finding
-    buildUponDefaultConfig = true // preconfigure defaults
-    config.setFrom(files("$projectDir/build/config/detektConfig.yml")) // point to your custom config defining rules to run, overwriting default behavior
-//    baseline = file("$projectDir/config/baseline.xml") // a way of suppressing issues before introducing detekt
-}
-
-tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
-    // ignore ImageVector files
-    exclude("**/ui/compose/icons/**")
-
-    reports {
-        html.required.set(true) // observe findings in your browser with structure and code snippets
-        xml.required.set(true) // checkstyle like format mainly for integrations like Jenkins
-        txt.required.set(true) // similar to the console output, contains issue signature to manually edit baseline files
-    }
 }
 
 // ===== TripleT / Google Play Publisher =====

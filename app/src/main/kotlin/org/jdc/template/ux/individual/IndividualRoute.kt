@@ -3,7 +3,7 @@ package org.jdc.template.ux.individual
 import androidx.navigation.navDeepLink
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.jdc.template.model.domain.inline.IndividualId
+import org.jdc.template.shared.model.domain.inline.IndividualId
 import org.jdc.template.ui.navigation.NavTypeMaps
 import org.jdc.template.ui.navigation.NavigationRoute
 import org.jdc.template.ui.navigation.RouteUtil

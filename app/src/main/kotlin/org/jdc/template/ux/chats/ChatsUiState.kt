@@ -2,8 +2,8 @@ package org.jdc.template.ux.chats
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import org.jdc.template.model.domain.ChatThreadListItem
-import org.jdc.template.model.domain.inline.ChatThreadId
+import org.jdc.template.shared.model.domain.ChatThreadListItem
+import org.jdc.template.shared.model.domain.inline.ChatThreadId
 import org.jdc.template.ui.compose.dialog.DialogUiState
 
 data class ChatsUiState(

@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import org.jdc.template.R
 import org.jdc.template.analytics.Analytics
-import org.jdc.template.model.domain.inline.IndividualId
+import org.jdc.template.shared.model.domain.inline.IndividualId
 import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.ui.compose.dialog.DialogUiState
 import org.jdc.template.ui.compose.dialog.dismissDialog
