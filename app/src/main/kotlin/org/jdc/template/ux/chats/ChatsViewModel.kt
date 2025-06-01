@@ -8,12 +8,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import org.jdc.template.shared.model.domain.ChatThread
 import org.jdc.template.shared.model.domain.inline.ChatThreadId
-import org.jdc.template.model.repository.ChatRepository
-import org.jdc.template.model.repository.IndividualRepository
+import org.jdc.template.shared.model.repository.ChatRepository
+import org.jdc.template.shared.model.repository.IndividualRepository
+import org.jdc.template.shared.util.ext.stateInDefault
 import org.jdc.template.ui.compose.dialog.DialogUiState
 import org.jdc.template.ui.navigation.ViewModelNavigation
 import org.jdc.template.ui.navigation.ViewModelNavigationImpl
-import org.jdc.template.util.ext.stateInDefault
 import org.jdc.template.ux.chat.ChatRoute
 import java.util.UUID
 import javax.inject.Inject

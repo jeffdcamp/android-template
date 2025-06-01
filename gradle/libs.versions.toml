@@ -1,5 +1,5 @@
 [versions]
-agp = "8.10.0"
+agp = "8.10.1"
 kotlin = "2.1.21"
 kotlinxCoroutines = "1.10.2"
 kotlinxSerialization = "1.8.1"
@@ -11,7 +11,6 @@ androidxComposeMaterial3 = "1.3.2"
 androidxComposeMaterial3Adaptive = "1.1.0"
 androidxComposeMaterial3AdaptiveNavigation = "1.3.2"
 androidxComposeUi = "1.8.2"
-androidxDataStore = "1.1.7"
 androidxHilt = "1.2.0"
 androidxLifecycle = "2.9.0"
 androidxNavigation = "2.9.0"
@@ -19,11 +18,11 @@ androidxPagingCompose = "3.3.6"
 room = "2.7.1"
 androidxSplashScreen = "1.1.0-rc01"
 androidxStartup = "1.2.0"
-androidxWindow = "1.4.0"
 androidxWork = "2.10.1"
 
 assertk = "0.28.1"
 coil = "2.7.0"
+dataStore = "1.1.7"
 dependencyAnalysis = "2.17.0"
 desugarJdkLibs = "2.1.5"
 detekt = "1.23.8"
@@ -46,7 +45,7 @@ ktor = "3.1.3"
 leakCanary = "2.14"
 licenseManager = "1.5.0"
 mockK = "1.14.2"
-okio = "3.11.0"
+okio = "3.12.0"
 playPublisher = "3.12.1"
 ruler = "1.4.0"
 sqlite = "2.5.1"
@@ -81,7 +80,6 @@ android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.
 android-desugar = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "desugarJdkLibs" }
 
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
-androidx-datastorePrefs = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "androidxDataStore" }
 androidx-startup = { group = "androidx.startup", name = "startup-runtime", version.ref = "androidxStartup" }
 
 androidx-hilt-compiler = { group = "androidx.hilt", name = "hilt-compiler", version.ref = "androidxHilt" }
@@ -95,6 +93,8 @@ androidx-lifecycle-viewmodel-savedstate = { group = "androidx.lifecycle", name =
 
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidxNavigation" }
 androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "androidxPagingCompose" }
+
+datastorePrefs = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "dataStore" }
 
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-paging = { group = "androidx.room", name = "room-paging", version.ref = "room" }
@@ -122,9 +122,6 @@ compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling
 compose-material3-windowsize = { group = "androidx.compose.material3", name = "material3-window-size-class", version.ref = "androidxComposeMaterial3" }
 
 dbtools-room = { group = "org.dbtools", name = "dbtools-room", version.ref = "dbtools" }
-dbtools-roomSqlite = { group = "org.dbtools", name = "dbtools-room-sqliteorg", version.ref = "dbtools" }
-dbtools-roomJdbc = { group = "org.dbtools", name = "dbtools-room-jdbc", version.ref = "dbtools" }
-dbtools-roomJdbcTest = { group = "org.dbtools", name = "dbtools-room-jdbc-test", version.ref = "dbtools" }
 
 # Firebase - https://firebase.google.com/support/release-notes/android
 google-firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }

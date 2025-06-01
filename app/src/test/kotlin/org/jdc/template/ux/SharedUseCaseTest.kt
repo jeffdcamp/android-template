@@ -5,12 +5,12 @@ import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.flow.flowOf
-import org.jdc.template.model.repository.IndividualRepository
 import org.jdc.template.shared.model.db.main.directoryitem.DirectoryItemEntityView
 import org.jdc.template.shared.model.domain.Individual
 import org.jdc.template.shared.model.domain.inline.FirstName
 import org.jdc.template.shared.model.domain.inline.IndividualId
 import org.jdc.template.shared.model.domain.inline.LastName
+import org.jdc.template.shared.model.repository.IndividualRepository
 
 fun mockApplication(): Application {
     val mockApplication = mockk<Application>()

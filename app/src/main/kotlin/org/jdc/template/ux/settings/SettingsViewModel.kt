@@ -11,8 +11,9 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.jdc.template.R
-import org.jdc.template.model.repository.SettingsRepository
 import org.jdc.template.shared.model.domain.type.DisplayThemeType
+import org.jdc.template.shared.model.repository.SettingsRepository
+import org.jdc.template.shared.util.ext.stateInDefault
 import org.jdc.template.ui.compose.dialog.DialogUiState
 import org.jdc.template.ui.compose.dialog.DropDownMenuDialogUiState
 import org.jdc.template.ui.compose.dialog.InputDialogUiState
@@ -21,7 +22,6 @@ import org.jdc.template.ui.compose.dialog.RadioDialogDataItems
 import org.jdc.template.ui.compose.dialog.RadioDialogUiState
 import org.jdc.template.ui.compose.dialog.dismissDialog
 import org.jdc.template.ui.strings.toString
-import org.jdc.template.util.ext.stateInDefault
 import javax.inject.Inject
 
 @HiltViewModel

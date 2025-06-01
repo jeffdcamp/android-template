@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 import org.jdc.template.BuildConfig
 import org.jdc.template.SuppressCoverage
 import org.jdc.template.inject.ApplicationScope
-import org.jdc.template.model.repository.SettingsRepository
+import org.jdc.template.shared.model.repository.SettingsRepository
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton

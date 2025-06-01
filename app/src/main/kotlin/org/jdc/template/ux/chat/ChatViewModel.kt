@@ -13,13 +13,13 @@ import kotlinx.coroutines.launch
 import org.jdc.template.R
 import org.jdc.template.shared.model.domain.inline.ChatMessageId
 import org.jdc.template.shared.model.domain.inline.IndividualId
-import org.jdc.template.model.repository.ChatRepository
+import org.jdc.template.shared.model.repository.ChatRepository
+import org.jdc.template.shared.util.ext.stateInDefault
 import org.jdc.template.ui.compose.dialog.DialogUiState
 import org.jdc.template.ui.compose.dialog.dismissDialog
 import org.jdc.template.ui.compose.dialog.showMessageDialog
 import org.jdc.template.ui.navigation.ViewModelNavigation
 import org.jdc.template.ui.navigation.ViewModelNavigationImpl
-import org.jdc.template.util.ext.stateInDefault
 import javax.inject.Inject
 
 @HiltViewModel

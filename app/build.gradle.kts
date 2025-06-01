@@ -204,7 +204,7 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.splashscreen)
     implementation(libs.androidx.startup)
-    implementation(libs.androidx.datastorePrefs)
+    implementation(libs.datastorePrefs)
 
     // Compose
     implementation(libs.compose.ui)
@@ -251,7 +251,6 @@ dependencies {
     implementation(libs.workmanagertools)
 
     // Network
-    implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.okhttp)
     implementation(libs.ktor.client.logging)
     implementation(libs.ktor.client.serialization)

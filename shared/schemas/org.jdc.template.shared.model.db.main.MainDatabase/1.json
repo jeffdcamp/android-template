@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "ba8104783b8561dc581b0cf6014b8e26",
+    "identityHash": "7c3f5b05844de9d1c9a0bea62f7cced2",
     "entities": [
       {
         "tableName": "Individual",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `householdId` TEXT, `individualType` TEXT NOT NULL, `firstName` TEXT, `lastName` TEXT, `birthDate` TEXT, `alarmTime` TEXT, `phone` TEXT, `email` TEXT, `available` INTEGER NOT NULL, `created` TEXT NOT NULL, `lastModified` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `householdId` TEXT, `individualType` TEXT NOT NULL, `firstName` TEXT, `lastName` TEXT, `birthDate` TEXT, `alarmTime` TEXT, `phone` TEXT, `email` TEXT, `availabley` INTEGER NOT NULL, `extra` TEXT NOT NULL, `created` TEXT NOT NULL, `lastModified` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -17,8 +17,7 @@
           {
             "fieldPath": "householdId",
             "columnName": "householdId",
-            "affinity": "TEXT",
-            "notNull": false
+            "affinity": "TEXT"
           },
           {
             "fieldPath": "individualType",
@@ -29,43 +28,43 @@
           {
             "fieldPath": "firstName",
             "columnName": "firstName",
-            "affinity": "TEXT",
-            "notNull": false
+            "affinity": "TEXT"
           },
           {
             "fieldPath": "lastName",
             "columnName": "lastName",
-            "affinity": "TEXT",
-            "notNull": false
+            "affinity": "TEXT"
           },
           {
             "fieldPath": "birthDate",
             "columnName": "birthDate",
-            "affinity": "TEXT",
-            "notNull": false
+            "affinity": "TEXT"
           },
           {
             "fieldPath": "alarmTime",
             "columnName": "alarmTime",
-            "affinity": "TEXT",
-            "notNull": false
+            "affinity": "TEXT"
           },
           {
             "fieldPath": "phone",
             "columnName": "phone",
-            "affinity": "TEXT",
-            "notNull": false
+            "affinity": "TEXT"
           },
           {
             "fieldPath": "email",
             "columnName": "email",
-            "affinity": "TEXT",
-            "notNull": false
+            "affinity": "TEXT"
           },
           {
-            "fieldPath": "available",
-            "columnName": "available",
+            "fieldPath": "availabley",
+            "columnName": "availabley",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "extra",
+            "columnName": "extra",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -86,9 +85,7 @@
           "columnNames": [
             "id"
           ]
-        },
-        "indices": [],
-        "foreignKeys": []
+        }
       },
       {
         "tableName": "Household",
@@ -124,9 +121,7 @@
           "columnNames": [
             "id"
           ]
-        },
-        "indices": [],
-        "foreignKeys": []
+        }
       }
     ],
     "views": [
@@ -137,7 +132,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ba8104783b8561dc581b0cf6014b8e26')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7c3f5b05844de9d1c9a0bea62f7cced2')"
     ]
   }
 }

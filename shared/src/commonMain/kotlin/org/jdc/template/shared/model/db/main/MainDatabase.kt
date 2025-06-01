@@ -8,6 +8,7 @@ import androidx.room.RoomDatabaseConstructor
 import androidx.room.TypeConverters
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import org.dbtools.room.DatabaseViewQuery
+import org.jdc.template.shared.model.db.main.migration.MainMigration2
 import org.jdc.template.shared.model.db.converter.DataValueClassTypeConverters
 import org.jdc.template.shared.model.db.converter.KotlinDateTimeTextConverter
 import org.jdc.template.shared.model.db.main.chatmessage.ChatMessageDao
@@ -20,8 +21,7 @@ import org.jdc.template.shared.model.db.main.household.HouseholdDao
 import org.jdc.template.shared.model.db.main.household.HouseholdEntity
 import org.jdc.template.shared.model.db.main.individual.IndividualDao
 import org.jdc.template.shared.model.db.main.individual.IndividualEntity
-import org.jdc.template.shared.model.db.main.migration.MainMigration2
-import org.jdc.template.shared.model.db.main.migration.MainMigration3
+import org.jdc.template.shared.model.db.main.migration.MainAutoMigrationSpec3
 
 @Database(
     entities = [
@@ -34,9 +34,9 @@ import org.jdc.template.shared.model.db.main.migration.MainMigration3
         DirectoryItemEntityView::class
     ],
     autoMigrations = [
-        AutoMigration(from = 3, to = 4)
+        AutoMigration(from = 2, to = 3, spec = MainAutoMigrationSpec3::class)
     ],
-    version = 4
+    version = 3
 )
 @ConstructedBy(MainDatabaseConstructor::class)
 @TypeConverters(KotlinDateTimeTextConverter::class, DataValueClassTypeConverters::class)
@@ -54,8 +54,7 @@ abstract class MainDatabase : RoomDatabase() {
         fun getDatabase(builder: Builder<MainDatabase>): MainDatabase {
             return builder
                 .addMigrations(
-                    MainMigration2(),
-                    MainMigration3()
+                    MainMigration2,
                 )
                 .setDriver(BundledSQLiteDriver())
                 .build()

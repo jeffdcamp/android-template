@@ -17,7 +17,7 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import org.jdc.template.util.log.CrashLogException
+import org.jdc.template.shared.util.log.CrashLogException
 
 /**
  * Used for MainScreen ViewModels that that have bottom NavigationBars or NavigationRails

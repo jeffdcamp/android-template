@@ -7,12 +7,12 @@ import kotlinx.coroutines.launch
 import org.jdc.template.R
 import org.jdc.template.analytics.Analytics
 import org.jdc.template.shared.model.domain.inline.IndividualId
-import org.jdc.template.model.repository.IndividualRepository
+import org.jdc.template.shared.model.repository.IndividualRepository
+import org.jdc.template.shared.util.ext.stateInDefault
 import org.jdc.template.ui.compose.dialog.DialogUiState
 import org.jdc.template.ui.compose.dialog.dismissDialog
 import org.jdc.template.ui.compose.dialog.showMessageDialog
 import org.jdc.template.ui.navigation.NavigationAction
-import org.jdc.template.util.ext.stateInDefault
 import org.jdc.template.ux.individualedit.IndividualEditRoute
 import javax.inject.Inject
 

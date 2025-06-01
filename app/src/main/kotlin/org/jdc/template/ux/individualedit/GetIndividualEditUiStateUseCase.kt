@@ -19,7 +19,7 @@ import org.jdc.template.shared.model.domain.inline.IndividualId
 import org.jdc.template.shared.model.domain.inline.LastName
 import org.jdc.template.shared.model.domain.inline.Phone
 import org.jdc.template.shared.model.domain.type.IndividualType
-import org.jdc.template.model.repository.IndividualRepository
+import org.jdc.template.shared.model.repository.IndividualRepository
 import org.jdc.template.ui.compose.dialog.DatePickerDialogUiState
 import org.jdc.template.ui.compose.dialog.DialogUiState
 import org.jdc.template.ui.compose.dialog.TimePickerDialogUiState

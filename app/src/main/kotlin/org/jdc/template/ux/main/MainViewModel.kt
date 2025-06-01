@@ -7,13 +7,13 @@ import co.touchlab.kermit.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
-import org.jdc.template.domain.individual.usecase.CreateIndividualTestDataUseCase
+import org.jdc.template.shared.domain.usecase.CreateIndividualTestDataUseCase
 import org.jdc.template.shared.model.domain.type.DisplayThemeType
-import org.jdc.template.model.repository.SettingsRepository
+import org.jdc.template.shared.model.repository.SettingsRepository
+import org.jdc.template.shared.util.ext.stateInDefault
 import org.jdc.template.ui.navigation.DefaultNavigationBarConfig
 import org.jdc.template.ui.navigation.ViewModelNavigationBar
 import org.jdc.template.ui.navigation.ViewModelNavigationBarImpl
-import org.jdc.template.util.ext.stateInDefault
 import org.jdc.template.work.WorkScheduler
 import javax.inject.Inject
 

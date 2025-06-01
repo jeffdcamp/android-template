@@ -9,7 +9,7 @@ import co.touchlab.kermit.Logger
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.delay
-import org.jdc.template.model.repository.SettingsRepository
+import org.jdc.template.shared.model.repository.SettingsRepository
 
 /**
  * Example data sync worker... one that should sync your changes when the user is finished changing/editing data

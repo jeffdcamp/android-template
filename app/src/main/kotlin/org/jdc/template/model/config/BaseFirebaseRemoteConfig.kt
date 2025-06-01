@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
-import org.jdc.template.util.flow.RefreshFlow
+import org.jdc.template.shared.util.flow.RefreshFlow
 import java.time.Instant
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException

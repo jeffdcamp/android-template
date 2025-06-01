@@ -78,6 +78,20 @@ kotlin {
                 implementation(libs.room.paging)
                 implementation(libs.dbtools.room)
                 implementation(libs.sqlite.bundled)
+                implementation(libs.datastorePrefs)
+
+                // IO
+                implementation(libs.okio)
+
+                // Network
+                implementation(libs.ktor.client.core)
+                implementation(libs.ktor.client.logging)
+                implementation(libs.ktor.client.serialization)
+                implementation(libs.ktor.client.content.negotiation)
+                implementation(libs.ktor.client.resources)
+
+                // Logging
+                implementation(libs.kermit)
             }
         }
 
@@ -88,6 +102,7 @@ kotlin {
                 implementation(libs.kotlin.coroutines.test)
                 implementation(libs.assertk)
                 implementation(libs.mockK)
+                implementation(libs.ktor.client.mock)
             }
         }
 

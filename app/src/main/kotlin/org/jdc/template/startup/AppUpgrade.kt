@@ -5,7 +5,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.runBlocking
 import org.jdc.template.BuildConfig
 import org.jdc.template.inject.IoDispatcher
-import org.jdc.template.model.repository.SettingsRepository
+import org.jdc.template.shared.model.repository.SettingsRepository
 import javax.inject.Inject
 
 class AppUpgrade

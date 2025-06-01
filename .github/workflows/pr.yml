@@ -52,7 +52,7 @@ jobs:
         SIGNING_KEY_PASSWORD: ${{ secrets.UPLOAD_SIGNING_KEY_PASSWORD }}
 
     - name: Test
-      run: ./gradlew testAlphaUnitTest
+      run: ./gradlew testAlphaUnitTest jvmTest
 
     - name: Lint
       run: ./gradlew lintAlpha
