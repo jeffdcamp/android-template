@@ -1,6 +1,6 @@
 package org.jdc.template.shared.model.domain
 
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
 import org.jdc.template.shared.model.domain.inline.CreatedTime
 import org.jdc.template.shared.model.domain.inline.HouseholdId
 import org.jdc.template.shared.model.domain.inline.LastModifiedTime

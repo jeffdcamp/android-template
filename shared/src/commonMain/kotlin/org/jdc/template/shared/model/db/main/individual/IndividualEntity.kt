@@ -2,7 +2,7 @@ package org.jdc.template.shared.model.db.main.individual
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
 import org.jdc.template.shared.model.domain.inline.Email

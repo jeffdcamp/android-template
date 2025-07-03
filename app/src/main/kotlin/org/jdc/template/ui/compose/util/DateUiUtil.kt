@@ -2,7 +2,7 @@ package org.jdc.template.ui.compose.util
 
 import android.content.Context
 import android.text.format.DateUtils
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime

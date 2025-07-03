@@ -1,6 +1,5 @@
 package org.jdc.template.shared.model.domain
 
-import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
 import org.jdc.template.shared.model.domain.inline.CreatedTime
@@ -13,6 +12,7 @@ import org.jdc.template.shared.model.domain.inline.LastName
 import org.jdc.template.shared.model.domain.inline.Phone
 import org.jdc.template.shared.model.domain.type.IndividualType
 import java.util.UUID
+import kotlin.time.Clock
 
 data class Individual(
     val id: IndividualId = IndividualId(UUID.randomUUID().toString()),

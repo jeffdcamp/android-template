@@ -1,7 +1,7 @@
 package org.jdc.template.shared.model.db.converter
 
 import androidx.room.TypeConverter
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import org.jdc.template.shared.model.domain.inline.ChatMessageId
 import org.jdc.template.shared.model.domain.inline.ChatThreadId
 import org.jdc.template.shared.model.domain.inline.CreatedTime

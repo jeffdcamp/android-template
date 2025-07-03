@@ -4,7 +4,7 @@ import androidx.room.Room
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import kotlinx.coroutines.test.runTest
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
 import okio.FileSystem
 import okio.Path.Companion.toPath
 import org.dbtools.room.ext.deleteDatabaseFiles

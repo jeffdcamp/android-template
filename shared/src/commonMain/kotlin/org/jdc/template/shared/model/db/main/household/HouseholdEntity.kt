@@ -2,7 +2,7 @@ package org.jdc.template.shared.model.db.main.household
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import org.jdc.template.shared.model.domain.inline.HouseholdId
 import org.jdc.template.shared.model.domain.inline.LastName
 

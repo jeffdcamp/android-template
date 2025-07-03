@@ -1,6 +1,6 @@
 package org.jdc.template.shared.model.domain.inline
 
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import kotlinx.serialization.Serializable
 
 @Serializable

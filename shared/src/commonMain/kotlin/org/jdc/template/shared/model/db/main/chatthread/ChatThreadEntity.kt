@@ -2,8 +2,8 @@ package org.jdc.template.shared.model.db.main.chatthread
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
+import kotlin.time.Clock
+import kotlin.time.Instant
 import org.jdc.template.shared.model.domain.inline.ChatThreadId
 import org.jdc.template.shared.model.domain.inline.IndividualId
 import java.util.UUID

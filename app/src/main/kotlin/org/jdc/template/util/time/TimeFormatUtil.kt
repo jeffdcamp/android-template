@@ -2,8 +2,8 @@ package org.jdc.template.util.time
 
 import android.content.Context
 import android.text.format.DateUtils
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
+import kotlin.time.Clock
+import kotlin.time.Instant
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime

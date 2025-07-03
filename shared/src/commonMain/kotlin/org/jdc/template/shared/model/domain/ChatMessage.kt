@@ -1,7 +1,7 @@
 package org.jdc.template.shared.model.domain
 
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
+import kotlin.time.Clock
+import kotlin.time.Instant
 import org.jdc.template.shared.model.domain.inline.ChatMessageId
 import org.jdc.template.shared.model.domain.inline.ChatThreadId
 import org.jdc.template.shared.model.domain.inline.IndividualId
