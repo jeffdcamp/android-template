@@ -20,9 +20,9 @@ import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
 import org.jdc.template.shared.util.flow.RefreshFlow
-import java.time.Instant
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
+import kotlin.time.Instant
 
 abstract class BaseFirebaseRemoteConfig {
     private val firebaseRemoteConfig: FirebaseRemoteConfig by lazy {
@@ -204,7 +204,7 @@ abstract class BaseFirebaseRemoteConfig {
     fun getStatusDetails(): String {
         val info = firebaseRemoteConfig.info
         return "Last Fetch Status: [${getLastFetchStatus()}]  " +
-                "Fetch: [${Instant.ofEpochMilli(info.fetchTimeMillis)}]  Min Fetch Interval: [${info.configSettings.minimumFetchIntervalInSeconds}s] " +
+                "Fetch: [${Instant.fromEpochMilliseconds(info.fetchTimeMillis)}]  Min Fetch Interval: [${info.configSettings.minimumFetchIntervalInSeconds}s] " +
                 "Fetch Timeout: [${info.configSettings.fetchTimeoutInSeconds}s]"
     }
 

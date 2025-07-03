@@ -6,12 +6,12 @@ import kotlin.time.Clock
 import kotlin.time.Instant
 import org.jdc.template.shared.model.domain.inline.ChatThreadId
 import org.jdc.template.shared.model.domain.inline.IndividualId
-import java.util.UUID
+import kotlin.uuid.Uuid
 
 @Entity(tableName = "ChatThread")
 data class ChatThreadEntity(
     @PrimaryKey
-    val id: ChatThreadId = ChatThreadId(UUID.randomUUID().toString()),
+    val id: ChatThreadId = ChatThreadId(Uuid.random().toString()),
     val name: String,
     val ownerIndividualId: IndividualId,
 

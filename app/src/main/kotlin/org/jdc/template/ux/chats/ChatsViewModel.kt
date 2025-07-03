@@ -15,8 +15,8 @@ import org.jdc.template.ui.compose.dialog.DialogUiState
 import org.jdc.template.ui.navigation.ViewModelNavigation
 import org.jdc.template.ui.navigation.ViewModelNavigationImpl
 import org.jdc.template.ux.chat.ChatRoute
-import java.util.UUID
 import javax.inject.Inject
+import kotlin.uuid.Uuid
 
 @HiltViewModel
 class ChatsViewModel
@@ -47,7 +47,7 @@ class ChatsViewModel
         val individual2 = allIndividuals.last()
 
         val chatThread = ChatThread(
-            id = ChatThreadId(UUID.randomUUID().toString()),
+            id = ChatThreadId(Uuid.random().toString()),
             name = "${individual1.firstName?.value.orEmpty()} & ${individual2.firstName?.value.orEmpty()}",
             ownerIndividualId = individual1.id
         )

@@ -5,10 +5,10 @@ import org.jdc.template.shared.model.domain.inline.CreatedTime
 import org.jdc.template.shared.model.domain.inline.HouseholdId
 import org.jdc.template.shared.model.domain.inline.LastModifiedTime
 import org.jdc.template.shared.model.domain.inline.LastName
-import java.util.UUID
+import kotlin.uuid.Uuid
 
 data class Household(
-    val id: HouseholdId = HouseholdId(UUID.randomUUID().toString()),
+    val id: HouseholdId = HouseholdId(Uuid.random().toString()),
     val name: LastName,
 
     val created: CreatedTime = CreatedTime(Clock.System.now()),

@@ -25,8 +25,8 @@ plugins {
 kotlin {
     jvmToolchain(JavaVersion.VERSION_17.majorVersion.toInt())
     compilerOptions {
-//        optIn.add("kotlin.RequiresOptIn")
         optIn.add("kotlin.time.ExperimentalTime")
+        optIn.add("kotlin.uuid.ExperimentalUuidApi")
         optIn.add("androidx.compose.material3.ExperimentalMaterial3Api")
         optIn.add("androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi")
         freeCompilerArgs.addAll(

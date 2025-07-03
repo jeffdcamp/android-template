@@ -11,11 +11,11 @@ import org.jdc.template.shared.model.domain.inline.LastModifiedTime
 import org.jdc.template.shared.model.domain.inline.LastName
 import org.jdc.template.shared.model.domain.inline.Phone
 import org.jdc.template.shared.model.domain.type.IndividualType
-import java.util.UUID
 import kotlin.time.Clock
+import kotlin.uuid.Uuid
 
 data class Individual(
-    val id: IndividualId = IndividualId(UUID.randomUUID().toString()),
+    val id: IndividualId = IndividualId(Uuid.random().toString()),
     val householdId: HouseholdId? = null,
 
     val individualType: IndividualType = IndividualType.HEAD,

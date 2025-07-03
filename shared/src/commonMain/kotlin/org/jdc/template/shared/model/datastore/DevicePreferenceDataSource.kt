@@ -17,7 +17,7 @@ import org.jdc.template.shared.model.domain.type.DisplayThemeType
 import org.jdc.template.shared.util.datastore.DatastorePrefItem
 import org.jdc.template.shared.util.datastore.PreferenceMigrations
 import org.jdc.template.shared.util.ext.enumValueOfOrDefault
-import java.util.UUID
+import kotlin.uuid.Uuid
 
 class DevicePreferenceDataSource (
     deviceDataStore: DeviceDataStore
@@ -30,7 +30,7 @@ class DevicePreferenceDataSource (
     val rangePref: DatastorePrefItem<Int> = DatastorePrefItem.create(dataStore, Keys.RANGE, 1)
     val workSchedulerVersionPref: DatastorePrefItem<Int> = DatastorePrefItem.create(dataStore, Keys.WORK_SCHEDULER_VERSION, 0)
     val developerModePref: DatastorePrefItem<Boolean> = DatastorePrefItem.create(dataStore, Keys.DEV_MODE, false)
-    val appInstanceIdPref: DatastorePrefItem<String> = DatastorePrefItem.create(dataStore, Keys.APP_INSTANCE_ID, UUID.randomUUID().toString())
+    val appInstanceIdPref: DatastorePrefItem<String> = DatastorePrefItem.create(dataStore, Keys.APP_INSTANCE_ID, Uuid.random().toString())
     val colorsETagPref: DatastorePrefItem<String> = DatastorePrefItem.create(dataStore, Keys.COLORS_ETAG, "0")
 
     val appInfoPref: DatastorePrefItem<AppInfo> = DatastorePrefItem.createCustom(
@@ -38,7 +38,7 @@ class DevicePreferenceDataSource (
         read = { preferences ->
             AppInfo(
                 preferences[Keys.DEV_MODE] ?: false,
-                preferences[Keys.APP_INSTANCE_ID] ?: UUID.randomUUID().toString(),
+                preferences[Keys.APP_INSTANCE_ID] ?: Uuid.random().toString(),
                 preferences[Keys.WORK_SCHEDULER_VERSION] ?: 0,
                 preferences[Keys.LAST_INSTALLED_VERSION_CODE] ?: 0
             )

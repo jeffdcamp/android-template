@@ -9,7 +9,7 @@ import org.jdc.template.shared.model.db.main.chatthread.ChatThreadEntity
 import org.jdc.template.shared.model.domain.inline.ChatMessageId
 import org.jdc.template.shared.model.domain.inline.ChatThreadId
 import org.jdc.template.shared.model.domain.inline.IndividualId
-import java.util.UUID
+import kotlin.uuid.Uuid
 
 @Entity(
     tableName = "ChatMessage",
@@ -25,7 +25,7 @@ import java.util.UUID
 )
 data class ChatMessageEntity(
     @PrimaryKey
-    val id: ChatMessageId = ChatMessageId(UUID.randomUUID().toString()),
+    val id: ChatMessageId = ChatMessageId(Uuid.random().toString()),
     val chatThreadId: ChatThreadId,
     val individualId: IndividualId,
     val message: String,
