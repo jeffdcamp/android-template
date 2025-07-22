@@ -29,10 +29,10 @@ detekt = "1.23.8"
 dbtools = "9.1.1"
 downloadPlugin = "5.6.0"
 
-firebaseBom = "33.16.0"
+firebaseBom = "34.0.0"
 firebaseAppDistPlugin = "5.1.1"
-firebaseCrashlyticsPlugin = "3.0.4"
-firebasePerfPlugin = "1.4.2"
+firebaseCrashlyticsPlugin = "3.0.5"
+firebasePerfPlugin = "2.0.0"
 
 gmsPlugin = "4.4.3"
 
