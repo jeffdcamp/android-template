@@ -1,3 +1,5 @@
+import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
+
 buildscript {
     repositories {
         mavenLocal()
@@ -53,18 +55,24 @@ allprojects {
 //        addAll(listOf("window")) // material3 uses latest 1.1.0-alpha
     }
 
-    tasks.named<com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask>("dependencyUpdates") {
+//    tasks.withType<DependencyUpdatesTask> {
+//        rejectVersionIf {
+//            isNonStable(candidate.version)
+//        }
+//    }
+
+    tasks.withType<DependencyUpdatesTask> {
         resolutionStrategy {
             componentSelection {
                 all {
-                    if (ignoreArtifacts.contains(candidate.module).not()) {
-                        val rejected = excludeVersionContaining.any { qualifier ->
-                            candidate.version.matches(Regex("(?i).*[.-]$qualifier[.\\d-+]*"))
-                        }
-                        if (rejected) {
-                            reject("Release candidate")
-                        }
-                    }
+//                    if (ignoreArtifacts.contains(candidate.module).not()) {
+//                        val rejected = excludeVersionContaining.any { qualifier ->
+//                            candidate.version.matches(Regex("(?i).*[.-]$qualifier[.\\d-+]*"))
+//                        }
+//                        if (rejected) {
+//                            reject("Release candidate")
+//                        }
+//                    }
                 }
             }
         }
