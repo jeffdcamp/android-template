@@ -1,4 +1,7 @@
+
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
+import de.undercouch.gradle.tasks.download.Download
+import io.gitlab.arturbosch.detekt.Detekt
 
 buildscript {
     repositories {
@@ -36,54 +39,37 @@ plugins {
     alias(libs.plugins.download)
 }
 
+// ===== Gradle Dependency Check =====
+// ./gradlew dependencyUpdates -Drevision=release
+// ./gradlew dependencyUpdates -Drevision=release --refresh-dependencies
+tasks.withType<DependencyUpdatesTask> {
+    rejectVersionIf {
+        isNonStable(
+            version = candidate.version,
+            includeStablePreRelease = true
+        )
+    }
+}
+
+fun isNonStable(version: String, includeStablePreRelease: Boolean): Boolean {
+    val stablePreReleaseKeyword = listOf("RC", "BETA").any { version.uppercase().contains(it) }
+    val stableKeyword = listOf("RELEASE", "FINAL", "GA").any { version.uppercase().contains(it) }
+    val regex = "^[0-9,.v-]+$".toRegex()
+    val isStable = if (includeStablePreRelease) {
+        stableKeyword || regex.matches(version) || stablePreReleaseKeyword
+    } else {
+        stableKeyword || regex.matches(version)
+    }
+    return isStable.not()
+}
+
 allprojects {
-    // Gradle Dependency Reports
-    // ./gradlew -q app:dependencies --configuration debugCompileClasspath > deps.txt
-    // ./gradlew app:dependencies --scan.
-
-    // Gradle Dependency Check
-    // ./gradlew dependencyUpdates -Drevision=release
-    // ./gradlew dependencyUpdates -Drevision=release --refresh-dependencies
-    apply(plugin = rootProject.libs.plugins.versions.get().pluginId)
-    val excludeVersionContaining = listOf("alpha", "eap", "M1", "dev") // example: "alpha", "beta"
-    // some artifacts may be OK to check for "alpha"... add these exceptions here
-    val ignoreArtifacts = buildList {
-        addAll(listOf("room-compiler"))
-
-        // Compose
-//        addAll(listOf("material3", "ui", "ui-tooling-preview", "ui-test-junit4", "ui-test-manifest", "material3-window-size-class", "compiler"))
-//        addAll(listOf("window")) // material3 uses latest 1.1.0-alpha
-    }
-
-//    tasks.withType<DependencyUpdatesTask> {
-//        rejectVersionIf {
-//            isNonStable(candidate.version)
-//        }
-//    }
-
-    tasks.withType<DependencyUpdatesTask> {
-        resolutionStrategy {
-            componentSelection {
-                all {
-//                    if (ignoreArtifacts.contains(candidate.module).not()) {
-//                        val rejected = excludeVersionContaining.any { qualifier ->
-//                            candidate.version.matches(Regex("(?i).*[.-]$qualifier[.\\d-+]*"))
-//                        }
-//                        if (rejected) {
-//                            reject("Release candidate")
-//                        }
-//                    }
-                }
-            }
-        }
-    }
-
     // ===== Detekt =====
     apply(plugin = rootProject.libs.plugins.detekt.get().pluginId)
     apply(plugin = rootProject.libs.plugins.download.get().pluginId)
 
     // download detekt config file
-    tasks.register<de.undercouch.gradle.tasks.download.Download>("downloadDetektConfig") {
+    tasks.register<Download>("downloadDetektConfig") {
         download {
             onlyIf { !file("$projectDir/build/config/detektConfig.yml").exists() }
             src("https://mobile-cdn.churchofjesuschrist.org/android/build/detekt/detektConfig-20231101.yml")
@@ -92,7 +78,7 @@ allprojects {
     }
 
     // make sure when running detekt, the config file is downloaded
-    tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
+    tasks.withType<Detekt>().configureEach {
         // Target version of the generated JVM bytecode. It is used for type resolution.
         this.jvmTarget = "17"
         dependsOn("downloadDetektConfig")
@@ -108,7 +94,7 @@ allprojects {
         //    baseline = file("$projectDir/config/baseline.xml") // a way of suppressing issues before introducing detekt
     }
 
-    tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
+    tasks.withType<Detekt>().configureEach {
         // ignore ImageVector files
         exclude("**/ui/compose/icons/**")
 
@@ -152,5 +138,5 @@ fun depGroupAndName(dependency: Provider<MinimalExternalModuleDependency>): Stri
 }
 
 tasks.register("clean", Delete::class) {
-    delete(rootProject.buildDir)
+    delete(rootProject.layout.buildDirectory)
 }
