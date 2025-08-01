@@ -87,7 +87,7 @@ kotlin {
                 implementation(libs.okio)
 
                 // Database
-                implementation(libs.room.runtime)
+                api(libs.room.runtime)
                 implementation(libs.room.paging)
                 implementation(libs.dbtools.room)
                 implementation(libs.sqlite.bundled)

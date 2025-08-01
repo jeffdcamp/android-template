@@ -251,9 +251,6 @@ dependencies {
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.client.resources)
 
-    // Database
-    implementation(libs.room.runtime)
-
     // Paging
     implementation(libs.androidx.paging.compose)
 
