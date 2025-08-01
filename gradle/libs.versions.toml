@@ -51,7 +51,6 @@ ruler = "1.4.0"
 sqlite = "2.5.2"
 turbine = "1.2.1"
 versionsPlugin = "0.52.0"
-workManagerTools = "5.0.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -118,7 +117,8 @@ compose-material3-adaptive-navigation = { group = "androidx.compose.material3", 
 compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "androidxComposeUi" }
 compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4", version.ref = "androidxComposeUi" }
 compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version.ref = "androidxComposeUi" }
-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "androidxComposeUi" } # Tooling support (Previews, etc.)
+compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "androidxComposeUi" }
+compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "androidxComposeUi" }
 compose-material3-windowsize = { group = "androidx.compose.material3", name = "material3-window-size-class", version.ref = "androidxComposeMaterial3" }
 
 dbtools-room = { group = "org.dbtools", name = "dbtools-room", version.ref = "dbtools" }
@@ -164,5 +164,3 @@ ruler-gradlePluginClasspath = { group = "com.spotify.ruler", name = "ruler-gradl
 sqlite-bundled = { group = "androidx.sqlite", name = "sqlite-bundled", version.ref = "sqlite" }
 
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
-
-workmanagertools = { group = "org.dbtools", name = "workmanager-tools", version.ref = "workManagerTools" }

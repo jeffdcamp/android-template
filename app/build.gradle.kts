@@ -202,7 +202,8 @@ dependencies {
 
     // Compose
     implementation(libs.compose.ui)
-    debugImplementation(libs.compose.ui.tooling.preview)
+    debugImplementation(libs.compose.ui.tooling)
+    implementation(libs.compose.ui.tooling.preview)
     implementation(libs.compose.material3)
     implementation(libs.compose.material3.adaptive)
     implementation(libs.compose.material3.adaptive.navigation)
@@ -242,7 +243,6 @@ dependencies {
     // WorkManager
     implementation(libs.androidx.work.runtime)
     implementation(libs.androidx.work.gcm)
-    implementation(libs.workmanagertools)
 
     // Network
     implementation(libs.ktor.client.okhttp)
@@ -250,6 +250,9 @@ dependencies {
     implementation(libs.ktor.client.serialization)
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.client.resources)
+
+    // Database
+    implementation(libs.room.runtime)
 
     // Paging
     implementation(libs.androidx.paging.compose)
