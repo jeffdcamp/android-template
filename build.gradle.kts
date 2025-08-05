@@ -42,6 +42,10 @@ plugins {
 // ===== Gradle Dependency Check =====
 // ./gradlew dependencyUpdates -Drevision=release
 // ./gradlew dependencyUpdates -Drevision=release --refresh-dependencies
+//
+// ./gradlew app:dependencyInsight --configuration debugRuntimeClasspath --dependency androidx.room
+// ./gradlew shared:dependencyInsight --configuration commonMainApiDependenciesMetadata --dependency androidx.room
+// ./gradlew shared:resolvableConfigurations | grep "^Configuration"
 tasks.withType<DependencyUpdatesTask> {
     rejectVersionIf {
         isNonStable(
