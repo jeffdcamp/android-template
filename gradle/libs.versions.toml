@@ -26,7 +26,7 @@ dataStore = "1.1.7"
 dependencyAnalysis = "2.19.0"
 desugarJdkLibs = "2.1.5"
 detekt = "1.23.8"
-dbtools = "9.2.0"
+dbtools = "9.2.2"
 downloadPlugin = "5.6.0"
 
 firebaseBom = "34.0.0"
