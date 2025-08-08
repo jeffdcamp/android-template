@@ -5,7 +5,7 @@ object AppInfo {
 
     // Manifest version information
     object Version {
-        const val CODE = 1007
+        const val CODE = 1008
         val NAME = "1.0.0 ($CODE.${System.getenv("BUILD_NUMBER")})"
     }
 
