@@ -1,45 +1,29 @@
 package org.jdc.template.shared.model.db.converter
 
 import androidx.room.TypeConverter
-import kotlin.time.Instant
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
+import kotlin.time.Instant
 
 object KotlinDateTimeTextConverter {
     @TypeConverter
-    fun fromStringToInstantNullable(value: String?): Instant? = if (!value.isNullOrEmpty() && value != "null") Instant.parse(value) else null
+    fun fromStringToInstant(value: String?): Instant? = if (value.isNullOrBlank()) null else Instant.parse(value)
     @TypeConverter
-    fun fromInstantToStringNullable(value: Instant?): String? = value?.toString()
-    @TypeConverter
-    fun fromStringToInstantNotNull(value: String): Instant = Instant.parse(value)
-    @TypeConverter
-    fun fromInstantToStringNotNull(value: Instant): String = value.toString()
+    fun fromInstantToString(value: Instant?): String? = value?.toString()
 
     @TypeConverter
-    fun fromStringToLocalDateTimeNullable(value: String?): LocalDateTime? = if (!value.isNullOrEmpty() && value != "null") LocalDateTime.parse(value) else null
+    fun fromStringToLocalDateTime(value: String?): LocalDateTime? = if (value.isNullOrBlank()) null else LocalDateTime.parse(value)
     @TypeConverter
-    fun fromLocalDateTimeToStringNullable(value: LocalDateTime?): String? = value?.toString()
-    @TypeConverter
-    fun fromStringToLocalTimeDateNotNull(value: String): LocalDateTime = LocalDateTime.parse(value)
-    @TypeConverter
-    fun fromLocalDateTimeToStringNotNull(value: LocalDateTime): String = value.toString()
+    fun fromLocalDateTimeToString(value: LocalDateTime?): String? = value?.toString()
 
     @TypeConverter
-    fun fromStringToLocalDateNullable(value: String?): LocalDate? = if (!value.isNullOrEmpty() && value != "null") LocalDate.parse(value) else null
+    fun fromStringToLocalDate(value: String?): LocalDate? = if (value.isNullOrBlank()) null else LocalDate.parse(value)
     @TypeConverter
-    fun fromLocalDateToStringNullable(value: LocalDate?): String? = value?.toString()
-    @TypeConverter
-    fun fromStringToLocalDateNotNull(value: String): LocalDate = LocalDate.parse(value)
-    @TypeConverter
-    fun fromLocalDateToStringNotNull(value: LocalDate): String = value.toString()
+    fun fromLocalDateToString(value: LocalDate?): String? = value?.toString()
 
     @TypeConverter
-    fun fromStringToLocalTimeNullable(value: String?): LocalTime? = if (!value.isNullOrEmpty() && value != "null") LocalTime.parse(value) else null
+    fun fromStringToLocalTime(value: String?): LocalTime? = if (value.isNullOrBlank()) null else LocalTime.parse(value)
     @TypeConverter
-    fun fromLocalTimeToStringNullable(value: LocalTime?): String? = value?.toString()
-    @TypeConverter
-    fun fromStringToLocalTimeNotNull(value: String): LocalTime = LocalTime.parse(value)
-    @TypeConverter
-    fun fromLocalTimeToStringNotNull(value: LocalTime): String = value.toString()
+    fun fromLocalTimeToString(value: LocalTime?): String? = value?.toString()
 }
