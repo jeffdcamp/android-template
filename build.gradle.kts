@@ -143,4 +143,5 @@ fun depGroupAndName(dependency: Provider<MinimalExternalModuleDependency>): Stri
 
 tasks.register("clean", Delete::class) {
     delete(rootProject.layout.buildDirectory)
+    delete(rootProject.file(".kotlin"))
 }
