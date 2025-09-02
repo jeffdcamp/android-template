@@ -8,7 +8,6 @@ import androidx.room.RoomDatabaseConstructor
 import androidx.room.TypeConverters
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import org.dbtools.room.DatabaseViewQuery
-import org.jdc.template.shared.model.db.main.migration.MainMigration2
 import org.jdc.template.shared.model.db.converter.DataValueClassTypeConverters
 import org.jdc.template.shared.model.db.converter.KotlinDateTimeTextConverter
 import org.jdc.template.shared.model.db.main.chatmessage.ChatMessageDao
@@ -22,6 +21,7 @@ import org.jdc.template.shared.model.db.main.household.HouseholdEntity
 import org.jdc.template.shared.model.db.main.individual.IndividualDao
 import org.jdc.template.shared.model.db.main.individual.IndividualEntity
 import org.jdc.template.shared.model.db.main.migration.MainAutoMigrationSpec3
+import org.jdc.template.shared.model.db.main.migration.MainMigration2
 
 @Database(
     entities = [
