@@ -24,7 +24,7 @@ import org.jdc.template.ui.compose.dialog.DatePickerDialogUiState
 import org.jdc.template.ui.compose.dialog.DialogUiState
 import org.jdc.template.ui.compose.dialog.TimePickerDialogUiState
 import org.jdc.template.ui.compose.dialog.dismissDialog
-import org.jdc.template.ui.navigation.NavigationAction
+import org.jdc.template.ui.navigation3.Navigation3Action
 import javax.inject.Inject
 
 class GetIndividualEditUiStateUseCase
@@ -54,7 +54,7 @@ class GetIndividualEditUiStateUseCase
     operator fun invoke(
         individualId: IndividualId?,
         coroutineScope: CoroutineScope,
-        navigate: (NavigationAction) -> Unit,
+        navigate: (Navigation3Action) -> Unit,
     ): IndividualEditUiState {
         analytics.logEvent(Analytics.EVENT_EDIT_INDIVIDUAL)
 
@@ -119,7 +119,7 @@ class GetIndividualEditUiStateUseCase
         availableFlow.value = individual.available
     }
 
-    private fun saveIndividual(coroutineScope: CoroutineScope, navigate: (NavigationAction) -> Unit) = coroutineScope.launch {
+    private fun saveIndividual(coroutineScope: CoroutineScope, navigate: (Navigation3Action) -> Unit) = coroutineScope.launch {
         if (!validateAllFields()) {
             return@launch
         }
@@ -135,7 +135,7 @@ class GetIndividualEditUiStateUseCase
             available = availableFlow.value,
         ))
 
-        navigate(NavigationAction.Pop())
+        navigate(Navigation3Action.Pop())
     }
 
     private fun valueOrNull(value: String): String? {

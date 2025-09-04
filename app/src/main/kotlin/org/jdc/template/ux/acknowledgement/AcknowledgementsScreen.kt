@@ -15,28 +15,29 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
+import androidx.navigation3.runtime.NavKey
 import org.jdc.template.R
-import org.jdc.template.ui.navigation.HandleNavigation
+import org.jdc.template.ui.navigation3.HandleNavigation3
+import org.jdc.template.ui.navigation3.navigator.Navigation3Navigator
 import org.jdc.template.ux.MainAppScaffoldWithNavBar
 
 @Composable
 fun AcknowledgementScreen(
-    navController: NavController,
-    viewModel: AcknowledgementViewModel = hiltViewModel()
+    navigator: Navigation3Navigator<NavKey>,
+    viewModel: AcknowledgementViewModel
 ) {
     val uiState = viewModel.uiState
 
     MainAppScaffoldWithNavBar(
+        navigator = navigator,
         title = stringResource(R.string.acknowledgments),
-        onNavigationClick = { navController.popBackStack() }
+        onNavigationClick = { navigator.pop() }
     ) {
         AcknowledgementWebview(uiState)
     }
 
-    HandleNavigation(viewModel, navController)
+    HandleNavigation3(viewModel, navigator)
 }
 
 @Composable

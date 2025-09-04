@@ -1,6 +1,7 @@
 package org.jdc.template.ux.main
 
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
@@ -30,6 +31,12 @@ class MainActivity : ComponentActivity() {
         // including IME animations, and go edge-to-edge
         // This also sets up the initial system bar style based on the platform theme
         enableEdgeToEdge()
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            // Force the 3-button navigation bar to be transparent
+            // See: https://developer.android.com/develop/ui/views/layout/edge-to-edge#create-transparent
+            window.isNavigationBarContrastEnforced = false
+        }
 
         viewModel.startup()
 
@@ -69,7 +76,7 @@ class MainActivity : ComponentActivity() {
 
 
             AppTheme(darkTheme, dynamicTheme) {
-                MainScreen()
+                MainScreen(viewModel)
             }
         }
     }

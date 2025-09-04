@@ -1,20 +1,24 @@
 package org.jdc.template.ux.individualedit
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.toRoute
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import org.jdc.template.ui.navigation.ViewModelNavigation
-import org.jdc.template.ui.navigation.ViewModelNavigationImpl
-import javax.inject.Inject
+import org.jdc.template.ui.navigation3.ViewModelNavigation3
+import org.jdc.template.ui.navigation3.ViewModelNavigation3Impl
 
-@HiltViewModel
+@HiltViewModel(assistedFactory = IndividualEditViewModel.Factory::class)
 class IndividualEditViewModel
-@Inject constructor(
+@AssistedInject constructor(
     getIndividualEditUiStateUseCase: GetIndividualEditUiStateUseCase,
-    savedStateHandle: SavedStateHandle
-) : ViewModel(), ViewModelNavigation by ViewModelNavigationImpl() {
-    private val individualEditRoute = savedStateHandle.toRoute<IndividualEditRoute>(IndividualEditRoute.typeMap())
+    @Assisted individualEditRoute: IndividualEditRoute
+) : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3Impl() {
     val uiState: IndividualEditUiState = getIndividualEditUiStateUseCase(individualEditRoute.individualId, viewModelScope) { navigate(it) }
+
+    @AssistedFactory
+    interface Factory {
+        fun create(individualEditRoute: IndividualEditRoute): IndividualEditViewModel
+    }
 }

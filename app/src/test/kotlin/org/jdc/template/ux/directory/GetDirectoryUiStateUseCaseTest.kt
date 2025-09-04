@@ -10,7 +10,7 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.runTest
 import org.jdc.template.shared.model.domain.inline.IndividualId
-import org.jdc.template.ui.navigation.NavigationAction
+import org.jdc.template.ui.navigation3.Navigation3Action
 import org.jdc.template.ux.individual.IndividualRoute
 import org.jdc.template.ux.individualedit.IndividualEditRoute
 import org.jdc.template.ux.mockIndividualRepository
@@ -23,7 +23,7 @@ class GetDirectoryUiStateUseCaseTest {
         turbineScope {
             val useCase = GetDirectoryUiStateUseCase(mockIndividualRepository())
             val stateScope = CoroutineScope(Job())
-            val lastNavigationActionFlow = MutableStateFlow<NavigationAction?>(null)
+            val lastNavigationActionFlow = MutableStateFlow<Navigation3Action?>(null)
             val navigationActionTurbine = lastNavigationActionFlow.testIn(stateScope)
             navigationActionTurbine.awaitItem() // consume default value
 
@@ -33,13 +33,13 @@ class GetDirectoryUiStateUseCaseTest {
             )
 
             uiState.onNewClick()
-            assertThat(navigationActionTurbine.awaitItem()).isEqualTo(NavigationAction.Navigate(IndividualEditRoute()))
+            assertThat(navigationActionTurbine.awaitItem()).isEqualTo(Navigation3Action.Navigate(IndividualEditRoute()))
 
             uiState.onIndividualClick(IndividualId("1"))
-            assertThat(navigationActionTurbine.awaitItem()).isEqualTo(NavigationAction.Navigate(IndividualRoute(IndividualId("1"))))
+            assertThat(navigationActionTurbine.awaitItem()).isEqualTo(Navigation3Action.Navigate(IndividualRoute(IndividualId("1"))))
 
             uiState.onSettingsClick()
-            assertThat(navigationActionTurbine.awaitItem()).isEqualTo(NavigationAction.Navigate(SettingsRoute))
+            assertThat(navigationActionTurbine.awaitItem()).isEqualTo(Navigation3Action.Navigate(SettingsRoute))
 
             stateScope.cancel()
         }

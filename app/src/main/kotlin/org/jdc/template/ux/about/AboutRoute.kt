@@ -1,7 +1,6 @@
 package org.jdc.template.ux.about
 
-import kotlinx.serialization.Serializable
-import org.jdc.template.ui.navigation.NavigationRoute
+import androidx.navigation3.runtime.NavKey
+import org.jdc.template.ui.navigation3.TopLevelNavKey
 
-@Serializable
-object AboutRoute: NavigationRoute
+object AboutRoute: NavKey, TopLevelNavKey

@@ -1,21 +1,22 @@
 [versions]
-agp = "8.12.2"
+agp = "8.13.0"
 kotlin = "2.2.10"
+kotlinxAtomicfu = "0.29.0"
 kotlinxCoroutines = "1.10.2"
 kotlinxSerialization = "1.9.0"
 kotlinxDateTime = "0.7.1"
 
 androidxActivity = "1.10.1"
 androidxComposeMaterial = "1.7.8"
-androidxComposeMaterial3 = "1.3.2"
+androidxComposeMaterial3 = "1.4.0-beta03"
 androidxComposeMaterial3Adaptive = "1.1.0"
-androidxComposeMaterial3AdaptiveNavigation = "1.3.2"
+androidxComposeMaterial3AdaptiveNavigation = "1.4.0-beta03"
 androidxComposeUi = "1.9.0"
 androidxHilt = "1.2.0"
 androidxLifecycle = "2.9.3"
 androidxNavigation = "2.9.3"
 androidxPagingCompose = "3.3.6"
-room = "2.7.2"
+room = "2.8.0-rc02"
 androidxSplashScreen = "1.1.0-rc01"
 androidxStartup = "1.2.0"
 androidxWork = "2.10.3"
@@ -44,11 +45,13 @@ ksp = "2.2.10-2.0.2"
 ktor = "3.2.3"
 leakCanary = "2.14"
 licenseManager = "1.6.0"
+lifecycleViewmodel = "1.0.0-alpha04"
 mockK = "1.14.5"
+navigation3 = "1.0.0-alpha07" # 1.0.0-alpha08 has issues with Lifecycle
 okio = "3.16.0"
 playPublisher = "3.12.1"
 ruler = "1.4.0"
-sqlite = "2.5.2"
+sqlite = "2.6.0-rc02"
 turbine = "1.2.1"
 versionsPlugin = "0.52.0"
 
@@ -85,7 +88,8 @@ androidx-hilt-compiler = { group = "androidx.hilt", name = "hilt-compiler", vers
 androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "androidxHilt" }
 androidx-hilt-work = { group = "androidx.hilt", name = "hilt-work", version.ref = "androidxHilt" }
 
-androidx-lifecycle-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidxLifecycle" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
+androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidxLifecycle" }
 androidx-lifecycle-process = { group = "androidx.lifecycle", name = "lifecycle-process", version.ref = "androidxLifecycle" }
 androidx-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "androidxLifecycle" }
 androidx-lifecycle-viewmodel-savedstate = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-savedstate", version.ref = "androidxLifecycle" }
@@ -138,7 +142,8 @@ kermit-crashlytics = { group = "co.touchlab", name = "kermit-crashlytics", versi
 
 konsist = { group = "com.lemonappdev", name = "konsist", version.ref = "konsist" }
 
-kotlin-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
+kotlin-atomicfu = { group = "org.jetbrains.kotlinx", name = "atomicfu", version.ref = "kotlinxAtomicfu" }
+kotlin-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
 kotlin-coroutines-playServices = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-play-services", version.ref = "kotlinxCoroutines" }
 kotlin-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 kotlin-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDateTime" }
@@ -158,6 +163,10 @@ leakCanary = { group = "com.squareup.leakcanary", name = "leakcanary-android", v
 okio = { group = "com.squareup.okio", name = "okio", version.ref = "okio" }
 
 mockK = { group = "io.mockk", name = "mockk", version.ref = "mockK" }
+
+androidx-lifecycle-viewmodel-navigation3 = { module = "androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "lifecycleViewmodel" }
+androidx-navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "navigation3" }
+androidx-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "navigation3" }
 
 ruler-gradlePluginClasspath = { group = "com.spotify.ruler", name = "ruler-gradle-plugin", version.ref = "ruler" }
 

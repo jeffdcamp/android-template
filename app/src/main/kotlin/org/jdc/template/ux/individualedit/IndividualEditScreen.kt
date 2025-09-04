@@ -1,4 +1,5 @@
 @file:Suppress("MatchingDeclarationName")
+
 package org.jdc.template.ux.individualedit
 
 import androidx.compose.foundation.layout.Column
@@ -14,8 +15,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
+import androidx.navigation3.runtime.NavKey
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.jdc.template.R
 import org.jdc.template.shared.model.domain.type.IndividualType
@@ -29,15 +29,16 @@ import org.jdc.template.ui.compose.form.FlowTextField
 import org.jdc.template.ui.compose.form.SwitchField
 import org.jdc.template.ui.compose.form.TimeClickableTextField
 import org.jdc.template.ui.compose.util.formKeyEventHandler
-import org.jdc.template.ui.navigation.HandleNavigation
+import org.jdc.template.ui.navigation3.HandleNavigation3
+import org.jdc.template.ui.navigation3.navigator.Navigation3Navigator
 import org.jdc.template.ui.strings.getStringResId
 import org.jdc.template.ui.theme.AppTheme
 import org.jdc.template.ux.MainAppScaffoldWithNavBar
 
 @Composable
 fun IndividualEditScreen(
-    navController: NavController,
-    viewModel: IndividualEditViewModel = hiltViewModel()
+    navigator: Navigation3Navigator<NavKey>,
+    viewModel: IndividualEditViewModel
 ) {
     val uiState = viewModel.uiState
 
@@ -46,9 +47,10 @@ fun IndividualEditScreen(
     )
 
     MainAppScaffoldWithNavBar(
+        navigator = navigator,
         title = stringResource(R.string.edit_individual),
         actions = { AppBarMenu(appBarMenuItems) },
-        onNavigationClick = { navController.popBackStack() },
+        onNavigationClick = { navigator.pop() },
         hideNavigation = true
     ) {
         IndividualEditContent(viewModel.uiState)
@@ -56,7 +58,7 @@ fun IndividualEditScreen(
 
     HandleDialogUiState(uiState.dialogUiStateFlow)
 
-    HandleNavigation(viewModel, navController)
+    HandleNavigation3(viewModel, navigator)
 }
 
 @Composable

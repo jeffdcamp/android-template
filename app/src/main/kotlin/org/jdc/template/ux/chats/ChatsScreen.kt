@@ -6,7 +6,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
@@ -14,30 +13,34 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
+import androidx.navigation3.runtime.NavKey
 import org.jdc.template.R
-import org.jdc.template.ui.navigation.HandleNavigation
+import org.jdc.template.ui.navigation3.HandleNavigation3
+import org.jdc.template.ui.navigation3.navigator.Navigation3Navigator
+import org.jdc.template.ux.DefaultNav3FloatingActionButton
 import org.jdc.template.ux.MainAppScaffoldWithNavBar
 
 @Composable
 fun ChatsScreen(
-    navController: NavController,
-    viewModel: ChatsViewModel = hiltViewModel(),
+    navigator: Navigation3Navigator<NavKey>,
+    viewModel: ChatsViewModel,
 ) {
     val uiState = viewModel.uiState
 
     MainAppScaffoldWithNavBar(
+        navigator = navigator,
         title = stringResource(R.string.chats),
         navigationIconVisible = false,
-        onNavigationClick = { navController.popBackStack() },
-        floatingActionButton = {
-            FloatingActionButton(
+        onNavigationClick = { navigator.pop() },
+        floatingActionButton = { navSuiteType, isWideNavRailCollapsedType, railExpanded ->
+            DefaultNav3FloatingActionButton(
+                icon = { Icon(Icons.Filled.Add, contentDescription = stringResource(R.string.add)) },
                 onClick = { uiState.onNewClick() },
-            ) {
-                Icon(Icons.Filled.Add, contentDescription = stringResource(R.string.add))
-            }
+                navSuiteType = navSuiteType,
+                isWideNavRailCollapsedType = isWideNavRailCollapsedType,
+                railExpanded = railExpanded
+            )
         }
     ) {
         ChatsContent(
@@ -45,7 +48,7 @@ fun ChatsScreen(
         )
     }
 
-    HandleNavigation(viewModel, navController)
+    HandleNavigation3(viewModel, navigator)
 }
 
 @Composable

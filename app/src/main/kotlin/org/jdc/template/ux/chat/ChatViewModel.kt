@@ -1,12 +1,13 @@
 package org.jdc.template.ux.chat
 
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.toRoute
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -18,18 +19,15 @@ import org.jdc.template.shared.util.ext.stateInDefault
 import org.jdc.template.ui.compose.dialog.DialogUiState
 import org.jdc.template.ui.compose.dialog.dismissDialog
 import org.jdc.template.ui.compose.dialog.showMessageDialog
-import org.jdc.template.ui.navigation.ViewModelNavigation
-import org.jdc.template.ui.navigation.ViewModelNavigationImpl
-import javax.inject.Inject
+import org.jdc.template.ui.navigation3.ViewModelNavigation3
+import org.jdc.template.ui.navigation3.ViewModelNavigation3Impl
 
-@HiltViewModel
+@HiltViewModel(assistedFactory = ChatViewModel.Factory::class)
 class ChatViewModel
-@Inject constructor(
+@AssistedInject constructor(
     private val chatRepository: ChatRepository,
-    savedStateHandle: SavedStateHandle,
-) : ViewModel(), ViewModelNavigation by ViewModelNavigationImpl() {
-    private val route: ChatRoute = savedStateHandle.toRoute(ChatRoute.typeMap())
-
+    @Assisted val route: ChatRoute
+) : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3Impl() {
     private val dialogUiStateFlow = MutableStateFlow<DialogUiState<*>?>(null)
     private val threadNameFlow = MutableStateFlow<String>("Test")
     private val fromPerspectiveUserIdFlow = MutableStateFlow<IndividualId>(route.individualId)
@@ -61,5 +59,10 @@ class ChatViewModel
 
     private fun onDeleteConfirm(chatMessageId: ChatMessageId) = viewModelScope.launch {
         chatRepository.deleteMessage(chatMessageId)
+    }
+
+    @AssistedFactory
+    interface Factory {
+        fun create(chatRoute: ChatRoute): ChatViewModel
     }
 }

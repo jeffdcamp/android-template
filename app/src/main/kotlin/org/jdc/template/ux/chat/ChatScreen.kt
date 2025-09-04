@@ -15,9 +15,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
+import androidx.navigation3.runtime.NavKey
 import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemContentType
@@ -29,7 +28,8 @@ import org.jdc.template.shared.model.domain.inline.IndividualId
 import org.jdc.template.ui.compose.PreviewDefault
 import org.jdc.template.ui.compose.appbar.AppBarTitle
 import org.jdc.template.ui.compose.dialog.HandleDialogUiState
-import org.jdc.template.ui.navigation.HandleNavigation
+import org.jdc.template.ui.navigation3.HandleNavigation3
+import org.jdc.template.ui.navigation3.navigator.Navigation3Navigator
 import org.jdc.template.ui.theme.AppTheme
 import org.jdc.template.util.time.TimeFormatUtil
 import org.jdc.template.ux.MainAppScaffoldWithNavBar
@@ -39,26 +39,27 @@ import org.jdc.template.ux.chat.chatbubble.SentMessageRow
 
 @Composable
 fun ChatScreen(
-    navController: NavController,
-    viewModel: ChatViewModel = hiltViewModel(),
+    navigator: Navigation3Navigator<NavKey>,
+    viewModel: ChatViewModel,
 ) {
     val uiState = viewModel.uiState
     val threadName by uiState.threadNameFlow.collectAsStateWithLifecycle()
 
     MainAppScaffoldWithNavBar(
+        navigator = navigator,
         title = {
             AppBarTitle(
                 title = "Messages",
                 subtitle = threadName,
             )
         },
-        onNavigationClick = { navController.popBackStack() },
+        onNavigationClick = { navigator.pop() },
     ) {
         ChatScreenContent(uiState)
     }
 
     HandleDialogUiState(uiState.dialogUiStateFlow)
-    HandleNavigation(viewModel, navController)
+    HandleNavigation3(viewModel, navigator)
 }
 
 @Composable

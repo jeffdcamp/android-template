@@ -5,15 +5,15 @@ import androidx.lifecycle.ViewModel
 import co.touchlab.kermit.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import org.jdc.template.ui.navigation.ViewModelNavigation
-import org.jdc.template.ui.navigation.ViewModelNavigationImpl
+import org.jdc.template.ui.navigation3.ViewModelNavigation3
+import org.jdc.template.ui.navigation3.ViewModelNavigation3Impl
 import javax.inject.Inject
 
 @HiltViewModel
 class AcknowledgementViewModel
 @Inject constructor(
     private val application: Application
-) : ViewModel(), ViewModelNavigation by ViewModelNavigationImpl() {
+) : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3Impl() {
 
     private val acknowledgementHtmlStateFlow = MutableStateFlow<String?>(null)
 

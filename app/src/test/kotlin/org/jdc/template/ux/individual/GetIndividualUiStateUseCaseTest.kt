@@ -11,7 +11,7 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.runTest
 import org.jdc.template.ui.compose.dialog.MessageDialogUiState
-import org.jdc.template.ui.navigation.NavigationAction
+import org.jdc.template.ui.navigation3.Navigation3Action
 import org.jdc.template.ux.TestIndividuals
 import org.jdc.template.ux.individualedit.IndividualEditRoute
 import org.jdc.template.ux.mockIndividualRepository
@@ -23,7 +23,7 @@ class GetIndividualUiStateUseCaseTest {
         turbineScope {
             val useCase = GetIndividualUiStateUseCase(mockIndividualRepository(), mockk(relaxed = true))
             val stateScope = CoroutineScope(Job())
-            val lastNavigationActionFlow = MutableStateFlow<NavigationAction?>(null)
+            val lastNavigationActionFlow = MutableStateFlow<Navigation3Action?>(null)
             val navigationActionTurbine = lastNavigationActionFlow.testIn(stateScope)
             navigationActionTurbine.awaitItem() // consume default value
 
@@ -38,7 +38,7 @@ class GetIndividualUiStateUseCaseTest {
             dialogUiStateFlowTurbine.awaitItem() // consume default value
 
             uiState.onEditClick()
-            assertThat(navigationActionTurbine.awaitItem()).isEqualTo(NavigationAction.Navigate(IndividualEditRoute(selectedIndividualId)))
+            assertThat(navigationActionTurbine.awaitItem()).isEqualTo(Navigation3Action.Navigate(IndividualEditRoute(selectedIndividualId)))
 
             uiState.onDeleteClick()
             val deleteDialog = dialogUiStateFlowTurbine.awaitItem()
@@ -48,7 +48,7 @@ class GetIndividualUiStateUseCaseTest {
                 error("Expected error Delete MessageDialogUiState")
             }
 
-            assertThat(navigationActionTurbine.awaitItem()).isEqualTo(NavigationAction.Pop())
+            assertThat(navigationActionTurbine.awaitItem()).isEqualTo(Navigation3Action.Pop())
 
             navigationActionTurbine.cancelAndIgnoreRemainingEvents()
             dialogUiStateFlowTurbine.cancelAndIgnoreRemainingEvents()
@@ -62,7 +62,7 @@ class GetIndividualUiStateUseCaseTest {
             val individualRepository = mockIndividualRepository()
             val useCase = GetIndividualUiStateUseCase(individualRepository, mockk(relaxed = true))
             val stateScope = CoroutineScope(Job())
-            val lastNavigationActionFlow = MutableStateFlow<NavigationAction?>(null)
+            val lastNavigationActionFlow = MutableStateFlow<Navigation3Action?>(null)
             val navigationActionTurbine = lastNavigationActionFlow.testIn(stateScope)
             navigationActionTurbine.awaitItem() // consume default value
 

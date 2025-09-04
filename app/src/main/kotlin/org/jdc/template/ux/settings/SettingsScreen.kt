@@ -7,27 +7,27 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
+import androidx.navigation3.runtime.NavKey
 import org.jdc.template.R
 import org.jdc.template.ui.compose.dialog.HandleDialogUiState
 import org.jdc.template.ui.compose.setting.Setting
-import org.jdc.template.ui.navigation.WorkManagerStatusRoute
+import org.jdc.template.ui.navigation3.navigator.Navigation3Navigator
 import org.jdc.template.ux.MainAppScaffoldWithNavBar
 
 @Composable
 fun SettingsScreen(
-    navController: NavController? = null,
-    viewModel: SettingsViewModel = hiltViewModel()
+    navigator: Navigation3Navigator<NavKey>,
+    viewModel: SettingsViewModel
 ) {
     val uiState = viewModel.uiState
 
     val scrollState = rememberScrollState()
 
     MainAppScaffoldWithNavBar(
+        navigator = navigator,
         title = stringResource(R.string.settings),
         hideNavigation = true,
-        onNavigationClick = { navController?.popBackStack() },
+        onNavigationClick = { navigator.pop() },
     ) {
         Column(
             Modifier.verticalScroll(scrollState)
@@ -42,9 +42,6 @@ fun SettingsScreen(
 
             // not translated because this should not be visible for release builds
             Setting.Header("Developer Options")
-            Setting.Clickable(text = "Work Manager Status", secondaryText = "Show status of all background workers") {
-                navController?.navigate(WorkManagerStatusRoute)
-            }
             Setting.Clickable(text = "Last Installed Version Code", uiState.currentLastInstalledVersionCodeFlow) { uiState.onLastInstalledVersionCodeClick() }
             Setting.Clickable(text = "Range", uiState.rangeFlow) { uiState.onRangeClick() }
         }

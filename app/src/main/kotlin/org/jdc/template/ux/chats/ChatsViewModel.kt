@@ -12,8 +12,8 @@ import org.jdc.template.shared.model.repository.ChatRepository
 import org.jdc.template.shared.model.repository.IndividualRepository
 import org.jdc.template.shared.util.ext.stateInDefault
 import org.jdc.template.ui.compose.dialog.DialogUiState
-import org.jdc.template.ui.navigation.ViewModelNavigation
-import org.jdc.template.ui.navigation.ViewModelNavigationImpl
+import org.jdc.template.ui.navigation3.ViewModelNavigation3
+import org.jdc.template.ui.navigation3.ViewModelNavigation3Impl
 import org.jdc.template.ux.chat.ChatRoute
 import javax.inject.Inject
 import kotlin.uuid.Uuid
@@ -23,7 +23,7 @@ class ChatsViewModel
 @Inject constructor(
     private val individualRepository: IndividualRepository,
     private val chatMessageRepository: ChatRepository,
-) : ViewModel(), ViewModelNavigation by ViewModelNavigationImpl() {
+) : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3Impl() {
 
     private val dialogUiStateFlow = MutableStateFlow<DialogUiState<*>?>(null)
 

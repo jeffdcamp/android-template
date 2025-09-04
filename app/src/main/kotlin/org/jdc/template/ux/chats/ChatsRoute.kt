@@ -1,7 +1,5 @@
 package org.jdc.template.ux.chats
 
-import kotlinx.serialization.Serializable
-import org.jdc.template.ui.navigation.NavigationRoute
+import androidx.navigation3.runtime.NavKey
 
-@Serializable
-object ChatsRoute: NavigationRoute
+object ChatsRoute: NavKey

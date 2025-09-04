@@ -1,7 +1,5 @@
 package org.jdc.template.ux.about.typography
 
-import kotlinx.serialization.Serializable
-import org.jdc.template.ui.navigation.NavigationRoute
+import androidx.navigation3.runtime.NavKey
 
-@Serializable
-object TypographyRoute: NavigationRoute
+object TypographyRoute: NavKey

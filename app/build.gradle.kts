@@ -212,14 +212,14 @@ dependencies {
 
     // Firebase
     implementation(platform(libs.google.firebase.bom))
-    //implementation(libs.google.firebase.perf)
     implementation(libs.google.firebase.config)
     implementation(libs.google.firebase.crashlytics)
     implementation(libs.google.firebase.analytics)
 
     // Code
     implementation(libs.kotlin.serialization.json)
-    implementation(libs.kotlin.coroutines.android)
+    implementation(libs.kotlin.atomicfu)
+    implementation(libs.kotlin.coroutines)
     implementation(libs.kotlin.datetime)
     implementation(libs.okio)
 
@@ -231,14 +231,19 @@ dependencies {
     implementation(libs.androidx.hilt.work)
 
     // Android Architecture Components
-    implementation(libs.androidx.lifecycle.compose)
-    implementation(libs.androidx.lifecycle.process)
-    implementation(libs.androidx.lifecycle.viewmodel)
-    implementation(libs.androidx.lifecycle.viewmodel.savedstate)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+//    implementation(libs.androidx.lifecycle.runtime.compose)
+//    implementation(libs.androidx.lifecycle.process)
+//    implementation(libs.androidx.lifecycle.viewmodel)
+//    implementation(libs.androidx.lifecycle.viewmodel.savedstate)
 
     // Navigation
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.hilt.navigation.compose)
+
+    implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.androidx.navigation3.ui)
+//    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
 
     // WorkManager
     implementation(libs.androidx.work.runtime)

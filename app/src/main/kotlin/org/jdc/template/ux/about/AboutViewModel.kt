@@ -13,9 +13,9 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import okio.FileSystem
 import okio.Path.Companion.toOkioPath
+import org.jdc.template.model.config.RemoteConfig
 import org.jdc.template.shared.domain.usecase.CreateIndividualLargeTestDataUseCase
 import org.jdc.template.shared.domain.usecase.CreateIndividualTestDataUseCase
-import org.jdc.template.model.config.RemoteConfig
 import org.jdc.template.shared.model.datastore.DevicePreferenceDataSource
 import org.jdc.template.shared.model.domain.inline.FirstName
 import org.jdc.template.shared.model.repository.IndividualRepository
@@ -28,8 +28,8 @@ import org.jdc.template.shared.util.network.onError
 import org.jdc.template.shared.util.network.onException
 import org.jdc.template.shared.util.network.onFailure
 import org.jdc.template.shared.util.network.onSuccess
-import org.jdc.template.ui.navigation.ViewModelNavigation
-import org.jdc.template.ui.navigation.ViewModelNavigationImpl
+import org.jdc.template.ui.navigation3.ViewModelNavigation3
+import org.jdc.template.ui.navigation3.ViewModelNavigation3Impl
 import org.jdc.template.ux.about.typography.TypographyRoute
 import org.jdc.template.ux.acknowledgement.AcknowledgmentsRoute
 import org.jdc.template.ux.chats.ChatsRoute
@@ -48,7 +48,7 @@ class AboutViewModel
     private val createIndividualTestDataUseCase: CreateIndividualTestDataUseCase,
     private val createIndividualLargeTestDataUseCase: CreateIndividualLargeTestDataUseCase,
     private val fileSystem: FileSystem
-) : ViewModel(), ViewModelNavigation by ViewModelNavigationImpl() {
+) : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3Impl() {
 
     private val resetServiceEnabledFlow: StateFlow<Boolean> = MutableStateFlow(remoteConfig.isColorServiceEnabled()).asStateFlow()
 

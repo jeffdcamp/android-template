@@ -12,20 +12,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import androidx.navigation3.runtime.NavKey
 import org.jdc.template.R
 import org.jdc.template.ui.compose.PreviewDefault
+import org.jdc.template.ui.navigation3.navigator.Navigation3Navigator
 import org.jdc.template.ui.theme.AppTheme
 import org.jdc.template.ux.MainAppScaffoldWithNavBar
 
 @Composable
 fun TypographyScreen(
-    navController: NavController,
+    navigator: Navigation3Navigator<NavKey>,
 ) {
     MainAppScaffoldWithNavBar(
+        navigator = navigator,
         title = stringResource(R.string.typography),
         navigationIconVisible = true,
-        onNavigationClick = { navController.popBackStack() }
+        onNavigationClick = { navigator.pop() }
     ) {
         TypographyContent()
     }
@@ -64,7 +66,7 @@ private fun TypographyText(styleName: String, style: TextStyle) {
             style = style
         )
         Text(
-            text = "$styleName",
+            text = styleName,
             style = MaterialTheme.typography.bodySmall
         )
 
@@ -81,4 +83,3 @@ private fun Preview() {
         TypographyContent()
     }
 }
-

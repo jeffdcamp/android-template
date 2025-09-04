@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
@@ -13,21 +15,21 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
+import androidx.navigation3.runtime.NavKey
 import org.jdc.template.BuildConfig
 import org.jdc.template.R
 import org.jdc.template.ui.compose.appbar.AppBarMenu
 import org.jdc.template.ui.compose.appbar.AppBarMenuItem
-import org.jdc.template.ui.navigation.HandleNavigation
+import org.jdc.template.ui.navigation3.HandleNavigation3
+import org.jdc.template.ui.navigation3.navigator.Navigation3Navigator
 import org.jdc.template.ui.theme.AppTheme
 import org.jdc.template.ux.MainAppScaffoldWithNavBar
 
 @Composable
 fun AboutScreen(
-    navController: NavController,
-    viewModel: AboutViewModel = hiltViewModel()
+    navigator: Navigation3Navigator<NavKey>,
+    viewModel: AboutViewModel
 ) {
     val uiState = viewModel.uiState
 
@@ -36,15 +38,16 @@ fun AboutScreen(
     )
 
     MainAppScaffoldWithNavBar(
+        navigator = navigator,
         title = stringResource(R.string.about),
         navigationIconVisible = false,
         actions = { AppBarMenu(appBarMenuItems) },
-        onNavigationClick = { navController.popBackStack() }
+        onNavigationClick = { navigator.pop() }
     ) {
         AboutScreenContent(uiState)
     }
 
-    HandleNavigation(viewModel, navController)
+    HandleNavigation3(viewModel, navigator)
 }
 
 @Composable
@@ -53,9 +56,10 @@ private fun AboutScreenContent(
 ) {
 
     Column(
-        Modifier
+        modifier = Modifier
+            .verticalScroll(rememberScrollState())
             .padding(16.dp)
-            .fillMaxWidth()
+            .fillMaxWidth(),
     ) {
         ApplicationAboutTitle()
 

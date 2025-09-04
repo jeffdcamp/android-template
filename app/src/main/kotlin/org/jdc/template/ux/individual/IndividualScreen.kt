@@ -15,9 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
+import androidx.navigation3.runtime.NavKey
 import org.jdc.template.R
 import org.jdc.template.shared.model.domain.Individual
 import org.jdc.template.shared.model.domain.inline.Email
@@ -30,17 +29,16 @@ import org.jdc.template.ui.compose.appbar.AppBarMenuItem
 import org.jdc.template.ui.compose.dialog.HandleDialogUiState
 import org.jdc.template.ui.compose.form.TextWithTitle
 import org.jdc.template.ui.compose.util.DateUiUtil
-import org.jdc.template.ui.navigation.HandleNavigation
-import org.jdc.template.ui.navigation.popBackStackOrFinishActivity
+import org.jdc.template.ui.navigation3.HandleNavigation3
+import org.jdc.template.ui.navigation3.navigator.Navigation3Navigator
 import org.jdc.template.ui.theme.AppTheme
 import org.jdc.template.ux.MainAppScaffoldWithNavBar
 
 @Composable
 fun IndividualScreen(
-    navController: NavController,
-    viewModel: IndividualViewModel = hiltViewModel()
+    navigator: Navigation3Navigator<NavKey>,
+    viewModel: IndividualViewModel
 ) {
-    val context = LocalContext.current
     val uiState = viewModel.uiState
 
     val appBarMenuItems = listOf(
@@ -49,16 +47,17 @@ fun IndividualScreen(
     )
 
     MainAppScaffoldWithNavBar(
+        navigator = navigator,
         title = stringResource(R.string.individual),
         actions = { AppBarMenu(appBarMenuItems) },
-        onNavigationClick = { navController.popBackStackOrFinishActivity(context) },
+        onNavigationClick = { navigator.pop() },
     ) {
         IndividualContent(uiState)
     }
 
     HandleDialogUiState(uiState.dialogUiStateFlow)
 
-    HandleNavigation(viewModel, navController)
+    HandleNavigation3(viewModel, navigator)
 }
 
 @Composable
