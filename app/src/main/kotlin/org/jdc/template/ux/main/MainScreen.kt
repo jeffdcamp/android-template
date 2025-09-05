@@ -2,9 +2,12 @@ package org.jdc.template.ux.main
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.entry
 import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.runtime.rememberSavedStateNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
+import androidx.navigation3.ui.rememberSceneSetupNavEntryDecorator
 import org.jdc.template.ux.about.AboutRoute
 import org.jdc.template.ux.about.AboutScreen
 import org.jdc.template.ux.about.typography.TypographyRoute
@@ -38,10 +41,10 @@ fun MainScreen(
         entryProvider = entryProvider {
             entry<DirectoryRoute> { DirectoryScreen(navigator, hiltViewModel()) }
             entry<IndividualRoute> { key ->
-                IndividualScreen(navigator, hiltViewModel<IndividualViewModel, IndividualViewModel.Factory>(key = key.toString(), creationCallback = { it.create(key) }))
+                IndividualScreen(navigator, hiltViewModel<IndividualViewModel, IndividualViewModel.Factory>(creationCallback = { it.create(key) }))
             }
             entry<IndividualEditRoute> { key ->
-                IndividualEditScreen(navigator, hiltViewModel<IndividualEditViewModel, IndividualEditViewModel.Factory>(key = key.toString(), creationCallback = { it.create(key) }))
+                IndividualEditScreen(navigator, hiltViewModel<IndividualEditViewModel, IndividualEditViewModel.Factory>(creationCallback = { it.create(key) }))
             }
             entry<ChatsRoute> { ChatsScreen(navigator, hiltViewModel()) }
             entry<ChatRoute> { ChatScreen(navigator, hiltViewModel()) }
@@ -49,6 +52,11 @@ fun MainScreen(
             entry<AboutRoute> { AboutScreen(navigator, hiltViewModel()) }
             entry<TypographyRoute> { TypographyScreen(navigator) }
             entry<AcknowledgmentsRoute> { AcknowledgementScreen(navigator, hiltViewModel()) }
-        }
+        },
+        entryDecorators = listOf(
+            rememberSceneSetupNavEntryDecorator(),
+            rememberSavedStateNavEntryDecorator(),
+            rememberViewModelStoreNavEntryDecorator() // handle unique view models per Screen in an entry
+        ),
     )
 }
