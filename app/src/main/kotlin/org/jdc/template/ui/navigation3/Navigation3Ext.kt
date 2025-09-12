@@ -1,24 +1,24 @@
 package org.jdc.template.ui.navigation3
 
-import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 
-fun <T: NavKey> SnapshotStateList<T>.navigate(key: T) {
+fun <T: NavKey> NavBackStack<T>.navigate(key: T) {
     add(key)
 }
 
-fun <T: NavKey> SnapshotStateList<T>.navigate(key: List<T>) {
+fun <T: NavKey> NavBackStack<T>.navigate(key: List<T>) {
     addAll(key)
 }
 
-fun <T: NavKey> SnapshotStateList<T>.popAndNavigate(key: T, popToKey: T? = null): T? {
+fun <T: NavKey> NavBackStack<T>.popAndNavigate(key: T, popToKey: T? = null): T? {
     val lastPoppedKey = pop(popToKey)
     navigate(key)
 
     return lastPoppedKey
 }
 
-fun <T: NavKey> SnapshotStateList<T>.pop(popToKey: T? = null): T? {
+fun <T: NavKey> NavBackStack<T>.pop(popToKey: T? = null): T? {
     return when (popToKey) {
         null -> {
             removeLastOrNull() != null

@@ -1,10 +1,8 @@
 package org.jdc.template.ui.navigation3.navigator
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 import org.jdc.template.ui.navigation3.navigate
 import org.jdc.template.ui.navigation3.pop
@@ -12,17 +10,17 @@ import org.jdc.template.ui.navigation3.pop
 class TopLevelBackStackNavigator<T : NavKey>(startKey: T) : Navigation3Navigator<T> {
 
     // Maintain a stack for each top level route
-    private val topLevelStacks: LinkedHashMap<T, SnapshotStateList<T>> = linkedMapOf(
-        startKey to mutableStateListOf(startKey)
+    private val topLevelStacks: LinkedHashMap<T, NavBackStack<T>> = linkedMapOf(
+        startKey to NavBackStack(startKey)
     )
 
     // Expose the current top level route for consumers
-    private var _selectedTopLevelRoute by mutableStateOf(startKey)
+    private val selectedTopLevelRoute: MutableState<T> = mutableStateOf(startKey)
 
     // Expose the back stack so it can be rendered by the NavDisplay
-    private val backStack: SnapshotStateList<T> = mutableStateListOf(startKey)
+    private val backStack: NavBackStack<T> = NavBackStack(startKey)
 
-    private fun updateBackStack(): SnapshotStateList<T> {
+    private fun updateBackStack(): NavBackStack<T> {
         return backStack.apply {
             clear()
             addAll(topLevelStacks.flatMap { it.value })
@@ -32,7 +30,7 @@ class TopLevelBackStackNavigator<T : NavKey>(startKey: T) : Navigation3Navigator
     fun navigateTopLevel(key: T) {
         // If the top level doesn't exist, add it
         if (topLevelStacks[key] == null) {
-            topLevelStacks.put(key, mutableStateListOf(key))
+            topLevelStacks.put(key, NavBackStack(key))
         } else {
             // Otherwise just move it to the end of the stacks
             topLevelStacks.apply {
@@ -41,21 +39,21 @@ class TopLevelBackStackNavigator<T : NavKey>(startKey: T) : Navigation3Navigator
                 }
             }
         }
-        _selectedTopLevelRoute = key
+        selectedTopLevelRoute.value = key
         updateBackStack()
     }
 
-    override fun getBackStack(): SnapshotStateList<T> {
+    override fun getBackStack(): NavBackStack<T> {
         return backStack
     }
 
     override fun navigate(key: T) {
-        topLevelStacks[_selectedTopLevelRoute]?.add(key)
+        topLevelStacks[selectedTopLevelRoute.value]?.add(key)
         updateBackStack()
     }
 
     override fun navigate(keys: List<T>) {
-        topLevelStacks[_selectedTopLevelRoute]?.navigate(keys)
+        topLevelStacks[selectedTopLevelRoute.value]?.navigate(keys)
         updateBackStack()
     }
 
@@ -64,12 +62,12 @@ class TopLevelBackStackNavigator<T : NavKey>(startKey: T) : Navigation3Navigator
     }
 
     override fun pop(key: T?): Boolean {
-        val currentStack: SnapshotStateList<T>? = topLevelStacks[_selectedTopLevelRoute]
+        val currentStack: NavBackStack<T>? = topLevelStacks[selectedTopLevelRoute.value]
         val removedKey: T? = currentStack?.pop(key)
 
         // If the removed key was a top level key, remove the associated top level stack
         topLevelStacks.remove(removedKey)
-        _selectedTopLevelRoute = topLevelStacks.keys.last()
+        selectedTopLevelRoute.value = topLevelStacks.keys.last()
         updateBackStack()
         return removedKey != null
     }
@@ -90,5 +88,5 @@ class TopLevelBackStackNavigator<T : NavKey>(startKey: T) : Navigation3Navigator
         }
     }
 
-    override fun getSelectedTopLevelRoute(): T? = _selectedTopLevelRoute
+    override fun getSelectedTopLevelRoute(): MutableState<T>? = selectedTopLevelRoute
 }

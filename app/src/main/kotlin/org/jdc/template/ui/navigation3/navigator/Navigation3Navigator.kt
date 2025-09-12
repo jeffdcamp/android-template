@@ -1,5 +1,6 @@
 package org.jdc.template.ui.navigation3.navigator
 
+import androidx.compose.runtime.MutableState
 import androidx.navigation3.runtime.NavKey
 
 interface Navigation3Navigator<T: NavKey> {
@@ -63,5 +64,5 @@ interface Navigation3Navigator<T: NavKey> {
      *
      * @return The key of the currently selected top-level route, or null if none is selected.
      */
-    fun getSelectedTopLevelRoute(): T?
+    fun getSelectedTopLevelRoute(): MutableState<T>?
 }

@@ -1,14 +1,14 @@
 package org.jdc.template.ui.navigation3.navigator
 
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.compose.runtime.MutableState
+import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 import org.jdc.template.ui.navigation3.navigate
 import org.jdc.template.ui.navigation3.pop
 
-class DefaultNavigator<T : NavKey>(startKey: T) : Navigation3Navigator<T> {
-    private val backStack: SnapshotStateList<T> = mutableStateListOf(startKey)
-
+class DefaultNavigator<T : NavKey>(
+    private val backStack: NavBackStack<T>
+) : Navigation3Navigator<T> {
     override fun getBackStack(): List<T> {
         return backStack.toList()
     }
@@ -40,7 +40,7 @@ class DefaultNavigator<T : NavKey>(startKey: T) : Navigation3Navigator<T> {
         error("navigateTopLevel() navigation not implemented in DefaultNavigator (use TopLevelBackstackNavigator instead)")
     }
 
-    override fun getSelectedTopLevelRoute(): T? {
+    override fun getSelectedTopLevelRoute(): MutableState<T>? {
         error("getSelectedTopLevelRoute() not implemented in DefaultNavigator (use TopLevelBackstackNavigator instead)")
     }
 }
