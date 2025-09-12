@@ -13,3 +13,8 @@
 # Issue Tracker (Fix): https://youtrack.jetbrains.com/issue/KTOR-3484
 -dontwarn org.slf4j.impl.StaticLoggerBinder
 ##---------------End: proguard configuration for Ktor Client  ----------
+
+##---------------Begin: proguard configuration for Sqlite 2.6.0 ----------
+# Issue Tracker https://issuetracker.google.com/issues/442489402 (to be fixed in 2.6.1)
+-keepclasseswithmembers class androidx.sqlite.driver.bundled.** { native <methods>; }
+##---------------End: proguard configuration for Sqlite 2.6.0  ----------
