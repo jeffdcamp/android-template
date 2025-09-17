@@ -48,7 +48,6 @@ android {
         versionCode = AppInfo.Version.CODE
         versionName = AppInfo.Version.NAME
 
-        buildConfigField("String", "BUILD_NUMBER", "\"${System.getProperty("BUILD_NUMBER")}\"")
         buildConfigField("String", "USER_AGENT_APP_NAME", "\"AndroidTemplate\"")
 
         // Integration tests
@@ -95,7 +94,7 @@ android {
                 storePassword = appUploadKeystorePassword
                 keyAlias = appUploadKeyAlias
                 keyPassword = appUploadKeyPassword
-            } else if (envSigningKeystore != null){
+            } else if (envSigningKeystore != null) {
                 // From environment (local or Github Actions)
                 storeFile = file(envSigningKeystore)
                 storePassword = System.getenv("SIGNING_STORE_PASSWORD")
@@ -117,7 +116,7 @@ android {
                 storePassword = appProdKeystorePassword
                 keyAlias = appProdKeyAlias
                 keyPassword = appProdKeyPassword
-            } else if (envSigningKeystore != null){
+            } else if (envSigningKeystore != null) {
                 // From environment (local or Github Actions)
                 storeFile = file(envSigningKeystore)
                 storePassword = System.getenv("SIGNING_STORE_PASSWORD")
