@@ -34,17 +34,28 @@ jobs:
           path: version.cache
           key: version-code
 
-      - name: Initialize and read version code
+      - name: Read, increment, create version code environment variable
         run: |
+          # Get version code from cache or initialize it
           if [ ! -f version.cache ]; then
+            echo "version.cache not found, initializing."
             echo "$MIN_VERSION_CODE" > version.cache
           fi
+          
+          # Read the version code from the cache
           VERSION_FROM_CACHE=$(cat version.cache)
-          if [ "$MIN_VERSION_CODE" -gt "$VERSION_FROM_CACHE" ]; then
+          
+          # Calculate the new version code and store it in a shell variable
+          NEW_VERSION_CODE=$(($VERSION_FROM_CACHE + 1))
+
+          # Determine the effective version code  
+          if [ "$MIN_VERSION_CODE" -gt "$NEW_VERSION_CODE" ]; then
             VERSION_CODE=$MIN_VERSION_CODE
           else
-            VERSION_CODE=$VERSION_FROM_CACHE
+            VERSION_CODE=$NEW_VERSION_CODE
           fi
+
+          # Create GitHub environment variables 
           echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_ENV
           echo "BUILD_NUMBER=$BUILD_NUMBER" >> $GITHUB_ENV
 
@@ -90,13 +101,10 @@ jobs:
           ANDROID_PUBLISHER_CREDENTIALS: ${{ secrets.PLAYSTORE_KEYS }}
         run: ./gradlew publishReleaseBundle --artifact-dir app/build/outputs/bundle/release
 
-      - name: Increment and persist version code
+      - name: Persist version code
         run: |
-          # Calculate the new version code and store it in a shell variable
-          NEW_VERSION_CODE=$((${{ env.VERSION_CODE }} + 1))
-          
-          # Use the new shell variable to update the cache
-          echo "$NEW_VERSION_CODE" > version.cache
+          echo "Persisting version code ${{ env.VERSION_CODE }} to version.cache"
+          echo "${{ env.VERSION_CODE }}" > version.cache
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
