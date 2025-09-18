@@ -45,7 +45,7 @@ android {
         targetSdk = AppInfo.AndroidSdk.TARGET
 
         applicationId = AppInfo.APPLICATION_ID
-        versionCode = AppInfo.Version.CODE
+        versionCode = AppInfo.Version.VERSION_CODE
         versionName = AppInfo.Version.NAME
 
         buildConfigField("String", "USER_AGENT_APP_NAME", "\"AndroidTemplate\"")

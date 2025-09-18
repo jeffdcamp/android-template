@@ -16,8 +16,8 @@ jobs:
     # https://stackoverflow.com/a/69348586/2476068
     env:
       GRADLE_OPTS: -Dorg.gradle.jvmargs="-XX:MaxMetaspaceSize=2g"
-      RUN_NUMBER: ${{ github.run_number }}
-      MIN_VERSION_CODE: 1008
+      BUILD_NUMBER: ${{ github.run_number }}
+      MIN_VERSION_CODE: 1009
 
     steps:
       - uses: actions/checkout@v4
@@ -46,7 +46,7 @@ jobs:
             VERSION_CODE=$VERSION_FROM_CACHE
           fi
           echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_ENV
-          echo "RUN_NUMBER=$RUN_NUMBER" >> $GITHUB_ENV
+          echo "BUILD_NUMBER=$BUILD_NUMBER" >> $GITHUB_ENV
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
