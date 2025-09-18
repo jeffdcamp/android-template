@@ -16,71 +16,101 @@ jobs:
     # https://stackoverflow.com/a/69348586/2476068
     env:
       GRADLE_OPTS: -Dorg.gradle.jvmargs="-XX:MaxMetaspaceSize=2g"
+      RUN_NUMBER: ${{ github.run_number }}
+      MIN_VERSION_CODE: 1008
 
     steps:
-    - uses: actions/checkout@v4
-    - name: set up JDK 21
-      uses: actions/setup-java@v4
-      with:
-        java-version: '21'
-        distribution: 'temurin'
-        cache: gradle
+      - uses: actions/checkout@v4
+      - name: set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: gradle
 
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
+      - name: Cache version code
+        uses: actions/cache@v4
+        with:
+          path: version.cache
+          key: version-code
 
-    - name: Setup
-      env:
-        ENCODED_STRING: ${{ secrets.UPLOAD_KEYSTORE }}
-        APP_DISTRIBUTION_KEYS: ${{ secrets.APP_DISTRIBUTION_KEYS }}
-        PLAYSTORE_KEYS: ${{ secrets.PLAYSTORE_KEYS }}
-      run: |
-        git log --date=format:"%Y-%m-%d" --pretty="format: * %s% b (%an, %cd)" | head -n 10 > commit-changelog.txt
-        echo $ENCODED_STRING | base64 -d -i > app/upload-keystore
-        echo $APP_DISTRIBUTION_KEYS > app-distribution.json
-        echo PLAYSTORE_KEYS > playstore.json
+      - name: Initialize and read version code
+        run: |
+          if [ ! -f version.cache ]; then
+            echo "$MIN_VERSION_CODE" > version.cache
+          fi
+          VERSION_FROM_CACHE=$(cat version.cache)
+          if [ "$MIN_VERSION_CODE" -gt "$VERSION_FROM_CACHE" ]; then
+            VERSION_CODE=$MIN_VERSION_CODE
+          else
+            VERSION_CODE=$VERSION_FROM_CACHE
+          fi
+          echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_ENV
+          echo "RUN_NUMBER=$RUN_NUMBER" >> $GITHUB_ENV
 
-    - name: License
-      run: ./gradlew createLicenseReport
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
 
-    - name: Build
-      run: ./gradlew clean assembleRelease bundleRelease
-      env:
-        SIGNING_KEYSTORE: upload-keystore
-        SIGNING_STORE_PASSWORD: ${{ secrets.UPLOAD_SIGNING_STORE_PASSWORD }}
-        SIGNING_KEY_ALIAS: ${{ secrets.UPLOAD_SIGNING_KEY_ALIAS }}
-        SIGNING_KEY_PASSWORD: ${{ secrets.UPLOAD_SIGNING_KEY_PASSWORD }}
+      - name: Setup
+        env:
+          ENCODED_STRING: ${{ secrets.UPLOAD_KEYSTORE }}
+          APP_DISTRIBUTION_KEYS: ${{ secrets.APP_DISTRIBUTION_KEYS }}
+          PLAYSTORE_KEYS: ${{ secrets.PLAYSTORE_KEYS }}
+        run: |
+          git log --date=format:"%Y-%m-%d" --pretty="format: * %s% b (%an, %cd)" | head -n 10 > commit-changelog.txt
+          echo $ENCODED_STRING | base64 -d -i > app/upload-keystore
+          echo $APP_DISTRIBUTION_KEYS > app-distribution.json
+          echo PLAYSTORE_KEYS > playstore.json
 
-    - name: Test
-      run: ./gradlew testReleaseUnitTest jvmTest
+      - name: License
+        run: ./gradlew createLicenseReport
 
-    - name: Lint
-      run: ./gradlew lintRelease
+      - name: Build
+        run: ./gradlew clean assembleRelease bundleRelease
+        env:
+          SIGNING_KEYSTORE: upload-keystore
+          SIGNING_STORE_PASSWORD: ${{ secrets.UPLOAD_SIGNING_STORE_PASSWORD }}
+          SIGNING_KEY_ALIAS: ${{ secrets.UPLOAD_SIGNING_KEY_ALIAS }}
+          SIGNING_KEY_PASSWORD: ${{ secrets.UPLOAD_SIGNING_KEY_PASSWORD }}
 
-    - name: Detekt
-      run: ./gradlew detekt detektRelease
+      - name: Test
+        run: ./gradlew testReleaseUnitTest jvmTest
 
-    - name: App Distribution
-      run: ./gradlew appDistributionUploadRelease
+      - name: Lint
+        run: ./gradlew lintRelease
 
-    - name: Deploy to Play Store
-      env:
-        ANDROID_PUBLISHER_CREDENTIALS: ${{ secrets.PLAYSTORE_KEYS }}
-      run: ./gradlew publishReleaseBundle --artifact-dir app/build/outputs/bundle/release
+      - name: Detekt
+        run: ./gradlew detekt detektRelease
 
-    - name: Upload artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: build-outputs
-        path: app/build/outputs
+      - name: App Distribution
+        run: ./gradlew appDistributionUploadRelease
 
-    - name: Upload build reports
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: build-reports
-        path: |
-          **/build/licenses/*.html
-          **/build/test-results/**/TEST-*.xml
-          app/build/reports/*.html
-          */build/reports/detekt/*.html
+      - name: Deploy to Play Store
+        env:
+          ANDROID_PUBLISHER_CREDENTIALS: ${{ secrets.PLAYSTORE_KEYS }}
+        run: ./gradlew publishReleaseBundle --artifact-dir app/build/outputs/bundle/release
+
+      - name: Increment and persist version code
+        run: |
+          # Calculate the new version code and store it in a shell variable
+          NEW_VERSION_CODE=$((${{ env.VERSION_CODE }} + 1))
+          
+          # Use the new shell variable to update the cache
+          echo "$NEW_VERSION_CODE" > version.cache
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-outputs
+          path: app/build/outputs
+
+      - name: Upload build reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-reports
+          path: |
+            **/build/licenses/*.html
+            **/build/test-results/**/TEST-*.xml
+            app/build/reports/*.html
+            */build/reports/detekt/*.html
