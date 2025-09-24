@@ -41,7 +41,7 @@ class ColorService(
                 }
             }
         } catch (expected: Throwable) {
-            return ApiResponse.Failure.Exception(expected) as ApiResponse<Boolean, Boolean> // This is unnecessary, but the compiler doesn't know that.
+            return ApiResponse.Failure.Exception(expected)
         }
     }
 
