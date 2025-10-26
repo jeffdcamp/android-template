@@ -4,8 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.entryProvider
-import androidx.navigation3.runtime.rememberSavedStateNavEntryDecorator
-import androidx.navigation3.scene.rememberSceneSetupNavEntryDecorator
+import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import org.jdc.template.ux.about.AboutRoute
 import org.jdc.template.ux.about.AboutScreen
@@ -53,8 +52,7 @@ fun MainScreen(
             entry<AcknowledgmentsRoute> { AcknowledgementScreen(navigator, hiltViewModel()) }
         },
         entryDecorators = listOf(
-            rememberSceneSetupNavEntryDecorator(),
-            rememberSavedStateNavEntryDecorator(),
+            rememberSaveableStateHolderNavEntryDecorator(),
             rememberViewModelStoreNavEntryDecorator() // handle unique view models per Screen in an entry
         ),
     )
