@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import androidx.navigation3.runtime.NavKey
 import org.jdc.template.R
 import org.jdc.template.ui.compose.PreviewDefault
 import org.jdc.template.ui.navigation3.navigator.Navigation3Navigator
@@ -21,7 +20,7 @@ import org.jdc.template.ux.MainAppScaffoldWithNavBar
 
 @Composable
 fun TypographyScreen(
-    navigator: Navigation3Navigator<NavKey>,
+    navigator: Navigation3Navigator,
 ) {
     MainAppScaffoldWithNavBar(
         navigator = navigator,

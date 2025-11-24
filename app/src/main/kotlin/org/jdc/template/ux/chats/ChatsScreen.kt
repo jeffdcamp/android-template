@@ -14,7 +14,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation3.runtime.NavKey
 import org.jdc.template.R
 import org.jdc.template.ui.navigation3.HandleNavigation3
 import org.jdc.template.ui.navigation3.navigator.Navigation3Navigator
@@ -23,7 +22,7 @@ import org.jdc.template.ux.MainAppScaffoldWithNavBar
 
 @Composable
 fun ChatsScreen(
-    navigator: Navigation3Navigator<NavKey>,
+    navigator: Navigation3Navigator,
     viewModel: ChatsViewModel,
 ) {
     val uiState = viewModel.uiState

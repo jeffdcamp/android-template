@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation3.runtime.NavKey
 import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemContentType
@@ -39,7 +38,7 @@ import org.jdc.template.ux.chat.chatbubble.SentMessageRow
 
 @Composable
 fun ChatScreen(
-    navigator: Navigation3Navigator<NavKey>,
+    navigator: Navigation3Navigator,
     viewModel: ChatViewModel,
 ) {
     val uiState = viewModel.uiState

@@ -15,7 +15,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation3.runtime.NavKey
 import org.jdc.template.R
 import org.jdc.template.ui.compose.appbar.AppBarMenu
 import org.jdc.template.ui.compose.appbar.AppBarMenuItem
@@ -26,7 +25,7 @@ import org.jdc.template.ux.MainAppScaffoldWithNavBar
 
 @Composable
 fun DirectoryScreen(
-    navigator: Navigation3Navigator<NavKey>,
+    navigator: Navigation3Navigator,
     viewModel: DirectoryViewModel,
 ) {
     val uiState = viewModel.uiState

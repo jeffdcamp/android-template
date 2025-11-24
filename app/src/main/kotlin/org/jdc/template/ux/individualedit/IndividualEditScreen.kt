@@ -37,7 +37,7 @@ import org.jdc.template.ux.MainAppScaffoldWithNavBar
 
 @Composable
 fun IndividualEditScreen(
-    navigator: Navigation3Navigator<NavKey>,
+    navigator: Navigation3Navigator,
     viewModel: IndividualEditViewModel
 ) {
     val uiState = viewModel.uiState

@@ -7,7 +7,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.navigation3.runtime.NavKey
 import org.jdc.template.R
 import org.jdc.template.ui.compose.dialog.HandleDialogUiState
 import org.jdc.template.ui.compose.setting.Setting
@@ -16,7 +15,7 @@ import org.jdc.template.ux.MainAppScaffoldWithNavBar
 
 @Composable
 fun SettingsScreen(
-    navigator: Navigation3Navigator<NavKey>,
+    navigator: Navigation3Navigator,
     viewModel: SettingsViewModel
 ) {
     val uiState = viewModel.uiState

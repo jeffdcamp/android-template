@@ -3,7 +3,6 @@ package org.jdc.template.ux.main
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation3.runtime.NavKey
 import co.touchlab.kermit.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.combine
@@ -12,9 +11,6 @@ import org.jdc.template.shared.domain.usecase.CreateIndividualTestDataUseCase
 import org.jdc.template.shared.model.domain.type.DisplayThemeType
 import org.jdc.template.shared.model.repository.SettingsRepository
 import org.jdc.template.shared.util.ext.stateInDefault
-import org.jdc.template.ui.navigation3.navigator.Navigation3Navigator
-import org.jdc.template.ui.navigation3.navigator.TopLevelBackStackNavigator
-import org.jdc.template.ux.directory.DirectoryRoute
 import org.jdc.template.work.WorkScheduler
 import javax.inject.Inject
 
@@ -25,9 +21,6 @@ class MainViewModel
     settingsRepository: SettingsRepository,
     private val createIndividualTestDataUseCase: CreateIndividualTestDataUseCase
 ) : ViewModel() {
-    // Create and hold navigator here so that it survives configuration changes
-    val navigator: Navigation3Navigator<NavKey> = TopLevelBackStackNavigator(DirectoryRoute)
-
     val uiState = MainUiState(
         selectedAppThemeFlow = combine(
             settingsRepository.themeFlow.stateInDefault(viewModelScope, null),

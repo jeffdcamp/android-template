@@ -42,7 +42,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
-import androidx.navigation3.runtime.NavKey
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.jdc.template.R
@@ -54,7 +53,7 @@ import org.jdc.template.ux.main.NavBarItem
 
 @Composable
 fun MainAppScaffoldWithNavBar(
-    navigator: Navigation3Navigator<NavKey>,
+    navigator: Navigation3Navigator,
     title: String,
     modifier: Modifier = Modifier,
     navigationIconVisible: Boolean = true,
@@ -81,7 +80,7 @@ fun MainAppScaffoldWithNavBar(
 
 @Composable
 fun MainAppScaffoldWithNavBar(
-    navigator: Navigation3Navigator<NavKey>,
+    navigator: Navigation3Navigator,
     title: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     navigationIconVisible: Boolean = true,

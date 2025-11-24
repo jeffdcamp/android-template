@@ -36,7 +36,7 @@ import org.jdc.template.ux.MainAppScaffoldWithNavBar
 
 @Composable
 fun IndividualScreen(
-    navigator: Navigation3Navigator<NavKey>,
+    navigator: Navigation3Navigator,
     viewModel: IndividualViewModel
 ) {
     val uiState = viewModel.uiState

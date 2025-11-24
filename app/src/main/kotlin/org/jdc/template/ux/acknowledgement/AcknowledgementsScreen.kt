@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation3.runtime.NavKey
 import org.jdc.template.R
 import org.jdc.template.ui.navigation3.HandleNavigation3
 import org.jdc.template.ui.navigation3.navigator.Navigation3Navigator
@@ -24,7 +23,7 @@ import org.jdc.template.ux.MainAppScaffoldWithNavBar
 
 @Composable
 fun AcknowledgementScreen(
-    navigator: Navigation3Navigator<NavKey>,
+    navigator: Navigation3Navigator,
     viewModel: AcknowledgementViewModel
 ) {
     val uiState = viewModel.uiState

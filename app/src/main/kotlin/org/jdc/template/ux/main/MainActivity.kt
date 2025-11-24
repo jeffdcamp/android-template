@@ -76,7 +76,7 @@ class MainActivity : ComponentActivity() {
 
 
             AppTheme(darkTheme, dynamicTheme) {
-                MainScreen(viewModel)
+                MainScreen()
             }
         }
     }

@@ -1,92 +1,137 @@
 package org.jdc.template.ui.navigation3.navigator
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
+import org.jdc.template.ui.navigation3.NavigationState
 import org.jdc.template.ui.navigation3.navigate
 import org.jdc.template.ui.navigation3.pop
 
-class TopLevelBackStackNavigator<T : NavKey>(startKey: T) : Navigation3Navigator<T> {
+/**
+ * Navigator for use with BottomNavigation and Multiple Back Stacks
+ *
+ * Example usage (Android):
+ *
+ * @Composable
+ * fun MainScreen() {
+ *     val navigationState = rememberNavigationState(
+ *         startRoute = ARoute,
+ *         topLevelRoutes = NavBarItem.entries.map { it.route }.toSet(),
+ *         navKeySerializer = NavKeySerializer()
+ *     )
+ *
+ *     val navigator = TopLevelBackStackNavigator(navigationState)
+ *
+ *     val entryProvider: (NavKey) -> NavEntry<NavKey> = entryProvider {
+ *         entry<ARoute> { AScreen(navigator, hiltViewModel()) }
+ *         entry<BRoute> { BScreen(navigator, hiltViewModel()) }
+ *         entry<CRoute> { CScreen(navigator, hiltViewModel()) }
+ *     }
+ *
+ *     NavDisplay(
+ *         entries = navigationState.toEntries(entryProvider),
+ *         onBack = { navigator.pop() }
+ *     )
+ * }
+ *
+ * Example usage (KMP):
+ *
+ * @Composable
+ * fun MainScreen() {
+ *     val navigationState = rememberNavigationState(
+ *         startRoute = ARoute,
+ *         topLevelRoutes = NavBarItem.entries.map { it.route }.toSet(),
+ *         navKeySerializer = NavKeyBridgeSerializer
+ *     )
+ *
+ *     val navigator = TopLevelBackStackNavigator(navigationState)
+ *
+ *     val entryProvider: (NavKey) -> NavEntry<NavKey> = entryProvider {
+ *         entry<ARoute> { AScreen(navigator, hiltViewModel()) }
+ *         entry<BRoute> { BScreen(navigator, hiltViewModel()) }
+ *         entry<CRoute> { CScreen(navigator, hiltViewModel()) }
+ *     }
+ *
+ *     NavDisplay(
+ *         entries = navigationState.toEntries(entryProvider),
+ *         onBack = { navigator.pop() }
+ *     )
+ * }
+ *
+ * val NavKeySerializerModule = SerializersModule {
+ *     polymorphic(NavKey::class) {
+ *         subclass(ARoute::class)
+ *         subclass(BRoute::class)
+ *         subclass(CRoute::class)
+ *     }
+ * }
+ *
+ * private val NavKeyJson = Json {
+ *     serializersModule = NavKeySerializerModule
+ *     ignoreUnknownKeys = true
+ * }
+ *
+ * object NavKeyBridgeSerializer : KSerializer<NavKey> {
+ *     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("NavKeyBridge", PrimitiveKind.STRING)
+ *
+ *     override fun serialize(encoder: Encoder, value: NavKey) {
+ *         val string = NavKeyJson.encodeToString(
+ *             PolymorphicSerializer(NavKey::class),
+ *             value
+ *         )
+ *         encoder.encodeString(string)
+ *     }
+ *
+ *     override fun deserialize(decoder: Decoder): NavKey {
+ *         // We read the string back and decode it using the module
+ *         val string = decoder.decodeString()
+ *         return NavKeyJson.decodeFromString(
+ *             PolymorphicSerializer(NavKey::class),
+ *             string
+ *         )
+ *     }
+ * }
+ *
+ */
+class TopLevelBackStackNavigator(val state: NavigationState) : Navigation3Navigator {
+    private fun currentBackStack(): NavBackStack<NavKey>? = state.backStacks[state.topLevelRoute]
 
-    // Maintain a stack for each top level route
-    private val topLevelStacks: LinkedHashMap<T, NavBackStack<T>> = linkedMapOf(
-        startKey to NavBackStack(startKey)
-    )
-
-    // Expose the current top level route for consumers
-    private val selectedTopLevelRoute: MutableState<T> = mutableStateOf(startKey)
-
-    // Expose the back stack so it can be rendered by the NavDisplay
-    private val backStack: NavBackStack<T> = NavBackStack(startKey)
-
-    private fun updateBackStack(): NavBackStack<T> {
-        return backStack.apply {
-            clear()
-            addAll(topLevelStacks.flatMap { it.value })
-        }
+    override fun navigate(key: NavKey) {
+        currentBackStack()?.add(key)
     }
 
-    fun navigateTopLevel(key: T) {
-        // If the top level doesn't exist, add it
-        if (topLevelStacks[key] == null) {
-            topLevelStacks.put(key, NavBackStack(key))
-        } else {
-            // Otherwise just move it to the end of the stacks
-            topLevelStacks.apply {
-                remove(key)?.let {
-                    put(key, it)
-                }
-            }
-        }
-        selectedTopLevelRoute.value = key
-        updateBackStack()
-    }
-
-    override fun getBackStack(): NavBackStack<T> {
-        return backStack
-    }
-
-    override fun navigate(key: T) {
-        topLevelStacks[selectedTopLevelRoute.value]?.add(key)
-        updateBackStack()
-    }
-
-    override fun navigate(keys: List<T>) {
-        topLevelStacks[selectedTopLevelRoute.value]?.navigate(keys)
-        updateBackStack()
+    override fun navigate(keys: List<NavKey>) {
+        currentBackStack()?.navigate(keys)
     }
 
     override fun pop(): Boolean {
         return pop(null)
     }
 
-    override fun pop(key: T?): Boolean {
-        val currentStack: NavBackStack<T>? = topLevelStacks[selectedTopLevelRoute.value]
-        val removedKey: T? = currentStack?.pop(key)
-
-        // If the removed key was a top level key, remove the associated top level stack
-        topLevelStacks.remove(removedKey)
-        selectedTopLevelRoute.value = topLevelStacks.keys.last()
-        updateBackStack()
-        return removedKey != null
+    override fun pop(key: NavKey?): Boolean {
+        // If we're at the base of the current route, go back to the start route stack.
+        return if (currentBackStack()?.last() == state.topLevelRoute) {
+            navigateTopLevel(state.startRoute, false)
+            false
+        } else {
+            currentBackStack()?.pop(key) != null
+        }
     }
 
-    override fun popAndNavigate(key: T): Boolean {
+    override fun popAndNavigate(key: NavKey): Boolean {
         val keyRemoved = pop()
         navigate(key)
 
         return keyRemoved
     }
 
-    override fun navigateTopLevel(key: T, reselected: Boolean) {
+    override fun navigateTopLevel(key: NavKey, reselected: Boolean) {
         if (reselected) {
             // clear back stack
-            backStack.pop(popToKey = key)
+            currentBackStack()?.pop(popToKey = key)
         } else {
-            navigateTopLevel(key)
+            state.topLevelRoute = key
         }
     }
 
-    override fun getSelectedTopLevelRoute(): MutableState<T>? = selectedTopLevelRoute
+    override fun getSelectedTopLevelRoute() = state.topLevelRoute
 }
