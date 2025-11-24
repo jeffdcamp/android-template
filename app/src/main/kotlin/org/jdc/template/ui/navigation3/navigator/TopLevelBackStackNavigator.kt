@@ -11,6 +11,7 @@ import org.jdc.template.ui.navigation3.pop
  *
  * Example usage (Android):
  *
+ * ```kotlin
  * @Composable
  * fun MainScreen() {
  *     val navigationState = rememberNavigationState(
@@ -32,9 +33,11 @@ import org.jdc.template.ui.navigation3.pop
  *         onBack = { navigator.pop() }
  *     )
  * }
+ * ```
  *
  * Example usage (KMP):
  *
+ * ```kotlin
  * @Composable
  * fun MainScreen() {
  *     val navigationState = rememberNavigationState(
@@ -90,7 +93,7 @@ import org.jdc.template.ui.navigation3.pop
  *         )
  *     }
  * }
- *
+ * ```
  */
 class TopLevelBackStackNavigator(val state: NavigationState) : Navigation3Navigator {
     private fun currentBackStack(): NavBackStack<NavKey>? = state.backStacks[state.topLevelRoute]
