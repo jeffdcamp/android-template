@@ -2,11 +2,15 @@ package org.jdc.template.ux.main
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.NavEntry
+import androidx.navigation3.runtime.NavEntryDecorator
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.runtime.serialization.NavKeySerializer
 import androidx.navigation3.ui.NavDisplay
+import org.jdc.template.ui.navigation3.NavigationState
 import org.jdc.template.ui.navigation3.navigator.TopLevelBackStackNavigator
 import org.jdc.template.ui.navigation3.rememberNavigationState
 import org.jdc.template.ui.navigation3.toEntries
@@ -33,7 +37,7 @@ import org.jdc.template.ux.settings.SettingsScreen
 
 @Composable
 fun MainScreen() {
-    val navigationState = rememberNavigationState(
+    val navigationState: NavigationState = rememberNavigationState(
         startRoute = DirectoryRoute,
         topLevelRoutes = NavBarItem.entries.map { it.route }.toSet(),
         navKeySerializer = NavKeySerializer()
@@ -57,8 +61,13 @@ fun MainScreen() {
         entry<AcknowledgmentsRoute> { AcknowledgementScreen(navigator, hiltViewModel()) }
     }
 
+    val decorators: List<NavEntryDecorator<NavKey>> = listOf(
+        rememberSaveableStateHolderNavEntryDecorator(),
+        rememberViewModelStoreNavEntryDecorator()
+    )
+
     NavDisplay(
-        entries = navigationState.toEntries(entryProvider),
+        entries = navigationState.toEntries(entryProvider, decorators),
         onBack = { navigator.pop() }
     )
 }
