@@ -7,12 +7,8 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class ResultStore
-@Inject constructor() {
+object ResultStore {
     private val lock = reentrantLock()
     private val resultMap = mutableMapOf<ResultKey, Any>()
     private val resultCallbacks = mutableMapOf<ResultKey, MutableList<ResultStoreCallback>>()
