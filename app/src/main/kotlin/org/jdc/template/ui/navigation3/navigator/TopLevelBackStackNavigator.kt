@@ -96,14 +96,14 @@ import org.jdc.template.ui.navigation3.pop
  * ```
  */
 class TopLevelBackStackNavigator(val state: NavigationState) : Navigation3Navigator {
-    private fun currentBackStack(): NavBackStack<NavKey>? = state.backStacks[state.topLevelRoute]
+    override fun getCurrentBackStack(): NavBackStack<NavKey>? = state.backStacks[state.topLevelRoute]
 
     override fun navigate(key: NavKey) {
-        currentBackStack()?.add(key)
+        getCurrentBackStack()?.add(key)
     }
 
     override fun navigate(keys: List<NavKey>) {
-        currentBackStack()?.navigate(keys)
+        getCurrentBackStack()?.navigate(keys)
     }
 
     override fun pop(): Boolean {
@@ -112,11 +112,11 @@ class TopLevelBackStackNavigator(val state: NavigationState) : Navigation3Naviga
 
     override fun pop(key: NavKey?): Boolean {
         // If we're at the base of the current route, go back to the start route stack.
-        return if (currentBackStack()?.last() == state.topLevelRoute) {
+        return if (getCurrentBackStack()?.last() == state.topLevelRoute) {
             navigateTopLevel(state.startRoute, false)
             false
         } else {
-            currentBackStack()?.pop(key) != null
+            getCurrentBackStack()?.pop(key) != null
         }
     }
 
@@ -130,7 +130,7 @@ class TopLevelBackStackNavigator(val state: NavigationState) : Navigation3Naviga
     override fun navigateTopLevel(key: NavKey, reselected: Boolean) {
         if (reselected) {
             // clear back stack
-            currentBackStack()?.pop(popToKey = key)
+            getCurrentBackStack()?.pop(popToKey = key)
         } else {
             state.topLevelRoute = key
         }

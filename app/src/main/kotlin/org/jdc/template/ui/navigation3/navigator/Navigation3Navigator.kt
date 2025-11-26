@@ -1,8 +1,17 @@
 package org.jdc.template.ui.navigation3.navigator
 
+import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 
 interface Navigation3Navigator {
+
+    /**
+     * Returns the current back stack of the navigator.
+     *
+     * @return The current [NavBackStack] or null if no back stack exists.
+     */
+    fun getCurrentBackStack(): NavBackStack<NavKey>?
+
     /**
      * Navigate to a new route with the given key.
      *

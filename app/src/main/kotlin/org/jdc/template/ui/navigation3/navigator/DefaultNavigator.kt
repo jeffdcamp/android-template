@@ -89,6 +89,8 @@ import org.jdc.template.ui.navigation3.pop
 class DefaultNavigator(
     private val backStack: NavBackStack<NavKey>
 ) : Navigation3Navigator {
+    override fun getCurrentBackStack(): NavBackStack<NavKey> = backStack
+
     override fun navigate(key: NavKey) {
         backStack.navigate(key)
     }
