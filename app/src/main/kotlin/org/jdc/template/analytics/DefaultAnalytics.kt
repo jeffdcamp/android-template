@@ -5,10 +5,10 @@ import android.content.Context
 import android.content.Intent
 import co.touchlab.kermit.Logger
 import com.google.firebase.analytics.FirebaseAnalytics
-import kotlin.time.Clock
-import kotlin.time.Instant
 import org.jdc.template.BuildConfig
+import kotlin.time.Clock
 import kotlin.time.Duration.Companion.hours
+import kotlin.time.Instant
 
 /**
  * DebugView for Firebase Analytics (https://firebase.google.com/docs/analytics/debugview)

@@ -15,7 +15,6 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation3.runtime.NavKey
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.jdc.template.R
 import org.jdc.template.shared.model.domain.type.IndividualType

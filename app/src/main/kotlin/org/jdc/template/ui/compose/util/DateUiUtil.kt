@@ -2,7 +2,6 @@ package org.jdc.template.ui.compose.util
 
 import android.content.Context
 import android.text.format.DateUtils
-import kotlin.time.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
@@ -10,6 +9,7 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.atStartOfDayIn
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
+import kotlin.time.Clock
 
 object DateUiUtil {
     /**
