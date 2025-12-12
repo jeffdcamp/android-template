@@ -6,6 +6,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
@@ -17,7 +18,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.jdc.template.R
 import org.jdc.template.ui.navigation3.HandleNavigation3
 import org.jdc.template.ui.navigation3.navigator.Navigation3Navigator
-import org.jdc.template.ux.DefaultNav3FloatingActionButton
 import org.jdc.template.ux.MainAppScaffoldWithNavBar
 
 @Composable
@@ -32,13 +32,10 @@ fun ChatsScreen(
         title = stringResource(R.string.chats),
         navigationIconVisible = false,
         onNavigationClick = { navigator.pop() },
-        floatingActionButton = { navSuiteType, isWideNavRailCollapsedType, railExpanded ->
-            DefaultNav3FloatingActionButton(
-                icon = { Icon(Icons.Filled.Add, contentDescription = stringResource(R.string.add)) },
+        floatingActionButton = {
+            FloatingActionButton(
                 onClick = { uiState.onNewClick() },
-                navSuiteType = navSuiteType,
-                isWideNavRailCollapsedType = isWideNavRailCollapsedType,
-                railExpanded = railExpanded
+                content = { Icon(Icons.Filled.Add, contentDescription = stringResource(R.string.add)) }
             )
         }
     ) {

@@ -2,9 +2,7 @@ package org.jdc.template.ux
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -14,25 +12,17 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.ModalWideNavigationRail
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.WideNavigationRailItem
 import androidx.compose.material3.WideNavigationRailState
-import androidx.compose.material3.WideNavigationRailValue
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
-import androidx.compose.material3.adaptive.navigationsuite.NavigationSuite
-import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteItem
+import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffoldDefaults
-import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffoldLayout
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteType
-import androidx.compose.material3.adaptive.navigationsuite.rememberNavigationSuiteScaffoldState
-import androidx.compose.material3.rememberWideNavigationRailState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -61,7 +51,7 @@ fun MainAppScaffoldWithNavBar(
     onNavigationClick: (() -> Unit)? = null,
     hideNavigation: Boolean = false,
     actions: @Composable (RowScope.() -> Unit)? = null,
-    floatingActionButton: @Composable (navSuiteType: NavigationSuiteType, isWideNavRailCollapsedType: Boolean, railExpanded: Boolean) -> Unit = { _, _, _ -> },
+    floatingActionButton: @Composable () -> Unit = {},
     content: @Composable () -> Unit,
 ) {
     MainAppScaffoldWithNavBar(
@@ -88,66 +78,24 @@ fun MainAppScaffoldWithNavBar(
     onNavigationClick: (() -> Unit)? = null,
     hideNavigation: Boolean = false,
     actions: @Composable (RowScope.() -> Unit)? = null,
-    floatingActionButton: @Composable (navSuiteType: NavigationSuiteType, isWideNavRailCollapsedType: Boolean, railExpanded: Boolean) -> Unit = { _, _, _ -> },
+    floatingActionButton: @Composable () -> Unit = {},
     content: @Composable () -> Unit,
 ) {
-    val navSuiteType = if (hideNavigation) NavigationSuiteType.None else NavigationSuiteScaffoldDefaults.navigationSuiteType(currentWindowAdaptiveInfo())
-    val state = rememberNavigationSuiteScaffoldState()
-    val scope = rememberCoroutineScope()
-    val railState = rememberWideNavigationRailState()
-    val railExpanded = railState.currentValue == WideNavigationRailValue.Expanded
-    val isWideNavRailCollapsedType = navSuiteType == NavigationSuiteType.WideNavigationRailCollapsed
-    val menuButton = @Composable { NavigationRailMenuButton(railExpanded, scope, railState) }
-
     Surface(
         modifier = modifier
     ) {
-        // Use NavigationSuiteScaffoldLayout so that we can customize the NavigationSuite.
-        NavigationSuiteScaffoldLayout(
-            navigationSuiteType = navSuiteType,
-            state = state,
-            primaryActionContent = { floatingActionButton(navSuiteType, isWideNavRailCollapsedType, railExpanded) },
-            navigationSuite = {
-                // Pass in a custom modal rail to substitute the default collapsed wide nav rail.
-                if (isWideNavRailCollapsedType) {
-                    ModalWideNavigationRail(
-                        state = railState,
-                        header = {
-                            Column {
-                                menuButton()
-                                Spacer(Modifier.padding(vertical = 8.dp))
-                                floatingActionButton(navSuiteType, true, railExpanded)
-                            }
-                        },
-                        expandedHeaderTopPadding = 64.dp,
-                    ) {
-                        NavBarItem.entries.forEach { navBarItem: NavBarItem ->
-                            val isSelected = navBarItem.route == navigator.getSelectedTopLevelRoute()
-                            WideNavigationRailItem(
-                                icon = { Icon(imageVector = if (isSelected) navBarItem.selectedImageVector else navBarItem.unselectedImageVector, contentDescription = null) },
-                                label = navBarItem.textResId?.let{ { Text(stringResource(it)) } },
-                                selected = isSelected,
-                                onClick = { navigator.navigateTopLevel(navBarItem.route, reselected = isSelected) },
-                                railExpanded = railExpanded,
-                            )
-                        }
-                    }
-                } else {
-                    NavigationSuite(
-                        navigationSuiteType = navSuiteType,
-                        primaryActionContent = { floatingActionButton(navSuiteType, false, railExpanded) },
-                    ) {
-                        NavBarItem.entries.forEach { navBarItem: NavBarItem ->
-                            val isSelected = navBarItem.route == navigator.getSelectedTopLevelRoute()
-                            NavigationSuiteItem(
-                                navigationSuiteType = navSuiteType,
-                                icon = { Icon(imageVector = if (isSelected) navBarItem.selectedImageVector else navBarItem.unselectedImageVector, contentDescription = null) },
-                                label = navBarItem.textResId?.let{ { Text(stringResource(it)) } },
-                                selected = isSelected,
-                                onClick = { navigator.navigateTopLevel(navBarItem.route, reselected = isSelected) },
-                            )
-                        }
-                    }
+        NavigationSuiteScaffold(
+            layoutType = if (hideNavigation) NavigationSuiteType.None else NavigationSuiteScaffoldDefaults.navigationSuiteType(currentWindowAdaptiveInfo()),
+            navigationSuiteItems = {
+                NavBarItem.entries.forEach { navBarItem: NavBarItem ->
+                    val isSelected = navBarItem.route == navigator.getSelectedTopLevelRoute()
+                    val imageVector = if (isSelected) navBarItem.selectedImageVector else navBarItem.unselectedImageVector
+                    item(
+                        selected = isSelected,
+                        icon = { Icon(imageVector = imageVector, contentDescription = null) },
+                        label = navBarItem.textResId?.let { { Text(stringResource(it)) } },
+                        onClick = { navigator.navigateTopLevel(navBarItem.route, reselected = isSelected) },
+                    )
                 }
             }
         ) {
@@ -157,6 +105,7 @@ fun MainAppScaffoldWithNavBar(
                 navigationIcon = navigationIcon,
                 onNavigationClick = onNavigationClick,
                 actions = actions,
+                floatingActionButton = floatingActionButton,
                 content = content
             )
         }
@@ -171,6 +120,7 @@ private fun AppScaffold(
     navigationIcon: ImageVector = Icons.AutoMirrored.Filled.ArrowBack,
     onNavigationClick: (() -> Unit)? = null,
     actions: @Composable (RowScope.() -> Unit)? = null,
+    floatingActionButton: @Composable () -> Unit = {},
     content: @Composable () -> Unit,
 ) {
     val windowSize = LocalContext.current.requireActivity().rememberWindowSize()
@@ -212,62 +162,10 @@ private fun AppScaffold(
     Scaffold(
         topBar = topAppBar,
         modifier = appScaffoldModifier,
+        floatingActionButton = floatingActionButton
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
             content()
         }
     }
-}
-
-@Composable
-private fun NavigationRailMenuButton(
-    railExpanded: Boolean,
-    scope: CoroutineScope,
-    railState: WideNavigationRailState
-) {
-    IconButton(
-        modifier =
-            Modifier
-                .padding(start = 24.dp, bottom = 8.dp)
-                .semantics {
-                    stateDescription = if (railExpanded) "Expanded" else "Collapsed"
-                },
-        onClick = { scope.launch { railState.toggle() } }
-    ) {
-        if (railExpanded) {
-            Icon(Icons.AutoMirrored.Filled.MenuOpen, "Collapse rail")
-        } else {
-            Icon(Icons.Filled.Menu, "Expand rail")
-        }
-    }
-}
-
-@Composable
-fun DefaultNav3FloatingActionButton(
-    icon: @Composable () -> Unit,
-    onClick: () -> Unit,
-    navSuiteType: NavigationSuiteType,
-    isWideNavRailCollapsedType: Boolean,
-    railExpanded: Boolean,
-    modifier: Modifier = Modifier,
-    text: String? = null,
-) {
-    val startPadding =
-        if (navSuiteType == NavigationSuiteType.ShortNavigationBarMedium) {
-            0.dp
-        } else {
-            24.dp
-        }
-
-    ExtendedFloatingActionButton(
-        modifier = modifier.padding(start = startPadding), // .then(animateFAB),
-        onClick = { onClick() },
-        expanded = if (text.isNullOrBlank()) {
-            false
-        } else {
-            if (isWideNavRailCollapsedType) railExpanded else navSuiteType == NavigationSuiteType.WideNavigationRailExpanded
-        },
-        icon = icon,
-        text = if (text != null) { { Text(text) } } else { {} }
-    )
 }
