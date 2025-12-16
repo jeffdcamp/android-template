@@ -1,5 +1,7 @@
 package org.jdc.template.ux.individual
 
+import androidx.compose.runtime.Composable
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.assisted.Assisted
@@ -20,5 +22,10 @@ class IndividualViewModel
     @AssistedFactory
     interface Factory {
         fun create(individualRoute: IndividualRoute): IndividualViewModel
+    }
+
+    companion object {
+        @Composable
+        fun create(individualRoute: IndividualRoute) = hiltViewModel<IndividualViewModel, IndividualViewModel.Factory>(creationCallback = { it.create(individualRoute) })
     }
 }

@@ -47,12 +47,8 @@ fun MainScreen() {
 
     val entryProvider: (NavKey) -> NavEntry<NavKey> = entryProvider {
         entry<DirectoryRoute> { DirectoryScreen(navigator, hiltViewModel()) }
-        entry<IndividualRoute> { key ->
-            IndividualScreen(navigator, hiltViewModel<IndividualViewModel, IndividualViewModel.Factory>(creationCallback = { it.create(key) }))
-        }
-        entry<IndividualEditRoute> { key ->
-            IndividualEditScreen(navigator, hiltViewModel<IndividualEditViewModel, IndividualEditViewModel.Factory>(creationCallback = { it.create(key) }))
-        }
+        entry<IndividualRoute> { key -> IndividualScreen(navigator, IndividualViewModel.create(key)) }
+        entry<IndividualEditRoute> { key -> IndividualEditScreen(navigator,  IndividualEditViewModel.create(key)) }
         entry<ChatsRoute> { ChatsScreen(navigator, hiltViewModel()) }
         entry<ChatRoute> { ChatScreen(navigator, hiltViewModel()) }
         entry<SettingsRoute> { SettingsScreen(navigator, hiltViewModel()) }

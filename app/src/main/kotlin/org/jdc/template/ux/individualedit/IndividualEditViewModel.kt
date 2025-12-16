@@ -1,5 +1,7 @@
 package org.jdc.template.ux.individualedit
 
+import androidx.compose.runtime.Composable
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.assisted.Assisted
@@ -20,5 +22,10 @@ class IndividualEditViewModel
     @AssistedFactory
     interface Factory {
         fun create(individualEditRoute: IndividualEditRoute): IndividualEditViewModel
+    }
+
+    companion object {
+        @Composable
+        fun create(individualEditRoute: IndividualEditRoute) = hiltViewModel<IndividualEditViewModel, IndividualEditViewModel.Factory>(creationCallback = { it.create(individualEditRoute) })
     }
 }
