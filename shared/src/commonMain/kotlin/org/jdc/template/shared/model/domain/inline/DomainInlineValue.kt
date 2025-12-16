@@ -1,42 +1,64 @@
 package org.jdc.template.shared.model.domain.inline
 
-import kotlin.time.Instant
 import kotlinx.serialization.Serializable
+import org.jdc.template.shared.util.serialization.DataClassInstantSerializer
+import org.jdc.template.shared.util.serialization.DataClassStringSerializer
+import org.jdc.template.shared.util.serialization.DataValueInstantClass
+import org.jdc.template.shared.util.serialization.DataValueStringClass
+import kotlin.time.Instant
 
-@Serializable
-data class IndividualId(val value: String) {
+@Serializable(with = IndividualIdSerializer::class)
+data class IndividualId(override val value: String): DataValueStringClass {
     init {
         require(value.isNotBlank()) { "IndividualId cannot have a empty value" }
     }
 }
+object IndividualIdSerializer : DataClassStringSerializer<IndividualId>("IndividualIdSerializer", { IndividualId(it) })
 
-data class HouseholdId(val value: String) {
+@Serializable(with = HouseholdIdSerializer::class)
+data class HouseholdId(override val value: String): DataValueStringClass {
     init {
         require(value.isNotBlank()) { "HouseholdId cannot have a empty value" }
     }
 }
+object HouseholdIdSerializer : DataClassStringSerializer<HouseholdId>("HouseholdIdSerializer", { HouseholdId(it) })
 
-data class FirstName(val value: String)
+@Serializable(with = FirstNameSerializer::class)
+data class FirstName(override val value: String): DataValueStringClass
+object FirstNameSerializer : DataClassStringSerializer<FirstName>("FirstNameSerializer", { FirstName(it) })
 
-data class LastName(val value: String)
+@Serializable(with = LastNameSerializer::class)
+data class LastName(override val value: String): DataValueStringClass
+object LastNameSerializer : DataClassStringSerializer<LastName>("LastNameSerializer", { LastName(it) })
 
-data class Phone(val value: String)
+@Serializable(with = PhoneSerializer::class)
+data class Phone(override val value: String): DataValueStringClass
+object PhoneSerializer : DataClassStringSerializer<Phone>("PhoneSerializer", { Phone(it) })
 
-data class Email(val value: String)
+@Serializable(with = EmailSerializer::class)
+data class Email(override val value: String): DataValueStringClass
+object EmailSerializer : DataClassStringSerializer<Email>("EmailSerializer", { Email(it) })
 
-data class CreatedTime(val value: Instant)
+@Serializable(with = CreatedTimeSerializer::class)
+data class CreatedTime(override val value: Instant): DataValueInstantClass
+object CreatedTimeSerializer : DataClassInstantSerializer<CreatedTime>("CreatedTimeSerializer", { CreatedTime(it) })
 
-data class LastModifiedTime(val value: Instant)
+@Serializable(with = LastModifiedTimeSerializer::class)
+data class LastModifiedTime(override val value: Instant): DataValueInstantClass
+object LastModifiedTimeSerializer : DataClassInstantSerializer<LastModifiedTime>("LastModifiedTimeSerializer", { LastModifiedTime(it) })
 
-@Serializable
-data class ChatThreadId(val value: String) {
+@Serializable(with = ChatThreadIdSerializer::class)
+data class ChatThreadId(override val value: String): DataValueStringClass {
     init {
         require(value.isNotBlank()) { "ChatThreadId cannot have a empty value" }
     }
 }
+object ChatThreadIdSerializer : DataClassStringSerializer<ChatThreadId>("ChatThreadIdSerializer", { ChatThreadId(it) })
 
-data class ChatMessageId(val value: String) {
+@Serializable(with = ChatMessageIdSerializer::class)
+data class ChatMessageId(override val value: String): DataValueStringClass {
     init {
         require(value.isNotBlank()) { "ChatMessageId cannot have a empty value" }
     }
 }
+object ChatMessageIdSerializer : DataClassStringSerializer<ChatMessageId>("ChatMessageIdSerializer", { ChatMessageId(it) })
