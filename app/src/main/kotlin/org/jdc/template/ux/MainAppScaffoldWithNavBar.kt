@@ -1,44 +1,29 @@
 package org.jdc.template.ux
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.MenuOpen
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.WideNavigationRailState
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffoldDefaults
-import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteType
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.stateDescription
-import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 import org.jdc.template.R
-import org.jdc.template.ui.compose.util.WindowSize
-import org.jdc.template.ui.compose.util.rememberWindowSize
 import org.jdc.template.ui.navigation3.navigator.Navigation3Navigator
-import org.jdc.template.util.ext.requireActivity
 import org.jdc.template.ux.main.NavBarItem
 
 @Composable
@@ -52,6 +37,8 @@ fun MainAppScaffoldWithNavBar(
     hideNavigation: Boolean = false,
     actions: @Composable (RowScope.() -> Unit)? = null,
     floatingActionButton: @Composable () -> Unit = {},
+    floatingActionButtonPosition: FabPosition = FabPosition.End,
+    contentWindowInsets: WindowInsets = WindowInsets(0, 0, 0, 0), // required when using enableEdgeToEdge
     content: @Composable () -> Unit,
 ) {
     MainAppScaffoldWithNavBar(
@@ -64,6 +51,8 @@ fun MainAppScaffoldWithNavBar(
         hideNavigation = hideNavigation,
         actions = actions,
         floatingActionButton = floatingActionButton,
+        floatingActionButtonPosition = floatingActionButtonPosition,
+        contentWindowInsets = contentWindowInsets,
         content = content
     )
 }
@@ -79,27 +68,14 @@ fun MainAppScaffoldWithNavBar(
     hideNavigation: Boolean = false,
     actions: @Composable (RowScope.() -> Unit)? = null,
     floatingActionButton: @Composable () -> Unit = {},
+    floatingActionButtonPosition: FabPosition = FabPosition.End,
+    contentWindowInsets: WindowInsets = WindowInsets(0, 0, 0, 0), // required when using enableEdgeToEdge
     content: @Composable () -> Unit,
 ) {
-    Surface(
-        modifier = modifier
-    ) {
-        NavigationSuiteScaffold(
-            layoutType = if (hideNavigation) NavigationSuiteType.None else NavigationSuiteScaffoldDefaults.navigationSuiteType(currentWindowAdaptiveInfo()),
-            navigationSuiteItems = {
-                NavBarItem.entries.forEach { navBarItem: NavBarItem ->
-                    val isSelected = navBarItem.route == navigator.getSelectedTopLevelRoute()
-                    val imageVector = if (isSelected) navBarItem.selectedImageVector else navBarItem.unselectedImageVector
-                    item(
-                        selected = isSelected,
-                        icon = { Icon(imageVector = imageVector, contentDescription = null) },
-                        label = navBarItem.textResId?.let { { Text(stringResource(it)) } },
-                        onClick = { navigator.navigateTopLevel(navBarItem.route, reselected = isSelected) },
-                    )
-                }
-            }
-        ) {
+    when {
+        hideNavigation -> {
             AppScaffold(
+                modifier = modifier,
                 title = title,
                 navigationIconVisible = navigationIconVisible,
                 navigationIcon = navigationIcon,
@@ -108,6 +84,36 @@ fun MainAppScaffoldWithNavBar(
                 floatingActionButton = floatingActionButton,
                 content = content
             )
+        }
+        else -> {
+            NavigationSuiteScaffold(
+                layoutType = NavigationSuiteScaffoldDefaults.navigationSuiteType(currentWindowAdaptiveInfo()),
+                navigationSuiteItems = {
+                    NavBarItem.entries.forEach { navBarItem: NavBarItem ->
+                        val isSelected = navBarItem.route == navigator.getSelectedTopLevelRoute()
+                        val imageVector = if (isSelected) navBarItem.selectedImageVector else navBarItem.unselectedImageVector
+                        item(
+                            selected = isSelected,
+                            icon = { Icon(imageVector = imageVector, contentDescription = null) },
+                            label = navBarItem.textResId?.let { { Text(stringResource(it)) } },
+                            onClick = { navigator.navigateTopLevel(navBarItem.route, reselected = isSelected) },
+                        )
+                    }
+                }
+            ) {
+                AppScaffold(
+                    modifier = modifier,
+                    title = title,
+                    navigationIconVisible = navigationIconVisible,
+                    navigationIcon = navigationIcon,
+                    onNavigationClick = onNavigationClick,
+                    actions = actions,
+                    floatingActionButton = floatingActionButton,
+                    floatingActionButtonPosition = floatingActionButtonPosition,
+                    contentWindowInsets = contentWindowInsets,
+                    content = content
+                )
+            }
         }
     }
 }
@@ -121,21 +127,14 @@ private fun AppScaffold(
     onNavigationClick: (() -> Unit)? = null,
     actions: @Composable (RowScope.() -> Unit)? = null,
     floatingActionButton: @Composable () -> Unit = {},
+    floatingActionButtonPosition: FabPosition = FabPosition.End,
+    contentWindowInsets: WindowInsets = WindowInsets(0, 0, 0, 0), // required when using enableEdgeToEdge
     content: @Composable () -> Unit,
 ) {
-    val windowSize = LocalContext.current.requireActivity().rememberWindowSize()
-    val isLandscape = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
-
-    val appScaffoldModifier = if (isLandscape && windowSize == WindowSize.COMPACT) {
-        modifier
+    val appScaffoldModifier = modifier
             .nestedScroll(scrollBehavior.nestedScrollConnection)
             .imePadding()
-    } else {
-        modifier
-            .nestedScroll(scrollBehavior.nestedScrollConnection)
-            .imePadding()
-    }
 
     // TopAppBar
     val topAppBar: @Composable (() -> Unit) = {
@@ -161,8 +160,10 @@ private fun AppScaffold(
 
     Scaffold(
         topBar = topAppBar,
-        modifier = appScaffoldModifier,
-        floatingActionButton = floatingActionButton
+        floatingActionButton = floatingActionButton,
+        floatingActionButtonPosition = floatingActionButtonPosition,
+        contentWindowInsets = contentWindowInsets,
+        modifier = appScaffoldModifier
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
             content()
