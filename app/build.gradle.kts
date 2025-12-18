@@ -227,6 +227,7 @@ dependencies {
     ksp(libs.google.hilt.compiler)
 
     ksp(libs.androidx.hilt.compiler)
+    ksp(libs.kotlin.metadata.jvm)
     implementation(libs.androidx.hilt.work)
 
     // Android Architecture Components

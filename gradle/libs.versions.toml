@@ -1,12 +1,12 @@
 [versions]
 agp = "8.13.2"
-kotlin = "2.2.21"
+kotlin = "2.3.0"
 kotlinxAtomicfu = "0.29.0"
 kotlinxCoroutines = "1.10.2"
 kotlinxSerialization = "1.9.0"
 kotlinxDateTime = "0.7.1"
 
-androidxActivity = "1.12.1"
+androidxActivity = "1.12.2"
 androidxComposeMaterial = "1.7.8"
 androidxComposeMaterial3 = "1.4.0"
 androidxComposeMaterial3Adaptive = "1.2.0"
@@ -40,7 +40,7 @@ hilt = "2.57.2"
 kermit = "2.0.8"
 konsist = "0.17.3"
 kover = "0.9.4"
-ksp = "2.3.3"
+ksp = "2.3.4"
 ktor = "3.3.3"
 leakCanary = "2.14"
 licenseManager = "1.6.0"
@@ -146,6 +146,7 @@ kotlin-coroutines-playServices = { group = "org.jetbrains.kotlinx", name = "kotl
 kotlin-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 kotlin-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDateTime" }
 kotlin-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+kotlin-metadata-jvm = { group = "org.jetbrains.kotlin", name = "kotlin-metadata-jvm", version.ref = "kotlin" }
 
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "ktor" }
