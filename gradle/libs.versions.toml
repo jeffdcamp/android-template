@@ -25,7 +25,7 @@ coil = "2.7.0"
 dataStore = "1.2.0"
 dependencyAnalysis = "3.5.1"
 desugarJdkLibs = "2.1.5"
-detekt = "1.23.8"
+detekt = "2.0.0-alpha.1"
 dbtools = "9.3.5"
 downloadPlugin = "5.6.0"
 
@@ -58,7 +58,7 @@ versionsPlugin = "0.53.0"
 android-application = { id = "com.android.application", version.ref = "agp" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 dependencyAnalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyAnalysis" }
-detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+detekt = { id = "dev.detekt", version.ref = "detekt" }
 download = { id = "de.undercouch.download", version.ref = "downloadPlugin" }
 firebase-appdistribution = { id = "com.google.firebase.appdistribution", version.ref = "firebaseAppDistPlugin" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsPlugin" }

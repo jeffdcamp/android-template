@@ -1,7 +1,6 @@
 
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import de.undercouch.gradle.tasks.download.Download
-import io.gitlab.arturbosch.detekt.Detekt
 
 buildscript {
     repositories {
@@ -68,23 +67,21 @@ fun isNonStable(version: String, includeStablePreRelease: Boolean): Boolean {
 }
 
 allprojects {
-    // ===== Detekt =====
     apply(plugin = rootProject.libs.plugins.detekt.get().pluginId)
     apply(plugin = rootProject.libs.plugins.download.get().pluginId)
 
+    // ===== Detekt =====
     // download detekt config file
     tasks.register<Download>("downloadDetektConfig") {
         download {
             onlyIf { !file("$projectDir/build/config/detektConfig.yml").exists() }
-            src("https://mobile-cdn.churchofjesuschrist.org/android/build/detekt/detektConfig-20231101.yml")
+            src("https://mobile-cdn.churchofjesuschrist.org/android/build/detekt/v2/detektConfig-latest.yml")
             dest("$projectDir/build/config/detektConfig.yml")
         }
     }
 
     // make sure when running detekt, the config file is downloaded
-    tasks.withType<Detekt>().configureEach {
-        // Target version of the generated JVM bytecode. It is used for type resolution.
-        this.jvmTarget = "17"
+    tasks.named("detekt").configure {
         dependsOn("downloadDetektConfig")
     }
 
@@ -98,14 +95,12 @@ allprojects {
         //    baseline = file("$projectDir/config/baseline.xml") // a way of suppressing issues before introducing detekt
     }
 
-    tasks.withType<Detekt>().configureEach {
+    tasks.withType<dev.detekt.gradle.Detekt>().configureEach {
         // ignore ImageVector files
         exclude("**/ui/compose/icons/**")
 
         reports {
             html.required.set(true) // observe findings in your browser with structure and code snippets
-            xml.required.set(true) // checkstyle like format mainly for integrations like Jenkins
-            txt.required.set(true) // similar to the console output, contains issue signature to manually edit baseline files
         }
     }
 }
