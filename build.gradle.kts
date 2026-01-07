@@ -80,11 +80,6 @@ allprojects {
         }
     }
 
-    // make sure when running detekt, the config file is downloaded
-    tasks.named("detekt").configure {
-        dependsOn("downloadDetektConfig")
-    }
-
     // ./gradlew detekt
     // ./gradlew detektDebug (support type checking)
     detekt {
@@ -96,6 +91,8 @@ allprojects {
     }
 
     tasks.withType<dev.detekt.gradle.Detekt>().configureEach {
+        dependsOn("downloadDetektConfig")
+
         // ignore ImageVector files
         exclude("**/ui/compose/icons/**")
 
