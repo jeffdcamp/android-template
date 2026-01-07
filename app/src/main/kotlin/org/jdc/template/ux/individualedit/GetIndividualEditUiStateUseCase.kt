@@ -24,11 +24,9 @@ import org.jdc.template.ui.compose.dialog.DialogUiState
 import org.jdc.template.ui.compose.dialog.TimePickerDialogUiState
 import org.jdc.template.ui.compose.dialog.dismissDialog
 import org.jdc.template.ui.navigation3.Navigation3Action
-import javax.inject.Inject
 import kotlin.time.Clock
 
-class GetIndividualEditUiStateUseCase
-@Inject constructor(
+class GetIndividualEditUiStateUseCase(
     private val application: Application,
     private val individualRepository: IndividualRepository,
     private val analytics: Analytics,

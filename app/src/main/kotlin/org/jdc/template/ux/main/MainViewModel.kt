@@ -4,7 +4,6 @@ import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import org.jdc.template.shared.domain.usecase.CreateIndividualTestDataUseCase
@@ -12,11 +11,8 @@ import org.jdc.template.shared.model.domain.type.DisplayThemeType
 import org.jdc.template.shared.model.repository.SettingsRepository
 import org.jdc.template.shared.util.ext.stateInDefault
 import org.jdc.template.work.WorkScheduler
-import javax.inject.Inject
 
-@HiltViewModel
-class MainViewModel
-@Inject constructor(
+class MainViewModel(
     private val workScheduler: WorkScheduler,
     settingsRepository: SettingsRepository,
     private val createIndividualTestDataUseCase: CreateIndividualTestDataUseCase

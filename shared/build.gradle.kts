@@ -81,6 +81,9 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
+                // Koin
+                api(libs.koin.core)
+
                 // Code
                 implementation(libs.kotlin.datetime)
                 implementation(libs.kotlin.serialization.json)
@@ -110,6 +113,7 @@ kotlin {
 
         commonTest {
             dependencies {
+                implementation(libs.koin.test)
                 implementation(libs.room.testing)
                 implementation(libs.kotlin.test)
                 implementation(libs.kotlin.coroutines.test)
@@ -130,9 +134,17 @@ kotlin {
 
         androidMain {
             dependencies {
+                implementation(libs.koin.android)
+                implementation(libs.ktor.client.okhttp)
                 // Add Android-specific dependencies here. Note that this source set depends on
                 // commonMain by default and will correctly pull the Android artifacts of any KMP
                 // dependencies declared in commonMain.
+            }
+        }
+
+        jvmMain {
+            dependencies {
+                implementation(libs.ktor.client.okhttp)
             }
         }
 
@@ -146,6 +158,7 @@ kotlin {
 
         iosMain {
             dependencies {
+                implementation(libs.ktor.client.darwin)
                 // Add iOS-specific dependencies here. This a source set created by Kotlin Gradle
                 // Plugin (KGP) that each specific iOS target (e.g., iosX64) depends on as
                 // part of KMP’s default source set hierarchy. Note that this source set depends

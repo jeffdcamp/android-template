@@ -14,10 +14,8 @@ import org.jdc.template.ui.compose.dialog.dismissDialog
 import org.jdc.template.ui.compose.dialog.showMessageDialog
 import org.jdc.template.ui.navigation3.Navigation3Action
 import org.jdc.template.ux.individualedit.IndividualEditRoute
-import javax.inject.Inject
 
-class GetIndividualUiStateUseCase
-@Inject constructor(
+class GetIndividualUiStateUseCase(
     private val individualRepository: IndividualRepository,
     private val analytics: Analytics,
 ) {

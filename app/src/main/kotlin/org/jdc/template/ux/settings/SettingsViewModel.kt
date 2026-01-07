@@ -5,7 +5,6 @@ import android.os.Build
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -22,11 +21,8 @@ import org.jdc.template.ui.compose.dialog.RadioDialogDataItems
 import org.jdc.template.ui.compose.dialog.RadioDialogUiState
 import org.jdc.template.ui.compose.dialog.dismissDialog
 import org.jdc.template.ui.strings.toString
-import javax.inject.Inject
 
-@HiltViewModel
-class SettingsViewModel
-@Inject constructor(
+class SettingsViewModel(
     private val application: Application,
     private val settingsRepository: SettingsRepository
 ) : ViewModel() {

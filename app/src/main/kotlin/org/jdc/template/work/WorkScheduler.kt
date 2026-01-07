@@ -7,29 +7,23 @@ import androidx.work.Data
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.ExistingWorkPolicy
 import androidx.work.NetworkType
-import androidx.work.OneTimeWorkRequest
+import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.PeriodicWorkRequest
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.jdc.template.BuildConfig
 import org.jdc.template.SuppressCoverage
-import org.jdc.template.inject.ApplicationScope
 import org.jdc.template.shared.model.repository.SettingsRepository
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
-import javax.inject.Singleton
 
 @SuppressCoverage
 @Suppress("MemberVisibilityCanBePrivate")
-@Singleton
-class WorkScheduler
-@Inject constructor(
-    @ApplicationContext context: Context,
+class WorkScheduler(
+    context: Context,
     private val settingsRepository: SettingsRepository,
-    @ApplicationScope private val appScope: CoroutineScope
+    private val appScope: CoroutineScope
 ) {
     private val workManager: WorkManager = WorkManager.getInstance(context)
 
@@ -54,7 +48,7 @@ class WorkScheduler
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
 
-        val workRequest = OneTimeWorkRequest.Builder(SimpleWorker::class.java)
+        val workRequest = OneTimeWorkRequestBuilder<SimpleWorker>()
             .setConstraints(workerConstraints)
             .setInputData(inputData)
             .build()
@@ -67,7 +61,7 @@ class WorkScheduler
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
 
-        val workRequestBuilder = OneTimeWorkRequest.Builder(SyncWorker::class.java)
+        val workRequestBuilder = OneTimeWorkRequestBuilder<SyncWorker>()
             .setConstraints(workerConstraints)
 
         if (!now) {

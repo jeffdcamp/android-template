@@ -2,31 +2,23 @@ package org.jdc.template.startup
 
 import android.content.Context
 import androidx.startup.Initializer
-import dagger.hilt.EntryPoint
-import dagger.hilt.EntryPoints
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import org.jdc.template.model.config.RemoteConfig
+import org.koin.androix.startup.KoinInitializer
+import org.koin.core.annotation.KoinExperimentalAPI
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class RemoteConfigInitializer : Initializer<Unit> {
+class RemoteConfigInitializer : Initializer<Unit>, KoinComponent {
+
+    private val remoteConfig: RemoteConfig by inject()
 
     override fun create(context: Context) {
-        val applicationContext = checkNotNull(context.applicationContext) { "Missing Application Context" }
-        val injector = EntryPoints.get(applicationContext, RemoteConfigInitializerInjector::class.java)
-
-        val remoteConfig = injector.getRemoteConfig()
-
         remoteConfig.fetchAsync()
         remoteConfig.activateAsync()
     }
 
+    @OptIn(KoinExperimentalAPI::class)
     override fun dependencies(): List<Class<out Initializer<*>>> {
-        return listOf(LoggingInitializer::class.java)
-    }
-
-    @EntryPoint
-    @InstallIn(SingletonComponent::class)
-    interface RemoteConfigInitializerInjector {
-        fun getRemoteConfig(): RemoteConfig
+        return listOf(KoinInitializer::class.java, LoggingInitializer::class.java)
     }
 }

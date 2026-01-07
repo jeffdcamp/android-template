@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -34,11 +33,9 @@ import org.jdc.template.ux.about.typography.TypographyRoute
 import org.jdc.template.ux.acknowledgement.AcknowledgmentsRoute
 import org.jdc.template.ux.chats.ChatsRoute
 import org.jdc.template.work.WorkScheduler
-import javax.inject.Inject
 
-@HiltViewModel
-class AboutViewModel
-@Inject constructor(
+@Suppress("LongParameterList")
+class AboutViewModel(
     private val application: Application,
     private val individualRepository: IndividualRepository,
     private val colorService: ColorService,

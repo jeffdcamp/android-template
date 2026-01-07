@@ -2,12 +2,9 @@ package org.jdc.template.work
 
 import android.content.Context
 import androidx.annotation.WorkerThread
-import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import co.touchlab.kermit.Logger
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedInject
 import kotlinx.coroutines.delay
 import org.jdc.template.shared.model.repository.SettingsRepository
 
@@ -20,12 +17,10 @@ import org.jdc.template.shared.model.repository.SettingsRepository
  * - Replace any existing scheduled (if there is a pending sync request... remove it and reset delay for 30 seconds)
  * - Require network connection
  */
-@HiltWorker
-class SyncWorker
-@AssistedInject constructor(
+class SyncWorker(
     val settingsRepository: SettingsRepository,
-    @Assisted appContext: Context,
-    @Assisted workerParams: WorkerParameters
+    appContext: Context,
+    workerParams: WorkerParameters
 ) : CoroutineWorker(appContext, workerParams) {
 
     @WorkerThread

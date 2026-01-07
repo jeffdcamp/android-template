@@ -3,15 +3,11 @@ package org.jdc.template.ux.acknowledgement
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import co.touchlab.kermit.Logger
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.jdc.template.ui.navigation3.ViewModelNavigation3
 import org.jdc.template.ui.navigation3.ViewModelNavigation3Impl
-import javax.inject.Inject
 
-@HiltViewModel
-class AcknowledgementViewModel
-@Inject constructor(
+class AcknowledgementViewModel(
     private val application: Application
 ) : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3Impl() {
 

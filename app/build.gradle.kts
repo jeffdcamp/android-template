@@ -10,7 +10,6 @@ plugins {
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.firebase.appdistribution)
 //    alias(libs.plugins.firebase.perf)
-    alias(libs.plugins.hilt)
     alias(libs.plugins.kover)
     alias(libs.plugins.ksp)
     alias(libs.plugins.playPublisher)
@@ -221,18 +220,17 @@ dependencies {
     implementation(libs.okio)
 
     // Inject
-    implementation(libs.google.hilt.library)
-    ksp(libs.google.hilt.compiler)
-
-    ksp(libs.androidx.hilt.compiler)
-    ksp(libs.kotlin.metadata.jvm)
-    implementation(libs.androidx.hilt.work)
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+    implementation(libs.koin.compose)
+    implementation(libs.koin.compose.viewmodel)
+    implementation(libs.koin.androidx.startup)
+    implementation(libs.koin.androidx.workmanager)
 
     // Android Architecture Components
     implementation(libs.androidx.lifecycle.runtime.ktx)
 
     // Navigation
-    implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.navigation3.runtime)
     implementation(libs.androidx.navigation3.ui)
     implementation(libs.androidx.lifecycle.viewmodel.navigation3)
@@ -263,6 +261,7 @@ dependencies {
     debugImplementation(libs.compose.ui.test.manifest)
 
     // Test (Unit)
+    testImplementation(libs.koin.test)
     testImplementation(libs.kotlin.test)
     testImplementation(libs.mockK)
     testImplementation(libs.ktor.client.mock)
@@ -288,7 +287,6 @@ kover {
         filters {
             excludes {
                 packages(
-                    "*hilt_aggregated_deps*",
                     "*codegen*",
 
                     // App Specific
@@ -303,10 +301,8 @@ kover {
                     "*.databinding.*",
                     "*.BuildConfig",
                     "*Factory",
-                    "*_HiltModules*",
                     "*_Impl*",
                     "*ComposableSingletons*",
-                    "*Hilt*",
                     "*Initializer*",
 
                     // App Specific
@@ -315,10 +311,6 @@ kover {
 
                 annotatedBy(
                     "*Composable*",
-                    "*HiltAndroidApp*",
-                    "*HiltViewModel*",
-                    "*HiltWorker*",
-                    "*AndroidEntryPoint*",
                     "*Module*",
                     "*SuppressCoverage*",
                 )

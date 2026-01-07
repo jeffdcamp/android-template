@@ -29,7 +29,6 @@ plugins {
     alias(libs.plugins.firebase.perf) apply false
     alias(libs.plugins.room) apply false
     alias(libs.plugins.ksp) apply false
-    alias(libs.plugins.hilt) apply false
     alias(libs.plugins.licenseManager) apply false
     alias(libs.plugins.detekt)
     alias(libs.plugins.kover) apply false
@@ -120,11 +119,7 @@ dependencyAnalysis {
             onIncorrectConfiguration { severity("ignore") }
             onCompileOnly { severity("ignore") }
             onRuntimeOnly { severity("ignore") }
-            onUnusedAnnotationProcessors {
-                exclude(
-                    depGroupAndName(libs.google.hilt.compiler)
-                )
-            }
+            onUnusedAnnotationProcessors {}
         }
     }
 }

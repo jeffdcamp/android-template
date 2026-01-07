@@ -5,10 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import org.jdc.template.R
@@ -22,11 +18,9 @@ import org.jdc.template.ui.compose.dialog.showMessageDialog
 import org.jdc.template.ui.navigation3.ViewModelNavigation3
 import org.jdc.template.ui.navigation3.ViewModelNavigation3Impl
 
-@HiltViewModel(assistedFactory = ChatViewModel.Factory::class)
-class ChatViewModel
-@AssistedInject constructor(
+class ChatViewModel(
     private val chatRepository: ChatRepository,
-    @Assisted val route: ChatRoute
+    val route: ChatRoute
 ) : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3Impl() {
     private val dialogUiStateFlow = MutableStateFlow<DialogUiState<*>?>(null)
     private val threadNameFlow = MutableStateFlow<String>("Test")
@@ -59,10 +53,5 @@ class ChatViewModel
 
     private fun onDeleteConfirm(chatMessageId: ChatMessageId) = viewModelScope.launch {
         chatRepository.deleteMessage(chatMessageId)
-    }
-
-    @AssistedFactory
-    interface Factory {
-        fun create(chatRoute: ChatRoute): ChatViewModel
     }
 }

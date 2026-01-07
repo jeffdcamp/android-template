@@ -3,7 +3,6 @@ package org.jdc.template.ux.chats
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import org.jdc.template.shared.model.domain.ChatThread
@@ -15,12 +14,9 @@ import org.jdc.template.ui.compose.dialog.DialogUiState
 import org.jdc.template.ui.navigation3.ViewModelNavigation3
 import org.jdc.template.ui.navigation3.ViewModelNavigation3Impl
 import org.jdc.template.ux.chat.ChatRoute
-import javax.inject.Inject
 import kotlin.uuid.Uuid
 
-@HiltViewModel
-class ChatsViewModel
-@Inject constructor(
+class ChatsViewModel(
     private val individualRepository: IndividualRepository,
     private val chatMessageRepository: ChatRepository,
 ) : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3Impl() {

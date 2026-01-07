@@ -1,20 +1,15 @@
 package org.jdc.template.work
 
 import android.content.Context
-import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import co.touchlab.kermit.Logger
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedInject
 import org.jdc.template.model.config.RemoteConfig
 
-@HiltWorker
-class RemoteConfigSyncWorker
-@AssistedInject constructor(
+class RemoteConfigSyncWorker(
     private val remoteConfig: RemoteConfig,
-    @Assisted appContext: Context,
-    @Assisted workerParams: WorkerParameters
+    appContext: Context,
+    workerParams: WorkerParameters
 ) : CoroutineWorker(appContext, workerParams) {
 
     override suspend fun doWork(): Result {

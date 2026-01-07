@@ -1,31 +1,13 @@
 package org.jdc.template.ux.individualedit
 
-import androidx.compose.runtime.Composable
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
-import dagger.hilt.android.lifecycle.HiltViewModel
 import org.jdc.template.ui.navigation3.ViewModelNavigation3
 import org.jdc.template.ui.navigation3.ViewModelNavigation3Impl
 
-@HiltViewModel(assistedFactory = IndividualEditViewModel.Factory::class)
-class IndividualEditViewModel
-@AssistedInject constructor(
+class IndividualEditViewModel(
     getIndividualEditUiStateUseCase: GetIndividualEditUiStateUseCase,
-    @Assisted individualEditRoute: IndividualEditRoute
+    individualEditRoute: IndividualEditRoute
 ) : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3Impl() {
     val uiState: IndividualEditUiState = getIndividualEditUiStateUseCase(individualEditRoute.individualId, viewModelScope) { navigate(it) }
-
-    @AssistedFactory
-    interface Factory {
-        fun create(individualEditRoute: IndividualEditRoute): IndividualEditViewModel
-    }
-
-    companion object {
-        @Composable
-        fun create(individualEditRoute: IndividualEditRoute) = hiltViewModel<IndividualEditViewModel, IndividualEditViewModel.Factory>(creationCallback = { it.create(individualEditRoute) })
-    }
 }

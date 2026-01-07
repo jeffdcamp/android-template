@@ -7,10 +7,8 @@ import org.jdc.template.ui.navigation3.Navigation3Action
 import org.jdc.template.ux.individual.IndividualRoute
 import org.jdc.template.ux.individualedit.IndividualEditRoute
 import org.jdc.template.ux.settings.SettingsRoute
-import javax.inject.Inject
 
-class GetDirectoryUiStateUseCase
-@Inject constructor(
+class GetDirectoryUiStateUseCase(
     private val individualRepository: IndividualRepository,
 ) {
     operator fun invoke(

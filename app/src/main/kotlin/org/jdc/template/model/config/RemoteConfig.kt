@@ -1,12 +1,8 @@
 package org.jdc.template.model.config
 
 import org.jdc.template.R
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class RemoteConfig
-@Inject constructor() : BaseFirebaseRemoteConfig() {
+class RemoteConfig : BaseFirebaseRemoteConfig() {
 
     // app update
     fun isColorServiceEnabled(): Boolean = getBoolean("colorServiceEnabled")
