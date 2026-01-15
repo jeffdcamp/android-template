@@ -4,12 +4,12 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.launch
+import org.jdc.template.shared.inject.CoroutineDispatchers
 import org.jdc.template.shared.model.db.main.MainDatabase
 import org.jdc.template.shared.model.db.main.chatmessage.ChatMessageEntity
 import org.jdc.template.shared.model.db.main.chatthread.ChatThreadEntity
@@ -22,7 +22,7 @@ import org.jdc.template.shared.model.domain.inline.IndividualId
 
 class ChatRepository(
     private val mainDatabase: MainDatabase,
-    private val ioDispatcher: CoroutineDispatcher,
+    private val dispatchers: CoroutineDispatchers,
     private val appScope: CoroutineScope,
 ) {
     private fun chatThreadDao() = mainDatabase.chatThreadDao()
@@ -43,7 +43,7 @@ class ChatRepository(
         }
     }
 
-    fun sendMessageAsync(chatThreadId: ChatThreadId, individualId: IndividualId, message: String) = appScope.launch(ioDispatcher) {
+    fun sendMessageAsync(chatThreadId: ChatThreadId, individualId: IndividualId, message: String) = appScope.launch(dispatchers.io) {
         val newMessage = ChatMessageEntity(
             chatThreadId = chatThreadId,
             individualId = individualId,

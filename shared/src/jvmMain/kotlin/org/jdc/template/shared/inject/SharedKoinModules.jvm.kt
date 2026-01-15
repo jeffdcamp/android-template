@@ -3,10 +3,6 @@ package org.jdc.template.shared.inject
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import org.jdc.template.shared.model.datastore.DatastoreUtil
 import org.jdc.template.shared.model.datastore.DeviceDataStore
 import org.jdc.template.shared.model.datastore.UserDataStore

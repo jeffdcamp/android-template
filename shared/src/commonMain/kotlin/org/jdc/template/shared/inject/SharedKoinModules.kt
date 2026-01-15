@@ -25,13 +25,9 @@ import org.jdc.template.shared.model.webservice.KtorClientDefaults.defaultSetup
 import org.jdc.template.shared.model.webservice.ResponseTimePlugin
 import org.jdc.template.shared.model.webservice.colors.ColorService
 import org.koin.core.module.Module
+import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
-import org.koin.core.qualifier.named
 import org.koin.dsl.module
-
-val DefaultDispatcher = named("DefaultDispatcher")
-val IoDispatcher = named("IoDispatcher")
-val ApplicationScope = named("ApplicationScope")
 
 fun getSharedKoinModules(): List<Module> = listOf(
     fileSystemModule,
@@ -45,10 +41,26 @@ fun getSharedKoinModules(): List<Module> = listOf(
     useCaseModule
 )
 
+interface CoroutineDispatchers {
+    val default: CoroutineDispatcher
+    val io: CoroutineDispatcher
+    val main: CoroutineDispatcher
+}
+
 val coroutineModule = module {
-    single<CoroutineDispatcher> (DefaultDispatcher) { Dispatchers.Default }
-    single<CoroutineDispatcher> (IoDispatcher) { Dispatchers.IO }
-    single<CoroutineScope>(ApplicationScope) { CoroutineScope(SupervisorJob() + Dispatchers.Default) }
+    // ===== Scopes =====
+    // ApplicationScope (No name on this one so that it IS the default one that is used if there is no name is provided)
+    single<CoroutineScope> { CoroutineScope(SupervisorJob() + Dispatchers.Default) }
+
+    // ===== Dispatchers =====
+    // IoDispatcher (No name on this one so that it IS the default one that is used if there is no name is provided)
+    single<CoroutineDispatchers> {
+        object : CoroutineDispatchers {
+            override val default = Dispatchers.Default
+            override val io = Dispatchers.IO
+            override val main = Dispatchers.Main
+        }
+    }
 }
 
 expect val databaseBuilderModule: Module
@@ -64,14 +76,14 @@ val fileSystemModule = module {
 }
 
 val useCaseModule = module {
-    factory { CreateIndividualTestDataUseCase(get(), get(IoDispatcher)) }
-    factory { CreateIndividualLargeTestDataUseCase(get(), get(IoDispatcher)) }
+    factoryOf(::CreateIndividualTestDataUseCase)
+    factoryOf(::CreateIndividualLargeTestDataUseCase)
 }
 
 val repositoryModule = module {
-    single { SettingsRepository(get(), get(), get(ApplicationScope)) }
+    singleOf(::SettingsRepository)
     singleOf(::IndividualRepository)
-    single { ChatRepository(get(), get(IoDispatcher), get(ApplicationScope)) }
+    singleOf(::ChatRepository)
 }
 
 val datastorePreferenceModule = module {

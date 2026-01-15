@@ -3,8 +3,6 @@ package org.jdc.template.inject
 import org.jdc.template.analytics.Analytics
 import org.jdc.template.analytics.DefaultAnalytics
 import org.jdc.template.model.config.RemoteConfig
-import org.jdc.template.shared.inject.ApplicationScope
-import org.jdc.template.shared.inject.IoDispatcher
 import org.jdc.template.shared.inject.getSharedKoinModules
 import org.jdc.template.startup.AppUpgrade
 import org.jdc.template.ux.about.AboutViewModel
@@ -38,12 +36,10 @@ fun getAllKoinModules(): List<Module> = buildList {
     addAll(getSharedKoinModules())
 }
 
-
-
 val appModule = module {
     singleOf(::RemoteConfig)
-    single { AppUpgrade(get(), get(IoDispatcher)) }
-    single { WorkScheduler(androidContext(), get(), get(ApplicationScope)) }
+    singleOf(::AppUpgrade)
+    singleOf(::WorkScheduler)
     single<Analytics> { DefaultAnalytics(androidContext()) }
 }
 

@@ -9,7 +9,6 @@ import org.jdc.template.shared.model.datastore.UserDataStore
 import org.jdc.template.shared.model.db.main.MainDatabase
 import org.jdc.template.shared.util.file.AppFileSystem
 import org.koin.android.ext.koin.androidApplication
-import org.koin.core.module.Module
 import org.koin.dsl.module
 
 actual val databaseBuilderModule = module {
@@ -21,7 +20,7 @@ actual val databaseBuilderModule = module {
     }
 }
 
-actual val datastoreModule: Module = module {
+actual val datastoreModule = module {
     single<DeviceDataStore> {
         DeviceDataStore(PreferenceDataStoreFactory.create { AppFileSystem.getDatastorePath(DatastoreUtil.DEVICE).toFile() })
     }

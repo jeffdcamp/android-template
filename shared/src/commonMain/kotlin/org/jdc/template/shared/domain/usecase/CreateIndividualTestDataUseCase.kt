@@ -1,9 +1,9 @@
 package org.jdc.template.shared.domain.usecase
 
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
+import org.jdc.template.shared.inject.CoroutineDispatchers
 import org.jdc.template.shared.model.domain.Household
 import org.jdc.template.shared.model.domain.Individual
 import org.jdc.template.shared.model.domain.inline.FirstName
@@ -14,9 +14,9 @@ import org.jdc.template.shared.model.repository.IndividualRepository
 
 class CreateIndividualTestDataUseCase(
     private val individualRepository: IndividualRepository,
-    private val defaultDispatcher: CoroutineDispatcher
+    private val dispatchers: CoroutineDispatchers
 ) {
-    suspend operator fun invoke() = withContext(defaultDispatcher) {
+    suspend operator fun invoke() = withContext(dispatchers.io) {
         // clear any existing items
         individualRepository.deleteAllIndividuals()
 
