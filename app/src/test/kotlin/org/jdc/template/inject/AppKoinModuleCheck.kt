@@ -24,7 +24,7 @@ import org.koin.test.verify.verify
 import kotlin.reflect.KClass
 import kotlin.test.Test
 
-class AppModuleCheck {
+class AppKoinModuleCheck {
 
     @OptIn(KoinExperimentalAPI::class)
     @Test
