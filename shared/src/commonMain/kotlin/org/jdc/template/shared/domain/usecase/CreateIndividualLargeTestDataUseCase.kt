@@ -3,7 +3,7 @@ package org.jdc.template.shared.domain.usecase
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
-import org.jdc.template.shared.inject.CoroutineDispatchers
+import org.jdc.template.shared.di.CoroutineDispatchers
 import org.jdc.template.shared.model.domain.Individual
 import org.jdc.template.shared.model.domain.inline.FirstName
 import org.jdc.template.shared.model.domain.inline.LastName

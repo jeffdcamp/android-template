@@ -1,4 +1,4 @@
-package org.jdc.template.inject
+package org.jdc.template.di
 
 import android.app.Application
 import android.content.Context
@@ -11,6 +11,7 @@ import com.lemonappdev.konsist.api.ext.list.withAllParentsOf
 import com.lemonappdev.konsist.api.verify.assertTrue
 import io.ktor.client.engine.HttpClientEngine
 import kotlinx.coroutines.CoroutineDispatcher
+import org.jdc.template.di.getAllKoinModules
 import org.jdc.template.ux.chat.ChatRoute
 import org.jdc.template.ux.individual.IndividualRoute
 import org.jdc.template.ux.individualedit.IndividualEditRoute

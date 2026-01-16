@@ -1,7 +1,7 @@
 package org.jdc.template
 
 import android.app.Application
-import org.jdc.template.inject.getAllKoinModules
+import org.jdc.template.di.getAllKoinModules
 import org.jdc.template.shared.util.file.AppFileSystem
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger

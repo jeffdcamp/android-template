@@ -1,9 +1,9 @@
-package org.jdc.template.inject
+package org.jdc.template.di
 
 import org.jdc.template.analytics.Analytics
 import org.jdc.template.analytics.DefaultAnalytics
 import org.jdc.template.model.config.RemoteConfig
-import org.jdc.template.shared.inject.getSharedKoinModules
+import org.jdc.template.shared.di.getSharedKoinModules
 import org.jdc.template.startup.AppUpgrade
 import org.jdc.template.ux.about.AboutViewModel
 import org.jdc.template.ux.acknowledgement.AcknowledgementViewModel

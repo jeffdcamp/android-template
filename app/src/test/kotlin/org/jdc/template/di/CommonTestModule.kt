@@ -1,4 +1,4 @@
-package org.jdc.template.inject
+package org.jdc.template.di
 
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp

@@ -1,4 +1,4 @@
-package org.jdc.template.shared.inject
+package org.jdc.template.shared.di
 
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.room.Room

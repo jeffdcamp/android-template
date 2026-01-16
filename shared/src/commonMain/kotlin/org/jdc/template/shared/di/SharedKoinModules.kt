@@ -1,4 +1,4 @@
-package org.jdc.template.shared.inject
+package org.jdc.template.shared.di
 
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation

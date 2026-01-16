@@ -3,7 +3,7 @@ package org.jdc.template.startup
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.runBlocking
 import org.jdc.template.BuildConfig
-import org.jdc.template.shared.inject.CoroutineDispatchers
+import org.jdc.template.shared.di.CoroutineDispatchers
 import org.jdc.template.shared.model.repository.SettingsRepository
 
 class AppUpgrade(

@@ -9,7 +9,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.launch
-import org.jdc.template.shared.inject.CoroutineDispatchers
+import org.jdc.template.shared.di.CoroutineDispatchers
 import org.jdc.template.shared.model.db.main.MainDatabase
 import org.jdc.template.shared.model.db.main.chatmessage.ChatMessageEntity
 import org.jdc.template.shared.model.db.main.chatthread.ChatThreadEntity
