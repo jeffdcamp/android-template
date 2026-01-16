@@ -7,11 +7,11 @@ import androidx.lifecycle.ViewModel
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.lemonappdev.konsist.api.Konsist
+import com.lemonappdev.konsist.api.ext.list.modifierprovider.withoutAbstractModifier
 import com.lemonappdev.konsist.api.ext.list.withAllParentsOf
 import com.lemonappdev.konsist.api.verify.assertTrue
 import io.ktor.client.engine.HttpClientEngine
 import kotlinx.coroutines.CoroutineDispatcher
-import org.jdc.template.di.getAllKoinModules
 import org.jdc.template.ux.chat.ChatRoute
 import org.jdc.template.ux.individual.IndividualRoute
 import org.jdc.template.ux.individualedit.IndividualEditRoute
@@ -83,6 +83,7 @@ class AppKoinModuleCheck {
         Konsist.scopeFromProject()
             .classes()
             .withAllParentsOf(baseClass, indirectParents = true)
+            .withoutAbstractModifier()
             .assertTrue { classDeclaration ->
 //                println("+++ ${classDeclaration.name}")
                 val isRegistered = koinDefinitions.any { it == classDeclaration.name }
