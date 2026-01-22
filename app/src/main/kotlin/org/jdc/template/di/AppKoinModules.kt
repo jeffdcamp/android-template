@@ -48,8 +48,8 @@ val viewModelModule = module {
     viewModelOf(::IndividualEditViewModel)
     viewModelOf(::SettingsViewModel)
     viewModelOf(::AcknowledgementViewModel)
-
-
+    viewModelOf(::ChatViewModel)
+    viewModelOf(::ChatsViewModel)
 }
 
 val workersModule = module {
