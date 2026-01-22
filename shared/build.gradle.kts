@@ -69,7 +69,7 @@ kotlin {
         optIn.add("kotlin.time.ExperimentalTime")
         optIn.add("kotlin.uuid.ExperimentalUuidApi")
         freeCompilerArgs.addAll(
-//            "-Xcontext-parameters",
+            "-Xexplicit-backing-fields", // Added with Kotlin 2.3
         )
     }
 

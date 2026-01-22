@@ -38,11 +38,12 @@ fun IndividualScreen(
     navigator: Navigation3Navigator,
     viewModel: IndividualViewModel
 ) {
-    val uiState = viewModel.uiState
+    val uiState by viewModel.uiStateFlow.collectAsStateWithLifecycle()
+    val individualId = if (uiState is IndividualUiState.Ready) (uiState as IndividualUiState.Ready).individual.id else null
 
     val appBarMenuItems = listOf(
-        AppBarMenuItem.Icon(Icons.Outlined.Edit, { stringResource(R.string.edit) }) { uiState.onEditClick() },
-        AppBarMenuItem.Icon(Icons.Outlined.Delete, { stringResource(R.string.delete) }) { uiState.onDeleteClick() }
+        AppBarMenuItem.Icon(Icons.Outlined.Edit, { stringResource(R.string.edit) }) { individualId?.let { viewModel.onEditClick(it) } },
+        AppBarMenuItem.Icon(Icons.Outlined.Delete, { stringResource(R.string.delete) }) { individualId?.let { viewModel.onDeleteClick(it) } }
     )
 
     MainAppScaffoldWithNavBar(
@@ -54,15 +55,18 @@ fun IndividualScreen(
         IndividualContent(uiState)
     }
 
-    HandleDialogUiState(uiState.dialogUiStateFlow)
+    HandleDialogUiState(viewModel.dialogUiStateFlow)
 
     HandleNavigation3(viewModel, navigator)
 }
 
 @Composable
 private fun IndividualContent(uiState: IndividualUiState) {
-    val individual by uiState.individualFlow.collectAsStateWithLifecycle()
-    individual?.let { IndividualSummary(it) }
+    when(uiState) {
+        IndividualUiState.Loading -> {}
+        is IndividualUiState.Ready -> { IndividualSummary(uiState.individual) }
+        IndividualUiState.Empty -> {}
+    }
 }
 
 @Composable

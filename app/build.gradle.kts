@@ -27,7 +27,7 @@ kotlin {
         optIn.add("androidx.compose.material3.ExperimentalMaterial3Api")
         optIn.add("androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi")
         freeCompilerArgs.addAll(
-//            "-Xcontext-parameters",
+            "-Xexplicit-backing-fields", // Added with Kotlin 2.3
         )
     }
 }

@@ -34,47 +34,50 @@ class MainActivity : ComponentActivity() {
             window.isNavigationBarContrastEnforced = false
         }
 
-
         setContent {
             val viewModel: MainViewModel = koinViewModel()
             viewModel.startup()
 
-            val uiState = viewModel.uiState
-            val theme by uiState.selectedAppThemeFlow.collectAsStateWithLifecycle()
+            val uiState by viewModel.uiStateFlow.collectAsStateWithLifecycle()
 
-            val darkTheme = when(theme?.displayThemeType) {
-                DisplayThemeType.SYSTEM_DEFAULT -> isSystemInDarkTheme()
-                DisplayThemeType.LIGHT -> false
-                DisplayThemeType.DARK -> true
-                null -> isSystemInDarkTheme()
-            }
+            when(val uiState = uiState) {
+                MainUiState.Loading -> {}
+                is MainUiState.Ready -> {
+                    val theme = uiState.selectedAppTheme
+                    val darkTheme = when(theme.displayThemeType) {
+                        DisplayThemeType.SYSTEM_DEFAULT -> isSystemInDarkTheme()
+                        DisplayThemeType.LIGHT -> false
+                        DisplayThemeType.DARK -> true
+                    }
 
-            val dynamicTheme = when(theme?.dynamicTheme) {
-                true -> true
-                else -> false
-            }
+                    val dynamicTheme = when(theme.dynamicTheme) {
+                        true -> true
+                        else -> false
+                    }
 
-            // Update the edge to edge configuration to match the theme
-            // This is the same parameters as the default enableEdgeToEdge call, but we manually
-            // resolve whether or not to show dark theme using uiState, since it can be different
-            // than the configuration's dark theme value based on the user preference.
-            DisposableEffect(darkTheme) {
-                enableEdgeToEdge(
-                    statusBarStyle = SystemBarStyle.auto(
-                        Color.TRANSPARENT,
-                        Color.TRANSPARENT,
-                    ) { darkTheme },
-                    navigationBarStyle = SystemBarStyle.auto(
-                        lightScrim,
-                        darkScrim,
-                    ) { darkTheme },
-                )
-                onDispose {}
-            }
+                    // Update the edge to edge configuration to match the theme
+                    // This is the same parameters as the default enableEdgeToEdge call, but we manually
+                    // resolve whether or not to show dark theme using uiState, since it can be different
+                    // than the configuration's dark theme value based on the user preference.
+                    DisposableEffect(darkTheme) {
+                        enableEdgeToEdge(
+                            statusBarStyle = SystemBarStyle.auto(
+                                Color.TRANSPARENT,
+                                Color.TRANSPARENT,
+                            ) { darkTheme },
+                            navigationBarStyle = SystemBarStyle.auto(
+                                lightScrim,
+                                darkScrim,
+                            ) { darkTheme },
+                        )
+                        onDispose {}
+                    }
 
 
-            AppTheme(darkTheme, dynamicTheme) {
-                MainScreen()
+                    AppTheme(darkTheme, dynamicTheme) {
+                        MainScreen()
+                    }
+                }
             }
         }
     }

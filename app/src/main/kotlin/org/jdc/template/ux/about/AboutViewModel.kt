@@ -5,10 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import okio.FileSystem
 import okio.Path.Companion.toOkioPath
@@ -21,6 +22,7 @@ import org.jdc.template.shared.model.repository.IndividualRepository
 import org.jdc.template.shared.model.webservice.colors.ColorService
 import org.jdc.template.shared.model.webservice.colors.dto.ColorsDto
 import org.jdc.template.shared.util.ext.readText
+import org.jdc.template.shared.util.ext.stateInDefault
 import org.jdc.template.shared.util.network.ApiResponse
 import org.jdc.template.shared.util.network.message
 import org.jdc.template.shared.util.network.onError
@@ -29,7 +31,6 @@ import org.jdc.template.shared.util.network.onFailure
 import org.jdc.template.shared.util.network.onSuccess
 import org.jdc.template.ui.navigation3.ViewModelNavigation3
 import org.jdc.template.ui.navigation3.ViewModelNavigation3Impl
-import org.jdc.template.ux.about.typography.TypographyRoute
 import org.jdc.template.ux.acknowledgement.AcknowledgmentsRoute
 import org.jdc.template.ux.chats.ChatsRoute
 import org.jdc.template.work.WorkScheduler
@@ -47,25 +48,17 @@ class AboutViewModel(
     private val fileSystem: FileSystem
 ) : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3Impl() {
 
-    private val resetServiceEnabledFlow: StateFlow<Boolean> = MutableStateFlow(remoteConfig.isColorServiceEnabled()).asStateFlow()
+    private val resetServiceEnabledFlow: Flow<Boolean> = flowOf(remoteConfig.isColorServiceEnabled())
 
-    val uiState: AboutUiState = AboutUiState(
-        resetServiceEnabledFlow = resetServiceEnabledFlow,
-        testQueryWebServiceCall = { testQueryWebServiceCall() },
-        testFullUrlQueryWebServiceCall = { testFullUrlQueryWebServiceCall() },
-        testCachedUrlQueryWebServiceCall = { testCachedUrlQueryWebServiceCall() },
-        testSaveQueryWebServiceCall = { testSaveQueryWebServiceCall() },
-        workManagerSimpleTest = { workManagerSimpleTest() },
-        workManagerSyncTest = { workManagerSyncTest() },
-        testTableChange = { testTableChange() },
-        licensesClick = { navigate(AcknowledgmentsRoute) },
-        createSampleData = { createSampleData() },
-        createLargeSampleData = { createLargeSampleData() },
-        m3TypographyClick = { navigate(TypographyRoute) },
-        onChatClick = { navigate(ChatsRoute) }
-    )
+    val uiStateFlow: StateFlow<AboutUiState> = resetServiceEnabledFlow.map {
+        AboutUiState.Ready(it)
+    }.stateInDefault(viewModelScope, AboutUiState.Loading)
 
-    private fun testQueryWebServiceCall() = viewModelScope.launch {
+    fun onLicensesClick() {
+        navigate(AcknowledgmentsRoute)
+    }
+
+    fun testQueryWebServiceCall() = viewModelScope.launch {
         Logger.i { "TypeSafe Call..." }
         if (!remoteConfig.isColorServiceEnabled()) {
             Logger.e { "Color Service is NOT enabled... skipping" }
@@ -80,13 +73,13 @@ class AboutViewModel(
         processWebServiceResponse2(colorService.getColorsBySafeArgs())
     }
 
-    private fun testFullUrlQueryWebServiceCall() = viewModelScope.launch {
+    fun testFullUrlQueryWebServiceCall() = viewModelScope.launch {
         Logger.i { "Full URL Call..." }
         val response = colorService.getColorsByFullUrl()
         processWebServiceResponse(response)
     }
 
-    private fun testCachedUrlQueryWebServiceCall() = viewModelScope.launch {
+    fun testCachedUrlQueryWebServiceCall() = viewModelScope.launch {
         Logger.i { "Cached URL Call..." }
 
         val etag = devicePreferenceDataSource.colorsETagPref.flow.firstOrNull()
@@ -104,14 +97,14 @@ class AboutViewModel(
             }
     }
 
-    private fun testSaveQueryWebServiceCall() = viewModelScope.launch {
+    fun testSaveQueryWebServiceCall() = viewModelScope.launch {
         val outputFile = application.filesDir.toOkioPath() / "colors.json"
         colorService.getColorsToFile(fileSystem, outputFile)
 
         Logger.i { "Downloaded file contents:\n ${fileSystem.readText(outputFile)}" }
     }
 
-    private fun processWebServiceResponse(response: ApiResponse<out ColorsDto, out Unit>) {
+    fun processWebServiceResponse(response: ApiResponse<out ColorsDto, out Unit>) {
         response.onSuccess {
             data.colors.forEach {
                 Logger.i { "Result: ${it.colorName}" }
@@ -125,7 +118,7 @@ class AboutViewModel(
         }
     }
 
-    private fun processWebServiceResponse2(response: ApiResponse<out ColorsDto, out Unit>) {
+    fun processWebServiceResponse2(response: ApiResponse<out ColorsDto, out Unit>) {
         response.onSuccess {
             data.colors.forEach {
                 Logger.i { "Result: ${it.colorName}" }
@@ -135,7 +128,7 @@ class AboutViewModel(
         }
     }
 
-    private fun workManagerSimpleTest() = viewModelScope.launch {
+    fun workManagerSimpleTest() = viewModelScope.launch {
         workScheduler.scheduleSimpleWork("test1")
         workScheduler.scheduleSimpleWork("test2")
 
@@ -144,7 +137,7 @@ class AboutViewModel(
         workScheduler.scheduleSimpleWork("test3")
     }
 
-    private fun workManagerSyncTest() = viewModelScope.launch {
+    fun workManagerSyncTest() = viewModelScope.launch {
         workScheduler.scheduleSync()
         workScheduler.scheduleSync(true)
 
@@ -153,7 +146,7 @@ class AboutViewModel(
         workScheduler.scheduleSync()
     }
 
-    private fun testTableChange() = viewModelScope.launch {
+    fun testTableChange() = viewModelScope.launch {
         // Sample tests
         if (individualRepository.getIndividualCount() == 0) {
             Logger.e { "No data.. cannot perform test" }
@@ -179,11 +172,22 @@ class AboutViewModel(
         }
     }
 
-    private fun createSampleData() = viewModelScope.launch {
+    fun createSampleData() = viewModelScope.launch {
         createIndividualTestDataUseCase()
     }
 
-    private fun createLargeSampleData() = viewModelScope.launch {
+    fun createLargeSampleData() = viewModelScope.launch {
         createIndividualLargeTestDataUseCase()
     }
+
+    fun onChatClick() {
+        navigate(ChatsRoute)
+    }
+}
+
+sealed class AboutUiState {
+    object Loading : AboutUiState()
+    data class Ready(
+        val resetServiceEnabled: Boolean,
+    ): AboutUiState()
 }

@@ -74,7 +74,6 @@ private fun TypographyText(styleName: String, style: TextStyle) {
     }
 }
 
-
 @PreviewDefault
 @Composable
 private fun Preview() {

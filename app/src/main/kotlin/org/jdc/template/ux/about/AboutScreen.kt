@@ -30,10 +30,10 @@ fun AboutScreen(
     navigator: Navigation3Navigator,
     viewModel: AboutViewModel
 ) {
-    val uiState = viewModel.uiState
+    val uiState by viewModel.uiStateFlow.collectAsStateWithLifecycle()
 
     val appBarMenuItems = listOf(
-        AppBarMenuItem.OverflowMenuItem(R.string.acknowledgments) { uiState.licensesClick() }
+        AppBarMenuItem.OverflowMenuItem(R.string.acknowledgments) { viewModel.onLicensesClick() }
     )
 
     MainAppScaffoldWithNavBar(
@@ -43,7 +43,25 @@ fun AboutScreen(
         actions = { AppBarMenu(appBarMenuItems) },
         onNavigationClick = { navigator.pop() }
     ) {
-        AboutScreenContent(uiState)
+        when (val uiState = uiState) {
+            AboutUiState.Loading -> {}
+            is AboutUiState.Ready -> {
+                AboutScreenContent(
+                    uiState = uiState,
+                    m3TypographyClick = { viewModel.testQueryWebServiceCall() },
+                    createSampleData = { viewModel.createSampleData() },
+                    createLargeSampleData = { viewModel.createLargeSampleData() },
+                    testQueryWebServiceCall = { viewModel.testQueryWebServiceCall() },
+                    testFullUrlQueryWebServiceCall = { viewModel.testFullUrlQueryWebServiceCall() },
+                    testSaveQueryWebServiceCall = { viewModel.testSaveQueryWebServiceCall() },
+                    testCachedUrlQueryWebServiceCall = { viewModel.testCachedUrlQueryWebServiceCall() },
+                    onChatClick = { viewModel.onChatClick() },
+                    workManagerSimpleTest = { viewModel.workManagerSimpleTest() },
+                    workManagerSyncTest = { viewModel.workManagerSyncTest() }
+                )
+
+            }
+        }
     }
 
     HandleNavigation3(viewModel, navigator)
@@ -51,9 +69,18 @@ fun AboutScreen(
 
 @Composable
 private fun AboutScreenContent(
-    uiState: AboutUiState
+    uiState: AboutUiState.Ready,
+    m3TypographyClick: () -> Unit,
+    createSampleData: () -> Unit,
+    createLargeSampleData: () -> Unit,
+    testQueryWebServiceCall: () -> Unit,
+    testFullUrlQueryWebServiceCall: () -> Unit,
+    testSaveQueryWebServiceCall: () -> Unit,
+    testCachedUrlQueryWebServiceCall: () -> Unit,
+    onChatClick: () -> Unit,
+    workManagerSimpleTest: () -> Unit,
+    workManagerSyncTest: () -> Unit
 ) {
-
     Column(
         modifier = Modifier
             .verticalScroll(rememberScrollState())
@@ -63,17 +90,17 @@ private fun AboutScreenContent(
         ApplicationAboutTitle()
 
         HorizontalDivider(Modifier.padding(top = 16.dp, bottom = 16.dp))
-        RestServicesStatus(uiState)
-        TestButton("M3 Typography") { uiState.m3TypographyClick() }
-        TestButton("Create Database") { uiState.createSampleData() }
-        TestButton("Create Large Database") { uiState.createLargeSampleData() }
-        TestButton("Test Rest Call") { uiState.testQueryWebServiceCall() }
-        TestButton("Test Rest Call2") { uiState.testFullUrlQueryWebServiceCall() }
-        TestButton("Test Rest Call3") { uiState.testSaveQueryWebServiceCall() }
-        TestButton("Test Rest Cached Call") { uiState.testCachedUrlQueryWebServiceCall() }
-        TestButton("Chat Test") { uiState.onChatClick() }
-        TestButton("TEST SIMPLE WORKMANAGER") { uiState.workManagerSimpleTest() }
-        TestButton("TEST SYNC WORKMANAGER") { uiState.workManagerSyncTest() }
+        RestServicesStatus(uiState.resetServiceEnabled)
+        TestButton("M3 Typography") { m3TypographyClick() }
+        TestButton("Create Database") { createSampleData() }
+        TestButton("Create Large Database") { createLargeSampleData() }
+        TestButton("Test Rest Call") { testQueryWebServiceCall() }
+        TestButton("Test Rest Call2") { testFullUrlQueryWebServiceCall() }
+        TestButton("Test Rest Call3") { testSaveQueryWebServiceCall() }
+        TestButton("Test Rest Cached Call") { testCachedUrlQueryWebServiceCall() }
+        TestButton("Chat Test") { onChatClick() }
+        TestButton("TEST SIMPLE WORKMANAGER") { workManagerSimpleTest() }
+        TestButton("TEST SYNC WORKMANAGER") { workManagerSyncTest() }
     }
 }
 
@@ -92,9 +119,7 @@ private fun ApplicationAboutTitle() {
 }
 
 @Composable
-private fun RestServicesStatus(uiState: AboutUiState) {
-    val restServicesEnabled by uiState.resetServiceEnabledFlow.collectAsStateWithLifecycle()
-
+private fun RestServicesStatus(restServicesEnabled: Boolean) {
     Row {
         Text("Rest Services Enabled: ")
         Text(text = restServicesEnabled.toString(), color = AppTheme.extendedColors.customColorA.color)

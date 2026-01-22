@@ -4,8 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.jdc.template.shared.model.domain.ChatThread
+import org.jdc.template.shared.model.domain.ChatThreadListItem
 import org.jdc.template.shared.model.domain.inline.ChatThreadId
 import org.jdc.template.shared.model.repository.ChatRepository
 import org.jdc.template.shared.model.repository.IndividualRepository
@@ -20,17 +23,18 @@ class ChatsViewModel(
     private val individualRepository: IndividualRepository,
     private val chatMessageRepository: ChatRepository,
 ) : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3Impl() {
+    val dialogUiStateFlow: StateFlow<DialogUiState<*>?>
+        field = MutableStateFlow<DialogUiState<*>?>(null)
 
-    private val dialogUiStateFlow = MutableStateFlow<DialogUiState<*>?>(null)
+    val uiStateFlow: StateFlow<ChatsUiState> = chatMessageRepository.getChatThreadListFlow().map { list: List<ChatThreadListItem> ->
+        if (list.isNotEmpty()) {
+            ChatsUiState.Ready(list)
+        } else {
+            ChatsUiState.Empty
+        }
+    }.stateInDefault(viewModelScope, ChatsUiState.Loading)
 
-    val uiState: ChatsUiState = ChatsUiState(
-        dialogUiStateFlow = dialogUiStateFlow,
-        chatListFlow = chatMessageRepository.getChatThreadListFlow().stateInDefault(viewModelScope, emptyList()),
-        onThreadClick = { onChatThreadClick(it) },
-        onNewClick = { onNewChatClick() },
-    )
-
-    private fun onNewChatClick() = viewModelScope.launch {
+    fun onNewChatClick() = viewModelScope.launch {
         val allIndividuals = individualRepository.getAllIndividuals()
 
         if (allIndividuals.size < 2) {
@@ -54,8 +58,18 @@ class ChatsViewModel(
         navigate(ChatRoute(chatThread.id, chatThread.ownerIndividualId))
     }
 
-    private fun onChatThreadClick(chatThreadId: ChatThreadId) = viewModelScope.launch {
+    fun onChatThreadClick(chatThreadId: ChatThreadId) = viewModelScope.launch {
         val chatThread = chatMessageRepository.getChatThreadById(chatThreadId) ?: return@launch
         navigate(ChatRoute(chatThread.id, chatThread.ownerIndividualId))
     }
+}
+
+sealed interface ChatsUiState {
+    data object Loading : ChatsUiState
+
+    data class Ready(
+        val threadsList: List<ChatThreadListItem>,
+    ) : ChatsUiState
+
+    data object Empty : ChatsUiState
 }

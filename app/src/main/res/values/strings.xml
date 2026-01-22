@@ -37,6 +37,9 @@
     <string name="typography">Typography</string>
     <string name="invalid_email">Invalid email address</string>
     <string name="invalid_birth_date">Birth date must be before today</string>
+    <string name="no_list_items">No list items</string>
+    <string name="delete_message_question">Delete Message?</string>
+    <string name="messages">Messages</string>
 
     <!-- Individual -->
     <string name="delete_individual_confirm">Are you sure you want to delete this individual?</string>

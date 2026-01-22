@@ -4,6 +4,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import org.jdc.template.shared.domain.usecase.CreateIndividualTestDataUseCase
@@ -17,13 +18,12 @@ class MainViewModel(
     settingsRepository: SettingsRepository,
     private val createIndividualTestDataUseCase: CreateIndividualTestDataUseCase
 ) : ViewModel() {
-    val uiState = MainUiState(
-        selectedAppThemeFlow = combine(
-            settingsRepository.themeFlow.stateInDefault(viewModelScope, null),
-            settingsRepository.dynamicThemeFlow.stateInDefault(viewModelScope, null)) { displayThemeType, dynamicTheme ->
-            SelectedAppTheme(displayThemeType ?: DisplayThemeType.SYSTEM_DEFAULT, dynamicTheme ?: false)
-        }.stateInDefault(viewModelScope, null)
-    )
+    val uiStateFlow: StateFlow<MainUiState> = combine(
+        settingsRepository.themeFlow,
+        settingsRepository.dynamicThemeFlow
+    ) { displayThemeType, dynamicTheme ->
+        MainUiState.Ready(SelectedAppTheme(displayThemeType, dynamicTheme))
+    }.stateInDefault(viewModelScope, MainUiState.Loading)
 
     private var startupComplete = false
     fun startup() = viewModelScope.launch {
@@ -47,6 +47,14 @@ class MainViewModel(
     suspend fun createSampleData() {
         createIndividualTestDataUseCase()
     }
+}
+
+sealed interface MainUiState {
+    data object Loading : MainUiState
+
+    data class Ready(
+        val selectedAppTheme: SelectedAppTheme,
+    ) : MainUiState
 }
 
 data class SelectedAppTheme(val displayThemeType: DisplayThemeType, val dynamicTheme: Boolean)

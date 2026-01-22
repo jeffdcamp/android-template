@@ -26,22 +26,24 @@ fun AcknowledgementScreen(
     navigator: Navigation3Navigator,
     viewModel: AcknowledgementViewModel
 ) {
-    val uiState = viewModel.uiState
+    val uiState by viewModel.uiStateFlow.collectAsStateWithLifecycle()
 
     MainAppScaffoldWithNavBar(
         navigator = navigator,
         title = stringResource(R.string.acknowledgments),
         onNavigationClick = { navigator.pop() }
     ) {
-        AcknowledgementWebview(uiState)
+        when (val uiState = uiState) {
+            AcknowledgementUiState.Loading -> {}
+            is AcknowledgementUiState.Ready -> AcknowledgementWebview(uiState.acknowledgementHtml)
+        }
     }
 
     HandleNavigation3(viewModel, navigator)
 }
 
 @Composable
-private fun AcknowledgementWebview(uiState: AcknowledgementUiState) {
-    val acknowledgementHtml by uiState.acknowledgementHtmlFlow.collectAsStateWithLifecycle()
+private fun AcknowledgementWebview(acknowledgementHtml: String) {
     val acknowledgementWebViewClient = remember { getWebviewClient() }
 
     AndroidView(
@@ -57,9 +59,7 @@ private fun AcknowledgementWebview(uiState: AcknowledgementUiState) {
             }
         },
         update = { webview ->
-            acknowledgementHtml?.let {
-                webview.loadData(it, "text/html", "utf-8")
-            }
+            webview.loadData(acknowledgementHtml, "text/html", "utf-8")
         }
     )
 }

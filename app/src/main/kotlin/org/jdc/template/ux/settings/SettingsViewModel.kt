@@ -6,6 +6,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -26,26 +28,26 @@ class SettingsViewModel(
     private val application: Application,
     private val settingsRepository: SettingsRepository
 ) : ViewModel() {
+    val dialogUiStateFlow: StateFlow<DialogUiState<*>?>
+        field = MutableStateFlow<DialogUiState<*>?>(null)
 
-    private val dialogUiStateFlow = MutableStateFlow<DialogUiState<*>?>(null)
+    val uiStateFlow: StateFlow<SettingsUiState> = combine(
+        settingsRepository.themeFlow.map { theme -> theme.toString(application) },
+        settingsRepository.lastInstalledVersionCodeFlow.map { versionCode -> versionCode.toString() },
+        settingsRepository.rangeFlow.map { it.toString() },
+        settingsRepository.dynamicThemeFlow,
+        settingsRepository.directorySortByLastNameFlow
+    ) { currentThemeTitle, currentLastInstalledVersionCode, range, dynamicTheme, sortByLastName ->
+        SettingsUiState.Ready(
+            currentThemeTitle = currentThemeTitle,
+                    currentLastInstalledVersionCode = currentLastInstalledVersionCode,
+                    range = range,
+                    dynamicTheme = dynamicTheme,
+                    sortByLastName = sortByLastName,
+        )
+    }.stateInDefault(viewModelScope, SettingsUiState.Loading)
 
-    val uiState = SettingsUiState(
-        dialogUiStateFlow = dialogUiStateFlow,
-        currentThemeTitleFlow = settingsRepository.themeFlow.map { theme -> theme.toString(application) }.stateInDefault(viewModelScope, null),
-        currentLastInstalledVersionCodeFlow = settingsRepository.lastInstalledVersionCodeFlow.map { versionCode -> versionCode.toString() }.stateInDefault(viewModelScope, null),
-        rangeFlow = settingsRepository.rangeFlow.map { it.toString() }.stateInDefault(viewModelScope, null),
-        dynamicThemeFlow = settingsRepository.dynamicThemeFlow.stateInDefault(viewModelScope, false),
-        sortByLastNameFlow = settingsRepository.directorySortByLastNameFlow.stateInDefault(viewModelScope, false),
-
-        onThemeSettingClick = { onThemeSettingClick() },
-
-        onLastInstalledVersionCodeClick = { onLastInstalledVersionCodeClick() },
-        onRangeClick = { onRangeClick() },
-        setDynamicTheme = { checked -> settingsRepository.setDynamicThemeAsync(checked) },
-        setSortByLastName = { setSortByLastName(it) }
-    )
-
-    private fun onThemeSettingClick() = viewModelScope.launch {
+    fun onThemeSettingClick() = viewModelScope.launch {
         val currentTheme = settingsRepository.themeFlow.first()
 
         val supportedThemeTypes = if (Build.VERSION.SDK_INT > 28) {
@@ -67,7 +69,7 @@ class SettingsViewModel(
         )
     }
 
-    private fun onLastInstalledVersionCodeClick() = viewModelScope.launch {
+    fun onLastInstalledVersionCodeClick() = viewModelScope.launch {
         val currentValue = settingsRepository.getLastInstalledVersionCode()
         dialogUiStateFlow.value = InputDialogUiState(
             title = { "Version Code" },
@@ -79,7 +81,7 @@ class SettingsViewModel(
         )
     }
 
-    private fun onRangeClick() = viewModelScope.launch {
+    fun onRangeClick() = viewModelScope.launch {
         val currentValue = settingsRepository.getRange()
         dialogUiStateFlow.value = DropDownMenuDialogUiState(
             title = { "Range" },
@@ -92,19 +94,35 @@ class SettingsViewModel(
         )
     }
 
-    private fun setLastInstalledVersionCode(value: String) {
+    fun setLastInstalledVersionCode(value: String) {
         value.toIntOrNull()?.let {
             settingsRepository.setLastInstalledVersionCodeAsync(it)
         }
         dismissDialog(dialogUiStateFlow)
     }
 
-    private fun setRange(value: Int) {
+    fun setRange(value: Int) {
         settingsRepository.setRangeAsync(value)
         dismissDialog(dialogUiStateFlow)
     }
 
-    private fun setSortByLastName(checked: Boolean) {
+    fun setSortByLastName(checked: Boolean) {
         settingsRepository.setSortByLastNameAsync(checked)
     }
+
+    fun setDynamicTheme(checked: Boolean) {
+        settingsRepository.setDynamicThemeAsync(checked)
+    }
+}
+
+sealed interface SettingsUiState {
+    data object Loading : SettingsUiState
+
+    data class Ready(
+        val currentThemeTitle: String,
+        val currentLastInstalledVersionCode: String,
+        val range: String,
+        val dynamicTheme: Boolean,
+        val sortByLastName: Boolean,
+    ) : SettingsUiState
 }

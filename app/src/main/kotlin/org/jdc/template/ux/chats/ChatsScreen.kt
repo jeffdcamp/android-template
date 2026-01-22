@@ -16,6 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.jdc.template.R
+import org.jdc.template.shared.model.domain.ChatThreadListItem
+import org.jdc.template.shared.model.domain.inline.ChatThreadId
 import org.jdc.template.ui.navigation3.HandleNavigation3
 import org.jdc.template.ui.navigation3.navigator.Navigation3Navigator
 import org.jdc.template.ux.MainAppScaffoldWithNavBar
@@ -25,7 +27,7 @@ fun ChatsScreen(
     navigator: Navigation3Navigator,
     viewModel: ChatsViewModel,
 ) {
-    val uiState = viewModel.uiState
+    val uiState by viewModel.uiStateFlow.collectAsStateWithLifecycle()
 
     MainAppScaffoldWithNavBar(
         navigator = navigator,
@@ -34,14 +36,21 @@ fun ChatsScreen(
         onNavigationClick = { navigator.pop() },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { uiState.onNewClick() },
+                onClick = { viewModel.onNewChatClick() },
                 content = { Icon(Icons.Filled.Add, contentDescription = stringResource(R.string.add)) }
             )
         }
     ) {
-        ChatsContent(
-            uiState,
-        )
+        when (val uiState = uiState) {
+            ChatsUiState.Loading -> {}
+            is ChatsUiState.Ready -> {
+                ChatsContent(
+                    threadsList = uiState.threadsList,
+                    onThreadClick = { viewModel.onChatThreadClick(it) }
+                )
+            }
+            ChatsUiState.Empty -> {}
+        }
     }
 
     HandleNavigation3(viewModel, navigator)
@@ -49,16 +58,15 @@ fun ChatsScreen(
 
 @Composable
 private fun ChatsContent(
-    uiState: ChatsUiState
+    threadsList: List<ChatThreadListItem>,
+    onThreadClick: (ChatThreadId) -> Unit
 ) {
-    val threadsList by uiState.chatListFlow.collectAsStateWithLifecycle()
-
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
         items(threadsList) { listItem ->
             ListItem(
                 headlineContent = { Text(listItem.name) },
                 Modifier
-                    .clickable { uiState.onThreadClick(listItem.id) },
+                    .clickable { onThreadClick(listItem.id) },
             )
         }
     }

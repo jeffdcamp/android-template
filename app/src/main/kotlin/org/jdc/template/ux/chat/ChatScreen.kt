@@ -14,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.PagingData
@@ -21,7 +22,9 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
 import kotlinx.coroutines.flow.MutableStateFlow
+import org.jdc.template.R
 import org.jdc.template.shared.model.domain.ChatMessage
+import org.jdc.template.shared.model.domain.inline.ChatMessageId
 import org.jdc.template.shared.model.domain.inline.ChatThreadId
 import org.jdc.template.shared.model.domain.inline.IndividualId
 import org.jdc.template.ui.compose.PreviewDefault
@@ -41,31 +44,43 @@ fun ChatScreen(
     navigator: Navigation3Navigator,
     viewModel: ChatViewModel,
 ) {
-    val uiState = viewModel.uiState
-    val threadName by uiState.threadNameFlow.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val threadName = (uiState as? ChatUiState.Ready)?.threadName.orEmpty()
 
     MainAppScaffoldWithNavBar(
         navigator = navigator,
         title = {
             AppBarTitle(
-                title = "Messages",
+                title = stringResource(R.string.messages),
                 subtitle = threadName,
             )
         },
         onNavigationClick = { navigator.pop() },
     ) {
-        ChatScreenContent(uiState)
+        when (val uiState = uiState) {
+            ChatUiState.Loading -> {}
+            is ChatUiState.Ready -> {
+                ChatScreenContent(
+                    uiState = uiState,
+                    onSendClick = viewModel::onMessageSend,
+                    onDeleteClick = viewModel::onDeleteMessage
+                )
+            }
+            ChatUiState.Empty -> {}
+        }
+
     }
 
-    HandleDialogUiState(uiState.dialogUiStateFlow)
+    HandleDialogUiState(viewModel.dialogUiStateFlow)
     HandleNavigation3(viewModel, navigator)
 }
 
 @Composable
 private fun ChatScreenContent(
-    uiState: ChatUiState,
+    uiState: ChatUiState.Ready,
+    onSendClick: (String) -> Unit,
+    onDeleteClick: (ChatMessageId) -> Unit,
 ) {
-    val fromPerspectiveUserId by uiState.fromPerspectiveUserId.collectAsStateWithLifecycle()
     val messagesPagingData = uiState.allMessagesPagingFlow.collectAsLazyPagingItems()
     val listState = rememberLazyListState()
 
@@ -73,8 +88,7 @@ private fun ChatScreenContent(
         modifier = Modifier
             .fillMaxSize()
     ) {
-
-        // Add box to allow LazyColumn to anchor to to the bottom of the message area
+        // Add box to allow LazyColumn to anchor to the bottom of the message area
         Box(
             modifier = Modifier.weight(1f),
         ) {
@@ -94,9 +108,9 @@ private fun ChatScreenContent(
 
                     if (message != null) {
                         MessageItem(
-                            fromPerspectiveUserId = fromPerspectiveUserId,
+                            fromPerspectiveUserId = uiState.fromPerspectiveUserId,
                             message = message,
-                            onDeleteClick = { uiState.onDeleteClick(message.id) }
+                            onDeleteClick = { onDeleteClick(message.id) }
                         )
                     }
                 }
@@ -104,7 +118,7 @@ private fun ChatScreenContent(
         }
 
         ChatTextField(
-            onSendMessage = uiState.onSendClick,
+            onSendMessage = onSendClick,
             modifier = Modifier
                 .padding(horizontal = 16.dp)
         )
@@ -142,17 +156,15 @@ private fun Preview() {
         messageItem,
     )
 
-    val uiState = ChatUiState(
-        threadNameFlow = MutableStateFlow<String>("Test"),
-        fromPerspectiveUserId = MutableStateFlow<IndividualId>(IndividualId("1")),
+    val uiState = ChatUiState.Ready(
+        threadName = "Test",
+        fromPerspectiveUserId = IndividualId("1"),
         allMessagesPagingFlow = MutableStateFlow(value = PagingData.from(messages)),
-        onSendClick = {},
-        onDeleteClick = {},
     )
 
     AppTheme {
         Surface {
-            ChatScreenContent(uiState)
+            ChatScreenContent(uiState, {}, {})
         }
     }
 }
