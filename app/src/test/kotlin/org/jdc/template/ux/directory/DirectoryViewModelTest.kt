@@ -5,13 +5,11 @@ import assertk.assertions.isEqualTo
 import assertk.assertions.isNotEqualTo
 import io.mockk.coEvery
 import io.mockk.mockk
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
+import org.jdc.template.BaseCoroutineTest
 import org.jdc.template.shared.model.db.main.directoryitem.DirectoryItemEntityView
 import org.jdc.template.shared.model.domain.inline.FirstName
 import org.jdc.template.shared.model.domain.inline.IndividualId
@@ -19,16 +17,9 @@ import org.jdc.template.shared.model.domain.inline.LastName
 import org.jdc.template.shared.model.repository.IndividualRepository
 import org.jdc.template.ui.navigation3.Navigation3Action
 import org.jdc.template.ux.individualedit.IndividualEditRoute
-import kotlin.test.BeforeTest
 import kotlin.test.Test
 
-class DirectoryViewModelTest {
-
-    @BeforeTest
-    fun setup() {
-        Dispatchers.setMain(UnconfinedTestDispatcher()) // handle viewModelScope in Unit tests
-    }
-
+class DirectoryViewModelTest: BaseCoroutineTest() {
     @Test
     fun `when uiState is initialized, then is should show Loading`() {
         val viewModel = DirectoryViewModel(createIndividualRepository(emptyList()))
@@ -36,15 +27,15 @@ class DirectoryViewModelTest {
     }
 
     @Test
-    fun `when uiState is finished loading with an Empty List`() = runTest {
+    fun `when uiState is finished loading with an Empty List`() = runTest(testDispatcher) {
         val viewModel = DirectoryViewModel(createIndividualRepository(emptyList()))
-        backgroundScope.launch(UnconfinedTestDispatcher()) { viewModel.uiStateFlow.collect() }
+        backgroundScope.launch(testDispatcher) { viewModel.uiStateFlow.collect() }
 
         assertThat(viewModel.uiStateFlow.value).isEqualTo(DirectoryUiState.Empty)
     }
 
     @Test
-    fun `when uiState is finished loading with a single item`() = runTest {
+    fun `when uiState is finished loading with a single item`() = runTest(testDispatcher) {
         val list = listOf(
             DirectoryItemEntityView(
                 individualId = IndividualId("123"),
@@ -55,7 +46,7 @@ class DirectoryViewModelTest {
 
         val viewModel = DirectoryViewModel(createIndividualRepository(list))
 
-        backgroundScope.launch(UnconfinedTestDispatcher()) { viewModel.uiStateFlow.collect() }
+        backgroundScope.launch(testDispatcher) { viewModel.uiStateFlow.collect() }
         assertThat(viewModel.uiStateFlow.value).isNotEqualTo(DirectoryUiState.Empty)
     }
 
