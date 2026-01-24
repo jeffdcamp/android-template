@@ -19,24 +19,23 @@ fun <T: NavKey> NavBackStack<T>.popAndNavigate(key: T, popToKey: T? = null): T? 
 }
 
 fun <T: NavKey> NavBackStack<T>.pop(popToKey: T? = null): T? {
-    return when (popToKey) {
+    var lastPoppedKey: T? = null
+    when (popToKey) {
         null -> {
-            removeLastOrNull() != null
-            null
+            lastPoppedKey = when {
+                size > 1 -> removeLastOrNull()
+                else -> null
+            }
         }
         else -> {
-            var lastPoppedKey: T? = null
-            var popCount = 0
             while (
                 last() != popToKey &&  // don't pop if we are already on the popToKey
-                size != 1 // don't pop the last item (NavDisplay will crash if there are 0 items)
+                size > 1 // don't pop the last item (NavDisplay will crash if there are 0 items)
             ) {
                 lastPoppedKey = removeLastOrNull()
-                popCount++
             }
 
-            popCount != 0 || lastPoppedKey != null
-            lastPoppedKey
         }
     }
+    return lastPoppedKey
 }
