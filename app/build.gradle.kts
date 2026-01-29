@@ -24,10 +24,12 @@ kotlin {
     compilerOptions {
         optIn.add("kotlin.time.ExperimentalTime")
         optIn.add("kotlin.uuid.ExperimentalUuidApi")
+        optIn.add("kotlinx.coroutines.ExperimentalCoroutinesApi")
         optIn.add("androidx.compose.material3.ExperimentalMaterial3Api")
         optIn.add("androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi")
         freeCompilerArgs.addAll(
             "-Xexplicit-backing-fields", // Added with Kotlin 2.3
+            "-Xreturn-value-checker=check" // Added with Kotlin 2.3 (https://kotlinlang.org/docs/unused-return-value-checker.html#mark-functions-to-check-ignored-results)
         )
     }
 }
