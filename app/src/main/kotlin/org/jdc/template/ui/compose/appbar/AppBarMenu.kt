@@ -190,7 +190,7 @@ sealed interface AppBarMenuItem {
         override val leadingIcon: ImageVector? = null,
         override val trailingIcon: ImageVector? = null,
         override val action: () -> Unit,
-    ) : AppBarMenuItem, org.jdc.template.ui.compose.menu.OverflowMenuItem.MenuItem(text, leadingIcon, trailingIcon, action) {
+    ) : AppBarMenuItem, OverflowMenuItem.MenuItem(text, leadingIcon, trailingIcon, action) {
         constructor(@StringRes textId: Int, leadingIcon: ImageVector? = null, trailingIcon: ImageVector? = null, action: () -> Unit) : this(
             text = { stringResource(textId) },
             leadingIcon = leadingIcon,
@@ -204,7 +204,7 @@ sealed interface AppBarMenuItem {
         override val leadingContent: (@Composable () -> Unit)? = null,
         override val trailingContent: (@Composable () -> Unit)? = null,
         override val action: () -> Unit
-    ) : AppBarMenuItem, org.jdc.template.ui.compose.menu.OverflowMenuItem.MenuItemCustom(text, leadingContent, trailingContent, action) {
+    ) : AppBarMenuItem, OverflowMenuItem.MenuItemCustom(text, leadingContent, trailingContent, action) {
         constructor(@StringRes textId: Int, leadingContent: (@Composable () -> Unit)? = null, trailingContent: (@Composable () -> Unit)? = null, action: () -> Unit) : this(
             text = { stringResource(textId) },
             leadingContent = leadingContent,
@@ -213,7 +213,7 @@ sealed interface AppBarMenuItem {
         )
     }
 
-    object OverflowDivider : AppBarMenuItem, org.jdc.template.ui.compose.menu.OverflowMenuItem.Divider()
+    object OverflowDivider : AppBarMenuItem, OverflowMenuItem.Divider()
 
     fun isOverFlowItem(): Boolean = this is OverflowMenuItem || this is OverflowDivider
 }
