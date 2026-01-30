@@ -47,13 +47,13 @@ jobs:
         SIGNING_KEY_PASSWORD: ${{ secrets.UPLOAD_SIGNING_KEY_PASSWORD }}
 
     - name: Test
-      run: ./gradlew testAlphaUnitTest jvmTest
+      run: ./gradlew testDebugUnitTest jvmTest
 
     - name: Lint
-      run: ./gradlew lintAlpha
+      run: ./gradlew lintDebug
 
     - name: Detekt
-      run: ./gradlew detekt detektAlpha
+      run: ./gradlew detekt detektDebug
 
     - name: App Distribution
       run: ./gradlew appDistributionUploadAlpha
