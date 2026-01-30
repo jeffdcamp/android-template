@@ -4,7 +4,7 @@ import java.util.Date
 
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.android) // remove when android.builtInKotlin=true (or android.builtInKotlin is removed)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.gms)
     alias(libs.plugins.firebase.crashlytics)
@@ -172,18 +172,6 @@ android {
         val beta by creating {
             initWith(release)
             versionNameSuffix = " BETA"
-        }
-    }
-
-    sourceSets {
-        getByName("main") {
-            java.srcDir("src/main/kotlin")
-        }
-        getByName("test") {
-            java.srcDir("src/test/kotlin")
-        }
-        getByName("androidTest") {
-            assets.srcDir("$projectDir/schemas")
         }
     }
 }
