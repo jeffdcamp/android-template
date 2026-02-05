@@ -1,3 +1,4 @@
+@file:Suppress("UnnecessaryFullyQualifiedName")
 package org.jdc.template.shared.util.network
 
 import androidx.core.net.toUri
