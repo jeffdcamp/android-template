@@ -26,7 +26,7 @@ dependencyAnalysis = "3.5.1"
 desugarJdkLibs = "2.1.5"
 detekt = "2.0.0-alpha.2"
 dbtools = "9.4.0"
-downloadPlugin = "5.6.0"
+downloadPlugin = "5.7.0"
 
 firebaseBom = "34.8.0"
 firebaseAppDistPlugin = "5.2.0"
@@ -38,7 +38,7 @@ gmsPlugin = "4.4.4"
 koin = "4.1.1"
 kermit = "2.0.8"
 konsist = "0.17.3"
-kover = "0.9.4"
+kover = "0.9.5"
 ksp = "2.3.5"
 ktor = "3.4.0"
 leakCanary = "2.14"
@@ -55,6 +55,7 @@ versionsPlugin = "0.53.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
+android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 dependencyAnalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyAnalysis" }
 detekt = { id = "dev.detekt", version.ref = "detekt" }
@@ -65,6 +66,7 @@ firebase-perf = { id = "com.google.firebase.firebase-perf", version.ref = "fireb
 gms = { id = "com.google.gms.google-services", version.ref = "gmsPlugin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
@@ -72,8 +74,6 @@ licenseManager = { id = "org.dbtools.license-manager", version.ref = "licenseMan
 playPublisher = { id = "com.github.triplet.play", version.ref = "playPublisher" }
 room = { id = "androidx.room", version.ref = "room" }
 versions = { id = "com.github.ben-manes.versions", version.ref = "versionsPlugin" }
-kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
-android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
 
 [libraries]
 android-desugar = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "desugarJdkLibs" }
