@@ -1,6 +1,7 @@
 package org.jdc.template.ux.main
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.runtime.NavEntryDecorator
@@ -45,7 +46,7 @@ fun MainScreen() {
         navKeySerializer = NavKeySerializer()
     )
 
-    val navigator = TopLevelBackStackNavigator(navigationState)
+    val navigator = remember { TopLevelBackStackNavigator(navigationState) }
 
     val entryProvider: (NavKey) -> NavEntry<NavKey> = entryProvider {
         entry<DirectoryRoute> { DirectoryScreen(navigator, koinViewModel()) }
