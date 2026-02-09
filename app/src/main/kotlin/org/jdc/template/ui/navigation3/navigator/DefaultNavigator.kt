@@ -14,7 +14,7 @@ import org.jdc.template.ui.navigation3.pop
  * @Composable
  * fun MainScreen() {
  *     val backstack = rememberNavBackStack(AScreen)
- *     val navigator = DefaultNavigator(backstack)
+ *     val navigator = remember { DefaultNavigator(backstack) }
  *
  *     val entryProvider: (NavKey) -> NavEntry<NavKey> = entryProvider {
  *         entry<ARoute> { AScreen(navigator, hiltViewModel()) }
@@ -36,7 +36,7 @@ import org.jdc.template.ui.navigation3.pop
  * @Composable
  * fun MainScreen() {
  *     val backstack = rememberNavBackStack(NavKeyBridgeSerializer, AScreen)
- *     val navigator = DefaultNavigator(backstack)
+ *     val navigator = remember { DefaultNavigator(backstack) }
  *
  *     val entryProvider: (NavKey) -> NavEntry<NavKey> = entryProvider {
  *         entry<ARoute> { AScreen(navigator, hiltViewModel()) }

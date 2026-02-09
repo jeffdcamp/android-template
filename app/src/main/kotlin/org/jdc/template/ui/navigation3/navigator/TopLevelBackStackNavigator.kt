@@ -20,7 +20,7 @@ import org.jdc.template.ui.navigation3.pop
  *         navKeySerializer = NavKeySerializer()
  *     )
  *
- *     val navigator = TopLevelBackStackNavigator(navigationState)
+ *     val navigator = remember { TopLevelBackStackNavigator(navigationState) }
  *
  *     val entryProvider: (NavKey) -> NavEntry<NavKey> = entryProvider {
  *         entry<ARoute> { AScreen(navigator, hiltViewModel()) }
@@ -46,7 +46,7 @@ import org.jdc.template.ui.navigation3.pop
  *         navKeySerializer = NavKeyBridgeSerializer
  *     )
  *
- *     val navigator = TopLevelBackStackNavigator(navigationState)
+ *     val navigator = remember { TopLevelBackStackNavigator(navigationState) }
  *
  *     val entryProvider: (NavKey) -> NavEntry<NavKey> = entryProvider {
  *         entry<ARoute> { AScreen(navigator, hiltViewModel()) }
