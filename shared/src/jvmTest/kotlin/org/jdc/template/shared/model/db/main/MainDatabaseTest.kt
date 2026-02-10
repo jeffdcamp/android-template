@@ -4,18 +4,18 @@ import androidx.room.Room
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import kotlinx.coroutines.test.runTest
-import kotlin.time.Clock
 import okio.FileSystem
 import okio.Path.Companion.toPath
 import org.dbtools.room.ext.deleteDatabaseFiles
+import org.jdc.template.shared.model.db.main.individual.IndividualEntity
 import org.jdc.template.shared.model.domain.inline.FirstName
 import org.jdc.template.shared.model.domain.inline.IndividualId
 import org.jdc.template.shared.model.domain.inline.LastName
 import org.jdc.template.shared.model.domain.type.IndividualType
-import org.jdc.template.shared.model.db.main.individual.IndividualEntity
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertNotNull
+import kotlin.time.Clock
 
 class MainDatabaseTest {
 

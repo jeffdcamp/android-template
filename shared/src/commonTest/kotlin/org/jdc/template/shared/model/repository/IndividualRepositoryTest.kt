@@ -5,7 +5,6 @@ import assertk.assertions.isEqualTo
 import kotlinx.coroutines.test.runTest
 import kotlinx.datetime.LocalTime
 import okio.FileSystem
-import okio.SYSTEM
 import org.jdc.template.shared.di.getSharedKoinModules
 import org.jdc.template.shared.model.domain.Individual
 import org.jdc.template.shared.model.domain.inline.FirstName
