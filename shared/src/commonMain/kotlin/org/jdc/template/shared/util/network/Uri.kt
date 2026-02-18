@@ -235,3 +235,5 @@ class Uri private constructor(
         }
     }
 }
+
+fun String.toUri(): Uri = Uri.parse(this)
