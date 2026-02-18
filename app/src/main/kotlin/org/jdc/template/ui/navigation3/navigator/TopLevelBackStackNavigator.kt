@@ -28,8 +28,13 @@ import org.jdc.template.ui.navigation3.pop
  *         entry<CRoute> { CScreen(navigator, hiltViewModel()) }
  *     }
  *
+ *     val decorators: List<NavEntryDecorator<NavKey>> = listOf(
+ *         rememberSaveableStateHolderNavEntryDecorator(),
+ *         rememberViewModelStoreNavEntryDecorator()
+ *     )
+ *
  *     NavDisplay(
- *         entries = navigationState.toEntries(entryProvider),
+ *         entries = navigationState.toEntries(entryProvider, decorators),
  *         onBack = { navigator.pop() }
  *     )
  * }
@@ -54,8 +59,13 @@ import org.jdc.template.ui.navigation3.pop
  *         entry<CRoute> { CScreen(navigator, hiltViewModel()) }
  *     }
  *
+ *     val decorators: List<NavEntryDecorator<NavKey>> = listOf(
+ *         rememberSaveableStateHolderNavEntryDecorator(),
+ *         rememberViewModelStoreNavEntryDecorator()
+ *     )
+ *
  *     NavDisplay(
- *         entries = navigationState.toEntries(entryProvider),
+ *         entries = navigationState.toEntries(entryProvider, decorators),
  *         onBack = { navigator.pop() }
  *     )
  * }
@@ -95,22 +105,14 @@ import org.jdc.template.ui.navigation3.pop
  * }
  * ```
  */
-class TopLevelBackStackNavigator(val state: NavigationState) : Navigation3Navigator {
+class TopLevelBackStackNavigator(val state: NavigationState) : Navigation3Navigator() {
     override fun getCurrentBackStack(): NavBackStack<NavKey>? = state.backStacks[state.topLevelRoute]
 
-    override fun navigate(key: NavKey) {
-        getCurrentBackStack()?.add(key)
-    }
-
-    override fun navigate(keys: List<NavKey>) {
+    override fun doNavigate(keys: List<NavKey>) {
         getCurrentBackStack()?.navigate(keys)
     }
 
-    override fun pop(): Boolean {
-        return pop(null)
-    }
-
-    override fun pop(key: NavKey?): Boolean {
+    override fun doPop(key: NavKey?): Boolean {
         // If we're at the base of the current route, go back to the start route stack.
         return if (getCurrentBackStack()?.last() == state.topLevelRoute) {
             navigateTopLevel(state.startRoute, false)
@@ -120,14 +122,7 @@ class TopLevelBackStackNavigator(val state: NavigationState) : Navigation3Naviga
         }
     }
 
-    override fun popAndNavigate(key: NavKey): Boolean {
-        val keyRemoved = pop()
-        navigate(key)
-
-        return keyRemoved
-    }
-
-    override fun navigateTopLevel(key: NavKey, reselected: Boolean) {
+    override fun doNavigateTopLevel(key: NavKey, reselected: Boolean) {
         if (reselected) {
             // clear back stack
             getCurrentBackStack()?.pop(popToKey = key)

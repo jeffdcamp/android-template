@@ -22,10 +22,16 @@ import org.jdc.template.ui.navigation3.pop
  *         entry<CRoute> { CScreen(navigator, hiltViewModel()) }
  *     }
  *
+ *     val decorators: List<NavEntryDecorator<NavKey>> = listOf(
+ *         rememberSaveableStateHolderNavEntryDecorator(),
+ *         rememberViewModelStoreNavEntryDecorator()
+ *     )
+ *
  *     NavDisplay(
  *         backStack = backstack,
  *         onBack = { navigator.pop() },
  *         entryProvider = entryProvider,
+ *         entryDecorators = decorators
  *     )
  * }
  * ```
@@ -44,10 +50,16 @@ import org.jdc.template.ui.navigation3.pop
  *         entry<CRoute> { CScreen(navigator, hiltViewModel()) }
  *     }
  *
+ *     val decorators: List<NavEntryDecorator<NavKey>> = listOf(
+ *         rememberSaveableStateHolderNavEntryDecorator(),
+ *         rememberViewModelStoreNavEntryDecorator()
+ *     )
+ *
  *     NavDisplay(
  *         backStack = backstack,
  *         onBack = { navigator.pop() },
  *         entryProvider = entryProvider,
+ *         entryDecorators = decorators
  *     )
  * }
  *
@@ -88,33 +100,18 @@ import org.jdc.template.ui.navigation3.pop
  */
 class DefaultNavigator(
     private val backStack: NavBackStack<NavKey>
-) : Navigation3Navigator {
+) : Navigation3Navigator() {
     override fun getCurrentBackStack(): NavBackStack<NavKey> = backStack
 
-    override fun navigate(key: NavKey) {
-        backStack.navigate(key)
-    }
-
-    override fun navigate(keys: List<NavKey>) {
+    override fun doNavigate(keys: List<NavKey>) {
         backStack.navigate(keys)
     }
 
-    override fun pop(): Boolean {
-        return pop(null)
-    }
-
-    override fun pop(key: NavKey?): Boolean {
+    override fun doPop(key: NavKey?): Boolean {
         return backStack.pop(key) != null
     }
 
-    override fun popAndNavigate(key: NavKey): Boolean {
-        val keyRemoved = pop()
-        navigate(key)
-
-        return keyRemoved
-    }
-
-    override fun navigateTopLevel(key: NavKey, reselected: Boolean) {
+    override fun doNavigateTopLevel(key: NavKey, reselected: Boolean) {
         error("navigateTopLevel() navigation not implemented in DefaultNavigator (use TopLevelBackstackNavigator instead)")
     }
 
