@@ -1,4 +1,4 @@
-package org.jdc.template.ui.navigation3.deeplink
+package org.jdc.template.ui.navigation.deeplink
 
 import androidx.navigation3.runtime.NavKey
 import org.jdc.template.shared.util.network.Uri

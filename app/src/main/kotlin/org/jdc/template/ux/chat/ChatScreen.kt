@@ -30,8 +30,8 @@ import org.jdc.template.shared.model.domain.inline.IndividualId
 import org.jdc.template.ui.compose.PreviewDefault
 import org.jdc.template.ui.compose.appbar.AppBarTitle
 import org.jdc.template.ui.compose.dialog.HandleDialogUiState
-import org.jdc.template.ui.navigation3.HandleNavigation3
-import org.jdc.template.ui.navigation3.navigator.Navigation3Navigator
+import org.jdc.template.ui.navigation.HandleNavigation3
+import org.jdc.template.ui.navigation.navigator.Navigation3Navigator
 import org.jdc.template.ui.theme.AppTheme
 import org.jdc.template.util.time.TimeFormatUtil
 import org.jdc.template.ux.MainAppScaffoldWithNavBar

@@ -10,10 +10,10 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.runtime.serialization.NavKeySerializer
 import androidx.navigation3.ui.NavDisplay
-import org.jdc.template.ui.navigation3.NavigationState
-import org.jdc.template.ui.navigation3.navigator.TopLevelBackStackNavigator
-import org.jdc.template.ui.navigation3.rememberNavigationState
-import org.jdc.template.ui.navigation3.toEntries
+import org.jdc.template.ui.navigation.NavigationState
+import org.jdc.template.ui.navigation.navigator.TopLevelBackStackNavigator
+import org.jdc.template.ui.navigation.rememberNavigationState
+import org.jdc.template.ui.navigation.toEntries
 import org.jdc.template.ux.about.AboutRoute
 import org.jdc.template.ux.about.AboutScreen
 import org.jdc.template.ux.about.typography.TypographyRoute

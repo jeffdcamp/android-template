@@ -14,7 +14,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import org.jdc.template.R
 import org.jdc.template.ui.compose.PreviewDefault
-import org.jdc.template.ui.navigation3.navigator.Navigation3Navigator
+import org.jdc.template.ui.navigation.navigator.Navigation3Navigator
 import org.jdc.template.ui.theme.AppTheme
 import org.jdc.template.ux.MainAppScaffoldWithNavBar
 

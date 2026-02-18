@@ -1,13 +1,13 @@
 @file:Suppress("unused")
 
-package org.jdc.template.ui.navigation3
+package org.jdc.template.ui.navigation
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.navigation3.runtime.NavKey
 import co.touchlab.kermit.Logger
-import org.jdc.template.ui.navigation3.navigator.Navigation3Navigator
+import org.jdc.template.ui.navigation.navigator.Navigation3Navigator
 
 sealed interface Navigation3ActionRoute : Navigation3Action {
     /**

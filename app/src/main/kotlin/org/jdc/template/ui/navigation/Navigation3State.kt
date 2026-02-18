@@ -1,4 +1,4 @@
-package org.jdc.template.ui.navigation3
+package org.jdc.template.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState

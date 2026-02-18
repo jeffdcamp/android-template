@@ -14,8 +14,8 @@ import org.jdc.template.shared.model.repository.ChatRepository
 import org.jdc.template.shared.model.repository.IndividualRepository
 import org.jdc.template.shared.util.ext.stateInDefault
 import org.jdc.template.ui.compose.dialog.DialogUiState
-import org.jdc.template.ui.navigation3.ViewModelNavigation3
-import org.jdc.template.ui.navigation3.ViewModelNavigation3Impl
+import org.jdc.template.ui.navigation.ViewModelNavigation3
+import org.jdc.template.ui.navigation.ViewModelNavigation3Impl
 import org.jdc.template.ux.chat.ChatRoute
 import kotlin.uuid.Uuid
 

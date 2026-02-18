@@ -12,7 +12,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.jdc.template.R
 import org.jdc.template.ui.compose.dialog.HandleDialogUiState
 import org.jdc.template.ui.compose.setting.Setting
-import org.jdc.template.ui.navigation3.navigator.Navigation3Navigator
+import org.jdc.template.ui.navigation.navigator.Navigation3Navigator
 import org.jdc.template.ux.MainAppScaffoldWithNavBar
 
 @Composable

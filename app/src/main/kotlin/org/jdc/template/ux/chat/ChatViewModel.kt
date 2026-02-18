@@ -19,8 +19,8 @@ import org.jdc.template.shared.util.ext.stateInDefault
 import org.jdc.template.ui.compose.dialog.DialogUiState
 import org.jdc.template.ui.compose.dialog.dismissDialog
 import org.jdc.template.ui.compose.dialog.showMessageDialog
-import org.jdc.template.ui.navigation3.ViewModelNavigation3
-import org.jdc.template.ui.navigation3.ViewModelNavigation3Impl
+import org.jdc.template.ui.navigation.ViewModelNavigation3
+import org.jdc.template.ui.navigation.ViewModelNavigation3Impl
 
 class ChatViewModel(
     private val chatRepository: ChatRepository,

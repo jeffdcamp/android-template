@@ -1,4 +1,4 @@
-package org.jdc.template.ui.navigation3
+package org.jdc.template.ui.navigation
 
 import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.KSerializer

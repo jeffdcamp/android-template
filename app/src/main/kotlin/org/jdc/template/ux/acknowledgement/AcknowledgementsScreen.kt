@@ -17,8 +17,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.jdc.template.R
-import org.jdc.template.ui.navigation3.HandleNavigation3
-import org.jdc.template.ui.navigation3.navigator.Navigation3Navigator
+import org.jdc.template.ui.navigation.HandleNavigation3
+import org.jdc.template.ui.navigation.navigator.Navigation3Navigator
 import org.jdc.template.ux.MainAppScaffoldWithNavBar
 
 @Composable

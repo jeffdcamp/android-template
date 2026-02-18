@@ -29,8 +29,8 @@ import org.jdc.template.shared.util.network.onError
 import org.jdc.template.shared.util.network.onException
 import org.jdc.template.shared.util.network.onFailure
 import org.jdc.template.shared.util.network.onSuccess
-import org.jdc.template.ui.navigation3.ViewModelNavigation3
-import org.jdc.template.ui.navigation3.ViewModelNavigation3Impl
+import org.jdc.template.ui.navigation.ViewModelNavigation3
+import org.jdc.template.ui.navigation.ViewModelNavigation3Impl
 import org.jdc.template.ux.acknowledgement.AcknowledgmentsRoute
 import org.jdc.template.ux.chats.ChatsRoute
 import org.jdc.template.work.WorkScheduler

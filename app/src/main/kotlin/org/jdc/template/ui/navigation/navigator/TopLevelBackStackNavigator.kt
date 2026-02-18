@@ -1,20 +1,26 @@
-package org.jdc.template.ui.navigation3.navigator
+package org.jdc.template.ui.navigation.navigator
 
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
-import org.jdc.template.ui.navigation3.navigate
-import org.jdc.template.ui.navigation3.pop
+import org.jdc.template.ui.navigation.NavigationState
+import org.jdc.template.ui.navigation.navigate
+import org.jdc.template.ui.navigation.pop
 
 /**
- * Navigator for use with a Back Stack
+ * Navigator for use with BottomNavigation and Multiple Back Stacks
  *
  * Example usage (Android):
  *
  * ```kotlin
  * @Composable
  * fun MainScreen() {
- *     val backstack = rememberNavBackStack(AScreen)
- *     val navigator = remember { DefaultNavigator(backstack) }
+ *     val navigationState = rememberNavigationState(
+ *         startRoute = ARoute,
+ *         topLevelRoutes = NavBarItem.entries.map { it.route }.toSet(),
+ *         navKeySerializer = NavKeySerializer()
+ *     )
+ *
+ *     val navigator = remember { TopLevelBackStackNavigator(navigationState) }
  *
  *     val entryProvider: (NavKey) -> NavEntry<NavKey> = entryProvider {
  *         entry<ARoute> { AScreen(navigator, hiltViewModel()) }
@@ -28,10 +34,8 @@ import org.jdc.template.ui.navigation3.pop
  *     )
  *
  *     NavDisplay(
- *         backStack = backstack,
- *         onBack = { navigator.pop() },
- *         entryProvider = entryProvider,
- *         entryDecorators = decorators
+ *         entries = navigationState.toEntries(entryProvider, decorators),
+ *         onBack = { navigator.pop() }
  *     )
  * }
  * ```
@@ -41,8 +45,13 @@ import org.jdc.template.ui.navigation3.pop
  * ```kotlin
  * @Composable
  * fun MainScreen() {
- *     val backstack = rememberNavBackStack(NavKeyBridgeSerializer, AScreen)
- *     val navigator = remember { DefaultNavigator(backstack) }
+ *     val navigationState = rememberNavigationState(
+ *         startRoute = ARoute,
+ *         topLevelRoutes = NavBarItem.entries.map { it.route }.toSet(),
+ *         navKeySerializer = NavKeyBridgeSerializer
+ *     )
+ *
+ *     val navigator = remember { TopLevelBackStackNavigator(navigationState) }
  *
  *     val entryProvider: (NavKey) -> NavEntry<NavKey> = entryProvider {
  *         entry<ARoute> { AScreen(navigator, hiltViewModel()) }
@@ -56,10 +65,8 @@ import org.jdc.template.ui.navigation3.pop
  *     )
  *
  *     NavDisplay(
- *         backStack = backstack,
- *         onBack = { navigator.pop() },
- *         entryProvider = entryProvider,
- *         entryDecorators = decorators
+ *         entries = navigationState.toEntries(entryProvider, decorators),
+ *         onBack = { navigator.pop() }
  *     )
  * }
  *
@@ -98,24 +105,31 @@ import org.jdc.template.ui.navigation3.pop
  * }
  * ```
  */
-class DefaultNavigator(
-    private val backStack: NavBackStack<NavKey>
-) : Navigation3Navigator() {
-    override fun getCurrentBackStack(): NavBackStack<NavKey> = backStack
+class TopLevelBackStackNavigator(val state: NavigationState) : Navigation3Navigator() {
+    override fun getCurrentBackStack(): NavBackStack<NavKey>? = state.backStacks[state.topLevelRoute]
 
     override fun doNavigate(keys: List<NavKey>) {
-        backStack.navigate(keys)
+        getCurrentBackStack()?.navigate(keys)
     }
 
     override fun doPop(key: NavKey?): Boolean {
-        return backStack.pop(key) != null
+        // If we're at the base of the current route, go back to the start route stack.
+        return if (getCurrentBackStack()?.last() == state.topLevelRoute) {
+            navigateTopLevel(state.startRoute, false)
+            false
+        } else {
+            getCurrentBackStack()?.pop(key) != null
+        }
     }
 
     override fun doNavigateTopLevel(key: NavKey, reselected: Boolean) {
-        error("navigateTopLevel() navigation not implemented in DefaultNavigator (use TopLevelBackstackNavigator instead)")
+        if (reselected) {
+            // clear back stack
+            getCurrentBackStack()?.pop(popToKey = key)
+        } else {
+            state.topLevelRoute = key
+        }
     }
 
-    override fun getSelectedTopLevelRoute(): NavKey {
-        error("getSelectedTopLevelRoute() not implemented in DefaultNavigator (use TopLevelBackstackNavigator instead)")
-    }
+    override fun getSelectedTopLevelRoute() = state.topLevelRoute
 }

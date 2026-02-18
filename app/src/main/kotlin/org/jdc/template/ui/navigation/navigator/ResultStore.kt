@@ -1,4 +1,4 @@
-package org.jdc.template.ui.navigation3.navigator
+package org.jdc.template.ui.navigation.navigator
 
 import androidx.annotation.VisibleForTesting
 import kotlinx.atomicfu.locks.reentrantLock

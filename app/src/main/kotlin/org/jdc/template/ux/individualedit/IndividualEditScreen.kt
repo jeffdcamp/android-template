@@ -30,8 +30,8 @@ import org.jdc.template.ui.compose.form.FlowTextField
 import org.jdc.template.ui.compose.form.SwitchField
 import org.jdc.template.ui.compose.form.TimeClickableTextField
 import org.jdc.template.ui.compose.util.formKeyEventHandler
-import org.jdc.template.ui.navigation3.HandleNavigation3
-import org.jdc.template.ui.navigation3.navigator.Navigation3Navigator
+import org.jdc.template.ui.navigation.HandleNavigation3
+import org.jdc.template.ui.navigation.navigator.Navigation3Navigator
 import org.jdc.template.ui.strings.getStringResId
 import org.jdc.template.ui.theme.AppTheme
 import org.jdc.template.ux.MainAppScaffoldWithNavBar

@@ -1,4 +1,4 @@
-package org.jdc.template.ui.navigation3
+package org.jdc.template.ui.navigation
 
 import android.content.Context
 import android.content.Intent
@@ -11,7 +11,7 @@ import androidx.navigation3.runtime.NavKey
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import org.jdc.template.ui.navigation3.navigator.Navigation3Navigator
+import org.jdc.template.ui.navigation.navigator.Navigation3Navigator
 
 /**
  * Used for typical ViewModels that have navigation

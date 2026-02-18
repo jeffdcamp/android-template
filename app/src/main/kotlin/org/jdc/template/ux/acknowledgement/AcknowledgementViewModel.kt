@@ -8,8 +8,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import org.jdc.template.shared.util.ext.stateInDefault
-import org.jdc.template.ui.navigation3.ViewModelNavigation3
-import org.jdc.template.ui.navigation3.ViewModelNavigation3Impl
+import org.jdc.template.ui.navigation.ViewModelNavigation3
+import org.jdc.template.ui.navigation.ViewModelNavigation3Impl
 
 class AcknowledgementViewModel(
     private val application: Application

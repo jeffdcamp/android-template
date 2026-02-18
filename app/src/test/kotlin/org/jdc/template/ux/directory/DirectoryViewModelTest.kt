@@ -15,7 +15,7 @@ import org.jdc.template.shared.model.domain.inline.FirstName
 import org.jdc.template.shared.model.domain.inline.IndividualId
 import org.jdc.template.shared.model.domain.inline.LastName
 import org.jdc.template.shared.model.repository.IndividualRepository
-import org.jdc.template.ui.navigation3.Navigation3Action
+import org.jdc.template.ui.navigation.Navigation3Action
 import org.jdc.template.ux.individualedit.IndividualEditRoute
 import kotlin.test.Test
 

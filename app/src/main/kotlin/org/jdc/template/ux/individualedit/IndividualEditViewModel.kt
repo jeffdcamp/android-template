@@ -24,9 +24,9 @@ import org.jdc.template.ui.compose.dialog.DatePickerDialogUiState
 import org.jdc.template.ui.compose.dialog.DialogUiState
 import org.jdc.template.ui.compose.dialog.TimePickerDialogUiState
 import org.jdc.template.ui.compose.dialog.dismissDialog
-import org.jdc.template.ui.navigation3.Navigation3Action
-import org.jdc.template.ui.navigation3.ViewModelNavigation3
-import org.jdc.template.ui.navigation3.ViewModelNavigation3Impl
+import org.jdc.template.ui.navigation.Navigation3Action
+import org.jdc.template.ui.navigation.ViewModelNavigation3
+import org.jdc.template.ui.navigation.ViewModelNavigation3Impl
 import kotlin.time.Clock
 
 class IndividualEditViewModel(

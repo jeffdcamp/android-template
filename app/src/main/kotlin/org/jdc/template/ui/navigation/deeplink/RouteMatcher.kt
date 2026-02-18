@@ -1,10 +1,10 @@
-package org.jdc.template.ui.navigation3.deeplink
+package org.jdc.template.ui.navigation.deeplink
 
 import androidx.navigation3.runtime.NavKey
 import io.ktor.http.decodeURLQueryComponent
 import io.ktor.http.encodeURLQueryComponent
 import org.jdc.template.shared.util.network.Uri
-import org.jdc.template.ui.navigation3.deeplink.RouteMatcher.Companion.DEFAULT_STRING_LIST_DELIMITER
+import org.jdc.template.ui.navigation.deeplink.RouteMatcher.Companion.DEFAULT_STRING_LIST_DELIMITER
 
 /**
  * Abstract base for bidirectional mapping between a [NavKey] route and a Uri string.

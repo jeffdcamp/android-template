@@ -24,8 +24,8 @@ import org.jdc.template.shared.model.db.main.directoryitem.DirectoryItemEntityVi
 import org.jdc.template.shared.model.domain.inline.IndividualId
 import org.jdc.template.ui.compose.appbar.AppBarMenu
 import org.jdc.template.ui.compose.appbar.AppBarMenuItem
-import org.jdc.template.ui.navigation3.HandleNavigation3
-import org.jdc.template.ui.navigation3.navigator.Navigation3Navigator
+import org.jdc.template.ui.navigation.HandleNavigation3
+import org.jdc.template.ui.navigation.navigator.Navigation3Navigator
 import org.jdc.template.ux.MainAppScaffoldWithNavBar
 
 @Composable

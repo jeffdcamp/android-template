@@ -8,8 +8,8 @@ import org.jdc.template.shared.model.db.main.directoryitem.DirectoryItemEntityVi
 import org.jdc.template.shared.model.domain.inline.IndividualId
 import org.jdc.template.shared.model.repository.IndividualRepository
 import org.jdc.template.shared.util.ext.stateInDefault
-import org.jdc.template.ui.navigation3.ViewModelNavigation3
-import org.jdc.template.ui.navigation3.ViewModelNavigation3Impl
+import org.jdc.template.ui.navigation.ViewModelNavigation3
+import org.jdc.template.ui.navigation.ViewModelNavigation3Impl
 import org.jdc.template.ux.individual.IndividualRoute
 import org.jdc.template.ux.individualedit.IndividualEditRoute
 import org.jdc.template.ux.settings.SettingsRoute
