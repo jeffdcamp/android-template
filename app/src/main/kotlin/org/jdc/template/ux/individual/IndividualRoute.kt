@@ -3,21 +3,28 @@ package org.jdc.template.ux.individual
 import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
 import org.jdc.template.shared.model.domain.inline.IndividualId
+import org.jdc.template.shared.util.network.Uri
+import org.jdc.template.shared.util.network.toUri
+import org.jdc.template.ui.navigation.deeplink.RouteMatcher
 
 @Serializable
 data class IndividualRoute(
     val individualId: IndividualId
 ): NavKey
 
-//fun IndividualRoute.Companion.deepLinks() = listOf(
-//    // Deep link with path/query arguments by using uriPattern
-//    // (don't use generated path in order to maintain deep link contract with other apps)
-//    // ./adb shell am start -W -a android.intent.action.VIEW -d "android-template://individual/xxxx"
-//    navDeepLink {
-//        uriPattern = "${NavIntentFilterPart.DEFAULT_APP_SCHEME}://individual/${RouteUtil.defineArg(DeepLinkArgs.PATH_INDIVIDUAL_ID)}"
-//    },
-//)
-//
-//private object DeepLinkArgs {
-//    const val PATH_INDIVIDUAL_ID = "individualId"
-//}
+object IndividualRouteMatcher : RouteMatcher<IndividualRoute>("/individual".toUri()) {
+    override fun matchesKey(route: NavKey) = route is IndividualRoute
+
+    override fun parse(uri: Uri): IndividualRoute? {
+        uri.pathSegments
+        return IndividualRoute(
+            individualId = uri.pathSegments.getOrNull(1)?.let { IndividualId(it) } ?: return null
+        )
+    }
+
+    override fun toUri(route: IndividualRoute): String {
+        return baseUri.newBuilder()
+            .appendPath(route.individualId.value)
+            .build().toString()
+    }
+}
