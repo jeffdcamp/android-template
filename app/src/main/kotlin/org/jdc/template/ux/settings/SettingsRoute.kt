@@ -2,13 +2,11 @@ package org.jdc.template.ux.settings
 
 import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
+import org.jdc.template.shared.util.network.toUri
+import org.jdc.template.ui.navigation.deeplink.SimpleRouteMatcher
 
 @Serializable
 object SettingsRoute: NavKey
 
-// todo: handle deep links
-//fun SettingsRoute.deeplinks() = listOf(
-//    // Simple deep link without any path/query arguments
-//    // ./adb shell am start -W -a android.intent.action.VIEW -d "android-template://settings"
-//    navDeepLink<SettingsRoute>("${NavIntentFilterPart.DEFAULT_APP_SCHEME}://settings"),
-//)
+//./adb shell am start -W -a android.intent.action.VIEW -d "android-template://settings"
+object SettingsRouteMatcher : SimpleRouteMatcher<SettingsRoute>(SettingsRoute, "/settings".toUri())

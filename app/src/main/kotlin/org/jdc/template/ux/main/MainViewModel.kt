@@ -11,13 +11,16 @@ import org.jdc.template.shared.domain.usecase.CreateIndividualTestDataUseCase
 import org.jdc.template.shared.model.domain.type.DisplayThemeType
 import org.jdc.template.shared.model.repository.SettingsRepository
 import org.jdc.template.shared.util.ext.stateInDefault
+import org.jdc.template.ui.navigation.DeepLinkRouter
+import org.jdc.template.ui.navigation.ViewModelNavigation3
+import org.jdc.template.ui.navigation.ViewModelNavigation3Impl
 import org.jdc.template.work.WorkScheduler
 
 class MainViewModel(
     private val workScheduler: WorkScheduler,
     settingsRepository: SettingsRepository,
     private val createIndividualTestDataUseCase: CreateIndividualTestDataUseCase
-) : ViewModel() {
+) : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3Impl() {
     val uiStateFlow: StateFlow<MainUiState> = combine(
         settingsRepository.themeFlow,
         settingsRepository.dynamicThemeFlow
@@ -46,6 +49,17 @@ class MainViewModel(
     @VisibleForTesting
     suspend fun createSampleData() {
         createIndividualTestDataUseCase()
+    }
+
+    fun handleDeepLink(intentData: String) {
+        val uri = if (intentData.startsWith("android-template://")) {
+            intentData.substringAfter(":/")
+        } else {
+            intentData
+        }
+
+        val deepLinkRoute = DeepLinkRouter.fromUri(uri) ?: return
+        navigate(deepLinkRoute)
     }
 }
 

@@ -10,6 +10,7 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.runtime.serialization.NavKeySerializer
 import androidx.navigation3.ui.NavDisplay
+import org.jdc.template.ui.navigation.HandleNavigation3
 import org.jdc.template.ui.navigation.NavigationState
 import org.jdc.template.ui.navigation.navigator.TopLevelBackStackNavigator
 import org.jdc.template.ui.navigation.rememberNavigationState
@@ -39,7 +40,9 @@ import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 
 @Composable
-fun MainScreen() {
+fun MainScreen(
+    viewModel: MainViewModel
+) {
     val navigationState: NavigationState = rememberNavigationState(
         startRoute = DirectoryRoute,
         topLevelRoutes = NavBarItem.entries.map { it.route }.toSet(),
@@ -69,4 +72,6 @@ fun MainScreen() {
         entries = navigationState.toEntries(entryProvider, decorators),
         onBack = { navigator.pop() }
     )
+
+    HandleNavigation3(viewModel, navigator)
 }

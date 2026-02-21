@@ -2,12 +2,10 @@ package org.jdc.template.ux
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
@@ -37,8 +35,6 @@ fun MainAppScaffoldWithNavBar(
     hideNavigation: Boolean = false,
     actions: @Composable (RowScope.() -> Unit)? = null,
     floatingActionButton: @Composable () -> Unit = {},
-    floatingActionButtonPosition: FabPosition = FabPosition.End,
-    contentWindowInsets: WindowInsets = WindowInsets(0, 0, 0, 0), // required when using enableEdgeToEdge
     content: @Composable () -> Unit,
 ) {
     MainAppScaffoldWithNavBar(
@@ -51,8 +47,6 @@ fun MainAppScaffoldWithNavBar(
         hideNavigation = hideNavigation,
         actions = actions,
         floatingActionButton = floatingActionButton,
-        floatingActionButtonPosition = floatingActionButtonPosition,
-        contentWindowInsets = contentWindowInsets,
         content = content
     )
 }
@@ -68,8 +62,6 @@ fun MainAppScaffoldWithNavBar(
     hideNavigation: Boolean = false,
     actions: @Composable (RowScope.() -> Unit)? = null,
     floatingActionButton: @Composable () -> Unit = {},
-    floatingActionButtonPosition: FabPosition = FabPosition.End,
-    contentWindowInsets: WindowInsets = WindowInsets(0, 0, 0, 0), // required when using enableEdgeToEdge
     content: @Composable () -> Unit,
 ) {
     when {
@@ -109,8 +101,6 @@ fun MainAppScaffoldWithNavBar(
                     onNavigationClick = onNavigationClick,
                     actions = actions,
                     floatingActionButton = floatingActionButton,
-                    floatingActionButtonPosition = floatingActionButtonPosition,
-                    contentWindowInsets = contentWindowInsets,
                     content = content
                 )
             }
@@ -127,8 +117,6 @@ private fun AppScaffold(
     onNavigationClick: (() -> Unit)? = null,
     actions: @Composable (RowScope.() -> Unit)? = null,
     floatingActionButton: @Composable () -> Unit = {},
-    floatingActionButtonPosition: FabPosition = FabPosition.End,
-    contentWindowInsets: WindowInsets = WindowInsets(0, 0, 0, 0), // required when using enableEdgeToEdge
     content: @Composable () -> Unit,
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
@@ -161,8 +149,6 @@ private fun AppScaffold(
     Scaffold(
         topBar = topAppBar,
         floatingActionButton = floatingActionButton,
-        floatingActionButtonPosition = floatingActionButtonPosition,
-        contentWindowInsets = contentWindowInsets,
         modifier = appScaffoldModifier
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {

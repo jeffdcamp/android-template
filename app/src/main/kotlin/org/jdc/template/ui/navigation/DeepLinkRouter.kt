@@ -6,12 +6,14 @@ import org.jdc.template.ui.navigation.deeplink.RouteMatcher
 import org.jdc.template.ux.directory.DirectoryRouteMatcher
 import org.jdc.template.ux.individual.IndividualRouteMatcher
 import org.jdc.template.ux.individualedit.IndividualEditRouteMatcher
+import org.jdc.template.ux.settings.SettingsRouteMatcher
 
 object DeepLinkRouter : BaseDeepLinkRouter() {
     override fun getMatchers(): List<RouteMatcher<out NavKey>> = listOf(
         DirectoryRouteMatcher,
         IndividualRouteMatcher,
         IndividualEditRouteMatcher,
+        SettingsRouteMatcher
     )
 }
 
