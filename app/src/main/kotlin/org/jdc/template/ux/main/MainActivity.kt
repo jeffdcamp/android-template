@@ -13,7 +13,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.jdc.template.shared.model.domain.type.DisplayThemeType
 import org.jdc.template.ui.theme.AppTheme
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.compose.viewmodel.koinViewModel
 
 class MainActivity : ComponentActivity() {
     private val viewModel: MainViewModel by viewModel<MainViewModel>()
@@ -40,8 +39,6 @@ class MainActivity : ComponentActivity() {
         }
 
         setContent {
-            val viewModel: MainViewModel = koinViewModel()
-
             LaunchedEffect(Unit) {
                 viewModel.startup()
             }

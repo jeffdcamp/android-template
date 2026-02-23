@@ -52,13 +52,7 @@ class MainViewModel(
     }
 
     fun handleDeepLink(intentData: String) {
-        val uri = if (intentData.startsWith("android-template://")) {
-            intentData.substringAfter(":/")
-        } else {
-            intentData
-        }
-
-        val deepLinkRoute = DeepLinkRouter.fromUri(uri) ?: return
+        val deepLinkRoute = DeepLinkRouter.fromUri(intentData) ?: return
         navigate(deepLinkRoute)
     }
 }

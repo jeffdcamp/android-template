@@ -8,5 +8,5 @@ import org.jdc.template.ui.navigation.deeplink.SimpleRouteMatcher
 @Serializable
 object SettingsRoute: NavKey
 
-//./adb shell am start -W -a android.intent.action.VIEW -d "android-template://settings"
+//./adb shell am start -W -a android.intent.action.VIEW -d "android-template://app/settings"
 object SettingsRouteMatcher : SimpleRouteMatcher<SettingsRoute>(SettingsRoute, "/settings".toUri())
