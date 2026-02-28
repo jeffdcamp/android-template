@@ -1,12 +1,15 @@
 package org.jdc.template.ux.main
 
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -27,9 +30,6 @@ class MainActivity : ComponentActivity() {
 
         installSplashScreen()
 
-        // Turn off the decor fitting system windows, which allows us to handle insets,
-        // including IME animations, and go edge-to-edge
-        // This also sets up the initial system bar style based on the platform theme
         enableEdgeToEdge()
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -58,6 +58,20 @@ class MainActivity : ComponentActivity() {
                     val dynamicTheme = when(theme.dynamicTheme) {
                         true -> true
                         else -> false
+                    }
+
+                    // Update the edge to edge configuration to match the theme
+                    SideEffect {
+                        val barStyle = if (darkTheme) {
+                            SystemBarStyle.dark(Color.TRANSPARENT)
+                        } else {
+                            SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT)
+                        }
+
+                        enableEdgeToEdge(
+                            statusBarStyle = barStyle,
+                            navigationBarStyle = barStyle
+                        )
                     }
 
                     AppTheme(darkTheme, dynamicTheme) {

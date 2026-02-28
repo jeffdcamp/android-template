@@ -25,6 +25,7 @@ kotlin {
         optIn.add("kotlin.time.ExperimentalTime")
         optIn.add("kotlin.uuid.ExperimentalUuidApi")
         optIn.add("kotlinx.coroutines.ExperimentalCoroutinesApi")
+        optIn.add("androidx.compose.foundation.layout.ExperimentalLayoutApi")
         optIn.add("androidx.compose.material3.ExperimentalMaterial3Api")
         optIn.add("androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi")
         freeCompilerArgs.addAll(
