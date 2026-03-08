@@ -165,11 +165,11 @@ private fun AppScaffold(
 private fun getNavigationSuiteType(windowSize: DpSize): NavigationSuiteType {
     // defaults from Nav3
 //    val layoutType = NavigationSuiteScaffoldDefaults.navigationSuiteType(currentWindowAdaptiveInfo())
-
-    return if (windowSize.width >= 600.dp) {
-        NavigationSuiteType.NavigationRail
-    } else {
-        NavigationSuiteType.NavigationBar
+    return when {
+        windowSize.width >= 840.dp -> NavigationSuiteType.WideNavigationRailCollapsed // Tablet landscape
+        windowSize.height < 480.dp -> NavigationSuiteType.WideNavigationRailCollapsed // Phone landscape
+        windowSize.width >= 600.dp -> NavigationSuiteType.ShortNavigationBarMedium // Tablet portrait
+        else -> NavigationSuiteType.ShortNavigationBarCompact // Phone portrait
     }
 }
 
