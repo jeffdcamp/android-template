@@ -7,10 +7,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.AlertDialogDefaults
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MenuDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -30,6 +32,7 @@ import org.jdc.template.ui.compose.DayNightTextField
 import org.jdc.template.ui.compose.PreviewDefault
 import org.jdc.template.ui.theme.AppTheme
 
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun <T> DropdownMenuDialog(
     onDismissRequest: (() -> Unit) = {},
@@ -100,13 +103,15 @@ fun <T> DropdownMenuDialog(
                         expanded = expanded,
                         onDismissRequest = { expanded = false }
                     ) {
-                        options.forEach { selectionOption ->
+                        options.forEachIndexed { index, selectionOption ->
                             DropdownMenuItem(
                                 onClick = {
                                     selectedOptionTextFieldValue = selectionOption
                                     expanded = false
                                 },
                                 text = { Text(optionToText(selectionOption)) },
+                                shape = MenuDefaults.itemShape(index = index, count = options.size).shape,
+                                supportingText = optionToSupportingText(selectionOption)?.let { { Text(it) } },
                                 contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
                             )
                         }

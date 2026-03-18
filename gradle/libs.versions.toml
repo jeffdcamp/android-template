@@ -8,7 +8,7 @@ kotlinxDateTime = "0.7.1"
 
 androidxActivity = "1.13.0"
 androidxComposeMaterial = "1.7.8"
-androidxComposeMaterial3 = "1.4.0"
+androidxComposeMaterial3 = "1.5.0-alpha15"
 androidxComposeMaterial3Adaptive = "1.2.0"
 androidxComposeMaterial3AdaptiveNavigation = "1.4.0"
 androidxComposeUi = "1.10.5"
