@@ -28,17 +28,17 @@ fun <T : DialogUiState<*>> HandleDialogUiState(
 @Composable
 fun LibraryDialogs(dialogUiState: DialogUiState<*>) {
     when (dialogUiState) {
-        is MessageDialogUiState -> MessageDialog(dialogUiState)
-        is InputDialogUiState -> InputDialog(dialogUiState)
-        is TwoInputDialogUiState -> TwoInputDialog(dialogUiState)
-        is RadioDialogUiState -> RadioDialog(dialogUiState)
-        is MenuOptionsDialogUiState -> MenuOptionsDialog(dialogUiState)
-        is MultiSelectDialogUiState<*> -> MultiSelectDialog(dialogUiState)
-        is DropDownMenuDialogUiState -> DropDownMenuDialog(dialogUiState)
-        is ProgressIndicatorDialogUiState -> ProgressIndicatorDialog(dialogUiState)
         is DatePickerDialogUiState -> DatePickerDialog(dialogUiState)
         is DateRangePickerDialogUiState -> DateRangePickerDialog(dialogUiState)
+        is DropdownMenuDialogUiState -> DropdownMenuDialog(dialogUiState)
+        is InputDialogUiState -> InputDialog(dialogUiState)
+        is MenuOptionsDialogUiState -> MenuOptionsDialog(dialogUiState)
+        is MessageDialogUiState -> MessageDialog(dialogUiState)
+        is MultiSelectDialogUiState<*> -> MultiSelectDialog(dialogUiState)
+        is ProgressIndicatorDialogUiState -> ProgressIndicatorDialog(dialogUiState)
+        is RadioDialogUiState -> RadioDialog(dialogUiState)
         is TimePickerDialogUiState -> TimePickerDialog(dialogUiState)
+        is TwoInputDialogUiState -> TwoInputDialog(dialogUiState)
     }
 }
 

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.AlertDialogDefaults
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.MaterialTheme
@@ -30,13 +31,14 @@ import org.jdc.template.ui.compose.PreviewDefault
 import org.jdc.template.ui.theme.AppTheme
 
 @Composable
-fun <T> DropDownMenuDialog(
+fun <T> DropdownMenuDialog(
     onDismissRequest: (() -> Unit) = {},
     title: String? = null,
-    supportingText: String? = null,
+    text: String? = null,
     initialSelectedOption: T,
     options: List<T>,
     optionToText: @Composable (T) -> String,
+    optionToSupportingText: @Composable (T) -> String? = { null },
     label: @Composable () -> String? = { null },
     confirmButtonText: String = stringResource(android.R.string.ok),
     onConfirmButtonClick: ((T) -> Unit)? = null,
@@ -51,7 +53,7 @@ fun <T> DropDownMenuDialog(
 
     Dialog(
         onDismissRequest = onDismissRequest,
-        properties = properties,
+        properties = properties
     ) {
         Surface(
             shape = MaterialTheme.shapes.extraLarge,
@@ -69,9 +71,10 @@ fun <T> DropDownMenuDialog(
                     )
                 }
 
-                if (supportingText != null) {
+                // Dialog text
+                if (text != null) {
                     Text(
-                        text = supportingText,
+                        text = text,
                         style = MaterialTheme.typography.bodyMedium
                     )
                 }
@@ -80,40 +83,31 @@ fun <T> DropDownMenuDialog(
                 ExposedDropdownMenuBox(
                     expanded = expanded,
                     onExpandedChange = { expanded = !expanded },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 16.dp, start = 16.dp, end = 16.dp)
+                    modifier = Modifier.fillMaxWidth().padding(start = 16.dp, top = 16.dp, end = 16.dp)
                 ) {
                     val labelText = label()
                     DayNightTextField(
-                        singleLine = true,
-                        readOnly = true,
                         value = optionToText(selectedOptionTextFieldValue),
                         onValueChange = { },
-                        label = if (labelText != null ) { { Text(labelText) } } else null,
-                        trailingIcon = {
-                            ExposedDropdownMenuDefaults.TrailingIcon(
-                                expanded = expanded
-                            )
-                        },
-                        modifier = Modifier
-                            // As of Material3 1.0.0-beta03; The `menuAnchor` modifier must be passed to the text field for correctness.
-                            // (https://android-review.googlesource.com/c/platform/frameworks/support/+/2200861)
-                            .menuAnchor()
-                            .fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth().menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable, true),
+                        readOnly = true,
+                        label = if (labelText != null) { { Text(labelText) } } else null,
+                        trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+                        supportingText = optionToSupportingText(selectedOptionTextFieldValue)?.let { supportingText -> { Text(supportingText) } },
+                        singleLine = true
                     )
                     ExposedDropdownMenu(
                         expanded = expanded,
-                        onDismissRequest = { expanded = false },
+                        onDismissRequest = { expanded = false }
                     ) {
                         options.forEach { selectionOption ->
                             DropdownMenuItem(
-                                text = { Text(optionToText(selectionOption)) },
                                 onClick = {
                                     selectedOptionTextFieldValue = selectionOption
                                     expanded = false
                                 },
-                                contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
+                                text = { Text(optionToText(selectionOption)) },
+                                contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
                             )
                         }
                     }
@@ -122,24 +116,18 @@ fun <T> DropDownMenuDialog(
                 // Buttons
                 Row(
                     horizontalArrangement = Arrangement.End,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 24.dp)
+                    modifier = Modifier.fillMaxWidth().padding(top = 24.dp)
                 ) {
                     if (onDismissButtonClick != null) {
                         TextButton(
-                            onClick = {
-                                onDismissButtonClick()
-                            },
+                            onClick = { onDismissButtonClick() }
                         ) {
                             Text(dismissButtonText)
                         }
                     }
                     if (onConfirmButtonClick != null) {
                         TextButton(
-                            onClick = {
-                                onConfirmButtonClick(selectedOptionTextFieldValue)
-                            },
+                            onClick = { onConfirmButtonClick(selectedOptionTextFieldValue) }
                         ) {
                             Text(confirmButtonText)
                         }
@@ -151,26 +139,31 @@ fun <T> DropDownMenuDialog(
 }
 
 @Composable
-fun <T> DropDownMenuDialog(
-    dialogUiState: DropDownMenuDialogUiState<T>
+fun <T> DropdownMenuDialog(
+    dialogUiState: DropdownMenuDialogUiState<T>
 ){
-    DropDownMenuDialog(
+    DropdownMenuDialog(
+        onDismissRequest = dialogUiState.onDismissRequest,
         title = dialogUiState.title?.invoke(),
-        supportingText = dialogUiState.supportingText?.invoke(),
+        text = dialogUiState.text?.invoke(),
         initialSelectedOption = dialogUiState.initialSelectedOption,
         options = dialogUiState.options,
         optionToText = dialogUiState.optionToText,
-        onConfirmButtonClick = { dialogUiState.onConfirm(it) },
-        onDismissButtonClick = { dialogUiState.onDismissRequest() }
+        optionToSupportingText = dialogUiState.optionToSupportingText,
+        properties = dialogUiState.properties,
+        onConfirmButtonClick = dialogUiState.onConfirm,
+        onDismissButtonClick = dialogUiState.onDismiss
     )
 }
 
-data class DropDownMenuDialogUiState<T>(
+data class DropdownMenuDialogUiState<T>(
     val title: @Composable (() -> String)? = null,
-    val supportingText: @Composable (() -> String)? = null,
+    val text: @Composable (() -> String)? = null,
     val initialSelectedOption: T,
     val options: List<T>,
     val optionToText: @Composable (T) -> String,
+    val optionToSupportingText: @Composable (T) -> String? = { null },
+    val properties: DialogProperties = DialogProperties(),
     override val onConfirm: (T) -> Unit = {},
     override val onDismiss: () -> Unit = {},
     override val onDismissRequest: () -> Unit = {}
@@ -180,12 +173,13 @@ data class DropDownMenuDialogUiState<T>(
 @Composable
 private fun Preview() {
     AppTheme {
-        DropDownMenuDialog(
+        DropdownMenuDialog(
             onDismissRequest = {},
             title = "Title",
-            supportingText = "Here is some supporting text",
+            text = "Here is some text for the dialog that gives more information about the dropdown menu below.",
             initialSelectedOption = "Initial",
-            optionToText = { "" },
+            optionToText = { it },
+            optionToSupportingText = { "Supporting text for $it" },
             options = listOf("A", "B", "C"),
             onConfirmButtonClick = { },
             onDismissButtonClick = { }

@@ -16,7 +16,7 @@ import org.jdc.template.shared.model.domain.type.DisplayThemeType
 import org.jdc.template.shared.model.repository.SettingsRepository
 import org.jdc.template.shared.util.ext.stateInDefault
 import org.jdc.template.ui.compose.dialog.DialogUiState
-import org.jdc.template.ui.compose.dialog.DropDownMenuDialogUiState
+import org.jdc.template.ui.compose.dialog.DropdownMenuDialogUiState
 import org.jdc.template.ui.compose.dialog.InputDialogUiState
 import org.jdc.template.ui.compose.dialog.RadioDialogDataItem
 import org.jdc.template.ui.compose.dialog.RadioDialogDataItems
@@ -83,7 +83,7 @@ class SettingsViewModel(
 
     fun onRangeClick() = viewModelScope.launch {
         val currentValue = settingsRepository.getRange()
-        dialogUiStateFlow.value = DropDownMenuDialogUiState(
+        dialogUiStateFlow.value = DropdownMenuDialogUiState(
             title = { "Range" },
             options = SettingsRepository.RANGE_OPTIONS,
             optionToText = { it.toString() },

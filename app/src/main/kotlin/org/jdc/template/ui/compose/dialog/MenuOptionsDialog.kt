@@ -27,7 +27,7 @@ import org.jdc.template.ui.theme.AppTheme
 fun MenuOptionsDialog(
     onDismissRequest: (() -> Unit),
     title: String? = null,
-    supportingText: String? = null,
+    text: String? = null,
     options: List<MenuOptionsDialogItem>,
     properties: DialogProperties = DialogProperties(),
     backgroundColor: Color = MaterialTheme.colorScheme.surface,
@@ -35,7 +35,7 @@ fun MenuOptionsDialog(
 ) {
     Dialog(
         onDismissRequest = onDismissRequest,
-        properties = properties,
+        properties = properties
     ) {
         Surface(
             shape = MaterialTheme.shapes.extraLarge,
@@ -59,10 +59,10 @@ fun MenuOptionsDialog(
                     Spacer(modifier = Modifier.height(8.dp))
                 }
 
-                // Supporting Text
-                if (supportingText != null) {
+                // Dialog Text
+                if (text != null) {
                     Text(
-                        text = supportingText,
+                        text = text,
                         modifier = Modifier.padding(start = 16.dp, top = 16.dp, end = 16.dp),
                         style = MaterialTheme.typography.bodyMedium
                     )
@@ -72,8 +72,7 @@ fun MenuOptionsDialog(
                 options.forEach { menuOptionsDialogItem: MenuOptionsDialogItem ->
                     ListItem(
                         headlineContent = { Text(menuOptionsDialogItem.text()) },
-                        modifier = Modifier
-                            .clickable { menuOptionsDialogItem.onClick() }
+                        modifier = Modifier.clickable { menuOptionsDialogItem.onClick() }
                     )
                 }
 
@@ -92,15 +91,17 @@ fun MenuOptionsDialog(
     MenuOptionsDialog(
         onDismissRequest = dialogUiState.onDismissRequest,
         title = dialogUiState.title?.invoke(),
-        supportingText = dialogUiState.supportingText?.invoke(),
-        options = dialogUiState.options
+        text = dialogUiState.text?.invoke(),
+        options = dialogUiState.options,
+        properties = dialogUiState.properties
     )
 }
 
 data class MenuOptionsDialogUiState(
     val title: @Composable (() -> String)? = null,
-    val supportingText: @Composable (() -> String)? = null,
+    val text: @Composable (() -> String)? = null,
     val options: List<MenuOptionsDialogItem>,
+    val properties: DialogProperties = DialogProperties(),
     override val onConfirm: ((String) -> Unit)? = null, // not used in OptionsDialog
     override val onDismiss: (() -> Unit)? = null,  // not used in OptionsDialog
     override val onDismissRequest: () -> Unit = {}
@@ -113,7 +114,7 @@ private fun Preview() {
         MenuOptionsDialog(
             onDismissRequest = {},
             title = "This is some really long text that should wrap and make for a long read, but will test the spacing of text.",
-            supportingText = "This is some really long text that should wrap and make for a long read, but will test the spacing of text.",
+            text = "This is some really long text that should wrap and make for a long read, but will test the spacing of text.",
             options = listOf(
                 MenuOptionsDialogItem({ "Option 1" }) {},
                 MenuOptionsDialogItem({ "Option 2" }) {},
