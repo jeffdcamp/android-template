@@ -1,6 +1,6 @@
 [versions]
 agp = "9.1.0"
-kotlin = "2.3.10"
+kotlin = "2.3.20"
 kotlinxAtomicfu = "0.31.0"
 kotlinxCoroutines = "1.10.2"
 kotlinxSerialization = "1.10.0"
@@ -35,7 +35,7 @@ firebasePerfPlugin = "2.0.2"
 
 gmsPlugin = "4.4.4"
 
-koin = "4.1.1"
+koin = "4.2.0"
 kermit = "2.1.0"
 konsist = "0.17.3"
 kover = "0.9.7"
