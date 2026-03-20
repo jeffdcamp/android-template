@@ -28,7 +28,9 @@ detekt = "2.0.0-alpha.2"
 dbtools = "9.4.0"
 downloadPlugin = "5.7.0"
 
-firebaseBom = "34.10.0"
+firebaseAppDist = "16.0.0-beta17"
+firebaseAppDistApi = "16.0.0-beta15"
+firebaseBom = "34.11.0"
 firebaseAppDistPlugin = "5.2.1"
 firebaseCrashlyticsPlugin = "3.0.6"
 firebasePerfPlugin = "2.0.2"
@@ -121,6 +123,8 @@ dbtools-room = { group = "org.dbtools", name = "dbtools-room", version.ref = "db
 google-firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
 google-firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
 google-firebase-config = { group = "com.google.firebase", name = "firebase-config" }
+google-firebase-appdistribution = { group = "com.google.firebase", name = "firebase-appdistribution", version.ref = "firebaseAppDist" }
+google-firebase-appdistribution-api = { group = "com.google.firebase", name = "firebase-appdistribution-api-ktx", version.ref = "firebaseAppDistApi" }
 google-firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
 
 koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }

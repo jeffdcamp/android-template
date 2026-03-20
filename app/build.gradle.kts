@@ -202,6 +202,9 @@ dependencies {
     implementation(libs.google.firebase.config)
     implementation(libs.google.firebase.crashlytics)
     implementation(libs.google.firebase.analytics)
+    implementation(libs.google.firebase.appdistribution.api)
+    debugImplementation(libs.google.firebase.appdistribution)
+    "alphaImplementation"(libs.google.firebase.appdistribution)
 
     // Code
     implementation(libs.kotlin.serialization.json)

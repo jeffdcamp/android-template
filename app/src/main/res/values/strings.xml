@@ -63,4 +63,7 @@
     <string name="individual_type_requires_last_name">Children must supply a last name</string>
     <string name="message">Message</string>
     <string name="send_message">Send Message</string>
+
+    <!-- App Distribution -->
+    <string name="app_distribution_feedback_text">Your feedback will be used to improve this app. Your name and email will be collected along with your feedback.</string>
 </resources>

@@ -13,6 +13,10 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.google.firebase.Firebase
+import com.google.firebase.appdistribution.InterruptionLevel
+import com.google.firebase.appdistribution.appDistribution
+import org.jdc.template.R
 import org.jdc.template.shared.model.domain.type.DisplayThemeType
 import org.jdc.template.ui.theme.AppTheme
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -29,6 +33,11 @@ class MainActivity : ComponentActivity() {
         }
 
         installSplashScreen()
+
+        Firebase.appDistribution.showFeedbackNotification(
+            R.string.app_distribution_feedback_text,
+            InterruptionLevel.DEFAULT,
+        )
 
         enableEdgeToEdge()
 
