@@ -126,6 +126,7 @@ google-firebase-config = { group = "com.google.firebase", name = "firebase-confi
 google-firebase-appdistribution = { group = "com.google.firebase", name = "firebase-appdistribution", version.ref = "firebaseAppDist" }
 google-firebase-appdistribution-api = { group = "com.google.firebase", name = "firebase-appdistribution-api-ktx", version.ref = "firebaseAppDistApi" }
 google-firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
+google-firebase-perf = { group = "com.google.firebase", name = "firebase-perf" }
 
 koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
 koin-test = { group = "io.insert-koin", name = "koin-test", version.ref = "koin" }
