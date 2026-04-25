@@ -9,7 +9,6 @@ import kotlinx.datetime.todayIn
 import kotlin.time.Clock
 import kotlin.time.Instant
 
-
 object TimeFormatUtil {
     fun millisToHoursMinutesSeconds(millis: Long): String {
         val totalSeconds = millis / 1000

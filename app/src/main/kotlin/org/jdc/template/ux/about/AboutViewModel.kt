@@ -34,6 +34,7 @@ import org.jdc.template.ui.navigation.ViewModelNavigation3Impl
 import org.jdc.template.ux.acknowledgement.AcknowledgmentsRoute
 import org.jdc.template.ux.chats.ChatsRoute
 import org.jdc.template.work.WorkScheduler
+import kotlin.time.Duration.Companion.seconds
 
 @Suppress("LongParameterList")
 class AboutViewModel(
@@ -132,7 +133,7 @@ class AboutViewModel(
         workScheduler.scheduleSimpleWork("test1")
         workScheduler.scheduleSimpleWork("test2")
 
-        delay(3000)
+        delay(3.seconds)
 
         workScheduler.scheduleSimpleWork("test3")
     }
@@ -141,7 +142,7 @@ class AboutViewModel(
         workScheduler.scheduleSync()
         workScheduler.scheduleSync(true)
 
-        delay(3000)
+        delay(3.seconds)
 
         workScheduler.scheduleSync()
     }
@@ -185,9 +186,9 @@ class AboutViewModel(
     }
 }
 
-sealed class AboutUiState {
-    object Loading : AboutUiState()
+sealed interface AboutUiState {
+    object Loading : AboutUiState
     data class Ready(
         val resetServiceEnabled: Boolean,
-    ): AboutUiState()
+    ): AboutUiState
 }

@@ -1,3 +1,4 @@
+@file:Suppress("UnnecessaryFullyQualifiedName")
 package org.jdc.template.ui.compose.dialog
 
 import androidx.compose.foundation.layout.Column
