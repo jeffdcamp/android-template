@@ -4,7 +4,6 @@ import java.util.Date
 
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android) // remove when android.builtInKotlin=true (or android.builtInKotlin is removed)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.gms)
     alias(libs.plugins.firebase.crashlytics)

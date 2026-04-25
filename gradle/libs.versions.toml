@@ -24,7 +24,7 @@ coil = "2.7.0"
 dataStore = "1.2.1"
 dependencyAnalysis = "3.9.0"
 desugarJdkLibs = "2.1.5"
-detekt = "2.0.0-alpha.2"
+detekt = "2.0.0-alpha.3"
 dbtools = "9.4.0"
 downloadPlugin = "5.7.0"
 
@@ -50,7 +50,7 @@ lifecycleViewmodel = "2.10.0"
 mockK = "1.14.9"
 navigation3 = "1.1.1"
 okio = "3.17.0"
-playPublisher = "3.13.0" # move to 4.0.0 when android.builtInKotlin=true (or android.builtInKotlin is removed)
+playPublisher = "4.0.0"
 ruler = "1.4.0"
 sqlite = "2.6.2"
 turbine = "1.2.1"
@@ -67,7 +67,6 @@ firebase-appdistribution = { id = "com.google.firebase.appdistribution", version
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsPlugin" }
 firebase-perf = { id = "com.google.firebase.firebase-perf", version.ref = "firebasePerfPlugin" }
 gms = { id = "com.google.gms.google-services", version.ref = "gmsPlugin" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
