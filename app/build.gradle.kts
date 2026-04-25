@@ -257,6 +257,7 @@ dependencies {
     // Test (Unit)
     testImplementation(libs.koin.test)
     testImplementation(libs.kotlin.test)
+    testImplementation(libs.kotlin.test.junit5)
     testImplementation(libs.mockK)
     testImplementation(libs.ktor.client.mock)
     testImplementation(libs.assertk)
