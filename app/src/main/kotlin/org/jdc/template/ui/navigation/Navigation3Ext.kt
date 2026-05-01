@@ -18,7 +18,7 @@ fun <T: NavKey> NavBackStack<T>.popAndNavigate(key: T, popToKey: T? = null): T? 
     return lastPoppedKey
 }
 
-fun <T: NavKey> NavBackStack<T>.pop(popToKey: T? = null): T? {
+fun <T: NavKey> NavBackStack<T>.pop(popToKey: T? = null, inclusive: Boolean = false): T? {
     var lastPoppedKey: T? = null
     when (popToKey) {
         null -> {
@@ -35,6 +35,9 @@ fun <T: NavKey> NavBackStack<T>.pop(popToKey: T? = null): T? {
                 lastPoppedKey = removeLastOrNull()
             }
 
+            if (inclusive && last() == popToKey && size > 1) {
+                lastPoppedKey = removeLastOrNull()
+            }
         }
     }
     return lastPoppedKey

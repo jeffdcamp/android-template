@@ -97,9 +97,10 @@ sealed interface Navigation3Action {
 
     data class Pop(
         private val route: NavKey? = null,
+        private val inclusive: Boolean = false,
     ) : Navigation3ActionRoute {
         override fun navigate(navigator: Navigation3Navigator, resetNavigate: (Navigation3Action) -> Unit): Boolean {
-            val stackPopped = navigator.pop(route)
+            val stackPopped = navigator.pop(route, inclusive)
 
             resetNavigate(this)
             return stackPopped

@@ -74,19 +74,21 @@ abstract class Navigation3Navigator {
      * Performs the actual pop operation on the back stack.
      *
      * @param key The key to pop to. If null, just pops the top route.
+     * @param inclusive Whether to also pop the target key itself.
      * @return true if a route was popped, false if the back stack was empty.
      */
-    protected abstract fun doPop(key: NavKey?): Boolean
+    protected abstract fun doPop(key: NavKey?, inclusive: Boolean): Boolean
 
     /**
      * Pop the stack till the given key is reached, or the stack is empty.
      *
      * @param key The key to pop to. If null, just pops the top route.
+     * @param inclusive Whether to also pop the target key itself.
      * @return true if a route was popped, false if the back stack was empty.
      */
-    fun pop(key: NavKey? = null): Boolean {
+    fun pop(key: NavKey? = null, inclusive: Boolean = false): Boolean {
         // Delegate to the implementation
-        val result = doPop(key)
+        val result = doPop(key, inclusive)
 
         // Notify listeners with the current top NavKey on the backstack (after popping)
         if (result) {

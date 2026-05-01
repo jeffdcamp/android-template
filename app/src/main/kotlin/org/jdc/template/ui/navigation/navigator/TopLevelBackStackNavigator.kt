@@ -112,13 +112,13 @@ class TopLevelBackStackNavigator(val state: NavigationState) : Navigation3Naviga
         getCurrentBackStack()?.navigate(keys)
     }
 
-    override fun doPop(key: NavKey?): Boolean {
+    override fun doPop(key: NavKey?, inclusive: Boolean): Boolean {
         // If we're at the base of the current route, go back to the start route stack.
         return if (getCurrentBackStack()?.last() == state.topLevelRoute) {
             navigateTopLevel(state.startRoute, false)
             false
         } else {
-            getCurrentBackStack()?.pop(key) != null
+            getCurrentBackStack()?.pop(key, inclusive) != null
         }
     }
 

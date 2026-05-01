@@ -107,8 +107,8 @@ class DefaultNavigator(
         backStack.navigate(keys)
     }
 
-    override fun doPop(key: NavKey?): Boolean {
-        return backStack.pop(key) != null
+    override fun doPop(key: NavKey?, inclusive: Boolean): Boolean {
+        return backStack.pop(key, inclusive) != null
     }
 
     override fun doNavigateTopLevel(key: NavKey, reselected: Boolean) {
