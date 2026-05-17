@@ -6,8 +6,9 @@ import android.content.Intent
 interface Analytics {
     fun upload()
     fun setDimensions(dimensions: List<String>)
-    fun logEvent(eventId: String, attributes: Map<String, String> = emptyMap(), scope: AppAnalytics.ScopeLevel = AppAnalytics.ScopeLevel.DEV)
-    fun logScreen(screen: String)
+    fun logEvent(event: AnalyticEvent)
+    fun logScreen(screen: AnalyticScreen)
+    fun logError(error: AnalyticError)
     fun enableInAppNotifications(allow: Boolean)
     fun onNewIntent(activity: Activity, intent: Intent)
 
@@ -23,5 +24,17 @@ interface Analytics {
 
         // Params
         const val PARAM_BUILD_TYPE = "build_type"
+    }
+
+    object Screen {
+        const val DIRECTORY = "Directory"
+        const val INDIVIDUAL = "Individual"
+        const val INDIVIDUAL_EDIT = "Individual Edit"
+        const val CHATS = "Chats"
+        const val CHAT = "Chat"
+        const val SETTINGS = "Settings"
+        const val ABOUT = "About"
+        const val TYPOGRAPHY = "Typography"
+        const val ACKNOWLEDGMENTS = "Acknowledgments"
     }
 }

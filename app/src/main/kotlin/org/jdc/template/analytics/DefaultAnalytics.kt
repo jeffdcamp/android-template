@@ -49,14 +49,19 @@ class DefaultAnalytics(
     override fun setDimensions(dimensions: List<String>) {
     }
 
-    override fun logEvent(eventId: String, attributes: Map<String, String>, scope: AppAnalytics.ScopeLevel) {
+    override fun logEvent(event: AnalyticEvent) {
         updateDimensions()
-        AppAnalytics.logEvent(eventId, attributes, scopeLevel = scope)
+        AppAnalytics.logEvent(event)
     }
 
-    override fun logScreen(screen: String) {
+    override fun logScreen(screen: AnalyticScreen) {
         updateDimensions()
-        AppAnalytics.logScreen(screen, scopeLevel = AppAnalytics.ScopeLevel.DEV)
+        AppAnalytics.logScreen(screen)
+    }
+
+    override fun logError(error: AnalyticError) {
+        updateDimensions()
+        AppAnalytics.logError(error)
     }
 
     override fun enableInAppNotifications(allow: Boolean) {

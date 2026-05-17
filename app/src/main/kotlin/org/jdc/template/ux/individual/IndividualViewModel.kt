@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.jdc.template.R
+import org.jdc.template.analytics.AnalyticEvent
 import org.jdc.template.analytics.Analytics
 import org.jdc.template.shared.model.domain.Individual
 import org.jdc.template.shared.model.domain.inline.IndividualId
@@ -48,13 +49,13 @@ class IndividualViewModel(
     }
 
     private fun deleteIndividual(individualId: IndividualId) = applicationScope.launch {
-        analytics.logEvent(Analytics.EVENT_DELETE_INDIVIDUAL)
+        analytics.logEvent(AnalyticEvent(Analytics.EVENT_DELETE_INDIVIDUAL))
         individualRepository.deleteIndividual(individualId)
         popBackStack()
     }
 
     fun onEditClick(individualId: IndividualId) {
-        analytics.logEvent(Analytics.EVENT_EDIT_INDIVIDUAL)
+        analytics.logEvent(AnalyticEvent(Analytics.EVENT_EDIT_INDIVIDUAL))
         navigate(IndividualEditRoute(individualId))
     }
 }

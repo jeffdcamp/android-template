@@ -1,6 +1,7 @@
 package org.jdc.template.ux.main
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.NavEntry
@@ -72,6 +73,21 @@ fun MainScreen(
         entries = navigationState.toEntries(entryProvider, decorators),
         onBack = { navigator.pop() }
     )
+
+    DisposableEffect(navigator) {
+        navigator.getCurrentBackStack()?.lastOrNull()?.let { initialRoute ->
+            viewModel.logScreenViewed(initialRoute)
+        }
+
+        val listener: (NavKey) -> Unit = { route ->
+            viewModel.logScreenViewed(route)
+        }
+        navigator.addOnBackstackAddedListener(listener)
+
+        onDispose {
+            navigator.removeOnBackstackAddedListener(listener)
+        }
+    }
 
     HandleNavigation3(viewModel, navigator)
 }

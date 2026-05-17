@@ -36,42 +36,42 @@ class TestStrategy(
         this.providerLoggingEnabled = enableProviderLogging
     }
 
-    override fun logError(errorMessage: String, errorClass: String, scopeLevel: AppAnalytics.ScopeLevel) {
-        if (scopeLevel.ordinal > errorScopeLevel.ordinal) {
+    override fun logError(error: AnalyticError) {
+        if (error.scopeLevel.ordinal > errorScopeLevel.ordinal) {
             return
         }
 
-        consoleLogMessage(AppAnalytics.LogLevel.EVENT, "logError($errorMessage)")
+        consoleLogMessage(AppAnalytics.LogLevel.EVENT, "logError(${error.message})")
         if (logToJsonFile != null) {
-            analyticsList.add(Analytic(AnalyticType.ERROR, "errorMessage"))
+            analyticsList.add(Analytic(AnalyticType.ERROR, error.message))
             writeToJsonFile()
         }
     }
 
-    override fun logEvent(eventId: String, parameterMap: Map<String, String>, scopeLevel: AppAnalytics.ScopeLevel) {
-        if (scopeLevel.ordinal > eventScopeLevel.ordinal) {
+    override fun logEvent(event: AnalyticEvent) {
+        if (event.scopeLevel.ordinal > eventScopeLevel.ordinal) {
             return
         }
 
-        consoleLogMessage(AppAnalytics.LogLevel.EVENT, "logEvent($eventId)")
-        consoleLogParameterMap(parameterMap)
+        consoleLogMessage(AppAnalytics.LogLevel.EVENT, "logEvent(${event.id})")
+        consoleLogParameterMap(event.params)
 
         if (logToJsonFile != null) {
-            analyticsList.add(Analytic(AnalyticType.EVENT, eventId, parameterMap))
+            analyticsList.add(Analytic(AnalyticType.EVENT, event.id, event.params.orEmpty()))
             writeToJsonFile()
         }
     }
 
-    override fun logScreen(screenTitle: String, parameterMap: Map<String, String>, scopeLevel: AppAnalytics.ScopeLevel) {
-        if (scopeLevel.ordinal > screenScopeLevel.ordinal) {
+    override fun logScreen(screen: AnalyticScreen) {
+        if (screen.scopeLevel.ordinal > screenScopeLevel.ordinal) {
             return
         }
 
-        consoleLogMessage(AppAnalytics.LogLevel.EVENT, "logScreen($screenTitle)")
-        consoleLogParameterMap(parameterMap)
+        consoleLogMessage(AppAnalytics.LogLevel.EVENT, "logScreen(${screen.screenTitle})")
+        consoleLogParameterMap(screen.params)
 
         if (logToJsonFile != null) {
-            analyticsList.add(Analytic(AnalyticType.SCREEN, screenTitle, parameterMap))
+            analyticsList.add(Analytic(AnalyticType.SCREEN, screen.screenTitle, screen.params.orEmpty()))
             writeToJsonFile()
         }
     }
@@ -82,9 +82,9 @@ class TestStrategy(
         }
     }
 
-    private fun consoleLogParameterMap(parameterMap: Map<String, String>) {
+    private fun consoleLogParameterMap(parameterMap: Map<String, String>?) {
         if (logLevel.ordinal >= AppAnalytics.LogLevel.VERBOSE.ordinal) {
-            parameterMap.keys.forEach {
+            parameterMap?.keys?.forEach {
                 consoleLogMessage(AppAnalytics.LogLevel.VERBOSE, "  $it:${parameterMap[it]}")
             }
         }

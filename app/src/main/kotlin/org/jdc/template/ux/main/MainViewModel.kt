@@ -7,6 +7,8 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import androidx.navigation3.runtime.NavKey
+import org.jdc.template.analytics.ScreenAnalytics
 import org.jdc.template.shared.domain.usecase.CreateIndividualTestDataUseCase
 import org.jdc.template.shared.model.domain.type.DisplayThemeType
 import org.jdc.template.shared.model.repository.SettingsRepository
@@ -19,7 +21,8 @@ import org.jdc.template.work.WorkScheduler
 class MainViewModel(
     private val workScheduler: WorkScheduler,
     settingsRepository: SettingsRepository,
-    private val createIndividualTestDataUseCase: CreateIndividualTestDataUseCase
+    private val createIndividualTestDataUseCase: CreateIndividualTestDataUseCase,
+    private val screenAnalytics: ScreenAnalytics,
 ) : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3Impl() {
     val uiStateFlow: StateFlow<MainUiState> = combine(
         settingsRepository.themeFlow,
@@ -54,6 +57,10 @@ class MainViewModel(
     fun handleDeepLink(intentData: String) {
         val deepLinkRoute = DeepLinkRouter.fromUri(intentData) ?: return
         navigate(deepLinkRoute)
+    }
+
+    fun logScreenViewed(route: NavKey) {
+        screenAnalytics.logScreenViewed(route)
     }
 }
 

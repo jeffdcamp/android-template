@@ -28,23 +28,24 @@ object AppAnalytics {
         return results
     }
 
-    fun logEvent(eventId: String, parameterMap: Map<String, String> = HashMap(), scopeLevel: ScopeLevel = DEFAULT_EVENT_SCOPE_LEVEL) {
+    fun logEvent(event: AnalyticEvent) {
         strategies.forEach {
-            it.logEvent(eventId, parameterMap, scopeLevel)
+            it.logEvent(event)
         }
     }
 
-    fun logScreen(screenTitle: String, parameterMap: Map<String, String> = HashMap(), scopeLevel: ScopeLevel = DEFAULT_SCREEN_SCOPE_LEVEL) {
+    fun logScreen(screen: AnalyticScreen) {
         strategies.forEach {
-            it.logScreen(screenTitle, parameterMap, scopeLevel)
+            it.logScreen(screen)
         }
     }
 
-    fun logError(errorMessage: String, errorClass: String, scopeLevel: ScopeLevel = DEFAULT_ERROR_SCOPE_LEVEL) {
+    fun logError(error: AnalyticError) {
         strategies.forEach {
-            it.logError(errorMessage, errorClass, scopeLevel)
+            it.logError(error)
         }
     }
+
 
     fun setLogLevel(logLevel: LogLevel, enableProviderLogging: Boolean = false) {
         this.logLevel = logLevel
@@ -69,12 +70,9 @@ object AppAnalytics {
     }
 
     interface Strategy {
-        fun logEvent(eventId: String, parameterMap: Map<String, String> = HashMap(), scopeLevel: ScopeLevel = DEFAULT_EVENT_SCOPE_LEVEL)
-
-        fun logScreen(screenTitle: String, parameterMap: Map<String, String> = HashMap(), scopeLevel: ScopeLevel = DEFAULT_SCREEN_SCOPE_LEVEL)
-
-        fun logError(errorMessage: String, errorClass: String, scopeLevel: ScopeLevel = DEFAULT_ERROR_SCOPE_LEVEL)
-
+        fun logEvent(event: AnalyticEvent)
+        fun logScreen(screen: AnalyticScreen)
+        fun logError(error: AnalyticError)
         fun setLogLevel(logLevel: LogLevel, enableProviderLogging: Boolean = false)
     }
 }

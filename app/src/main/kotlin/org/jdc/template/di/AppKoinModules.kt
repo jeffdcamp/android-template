@@ -2,6 +2,7 @@ package org.jdc.template.di
 
 import org.jdc.template.analytics.Analytics
 import org.jdc.template.analytics.DefaultAnalytics
+import org.jdc.template.analytics.ScreenAnalytics
 import org.jdc.template.model.config.RemoteConfig
 import org.jdc.template.shared.di.getSharedKoinModules
 import org.jdc.template.startup.AppUpgrade
@@ -38,6 +39,7 @@ val appModule = module {
     singleOf(::AppUpgrade)
     singleOf(::WorkScheduler)
     singleOf(::DefaultAnalytics) bind Analytics::class
+    singleOf(::ScreenAnalytics)
 }
 
 val viewModelModule = module {

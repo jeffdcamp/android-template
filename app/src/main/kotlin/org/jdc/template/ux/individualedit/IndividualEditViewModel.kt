@@ -12,6 +12,7 @@ import kotlinx.datetime.LocalTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import org.jdc.template.R
+import org.jdc.template.analytics.AnalyticEvent
 import org.jdc.template.analytics.Analytics
 import org.jdc.template.shared.model.domain.Individual
 import org.jdc.template.shared.model.domain.inline.Email
@@ -57,7 +58,7 @@ class IndividualEditViewModel(
     private val availableFlow = MutableStateFlow(false)
 
     init {
-        analytics.logEvent(Analytics.EVENT_EDIT_INDIVIDUAL)
+        analytics.logEvent(AnalyticEvent(Analytics.EVENT_EDIT_INDIVIDUAL))
         loadIndividual()
     }
 
