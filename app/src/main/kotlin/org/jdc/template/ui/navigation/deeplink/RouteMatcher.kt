@@ -76,11 +76,14 @@ abstract class RouteMatcher<T : NavKey>(
      */
     fun matchesUri(uri: Uri): Boolean {
         return matchesBasePath(uri, baseUri) ||
-            alternativeBaseUriList?.any { matchesBasePath(uri, it) } == true
+                alternativeBaseUriList?.any { matchesBasePath(uri, it) } == true
     }
 
     protected fun matchesBasePath(uri: Uri, baseUri: Uri): Boolean {
-        return uri.path.startsWith(baseUri.path)
+        val uriPath = uri.path
+        val basePath = baseUri.path
+        if (!uriPath.startsWith(basePath)) return false
+        return uriPath.length == basePath.length || uriPath[basePath.length] in PATH_ENDS
     }
 
     /**
@@ -217,6 +220,7 @@ abstract class RouteMatcher<T : NavKey>(
     companion object {
         /** Delimiter used by [listToString] and [encodedListToStringList] (Unicode Record Separator U+241E). */
         const val DEFAULT_STRING_LIST_DELIMITER = "\u241E" // ASCII record separator character
+        private val PATH_ENDS = charArrayOf('/', '?')
     }
 }
 
