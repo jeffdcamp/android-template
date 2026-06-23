@@ -10,7 +10,7 @@ import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import co.touchlab.kermit.Logger
-import okio.Path.Companion.toPath
+import okio.Path
 import org.jdc.template.shared.model.datastore.migration.DevicePreferenceMigration2
 import org.jdc.template.shared.model.datastore.migration.DevicePreferenceMigration3
 import org.jdc.template.shared.model.domain.type.DisplayThemeType
@@ -67,14 +67,15 @@ class DevicePreferenceDataSource (
     }
 
     companion object {
+        const val NAME = "device"
         private const val VERSION = 3
 
-        fun createDataStore(producePath: () -> String): DataStore<Preferences> {
+        fun createDataStore(producePath: () -> Path): DataStore<Preferences> {
             return PreferenceDataStoreFactory.createWithPath(
                 migrations = listOf(
                     PreferenceMigrations(VERSION, listOf(DevicePreferenceMigration2, DevicePreferenceMigration3))
                 ),
-                produceFile = { producePath().toPath() },
+                produceFile = { producePath() },
                 corruptionHandler = ReplaceFileCorruptionHandler {
                     Logger.e(it) { "DevicePreferenceDataSource Corrupted... recreating..." }
                     emptyPreferences()

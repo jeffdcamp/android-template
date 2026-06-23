@@ -8,14 +8,14 @@ import io.ktor.client.plugins.resources.Resources
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.SupervisorJob
 import okio.FileSystem
-import okio.SYSTEM
 import org.jdc.template.shared.domain.usecase.CreateIndividualLargeTestDataUseCase
 import org.jdc.template.shared.domain.usecase.CreateIndividualTestDataUseCase
 import org.jdc.template.shared.httpClientEngine
+import org.jdc.template.shared.model.datastore.DeviceDataStore
 import org.jdc.template.shared.model.datastore.DevicePreferenceDataSource
+import org.jdc.template.shared.model.datastore.UserDataStore
 import org.jdc.template.shared.model.datastore.UserPreferenceDataSource
 import org.jdc.template.shared.model.db.main.MainDatabase
 import org.jdc.template.shared.model.repository.ChatRepository
@@ -24,6 +24,7 @@ import org.jdc.template.shared.model.repository.SettingsRepository
 import org.jdc.template.shared.model.webservice.KtorClientDefaults.defaultSetup
 import org.jdc.template.shared.model.webservice.ResponseTimePlugin
 import org.jdc.template.shared.model.webservice.colors.ColorService
+import org.jdc.template.shared.util.file.AppFileSystem
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
@@ -35,7 +36,6 @@ fun getSharedKoinModules(): List<Module> = listOf(
     databaseBuilderModule,
     databaseModule,
     datastoreModule,
-    datastorePreferenceModule,
     repositoryModule,
     serviceModule,
     useCaseModule
@@ -69,7 +69,16 @@ val databaseModule = module {
     single<MainDatabase> { MainDatabase.getDatabase(get()) }
 }
 
-expect val datastoreModule: Module
+val datastoreModule: Module = module {
+    single<DeviceDataStore> {
+        DeviceDataStore(DevicePreferenceDataSource.createDataStore { AppFileSystem.getDatastorePath(DevicePreferenceDataSource.NAME) })
+    }
+    single<UserDataStore> {
+        UserDataStore(UserPreferenceDataSource.createDataStore { AppFileSystem.getDatastorePath(UserPreferenceDataSource.NAME) })
+    }
+    singleOf(::DevicePreferenceDataSource)
+    singleOf(::UserPreferenceDataSource)
+}
 
 val fileSystemModule = module {
     single { FileSystem.SYSTEM }
@@ -84,11 +93,6 @@ val repositoryModule = module {
     singleOf(::SettingsRepository)
     singleOf(::IndividualRepository)
     singleOf(::ChatRepository)
-}
-
-val datastorePreferenceModule = module {
-    singleOf(::UserPreferenceDataSource)
-    singleOf(::DevicePreferenceDataSource)
 }
 
 val serviceModule = module {

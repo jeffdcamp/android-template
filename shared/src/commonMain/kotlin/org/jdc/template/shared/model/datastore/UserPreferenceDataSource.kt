@@ -8,7 +8,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import co.touchlab.kermit.Logger
-import okio.Path.Companion.toPath
+import okio.Path
 import org.jdc.template.shared.util.datastore.DatastorePrefItem
 import org.jdc.template.shared.util.datastore.PreferenceMigrations
 
@@ -28,15 +28,16 @@ class UserPreferenceDataSource(
     }
 
     companion object {
+        const val NAME = "user"
         private const val VERSION = 1
 
-        fun createDataStore(producePath: () -> String): DataStore<Preferences> {
+        fun createDataStore(producePath: () -> Path): DataStore<Preferences> {
             return PreferenceDataStoreFactory.createWithPath(
                 migrations = listOf(
                     PreferenceMigrations(VERSION, emptyList())
 
                 ),
-                produceFile = { producePath().toPath() },
+                produceFile = { producePath() },
                 corruptionHandler = ReplaceFileCorruptionHandler {
                     Logger.e(it) { "UserPreferenceDataSource Corrupted... recreating..." }
                     emptyPreferences()
