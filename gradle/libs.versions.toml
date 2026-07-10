@@ -14,7 +14,7 @@ androidxComposeMaterial3AdaptiveNavigation = "1.4.0"
 androidxComposeUi = "1.11.4"
 androidxLifecycle = "2.11.0"
 androidxPagingCompose = "3.5.0"
-room = "2.8.4"
+room = "3.0.0"
 androidxSplashScreen = "1.2.0"
 androidxStartup = "1.2.0"
 androidxWork = "2.11.2"
@@ -25,7 +25,7 @@ dataStore = "1.2.1"
 dependencyAnalysis = "3.16.1"
 desugarJdkLibs = "2.1.5"
 detekt = "2.0.0-alpha.5"
-dbtools = "9.4.0"
+dbtools = "10.0.0"
 downloadPlugin = "5.7.0"
 
 firebaseAppDist = "16.0.0-beta20"
@@ -75,7 +75,7 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 licenseManager = { id = "org.dbtools.license-manager", version.ref = "licenseManager" }
 licenseReport = { id = "com.github.jk1.dependency-license-report", version.ref = "licenseReport" }
 playPublisher = { id = "com.github.triplet.play", version.ref = "playPublisher" }
-room = { id = "androidx.room", version.ref = "room" }
+room = { id = "androidx.room3", version.ref = "room" }
 versions = { id = "com.github.ben-manes.versions", version.ref = "versionsPlugin" }
 
 [libraries]
@@ -90,10 +90,10 @@ androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", 
 
 datastorePrefs = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "dataStore" }
 
-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
-room-paging = { group = "androidx.room", name = "room-paging", version.ref = "room" }
-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
-room-testing = { group = "androidx.room", name = "room-testing", version.ref = "room" }
+room-compiler = { group = "androidx.room3", name = "room3-compiler", version.ref = "room" }
+room-paging = { group = "androidx.room3", name = "room3-paging", version.ref = "room" }
+room-runtime = { group = "androidx.room3", name = "room3-runtime", version.ref = "room" }
+room-testing = { group = "androidx.room3", name = "room3-testing", version.ref = "room" }
 
 androidx-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidxSplashScreen" }
 

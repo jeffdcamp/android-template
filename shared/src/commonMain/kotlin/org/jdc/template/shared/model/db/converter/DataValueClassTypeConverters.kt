@@ -1,6 +1,6 @@
 package org.jdc.template.shared.model.db.converter
 
-import androidx.room.TypeConverter
+import androidx.room3.ColumnTypeConverter
 import org.jdc.template.shared.model.domain.inline.ChatMessageId
 import org.jdc.template.shared.model.domain.inline.ChatThreadId
 import org.jdc.template.shared.model.domain.inline.CreatedTime
@@ -15,53 +15,53 @@ import kotlin.time.Instant
 
 @Suppress("TooManyFunctions")
 object DataValueClassTypeConverters {
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromStringToIndividualId(value: String?): IndividualId? = value?.let { IndividualId(it) }
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromIndividualIdToString(value: IndividualId?): String? = value?.value
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromStringToHouseholdId(value: String?): HouseholdId? = value?.let { HouseholdId(it) }
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromHouseholdIdToString(value: HouseholdId?): String? = value?.value
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromStringToFirstName(value: String?): FirstName? = value?.let { FirstName(it) }
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromFirstNameToString(value: FirstName?): String? = value?.value
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromStringToLastName(value: String?): LastName? = value?.let { LastName(it) }
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromLastNameToString(value: LastName?): String? = value?.value
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromStringToPhone(value: String?): Phone? = value?.let { Phone(it) }
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromPhoneToString(value: Phone?): String? = value?.value
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromStringToEmail(value: String?): Email? = value?.let { Email(it) }
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromEmailToString(value: Email?): String? = value?.value
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromStringToCreatedTime(value: String?): CreatedTime? = value?.let { CreatedTime(Instant.parse(it)) }
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromCreatedTimeToString(value: CreatedTime?): String? = value?.value?.toString()
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromStringToLastModifiedTime(value: String?): LastModifiedTime? = value?.let { LastModifiedTime(Instant.parse(it)) }
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromLastModifiedTimeToString(value: LastModifiedTime?): String? = value?.value?.toString()
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromStringToChatThreadId(value: String?): ChatThreadId? = value?.let { ChatThreadId(it) }
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromChatThreadIdToString(value: ChatThreadId?): String? = value?.value
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromStringToChatMessageId(value: String?): ChatMessageId? = value?.let { ChatMessageId(it) }
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromChatMessageIdToString(value: ChatMessageId?): String? = value?.value
 }

@@ -1,8 +1,8 @@
 package org.jdc.template.shared.model.db.main.chatmessage
 
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room3.Entity
+import androidx.room3.ForeignKey
+import androidx.room3.PrimaryKey
 import kotlin.time.Clock
 import kotlin.time.Instant
 import org.jdc.template.shared.model.db.main.chatthread.ChatThreadEntity

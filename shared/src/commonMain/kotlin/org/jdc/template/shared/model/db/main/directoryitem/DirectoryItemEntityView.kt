@@ -1,6 +1,6 @@
 package org.jdc.template.shared.model.db.main.directoryitem
 
-import androidx.room.DatabaseView
+import androidx.room3.DatabaseView
 import org.jdc.template.shared.model.domain.inline.FirstName
 import org.jdc.template.shared.model.domain.inline.IndividualId
 import org.jdc.template.shared.model.domain.inline.LastName

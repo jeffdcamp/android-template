@@ -1,10 +1,11 @@
 package org.jdc.template.shared.model.db.main.migration
 
-import androidx.room.testing.MigrationTestHelper
+import androidx.room3.testing.MigrationTestHelper
 import androidx.sqlite.SQLiteConnection
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import assertk.assertThat
 import assertk.assertions.isFalse
+import kotlinx.coroutines.test.runTest
 import okio.FileSystem
 import okio.Path.Companion.toPath
 import org.dbtools.room.ext.columnExists
@@ -30,7 +31,7 @@ class MainMigration2Test {
     }
 
     @Test
-    fun emptyMigrationTest() {
+    fun emptyMigrationTest() = runTest {
         // Create the database at version 1
         mainDatabaseMigrationTestHelper.createDatabase(version = 1).close()
 
@@ -43,7 +44,7 @@ class MainMigration2Test {
     }
 
     @Test
-    fun migrationTest() {
+    fun migrationTest() = runTest {
         // Create the database at version 1
         val v1Connection = mainDatabaseMigrationTestHelper.createDatabase(version = 1)
         // no data needs to be inserted for this test

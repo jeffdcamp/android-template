@@ -1,29 +1,29 @@
 package org.jdc.template.shared.model.db.converter
 
-import androidx.room.TypeConverter
+import androidx.room3.ColumnTypeConverter
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
 import kotlin.time.Instant
 
 object KotlinDateTimeTextConverter {
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromStringToInstant(value: String?): Instant? = if (value.isNullOrBlank()) null else Instant.parse(value)
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromInstantToString(value: Instant?): String? = value?.toString()
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromStringToLocalDateTime(value: String?): LocalDateTime? = if (value.isNullOrBlank()) null else LocalDateTime.parse(value)
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromLocalDateTimeToString(value: LocalDateTime?): String? = value?.toString()
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromStringToLocalDate(value: String?): LocalDate? = if (value.isNullOrBlank()) null else LocalDate.parse(value)
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromLocalDateToString(value: LocalDate?): String? = value?.toString()
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromStringToLocalTime(value: String?): LocalTime? = if (value.isNullOrBlank()) null else LocalTime.parse(value)
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromLocalTimeToString(value: LocalTime?): String? = value?.toString()
 }

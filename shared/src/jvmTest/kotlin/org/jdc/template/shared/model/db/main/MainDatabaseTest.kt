@@ -1,6 +1,6 @@
 package org.jdc.template.shared.model.db.main
 
-import androidx.room.Room
+import androidx.room3.Room
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import kotlinx.coroutines.test.runTest

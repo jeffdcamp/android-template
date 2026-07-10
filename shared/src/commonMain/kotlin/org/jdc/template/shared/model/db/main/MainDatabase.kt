@@ -1,11 +1,13 @@
 package org.jdc.template.shared.model.db.main
 
-import androidx.room.AutoMigration
-import androidx.room.ConstructedBy
-import androidx.room.Database
-import androidx.room.RoomDatabase
-import androidx.room.RoomDatabaseConstructor
-import androidx.room.TypeConverters
+import androidx.room3.AutoMigration
+import androidx.room3.ConstructedBy
+import androidx.room3.Database
+import androidx.room3.RoomDatabase
+import androidx.room3.RoomDatabaseConstructor
+import androidx.room3.ColumnTypeConverters
+import androidx.room3.DaoReturnTypeConverters
+import androidx.room3.paging.PagingSourceDaoReturnTypeConverter
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import org.dbtools.room.DatabaseViewQuery
 import org.jdc.template.shared.model.db.converter.DataValueClassTypeConverters
@@ -39,7 +41,8 @@ import org.jdc.template.shared.model.db.main.migration.MainMigration2
     version = 3
 )
 @ConstructedBy(MainDatabaseConstructor::class)
-@TypeConverters(KotlinDateTimeTextConverter::class, DataValueClassTypeConverters::class)
+@ColumnTypeConverters(KotlinDateTimeTextConverter::class, DataValueClassTypeConverters::class)
+@DaoReturnTypeConverters(PagingSourceDaoReturnTypeConverter::class)
 abstract class MainDatabase : RoomDatabase() {
 
     abstract fun individualDao(): IndividualDao

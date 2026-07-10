@@ -1,7 +1,7 @@
 package org.jdc.template.shared.model.repository
 
-import androidx.room.immediateTransaction
-import androidx.room.useWriterConnection
+import androidx.room3.immediateTransaction
+import androidx.room3.useWriterConnection
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
