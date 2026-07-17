@@ -71,7 +71,12 @@ private fun SettingsContent(
 
         // not translated because this should not be visible for release builds
         Setting.Group(headerText = "Developer Options") {
-            GroupedClickable(position = Setting.GroupPositionType.FIRST, text = "Last Installed Version Code", secondaryText = uiState.currentLastInstalledVersionCode) { onLastInstalledVersionCodeClick() }
+            GroupedClickable(
+                position = Setting.GroupPositionType.FIRST,
+                text = "Last Installed Version Code",
+                secondaryText = uiState.currentLastInstalledVersionCode
+            ) { onLastInstalledVersionCodeClick() }
+
             GroupedClickable(position = Setting.GroupPositionType.LAST, text = "Range", secondaryText = uiState.range) { onRangeClick() }
         }
     }
