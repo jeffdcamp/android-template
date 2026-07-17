@@ -37,7 +37,7 @@ on:
       minVersionCode:
         description: 'Minimum version code when incrementing'
         required: false
-        default: 1011
+        default: 1013
         type: number
 
 permissions:
