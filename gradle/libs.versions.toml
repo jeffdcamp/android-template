@@ -44,7 +44,7 @@ kover = "0.9.9"
 ksp = "2.3.11"
 ktor = "3.5.2"
 leakCanary = "2.14"
-licenseManager = "1.6.0"
+licenseManager = "2.0.0"
 licenseReport = "3.1.4"
 lifecycleViewmodel = "2.11.0"
 mockK = "1.14.11"
@@ -54,7 +54,7 @@ playPublisher = "4.0.0"
 ruler = "1.4.0"
 sqlite = "2.7.0"
 turbine = "1.2.1"
-versionsPlugin = "0.59.0"
+versionsPlugin = "0.60.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
