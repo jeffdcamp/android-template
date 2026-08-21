@@ -1,6 +1,8 @@
 package org.jdc.template.ui.compose.form
 
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExposedDropdownMenu
+import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Text
@@ -75,7 +77,7 @@ fun <T> DropdownMenuBoxField(
             modifier = modifier
                 // As of Material3 1.0.0-beta03; The `menuAnchor` modifier must be passed to the text field for correctness.
                 // (https://android-review.googlesource.com/c/platform/frameworks/support/+/2200861)
-                .menuAnchor()
+                .menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable)
         )
         ExposedDropdownMenu(
             expanded = expanded,

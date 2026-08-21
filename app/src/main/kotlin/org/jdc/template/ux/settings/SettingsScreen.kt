@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.jdc.template.R
+import org.jdc.template.ui.SettingsUiUtil
 import org.jdc.template.ui.compose.dialog.HandleDialogUiState
 import org.jdc.template.ui.compose.setting.Setting
 import org.jdc.template.ui.navigation.navigator.Navigation3Navigator
@@ -27,6 +28,8 @@ fun SettingsScreen(
         title = stringResource(R.string.settings),
         hideNavigation = true,
         onNavigationClick = { navigator.pop() },
+        topAppBarColors = SettingsUiUtil.topAppBarColors(),
+        scaffoldContainerColor = SettingsUiUtil.scaffoldContainerColor(),
     ) {
         when (val uiState = uiState) {
             SettingsUiState.Loading -> {}

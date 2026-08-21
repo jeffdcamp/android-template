@@ -1,8 +1,5 @@
 package org.jdc.template.ui.compose.setting
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -12,11 +9,18 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.toggleable
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowForwardIos
 import androidx.compose.material.icons.automirrored.filled.List
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material3.AssistChip
+import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemColors
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.ListItemShapes
@@ -47,6 +51,8 @@ import androidx.compose.ui.semantics.setProgress
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.semantics.toggleableState
 import androidx.compose.ui.state.ToggleableState
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -65,14 +71,20 @@ object Setting {
         LAST
     }
 
+    /**
+     * Grouped settings are intended to sit on a darker screen/container color with lighter grouped items.
+     *
+     * For example, using `MaterialTheme.colorScheme.surfaceContainer` for the screen background with the
+     * default `MaterialTheme.colorScheme.surface` group item color gives Android System Settings-style contrast.
+     */
     @Composable
     fun Group(
         modifier: Modifier = Modifier,
         headerText: String? = null,
+        colors: ListItemColors = ListItemDefaults.colors(containerColor = MaterialTheme.colorScheme.surface),
         content: @Composable SegmentedScope.() -> Unit
     ) {
-        val colors = ListItemDefaults.colors(containerColor = MaterialTheme.colorScheme.surfaceContainer)
-        val topPadding = if (headerText == null) 16.dp else 24.dp
+        val topPadding = if (headerText == null) 0.dp else 24.dp
 
         Column(
             modifier = modifier.fillMaxWidth().padding(start = 16.dp, top = topPadding, end = 16.dp)
@@ -169,7 +181,7 @@ object Setting {
             enabled: Boolean = true,
             secondaryText: String? = null,
             icon: @Composable (() -> Unit)? = null,
-            onClickBody: ((Boolean) -> Unit)? = null
+            onClickBody: ((Boolean) -> Unit)
         ) {
             val currentValueChecked by currentCheckedValueFlow.collectAsStateWithLifecycle()
 
@@ -194,43 +206,24 @@ object Setting {
             selected: Boolean = false,
             secondaryText: String? = null,
             icon: @Composable (() -> Unit)? = null,
-            onClickBody: ((Boolean) -> Unit)? = null
+            onClickBody: ((Boolean) -> Unit)
         ) {
-            val itemModifier = modifier.semantics {
-                if (onClickBody != null) {
+            SegmentedListItem(
+                onClick = { onClickBody(!selected) },
+                shapes = nextShapes(position),
+                modifier = modifier.semantics {
                     role = Role.Switch
                     toggleableState = ToggleableState(selected)
-                }
-            }
-
-            if (onClickBody != null) {
-                SegmentedListItem(
-                    onClick = { onClickBody(!selected) },
-                    shapes = nextShapes(position),
-                    modifier = itemModifier,
-                    enabled = enabled,
-                    leadingContent = indentedLeadingContent(icon),
-                    trailingContent = { Switch(checked = selected, onCheckedChange = null, enabled = enabled) },
-                    supportingContent = secondaryText?.takeUnless { it.isBlank() }?.let {
-                        { SupportingText(text = it, modifier = Modifier.itemContentStartModifier(hasLeadingContent = icon != null)) }
-                    },
-                    colors = colors,
-                    content = { Text(text = text, modifier = Modifier.itemContentStartModifier(hasLeadingContent = icon != null)) }
-                )
-            } else {
-                SegmentedListItem(
-                    shapes = nextShapes(position),
-                    modifier = itemModifier,
-                    enabled = enabled,
-                    leadingContent = indentedLeadingContent(icon),
-                    trailingContent = { Switch(checked = selected, onCheckedChange = null, enabled = enabled) },
-                    supportingContent = secondaryText?.takeUnless { it.isBlank() }?.let {
-                        { SupportingText(text = it, modifier = Modifier.itemContentStartModifier(hasLeadingContent = icon != null)) }
-                    },
-                    colors = colors,
-                    content = { Text(text = text, modifier = Modifier.itemContentStartModifier(hasLeadingContent = icon != null)) }
-                )
-            }
+                },
+                enabled = enabled,
+                leadingContent = indentedLeadingContent(icon),
+                trailingContent = { Switch(checked = selected, onCheckedChange = null, enabled = enabled) },
+                supportingContent = secondaryText?.takeUnless { it.isBlank() }?.let {
+                    { SupportingText(text = it, modifier = Modifier.itemContentStartModifier(hasLeadingContent = icon != null)) }
+                },
+                colors = colors,
+                content = { Text(text = text, modifier = Modifier.itemContentStartModifier(hasLeadingContent = icon != null)) }
+            )
         }
 
         @Composable
@@ -338,7 +331,7 @@ object Setting {
             enabled: Boolean = true,
             icon: @Composable (() -> Unit)? = null,
             expandedContentIndent: Dp = 16.dp,
-            onClickBody: (() -> Unit)? = null,
+            onClickBody: (() -> Unit),
             expandedContent: @Composable SegmentedScope.() -> Unit
         ) {
             val currentValue by currentValueFlow.collectAsStateWithLifecycle()
@@ -367,7 +360,7 @@ object Setting {
             secondaryText: String? = null,
             icon: @Composable (() -> Unit)? = null,
             expandedContentIndent: Dp = 16.dp,
-            onClickBody: (() -> Unit)? = null,
+            onClickBody: (() -> Unit),
             expandedContent: @Composable SegmentedScope.() -> Unit
         ) {
             GroupedClickable(
@@ -392,7 +385,7 @@ object Setting {
             secondaryText: String? = null,
             icon: @Composable (() -> Unit)? = null,
             expandedContentIndent: Dp = 16.dp,
-            onClickBody: ((Boolean) -> Unit)? = null,
+            onClickBody: ((Boolean) -> Unit),
             expandedContent: @Composable SegmentedScope.() -> Unit
         ) {
             val currentValueChecked by currentCheckedValueFlow.collectAsStateWithLifecycle()
@@ -421,7 +414,7 @@ object Setting {
             secondaryText: String? = null,
             icon: @Composable (() -> Unit)? = null,
             expandedContentIndent: Dp = 16.dp,
-            onClickBody: ((Boolean) -> Unit)? = null,
+            onClickBody: ((Boolean) -> Unit),
             expandedContent: @Composable SegmentedScope.() -> Unit
         ) {
             GroupedSwitch(
@@ -445,8 +438,8 @@ object Setting {
             currentValueFlow: StateFlow<String?>,
             modifier: Modifier = Modifier,
             enabled: Boolean = true,
-            onClickBody: (() -> Unit)? = null,
-            onToggle: ((Boolean) -> Unit)? = null
+            onClickBody: (() -> Unit),
+            onToggle: ((Boolean) -> Unit)
         ) {
             val currentEnabledValue by currentEnabledFlow.collectAsStateWithLifecycle()
             val currentValue by currentValueFlow.collectAsStateWithLifecycle()
@@ -457,7 +450,7 @@ object Setting {
                 enabled = enabled,
                 modifier = modifier,
                 checked = currentEnabledValue,
-                currentValue = currentValue.orEmpty(),
+                currentValue = currentValue,
                 onClickBody = onClickBody,
                 onToggle = onToggle
             )
@@ -470,51 +463,78 @@ object Setting {
             modifier: Modifier = Modifier,
             enabled: Boolean = true,
             checked: Boolean = false,
-            currentValue: String,
-            onClickBody: (() -> Unit)? = null,
-            onToggle: ((Boolean) -> Unit)? = null
+            currentValue: String?,
+            onClickBody: () -> Unit,
+            onToggle: (Boolean) -> Unit
         ) {
-            val itemModifier = if (onClickBody != null) {
-                modifier.clickable(enabled = enabled, onClick = onClickBody)
-            } else {
-                modifier
+            val itemModifier = modifier.semantics(mergeDescendants = true) {}
+
+            val supportingContent: (@Composable () -> Unit)? = currentValue?.takeUnless { it.isBlank() }?.let {
+                { SupportingText(text = it, modifier = Modifier.itemContentStartModifier()) }
+            }
+
+            val content: @Composable () -> Unit = {
+                Text(text = text, modifier = Modifier.itemContentStartModifier())
             }
 
             SegmentedListItem(
+                onClick = onClickBody,
                 shapes = nextShapes(position),
+                modifier = itemModifier,
                 enabled = enabled,
-                modifier = itemModifier.semantics(mergeDescendants = true) {},
                 trailingContent = {
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(6.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        VerticalDivider(modifier = Modifier.height(40.dp).padding(end = 4.dp), color = MaterialTheme.colorScheme.outline)
-                        Box(
-                            modifier = Modifier.minimumInteractiveComponentSize(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Switch(
-                                checked = checked,
-                                onCheckedChange = onToggle,
-                                enabled = enabled,
-                                modifier = Modifier.semantics {
-                                    contentDescription = text
-                                }
-                            )
-                        }
-                    }
+                    GroupedSwitchWithActionTrailingContent(
+                        text = text,
+                        checked = checked,
+                        enabled = enabled,
+                        onToggle = onToggle
+                    )
                 },
-                supportingContent = currentValue.takeUnless { it.isBlank() }?.let {
-                    { SupportingText(text = it, modifier = Modifier.itemContentStartModifier()) }
-                },
+                supportingContent = supportingContent,
                 colors = colors,
-                content = { Text(text = text, modifier = Modifier.itemContentStartModifier()) }
+                content = content
             )
         }
 
         @Composable
-        fun GroupedSwitchWithTwoButtons(
+        private fun GroupedSwitchWithActionTrailingContent(
+            text: String,
+            checked: Boolean,
+            enabled: Boolean,
+            onToggle: ((Boolean) -> Unit)
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(6.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowForwardIos,
+                    contentDescription = null,
+                    modifier = Modifier.size(20.dp),
+                    tint = MaterialTheme.colorScheme.outline
+                )
+                VerticalDivider(
+                    modifier = Modifier.height(40.dp).padding(end = 4.dp),
+                    color = MaterialTheme.colorScheme.outline
+                )
+                Box(
+                    modifier = Modifier.minimumInteractiveComponentSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Switch(
+                        checked = checked,
+                        onCheckedChange = onToggle,
+                        enabled = enabled,
+                        modifier = Modifier.semantics {
+                            contentDescription = text
+                        }
+                    )
+                }
+            }
+        }
+
+        @Composable
+        fun GroupedSwitchWithTwoChips(
             position: GroupPositionType,
             text: String,
             modifier: Modifier = Modifier,
@@ -522,79 +542,61 @@ object Setting {
             checked: Boolean = false,
             icon: @Composable (() -> Unit)? = null,
             secondaryText: String? = null,
-            buttonText: String? = null,
-            secondaryButtonText: String? = null,
-            onClickBody: ((Boolean) -> Unit)? = null,
-            onClickButton: (() -> Unit)? = null,
-            onClickSecondaryButton: (() -> Unit)? = null
+            chipText: String?,
+            secondaryChipText: String? = null,
+            onClickBody: (Boolean) -> Unit,
+            onClickChip: () -> Unit,
+            onClickSecondaryChip: (() -> Unit)? = null
         ) {
-            val hasButtonContent = !buttonText.isNullOrBlank() || !secondaryButtonText.isNullOrBlank()
-            val hasSupportingContent = !secondaryText.isNullOrBlank() || hasButtonContent
-
-            val supportingContent = if (hasSupportingContent) {
-                @Composable {
-                    Column(modifier = Modifier.itemContentStartModifier(hasLeadingContent = icon != null)) {
-                        secondaryText?.takeUnless { it.isBlank() }?.let {
-                            SupportingText(text = it)
-                        }
-
-                        AnimatedVisibility(
-                            visible = checked && hasButtonContent,
-                            enter = slideInVertically(initialOffsetY = { it }),
-                            exit = slideOutVertically(targetOffsetY = { it })
+            val hasChipContent = checked && (!chipText.isNullOrBlank() || (!secondaryChipText.isNullOrBlank() && onClickSecondaryChip != null))
+            val supportingContent = when {
+                hasChipContent -> {
+                    @Composable {
+                        Column(
+                            modifier = Modifier.itemContentStartModifier(hasLeadingContent = icon != null),
+                            verticalArrangement = Arrangement.spacedBy(16.dp)
                         ) {
-                            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                                buttonText?.takeUnless { it.isBlank() }?.let {
-                                    FilledTonalButton(
-                                        onClick = { onClickButton?.invoke() },
-                                        enabled = enabled && onClickButton != null,
-                                        contentPadding = ButtonDefaults.contentPaddingFor(buttonHeight = ButtonDefaults.MinHeight, hasStartIcon = false, hasEndIcon = false)
-                                    ) {
-                                        Text(text = it)
-                                    }
+                            secondaryText?.takeUnless { it.isBlank() }?.let {
+                                SupportingText(text = it)
+                            }
+
+                            FlowRow(
+                                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                verticalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                if (!chipText.isNullOrBlank()) {
+                                    SettingChip(text = chipText, enabled = enabled, onClick = onClickChip)
                                 }
 
-                                secondaryButtonText?.takeUnless { it.isBlank() }?.let {
-                                    FilledTonalButton(
-                                        onClick = { onClickSecondaryButton?.invoke() },
-                                        enabled = enabled && onClickSecondaryButton != null,
-                                        contentPadding = ButtonDefaults.contentPaddingFor(buttonHeight = ButtonDefaults.MinHeight, hasStartIcon = false, hasEndIcon = false)
-                                    ) {
-                                        Text(text = it)
-                                    }
+                                if (!secondaryChipText.isNullOrBlank() && onClickSecondaryChip != null) {
+                                    SettingChip(text = secondaryChipText, enabled = enabled, onClick = onClickSecondaryChip)
                                 }
                             }
                         }
                     }
                 }
-            } else {
-                null
+                !secondaryText.isNullOrBlank() -> {
+                    @Composable {
+                        SupportingText(
+                            text = secondaryText,
+                            modifier = Modifier.itemContentStartModifier(hasLeadingContent = icon != null)
+                        )
+                    }
+                }
+                else -> null
             }
 
-            if (onClickBody != null) {
-                SegmentedListItem(
-                    onClick = { onClickBody(!checked) },
-                    shapes = nextShapes(position),
-                    modifier = modifier,
-                    enabled = enabled,
-                    leadingContent = indentedLeadingContent(icon),
-                    trailingContent = { Switch(checked = checked, onCheckedChange = null, enabled = enabled) },
-                    supportingContent = supportingContent,
-                    colors = colors,
-                    content = { Text(text = text, modifier = Modifier.itemContentStartModifier(hasLeadingContent = icon != null)) }
-                )
-            } else {
-                SegmentedListItem(
-                    shapes = nextShapes(position),
-                    modifier = modifier,
-                    enabled = enabled,
-                    leadingContent = indentedLeadingContent(icon),
-                    trailingContent = { Switch(checked = checked, onCheckedChange = null, enabled = enabled) },
-                    supportingContent = supportingContent,
-                    colors = colors,
-                    content = { Text(text = text, modifier = Modifier.itemContentStartModifier(hasLeadingContent = icon != null)) }
-                )
-            }
+            SegmentedListItem(
+                onClick = { onClickBody(!checked) },
+                shapes = nextShapes(position),
+                modifier = modifier,
+                enabled = enabled,
+                leadingContent = indentedLeadingContent(icon),
+                trailingContent = { Switch(checked = checked, onCheckedChange = null, enabled = enabled) },
+                supportingContent = supportingContent,
+                colors = colors,
+                content = { Text(text = text, modifier = Modifier.itemContentStartModifier(hasLeadingContent = icon != null)) }
+            )
         }
 
         @Composable
@@ -659,11 +661,311 @@ object Setting {
             }
         }
     }
+
+    @Composable
+    fun Header(
+        text: String,
+        modifier: Modifier = Modifier
+    ) {
+        Text(
+            text = text,
+            modifier = modifier.padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 4.dp).semantics { heading() },
+            color = MaterialTheme.colorScheme.secondary,
+            style = MaterialTheme.typography.titleSmall
+        )
+    }
+
+    @Composable
+    fun Switch(
+        text: String,
+        currentCheckedValueFlow: StateFlow<Boolean>,
+        modifier: Modifier = Modifier,
+        enabled: Boolean = true,
+        secondaryText: String? = null,
+        icon: @Composable (() -> Unit)? = null,
+        onClickBody: ((Boolean) -> Unit)? = null
+    ) {
+        val currentValueChecked by currentCheckedValueFlow.collectAsStateWithLifecycle()
+
+        Switch(
+            text = text,
+            enabled = enabled,
+            modifier = modifier,
+            checked = currentValueChecked,
+            secondaryText = secondaryText,
+            icon = icon,
+            onClickBody = onClickBody
+        )
+    }
+
+    @Composable
+    fun Switch(
+        text: String,
+        modifier: Modifier = Modifier,
+        enabled: Boolean = true,
+        checked: Boolean = false,
+        secondaryText: String? = null,
+        icon: @Composable (() -> Unit)? = null,
+        onClickBody: ((Boolean) -> Unit)? = null
+    ) {
+        val itemModifier = if (onClickBody != null) {
+            modifier.toggleable(
+                value = checked,
+                enabled = enabled,
+                role = Role.Switch,
+                onValueChange = onClickBody
+            )
+        } else {
+            modifier
+        }
+
+        ListItem(
+            modifier = itemModifier,
+            leadingContent = icon,
+            trailingContent = { Switch(checked = checked, onCheckedChange = null, enabled = enabled, modifier = Modifier.clearAndSetSemantics {}) },
+            supportingContent = if (!secondaryText.isNullOrBlank()) { { Text(secondaryText) } } else { null },
+            content = { Text(text) }
+        )
+    }
+
+    @Composable
+    fun Clickable(
+        text: String,
+        currentValueFlow: StateFlow<String?>,
+        modifier: Modifier = Modifier,
+        enabled: Boolean = true,
+        icon: @Composable (() -> Unit)? = null,
+        onClickBody: (() -> Unit)? = null
+    ) {
+        val currentValue by currentValueFlow.collectAsStateWithLifecycle()
+
+        Clickable(text = text, enabled = enabled, modifier = modifier, secondaryText = currentValue, icon = icon, onClickBody = onClickBody)
+    }
+
+    @Composable
+    fun Clickable(
+        text: String,
+        modifier: Modifier = Modifier,
+        enabled: Boolean = true,
+        secondaryText: String? = null,
+        icon: @Composable (() -> Unit)? = null,
+        onClickBody: (() -> Unit)? = null
+    ) {
+        val itemModifier = if (onClickBody != null) {
+            modifier.clickable(
+                enabled = enabled,
+                role = Role.Button,
+                onClick = onClickBody
+            )
+        } else {
+            modifier
+        }
+
+        ListItem(
+            modifier = itemModifier,
+            leadingContent = icon,
+            supportingContent = if (!secondaryText.isNullOrBlank()) { { Text(secondaryText) } } else { null },
+            content = { Text(text) }
+        )
+    }
+
+    @Composable
+    fun Slider(
+        text: String,
+        valueFlow: StateFlow<Float>,
+        modifier: Modifier = Modifier,
+        enabled: Boolean = true,
+        range: ClosedFloatingPointRange<Float> = 0f..1f,
+        steps: Int = 0,
+        icon: @Composable (() -> Unit)? = null,
+        valueText: @Composable (Float) -> String = { "${it}x" },
+        onValueChangeFinished: ((Float) -> Unit),
+    ) {
+        val value by valueFlow.collectAsStateWithLifecycle()
+
+        Slider(
+            text = text,
+            value = value,
+            enabled = enabled,
+            modifier = modifier,
+            range = range,
+            steps = steps,
+            icon = icon,
+            valueText = valueText,
+            onValueChangeFinished = onValueChangeFinished
+        )
+    }
+
+    @Composable
+    fun Slider(
+        text: String,
+        value: Float,
+        modifier: Modifier = Modifier,
+        enabled: Boolean = true,
+        range: ClosedFloatingPointRange<Float> = 0f..1f,
+        steps: Int = 0,
+        icon: @Composable (() -> Unit)? = null,
+        valueText: @Composable (Float) -> String = { "${it}x" },
+        onValueChangeFinished: ((Float) -> Unit),
+    ) {
+        var sliderPosition: Float by remember(value) { mutableFloatStateOf(value) }
+
+        val formattedValueText = valueText(sliderPosition)
+
+        ListItem(
+            modifier = modifier.clearAndSetSemantics {
+                contentDescription = text
+                stateDescription = formattedValueText
+                progressBarRangeInfo = ProgressBarRangeInfo(
+                    current = sliderPosition,
+                    range = range,
+                    steps = steps
+                )
+                setProgress { targetValue ->
+                    if (!enabled) return@setProgress false
+
+                    val adjustedValue = targetValue.coerceIn(range).round(1)
+                    if (sliderPosition == adjustedValue) {
+                        false
+                    } else {
+                        sliderPosition = adjustedValue
+                        onValueChangeFinished(sliderPosition)
+                        true
+                    }
+                }
+            },
+            leadingContent = icon,
+            supportingContent = {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Slider(
+                        value = sliderPosition,
+                        onValueChange = { newValue -> sliderPosition = newValue.round(1) },
+                        modifier = Modifier
+                            .weight(1f)
+                            .align(Alignment.CenterVertically)
+                            .clearAndSetSemantics {},
+                        enabled = enabled,
+                        valueRange = range,
+                        steps = steps,
+                        onValueChangeFinished = { onValueChangeFinished(sliderPosition) }
+                    )
+                    Text(text = formattedValueText, modifier = Modifier.align(Alignment.CenterVertically).clearAndSetSemantics {})
+                }
+            },
+            content = { Text(text = text, modifier = Modifier.clearAndSetSemantics {}) }
+        )
+    }
+
+    @Composable
+    fun SwitchWithAction(
+        text: String,
+        modifier: Modifier = Modifier,
+        enabled: Boolean = true,
+        currentEnabledFlow: StateFlow<Boolean>,
+        currentValueFlow: StateFlow<String>,
+        onClickBody: () -> Unit,
+        onToggle: (Boolean) -> Unit
+    ) {
+        val currentEnabledValue by currentEnabledFlow.collectAsStateWithLifecycle()
+        val currentValue by currentValueFlow.collectAsStateWithLifecycle()
+
+        SwitchWithAction(
+            text = text,
+            enabled = enabled,
+            modifier = modifier,
+            currentEnabled = currentEnabledValue,
+            currentValueAnnotatedString = AnnotatedString(currentValue),
+            onClickBody = onClickBody,
+            onToggle = onToggle
+        )
+    }
+
+    @Composable
+    fun SwitchWithAction(
+        text: String,
+        modifier: Modifier = Modifier,
+        enabled: Boolean = true,
+        currentEnabled: Boolean,
+        currentValue: String,
+        onClickBody: (() -> Unit),
+        onToggle: ((Boolean) -> Unit)
+    ) {
+        SwitchWithAction(
+            text = text,
+            enabled = enabled,
+            modifier = modifier,
+            currentEnabled = currentEnabled,
+            currentValueAnnotatedString = AnnotatedString(currentValue),
+            onClickBody = onClickBody,
+            onToggle = onToggle
+        )
+    }
+
+    @Composable
+    fun SwitchWithAction(
+        text: String,
+        modifier: Modifier = Modifier,
+        enabled: Boolean = true,
+        currentEnabled: Boolean,
+        currentValueAnnotatedString: AnnotatedString,
+        onClickBody: (() -> Unit),
+        onToggle: ((Boolean) -> Unit)
+    ) {
+        ListItem(
+            modifier = modifier
+                .clickable(enabled = enabled, onClick = onClickBody)
+                .semantics(mergeDescendants = true) {},
+            trailingContent = {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(6.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    VerticalDivider(modifier = Modifier.height(40.dp).padding(end = 4.dp), color = MaterialTheme.colorScheme.outline)
+                    Box(
+                        modifier = Modifier.minimumInteractiveComponentSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Switch(
+                            checked = currentEnabled,
+                            onCheckedChange = onToggle,
+                            enabled = enabled,
+                            modifier = Modifier.semantics {
+                                contentDescription = text
+                            }
+                        )
+                    }
+                }
+            },
+            supportingContent = { Text(text = currentValueAnnotatedString) },
+            content = { Text(text) }
+        )
+    }
 }
 
 @Composable
 private fun SupportingText(text: String, modifier: Modifier = Modifier) {
     Text(text = text, modifier = modifier)
+}
+
+@Composable
+private fun SettingChip(
+    text: String,
+    enabled: Boolean,
+    onClick: () -> Unit
+) {
+    AssistChip(
+        onClick = onClick,
+        label = { Text(text = text, maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.labelLarge) },
+        enabled = enabled,
+        colors = AssistChipDefaults.assistChipColors(
+            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+            labelColor = MaterialTheme.colorScheme.onSecondaryContainer,
+            disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+            disabledLabelColor = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+    )
 }
 
 private fun Float.round(decimalPlaces: Int): Float {
@@ -673,12 +975,56 @@ private fun Float.round(decimalPlaces: Int): Float {
 
 @PreviewDefault
 @Composable
+private fun SettingsPreview() {
+    val currentThemeTitleFlow = MutableStateFlow("Light Theme")
+    val sortByLastNameFlow = MutableStateFlow(true)
+    val currentLastInstalledVersionCodeFlow = MutableStateFlow("1234")
+    val playbackSpeedFlow = MutableStateFlow(1.0f)
+
+    AppTheme {
+        Surface {
+            val scrollState = rememberScrollState()
+
+            Column(
+                Modifier.verticalScroll(scrollState)
+            ) {
+                Setting.Header("Display")
+                Setting.Clickable(text = "Theme", currentValueFlow = currentThemeTitleFlow) { }
+                Setting.Switch(text = "Sort by last name", currentCheckedValueFlow = sortByLastNameFlow) { }
+                Setting.Slider(text = "Playback Speed", valueFlow = playbackSpeedFlow, range = .5f..3f) { value ->  }
+                Setting.Slider(
+                    text = "Playback Speed",
+                    valueFlow = playbackSpeedFlow,
+                    range = .5f..3f,
+                    icon = { Icon(imageVector = Icons.Default.AccountCircle, contentDescription = null) }
+                ) { value ->  }
+
+                // not translated because this should not be visible for release builds
+                Setting.Header("Developer Options")
+                Setting.Clickable(text = "Work Manager Status", secondaryText = "Show status of all background workers") { }
+                Setting.Clickable(text = "Last Installed Version Code", currentValueFlow = currentLastInstalledVersionCodeFlow) { }
+                Setting.SwitchWithAction(
+                    text = "Enable Custom Date",
+                    currentEnabled = true,
+                    currentValue = "January 2, 2007",
+                    onClickBody = { },
+                    onToggle = { }
+                )
+            }
+        }
+    }
+}
+
+@PreviewDefault
+@Composable
 private fun SettingsGroupPreview() {
     val currentThemeTitleFlow = MutableStateFlow("Light Theme")
     val sortByLastNameFlow = MutableStateFlow(true)
 
     AppTheme {
-        Surface {
+        Surface(
+            color = MaterialTheme.colorScheme.surfaceContainer
+        ) {
             Setting.Group(headerText = "Segmented Settings") {
                 GroupedClickable(position = Setting.GroupPositionType.FIRST, text = "Theme", currentValueFlow = currentThemeTitleFlow) { }
 
@@ -706,7 +1052,9 @@ private fun SettingsGroupActionsPreview() {
     val customDateEnabledFlow = MutableStateFlow(true)
 
     AppTheme {
-        Surface {
+        Surface(
+            color = MaterialTheme.colorScheme.surfaceContainer
+        ) {
             Setting.Group(headerText = "Grouped Actions") {
                 GroupedSwitchWithAction(
                     position = Setting.GroupPositionType.FIRST,
@@ -717,16 +1065,16 @@ private fun SettingsGroupActionsPreview() {
                     onToggle = { }
                 )
 
-                GroupedSwitchWithTwoButtons(
+                GroupedSwitchWithTwoChips(
                     position = Setting.GroupPositionType.MIDDLE,
                     text = "Elders Quorum Lessons",
                     checked = true,
                     secondaryText = "Scheduled by you",
-                    buttonText = "9:00 AM",
-                    secondaryButtonText = "Mon, Tue, Wed, Thu, Fri, Sat",
+                    chipText = "9:00 AM",
+                    secondaryChipText = "Mon, Tue, Wed, Thu, Fri, Sat",
                     onClickBody = { _ -> },
-                    onClickButton = { },
-                    onClickSecondaryButton = { }
+                    onClickChip = { },
+                    onClickSecondaryChip = { }
                 )
 
                 GroupedSlider(
@@ -749,7 +1097,9 @@ private fun SettingsGroupExpansionPreview() {
     val proxyCallingFlow = MutableStateFlow("Bishop")
 
     AppTheme {
-        Surface {
+        Surface(
+            color = MaterialTheme.colorScheme.surfaceContainer
+        ) {
             Setting.Group(headerText = "Expansion") {
                 GroupedSwitchWithExpansion(
                     position = Setting.GroupPositionType.FIRST,
@@ -779,7 +1129,9 @@ private fun SettingsGroupExpansionCompactPreview() {
     val proxyUseCmisIdFlow = MutableStateFlow(true)
 
     AppTheme {
-        Surface {
+        Surface(
+            color = MaterialTheme.colorScheme.surfaceContainer
+        ) {
             Setting.Group(headerText = "Expansion") {
                 GroupedSwitchWithExpansion(
                     position = Setting.GroupPositionType.FIRST,

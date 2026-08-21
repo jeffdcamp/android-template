@@ -9,9 +9,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.adaptive.currentWindowSize
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
@@ -21,6 +23,7 @@ import androidx.compose.material3.adaptive.navigationsuite.rememberNavigationSui
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalDensity
@@ -44,6 +47,8 @@ fun MainAppScaffoldWithNavBar(
     hideNavigation: Boolean = false,
     actions: @Composable (RowScope.() -> Unit)? = null,
     floatingActionButton: @Composable () -> Unit = {},
+    topAppBarColors: TopAppBarColors = TopAppBarDefaults.topAppBarColors(),
+    scaffoldContainerColor: Color = MaterialTheme.colorScheme.background,
     content: @Composable () -> Unit
 ) {
     MainAppScaffoldWithNavBar(
@@ -57,6 +62,8 @@ fun MainAppScaffoldWithNavBar(
         hideNavigation = hideNavigation,
         actions = actions,
         floatingActionButton = floatingActionButton,
+        topAppBarColors = topAppBarColors,
+        scaffoldContainerColor = scaffoldContainerColor,
         content = content
     )
 }
@@ -73,6 +80,8 @@ fun MainAppScaffoldWithNavBar(
     hideNavigation: Boolean = false,
     actions: @Composable (RowScope.() -> Unit)? = null,
     floatingActionButton: @Composable () -> Unit = {},
+    topAppBarColors: TopAppBarColors = TopAppBarDefaults.topAppBarColors(),
+    scaffoldContainerColor: Color = MaterialTheme.colorScheme.background,
     content: @Composable () -> Unit
 ) {
     val windowSize = currentWindowSize()
@@ -110,6 +119,8 @@ fun MainAppScaffoldWithNavBar(
             hideTopAppBar = hideTopAppBar,
             actions = actions,
             floatingActionButton = floatingActionButton,
+            topAppBarColors = topAppBarColors,
+            scaffoldContainerColor = scaffoldContainerColor,
             content = content
         )
     }
@@ -125,6 +136,8 @@ private fun AppScaffold(
     hideTopAppBar: Boolean = false,
     actions: @Composable (RowScope.() -> Unit)? = null,
     floatingActionButton: @Composable () -> Unit = {},
+    topAppBarColors: TopAppBarColors = TopAppBarDefaults.topAppBarColors(),
+    scaffoldContainerColor: Color = MaterialTheme.colorScheme.background,
     content: @Composable () -> Unit
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
@@ -133,6 +146,7 @@ private fun AppScaffold(
     val topAppBar: @Composable (() -> Unit) = {
         TopAppBar(
             title = title,
+            colors = topAppBarColors,
             navigationIcon = if (!navigationIconVisible) {
                 {}
             } else {
@@ -154,6 +168,7 @@ private fun AppScaffold(
     Scaffold(
         topBar = if (hideTopAppBar) {{}} else topAppBar,
         floatingActionButton = floatingActionButton,
+        containerColor = scaffoldContainerColor,
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
