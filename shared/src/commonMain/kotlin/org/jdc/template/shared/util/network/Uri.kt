@@ -112,9 +112,9 @@ class Uri private constructor(
             val isRelative = !uriString.contains("://")
             val parseTarget = if (isRelative) "$DUMMY_BASE$uriString" else uriString
 
-            return try {
+            return runCatching {
                 Uri(Url(parseTarget), isRelative)
-            } catch (ignore: Exception) {
+            }.getOrElse {
                 // Fallback for empty or extremely malformed strings
                 Uri(Url(DUMMY_BASE), true)
             }

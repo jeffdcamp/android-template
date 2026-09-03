@@ -185,19 +185,22 @@ abstract class BaseFirebaseRemoteConfig {
         val fetchTask = firebaseRemoteConfig.fetch(0L)
 
         // Await fetch, then activate right away if fetch was successful
-        try {
+        return runCatching {
             Tasks.await(fetchTask, fetchTimeoutSeconds, TimeUnit.SECONDS)
             if (fetchTask.isSuccessful) {
                 firebaseRemoteConfig.activate().await()
-                return true
+                true
+            } else {
+                false
             }
-        } catch (ignore: TimeoutException) {
-            Logger.w { "fetchAndActivateNow timeout occurred" }
-        } catch (expected: Exception) {
-            Logger.e(expected) { "Failed to FetchAndActivate" }
+        }.getOrElse { e ->
+            if (e is TimeoutException) {
+                Logger.w { "fetchAndActivateNow timeout occurred" }
+            } else {
+                Logger.e(e) { "Failed to FetchAndActivate" }
+            }
+            false
         }
-
-        return false
     }
 
     @Suppress("unused")

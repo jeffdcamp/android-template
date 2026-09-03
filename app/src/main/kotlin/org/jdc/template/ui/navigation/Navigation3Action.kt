@@ -50,10 +50,10 @@ sealed interface Navigation3Action {
 
     data class NavigateIntent(private val context: Context, private val intent: Intent, private val options: Bundle? = null) : Navigation3ActionIntent {
         override fun navigate(context: Context, resetNavigate: (Navigation3Action) -> Unit): Boolean {
-            try {
+            runCatching {
                 context.startActivity(intent, options)
-            } catch (ignore: Exception) {
-                Logger.e(ignore) { "Failed to startActivity for intent (${intent.data})" }
+            }.onFailure { e ->
+                Logger.e(e) { "Failed to startActivity for intent (${intent.data})" }
             }
             resetNavigate(this)
             return false
@@ -85,10 +85,10 @@ sealed interface Navigation3Action {
     data class PopAndNavigateIntent(private val context: Context, private val intent: Intent, private val options: Bundle? = null) : Navigation3ActionFull {
         override fun navigate(navigator: Navigation3Navigator, resetNavigate: (Navigation3Action) -> Unit): Boolean {
             val stackPopped = navigator.pop()
-            try {
+            runCatching {
                 context.startActivity(intent, options)
-            } catch (ignore: Exception) {
-                Logger.e(ignore) { "Failed to startActivity for intent (${intent.data})" }
+            }.onFailure { e ->
+                Logger.e(e) { "Failed to startActivity for intent (${intent.data})" }
             }
             resetNavigate(this)
             return stackPopped

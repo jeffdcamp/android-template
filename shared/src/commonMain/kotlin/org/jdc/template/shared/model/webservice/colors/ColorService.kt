@@ -31,7 +31,7 @@ class ColorService(
 
     @Suppress("UNCHECKED_CAST")
     suspend fun getColorsToFile(filesystem: FileSystem, file: Path): ApiResponse<out Boolean, out Boolean> {
-        return try {
+        return runCatching {
             httpClient.prepareGet(ColorsResource.All()).execute { httpResponse ->
                 if (httpResponse.status.isSuccess() && httpResponse.saveBodyToFile(filesystem, file)) {
                     ApiResponse.Success(true)
@@ -40,8 +40,8 @@ class ColorService(
                     ApiResponse.Failure.Error.Unknown(httpResponse.status, "Failed to save colors json (${httpResponse.status}")
                 }
             }
-        } catch (expected: Throwable) {
-            return ApiResponse.Failure.Exception(expected)
+        }.getOrElse { e ->
+            ApiResponse.Failure.Exception(e)
         }
     }
 

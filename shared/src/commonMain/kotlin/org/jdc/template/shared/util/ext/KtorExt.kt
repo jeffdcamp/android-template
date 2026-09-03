@@ -20,7 +20,6 @@ import io.ktor.utils.io.core.isEmpty
 import io.ktor.utils.io.core.readBytes
 import io.ktor.utils.io.readRemaining
 import io.ktor.utils.io.writeFully
-import kotlinx.io.IOException
 import okio.BufferedSink
 import okio.BufferedSource
 import okio.FileSystem
@@ -39,7 +38,7 @@ suspend fun <T, E> HttpClient.executeSafely(
     mapException: suspend (Throwable) -> ApiResponse.Failure.Exception = { ApiResponse.Failure.Exception(it) },
     mapSuccess: suspend (HttpResponse) -> T,
 ): ApiResponse<out T, out E> {
-    return try {
+    return runCatching {
         val response = apiCall()
         if (response.status.isSuccess()) {
             ApiResponse.Success(mapSuccess(response))
@@ -53,8 +52,8 @@ suspend fun <T, E> HttpClient.executeSafely(
                 else -> ApiResponse.Failure.Error.Unknown(response.status, message)
             }
         }
-    } catch (expected: Throwable) {
-        mapException(expected)
+    }.getOrElse { e ->
+        mapException(e)
     }
 }
 
@@ -70,7 +69,7 @@ suspend fun <T, E> HttpClient.executeSafelyCached(
     mapException: suspend (Throwable) -> CacheApiResponse.Failure.Exception = { CacheApiResponse.Failure.Exception(it) },
     mapSuccess: suspend (HttpResponse) -> T,
 ): CacheApiResponse<out T, out E> {
-    return try {
+    return runCatching {
         val response = apiCall()
         if (response.status == HttpStatusCode.NotModified) {
             CacheApiResponse.Success(null, response.etag(), response.headers[HttpHeaders.LastModified])
@@ -86,8 +85,8 @@ suspend fun <T, E> HttpClient.executeSafelyCached(
                 else -> CacheApiResponse.Failure.Error.Unknown(response.status, message)
             }
         }
-    } catch (expected: Throwable) {
-        mapException(expected)
+    }.getOrElse { e ->
+        mapException(e)
     }
 }
 
@@ -101,8 +100,7 @@ suspend fun <T, E> HttpClient.executeSafelyCached(
 @Suppress("kotlin:S6312")
 suspend fun HttpResponse.saveBodyToFile(fileSystem: FileSystem, outputFile: Path): Boolean {
     Logger.d { "Saving response [${call.request.url}] to file [$outputFile]..." }
-    var success = false
-    try {
+    return runCatching {
         // if the target file already exists, remove it.
         fileSystem.delete(outputFile)
 
@@ -111,12 +109,12 @@ suspend fun HttpResponse.saveBodyToFile(fileSystem: FileSystem, outputFile: Path
             byteReadChannel.readFully(it)
         }
 
-        success = fileSystem.exists(outputFile)
-    } catch (e: IOException) {
+        fileSystem.exists(outputFile)
+    }.getOrElse { e ->
         Logger.e(e) { "Failed to save response stream to [${outputFile.name}]" }
         fileSystem.delete(outputFile)
+        false
     }
-    return success
 }
 
 // Okio likes to use 8kb:

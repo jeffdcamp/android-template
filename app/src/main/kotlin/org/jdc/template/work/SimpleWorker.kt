@@ -21,9 +21,9 @@ class SimpleWorker(
         val inputText = inputData.getString(KEY_TEXT)
 
         logProgress("RUNNING: Text: [$inputText]")
-        try {
+        runCatching {
             delay(1000)
-        } catch (e: InterruptedException) {
+        }.onFailure { e ->
             Logger.e(e) { "Sleep Failure" }
         }
 
