@@ -38,6 +38,7 @@ android {
     namespace = "org.jdc.template"
 
     compileSdk = AppInfo.AndroidSdk.COMPILE
+    compileSdkMinor = AppInfo.AndroidSdk.COMPILE_MINOR
 
     defaultConfig {
         minSdk = AppInfo.AndroidSdk.MIN
