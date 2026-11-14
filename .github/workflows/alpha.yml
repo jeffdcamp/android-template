@@ -2,7 +2,7 @@ name: Alpha CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 concurrency:
   group: alpha-${{ github.ref }}

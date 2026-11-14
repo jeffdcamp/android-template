@@ -98,7 +98,7 @@ pipeline {
             }
 
             when {
-                branch 'master'
+                branch 'main'
             }
 
             stages {
@@ -320,7 +320,7 @@ pipeline {
         }
         stage("Increment Version Code") {
             when {
-                anyOf { branch 'master'; branch 'beta'; branch 'release' }
+                anyOf { branch 'main'; branch 'beta'; branch 'release' }
             }
             steps {
                 sh './gradlew incrementVersionCode'
