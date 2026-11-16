@@ -12,18 +12,16 @@ class IndividualEditScreenTest {
 
     @Test
     fun testFields() {
-        val uiState = IndividualEditUiState.Ready(
-            formFields = IndividualEditFormFields(
-                firstName = "Jeff",
-                lastName = "Campbell",
-                phoneNumber = "801-555-0000",
-                email = "",
-            )
+        val formFields = IndividualEditFormFields(
+            firstName = "Jeff",
+            lastName = "Campbell",
+            phoneNumber = "801-555-0000",
+            email = "",
         )
 
         composeTestRule.setContent {
             IndividualEditContent(
-                uiState = uiState,
+                formFields = formFields,
                 onFirstNameChange = {},
                 onLastNameChange = {},
                 onPhoneChange = {},

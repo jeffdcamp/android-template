@@ -53,11 +53,11 @@ fun IndividualEditScreen(
         onNavigationClick = { navigator.pop() },
         hideNavigation = true
     ) {
-        when (uiState) {
+        when (val state = uiState) {
             IndividualEditUiState.Loading -> {}
             is IndividualEditUiState.Ready -> {
                 IndividualEditContent(
-                    uiState = uiState,
+                    formFields = state.formFields,
                     onFirstNameChange = viewModel::onFirstNameChange,
                     onLastNameChange = viewModel::onLastNameChange,
                     onPhoneChange = viewModel::onPhoneChange,
@@ -79,7 +79,7 @@ fun IndividualEditScreen(
 
 @Composable
 fun IndividualEditContent(
-    uiState: IndividualEditUiState,
+    formFields: IndividualEditFormFields,
     onFirstNameChange: (String) -> Unit,
     onLastNameChange: (String) -> Unit,
     onPhoneChange: (String) -> Unit,
@@ -89,11 +89,6 @@ fun IndividualEditContent(
     onIndividualTypeChange: (IndividualType) -> Unit,
     onAvailableChange: (Boolean) -> Unit
 ) {
-    if (uiState !is IndividualEditUiState.Ready) {
-        return
-    }
-    val formFields: IndividualEditFormFields = uiState.formFields
-
     Column(
         Modifier
             .verticalScroll(rememberScrollState())
@@ -156,19 +151,17 @@ enum class IndividualEditScreenFields {
 @PreviewDefault
 @Composable
 private fun Preview() {
-    val uiState = IndividualEditUiState.Ready(
-        IndividualEditFormFields(
-            firstName = "Jeff",
-            lastName = "Campbell",
-            phoneNumber = "801-555-0001",
-            email = "bob@bob.com",
-        )
+    val formFields = IndividualEditFormFields(
+        firstName = "Jeff",
+        lastName = "Campbell",
+        phoneNumber = "801-555-0001",
+        email = "bob@bob.com",
     )
 
     AppTheme {
         Surface {
             IndividualEditContent(
-                uiState = uiState,
+                formFields = formFields,
                 onFirstNameChange = {},
                 onLastNameChange = {},
                 onPhoneChange = {},
