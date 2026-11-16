@@ -17,7 +17,6 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import kotlinx.coroutines.flow.MutableStateFlow
 import org.jdc.template.R
 import org.jdc.template.shared.model.domain.type.IndividualType
 import org.jdc.template.ui.compose.PreviewDefault
@@ -106,34 +105,40 @@ fun IndividualEditContent(
             .fillMaxWidth()
             .padding(bottom = 4.dp)
 
-        FlowTextField(stringResource(R.string.first_name), formFields.firstNameFlow, onFirstNameChange, fieldModifier.testTag(IndividualEditScreenFields.FIRST_NAME.name),
-            formFields.firstNameErrorFlow)
-        FlowTextField(stringResource(R.string.last_name), formFields.lastNameFlow, onLastNameChange, fieldModifier.testTag(IndividualEditScreenFields.LAST_NAME.name))
-        FlowTextField(stringResource(R.string.phone), formFields.phoneNumberFlow, onPhoneChange, fieldModifier.testTag(IndividualEditScreenFields.PHONE.name))
-        FlowTextField(stringResource(R.string.email), formFields.emailFlow, onEmailChange, fieldModifier.testTag(IndividualEditScreenFields.EMAIL.name), formFields.emailErrorFlow)
+        FlowTextField(
+            stringResource(R.string.first_name),
+            formFields.firstName,
+            onFirstNameChange,
+            fieldModifier.testTag(IndividualEditScreenFields.FIRST_NAME.name),
+            formFields.firstNameError
+        )
+        FlowTextField(stringResource(R.string.last_name), formFields.lastName, onLastNameChange, fieldModifier.testTag(IndividualEditScreenFields.LAST_NAME.name))
+        FlowTextField(stringResource(R.string.phone), formFields.phoneNumber, onPhoneChange, fieldModifier.testTag(IndividualEditScreenFields.PHONE.name))
+        FlowTextField(stringResource(R.string.email), formFields.email, onEmailChange, fieldModifier.testTag(IndividualEditScreenFields.EMAIL.name), formFields.emailError)
 
         DateClickableTextField(
             label = stringResource(R.string.birth_date),
-            localDateFlow = formFields.birthDateFlow,
+            date = formFields.birthDate,
             onClick = onBirthDateClick,
             modifier = fieldModifier.testTag(IndividualEditScreenFields.BIRTH_DATE.name),
-            errorTextFlow = formFields.birthDateErrorFlow
+            errorText = formFields.birthDateError
         )
-        TimeClickableTextField(stringResource(R.string.alarm_time), formFields.alarmTimeFlow, onAlarmTimeClick, fieldModifier.testTag(IndividualEditScreenFields.ALARM_TIME.name))
+        TimeClickableTextField(stringResource(R.string.alarm_time), formFields.alarmTime, onAlarmTimeClick, fieldModifier.testTag(IndividualEditScreenFields.ALARM_TIME.name))
 
         DropdownMenuBoxField(
             label = stringResource(R.string.individual_type),
             options = IndividualType.entries,
-            selectedOptionFlow = formFields.individualTypeFlow,
+            selectedOption = formFields.individualType,
             onOptionSelected = { onIndividualTypeChange(it) },
             optionToText = { stringResource(it.getStringResId()) },
-            errorTextFlow = formFields.individualTypeErrorFlow,
+            supportingText = formFields.individualTypeError,
+            isError = !formFields.individualTypeError.isNullOrBlank(),
             modifier = fieldModifier
                 .onPreviewKeyEvent { formKeyEventHandler(it, focusManager) }
                 .testTag(IndividualEditScreenFields.TYPE.name)
         )
 
-        SwitchField(stringResource(R.string.available), formFields.availableFlow, onAvailableChange, fieldModifier.testTag(IndividualEditScreenFields.AVAILABLE.name))
+        SwitchField(stringResource(R.string.available), formFields.available, onAvailableChange, fieldModifier.testTag(IndividualEditScreenFields.AVAILABLE.name))
     }
 }
 
@@ -153,18 +158,10 @@ enum class IndividualEditScreenFields {
 private fun Preview() {
     val uiState = IndividualEditUiState.Ready(
         IndividualEditFormFields(
-            firstNameFlow = MutableStateFlow("Jeff"),
-            firstNameErrorFlow = MutableStateFlow(null),
-            lastNameFlow = MutableStateFlow("Campbell"),
-            phoneNumberFlow = MutableStateFlow("801-555-0001"),
-            emailFlow = MutableStateFlow("bob@bob.com"),
-            emailErrorFlow = MutableStateFlow(null),
-            birthDateFlow = MutableStateFlow(null),
-            birthDateErrorFlow = MutableStateFlow(null),
-            alarmTimeFlow = MutableStateFlow(null),
-            individualTypeFlow = MutableStateFlow(IndividualType.UNKNOWN),
-            individualTypeErrorFlow = MutableStateFlow(null),
-            availableFlow = MutableStateFlow(false)
+            firstName = "Jeff",
+            lastName = "Campbell",
+            phoneNumber = "801-555-0001",
+            email = "bob@bob.com",
         )
     )
 

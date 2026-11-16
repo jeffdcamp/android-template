@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
@@ -42,20 +43,8 @@ class IndividualEditViewModel(
     val uiStateFlow: StateFlow<IndividualEditUiState>
         field = MutableStateFlow<IndividualEditUiState>(IndividualEditUiState.Loading)
 
+    // original individual (keeps fields that are not on the form, such as id and householdId, when saving)
     private var individual = Individual()
-
-    private val firstNameFlow = MutableStateFlow("")
-    private val firstNameErrorFlow = MutableStateFlow<String?>(null)
-    private val lastNameFlow = MutableStateFlow("")
-    private val phoneNumberFlow = MutableStateFlow("")
-    private val emailFlow = MutableStateFlow("")
-    private val emailErrorFlow = MutableStateFlow<String?>(null)
-    private val birthDateFlow = MutableStateFlow<LocalDate?>(null)
-    private val birthDateErrorFlow = MutableStateFlow<String?>(null)
-    private val alarmTimeFlow = MutableStateFlow<LocalTime?>(null)
-    private val individualTypeFlow = MutableStateFlow(IndividualType.UNKNOWN)
-    private val individualTypeErrorFlow = MutableStateFlow<String?>(null)
-    private val availableFlow = MutableStateFlow(false)
 
     init {
         analytics.logEvent(AnalyticEvent(Analytics.EVENT_EDIT_INDIVIDUAL))
@@ -63,63 +52,59 @@ class IndividualEditViewModel(
     }
 
     private fun loadIndividual() = viewModelScope.launch {
-        if (individualEditRoute.individualId != null) {
-            individualRepository.getIndividual(individualEditRoute.individualId)?.let { loadedIndividual ->
-                setIndividual(loadedIndividual)
-                individual = loadedIndividual
-            }
-        }
+        individualEditRoute.individualId
+            ?.let { individualRepository.getIndividual(it) }
+            ?.let { individual = it }
 
-        uiStateFlow.value = IndividualEditUiState.Ready(
-            IndividualEditFormFields(
-                firstNameFlow = firstNameFlow,
-                firstNameErrorFlow = firstNameErrorFlow,
-                lastNameFlow = lastNameFlow,
-                phoneNumberFlow = phoneNumberFlow,
-                emailFlow = emailFlow,
-                emailErrorFlow = emailErrorFlow,
-                birthDateFlow = birthDateFlow,
-                birthDateErrorFlow = birthDateErrorFlow,
-                alarmTimeFlow = alarmTimeFlow,
-                individualTypeFlow = individualTypeFlow,
-                individualTypeErrorFlow = individualTypeErrorFlow,
-                availableFlow = availableFlow,
-            )
-        )
+        uiStateFlow.value = IndividualEditUiState.Ready(individual.toFormFields())
     }
 
-    private fun setIndividual(loadedIndividual: Individual) {
-        firstNameFlow.value = loadedIndividual.firstName?.value.orEmpty()
-        lastNameFlow.value = loadedIndividual.lastName?.value.orEmpty()
-        phoneNumberFlow.value = loadedIndividual.phone?.value.orEmpty()
-        emailFlow.value = loadedIndividual.email?.value.orEmpty()
-        birthDateFlow.value = loadedIndividual.birthDate
-        alarmTimeFlow.value = loadedIndividual.alarmTime
-        individualTypeFlow.value = loadedIndividual.individualType
-        availableFlow.value = loadedIndividual.available
+    private fun Individual.toFormFields(): IndividualEditFormFields = IndividualEditFormFields(
+        firstName = firstName?.value.orEmpty(),
+        lastName = lastName?.value.orEmpty(),
+        phoneNumber = phone?.value.orEmpty(),
+        email = email?.value.orEmpty(),
+        birthDate = birthDate,
+        alarmTime = alarmTime,
+        individualType = individualType,
+        available = available,
+    )
+
+    /**
+     * Current form fields, or null if the form has not loaded yet
+     */
+    private fun currentFormFields(): IndividualEditFormFields? {
+        return (uiStateFlow.value as? IndividualEditUiState.Ready)?.formFields
+    }
+
+    /**
+     * Updates the form fields synchronously (must stay synchronous so text fields do not lose characters or jump the cursor)
+     */
+    private fun updateFormFields(block: (IndividualEditFormFields) -> IndividualEditFormFields) {
+        uiStateFlow.update { uiState ->
+            if (uiState is IndividualEditUiState.Ready) uiState.copy(formFields = block(uiState.formFields)) else uiState
+        }
     }
 
     fun onFirstNameChange(value: String) {
-        firstNameFlow.value = value
-        firstNameErrorFlow.value = null
+        updateFormFields { it.copy(firstName = value, firstNameError = null) }
     }
 
     fun onLastNameChange(value: String) {
-        lastNameFlow.value = value
+        updateFormFields { it.copy(lastName = value) }
     }
 
     fun onPhoneChange(value: String) {
-        phoneNumberFlow.value = value
+        updateFormFields { it.copy(phoneNumber = value) }
     }
 
     fun onEmailChange(value: String) {
-        emailFlow.value = value
-        emailErrorFlow.value = null
+        updateFormFields { it.copy(email = value, emailError = null) }
     }
 
     fun onBirthDateClick() {
         showBirthDate()
-        birthDateErrorFlow.value = null
+        updateFormFields { it.copy(birthDateError = null) }
     }
 
     fun onAlarmTimeClick() {
@@ -127,12 +112,11 @@ class IndividualEditViewModel(
     }
 
     fun onIndividualTypeChange(value: IndividualType) {
-        individualTypeFlow.value = value;
-        individualTypeErrorFlow.value = null
+        updateFormFields { it.copy(individualType = value, individualTypeError = null) }
     }
 
     fun onAvailableChange(value: Boolean) {
-        availableFlow.value = value
+        updateFormFields { it.copy(available = value) }
     }
 
     fun onSaveClick() = viewModelScope.launch {
@@ -140,15 +124,17 @@ class IndividualEditViewModel(
             return@launch
         }
 
+        val formFields = currentFormFields() ?: return@launch
+
         individualRepository.saveIndividual(individual.copy(
-            firstName = valueOrNull(firstNameFlow.value)?.let { FirstName(it) },
-            lastName = valueOrNull(lastNameFlow.value)?.let { LastName(it) },
-            phone = valueOrNull(phoneNumberFlow.value)?.let { Phone(it) },
-            email = valueOrNull(emailFlow.value)?.let { Email(it) },
-            birthDate = birthDateFlow.value,
-            alarmTime = alarmTimeFlow.value,
-            individualType = individualTypeFlow.value,
-            available = availableFlow.value,
+            firstName = valueOrNull(formFields.firstName)?.let { FirstName(it) },
+            lastName = valueOrNull(formFields.lastName)?.let { LastName(it) },
+            phone = valueOrNull(formFields.phoneNumber)?.let { Phone(it) },
+            email = valueOrNull(formFields.email)?.let { Email(it) },
+            birthDate = formFields.birthDate,
+            alarmTime = formFields.alarmTime,
+            individualType = formFields.individualType,
+            available = formFields.available,
         ))
 
         navigate(Navigation3Action.Pop())
@@ -160,52 +146,50 @@ class IndividualEditViewModel(
         }
     }
 
-    private fun resetErrors() {
-        firstNameErrorFlow.value = null
-        emailErrorFlow.value = null
-        individualTypeErrorFlow.value = null
-    }
-
+    /**
+     * Sets (or clears) the error on every field
+     *
+     * @return true if all fields are valid
+     */
     private fun validateAllFields(): Boolean {
-        resetErrors()
-        var allFieldsValid = true
+        val today = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
 
-        if (firstNameFlow.value.isBlank()) {
-            firstNameErrorFlow.value = application.getString(R.string.required)
-            allFieldsValid = false
+        updateFormFields { formFields ->
+            formFields.copy(
+                firstNameError = application.getString(R.string.required).takeIf { formFields.firstName.isBlank() },
+                emailError = application.getString(R.string.invalid_email).takeIf {
+                    formFields.email.isNotBlank() && !android.util.Patterns.EMAIL_ADDRESS.matcher(formFields.email).matches()
+                },
+                birthDateError = application.getString(R.string.invalid_birth_date).takeIf {
+                    formFields.birthDate != null && formFields.birthDate >= today
+                },
+                individualTypeError = application.getString(R.string.individual_type_requires_last_name).takeIf {
+                    formFields.individualType == IndividualType.CHILD && formFields.lastName.isEmpty()
+                },
+            )
         }
 
-        if (emailFlow.value.isNotBlank() && !android.util.Patterns.EMAIL_ADDRESS.matcher(emailFlow.value).matches()) {
-            emailErrorFlow.value = application.getString(R.string.invalid_email)
-            allFieldsValid = false
-        }
-
-        val birthDate = birthDateFlow.value
-        if (birthDate != null && birthDate >= Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date) {
-            birthDateErrorFlow.value = application.getString(R.string.invalid_birth_date)
-            return false
-        }
-
-        if (individualTypeFlow.value == IndividualType.CHILD && lastNameFlow.value.isEmpty()) {
-            individualTypeErrorFlow.value = application.getString(R.string.individual_type_requires_last_name)
-            return false
-        }
-
-        return allFieldsValid
+        val formFields = currentFormFields() ?: return false
+        return listOfNotNull(
+            formFields.firstNameError,
+            formFields.emailError,
+            formFields.birthDateError,
+            formFields.individualTypeError,
+        ).isEmpty()
     }
 
     private fun showBirthDate() {
         val todayMs = System.currentTimeMillis()
 
         dialogUiStateFlow.value = DatePickerDialogUiState(
-            localDate = birthDateFlow.value,
+            localDate = currentFormFields()?.birthDate,
             selectableDates = object : SelectableDates {
                 override fun isSelectableDate(utcTimeMillis: Long): Boolean {
                     return utcTimeMillis < todayMs
                 }
             },
-            onConfirm = {
-                birthDateFlow.value = it
+            onConfirm = { birthDate ->
+                updateFormFields { it.copy(birthDate = birthDate) }
                 dismissDialog(dialogUiStateFlow)
             },
             onDismiss = { dismissDialog(dialogUiStateFlow) },
@@ -215,16 +199,15 @@ class IndividualEditViewModel(
 
     private fun showAlarmTime() {
         dialogUiStateFlow.value = TimePickerDialogUiState(
-            localTime = alarmTimeFlow.value ?: Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).time,
-            onConfirm = {
-                alarmTimeFlow.value = it
+            localTime = currentFormFields()?.alarmTime ?: Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).time,
+            onConfirm = { alarmTime ->
+                updateFormFields { it.copy(alarmTime = alarmTime) }
                 dismissDialog(dialogUiStateFlow)
             },
             onDismiss = { dismissDialog(dialogUiStateFlow) },
             onDismissRequest = { dismissDialog(dialogUiStateFlow) }
         )
     }
-
 }
 
 sealed interface IndividualEditUiState {
@@ -234,16 +217,16 @@ sealed interface IndividualEditUiState {
 }
 
 data class IndividualEditFormFields(
-    val firstNameFlow: MutableStateFlow<String>,
-    val firstNameErrorFlow: MutableStateFlow<String?>,
-    val lastNameFlow: MutableStateFlow<String>,
-    val phoneNumberFlow: MutableStateFlow<String>,
-    val emailFlow: MutableStateFlow<String>,
-    val emailErrorFlow: MutableStateFlow<String?>,
-    val birthDateFlow: MutableStateFlow<LocalDate?>,
-    val birthDateErrorFlow: MutableStateFlow<String?>,
-    val alarmTimeFlow: MutableStateFlow<LocalTime?>,
-    val individualTypeFlow: MutableStateFlow<IndividualType>,
-    val individualTypeErrorFlow: MutableStateFlow<String?>,
-    val availableFlow: MutableStateFlow<Boolean>,
+    val firstName: String = "",
+    val firstNameError: String? = null,
+    val lastName: String = "",
+    val phoneNumber: String = "",
+    val email: String = "",
+    val emailError: String? = null,
+    val birthDate: LocalDate? = null,
+    val birthDateError: String? = null,
+    val alarmTime: LocalTime? = null,
+    val individualType: IndividualType = IndividualType.UNKNOWN,
+    val individualTypeError: String? = null,
+    val available: Boolean = false,
 )

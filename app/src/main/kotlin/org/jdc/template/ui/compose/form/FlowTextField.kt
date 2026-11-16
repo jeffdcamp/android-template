@@ -23,6 +23,24 @@ fun FlowTextField(
 ) {
     val text by textFlow.collectAsStateWithLifecycle()
     val errorText by errorTextFlow.collectAsStateWithLifecycle()
+
+    FlowTextField(
+        label = label,
+        text = text,
+        onChange = onChange,
+        modifier = modifier,
+        errorText = errorText
+    )
+}
+
+@Composable
+fun FlowTextField(
+    label: String,
+    text: String,
+    onChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    errorText: String? = null,
+) {
     val focusManager = LocalFocusManager.current
 
     DayNightTextField(

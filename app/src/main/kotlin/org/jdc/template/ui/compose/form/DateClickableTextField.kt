@@ -19,23 +19,21 @@ fun DateClickableTextField(
     errorTextFlow: StateFlow<String?> = MutableStateFlow<String?>(null)
 ) {
     val date by localDateFlow.collectAsStateWithLifecycle()
-    val text = DateUiUtil.getLocalDateText(LocalContext.current, date)
     val errorText by errorTextFlow.collectAsStateWithLifecycle()
 
-    ClickableTextField(
+    DateClickableTextField(
         label = label,
-        text = text,
-        supportingText = errorText,
-        isError = !errorText.isNullOrBlank(),
+        date = date,
         onClick = onClick,
-        modifier = modifier
+        modifier = modifier,
+        errorText = errorText
     )
 }
 
 @Composable
 fun DateClickableTextField(
     label: String,
-    date: LocalDate,
+    date: LocalDate?,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     errorText: String? = null
